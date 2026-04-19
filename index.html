@@ -1189,22 +1189,93 @@ Also: 0x2F = 47</div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">ASCII — die alte Welt</div>
             <div class="explanation">
-              <strong>ASCII</strong> ist die älteste Kodierung (1963). Jeder Buchstabe hat eine Zahl von 0 bis 127. Reicht für Englisch — aber für Umlaute, Emojis, oder Chinesisch zu klein.<br><br>
-              Beispiele: <code>A=65</code>, <code>B=66</code>, <code>a=97</code>, <code>0=48</code>, <code>Leerzeichen=32</code>
-            </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">Beispiel in Python</span></div>
-              <div class="code-pre"><span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'A'</span>))    <span class="cm"># → 65</span>
-<span class="fn">print</span>(<span class="fn">chr</span>(<span class="num">65</span>))     <span class="cm"># → 'A'</span>
-<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'a'</span>))    <span class="cm"># → 97 (lowercase = +32)</span></div>
+              <strong>ASCII</strong> (American Standard Code for Information Interchange) ist die älteste Kodierung — entwickelt 1963 in den USA. Die Idee ist einfach: jedem Zeichen wird eine <strong>Zahl zwischen 0 und 127</strong> zugewiesen. Das sind 128 Zeichen — genug für das englische Alphabet, Ziffern, und ein paar Sonderzeichen.<br><br>
+              Warum 128? Weil 128 = 2⁷ ist. ASCII braucht also nur <strong>7 Bit</strong> pro Zeichen (1 Byte hat 8 Bit, das letzte bleibt frei).<br><br>
+              Das reicht für Englisch — aber nicht für Umlaute (ä, ö, ü), Akzente (é, ñ), kyrillisch, chinesisch, Emojis oder tausende andere Zeichen. Dafür kam später UTF-8.
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die ASCII-Tabelle — die wichtigsten Blöcke</div>
+            <div class="explanation">
+              Die ASCII-Werte sind <strong>nicht zufällig zugewiesen</strong> — sie folgen einem klaren Muster. Das solltest du dir merken:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Die Blöcke in ASCII</span></div>
+              <div class="code-pre">  0 –  31  Steuerzeichen (nicht sichtbar, z.B. Tab, Enter)
+ 32        Leerzeichen
+ 33 –  47  Satzzeichen  ! " # $ % & ' ( ) * + , - . /
+ 48 –  57  Ziffern       0 1 2 3 4 5 6 7 8 9
+ 58 –  64  weitere Zeichen : ; < = > ? @
+ 65 –  90  GROSSBUCHSTABEN   A B C D ... X Y Z
+ 91 –  96  Zeichen           [ \\ ] ^ _ \`
+ 97 – 122  kleinbuchstaben   a b c d ... x y z
+123 – 126  Zeichen           { | } ~
+127        DEL (Steuerzeichen)</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtig zu merken:</strong><br><br>
+              • Großbuchstaben beginnen bei <strong>A = 65</strong>. Dann folgen B=66, C=67, D=68 ... Z=90. Die Reihenfolge im Alphabet = die Reihenfolge der Zahlen.<br><br>
+              • Kleinbuchstaben beginnen bei <strong>a = 97</strong>. Also b=98, c=99 ... z=122.<br><br>
+              • <strong>Die Differenz Groß/Klein ist immer +32</strong>: A(65)→a(97), B(66)→b(98), Z(90)→z(122). Das ist kein Zufall — es war Absicht der Designer, damit man zwischen Groß/Klein mit einem einzigen Bit umschalten kann.<br><br>
+              • Ziffern beginnen bei <strong>'0' = 48</strong>. Also '1'=49, '2'=50 ... '9'=57. <em>Achtung:</em> der ASCII-Wert von '5' ist 53 — nicht 5. Das Zeichen "5" und die Zahl 5 sind zwei verschiedene Dinge.<br><br>
+              • Die <strong>64</strong> ist das <code>@</code>-Zeichen — sie liegt direkt vor A(65). Deshalb: "fast A, aber nicht ganz".
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">ASCII in Python ausprobieren</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># ord() — Zeichen → ASCII-Wert</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'A'</span>))       <span class="cm"># → 65</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'B'</span>))       <span class="cm"># → 66</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'a'</span>))       <span class="cm"># → 97  (A + 32)</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'0'</span>))       <span class="cm"># → 48</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">' '</span>))       <span class="cm"># → 32  (Leerzeichen)</span>
+
+<span class="cm"># chr() — ASCII-Wert → Zeichen</span>
+<span class="fn">print</span>(<span class="fn">chr</span>(<span class="num">66</span>))        <span class="cm"># → 'B'</span>
+<span class="fn">print</span>(<span class="fn">chr</span>(<span class="num">64</span>))        <span class="cm"># → '@'  (liegt vor A)</span>
+
+<span class="cm"># Trick: Großbuchstaben zu Kleinbuchstaben wandeln</span>
+<span class="fn">print</span>(<span class="fn">chr</span>(<span class="fn">ord</span>(<span class="st">'H'</span>) + <span class="num">32</span>))   <span class="cm"># → 'h'</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">UTF-8 — der moderne Standard</div>
             <div class="explanation">
-              <strong>UTF-8</strong> ist seit ~2008 der Web-Standard. Kann alle Zeichen der Welt darstellen — über 1 Million Symbole.<br><br>
-              Clever: ASCII-Zeichen brauchen nur 1 Byte (rückwärts-kompatibel). Exotische Zeichen brauchen 2, 3 oder 4 Bytes.<br><br>
-              <strong>Darum</strong> steht in jedem HTML: <code>&lt;meta charset="UTF-8"&gt;</code> — sonst werden Umlaute zu kaputten Zeichen wie <code>Ã¤</code>.
+              ASCII reicht nicht für deutsche Umlaute, chinesische Schriftzeichen oder Emojis. Deshalb wurde <strong>UTF-8</strong> entwickelt — seit ~2008 der Web-Standard. UTF-8 kann <strong>alle Zeichen der Welt</strong> darstellen: über 1 Million verschiedene Symbole.<br><br>
+              <strong>Der geniale Trick:</strong> UTF-8 ist <em>variabel lang</em>. Die ersten 128 Zeichen (also das ganze ASCII) brauchen weiterhin nur <strong>1 Byte</strong> — UTF-8 ist damit rückwärtskompatibel zu ASCII. Spezielle Zeichen brauchen dann 2, 3 oder 4 Byte.
+            </div>
+            <div class="code-block" style="margin-top:12px">
+              <div class="code-block-header"><span class="code-lang">Beispiele: wie viele Bytes?</span></div>
+              <div class="code-pre">Zeichen    UTF-8 Bytes (hex)          Anzahl Bytes
+  A        41                           1 Byte  (wie ASCII)
+  5        35                           1 Byte
+  ä        C3 A4                        2 Bytes
+  €        E2 82 AC                     3 Bytes
+  😀        F0 9F 98 80                  4 Bytes</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Warum wird aus "ä" manchmal "Ã¤"?</div>
+            <div class="explanation">
+              Das ist das häufigste Kodierungsproblem im Web. Es passiert wenn eine Datei als <strong>UTF-8 gespeichert</strong>, aber als <strong>ISO-8859-1</strong> (ältere europäische Kodierung) <strong>gelesen</strong> wird — oder umgekehrt.<br><br>
+              <strong>Was genau passiert:</strong><br>
+              Das Zeichen "ä" wird in UTF-8 als <strong>zwei Bytes</strong> gespeichert: <code>C3 A4</code>. Wenn der Browser aber denkt die Datei sei in ISO-8859-1 kodiert (dort ist jedes Byte ein Zeichen), interpretiert er:<br><br>
+              <code>C3</code> → <code>Ã</code> &nbsp;·&nbsp; <code>A4</code> → <code>¤</code><br><br>
+              → Ergebnis: <code>Ã¤</code> statt <code>ä</code>. Man nennt diesen Effekt <em>Mojibake</em> (japanisch für "verwandelte Zeichen").
+            </div>
+            <div class="code-block" style="margin-top:12px">
+              <div class="code-block-header"><span class="code-lang">Die Lösung: immer UTF-8 deklarieren</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- In jedem HTML-head ganz oben: --&gt;</span>
+<span class="kw">&lt;meta</span> <span class="fn">charset</span>=<span class="st">"UTF-8"</span><span class="kw">&gt;</span>
+
+<span class="cm"># Dateien in Python explizit als UTF-8 öffnen:</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"datei.txt"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    inhalt = f.read()</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Merke:</strong> kaputte Umlaute wie <code>Ã¤</code>, <code>Ã¶</code>, <code>Ã¼</code> sind <em>kein Server-Fehler, kein Virus, kein Font-Problem</em>. Es ist immer: "Datei in einer Kodierung gespeichert, aber in einer anderen gelesen." Fehlende Fonts zeigen dagegen leere Rechtecke (▯) oder Fragezeichen.
             </div>
           </div>
           ${quiz('q_ascii1', 'Was ist der ASCII-Wert von "B"?', [
