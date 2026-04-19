@@ -1301,33 +1301,137 @@ Also: 0x2F = 47</div>
             <p class="lesson-desc">Das Terminal ist das mächtigste Werkzeug eines Entwicklers. Es sieht einschüchternd aus — aber nach dieser Lektion wirst du dich dort zuhause fühlen.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die wichtigsten Befehle</div>
+            <div class="card-label">Was ist das Terminal überhaupt?</div>
+            <div class="explanation">
+              Das <strong>Terminal</strong> (auch "Shell", "Kommandozeile", "CLI") ist ein Programm das Textbefehle annimmt und ausführt. Statt mit der Maus auf Icons zu klicken, tippst du was der Computer tun soll.<br><br>
+              <strong>Warum benutzen Entwickler das?</strong><br>
+              • <strong>Schneller</strong> — eine Zeile Text statt 10 Klicks<br>
+              • <strong>Automatisierbar</strong> — du kannst Befehle in Skripten kombinieren<br>
+              • <strong>Überall gleich</strong> — auf jedem Server dieser Welt sieht das Terminal gleich aus<br>
+              • <strong>Mächtiger</strong> — viele Tools haben <em>nur</em> eine Kommandozeile, keine GUI<br><br>
+              <strong>Wie öffne ich das Terminal?</strong><br>
+              • <strong>macOS:</strong> <code>Cmd + Leertaste</code> → "Terminal" eintippen<br>
+              • <strong>Windows:</strong> <code>Win-Taste</code> → "PowerShell" oder besser "WSL" (Windows Subsystem for Linux) — WSL ist kostenlos und gibt dir ein echtes Linux-Terminal<br>
+              • <strong>Linux:</strong> <code>Ctrl + Alt + T</code>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Anatomie eines Befehls</div>
+            <div class="explanation">
+              Jeder Terminal-Befehl folgt demselben Muster:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Aufbau</span></div>
+              <div class="code-pre">  ls   -la   Downloads
+  │     │       │
+  │     │       └── Argument (worauf der Befehl angewendet wird)
+  │     └────────── Option / Flag (verändert das Verhalten)
+  └──────────────── Befehl (was getan werden soll)</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Optionen</strong> beginnen fast immer mit einem Minus:<br>
+              • <code>-a</code> — kurze Form (ein Zeichen)<br>
+              • <code>--all</code> — lange Form (ausgeschrieben, oft gleichbedeutend)<br>
+              • <code>-la</code> — mehrere kurze Optionen zusammen (= <code>-l -a</code>)<br><br>
+              <strong>Prompt</strong> ist der Teil <em>vor</em> deinem Befehl — zeigt dir wer du bist und wo du bist. Sieht z.B. so aus:<br>
+              <code>anna@laptop ~/projekte $</code><br>
+              Das <code>$</code> am Ende bedeutet: "das Terminal wartet auf deinen Befehl". Alles <em>nach</em> dem <code>$</code> tippst du selbst.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Navigation — wo bin ich, wo gehe ich hin?</div>
             <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">bash / terminal</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># Wo bin ich? (print working directory)</span>
+              <div class="code-block-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># pwd = "print working directory" — wo bin ich gerade?</span>
 <span class="fn">pwd</span>
+<span class="cm"># → /Users/anna/projekte</span>
 
-<span class="cm"># Ordnerinhalt anzeigen</span>
-<span class="fn">ls</span>           <span class="cm"># kurz</span>
-<span class="fn">ls</span> -la       <span class="cm"># detailliert mit versteckten Dateien</span>
+<span class="cm"># ls = "list" — was liegt hier?</span>
+<span class="fn">ls</span>               <span class="cm"># kurze Liste</span>
+<span class="fn">ls</span> -l            <span class="cm"># lange Form: Rechte, Größe, Datum</span>
+<span class="fn">ls</span> -a            <span class="cm"># auch versteckte Dateien (die mit .)</span>
+<span class="fn">ls</span> -la           <span class="cm"># beides kombiniert (häufigste Form)</span>
+<span class="fn">ls</span> Downloads     <span class="cm"># Inhalt eines bestimmten Ordners</span>
 
-<span class="cm"># Ordner wechseln (change directory)</span>
-<span class="fn">cd</span> Downloads  <span class="cm"># in Downloads gehen</span>
-<span class="fn">cd</span> ..         <span class="cm"># einen Ordner zurück</span>
-<span class="fn">cd</span> ~          <span class="cm"># zum Home-Ordner</span>
-
-<span class="cm"># Ordner erstellen und löschen</span>
+<span class="cm"># cd = "change directory" — Ordner wechseln</span>
+<span class="fn">cd</span> Downloads     <span class="cm"># in den Ordner rein</span>
+<span class="fn">cd</span> ..            <span class="cm"># einen Ordner nach oben</span>
+<span class="fn">cd</span> ../..         <span class="cm"># zwei Ordner nach oben</span>
+<span class="fn">cd</span> ~             <span class="cm"># in den Home-Ordner (Abkürzung)</span>
+<span class="fn">cd</span>               <span class="cm"># ohne Argument: auch zum Home-Ordner</span>
+<span class="fn">cd</span> -             <span class="cm"># zum zuletzt besuchten Ordner</span>
+<span class="fn">cd</span> /             <span class="cm"># ganz nach oben (Root-Verzeichnis)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Dateien & Ordner erstellen, kopieren, löschen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Ordner erstellen</span>
 <span class="fn">mkdir</span> mein_projekt
-<span class="fn">rmdir</span> mein_projekt  <span class="cm"># nur wenn leer</span>
+<span class="fn">mkdir</span> -p a/b/c          <span class="cm"># auch verschachtelt anlegen (-p = parents)</span>
 
-<span class="cm"># Dateien erstellen, lesen, kopieren</span>
-<span class="fn">touch</span> datei.txt
-<span class="fn">cat</span>   datei.txt
-<span class="fn">cp</span>    datei.txt kopie.txt
-<span class="fn">mv</span>    datei.txt neuer_name.txt
+<span class="cm"># Leere Datei erstellen (oder Änderungsdatum aktualisieren)</span>
+<span class="fn">touch</span> notizen.txt
 
-<span class="cm"># Text in Datei schreiben</span>
-<span class="fn">echo</span> <span class="st">"Hallo Welt"</span> > datei.txt</div>
+<span class="cm"># Datei-Inhalt anzeigen</span>
+<span class="fn">cat</span>   notizen.txt         <span class="cm"># komplett ausgeben</span>
+<span class="fn">head</span>  notizen.txt         <span class="cm"># nur die ersten 10 Zeilen</span>
+<span class="fn">tail</span>  notizen.txt         <span class="cm"># nur die letzten 10 Zeilen</span>
+<span class="fn">less</span>  notizen.txt         <span class="cm"># seitenweise lesen (q zum Verlassen)</span>
+
+<span class="cm"># Kopieren und Verschieben/Umbenennen</span>
+<span class="fn">cp</span>  a.txt b.txt           <span class="cm"># Datei kopieren</span>
+<span class="fn">cp</span> -r ordner1 ordner2     <span class="cm"># Ordner rekursiv kopieren (-r = recursive)</span>
+<span class="fn">mv</span>  alt.txt neu.txt       <span class="cm"># umbenennen</span>
+<span class="fn">mv</span>  datei.txt Downloads/  <span class="cm"># in Ordner verschieben</span>
+
+<span class="cm"># Löschen — VORSICHT: kein Papierkorb, sofort weg!</span>
+<span class="fn">rm</span>    datei.txt           <span class="cm"># Datei löschen</span>
+<span class="fn">rm</span> -r  ordner              <span class="cm"># Ordner samt Inhalt löschen</span>
+<span class="fn">rmdir</span> leerer_ordner       <span class="cm"># nur wenn leer</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Achtung <code>rm</code>:</strong> es gibt keinen Papierkorb. Einmal gelöscht = weg. Besonders <code>rm -rf /</code> oder <code>rm -rf ~</code> niemals blind ausführen — das löscht dein halbes System.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Text, Pipes & Umleitungen</div>
+            <div class="explanation">
+              Das Geniale am Terminal: du kannst Befehle <strong>verketten</strong>. Die Ausgabe eines Befehls wird zur Eingabe des nächsten.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">bash</span></div>
+              <div class="code-pre"><span class="cm"># Text ausgeben oder in Datei schreiben</span>
+<span class="fn">echo</span> <span class="st">"Hallo Welt"</span>                    <span class="cm"># ausgeben</span>
+<span class="fn">echo</span> <span class="st">"Hallo Welt"</span> > datei.txt         <span class="cm"># >  überschreibt die Datei</span>
+<span class="fn">echo</span> <span class="st">"Zeile 2"</span>    >> datei.txt         <span class="cm"># >> hängt an die Datei an</span>
+
+<span class="cm"># In Datei oder Befehlen nach Text suchen</span>
+<span class="fn">grep</span> <span class="st">"fehler"</span> log.txt                 <span class="cm"># alle Zeilen mit "fehler"</span>
+<span class="fn">grep</span> -i <span class="st">"fehler"</span> log.txt              <span class="cm"># case-insensitive</span>
+<span class="fn">grep</span> -r <span class="st">"TODO"</span> .                      <span class="cm"># rekursiv im ganzen Ordner</span>
+
+<span class="cm"># Pipe | — Ausgabe von A an B weitergeben</span>
+<span class="fn">cat</span> log.txt | <span class="fn">grep</span> <span class="st">"fehler"</span>           <span class="cm"># Datei lesen, dann filtern</span>
+<span class="fn">ls</span> -la | <span class="fn">grep</span> <span class="st">".txt"</span>                <span class="cm"># nur .txt-Dateien anzeigen</span>
+<span class="fn">ls</span> | <span class="fn">wc</span> -l                            <span class="cm"># Dateien zählen (wc = word count)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Nützliche Kniffe die dein Leben retten</div>
+            <div class="explanation">
+              <strong>Auto-Complete mit Tab:</strong> Tippe die ersten Buchstaben + drücke <code>Tab</code> — das Terminal vervollständigt Dateinamen und Befehle. <em>Bester Tipp überhaupt.</em> Erspart dir Tippen und Tippfehler.<br><br>
+              <strong>Historie mit Pfeiltasten:</strong> <code>↑</code> / <code>↓</code> blättert durch deine letzten Befehle.<br><br>
+              <strong>In der Zeile bewegen:</strong><br>
+              • <code>Ctrl + A</code> — an den Anfang der Zeile<br>
+              • <code>Ctrl + E</code> — ans Ende der Zeile<br>
+              • <code>Ctrl + U</code> — Zeile löschen<br>
+              • <code>Ctrl + L</code> — Bildschirm leeren (wie <code>clear</code>)<br>
+              • <code>Ctrl + C</code> — aktuellen Befehl abbrechen<br>
+              • <code>Ctrl + D</code> — aus Shell aussteigen (wie <code>exit</code>)<br><br>
+              <strong>Hilfe zu einem Befehl:</strong><br>
+              <code>man ls</code> zeigt die komplette Anleitung (mit <code>q</code> verlassen). Kürzer: <code>ls --help</code>.
             </div>
           </div>
           ${quiz('q3', 'Welcher Befehl zeigt dir in welchem Ordner du dich gerade befindest?', [
