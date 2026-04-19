@@ -1070,21 +1070,98 @@ const PHASES = [
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Hexadezimal — kompakter als Binär</div>
             <div class="explanation">
-              Binär ist für Menschen sehr lang zu lesen. Deshalb nutzen Entwickler oft <strong>Hexadezimal</strong> (Basis 16). Es nutzt 16 Symbole: <code>0–9</code> und <code>A–F</code>.<br><br>
-              <code>A=10, B=11, C=12, D=13, E=14, F=15</code><br><br>
-              Hexadezimalzahlen erkennst du am Präfix <code>0x</code> oder <code>#</code> (bei Farben).
+              <strong>Warum gibt es Hexadezimal überhaupt?</strong><br>
+              Binär ist super für Computer, aber für Menschen eine Qual: die Zahl 255 als Binär ist <code>11111111</code> — 8 Zeichen. Stell dir vor du müsstest dir eine lange Zahl wie <code>11010101 01110010 00011110</code> merken oder vergleichen — praktisch unmöglich.<br><br>
+              Hexadezimal ist die Lösung: es ist <strong>kompakter</strong> als Binär und <strong>lässt sich trotzdem direkt in Binär umwandeln</strong>. Genau <strong>4 Binär-Stellen ergeben 1 Hex-Stelle</strong> — das ist kein Zufall, sondern der eigentliche Grund warum Hex so beliebt ist.
             </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">Beispiel</span></div>
-              <div class="code-pre">Dezimal → Hex:
-  10  = 0x0A
-  16  = 0x10
-  255 = 0xFF
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Wie Hexadezimal aufgebaut ist</div>
+            <div class="explanation">
+              Unser gewohntes Dezimalsystem hat <strong>Basis 10</strong> — 10 Symbole (0–9). Bei Binär ist die Basis 2 (0, 1). Hex hat die <strong>Basis 16</strong> — also 16 Symbole.<br><br>
+              Das Problem: wir haben nur 10 Ziffern (0–9). Für die Werte 10 bis 15 fehlen Symbole. Lösung: wir nehmen die Buchstaben <strong>A bis F</strong>.<br><br>
+              <code>0 = 0</code> &nbsp;·&nbsp; <code>1 = 1</code> &nbsp;·&nbsp; ... &nbsp;·&nbsp; <code>9 = 9</code><br>
+              <code>A = 10</code> &nbsp;·&nbsp; <code>B = 11</code> &nbsp;·&nbsp; <code>C = 12</code><br>
+              <code>D = 13</code> &nbsp;·&nbsp; <code>E = 14</code> &nbsp;·&nbsp; <code>F = 15</code><br><br>
+              <strong>Merke:</strong> F ist der größte Einzelwert. Was kommt nach F? Genauso wie nach 9 im Dezimalsystem: die nächste Stelle fängt an. Also <code>F + 1 = 10</code> (in Hex, also <strong>16 dezimal</strong>).
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Stellenwerte verstehen</div>
+            <div class="explanation">
+              Genau wie im Dezimalsystem hat jede Stelle einen Wert. Nur dass die Basis jetzt <strong>16</strong> ist statt 10:<br><br>
+              <strong>Stelle:</strong> &nbsp; 16³ &nbsp;·&nbsp; 16² &nbsp;·&nbsp; 16¹ &nbsp;·&nbsp; 16⁰<br>
+              <strong>Wert:</strong> &nbsp;&nbsp; 4096 &nbsp;·&nbsp; 256 &nbsp;·&nbsp; 16 &nbsp;·&nbsp; 1<br><br>
+              <strong>Beispiel: Was ist <code>0x2F</code> in Dezimal?</strong>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Umrechnung Schritt für Schritt</span></div>
+              <div class="code-pre">  2F
+  ││
+  │└─ F × 1   = 15 × 1  = 15
+  └── 2 × 16  = 2 × 16  = 32
+                          ────
+                          = 47 dezimal
 
-Farben in CSS (RGB als Hex):
-  #FF0000 = Rot   (R=255, G=0, B=0)
-  #00FF00 = Grün  (R=0, G=255, B=0)
-  #1A2B3C = eine dunkle Blau-Farbe</div>
+Also: 0x2F = 47</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Und <code>0xFF</code>?</strong><br>
+              F × 16 + F × 1 = 15×16 + 15 = 240 + 15 = <strong>255</strong><br><br>
+              Deshalb ist <code>0xFF</code> so wichtig: es ist der größte Wert den 1 Byte (8 Bit) speichern kann.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Der Trick: Hex ↔ Binär in 4er-Gruppen</div>
+            <div class="explanation">
+              Das Geniale an Hex: jede Hex-Ziffer entspricht <strong>genau 4 Binär-Stellen</strong>. Du musst also nicht rechnen — du kannst direkt umwandeln, Gruppe für Gruppe.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Die Übersetzungstabelle</span></div>
+              <div class="code-pre">Hex   Binär      Dezimal
+ 0    0000         0
+ 1    0001         1
+ 2    0010         2
+ 3    0011         3
+ 4    0100         4
+ 5    0101         5
+ 6    0110         6
+ 7    0111         7
+ 8    1000         8
+ 9    1001         9
+ A    1010        10
+ B    1011        11
+ C    1100        12
+ D    1101        13
+ E    1110        14
+ F    1111        15</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Beispiel:</strong> Binär <code>11010101</code> → in 4er-Gruppen: <code>1101 0101</code> → Tabelle: <code>D 5</code> → <strong>0xD5</strong>.<br><br>
+              Umgekehrt: <code>0x3A</code> → 3 ist <code>0011</code>, A ist <code>1010</code> → zusammen <strong>00111010</strong>. Keine Mathematik nötig.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Wo du Hex im Alltag siehst</div>
+            <div class="explanation">
+              <strong>CSS-Farben</strong> (RGB — je 2 Hex-Stellen pro Kanal, also 0–255 pro Farbe):
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Beispiele</span></div>
+              <div class="code-pre">#FF0000  →  R=255 G=0   B=0     →  reines Rot
+#00FF00  →  R=0   G=255 B=0     →  reines Grün
+#0000FF  →  R=0   G=0   B=255   →  reines Blau
+#FFFFFF  →  R=255 G=255 B=255   →  weiß (alles an)
+#000000  →  R=0   G=0   B=0     →  schwarz (alles aus)
+#7C6AF7  →  R=124 G=106 B=247   →  die Akzentfarbe dieser Seite</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Weitere Stellen wo Hex auftaucht:</strong><br><br>
+              • <strong>MAC-Adressen</strong>: <code>A4:C3:F0:85:AC:2D</code> — 6 Byte, je als Hex<br>
+              • <strong>Speicheradressen</strong>: <code>0x7FFEE0BC1A40</code> — wo Daten im RAM liegen<br>
+              • <strong>Unicode-Codepoints</strong>: <code>U+1F600</code> = Grinse-Emoji<br>
+              • <strong>Hash-Werte</strong>: SHA-256 gibt 64 Hex-Zeichen zurück<br>
+              • <strong>Git-Commits</strong>: <code>a3f9c21...</code> — die Commit-IDs
             </div>
           </div>
           ${quiz('q1', 'Was ist die Dezimalzahl 13 in Binär?', [
