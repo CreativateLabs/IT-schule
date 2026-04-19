@@ -1,0 +1,17 @@
+{
+  "name": "codepath",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CodePath — Interaktive Coding-Schule von null zum Profi",
+  "scripts": {
+    "dev": "npx serve . -p 8090",
+    "test": "playwright test",
+    "validate": "html-validate index.html"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "html-validate": "^8.24.0",
+    "serve": "^14.2.4"
+  }
+}

@@ -1,0 +1,3018 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodePath — Deine Coding Schule</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --surface3: #22222f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --text2: #8888a0;
+  --text3: #55556a;
+  --accent: #7c6af7;
+  --accent2: #a599f9;
+  --accent-glow: rgba(124,106,247,0.15);
+  --green: #3ecf7a;
+  --green-bg: rgba(62,207,122,0.08);
+  --red: #f76a6a;
+  --red-bg: rgba(247,106,106,0.08);
+  --amber: #f7c96a;
+  --amber-bg: rgba(247,201,106,0.08);
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+}
+
+[data-lucide] {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo-icon [data-lucide] { width: 18px; height: 18px; stroke-width: 2; }
+
+.logo-text {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 1px;
+  font-weight: 300;
+}
+
+.profile-bar {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.profile-bar:hover { background: var(--surface2); }
+
+.profile-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.profile-info { flex: 1; min-width: 0; }
+
+.profile-name {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-xp {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--amber);
+  margin-top: 1px;
+}
+
+.profile-chevron { color: var(--text3); }
+.profile-chevron [data-lucide] { width: 14px; height: 14px; }
+
+.profile-menu {
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  right: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 6px;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: none;
+}
+
+.profile-menu.show { display: block; }
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.12s;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: var(--sans);
+}
+
+.profile-menu-item:hover { background: var(--surface3); color: var(--text); }
+.profile-menu-item [data-lucide] { width: 14px; height: 14px; }
+
+.profile-menu-item.current {
+  background: var(--accent-glow);
+  color: var(--accent2);
+}
+
+.profile-menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.profile-menu-danger { color: var(--red); }
+.profile-menu-danger:hover { background: var(--red-bg); color: var(--red); }
+
+.progress-summary {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.progress-label {
+  font-size: 11px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  height: 3px;
+  background: var(--surface3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.progress-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 6px;
+}
+
+.nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.nav::-webkit-scrollbar { width: 4px; }
+.nav::-webkit-scrollbar-track { background: transparent; }
+.nav::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+
+.phase-group { margin-bottom: 4px; }
+
+.phase-btn {
+  width: 100%;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s;
+  color: var(--text2);
+  font-family: var(--sans);
+}
+
+.phase-btn:hover { background: var(--surface2); color: var(--text); }
+.phase-btn.active { background: var(--accent-glow); color: var(--text); }
+
+.phase-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.phase-btn.active .phase-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.phase-btn.done .phase-dot {
+  background: var(--green);
+  border-color: var(--green);
+  color: #0a0a0f;
+}
+
+.phase-btn.done .phase-dot [data-lucide] { width: 12px; height: 12px; }
+
+.phase-name { font-size: 13px; font-weight: 400; line-height: 1.3; }
+.phase-lessons { font-size: 11px; color: var(--text3); margin-top: 1px; }
+
+.lesson-list { overflow: hidden; }
+
+.lesson-item {
+  padding: 7px 20px 7px 52px;
+  font-size: 12px;
+  color: var(--text3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+
+.lesson-item:hover { color: var(--text2); }
+.lesson-item.active { color: var(--accent2); }
+.lesson-item.done { color: var(--green); }
+
+.lesson-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.lesson-item.active .lesson-dot,
+.lesson-item.done .lesson-dot { opacity: 1; }
+
+/* MAIN */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.topbar {
+  padding: 0 28px;
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumb span { color: var(--text2); }
+
+.xp-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  background: var(--amber-bg);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(247,201,106,0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.xp-badge [data-lucide] { width: 12px; height: 12px; }
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 28px;
+}
+
+.content-area::-webkit-scrollbar { width: 4px; }
+.content-area::-webkit-scrollbar-track { background: transparent; }
+.content-area::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+
+/* LESSON CONTENT */
+.lesson-header { margin-bottom: 28px; }
+
+.lesson-tag {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.lesson-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.lesson-desc {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.content-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.card-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  font-family: var(--mono);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-label::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.explanation {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.75;
+}
+
+.explanation strong { color: var(--text); font-weight: 500; }
+
+.explanation code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent2);
+}
+
+/* CODE BLOCK */
+.code-block {
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.code-lang {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.copy-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.copy-btn [data-lucide] { width: 11px; height: 11px; }
+.copy-btn:hover { color: var(--text); border-color: var(--border2); }
+
+.code-pre {
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: #c8c8e0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.kw { color: #a599f9; }
+.fn { color: #7ec8e3; }
+.st { color: #7ecfa0; }
+.cm { color: #555568; font-style: italic; }
+.num { color: #f7c96a; }
+
+/* QUIZ */
+.quiz-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.quiz-question {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+.quiz-option {
+  padding: 11px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  transition: all 0.15s;
+  text-align: left;
+  font-family: var(--sans);
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+.quiz-option.correct {
+  border-color: var(--green);
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.quiz-option.wrong {
+  border-color: var(--red);
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.quiz-feedback {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.5;
+  display: none;
+}
+
+.quiz-feedback.show { display: block; }
+.quiz-feedback.good { background: var(--green-bg); color: var(--green); border: 1px solid rgba(62,207,122,0.2); }
+.quiz-feedback.bad { background: var(--red-bg); color: var(--red); border: 1px solid rgba(247,106,106,0.2); }
+
+/* CODE EXERCISE */
+.exercise-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.exercise-top {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.exercise-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.exercise-hint {
+  font-size: 12px;
+  color: var(--accent2);
+  margin-top: 8px;
+  font-family: var(--mono);
+}
+
+.editor-area { position: relative; }
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.run-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--mono);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.run-btn [data-lucide] { width: 12px; height: 12px; }
+.run-btn:hover { background: var(--accent2); }
+
+.code-editor {
+  width: 100%;
+  background: #0d0d14;
+  border: none;
+  color: #c8c8e0;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 16px;
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.output-area {
+  padding: 14px 16px;
+  background: #080810;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text2);
+  min-height: 50px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.output-area [data-lucide] { width: 14px; height: 14px; margin-top: 2px; }
+.output-area.success { color: var(--green); }
+.output-area.error { color: var(--red); }
+
+/* BOSS CARD */
+.boss-card {
+  background: linear-gradient(135deg, #1a1228 0%, #12121e 100%);
+  border: 1px solid rgba(124,106,247,0.35);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.boss-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  filter: blur(40px);
+}
+
+.boss-label-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent2);
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.boss-label-text [data-lucide] { width: 12px; height: 12px; }
+
+.boss-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.boss-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.boss-desc code { font-family: var(--mono); font-size: 12px; background: var(--surface3); padding: 2px 6px; border-radius: 4px; color: var(--accent2); }
+
+/* NAV BUTTONS */
+.lesson-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.nav-btn {
+  padding: 9px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: none;
+  color: var(--text2);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn [data-lucide] { width: 14px; height: 14px; }
+.nav-btn:hover:not(:disabled) { background: var(--surface2); color: var(--text); }
+
+.nav-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.nav-btn.primary:hover:not(:disabled) { background: var(--accent2); border-color: var(--accent2); }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.lesson-complete-badge {
+  font-size: 12px;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(62,207,122,0.2);
+  font-family: var(--mono);
+  display: none;
+  align-items: center;
+  gap: 5px;
+}
+.lesson-complete-badge.show { display: inline-flex; }
+.lesson-complete-badge [data-lucide] { width: 12px; height: 12px; }
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,10,0.75);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.show { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-title [data-lucide] { width: 22px; height: 22px; color: var(--accent); stroke-width: 2; }
+
+.modal-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--sans);
+  outline: none;
+  transition: border 0.15s;
+}
+
+.modal-input:focus { border-color: var(--accent); }
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.profile-list {
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.profile-list-item {
+  padding: 12px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.profile-list-item:hover { border-color: var(--border2); }
+.profile-list-item.current { border-color: var(--accent); background: var(--accent-glow); }
+
+.profile-list-item-info { flex: 1; }
+.profile-list-item-name { font-size: 13px; color: var(--text); font-weight: 500; }
+.profile-list-item-stats { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 2px; }
+
+/* PHASE OVERVIEW */
+.phases-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.phase-overview-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.phase-overview-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+
+.pov-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.pov-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.pov-sub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+
+.pov-bar {
+  height: 2px;
+  background: var(--surface3);
+  border-radius: 1px;
+}
+
+.pov-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: var(--accent);
+  transition: width 0.6s ease;
+}
+
+/* XP flash */
+@keyframes xpFlash {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: var(--amber); }
+  100% { transform: scale(1); }
+}
+.xp-flash { animation: xpFlash 0.4s ease; }
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { animation: fadeIn 0.3s ease forwards; }
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .sidebar { width: 220px; }
+  .lesson-title { font-size: 20px; }
+  .content-area { padding: 20px 18px; }
+  .topbar { padding: 0 18px; }
+  .lesson-nav { padding: 14px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon"><i data-lucide="code-2"></i></div>
+    <div>
+      <div class="logo-text">CodePath</div>
+      <div class="logo-sub">Dein Weg zum Profi</div>
+    </div>
+  </div>
+  <div class="profile-bar" onclick="toggleProfileMenu(event)">
+    <div class="profile-avatar" id="profile-avatar">?</div>
+    <div class="profile-info">
+      <div class="profile-name" id="profile-name">—</div>
+      <div class="profile-xp" id="profile-xp">0 XP</div>
+    </div>
+    <div class="profile-chevron"><i data-lucide="chevrons-up-down"></i></div>
+    <div class="profile-menu" id="profile-menu"></div>
+  </div>
+  <div class="progress-summary">
+    <div class="progress-label">Gesamtfortschritt</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="global-progress" style="width: 0%"></div>
+    </div>
+    <div class="progress-count" id="progress-count">0 / 0 Lektionen</div>
+  </div>
+  <nav class="nav" id="nav"></nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="breadcrumb" id="breadcrumb"><span>Übersicht</span></div>
+    <div class="xp-badge" id="xp-display"><i data-lucide="hexagon"></i><span id="xp-amount">0</span> XP</div>
+  </div>
+  <div class="content-area" id="content-area"></div>
+  <div class="lesson-nav">
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)"><i data-lucide="arrow-left"></i>Zurück</button>
+    <span class="lesson-complete-badge" id="done-badge"><i data-lucide="check"></i>Abgeschlossen</span>
+    <button class="nav-btn primary" id="btn-next" onclick="navigate(1)">Weiter<i data-lucide="arrow-right"></i></button>
+  </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- Hidden import input -->
+<input type="file" id="import-input" accept="application/json" style="display:none">
+
+<script>
+// ============================================================
+//                        DATA: PHASES
+// ============================================================
+const PHASES = [
+  {
+    id: 'p1', title: 'Fundament', sub: 'Wie Computer wirklich funktionieren',
+    lessons: [
+      {
+        id: 'l1_1', title: 'Willkommen & Überblick',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Einführung</div>
+            <h1 class="lesson-title">Willkommen bei CodePath</h1>
+            <p class="lesson-desc">Du startest heute eine Reise die dich von null zu einem vollständigen Entwickler führt. Kein Geld nötig, nur Zeit und Durchhaltevermögen. Hier ist was dich erwartet.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Dein Lernweg</div>
+            <div class="phases-overview" id="phases-overview-grid">
+              ${PHASES.map((p,i) => {
+                const done = p.lessons.filter(l => state.completed.has(l.id)).length;
+                const pct = p.lessons.length ? Math.round(done/p.lessons.length*100) : 0;
+                return `<div class="phase-overview-card" onclick="goToPhase(${i})">
+                  <div class="pov-num">Phase ${i+1}</div>
+                  <div class="pov-title">${p.title}</div>
+                  <div class="pov-sub">${p.sub}</div>
+                  <div class="pov-bar"><div class="pov-fill" style="width:${pct}%"></div></div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Wie diese Schule funktioniert</div>
+            <div class="explanation">
+              <strong>Jede Lektion</strong> besteht aus Erklärungen, interaktiven Quizfragen und Code-Aufgaben.<br><br>
+              <strong>Du verdienst XP</strong> für jede richtige Antwort und abgeschlossene Lektion. Dein Fortschritt wird automatisch unter deinem Profil gespeichert.<br><br>
+              <strong>Am Ende jeder Phase</strong> wartet ein Abschlussprojekt — dein Beweis dass du es drauf hast.<br><br>
+              Klick auf <code>Weiter</code> um mit der ersten echten Lektion zu beginnen.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'l1_2', title: 'Binär & Hexadezimal',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 2</div>
+            <h1 class="lesson-title">Binär & Hexadezimal</h1>
+            <p class="lesson-desc">Computer verstehen nur zwei Zustände: Strom an oder aus. Daraus bauen sie alles auf — Zahlen, Text, Bilder, Videos. Lass uns von Grund auf verstehen wie das geht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Das Binärsystem</div>
+            <div class="explanation">
+              Unser normales Zahlensystem hat <strong>10 Symbole</strong> (0–9) — wir nennen es <code>Dezimal</code>.<br><br>
+              Computer benutzen nur <strong>2 Symbole</strong> (0 und 1) — das nennen wir <code>Binär</code>. Jede Stelle verdoppelt den Wert:<br><br>
+              <strong>Stelle:</strong> 8 &nbsp;·&nbsp; 4 &nbsp;·&nbsp; 2 &nbsp;·&nbsp; 1<br>
+              <strong>Binär 1011</strong> = 8 + 0 + 2 + 1 = <strong>11 (dezimal)</strong>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Beispiel</span></div>
+              <div class="code-pre">Dezimal → Binär:
+  5  = 0101   (4+1)
+  10 = 1010   (8+2)
+  42 = 101010 (32+8+2)
+ 255 = 11111111 (128+64+32+16+8+4+2+1)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Hexadezimal — kompakter als Binär</div>
+            <div class="explanation">
+              Binär ist für Menschen sehr lang zu lesen. Deshalb nutzen Entwickler oft <strong>Hexadezimal</strong> (Basis 16). Es nutzt 16 Symbole: <code>0–9</code> und <code>A–F</code>.<br><br>
+              <code>A=10, B=11, C=12, D=13, E=14, F=15</code><br><br>
+              Hexadezimalzahlen erkennst du am Präfix <code>0x</code> oder <code>#</code> (bei Farben).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Beispiel</span></div>
+              <div class="code-pre">Dezimal → Hex:
+  10  = 0x0A
+  16  = 0x10
+  255 = 0xFF
+
+Farben in CSS (RGB als Hex):
+  #FF0000 = Rot   (R=255, G=0, B=0)
+  #00FF00 = Grün  (R=0, G=255, B=0)
+  #1A2B3C = eine dunkle Blau-Farbe</div>
+            </div>
+          </div>
+          ${quiz('q1', 'Was ist die Dezimalzahl 13 in Binär?', [
+            {t:'1101', correct:true, why:'Richtig! 8+4+1 = 13. Die Stelle für 2 ist 0.'},
+            {t:'1011', correct:false, why:'Falsch. 1011 ist 8+2+1 = 11, nicht 13.'},
+            {t:'1110', correct:false, why:'Falsch. 1110 ist 8+4+2 = 14, nicht 13.'},
+            {t:'0110', correct:false, why:'Falsch. 0110 ist 4+2 = 6, nicht 13.'},
+          ])}
+          ${quiz('q2', 'Was bedeutet 0xFF in Dezimal?', [
+            {t:'128', correct:false, why:'Falsch. 128 wäre 0x80.'},
+            {t:'256', correct:false, why:'Fast! Aber 256 wäre 0x100. 0xFF hat nur 2 Stellen.'},
+            {t:'255', correct:true, why:'Perfekt! F=15, also FF = 15×16 + 15 = 255.'},
+            {t:'15', correct:false, why:'Falsch. 15 wäre 0x0F — nur eine Stelle.'},
+          ])}
+        `
+      },
+      {
+        id: 'l1_3', title: 'Zeichenkodierung — ASCII & UTF-8',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 3</div>
+            <h1 class="lesson-title">Zeichenkodierung — wie wird Text zu Zahlen?</h1>
+            <p class="lesson-desc">Computer kennen nur Zahlen. Damit du "Hallo" tippen kannst, muss jeder Buchstabe eine Nummer bekommen. Das nennt man Zeichenkodierung.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">ASCII — die alte Welt</div>
+            <div class="explanation">
+              <strong>ASCII</strong> ist die älteste Kodierung (1963). Jeder Buchstabe hat eine Zahl von 0 bis 127. Reicht für Englisch — aber für Umlaute, Emojis, oder Chinesisch zu klein.<br><br>
+              Beispiele: <code>A=65</code>, <code>B=66</code>, <code>a=97</code>, <code>0=48</code>, <code>Leerzeichen=32</code>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Beispiel in Python</span></div>
+              <div class="code-pre"><span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'A'</span>))    <span class="cm"># → 65</span>
+<span class="fn">print</span>(<span class="fn">chr</span>(<span class="num">65</span>))     <span class="cm"># → 'A'</span>
+<span class="fn">print</span>(<span class="fn">ord</span>(<span class="st">'a'</span>))    <span class="cm"># → 97 (lowercase = +32)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">UTF-8 — der moderne Standard</div>
+            <div class="explanation">
+              <strong>UTF-8</strong> ist seit ~2008 der Web-Standard. Kann alle Zeichen der Welt darstellen — über 1 Million Symbole.<br><br>
+              Clever: ASCII-Zeichen brauchen nur 1 Byte (rückwärts-kompatibel). Exotische Zeichen brauchen 2, 3 oder 4 Bytes.<br><br>
+              <strong>Darum</strong> steht in jedem HTML: <code>&lt;meta charset="UTF-8"&gt;</code> — sonst werden Umlaute zu kaputten Zeichen wie <code>Ã¤</code>.
+            </div>
+          </div>
+          ${quiz('q_ascii1', 'Was ist der ASCII-Wert von "B"?', [
+            {t:'64', correct:false, why:'Fast — das wäre @ (kurz vor A).'},
+            {t:'65', correct:false, why:'65 ist A. B kommt direkt danach.'},
+            {t:'66', correct:true, why:'Richtig! A=65, B=66, C=67, usw.'},
+            {t:'98', correct:false, why:'98 ist das kleine b (97 = a, +1 = b).'},
+          ])}
+          ${quiz('q_ascii2', 'Warum siehst du manchmal "Ã¤" statt "ä" auf einer Webseite?', [
+            {t:'Der Server ist kaputt', correct:false, why:'Meistens ist nur die Zeichenkodierung falsch eingestellt.'},
+            {t:'Ein Virus hat die Seite befallen', correct:false, why:'Nein — das ist ein Kodierungsproblem, kein Sicherheitsproblem.'},
+            {t:'Die Seite wurde als UTF-8 kodiert aber als ISO-8859 gelesen', correct:true, why:'Exakt! Der Browser liest die UTF-8 Bytes falsch. Mit &lt;meta charset="UTF-8"&gt; sagst du ihm: "Lies es richtig".'},
+            {t:'Die Schriftart fehlt', correct:false, why:'Schriftart-Probleme zeigen Vierecke oder Fragezeichen — nicht solche kaputten Zeichen-Paare.'},
+          ])}
+        `
+      },
+      {
+        id: 'l1_4', title: 'Terminal & Kommandozeile',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 4</div>
+            <h1 class="lesson-title">Terminal & Kommandozeile</h1>
+            <p class="lesson-desc">Das Terminal ist das mächtigste Werkzeug eines Entwicklers. Es sieht einschüchternd aus — aber nach dieser Lektion wirst du dich dort zuhause fühlen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die wichtigsten Befehle</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">bash / terminal</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Wo bin ich? (print working directory)</span>
+<span class="fn">pwd</span>
+
+<span class="cm"># Ordnerinhalt anzeigen</span>
+<span class="fn">ls</span>           <span class="cm"># kurz</span>
+<span class="fn">ls</span> -la       <span class="cm"># detailliert mit versteckten Dateien</span>
+
+<span class="cm"># Ordner wechseln (change directory)</span>
+<span class="fn">cd</span> Downloads  <span class="cm"># in Downloads gehen</span>
+<span class="fn">cd</span> ..         <span class="cm"># einen Ordner zurück</span>
+<span class="fn">cd</span> ~          <span class="cm"># zum Home-Ordner</span>
+
+<span class="cm"># Ordner erstellen und löschen</span>
+<span class="fn">mkdir</span> mein_projekt
+<span class="fn">rmdir</span> mein_projekt  <span class="cm"># nur wenn leer</span>
+
+<span class="cm"># Dateien erstellen, lesen, kopieren</span>
+<span class="fn">touch</span> datei.txt
+<span class="fn">cat</span>   datei.txt
+<span class="fn">cp</span>    datei.txt kopie.txt
+<span class="fn">mv</span>    datei.txt neuer_name.txt
+
+<span class="cm"># Text in Datei schreiben</span>
+<span class="fn">echo</span> <span class="st">"Hallo Welt"</span> > datei.txt</div>
+            </div>
+          </div>
+          ${quiz('q3', 'Welcher Befehl zeigt dir in welchem Ordner du dich gerade befindest?', [
+            {t:'ls', correct:false, why:'ls zeigt den INHALT des Ordners — nicht wo du bist.'},
+            {t:'pwd', correct:true, why:'Genau! pwd = "print working directory" — zeigt deinen aktuellen Pfad.'},
+            {t:'cd', correct:false, why:'cd wechselt den Ordner, zeigt aber nicht an wo du bist.'},
+            {t:'cat', correct:false, why:'cat liest Dateien aus — hat nichts mit deinem Ort zu tun.'},
+          ])}
+          ${exercise('ex1', 'Terminal Simulation', 'Schreibe den Befehl um einen neuen Ordner namens "mein_code" zu erstellen:', 'mkdir mein_code', 'mkdir')}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
+            <div class="boss-title">Deine erste Terminal-Session</div>
+            <div class="boss-desc">Öffne das Terminal auf deinem Computer (Windows: PowerShell oder WSL, Mac: Terminal, Linux: Terminal). Erstelle eine Ordnerstruktur: <code>projekte/phase1/uebungen/</code> — navigiere hinein und erstelle dort eine Datei <code>notizen.txt</code> mit dem Inhalt "Ich lerne Coding!" — alles nur mit Terminal-Befehlen.</div>
+          </div>
+        `
+      },
+      {
+        id: 'l1_5', title: 'Dateisysteme & Pfade',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 5</div>
+            <h1 class="lesson-title">Dateisysteme & Pfade verstehen</h1>
+            <p class="lesson-desc">Dateien liegen in Ordnern, Ordner in Ordnern. Das ist eine Baumstruktur. Wenn du als Entwickler Pfade sauber schreiben kannst, sparst du dir sehr viel Ärger.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Absolute vs. Relative Pfade</div>
+            <div class="explanation">
+              <strong>Absoluter Pfad</strong> — beginnt mit dem Root (<code>/</code> oder <code>C:\\</code>):<br>
+              <code>/Users/anna/projekte/index.html</code><br><br>
+              <strong>Relativer Pfad</strong> — relativ zum aktuellen Ort:<br>
+              <code>./bilder/logo.png</code> — gleicher Ordner<br>
+              <code>../styles.css</code> — ein Ordner höher<br>
+              <code>../../assets/</code> — zwei Ordner höher<br><br>
+              <strong>Merke:</strong> <code>.</code> = "hier", <code>..</code> = "eins höher", <code>~</code> = dein Home-Ordner.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Typische Ordnerstruktur eines Web-Projekts</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Projektstruktur</span></div>
+              <div class="code-pre">mein-projekt/
+├── index.html
+├── README.md
+├── assets/
+│   ├── logo.png
+│   └── hero.jpg
+├── src/
+│   ├── style.css
+│   └── main.js
+└── docs/
+    └── anleitung.md</div>
+            </div>
+          </div>
+          ${quiz('q_path1', 'Du bist in /projekte/web/src/ und willst zu /projekte/assets/. Welcher relative Pfad ist korrekt?', [
+            {t:'./assets/', correct:false, why:'. bedeutet aktueller Ordner — dort gibt es kein assets/.'},
+            {t:'../assets/', correct:false, why:'Das wäre nur /projekte/web/assets/ — einen Ordner höher. Aber du musst noch einen höher.'},
+            {t:'../../assets/', correct:true, why:'Richtig! Erst raus aus src/, dann raus aus web/, dann rein in assets/.'},
+            {t:'/assets/', correct:false, why:'Das wäre ein absoluter Pfad ab Root — also /assets/, nicht /projekte/assets/.'},
+          ])}
+          ${quiz('q_path2', 'Was bedeutet ~ im Terminal?', [
+            {t:'Der aktuelle Ordner', correct:false, why:'Der aktuelle Ordner ist . (ein Punkt).'},
+            {t:'Der Home-Ordner des Nutzers', correct:true, why:'Genau! Auf Mac/Linux oft /Users/name/ oder /home/name/. ~/Downloads ist kurz für dein Downloads-Verzeichnis.'},
+            {t:'Der Root-Ordner', correct:false, why:'Der Root ist / (ein Schrägstrich).'},
+            {t:'Ein Platzhalter für beliebige Zeichen', correct:false, why:'Platzhalter sind * (alle) oder ? (ein Zeichen) — nicht ~.'},
+          ])}
+        `
+      },
+      {
+        id: 'l1_6', title: 'Netzwerk & Internet',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 6</div>
+            <h1 class="lesson-title">Wie das Internet wirklich funktioniert</h1>
+            <p class="lesson-desc">Wenn du google.com tippst — was passiert dann? In den nächsten 5 Minuten wirst du es wirklich verstehen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Der Weg einer Anfrage</div>
+            <div class="explanation">
+              <strong>1. DNS-Auflösung</strong><br>
+              Dein Computer fragt einen DNS-Server: "Was ist die IP von google.com?" → Antwort: z.B. <code>142.250.74.46</code><br><br>
+              <strong>2. TCP-Verbindung</strong><br>
+              Dein Computer verbindet sich per <code>TCP/IP</code> mit dieser IP-Adresse auf Port 443 (HTTPS).<br><br>
+              <strong>3. HTTP-Anfrage</strong><br>
+              Dein Browser schickt eine Nachricht: <code>GET / HTTP/1.1</code> — "Gib mir die Startseite".<br><br>
+              <strong>4. HTTP-Antwort</strong><br>
+              Der Server antwortet mit Statuscode <code>200 OK</code> und dem HTML-Code der Seite.<br><br>
+              <strong>5. Rendern</strong><br>
+              Dein Browser liest den HTML-Code und zeigt die Seite an.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">HTTP Anfrage (vereinfacht)</span></div>
+              <div class="code-pre"><span class="kw">GET</span> / HTTP/1.1
+Host: google.com
+User-Agent: Mozilla/5.0
+
+<span class="cm">--- Antwort ---</span>
+
+HTTP/1.1 <span class="num">200</span> OK
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;...&lt;/html&gt;</div>
+            </div>
+          </div>
+          ${quiz('q4', 'Was macht ein DNS-Server?', [
+            {t:'Er verschlüsselt deine Daten', correct:false, why:'Das macht TLS/SSL, nicht DNS.'},
+            {t:'Er übersetzt Domain-Namen in IP-Adressen', correct:true, why:'Genau! DNS = Domain Name System. Es ist wie ein Telefonbuch des Internets.'},
+            {t:'Er speichert Webseiten zwischen', correct:false, why:'Das wäre ein Cache oder CDN, nicht DNS.'},
+            {t:'Er vergibt IP-Adressen an Geräte', correct:false, why:'Das macht DHCP, nicht DNS.'},
+          ])}
+          ${quiz('q5', 'Was bedeutet HTTP-Statuscode 404?', [
+            {t:'Alles OK', correct:false, why:'200 bedeutet OK. 404 ist etwas anderes.'},
+            {t:'Server-Fehler', correct:false, why:'Server-Fehler sind 5xx Codes (z.B. 500). 404 ist ein Client-Fehler.'},
+            {t:'Seite nicht gefunden', correct:true, why:'Richtig! 404 Not Found — die angeforderte Ressource existiert nicht auf dem Server.'},
+            {t:'Weitergeleitet', correct:false, why:'Weiterleitungen sind 3xx Codes (z.B. 301, 302).'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Abschlussprojekt Phase 1</div>
+            <div class="boss-title">Netzwerk-Detektiv</div>
+            <div class="boss-desc">Öffne die Entwicklertools in deinem Browser (F12) → Tab "Netzwerk" → lade eine beliebige Webseite. Beobachte: Welche Dateien werden geladen? Welche Statuscodes siehst du? Welche IP-Adresse hat der Server? Schreib dir 5 Beobachtungen auf.</div>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: 'p2', title: 'Python', sub: 'Programmieren lernen von null',
+    lessons: [
+      {
+        id: 'l2_1', title: 'Variablen & Datentypen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">Variablen & Datentypen</h1>
+            <p class="lesson-desc">Programme verarbeiten Daten. Variablen sind Behälter für diese Daten. Lass uns von Grund auf lernen wie Python mit Informationen umgeht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Variablen erstellen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Eine Variable ist ein Name für einen Wert</span>
+name = <span class="st">"Max"</span>          <span class="cm"># String (Text)</span>
+alter = <span class="num">25</span>             <span class="cm"># Integer (Ganzzahl)</span>
+groesse = <span class="num">1.82</span>         <span class="cm"># Float (Kommazahl)</span>
+ist_student = <span class="kw">True</span>    <span class="cm"># Boolean (Wahr/Falsch)</span>
+
+<span class="cm"># Ausgeben mit print()</span>
+<span class="fn">print</span>(name)         <span class="cm"># → Max</span>
+<span class="fn">print</span>(alter)        <span class="cm"># → 25</span>
+<span class="fn">print</span>(<span class="fn">type</span>(alter))  <span class="cm"># → &lt;class 'int'&gt;</span>
+
+<span class="cm"># Strings kombinieren (f-string)</span>
+<span class="fn">print</span>(<span class="st">f"Hallo, ich bin {name} und {alter} Jahre alt."</span>)
+<span class="cm"># → Hallo, ich bin Max und 25 Jahre alt.</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Listen & Dictionaries</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Liste — geordnete Sammlung</span>
+farben = [<span class="st">"rot"</span>, <span class="st">"grün"</span>, <span class="st">"blau"</span>]
+<span class="fn">print</span>(farben[<span class="num">0</span>])   <span class="cm"># → rot (Index beginnt bei 0)</span>
+farben.append(<span class="st">"gelb"</span>)  <span class="cm"># Element hinzufügen</span>
+
+<span class="cm"># Dictionary — Schlüssel-Wert-Paare</span>
+person = {
+  <span class="st">"name"</span>: <span class="st">"Anna"</span>,
+  <span class="st">"alter"</span>: <span class="num">30</span>,
+  <span class="st">"stadt"</span>: <span class="st">"Berlin"</span>
+}
+<span class="fn">print</span>(person[<span class="st">"name"</span>])  <span class="cm"># → Anna</span>
+person[<span class="st">"beruf"</span>] = <span class="st">"Entwicklerin"</span>  <span class="cm"># Neues Feld</span></div>
+            </div>
+          </div>
+          ${quiz('q6', 'Was gibt print(type(3.14)) aus?', [
+            {t:"<class 'int'>", correct:false, why:'int ist für Ganzzahlen wie 3 oder 42. 3.14 hat einen Dezimalpunkt.'},
+            {t:"<class 'float'>", correct:true, why:'Richtig! Zahlen mit Dezimalpunkt sind float (floating point = Gleitkommazahl).'},
+            {t:"<class 'str'>", correct:false, why:'str wäre es nur wenn es in Anführungszeichen stünde: "3.14".'},
+            {t:"<class 'number'>", correct:false, why:'number gibt es als Typ in Python nicht.'},
+          ])}
+          ${exercise('ex2', 'Python Variablen', 'Erstelle eine Variable "stadt" mit dem Wert "Berlin" und gib sie mit print() aus:', 'stadt = "Berlin"', 'stadt')}
+        `
+      },
+      {
+        id: 'l2_2', title: 'Bedingungen & Schleifen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 2</div>
+            <h1 class="lesson-title">Bedingungen & Schleifen</h1>
+            <p class="lesson-desc">Programme müssen Entscheidungen treffen und Aufgaben wiederholen. Das sind die zwei wichtigsten Konzepte der Programmierung überhaupt.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">if / elif / else</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre">alter = <span class="num">18</span>
+
+<span class="kw">if</span> alter >= <span class="num">18</span>:
+    <span class="fn">print</span>(<span class="st">"Volljährig!"</span>)
+<span class="kw">elif</span> alter >= <span class="num">16</span>:
+    <span class="fn">print</span>(<span class="st">"Fast volljährig"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Noch minderjährig"</span>)
+
+<span class="cm"># Vergleichs-Operatoren:
+# ==  gleich
+# !=  nicht gleich
+# >   größer als
+# <   kleiner als
+# >=  größer oder gleich
+# and / or / not</span>
+
+<span class="kw">if</span> alter >= <span class="num">18</span> <span class="kw">and</span> alter < <span class="num">65</span>:
+    <span class="fn">print</span>(<span class="st">"Erwerbsfähiges Alter"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">for & while Schleifen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># for-Schleife — über eine Liste iterieren</span>
+tiere = [<span class="st">"Hund"</span>, <span class="st">"Katze"</span>, <span class="st">"Vogel"</span>]
+<span class="kw">for</span> tier <span class="kw">in</span> tiere:
+    <span class="fn">print</span>(<span class="st">f"Tier: {tier}"</span>)
+
+<span class="cm"># range() — Zahlenbereich</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):      <span class="cm"># 0, 1, 2, 3, 4</span>
+    <span class="fn">print</span>(i)
+
+<span class="cm"># while-Schleife — läuft bis Bedingung falsch ist</span>
+zahl = <span class="num">1</span>
+<span class="kw">while</span> zahl <= <span class="num">5</span>:
+    <span class="fn">print</span>(zahl)
+    zahl += <span class="num">1</span>         <span class="cm"># WICHTIG: sonst Endlosschleife</span></div>
+            </div>
+          </div>
+          ${quiz('q7', 'Was gibt range(3) zurück?', [
+            {t:'1, 2, 3', correct:false, why:'Falsch! range() beginnt bei 0, nicht bei 1.'},
+            {t:'0, 1, 2', correct:true, why:'Richtig! range(3) erzeugt 0, 1, 2 — drei Zahlen, beginnend bei 0.'},
+            {t:'0, 1, 2, 3', correct:false, why:'Fast! Aber range(3) hört bei 2 auf — die Zahl 3 ist ausgeschlossen.'},
+            {t:'1, 2', correct:false, why:'Falsch — weder die Startposition noch die Anzahl stimmt.'},
+          ])}
+          ${exercise('ex3', 'Schleife programmieren', 'Schreibe Code der die Zahlen 1 bis 5 ausgibt (eine pro Zeile). Tipp: range(1, 6)', 'for i in range(1, 6): print(i)', 'range')}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
+            <div class="boss-title">FizzBuzz — Das klassische Interview-Problem</div>
+            <div class="boss-desc">Schreibe ein Python-Programm das die Zahlen 1–100 ausgibt. Aber: Bei Vielfachen von 3 schreibe "Fizz", bei Vielfachen von 5 schreibe "Buzz", bei Vielfachen von 3 UND 5 schreibe "FizzBuzz". Löse es zuerst ohne Hilfe!</div>
+          </div>
+        `
+      },
+      {
+        id: 'l2_3', title: 'Funktionen & Scope',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 3</div>
+            <h1 class="lesson-title">Funktionen & Scope</h1>
+            <p class="lesson-desc">Funktionen sind wiederverwendbare Code-Blöcke. Sie sind das wichtigste Werkzeug um Code sauber, lesbar und wartbar zu halten.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Funktionen definieren & aufrufen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Funktion definieren mit def</span>
+<span class="kw">def</span> <span class="fn">begruesse</span>(name):
+    <span class="fn">print</span>(<span class="st">f"Hallo, {name}!"</span>)
+
+<span class="fn">begruesse</span>(<span class="st">"Anna"</span>)   <span class="cm"># → Hallo, Anna!</span>
+<span class="fn">begruesse</span>(<span class="st">"Max"</span>)    <span class="cm"># → Hallo, Max!</span>
+
+<span class="cm"># Funktion mit Rückgabewert (return)</span>
+<span class="kw">def</span> <span class="fn">addiere</span>(a, b):
+    <span class="kw">return</span> a + b
+
+ergebnis = <span class="fn">addiere</span>(<span class="num">5</span>, <span class="num">3</span>)
+<span class="fn">print</span>(ergebnis)   <span class="cm"># → 8</span>
+
+<span class="cm"># Standardwerte für Parameter</span>
+<span class="kw">def</span> <span class="fn">potenz</span>(basis, exponent=<span class="num">2</span>):
+    <span class="kw">return</span> basis ** exponent
+
+<span class="fn">print</span>(<span class="fn">potenz</span>(<span class="num">4</span>))      <span class="cm"># → 16 (4²)</span>
+<span class="fn">print</span>(<span class="fn">potenz</span>(<span class="num">2</span>, <span class="num">10</span>))  <span class="cm"># → 1024 (2¹⁰)</span></div>
+            </div>
+          </div>
+          ${quiz('q8', 'Was macht das Schlüsselwort "return" in einer Funktion?', [
+            {t:'Es druckt den Wert aus', correct:false, why:'print() druckt aus. return gibt einen Wert zurück — das ist ein großer Unterschied!'},
+            {t:'Es beendet das Programm', correct:false, why:'exit() oder sys.exit() beendet das Programm. return beendet nur die Funktion.'},
+            {t:'Es gibt einen Wert an den Aufrufer zurück', correct:true, why:'Genau! Der Wert nach return kann dann z.B. in einer Variable gespeichert werden.'},
+            {t:'Es deklariert eine neue Variable', correct:false, why:'Variablen deklariert man einfach mit name = wert, ohne Schlüsselwort.'},
+          ])}
+          ${exercise('ex4', 'Eigene Funktion schreiben', 'Schreibe eine Funktion "quadrat(n)" die n² zurückgibt. Dann ruf sie mit 7 auf und gib das Ergebnis aus.', 'def quadrat(n): return n ** 2', 'return')}
+        `
+      },
+      {
+        id: 'l2_4', title: 'Strings & String-Methoden',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 4</div>
+            <h1 class="lesson-title">Strings meistern</h1>
+            <p class="lesson-desc">In fast jedem Programm arbeitest du mit Text. Python hat unglaublich viele Werkzeuge dafür — hier sind die wichtigsten.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die wichtigsten String-Methoden</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre">text = <span class="st">"Hallo Welt"</span>
+
+<span class="cm"># Länge</span>
+<span class="fn">len</span>(text)              <span class="cm"># → 10</span>
+
+<span class="cm"># Groß/Klein</span>
+text.upper()           <span class="cm"># → "HALLO WELT"</span>
+text.lower()           <span class="cm"># → "hallo welt"</span>
+text.title()           <span class="cm"># → "Hallo Welt"</span>
+
+<span class="cm"># Suchen & Ersetzen</span>
+text.find(<span class="st">"Welt"</span>)      <span class="cm"># → 6 (Index wo es beginnt)</span>
+<span class="st">"Welt"</span> <span class="kw">in</span> text        <span class="cm"># → True</span>
+text.replace(<span class="st">"Welt"</span>, <span class="st">"Python"</span>)  <span class="cm"># → "Hallo Python"</span>
+
+<span class="cm"># Säubern</span>
+<span class="st">"  hello  "</span>.strip()  <span class="cm"># → "hello" (Leerzeichen weg)</span>
+
+<span class="cm"># Splitten & Joinen</span>
+<span class="st">"a,b,c"</span>.split(<span class="st">","</span>)    <span class="cm"># → ['a', 'b', 'c']</span>
+<span class="st">"-"</span>.join([<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>])  <span class="cm"># → "a-b-c"</span>
+
+<span class="cm"># Slicing — Teilstrings</span>
+text[<span class="num">0</span>:<span class="num">5</span>]             <span class="cm"># → "Hallo" (Index 0 bis vor 5)</span>
+text[<span class="num">6</span>:]              <span class="cm"># → "Welt" (von 6 bis Ende)</span>
+text[-<span class="num">4</span>:]             <span class="cm"># → "Welt" (letzte 4)</span></div>
+            </div>
+          </div>
+          ${quiz('q_str1', 'Was gibt "Python".upper() zurück?', [
+            {t:'python', correct:false, why:'.upper() macht GROSS, nicht klein. Klein wäre .lower().'},
+            {t:'Python', correct:false, why:'.upper() verändert den String — er bleibt nicht gleich.'},
+            {t:'PYTHON', correct:true, why:'Richtig! .upper() macht alle Buchstaben groß.'},
+            {t:'PYTHON!', correct:false, why:'.upper() fügt nichts hinzu — es macht nur groß.'},
+          ])}
+          ${quiz('q_str2', 'Was macht "a,b,c".split(",")?', [
+            {t:'Es gibt "abc" zurück', correct:false, why:'split entfernt das Komma, aber gibt eine Liste zurück — keinen String.'},
+            {t:'Es gibt ["a", "b", "c"] zurück', correct:true, why:'Genau! .split(",") zerlegt den String am Komma in eine Liste.'},
+            {t:'Es ersetzt das Komma', correct:false, why:'Das wäre .replace(). split zerlegt.'},
+            {t:'Es wirft einen Fehler', correct:false, why:'split ist eine Standardmethode für Strings und funktioniert immer.'},
+          ])}
+          ${exercise('ex_str', 'String bearbeiten', 'Speichere "  Python lernen  " in einer Variable "s", entferne die Leerzeichen mit strip() und gib das Ergebnis in Großbuchstaben aus.', 's.strip().upper()', 'strip')}
+        `
+      },
+      {
+        id: 'l2_5', title: 'Fehlerbehandlung mit try/except',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 5</div>
+            <h1 class="lesson-title">Fehler abfangen — try / except</h1>
+            <p class="lesson-desc">Fehler passieren: Datei fehlt, Internet ist weg, User gibt Müll ein. Guter Code bricht nicht einfach ab — er reagiert sinnvoll.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die Grundstruktur</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Ohne try/except → Programm crasht bei Fehler</span>
+zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Gib eine Zahl ein: "</span>))
+<span class="cm"># User tippt "abc" → ValueError → Programm stürzt ab</span>
+
+<span class="cm"># Mit try/except → Fehler wird abgefangen</span>
+<span class="kw">try</span>:
+    zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Gib eine Zahl ein: "</span>))
+    ergebnis = <span class="num">100</span> / zahl
+    <span class="fn">print</span>(<span class="st">f"100 / {zahl} = {ergebnis}"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Das war keine gültige Zahl!"</span>)
+<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"Du kannst nicht durch 0 teilen!"</span>)
+<span class="kw">except</span> <span class="fn">Exception</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Unerwarteter Fehler: {e}"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"Das läuft IMMER — egal ob Fehler oder nicht"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die wichtigsten Fehlerarten</div>
+            <div class="explanation">
+              <code>ValueError</code> — falscher Wert (z.B. "abc" zu int)<br><br>
+              <code>TypeError</code> — falscher Typ (z.B. String + Zahl)<br><br>
+              <code>KeyError</code> — Dictionary-Key existiert nicht<br><br>
+              <code>IndexError</code> — Listen-Index außerhalb des Bereichs<br><br>
+              <code>FileNotFoundError</code> — Datei existiert nicht<br><br>
+              <code>ZeroDivisionError</code> — Division durch Null
+            </div>
+          </div>
+          ${quiz('q_err1', 'Was passiert im finally-Block?', [
+            {t:'Er läuft nur wenn ein Fehler auftrat', correct:false, why:'Das wäre except. finally läuft immer.'},
+            {t:'Er läuft nur wenn kein Fehler auftrat', correct:false, why:'Das wäre der else-Block. finally läuft immer.'},
+            {t:'Er läuft immer — egal ob Fehler oder nicht', correct:true, why:'Genau! Nützlich um Ressourcen zu schließen (z.B. Dateien) auch wenn etwas schief ging.'},
+            {t:'Er beendet das Programm', correct:false, why:'finally beendet nichts — es wird nur garantiert ausgeführt.'},
+          ])}
+        `
+      }
+    ]
+  },
+  {
+    id: 'p3', title: 'Web & HTML/CSS', sub: 'Webseiten bauen & gestalten',
+    lessons: [
+      {
+        id: 'l3_1', title: 'HTML Grundstruktur',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">HTML — Die Sprache des Webs</h1>
+            <p class="lesson-desc">HTML ist kein echtes Programmieren — es ist eine Auszeichnungssprache. Du beschreibst damit die Struktur einer Seite. Jeder Browser versteht sie.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Grundstruktur einer HTML-Datei</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="kw">&lt;!DOCTYPE html&gt;</span>
+<span class="kw">&lt;html</span> <span class="fn">lang</span>=<span class="st">"de"</span><span class="kw">&gt;</span>
+
+<span class="kw">&lt;head&gt;</span>
+  <span class="cm">&lt;!-- Metadaten — nicht sichtbar --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="fn">charset</span>=<span class="st">"UTF-8"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;title&gt;</span>Meine erste Seite<span class="kw">&lt;/title&gt;</span>
+<span class="kw">&lt;/head&gt;</span>
+
+<span class="kw">&lt;body&gt;</span>
+  <span class="cm">&lt;!-- Sichtbarer Inhalt --&gt;</span>
+  <span class="kw">&lt;h1&gt;</span>Hallo Welt!<span class="kw">&lt;/h1&gt;</span>
+  <span class="kw">&lt;p&gt;</span>Das ist mein erster Absatz.<span class="kw">&lt;/p&gt;</span>
+  <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"https://google.com"</span><span class="kw">&gt;</span>Link<span class="kw">&lt;/a&gt;</span>
+  <span class="kw">&lt;img</span> <span class="fn">src</span>=<span class="st">"bild.jpg"</span> <span class="fn">alt</span>=<span class="st">"Beschreibung"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+
+<span class="kw">&lt;/html&gt;</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Wichtige HTML-Tags</div>
+            <div class="explanation">
+              <code>&lt;h1&gt;</code> bis <code>&lt;h6&gt;</code> — Überschriften (h1 = größte)<br><br>
+              <code>&lt;p&gt;</code> — Absatz (paragraph)<br><br>
+              <code>&lt;div&gt;</code> — Container (unsichtbar, für Layout)<br><br>
+              <code>&lt;span&gt;</code> — Inline-Container (für Text innerhalb)<br><br>
+              <code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code> — Listen (ungeordnet / geordnet)<br><br>
+              <code>&lt;button&gt;</code> — Klickbarer Knopf<br><br>
+              <code>&lt;input&gt;</code> — Eingabefeld
+            </div>
+          </div>
+          ${quiz('q9', 'Was ist der Unterschied zwischen &lt;head&gt; und &lt;body&gt;?', [
+            {t:'Kein Unterschied, beide zeigen Inhalt an', correct:false, why:'Falsch — sie haben sehr verschiedene Rollen!'},
+            {t:'head = Metadaten (nicht sichtbar), body = sichtbarer Inhalt', correct:true, why:'Genau! Im head stehen Infos für Browser und Suchmaschinen. Im body steht was der Nutzer sieht.'},
+            {t:'head = Bilder, body = Text', correct:false, why:'Falsch. Bilder UND Text gehören beide in den body.'},
+            {t:'head ist für Überschriften', correct:false, why:'Überschriften (h1-h6) kommen in den body, nicht in den head!'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
+            <div class="boss-title">Deine erste echte Webseite</div>
+            <div class="boss-desc">Erstelle eine Datei "index.html", öffne sie im Browser (einfach doppelklicken). Baue eine persönliche Über-mich-Seite mit: Überschrift mit deinem Namen, Absatz über dich, eine Liste deiner Hobbys, und einem Link zu einer Webseite die du magst.</div>
+          </div>
+        `
+      },
+      {
+        id: 'l3_2', title: 'CSS & Styling',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 2</div>
+            <h1 class="lesson-title">CSS — Design & Layout</h1>
+            <p class="lesson-desc">HTML ist das Skelett, CSS ist das Aussehen. Mit CSS steuerst du Farben, Schriftarten, Abstände, Layouts — alles was eine Seite schön macht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">CSS Syntax & Selektoren</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">/* Element-Selektor */</span>
+<span class="fn">h1</span> {
+  color: <span class="st">#7c6af7</span>;        <span class="cm">/* Schriftfarbe */</span>
+  font-size: <span class="num">32px</span>;
+  font-weight: <span class="num">700</span>;
+}
+
+<span class="cm">/* Klassen-Selektor (. vor dem Namen) */</span>
+<span class="fn">.highlight</span> {
+  background: <span class="st">yellow</span>;
+  padding: <span class="num">4px 8px</span>;
+}
+
+<span class="cm">/* ID-Selektor (# vor dem Namen) */</span>
+<span class="fn">#header</span> {
+  background: <span class="st">#111</span>;
+  color: <span class="st">white</span>;
+}
+
+<span class="cm">/* Box-Modell */</span>
+<span class="fn">.box</span> {
+  width: <span class="num">200px</span>;
+  height: <span class="num">100px</span>;
+  padding: <span class="num">16px</span>;     <span class="cm">/* Innenabstand */</span>
+  margin: <span class="num">24px</span>;      <span class="cm">/* Außenabstand */</span>
+  border: <span class="num">1px</span> solid <span class="st">#ccc</span>;
+  border-radius: <span class="num">8px</span>;
+}</div>
+            </div>
+          </div>
+          ${quiz('q10', 'Wie wählt man in CSS alle Elemente mit der Klasse "card" aus?', [
+            {t:'#card { }', correct:false, why:'# ist für IDs, nicht für Klassen. IDs sind einmalig, Klassen können mehrfach vorkommen.'},
+            {t:'.card { }', correct:true, why:'Genau! Der Punkt . vor dem Namen ist der Klassen-Selektor in CSS.'},
+            {t:'card { }', correct:false, why:'Ohne Präfix ist es ein Element-Selektor — also nur für HTML-Tags wie p, h1, div.'},
+            {t:'*card { }', correct:false, why:'* ist der Universal-Selektor (wählt alles). *card ist kein gültiger CSS-Selektor.'},
+          ])}
+        `
+      },
+      {
+        id: 'l3_3', title: 'Flexbox & Grid — Layouts',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 3</div>
+            <h1 class="lesson-title">Flexbox & Grid — Moderne Layouts</h1>
+            <p class="lesson-desc">Früher war Layout ein Albtraum (Tabellen, Float, Clearfix). Heute haben wir Flexbox und Grid — mit wenig Code wunderschöne Layouts.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Flexbox — für 1D-Layouts (Zeilen oder Spalten)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="fn">.container</span> {
+  display: <span class="st">flex</span>;
+  gap: <span class="num">16px</span>;                 <span class="cm">/* Abstand zwischen Elementen */</span>
+  justify-content: <span class="st">space-between</span>;  <span class="cm">/* horizontal */</span>
+  align-items: <span class="st">center</span>;       <span class="cm">/* vertikal */</span>
+  flex-wrap: <span class="st">wrap</span>;           <span class="cm">/* umbrechen bei wenig Platz */</span>
+}
+
+<span class="cm">/* Das ist die häufigste Situation:
+   Ein Element links, eins rechts, beide vertikal zentriert */</span>
+<span class="fn">.header</span> {
+  display: <span class="st">flex</span>;
+  justify-content: <span class="st">space-between</span>;
+  align-items: <span class="st">center</span>;
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Grid — für 2D-Layouts (Zeilen UND Spalten)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="fn">.gallery</span> {
+  display: <span class="st">grid</span>;
+  <span class="cm">/* 3 gleiche Spalten */</span>
+  grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span> <span class="num">1fr</span>;
+  gap: <span class="num">20px</span>;
+}
+
+<span class="cm">/* Oder: automatisch anpassen */</span>
+<span class="fn">.gallery</span> {
+  display: <span class="st">grid</span>;
+  grid-template-columns: <span class="fn">repeat</span>(<span class="fn">auto-fit</span>, <span class="fn">minmax</span>(<span class="num">200px</span>, <span class="num">1fr</span>));
+  gap: <span class="num">20px</span>;
+  <span class="cm">/* Füllt so viele Spalten wie möglich,
+     jede mindestens 200px breit */</span>
+}</div>
+            </div>
+          </div>
+          ${quiz('q_flex1', 'Wann nutzt du Flexbox statt Grid?', [
+            {t:'Immer — Grid ist veraltet', correct:false, why:'Beide sind modern und werden zusammen benutzt.'},
+            {t:'Für 1D-Layouts (nur eine Richtung)', correct:true, why:'Genau! Flexbox für eine Achse (z.B. Navigation in einer Reihe). Grid wenn du Zeilen UND Spalten kontrollieren willst.'},
+            {t:'Für kleine Bildschirme', correct:false, why:'Beide funktionieren auf allen Bildschirmen. Responsivität ist eine andere Frage.'},
+            {t:'Nur für Text', correct:false, why:'Flexbox funktioniert für jeden Inhalt.'},
+          ])}
+        `
+      },
+      {
+        id: 'l3_4', title: 'Responsive Design',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 4</div>
+            <h1 class="lesson-title">Responsive Design — Eine Seite, alle Geräte</h1>
+            <p class="lesson-desc">Über 60% aller Webseiten werden auf dem Handy geöffnet. Deine Seite MUSS auf allen Bildschirmen gut aussehen — sonst verlierst du die Hälfte deiner Besucher.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Media Queries — Regeln für Bildschirmgrößen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">/* Normal — für große Bildschirme */</span>
+<span class="fn">.container</span> {
+  display: <span class="st">grid</span>;
+  grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span> <span class="num">1fr</span>;
+}
+
+<span class="cm">/* Ab Bildschirm kleiner als 768px (Tablet und kleiner) */</span>
+<span class="kw">@media</span> (max-width: <span class="num">768px</span>) {
+  <span class="fn">.container</span> {
+    grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span>;  <span class="cm">/* 2 Spalten */</span>
+  }
+}
+
+<span class="cm">/* Ab Bildschirm kleiner als 480px (Handy) */</span>
+<span class="kw">@media</span> (max-width: <span class="num">480px</span>) {
+  <span class="fn">.container</span> {
+    grid-template-columns: <span class="num">1fr</span>;       <span class="cm">/* 1 Spalte */</span>
+  }
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die wichtigste Zeile für Responsive Design</div>
+            <div class="explanation">
+              In jedem HTML-head MUSS stehen:
+            </div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"viewport"</span> <span class="fn">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span><span class="kw">&gt;</span></div>
+            </div>
+            <div class="explanation">
+              Ohne diese Zeile rendert das Handy die Seite wie einen Desktop — winzig und unlesbar. Mit dieser Zeile sagst du: "Nutze die echte Bildschirmbreite".
+            </div>
+          </div>
+          ${quiz('q_resp1', 'Was macht @media (max-width: 768px) { ... }?', [
+            {t:'Es gilt für Bildschirme größer als 768px', correct:false, why:'Umgekehrt — max-width heißt "höchstens 768px", also kleiner oder gleich.'},
+            {t:'Es gilt für Bildschirme 768px und kleiner', correct:true, why:'Genau! max-width = "maximale Breite". Die Regeln im Block greifen bis zu dieser Breite.'},
+            {t:'Es macht das Bild 768px breit', correct:false, why:'Das würde width: 768px machen. @media ist eine Bedingung, keine Größe.'},
+            {t:'Es blockiert die Seite auf 768px Bildschirmen', correct:false, why:'@media blockiert nichts — es wendet nur CSS-Regeln bedingt an.'},
+          ])}
+        `
+      },
+      {
+        id: 'l3_5', title: 'JavaScript Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 5</div>
+            <h1 class="lesson-title">JavaScript — HTML zum Leben erwecken</h1>
+            <p class="lesson-desc">HTML ist statisch, CSS macht es schön, aber JavaScript macht es interaktiv. Klicks, Animationen, Formulare, Daten laden — alles JavaScript.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Variablen & Funktionen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">javascript</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">// Variablen</span>
+<span class="kw">const</span> name = <span class="st">"Anna"</span>;     <span class="cm">// unveränderlich</span>
+<span class="kw">let</span> alter = <span class="num">25</span>;         <span class="cm">// veränderlich</span>
+
+<span class="cm">// Funktion</span>
+<span class="kw">function</span> <span class="fn">begruesse</span>(name) {
+  <span class="kw">return</span> <span class="st">\`Hallo, \${name}!\`</span>;
+}
+
+<span class="cm">// Arrow Function (moderner)</span>
+<span class="kw">const</span> <span class="fn">addiere</span> = (a, b) => a + b;
+
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">begruesse</span>(<span class="st">"Max"</span>));   <span class="cm">// Hallo, Max!</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">addiere</span>(<span class="num">3</span>, <span class="num">4</span>));       <span class="cm">// 7</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">DOM — HTML mit JavaScript steuern</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">javascript</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">// Element finden</span>
+<span class="kw">const</span> knopf = <span class="fn">document</span>.<span class="fn">querySelector</span>(<span class="st">"#mein-button"</span>);
+<span class="kw">const</span> titel = <span class="fn">document</span>.<span class="fn">querySelector</span>(<span class="st">"h1"</span>);
+
+<span class="cm">// Inhalt ändern</span>
+titel.textContent = <span class="st">"Neuer Titel"</span>;
+titel.<span class="fn">style</span>.color = <span class="st">"red"</span>;
+
+<span class="cm">// Auf Klick reagieren</span>
+knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, () => {
+  <span class="fn">alert</span>(<span class="st">"Du hast geklickt!"</span>);
+  titel.<span class="fn">style</span>.color = <span class="st">"blue"</span>;
+});</div>
+            </div>
+          </div>
+          ${quiz('q_js1', 'Was ist der Unterschied zwischen "const" und "let"?', [
+            {t:'const ist schneller', correct:false, why:'Performance-mäßig identisch.'},
+            {t:'const kann nach Zuweisung nicht mehr geändert werden, let schon', correct:true, why:'Richtig! Nutze const als Standard und nur let wenn du wirklich ändern musst. Das macht Code sicherer.'},
+            {t:'let ist nur für Zahlen', correct:false, why:'Beide funktionieren für alle Datentypen.'},
+            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied in der Wiederzuweisbarkeit!'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Abschlussprojekt Phase 3</div>
+            <div class="boss-title">Interaktiver Quiz-Builder</div>
+            <div class="boss-desc">Baue eine kleine Webseite mit HTML, CSS und JavaScript die 3 Multiple-Choice-Fragen stellt. Nach dem Absenden zeigt sie an wie viele richtig waren. Responsive für Handy. Deploy auf GitHub Pages (kostenlos).</div>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: 'p4', title: 'Backend & APIs', sub: 'Server, Datenbanken, REST',
+    lessons: [
+      {
+        id: 'l4_1', title: 'Was ist ein Backend?',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">Backend — Die unsichtbare Seite einer App</h1>
+            <p class="lesson-desc">Jede App hat zwei Seiten: was du siehst (Frontend) und was im Hintergrund passiert (Backend). Server, Datenbanken, Authentifizierung — das alles ist Backend.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Frontend vs. Backend</div>
+            <div class="explanation">
+              <strong>Frontend</strong> — läuft im Browser des Nutzers<br>
+              HTML, CSS, JavaScript, React — alles was der Nutzer sieht und anklickt.<br><br>
+              <strong>Backend</strong> — läuft auf einem Server irgendwo in der Welt<br>
+              Python, Node.js, Datenbanken — alles was der Nutzer nicht sieht.<br><br>
+              <strong>API</strong> — die Brücke zwischen beiden<br>
+              Das Frontend schickt Anfragen an die API, die API antwortet mit Daten (meist als JSON).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">JSON — Datenformat zwischen Frontend & Backend</span></div>
+              <div class="code-pre">{
+  <span class="st">"nutzer"</span>: {
+    <span class="st">"id"</span>: <span class="num">42</span>,
+    <span class="st">"name"</span>: <span class="st">"Anna Schmidt"</span>,
+    <span class="st">"email"</span>: <span class="st">"anna@example.com"</span>,
+    <span class="st">"premium"</span>: <span class="kw">true</span>
+  }
+}</div>
+            </div>
+          </div>
+          ${quiz('q11', 'Was ist JSON?', [
+            {t:'Eine Programmiersprache', correct:false, why:'JSON ist keine Programmiersprache — man kann darin keine Logik schreiben.'},
+            {t:'Ein Datenformat für den Austausch zwischen Systemen', correct:true, why:'Richtig! JSON = JavaScript Object Notation. Es ist das Standard-Format für APIs weltweit.'},
+            {t:'Eine Datenbank', correct:false, why:'Datenbanken speichern Daten dauerhaft. JSON ist nur ein Format zum Übertragen.'},
+            {t:'Ein Frontend-Framework', correct:false, why:'React, Vue, Angular sind Frontend-Frameworks. JSON ist nur ein Datenformat.'},
+          ])}
+        `
+      },
+      {
+        id: 'l4_2', title: 'REST APIs verstehen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 2</div>
+            <h1 class="lesson-title">REST APIs — Die Sprache des Webs</h1>
+            <p class="lesson-desc">99% aller APIs im Web folgen dem REST-Prinzip. Sobald du REST verstehst, kannst du mit jedem Service der Welt kommunizieren.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die 4 wichtigsten HTTP-Verben</div>
+            <div class="explanation">
+              <code>GET</code> — <strong>Lesen</strong> (Daten abfragen)<br>
+              <code>POST</code> — <strong>Erstellen</strong> (neue Daten anlegen)<br>
+              <code>PUT</code> / <code>PATCH</code> — <strong>Ändern</strong> (bestehende Daten updaten)<br>
+              <code>DELETE</code> — <strong>Löschen</strong>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">REST API Beispiele</span></div>
+              <div class="code-pre"><span class="cm"># Alle User abrufen</span>
+<span class="kw">GET</span>  /api/users              → <span class="num">200</span> OK + Liste
+
+<span class="cm"># Einen User abrufen</span>
+<span class="kw">GET</span>  /api/users/<span class="num">42</span>           → <span class="num">200</span> OK + einzelner User
+
+<span class="cm"># Neuen User erstellen</span>
+<span class="kw">POST</span> /api/users              → <span class="num">201</span> Created
+  Body: { <span class="st">"name"</span>: <span class="st">"Anna"</span> }
+
+<span class="cm"># User updaten</span>
+<span class="kw">PATCH</span> /api/users/<span class="num">42</span>          → <span class="num">200</span> OK
+  Body: { <span class="st">"email"</span>: <span class="st">"neu@x.com"</span> }
+
+<span class="cm"># User löschen</span>
+<span class="kw">DELETE</span> /api/users/<span class="num">42</span>        → <span class="num">204</span> No Content</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Eine API mit Python aufrufen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="kw">import</span> requests
+
+<span class="cm"># GET-Anfrage</span>
+antwort = requests.<span class="fn">get</span>(<span class="st">"https://api.github.com/users/ninoborn1-stack"</span>)
+daten = antwort.<span class="fn">json</span>()
+<span class="fn">print</span>(daten[<span class="st">"name"</span>])
+<span class="fn">print</span>(daten[<span class="st">"public_repos"</span>])
+
+<span class="cm"># POST-Anfrage</span>
+neue_daten = { <span class="st">"titel"</span>: <span class="st">"Mein Post"</span>, <span class="st">"text"</span>: <span class="st">"Hallo"</span> }
+antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.beispiel.de/posts"</span>, json=neue_daten)
+<span class="fn">print</span>(antwort.status_code)  <span class="cm"># 201 bei Erfolg</span></div>
+            </div>
+          </div>
+          ${quiz('q_rest1', 'Du willst einen neuen Blogpost erstellen. Welches HTTP-Verb nutzt du?', [
+            {t:'GET', correct:false, why:'GET ist nur zum Lesen — es erzeugt nichts Neues.'},
+            {t:'POST', correct:true, why:'Richtig! POST = Create. Der Body enthält die Daten des neuen Posts.'},
+            {t:'PATCH', correct:false, why:'PATCH ist zum ÄNDERN eines existierenden Objekts.'},
+            {t:'DELETE', correct:false, why:'DELETE löscht — das Gegenteil von Erstellen.'},
+          ])}
+          ${quiz('q_rest2', 'Was bedeutet Statuscode 201?', [
+            {t:'Fehler auf dem Server', correct:false, why:'Server-Fehler sind 5xx (z.B. 500).'},
+            {t:'Erfolgreich erstellt (Created)', correct:true, why:'Exakt! 201 ist der Standard-Code für POST wenn etwas neues erzeugt wurde.'},
+            {t:'Weitergeleitet', correct:false, why:'Weiterleitungen sind 3xx (z.B. 301, 302).'},
+            {t:'Nicht autorisiert', correct:false, why:'Das wäre 401.'},
+          ])}
+        `
+      },
+      {
+        id: 'l4_3', title: 'SQL Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 3</div>
+            <h1 class="lesson-title">SQL — Mit Datenbanken sprechen</h1>
+            <p class="lesson-desc">Fast jede App speichert Daten in einer Datenbank. SQL ist die universelle Sprache dafür — und seit über 40 Jahren quasi unverändert.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die vier Grundoperationen — CRUD</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">-- CREATE: Tabelle anlegen</span>
+<span class="kw">CREATE TABLE</span> users (
+  id <span class="fn">INTEGER PRIMARY KEY</span>,
+  name <span class="fn">TEXT NOT NULL</span>,
+  email <span class="fn">TEXT UNIQUE</span>,
+  alter <span class="fn">INTEGER</span>
+);
+
+<span class="cm">-- CREATE: Daten einfügen (INSERT)</span>
+<span class="kw">INSERT INTO</span> users (name, email, alter)
+<span class="kw">VALUES</span> (<span class="st">'Anna'</span>, <span class="st">'anna@x.de'</span>, <span class="num">28</span>);
+
+<span class="cm">-- READ: Daten abfragen</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users;
+<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter > <span class="num">18</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">ORDER BY</span> name <span class="kw">LIMIT</span> <span class="num">10</span>;
+
+<span class="cm">-- UPDATE: Daten ändern</span>
+<span class="kw">UPDATE</span> users <span class="kw">SET</span> alter = <span class="num">29</span> <span class="kw">WHERE</span> name = <span class="st">'Anna'</span>;
+
+<span class="cm">-- DELETE: Daten löschen</span>
+<span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> id = <span class="num">42</span>;</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Beziehungen zwischen Tabellen — JOIN</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="cm">-- User haben Posts — wir verbinden beide Tabellen</span>
+<span class="kw">SELECT</span> users.name, posts.titel
+<span class="kw">FROM</span> users
+<span class="kw">JOIN</span> posts <span class="kw">ON</span> posts.user_id = users.id
+<span class="kw">WHERE</span> users.name = <span class="st">'Anna'</span>;
+
+<span class="cm">-- Zählen: wie viele Posts hat jeder User?</span>
+<span class="kw">SELECT</span> users.name, <span class="fn">COUNT</span>(posts.id) <span class="kw">AS</span> anzahl
+<span class="kw">FROM</span> users
+<span class="kw">LEFT JOIN</span> posts <span class="kw">ON</span> posts.user_id = users.id
+<span class="kw">GROUP BY</span> users.id;</div>
+            </div>
+          </div>
+          ${quiz('q_sql1', 'Was macht SELECT * FROM users WHERE alter > 18?', [
+            {t:'Löscht alle User über 18', correct:false, why:'SELECT liest nur — löschen macht DELETE.'},
+            {t:'Gibt alle Spalten aller User zurück, die älter als 18 sind', correct:true, why:'Richtig! * = alle Spalten, WHERE filtert.'},
+            {t:'Ändert das Alter auf 18', correct:false, why:'Ändern macht UPDATE, nicht SELECT.'},
+            {t:'Gibt nur die erste Spalte zurück', correct:false, why:'* steht für ALLE Spalten.'},
+          ])}
+        `
+      },
+      {
+        id: 'l4_4', title: 'Authentication & JWT',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 4</div>
+            <h1 class="lesson-title">Authentifizierung — wer ist wer?</h1>
+            <p class="lesson-desc">Login, Logout, "nur für Premium-User" — das ist alles Authentifizierung. Heute lernst du wie moderne Apps das lösen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Authentifizierung vs. Autorisierung</div>
+            <div class="explanation">
+              <strong>Authentifizierung</strong> — <em>Wer bist du?</em><br>
+              → Login mit Email + Passwort → Server prüft → Token wird ausgegeben.<br><br>
+              <strong>Autorisierung</strong> — <em>Was darfst du?</em><br>
+              → Nur Premium-User dürfen auf /api/premium zugreifen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">JWT — JSON Web Token</div>
+            <div class="explanation">
+              Ein <strong>JWT</strong> ist ein signiertes Token das sagt: "Dieser Nutzer hat sich eingeloggt". Der Server stellt es beim Login aus. Der Client schickt es bei jeder Anfrage mit.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">JWT Flow</span></div>
+              <div class="code-pre"><span class="cm"># 1. Login</span>
+POST /api/login
+  Body: { <span class="st">"email"</span>: <span class="st">"anna@x.de"</span>, <span class="st">"password"</span>: <span class="st">"geheim"</span> }
+
+  Antwort: { <span class="st">"token"</span>: <span class="st">"eyJhbGciOiJIUzI1..."</span> }
+
+<span class="cm"># 2. Geschützte Anfrage mit Token im Header</span>
+GET /api/meine-daten
+  Header: <span class="fn">Authorization</span>: <span class="st">Bearer eyJhbGciOiJIUzI1...</span>
+
+  Antwort: { <span class="st">"name"</span>: <span class="st">"Anna"</span>, ... }
+
+<span class="cm"># Ein JWT besteht aus 3 Teilen (durch . getrennt):
+#   HEADER.PAYLOAD.SIGNATURE
+# Der Server prüft die Signatur → weiß ob das Token echt ist</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Passwörter NIEMALS im Klartext speichern</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — bcrypt</span></div>
+              <div class="code-pre"><span class="kw">import</span> bcrypt
+
+<span class="cm"># Registrierung: Passwort hashen</span>
+passwort = <span class="st">b"geheim123"</span>
+hash = bcrypt.<span class="fn">hashpw</span>(passwort, bcrypt.<span class="fn">gensalt</span>())
+<span class="cm"># Hash: $2b$12$abcDEF... (niemals das Original)</span>
+
+<span class="cm"># Login: eingegebenes Passwort gegen Hash prüfen</span>
+<span class="kw">if</span> bcrypt.<span class="fn">checkpw</span>(eingabe, hash):
+    <span class="fn">print</span>(<span class="st">"Passwort korrekt"</span>)</div>
+            </div>
+          </div>
+          ${quiz('q_auth1', 'Wo wird ein JWT-Token am häufigsten mitgeschickt?', [
+            {t:'Im URL-Pfad', correct:false, why:'Unsicher — URLs werden geloggt. Nicht machen.'},
+            {t:'Im Authorization-Header als "Bearer TOKEN"', correct:true, why:'Genau! Das ist der Standard. Der Server liest den Header und prüft das Token.'},
+            {t:'Im Cookie — immer ohne Flags', correct:false, why:'Cookies gehen auch, aber immer mit HttpOnly und Secure Flags. "Ohne Flags" ist unsicher.'},
+            {t:'Im Request-Body jeder Anfrage', correct:false, why:'Funktioniert theoretisch, ist aber unüblich und umständlich.'},
+          ])}
+        `
+      }
+    ]
+  },
+  {
+    id: 'p5', title: 'Hacking & Security', sub: 'Ethical Hacking & Cybersecurity',
+    lessons: [
+      {
+        id: 'l5_1', title: 'Einführung Cybersecurity',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 1</div>
+            <h1 class="lesson-title">Ethical Hacking — Legal & Richtig</h1>
+            <p class="lesson-desc">Hacking bedeutet: Systeme so tief verstehen dass du ihre Schwächen findest. Ethical Hacking bedeutet: das nur mit Erlaubnis zu tun. Hier lernst du wie Angreifer denken — um dich zu verteidigen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die wichtigste Regel</div>
+            <div class="explanation">
+              <strong>Hacking ohne Erlaubnis ist illegal.</strong><br><br>
+              Ethical Hacker haben immer schriftliche Erlaubnis. Zum Üben gibt es legale Plattformen:<br><br>
+              • <strong>TryHackMe</strong> — Anfängerfreundlich, geführte Lernpfade<br>
+              • <strong>HackTheBox</strong> — Realistischere Maschinen, mehr Herausforderung<br>
+              • <strong>picoCTF</strong> — Kostenlose CTF-Wettbewerbe für Einsteiger<br>
+              • <strong>DVWA</strong> — Absichtlich verwundbare Webseite zum lokalen Üben
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die OWASP Top 10 — häufigste Web-Schwachstellen</div>
+            <div class="explanation">
+              <strong>1. SQL Injection</strong> — Datenbankbefehle in Eingabefelder einschleusen<br>
+              <strong>2. Broken Authentication</strong> — Schwache Passwörter, fehlende 2FA<br>
+              <strong>3. XSS (Cross-Site Scripting)</strong> — JavaScript in Webseiten einschleusen<br>
+              <strong>4. Insecure Direct Object Reference</strong> — Zugriff auf fremde Daten durch URL-Manipulation<br>
+              <strong>5. Security Misconfiguration</strong> — Falsch konfigurierte Server
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">SQL Injection — Beispiel</span></div>
+              <div class="code-pre"><span class="cm"># Gefährlicher Code (NIEMALS so schreiben)</span>
+eingabe = <span class="st">"' OR '1'='1"</span>  <span class="cm"># Angreifer-Input</span>
+query = <span class="st">f"SELECT * FROM users WHERE name='{eingabe}'"</span>
+<span class="cm"># Ergebnis: SELECT * FROM users WHERE name='' OR '1'='1'</span>
+<span class="cm"># Das gibt ALLE User zurück — Sicherheitslücke</span>
+
+<span class="cm"># Sicher: Parameterisierte Queries verwenden</span>
+cursor.execute(<span class="st">"SELECT * FROM users WHERE name=?"</span>, (eingabe,))</div>
+            </div>
+          </div>
+          ${quiz('q12', 'Was ist SQL Injection?', [
+            {t:'Ein Angriff bei dem SQL-Befehle in Eingabefelder eingeschleust werden', correct:true, why:'Richtig! Wenn eine App Nutzereingaben direkt in SQL-Queries einbaut ohne sie zu bereinigen, kann ein Angreifer die Datenbankabfrage manipulieren.'},
+            {t:'Das Injizieren von CSS in eine Webseite', correct:false, why:'Das wäre CSS Injection — eine andere (seltenere) Schwachstelle. SQL Injection betrifft Datenbanken.'},
+            {t:'Ein Virus der SQL-Datenbanken löscht', correct:false, why:'SQL Injection ist eine Webangriffstechnik, kein Virus.'},
+            {t:'Eine Methode Passwörter zu erraten', correct:false, why:'Passwörter erraten nennt man Brute-Force. SQL Injection manipuliert Datenbankabfragen.'},
+          ])}
+        `
+      },
+      {
+        id: 'l5_2', title: 'XSS & CSRF verstehen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 2</div>
+            <h1 class="lesson-title">XSS & CSRF — Angriffe auf Webnutzer</h1>
+            <p class="lesson-desc">SQL Injection zielt auf Datenbanken. XSS und CSRF zielen auf die Nutzer selbst — durch ihren eigenen Browser.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">XSS — Cross-Site Scripting</div>
+            <div class="explanation">
+              Ein Angreifer schleust JavaScript in eine Seite ein. Andere Besucher führen diesen Code dann im Browser aus — mit allen Rechten des eingeloggten Nutzers.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">XSS Beispiel</span></div>
+              <div class="code-pre"><span class="cm"># Verwundbar: Kommentare werden ungefiltert angezeigt</span>
+kommentar = <span class="st">"&lt;script&gt;stehle_cookies()&lt;/script&gt;"</span>
+<span class="cm"># Wird als HTML gerendert → Script läuft bei jedem Besucher</span>
+
+<span class="cm"># Sicher: Eingaben escapen (HTML-Zeichen in Entities umwandeln)</span>
+<span class="kw">import</span> html
+sicher = html.<span class="fn">escape</span>(kommentar)
+<span class="cm"># → &amp;lt;script&amp;gt;stehle_cookies()&amp;lt;/script&amp;gt;</span>
+<span class="cm"># Wird als Text angezeigt, nicht als HTML</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">CSRF — Cross-Site Request Forgery</div>
+            <div class="explanation">
+              Du bist bei deiner Bank eingeloggt. Du öffnest parallel eine dubiose Seite. Diese Seite macht im Hintergrund eine Anfrage an deine Bank — mit deinem Cookie. Die Bank denkt: "Das ist ja der echte Nutzer" und überweist Geld.<br><br>
+              <strong>Schutz:</strong><br>
+              • CSRF-Tokens — zufälliger Wert der bei jedem Formular mitgeschickt wird<br>
+              • <code>SameSite</code>-Cookies — Cookies werden nicht an fremde Seiten geschickt<br>
+              • Server prüft bei wichtigen Aktionen den <code>Referer</code>-Header
+            </div>
+          </div>
+          ${quiz('q_sec1', 'Was ist der beste Schutz gegen XSS?', [
+            {t:'Alle Eingaben escapen bevor sie als HTML ausgegeben werden', correct:true, why:'Richtig! html.escape(), textContent statt innerHTML — je nach Sprache. Niemals ungefilterten Nutzer-Input als HTML rendern.'},
+            {t:'Den Browser abschalten', correct:false, why:'Das ist keine ernsthafte Lösung.'},
+            {t:'Nur sichere Browser benutzen', correct:false, why:'XSS läuft in JEDEM Browser — das Problem liegt am Server, nicht am Browser.'},
+            {t:'HTTPS benutzen', correct:false, why:'HTTPS schützt gegen Abhören, nicht gegen XSS. Wichtig, aber hilft hier nicht.'},
+          ])}
+        `
+      },
+      {
+        id: 'l5_3', title: 'Passwort-Sicherheit & Hashing',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 3</div>
+            <h1 class="lesson-title">Passwörter richtig speichern</h1>
+            <p class="lesson-desc">Wenn du als Entwickler Passwörter im Klartext speicherst, bist du unvermeidlich für den nächsten großen Datenleak verantwortlich. Hier lernst du wie man es RICHTIG macht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Hash vs. Verschlüsselung</div>
+            <div class="explanation">
+              <strong>Verschlüsselung</strong> — rückwärts machbar (mit Key). Für Nachrichten die der Empfänger lesen soll.<br><br>
+              <strong>Hash</strong> — Einweg-Funktion. Aus "geheim123" wird <code>$2b$12$abc...</code>. Kein Weg zurück.<br><br>
+              Passwörter werden <strong>gehasht</strong>, nicht verschlüsselt. Selbst der Server kennt dein Passwort nicht — er vergleicht nur den Hash.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Warum einfache Hashes (MD5, SHA1) gefährlich sind</div>
+            <div class="explanation">
+              MD5 und SHA1 sind <strong>schnell</strong> — ein Angreifer kann pro Sekunde Milliarden Varianten durchprobieren. Für Passwörter brauchst du <strong>langsame</strong> Algorithmen:<br><br>
+              • <code>bcrypt</code> — Klassiker, sehr verbreitet<br>
+              • <code>argon2</code> — Gewinner des Password Hashing Competition 2015<br>
+              • <code>scrypt</code> — besonders speicherintensiv (schützt vor GPU-Angriffen)
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">import</span> bcrypt
+
+<span class="cm"># Registrierung</span>
+passwort = <span class="st">b"MeinStarkesPasswort!"</span>
+salt = bcrypt.<span class="fn">gensalt</span>(rounds=<span class="num">12</span>)   <span class="cm"># Kosten: 2^12 Operationen</span>
+hash = bcrypt.<span class="fn">hashpw</span>(passwort, salt)
+<span class="cm"># In Datenbank: nur den hash speichern, nie das Passwort</span>
+
+<span class="cm"># Login prüfen</span>
+<span class="kw">if</span> bcrypt.<span class="fn">checkpw</span>(eingabe, hash):
+    <span class="fn">print</span>(<span class="st">"Login erfolgreich"</span>)</div>
+            </div>
+          </div>
+          ${quiz('q_pwd1', 'Warum ist MD5 für Passwörter ungeeignet?', [
+            {t:'MD5 funktioniert nicht in Python', correct:false, why:'MD5 gibt es in fast jeder Sprache — das ist nicht das Problem.'},
+            {t:'MD5 ist zu schnell — Angreifer können Milliarden Hashes pro Sekunde testen', correct:true, why:'Genau! Für Passwörter brauchst du langsame Algorithmen wie bcrypt oder argon2, die absichtlich Rechenzeit brauchen.'},
+            {t:'MD5 produziert zu lange Hashes', correct:false, why:'MD5 ist im Gegenteil recht kurz (128 bit). Länge ist nicht das Problem.'},
+            {t:'MD5 kostet Geld', correct:false, why:'MD5 ist frei verfügbar.'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
+            <div class="boss-title">Deine erste CTF-Challenge</div>
+            <div class="boss-desc">Registriere dich kostenlos bei <code>picoCTF.org</code> und löse 3 Einsteiger-Challenges aus der Kategorie "General Skills" oder "Web Exploitation". Das sind legale Übungsaufgaben mit echten Schwachstellen.</div>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: 'p6', title: 'Profi-Level', sub: 'Clean Code, Git, Testing, Job',
+    lessons: [
+      {
+        id: 'l6_1', title: 'Clean Code Prinzipien',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 1</div>
+            <h1 class="lesson-title">Clean Code — Code den andere lesen können</h1>
+            <p class="lesson-desc">Code wird viel öfter gelesen als geschrieben. Clean Code bedeutet: anderen (und dir selbst in 6 Monaten) ist sofort klar was der Code macht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die wichtigsten Regeln</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — dirty vs. clean</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># DIRTY CODE — was bedeutet das?</span>
+<span class="kw">def</span> <span class="fn">f</span>(x, y):
+    <span class="kw">if</span> x > <span class="num">0</span>:
+        z = x * y * <span class="num">0.19</span>
+        <span class="kw">return</span> x + z
+    <span class="kw">return</span> x
+
+<span class="cm"># CLEAN CODE — selbsterklärend</span>
+MEHRWERTSTEUER = <span class="num">0.19</span>
+
+<span class="kw">def</span> <span class="fn">berechne_preis_mit_steuer</span>(netto_preis, menge):
+    <span class="st">"""Berechnet den Bruttopreis inkl. 19% MwSt."""</span>
+    <span class="kw">if</span> netto_preis <= <span class="num">0</span>:
+        <span class="kw">return</span> netto_preis
+
+    steuer = netto_preis * menge * MEHRWERTSTEUER
+    <span class="kw">return</span> netto_preis + steuer</div>
+            </div>
+            <div class="explanation" style="margin-top:14px">
+              <strong>Regeln:</strong><br>
+              • Sprechende Namen: <code>user_count</code> statt <code>x</code><br>
+              • Kleine Funktionen: eine Funktion = eine Aufgabe<br>
+              • Magische Zahlen vermeiden: <code>0.19</code> → <code>MEHRWERTSTEUER</code><br>
+              • Kommentare erklären WARUM, nicht WAS (der Code erklärt das Was)
+            </div>
+          </div>
+          ${quiz('q13', 'Was ist das wichtigste Prinzip von Clean Code?', [
+            {t:'Code so kurz wie möglich schreiben', correct:false, why:'Kürze ist gut — aber nicht wenn sie Lesbarkeit opfert. Sehr kurzer Code kann unverständlich sein.'},
+            {t:'Code so schreiben dass andere (und du selbst) ihn verstehen', correct:true, why:'Genau! Robert C. Martin (Autor von "Clean Code") sagt: Code wird 10x öfter gelesen als geschrieben. Lesbarkeit geht vor.'},
+            {t:'Immer viele Kommentare schreiben', correct:false, why:'Zu viele Kommentare sind auch schlecht. Guter Code erklärt sich durch gute Namen selbst.'},
+            {t:'Den schnellsten Algorithmus benutzen', correct:false, why:'Performance ist wichtig — aber erst wenn es nötig ist. "Premature optimization is the root of all evil."'},
+          ])}
+        `
+      },
+      {
+        id: 'l6_2', title: 'Git Workflow',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 2</div>
+            <h1 class="lesson-title">Git — Versionskontrolle im Team</h1>
+            <p class="lesson-desc">Git ist DAS Werkzeug der Softwareentwicklung. Ohne Git kein professioneller Job. Du lernst jetzt den Workflow den 99% aller Teams benutzen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die wichtigsten Befehle</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Neues Repo starten</span>
+<span class="fn">git</span> init
+<span class="fn">git</span> remote add origin git@github.com:user/repo.git
+
+<span class="cm"># Änderungen anschauen</span>
+<span class="fn">git</span> status           <span class="cm"># was hat sich geändert?</span>
+<span class="fn">git</span> diff             <span class="cm"># zeilenweise Änderungen</span>
+<span class="fn">git</span> log              <span class="cm"># Commit-Historie</span>
+
+<span class="cm"># Änderungen speichern</span>
+<span class="fn">git</span> add .           <span class="cm"># alle Änderungen vormerken</span>
+<span class="fn">git</span> commit -m <span class="st">"feat: Login-Seite hinzugefügt"</span>
+
+<span class="cm"># Zu GitHub hochladen</span>
+<span class="fn">git</span> push origin main
+
+<span class="cm"># Änderungen von anderen holen</span>
+<span class="fn">git</span> pull origin main
+
+<span class="cm"># Branches — parallel an Features arbeiten</span>
+<span class="fn">git</span> checkout -b feature/dark-mode
+<span class="cm"># ... Code schreiben, committen ...</span>
+<span class="fn">git</span> push origin feature/dark-mode
+<span class="cm"># → auf GitHub einen Pull Request öffnen</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Gute Commit-Messages</div>
+            <div class="explanation">
+              Format: <code>type(scope): kurze Beschreibung</code><br><br>
+              <strong>Types:</strong> <code>feat</code> (neu), <code>fix</code> (Bug), <code>refactor</code>, <code>docs</code>, <code>test</code>, <code>chore</code>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Beispiele</span></div>
+              <div class="code-pre"><span class="cm"># Schlecht</span>
+<span class="st">"änderungen"</span>
+<span class="st">"fix"</span>
+<span class="st">"wip stuff"</span>
+
+<span class="cm"># Gut</span>
+<span class="st">"feat(auth): JWT-Token Refresh hinzugefügt"</span>
+<span class="st">"fix(cart): Rabatt wurde doppelt abgezogen"</span>
+<span class="st">"docs: README mit Setup-Anleitung erweitert"</span></div>
+            </div>
+          </div>
+          ${quiz('q_git1', 'Was macht "git add ." ?', [
+            {t:'Lädt Änderungen zu GitHub hoch', correct:false, why:'Das wäre git push. add speichert nur lokal vor.'},
+            {t:'Merkt alle Änderungen für den nächsten Commit vor', correct:true, why:'Richtig! Der Punkt . heißt "alle Änderungen im aktuellen Ordner". Danach kommt git commit.'},
+            {t:'Erstellt einen neuen Commit', correct:false, why:'Das ist git commit. add bereitet nur vor.'},
+            {t:'Fügt eine neue Datei zum Repo hinzu', correct:false, why:'Das wäre ein Spezialfall. Allgemein merkt add alle vorgemerkten Änderungen.'},
+          ])}
+        `
+      },
+      {
+        id: 'l6_3', title: 'Testing & Qualität',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 3</div>
+            <h1 class="lesson-title">Testing — Code der nicht zusammenbricht</h1>
+            <p class="lesson-desc">Tests sind der Unterschied zwischen Amateur-Code und professionellem Code. Ein Test ist einfach Code der deinen Code prüft.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die Test-Pyramide</div>
+            <div class="explanation">
+              <strong>Unit Tests</strong> (viele, schnell) — testen einzelne Funktionen<br>
+              <strong>Integration Tests</strong> (mittel) — testen wie Teile zusammenarbeiten<br>
+              <strong>End-to-End Tests</strong> (wenige, langsam) — testen die ganze App wie ein Nutzer
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Unit Tests mit pytest (Python)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># calculator.py</span>
+<span class="kw">def</span> <span class="fn">addiere</span>(a, b):
+    <span class="kw">return</span> a + b
+
+<span class="kw">def</span> <span class="fn">teile</span>(a, b):
+    <span class="kw">if</span> b == <span class="num">0</span>:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">"Nicht durch 0 teilen"</span>)
+    <span class="kw">return</span> a / b
+
+<span class="cm"># test_calculator.py</span>
+<span class="kw">import</span> pytest
+<span class="kw">from</span> calculator <span class="kw">import</span> addiere, teile
+
+<span class="kw">def</span> <span class="fn">test_addiere_positive_zahlen</span>():
+    <span class="kw">assert</span> <span class="fn">addiere</span>(<span class="num">2</span>, <span class="num">3</span>) == <span class="num">5</span>
+
+<span class="kw">def</span> <span class="fn">test_addiere_negative_zahlen</span>():
+    <span class="kw">assert</span> <span class="fn">addiere</span>(-<span class="num">1</span>, -<span class="num">1</span>) == -<span class="num">2</span>
+
+<span class="kw">def</span> <span class="fn">test_teile_durch_null_wirft_fehler</span>():
+    <span class="kw">with</span> pytest.<span class="fn">raises</span>(<span class="fn">ValueError</span>):
+        <span class="fn">teile</span>(<span class="num">10</span>, <span class="num">0</span>)
+
+<span class="cm"># Ausführen: pytest</span></div>
+            </div>
+          </div>
+          ${quiz('q_test1', 'Warum lohnt es sich Tests zu schreiben?', [
+            {t:'Tests sind Pflicht in jeder Firma', correct:false, why:'Nicht überall Pflicht — aber sehr empfohlen. Der echte Grund ist praktisch.'},
+            {t:'Sie fangen Bugs früh, bevor sie zu Nutzern kommen — und geben Sicherheit beim Refactoring', correct:true, why:'Exakt! Ohne Tests hast du Angst vor Änderungen. Mit Tests kannst du jederzeit refactoren weil du sofort siehst wenn etwas kaputt geht.'},
+            {t:'Tests machen den Code schneller', correct:false, why:'Tests selbst machen nichts schneller — sie prüfen nur Korrektheit.'},
+            {t:'Damit der Code in Git bleibt', correct:false, why:'Git hat nichts mit Tests zu tun.'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.15s">
+            <div class="boss-label-text"><i data-lucide="trophy"></i>Finales Meisterprojekt</div>
+            <div class="boss-title">Dein erstes vollständiges SaaS-Produkt</div>
+            <div class="boss-desc">Baue eine vollständige Webanwendung deiner Wahl — eigene Idee, React oder HTML Frontend, Python oder Node.js Backend, SQL-Datenbank, Nutzer-Auth, Tests, sauberer Git-Workflow, deployed auf Railway oder Render (kostenlos). Das ist dein Bewerbungs-Aushängeschild.</div>
+          </div>
+        `
+      }
+    ]
+  }
+];
+
+// ============================================================
+//              PROFILE SYSTEM & STATE
+// ============================================================
+
+const STORAGE = {
+  profiles: 'cp_profiles',
+  active: 'cp_active',
+  legacyDone: 'cp_done',
+  legacyXp: 'cp_xp',
+  profileKey: (id, suffix) => `cp_p_${id}_${suffix}`
+};
+
+function loadProfiles() {
+  try { return JSON.parse(localStorage.getItem(STORAGE.profiles) || '[]'); }
+  catch { return []; }
+}
+
+function saveProfiles(profiles) {
+  localStorage.setItem(STORAGE.profiles, JSON.stringify(profiles));
+}
+
+function loadProfileData(profileId) {
+  const doneRaw = localStorage.getItem(STORAGE.profileKey(profileId, 'done'));
+  const xpRaw = localStorage.getItem(STORAGE.profileKey(profileId, 'xp'));
+  return {
+    completed: new Set(JSON.parse(doneRaw || '[]')),
+    xp: parseInt(xpRaw || '0', 10)
+  };
+}
+
+function saveProfileData(profileId, data) {
+  localStorage.setItem(STORAGE.profileKey(profileId, 'done'), JSON.stringify([...data.completed]));
+  localStorage.setItem(STORAGE.profileKey(profileId, 'xp'), String(data.xp));
+}
+
+function migrateLegacyData() {
+  const legacyDone = localStorage.getItem(STORAGE.legacyDone);
+  const legacyXp = localStorage.getItem(STORAGE.legacyXp);
+  if (legacyDone || legacyXp) {
+    const profiles = loadProfiles();
+    if (profiles.length === 0) {
+      const id = 'p_' + Date.now();
+      const profile = { id, name: 'Standard', created: new Date().toISOString() };
+      profiles.push(profile);
+      saveProfiles(profiles);
+      localStorage.setItem(STORAGE.active, id);
+      try {
+        localStorage.setItem(STORAGE.profileKey(id, 'done'), legacyDone || '[]');
+        localStorage.setItem(STORAGE.profileKey(id, 'xp'), legacyXp || '0');
+      } catch {}
+    }
+    localStorage.removeItem(STORAGE.legacyDone);
+    localStorage.removeItem(STORAGE.legacyXp);
+  }
+}
+
+function getActiveProfile() {
+  const activeId = localStorage.getItem(STORAGE.active);
+  const profiles = loadProfiles();
+  return profiles.find(p => p.id === activeId) || null;
+}
+
+function setActiveProfile(profileId) {
+  localStorage.setItem(STORAGE.active, profileId);
+}
+
+function createProfile(name) {
+  const profiles = loadProfiles();
+  const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  const profile = { id, name: name.trim() || 'Unbenannt', created: new Date().toISOString() };
+  profiles.push(profile);
+  saveProfiles(profiles);
+  localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
+  localStorage.setItem(STORAGE.profileKey(id, 'xp'), '0');
+  return profile;
+}
+
+function deleteProfile(profileId) {
+  const profiles = loadProfiles().filter(p => p.id !== profileId);
+  saveProfiles(profiles);
+  localStorage.removeItem(STORAGE.profileKey(profileId, 'done'));
+  localStorage.removeItem(STORAGE.profileKey(profileId, 'xp'));
+  if (localStorage.getItem(STORAGE.active) === profileId) {
+    if (profiles.length > 0) setActiveProfile(profiles[0].id);
+    else localStorage.removeItem(STORAGE.active);
+  }
+}
+
+// Runtime state
+let state = {
+  currentPhase: 0,
+  currentLesson: 0,
+  completed: new Set(),
+  xp: 0,
+  activeProfile: null,
+  quizAnswered: new Set()
+};
+
+function loadActiveState() {
+  const profile = getActiveProfile();
+  if (!profile) return false;
+  const data = loadProfileData(profile.id);
+  state.activeProfile = profile;
+  state.completed = data.completed;
+  state.xp = data.xp;
+  return true;
+}
+
+function persistState() {
+  if (!state.activeProfile) return;
+  saveProfileData(state.activeProfile.id, {
+    completed: state.completed,
+    xp: state.xp
+  });
+}
+
+// ============================================================
+//              QUIZ & EXERCISE DATA REGISTRY
+// ============================================================
+
+const QUIZ_DATA = {};
+const EXERCISE_DATA = {};
+
+function quiz(id, question, options) {
+  QUIZ_DATA[id] = { question, options };
+  return `<div class="quiz-card animate-in" style="animation-delay:0.1s">
+    <div class="card-label">Quiz</div>
+    <div class="quiz-question">${question}</div>
+    <div class="quiz-options" id="opts-${id}">
+      ${options.map((o, i) => `<button class="quiz-option" data-quiz="${id}" data-idx="${i}">${o.t}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="fb-${id}"></div>
+  </div>`;
+}
+
+function exercise(id, title, desc, hint, keyword) {
+  EXERCISE_DATA[id] = { keyword };
+  return `<div class="exercise-card animate-in" style="animation-delay:0.12s">
+    <div class="exercise-top">
+      <div class="card-label">Übung</div>
+      <div class="exercise-title">${title}</div>
+      <div class="exercise-desc">${desc}</div>
+      <div class="exercise-hint">Tipp: ${hint}</div>
+    </div>
+    <div class="editor-area">
+      <div class="editor-header">
+        <span class="editor-label">code</span>
+        <button class="run-btn" data-exercise="${id}"><i data-lucide="play"></i>Prüfen</button>
+      </div>
+      <textarea class="code-editor" id="editor-${id}" placeholder="# Schreib deinen Code hier..." spellcheck="false"></textarea>
+      <div class="output-area" id="out-${id}">Bereit. Klick "Prüfen" wenn du fertig bist.</div>
+    </div>
+  </div>`;
+}
+
+function answerQuiz(id, idx, btn) {
+  if (state.quizAnswered.has(id)) return;
+  const data = QUIZ_DATA[id];
+  if (!data) return;
+  const option = data.options[idx];
+  state.quizAnswered.add(id);
+  const opts = document.querySelectorAll(`#opts-${id} .quiz-option`);
+  opts.forEach(o => o.disabled = true);
+  btn.classList.add(option.correct ? 'correct' : 'wrong');
+  if (!option.correct) {
+    opts.forEach((o, i) => { if (data.options[i].correct) o.classList.add('correct'); });
+  }
+  const fb = document.getElementById('fb-' + id);
+  fb.textContent = option.why;
+  fb.className = 'quiz-feedback show ' + (option.correct ? 'good' : 'bad');
+  if (option.correct) addXP(10);
+}
+
+function checkExercise(id) {
+  const data = EXERCISE_DATA[id];
+  if (!data) return;
+  const codeEl = document.getElementById('editor-' + id);
+  const out = document.getElementById('out-' + id);
+  const code = codeEl.value.trim();
+  if (!code) {
+    out.innerHTML = '<i data-lucide="alert-circle"></i>Bitte schreib erst etwas!';
+    out.className = 'output-area error';
+    lucide.createIcons();
+    return;
+  }
+  if (!code.includes(data.keyword)) {
+    out.innerHTML = `<i data-lucide="x"></i>Tipp: Du solltest "${data.keyword}" verwenden.`;
+    out.className = 'output-area error';
+    lucide.createIcons();
+    return;
+  }
+  if (code.length > 8) {
+    out.innerHTML = '<i data-lucide="check"></i>Super! Das sieht richtig aus. Gut gemacht!';
+    out.className = 'output-area success';
+    lucide.createIcons();
+    addXP(20);
+  } else {
+    out.innerHTML = '<i data-lucide="x"></i>Noch nicht ganz. Überprüfe deine Syntax.';
+    out.className = 'output-area error';
+    lucide.createIcons();
+  }
+}
+
+function addXP(amount) {
+  state.xp += amount;
+  persistState();
+  updateProgress();
+  const el = document.getElementById('xp-display');
+  el.classList.remove('xp-flash');
+  void el.offsetWidth;
+  el.classList.add('xp-flash');
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('.code-pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.innerHTML = '<i data-lucide="check"></i>kopiert!';
+    lucide.createIcons();
+    setTimeout(() => { btn.innerHTML = '<i data-lucide="copy"></i>kopieren'; lucide.createIcons(); }, 1500);
+  });
+}
+
+// ============================================================
+//              NAVIGATION
+// ============================================================
+
+function getTotalLessons() {
+  return PHASES.reduce((a, p) => a + p.lessons.length, 0);
+}
+
+function getCurrentLesson() {
+  return PHASES[state.currentPhase].lessons[state.currentLesson];
+}
+
+function goToPhase(idx) {
+  state.currentPhase = idx;
+  state.currentLesson = 0;
+  state.quizAnswered.clear();
+  render();
+}
+
+function navigate(dir) {
+  const phase = PHASES[state.currentPhase];
+  const currentLesson = phase.lessons[state.currentLesson];
+  if (dir === 1) {
+    if (!state.completed.has(currentLesson.id)) {
+      state.completed.add(currentLesson.id);
+      addXP(15);
+    }
+    persistState();
+  }
+  const newLesson = state.currentLesson + dir;
+  if (newLesson >= 0 && newLesson < phase.lessons.length) {
+    state.currentLesson = newLesson;
+    state.quizAnswered.clear();
+    render();
+    return;
+  }
+  const newPhase = state.currentPhase + dir;
+  if (newPhase >= 0 && newPhase < PHASES.length) {
+    state.currentPhase = newPhase;
+    state.currentLesson = dir === 1 ? 0 : PHASES[newPhase].lessons.length - 1;
+    state.quizAnswered.clear();
+    render();
+  }
+}
+
+// ============================================================
+//              RENDER
+// ============================================================
+
+function buildNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = PHASES.map((phase, pi) => {
+    const isActivePhase = pi === state.currentPhase;
+    const doneLessons = phase.lessons.filter(l => state.completed.has(l.id)).length;
+    const allDone = doneLessons === phase.lessons.length && doneLessons > 0;
+    const dotContent = allDone ? '<i data-lucide="check"></i>' : `0${pi+1}`;
+    return `<div class="phase-group">
+      <button class="phase-btn ${isActivePhase ? 'active' : ''} ${allDone ? 'done' : ''}" data-phase="${pi}">
+        <div class="phase-dot">${dotContent}</div>
+        <div class="phase-meta">
+          <div class="phase-name">${phase.title}</div>
+          <div class="phase-lessons">${doneLessons}/${phase.lessons.length} Lektionen</div>
+        </div>
+      </button>
+      ${isActivePhase ? `<div class="lesson-list">
+        ${phase.lessons.map((l, li) => {
+          const isActive = li === state.currentLesson;
+          const isDone = state.completed.has(l.id);
+          return `<div class="lesson-item ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}" data-lesson="${li}">
+            <div class="lesson-dot"></div>${l.title}
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  nav.querySelectorAll('[data-phase]').forEach(btn => {
+    btn.addEventListener('click', () => goToPhase(parseInt(btn.dataset.phase, 10)));
+  });
+  nav.querySelectorAll('[data-lesson]').forEach(item => {
+    item.addEventListener('click', () => {
+      state.currentLesson = parseInt(item.dataset.lesson, 10);
+      state.quizAnswered.clear();
+      render();
+    });
+  });
+}
+
+function updateProgress() {
+  const total = getTotalLessons();
+  const done = state.completed.size;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('global-progress').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = `${done} / ${total} Lektionen`;
+  document.getElementById('xp-amount').textContent = state.xp;
+  document.getElementById('profile-xp').textContent = state.xp + ' XP';
+}
+
+function updateNav() {
+  document.getElementById('btn-prev').disabled = (state.currentPhase === 0 && state.currentLesson === 0);
+  document.getElementById('btn-next').disabled = (state.currentPhase === PHASES.length-1 && state.currentLesson === PHASES[state.currentPhase].lessons.length-1);
+  const lesson = getCurrentLesson();
+  const doneBadge = document.getElementById('done-badge');
+  doneBadge.classList.toggle('show', state.completed.has(lesson.id));
+  const phase = PHASES[state.currentPhase];
+  document.getElementById('breadcrumb').innerHTML = `<span>Phase ${state.currentPhase+1}</span> / <span>${phase.title}</span> / <span>${lesson.title}</span>`;
+}
+
+function updateProfileBar() {
+  const p = state.activeProfile;
+  const avatar = document.getElementById('profile-avatar');
+  const nameEl = document.getElementById('profile-name');
+  if (p) {
+    avatar.textContent = p.name.charAt(0).toUpperCase();
+    nameEl.textContent = p.name;
+  } else {
+    avatar.textContent = '?';
+    nameEl.textContent = '—';
+  }
+}
+
+function render() {
+  buildNav();
+  updateProgress();
+  updateProfileBar();
+  const lesson = getCurrentLesson();
+  const ca = document.getElementById('content-area');
+  ca.innerHTML = lesson.content();
+  ca.scrollTop = 0;
+  updateNav();
+
+  // Attach quiz/exercise handlers
+  ca.querySelectorAll('[data-quiz]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      answerQuiz(btn.dataset.quiz, parseInt(btn.dataset.idx, 10), btn);
+    });
+  });
+  ca.querySelectorAll('[data-exercise]').forEach(btn => {
+    btn.addEventListener('click', () => checkExercise(btn.dataset.exercise));
+  });
+
+  lucide.createIcons();
+}
+
+// ============================================================
+//              PROFILE UI
+// ============================================================
+
+function toggleProfileMenu(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('profile-menu');
+  if (menu.classList.contains('show')) { menu.classList.remove('show'); return; }
+  buildProfileMenu();
+  menu.classList.add('show');
+}
+
+function buildProfileMenu() {
+  const menu = document.getElementById('profile-menu');
+  const profiles = loadProfiles();
+  const activeId = state.activeProfile ? state.activeProfile.id : null;
+  menu.innerHTML = profiles.map(p => {
+    const data = loadProfileData(p.id);
+    return `<button class="profile-menu-item ${p.id === activeId ? 'current' : ''}" data-switch="${p.id}">
+      <i data-lucide="${p.id === activeId ? 'check' : 'user'}"></i>
+      <span>${escapeHtml(p.name)} · ${data.xp} XP</span>
+    </button>`;
+  }).join('') + `
+    <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>Neues Profil</button>
+    <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>Fortschritt exportieren</button>
+    <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>Fortschritt importieren</button>
+    ${profiles.length > 1 ? `<div class="profile-menu-divider"></div>
+    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>Aktuelles Profil löschen</button>` : ''}
+  `;
+  menu.querySelectorAll('[data-switch]').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    switchProfile(b.dataset.switch);
+  }));
+  menu.querySelectorAll('[data-action]').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    handleProfileAction(b.dataset.action);
+  }));
+  lucide.createIcons();
+}
+
+function switchProfile(profileId) {
+  persistState();
+  setActiveProfile(profileId);
+  loadActiveState();
+  state.currentPhase = 0;
+  state.currentLesson = 0;
+  state.quizAnswered.clear();
+  document.getElementById('profile-menu').classList.remove('show');
+  render();
+}
+
+function handleProfileAction(action) {
+  document.getElementById('profile-menu').classList.remove('show');
+  if (action === 'new') showNewProfileModal();
+  else if (action === 'export') exportProgress();
+  else if (action === 'import') document.getElementById('import-input').click();
+  else if (action === 'delete') showDeleteConfirm();
+}
+
+function showModal(html) {
+  const modal = document.getElementById('modal-content');
+  const backdrop = document.getElementById('modal-backdrop');
+  modal.innerHTML = html;
+  backdrop.classList.add('show');
+  lucide.createIcons();
+}
+
+function hideModal() {
+  document.getElementById('modal-backdrop').classList.remove('show');
+}
+
+function showNewProfileModal(isFirst = false) {
+  showModal(`
+    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei CodePath' : 'Neues Profil'}</div>
+    <div class="modal-desc">${isFirst ? 'Erstelle dein Profil um zu starten. Dein Fortschritt wird automatisch gespeichert.' : 'Jedes Profil speichert seinen eigenen Fortschritt.'}</div>
+    <input type="text" class="modal-input" id="new-profile-name" placeholder="Dein Name" maxlength="30" autofocus>
+    <div class="modal-actions">
+      ${isFirst ? '' : '<button class="nav-btn" onclick="hideModal()">Abbrechen</button>'}
+      <button class="nav-btn primary" id="create-profile-btn">Profil erstellen</button>
+    </div>
+  `);
+  const input = document.getElementById('new-profile-name');
+  const btn = document.getElementById('create-profile-btn');
+  const submit = () => {
+    const name = input.value.trim();
+    if (!name) { input.focus(); return; }
+    persistState();
+    const p = createProfile(name);
+    setActiveProfile(p.id);
+    loadActiveState();
+    state.currentPhase = 0;
+    state.currentLesson = 0;
+    state.quizAnswered.clear();
+    hideModal();
+    render();
+  };
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  setTimeout(() => input.focus(), 50);
+}
+
+function showDeleteConfirm() {
+  if (!state.activeProfile) return;
+  showModal(`
+    <div class="modal-title"><i data-lucide="trash-2"></i>Profil löschen?</div>
+    <div class="modal-desc">Das Profil <strong>${escapeHtml(state.activeProfile.name)}</strong> und sein gesamter Fortschritt werden permanent gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.</div>
+    <div class="modal-actions">
+      <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
+      <button class="nav-btn" style="background:var(--red);border-color:var(--red);color:white" id="confirm-delete-btn">Löschen</button>
+    </div>
+  `);
+  document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+    deleteProfile(state.activeProfile.id);
+    loadActiveState();
+    state.currentPhase = 0;
+    state.currentLesson = 0;
+    state.quizAnswered.clear();
+    hideModal();
+    if (!state.activeProfile) showNewProfileModal(true);
+    else render();
+  });
+}
+
+function exportProgress() {
+  if (!state.activeProfile) return;
+  const data = {
+    profile: state.activeProfile,
+    completed: [...state.completed],
+    xp: state.xp,
+    exportedAt: new Date().toISOString(),
+    version: 1
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `codepath-${state.activeProfile.name}-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importProgress(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.profile || !Array.isArray(data.completed)) throw new Error('Ungültiges Format');
+      const name = data.profile.name + ' (importiert)';
+      const p = createProfile(name);
+      const loaded = { completed: new Set(data.completed), xp: parseInt(data.xp || 0, 10) };
+      saveProfileData(p.id, loaded);
+      setActiveProfile(p.id);
+      loadActiveState();
+      state.currentPhase = 0;
+      state.currentLesson = 0;
+      state.quizAnswered.clear();
+      render();
+      showModal(`
+        <div class="modal-title"><i data-lucide="check-circle-2"></i>Import erfolgreich</div>
+        <div class="modal-desc">Profil "<strong>${escapeHtml(name)}</strong>" mit ${loaded.completed.size} abgeschlossenen Lektionen und ${loaded.xp} XP wurde erstellt.</div>
+        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">OK</button></div>
+      `);
+    } catch (err) {
+      showModal(`
+        <div class="modal-title"><i data-lucide="alert-circle"></i>Import fehlgeschlagen</div>
+        <div class="modal-desc">Die Datei konnte nicht gelesen werden: ${escapeHtml(err.message)}</div>
+        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">OK</button></div>
+      `);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+//              BOOTSTRAP
+// ============================================================
+
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('profile-menu');
+  if (menu && !e.target.closest('.profile-bar')) menu.classList.remove('show');
+});
+
+document.getElementById('modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-backdrop') {
+    // Don't allow closing the first-time profile modal by backdrop click
+    if (state.activeProfile) hideModal();
+  }
+});
+
+document.getElementById('import-input').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) importProgress(file);
+  e.target.value = '';
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowLeft') { e.preventDefault(); if (!document.getElementById('btn-prev').disabled) navigate(-1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); if (!document.getElementById('btn-next').disabled) navigate(1); }
+});
+
+function init() {
+  migrateLegacyData();
+  const loaded = loadActiveState();
+  lucide.createIcons();
+  if (!loaded) {
+    render(); // render empty state before modal
+    showNewProfileModal(true);
+  } else {
+    render();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
