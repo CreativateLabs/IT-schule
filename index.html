@@ -1508,32 +1508,173 @@ Also: 0x2F = 47</div>
             <p class="lesson-desc">Wenn du google.com tippst — was passiert dann? In den nächsten 5 Minuten wirst du es wirklich verstehen.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Der Weg einer Anfrage</div>
+            <div class="card-label">Was ist das Internet?</div>
             <div class="explanation">
-              <strong>1. DNS-Auflösung</strong><br>
-              Dein Computer fragt einen DNS-Server: "Was ist die IP von google.com?" → Antwort: z.B. <code>142.250.74.46</code><br><br>
-              <strong>2. TCP-Verbindung</strong><br>
-              Dein Computer verbindet sich per <code>TCP/IP</code> mit dieser IP-Adresse auf Port 443 (HTTPS).<br><br>
-              <strong>3. HTTP-Anfrage</strong><br>
-              Dein Browser schickt eine Nachricht: <code>GET / HTTP/1.1</code> — "Gib mir die Startseite".<br><br>
-              <strong>4. HTTP-Antwort</strong><br>
-              Der Server antwortet mit Statuscode <code>200 OK</code> und dem HTML-Code der Seite.<br><br>
-              <strong>5. Rendern</strong><br>
-              Dein Browser liest den HTML-Code und zeigt die Seite an.
+              Das Internet ist <strong>ein weltweites Netzwerk aus Millionen miteinander verbundener Computer</strong>. Kein zentraler Computer, keine "Internet-Firma" — sondern viele Geräte die alle dieselben Regeln (Protokolle) sprechen.<br><br>
+              Wenn dein Laptop "im Internet" ist, ist er nur ein weiterer Rechner in diesem Netz. Jedes Gerät bekommt eine <strong>IP-Adresse</strong> — sowas wie eine Postanschrift. Damit können andere Computer dir Daten schicken.<br><br>
+              Das <strong>Web</strong> (= World Wide Web, also Webseiten in deinem Browser) ist nur <em>eine</em> Anwendung des Internets. Andere sind: E-Mail, Online-Spiele, Video-Calls, App-Updates — alles läuft über dasselbe Internet, aber mit verschiedenen Protokollen.
             </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">HTTP Anfrage (vereinfacht)</span></div>
-              <div class="code-pre"><span class="kw">GET</span> / HTTP/1.1
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">IP-Adressen — die Postanschriften des Internets</div>
+            <div class="explanation">
+              Jedes Gerät im Internet hat eine <strong>IP-Adresse</strong>. Es gibt zwei Versionen:<br><br>
+              <strong>IPv4</strong> (die alte, immer noch am häufigsten):<br>
+              4 Zahlen von 0–255, getrennt durch Punkte. Beispiel: <code>142.250.74.46</code>. Damit gibt's ca. 4 Milliarden mögliche Adressen — das reicht heute nicht mehr.<br><br>
+              <strong>IPv6</strong> (die neue):<br>
+              8 Gruppen Hexadezimalzahlen. Beispiel: <code>2001:0db8:85a3::8a2e:0370:7334</code>. Damit gibt's praktisch unendlich viele Adressen.<br><br>
+              <strong>Spezialadressen die du oft siehst:</strong><br>
+              • <code>127.0.0.1</code> oder <code>localhost</code> — dein eigener Computer<br>
+              • <code>192.168.x.x</code> — privates Heimnetz (z.B. dein WLAN)<br>
+              • <code>0.0.0.0</code> — "alle Adressen" (oft bei Servern)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">DNS — das Telefonbuch des Internets</div>
+            <div class="explanation">
+              Niemand merkt sich <code>142.250.74.46</code>. Wir tippen <code>google.com</code>. Das <strong>DNS</strong> (Domain Name System) ist der Übersetzer dazwischen — wie ein Telefonbuch das Namen zu Nummern auflöst.<br><br>
+              <strong>Was passiert beim Aufruf von google.com?</strong><br>
+              1. Dein Browser fragt: "Hast du <code>google.com</code> schon mal gesucht?" → schaut im eigenen Cache nach<br>
+              2. Wenn nein: Frage an deinen <strong>DNS-Resolver</strong> (oft dein Router oder z.B. <code>1.1.1.1</code> von Cloudflare)<br>
+              3. Der Resolver fragt sich von oben nach unten durch: <em>Root → .com-Server → google.com-Server</em><br>
+              4. Antwort: IP <code>142.250.74.46</code><br>
+              5. Dein Computer merkt sich das (Cache) für ein paar Minuten<br><br>
+              Probier's selbst im Terminal:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">terminal</span></div>
+              <div class="code-pre"><span class="fn">nslookup</span> github.com
+<span class="fn">dig</span>      github.com           <span class="cm"># detaillierter</span>
+<span class="fn">ping</span>     github.com           <span class="cm"># IP + Antwortzeit</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Ports — eine Adresse, viele Türen</div>
+            <div class="explanation">
+              Eine IP-Adresse identifiziert den <strong>Computer</strong>. Aber auf einem Computer laufen viele Dienste gleichzeitig — Webseiten, E-Mail, Datenbanken, SSH. Damit jeder Datenverkehr beim richtigen Programm landet, gibt's <strong>Ports</strong> (Nummern von 0 bis 65535).<br><br>
+              Stell dir vor: IP = das Hausgebäude, Port = die Wohnungstür.<br><br>
+              <strong>Wichtige Standard-Ports:</strong><br>
+              • <code>80</code> — HTTP (unverschlüsselt)<br>
+              • <code>443</code> — HTTPS (verschlüsselt) — wird heute überall benutzt<br>
+              • <code>22</code> — SSH (Server-Fernsteuerung)<br>
+              • <code>25</code>, <code>587</code> — E-Mail versenden (SMTP)<br>
+              • <code>3306</code> — MySQL Datenbank<br>
+              • <code>5432</code> — PostgreSQL Datenbank<br>
+              • <code>8080</code>, <code>3000</code>, <code>5173</code> — typische Entwickler-Server lokal<br><br>
+              Eine vollständige Adresse sieht also so aus: <code>142.250.74.46:443</code> oder mit Hostname <code>https://google.com:443</code>.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Eine URL Stück für Stück zerlegt</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">URL Aufbau</span></div>
+              <div class="code-pre">https://www.example.com:443/blog/post?id=42#kommentar
+└─┬─┘   └────────┬─────┘└┬┘└────┬────┘└──┬──┘└────┬────┘
+  │              │       │      │        │        │
+  │              │       │      │        │        └── Fragment (springt zu Anker)
+  │              │       │      │        └─────────── Query-String (Parameter ?key=val&...)
+  │              │       │      └──────────────────── Pfad (welche Ressource auf dem Server)
+  │              │       └─────────────────────────── Port (oft weggelassen, default 443)
+  │              └─────────────────────────────────── Hostname / Domain
+  └────────────────────────────────────────────────── Protokoll (https, http, ftp, mailto)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Der komplette Weg einer Anfrage</div>
+            <div class="explanation">
+              Du tippst <code>google.com</code> in den Browser und drückst Enter. Im Hintergrund passiert in unter einer Sekunde Folgendes:<br><br>
+              <strong>1. DNS-Auflösung</strong> — Browser fragt: "Welche IP hat google.com?" → bekommt z.B. <code>142.250.74.46</code><br><br>
+              <strong>2. TCP-Verbindung aufbauen</strong> (3-Wege-Handshake)<br>
+              Dein Computer und der Server tauschen erst kurze Pakete aus um zu prüfen ob beide da sind und bereit sind: <code>SYN → SYN-ACK → ACK</code>. Erst danach kann Daten fließen.<br><br>
+              <strong>3. TLS-Handshake</strong> (für HTTPS)<br>
+              Beide Seiten einigen sich auf einen geheimen Schlüssel. Ab jetzt ist alles <strong>verschlüsselt</strong> — niemand zwischen euch (z.B. dein WLAN-Anbieter) kann mitlesen.<br><br>
+              <strong>4. HTTP-Anfrage</strong> — Browser sendet <code>GET / HTTP/1.1</code><br><br>
+              <strong>5. HTTP-Antwort</strong> — Server schickt Status (z.B. <code>200 OK</code>) + HTML zurück<br><br>
+              <strong>6. Browser rendert</strong> — liest HTML, lädt CSS/JS/Bilder nach (jeweils neue HTTP-Anfragen), zeigt die Seite an
+            </div>
+            <div class="code-block" style="margin-top:12px">
+              <div class="code-block-header"><span class="code-lang">HTTP — Anfrage und Antwort im Klartext</span></div>
+              <div class="code-pre"><span class="cm"># Anfrage vom Browser an den Server</span>
+<span class="kw">GET</span> /search?q=python HTTP/1.1
 Host: google.com
 User-Agent: Mozilla/5.0
+Accept: text/html
+Accept-Language: de-DE
 
-<span class="cm">--- Antwort ---</span>
-
+<span class="cm"># Antwort vom Server</span>
 HTTP/1.1 <span class="num">200</span> OK
-Content-Type: text/html
+Content-Type: text/html; charset=UTF-8
+Content-Length: <span class="num">15234</span>
+Set-Cookie: session=abc123; HttpOnly; Secure
+Cache-Control: max-age=300
 
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;...&lt;/html&gt;</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">HTTP-Methoden — was du machen willst</div>
+            <div class="explanation">
+              Bei jeder HTTP-Anfrage sagt der Browser dem Server <em>was</em> er tun soll. Die wichtigsten Verben:<br><br>
+              • <code>GET</code> — etwas <strong>lesen</strong> (eine Webseite öffnen)<br>
+              • <code>POST</code> — etwas <strong>neu erstellen</strong> oder absenden (Formular, Login)<br>
+              • <code>PUT</code> / <code>PATCH</code> — etwas <strong>ändern</strong> (Profil aktualisieren)<br>
+              • <code>DELETE</code> — etwas <strong>löschen</strong><br><br>
+              Mehr dazu in Phase 4 — REST APIs.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">HTTP-Statuscodes — die Antwort des Servers</div>
+            <div class="explanation">
+              Jede HTTP-Antwort startet mit einer dreistelligen Zahl. Die <strong>erste Ziffer</strong> verrät schon viel:<br><br>
+              <strong>1xx</strong> — Info (selten, "warte mal")<br>
+              <strong>2xx</strong> — Erfolg<br>
+              <strong>3xx</strong> — Weiterleitung<br>
+              <strong>4xx</strong> — <em>du</em> (Client) hast einen Fehler gemacht<br>
+              <strong>5xx</strong> — der <em>Server</em> hat einen Fehler<br><br>
+              <strong>Die wichtigsten konkret:</strong><br>
+              • <code>200 OK</code> — alles gut, hier sind die Daten<br>
+              • <code>201 Created</code> — etwas Neues erstellt (POST erfolgreich)<br>
+              • <code>301 Moved Permanently</code> — Adresse hat sich dauerhaft geändert<br>
+              • <code>302 Found</code> — vorübergehende Weiterleitung<br>
+              • <code>400 Bad Request</code> — Anfrage war ungültig<br>
+              • <code>401 Unauthorized</code> — du musst dich erst einloggen<br>
+              • <code>403 Forbidden</code> — du bist eingeloggt, darfst aber nicht hierhin<br>
+              • <code>404 Not Found</code> — die Seite/Ressource existiert nicht<br>
+              • <code>429 Too Many Requests</code> — du hast zu schnell zu oft gefragt<br>
+              • <code>500 Internal Server Error</code> — Server ist abgestürzt<br>
+              • <code>503 Service Unavailable</code> — Server überlastet oder in Wartung
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">HTTPS, TLS & Verschlüsselung</div>
+            <div class="explanation">
+              <strong>HTTP</strong> sendet alles <em>im Klartext</em>. Wer im selben WLAN sitzt (Café, Flughafen) kann dein Passwort mitlesen. Schlecht.<br><br>
+              <strong>HTTPS</strong> ist HTTP <em>mit</em> Verschlüsselung. Das "S" steht für "Secure". Die Verschlüsselung läuft über <strong>TLS</strong> (Transport Layer Security, früher SSL).<br><br>
+              <strong>Was bringt HTTPS dir?</strong><br>
+              • <strong>Vertraulichkeit</strong> — niemand zwischen dir und dem Server kann mitlesen<br>
+              • <strong>Echtheit</strong> — du redest wirklich mit google.com, nicht mit einem Imitator<br>
+              • <strong>Integrität</strong> — niemand kann unterwegs Inhalte verändern<br><br>
+              Ein <strong>Zertifikat</strong> (von einer Certificate Authority wie Let's Encrypt) beweist, dass die Webseite wirklich der Domain gehört. Dein Browser zeigt dann das Schloss-Symbol. Heute hat <em>jede</em> seriöse Webseite HTTPS — und es ist <strong>kostenlos</strong> dank Let's Encrypt.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Das OSI-Schichtenmodell (vereinfacht)</div>
+            <div class="explanation">
+              Netzwerke sind in <strong>Schichten</strong> aufgebaut. Jede Schicht macht ihren Job ohne sich um die anderen zu kümmern. Das ist clever weil du z.B. das WLAN ändern kannst (Schicht 1) ohne dass HTTP (Schicht 7) etwas davon merkt.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Die Schichten von oben nach unten</span></div>
+              <div class="code-pre">7  Anwendung    HTTP, DNS, SMTP, SSH    "was du verschickst"
+6  Darstellung  TLS, Kompression
+5  Sitzung      Verbindungsverwaltung
+4  Transport    TCP, UDP                "in welche Pakete"
+3  Vermittlung  IP, Routing             "wohin"
+2  Sicherung    Ethernet, WLAN-Frames   "auf welchem Kabel"
+1  Bitübertr.   Kupfer, Glasfaser, Funk "physisch"</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Beispiel:</strong> wenn du eine Webseite lädst, reist die Anfrage von oben (HTTP) durch alle Schichten nach unten, durchs Kabel/WLAN, beim Server wieder nach oben — und die Antwort genauso zurück. Du musst dir das nicht alles merken — wichtig ist nur das Konzept der Schichten.
             </div>
           </div>
           ${quiz('q4', 'Was macht ein DNS-Server?', [
