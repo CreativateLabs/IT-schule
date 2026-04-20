@@ -6339,6 +6339,1300 @@ hash = <span class="fn">register</span>(<span class="st">"meinPasswort123"</span
             </div>
           </div>
         `
+      },
+      {
+        id: 'l5_4', title: 'Social Engineering & Phishing',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 4</div>
+            <h1 class="lesson-title">Social Engineering — den Menschen hacken</h1>
+            <p class="lesson-desc">Die beste Firewall der Welt nützt nichts, wenn ein Mitarbeiter auf "Klick hier" in einer Phishing-Mail klickt. Über 90% aller erfolgreichen Angriffe beginnen mit Social Engineering.</p>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist Social Engineering?</div>
+            <div class="explanation">
+              <strong>Social Engineering</strong> ist die Kunst, Menschen zu manipulieren um an Informationen, Zugänge oder Geld zu kommen — <em>ohne</em> technische Lücken auszunutzen. Der Angreifer nutzt Psychologie statt Code.<br><br>
+              Kevin Mitnick, einer der bekanntesten Hacker der Welt, sagte: <em>"Ich konnte immer einen Mitarbeiter dazu bringen, mir das Passwort zu geben. Das ist einfacher als Systeme zu knacken."</em><br><br>
+              <strong>Warum es funktioniert:</strong> Menschen sind hilfsbereit, respektieren Autorität, reagieren auf Zeitdruck, und haben nur begrenzte Aufmerksamkeit. Diese Eigenschaften sind in uns eingebaut — sie abzulegen ist extrem schwer.<br><br>
+              <strong>Bildungs-Hinweis:</strong> wir lernen diese Techniken um sie zu <em>erkennen</em> und <em>zu verhindern</em>. Jeder Einsatz gegen echte Menschen ohne explizite Erlaubnis (z.B. im Rahmen eines beauftragten Pentests) ist <strong>Betrug</strong> — in Deutschland strafbar nach §263 StGB.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die 6 psychologischen Hebel (nach Cialdini)</div>
+            <div class="explanation">
+              Der Psychologe Robert Cialdini identifizierte 6 Einflussprinzipien. Social Engineers nutzen sie gezielt:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Manipulationshebel</span></div>
+              <div class="code-pre">  1. AUTORITÄT      "Hier spricht der Chef/die Bank/das BSI"
+                    → gefälschte Absender, Uniform, Titel
+                    Erkennungsmerkmal: Druck von "oben", ungewöhnliche Anweisungen
+
+  2. DRINGLICHKEIT   "Sie müssen SOFORT handeln, sonst..."
+                    → "Ihr Konto wird in 24h gesperrt", "Jetzt zuschlagen"
+                    Erkennungsmerkmal: künstlich erzeugte Panik
+
+  3. KNAPPHEIT       "Nur noch 3 Plätze verfügbar"
+                    → "exklusive Gelegenheit", "nur heute"
+                    Erkennungsmerkmal: Angst vor Verlust (FOMO)
+
+  4. GEGENSEITIGKEIT "Hier ist ein Geschenk — kleine Bitte..."
+                    → USB-Stick, kostenlose Probe, "Hilfe" bei IT-Problem
+                    Erkennungsmerkmal: unerwartete Großzügigkeit
+
+  5. SOZIALE BEWEIS  "Alle anderen machen's auch"
+                    → gefälschte Bewertungen, "1000 Kollegen haben..."
+                    Erkennungsmerkmal: Mitläufer-Druck
+
+  6. SYMPATHIE       "Wir mögen uns doch — hilfst du mir?"
+                    → Charme, gemeinsame Interessen, Smalltalk vorher
+                    Erkennungsmerkmal: Fremder wird plötzlich "Freund"</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Phishing-Arten — nicht nur Email</div>
+            <div class="explanation">
+              <strong>Phishing</strong> ist die häufigste Form. Aber es hat viele Varianten:<br><br>
+              <strong>Klassisches Phishing (Email)</strong><br>
+              Massenmail an Millionen: "Ihre Amazon-Bestellung", "Ihre Bank..." — geringe Trefferquote, aber riesige Skalierung.<br><br>
+              <strong>Spear Phishing</strong><br>
+              Gezielt auf eine Person. Angreifer kennt Namen, Firma, Kollegen. Email wirkt deutlich glaubwürdiger.<br><br>
+              <strong>Whaling</strong><br>
+              Spear Phishing auf CEOs/CFOs. Ziel: große Überweisungen, Firmengeheimnisse. Beispiel: "CEO-Fraud" — Angreifer gibt sich als CEO aus, bittet Buchhaltung um dringende Überweisung.<br><br>
+              <strong>Smishing</strong> (SMS-Phishing)<br>
+              "Ihr Paket konnte nicht zugestellt werden, klicken Sie: [link]". Oft für Gebühren-Betrug oder Malware-Install.<br><br>
+              <strong>Vishing</strong> (Voice / Telefon)<br>
+              "Hier Microsoft Support, Ihr PC ist infiziert..." — Klassiker. Oft kombiniert mit Remote-Zugriffs-Software.<br><br>
+              <strong>Quishing</strong> (QR-Code)<br>
+              QR-Code auf Parkautomat ausgetauscht → führt zu Phishing-Seite. 2024/25 stark gestiegen.<br><br>
+              <strong>Clone Phishing</strong><br>
+              Echte Email wird kopiert, Links ausgetauscht, erneut verschickt. Opfer erinnert sich an die Original-Email → vertraut der "Folge-Mail".
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Fallbeispiel: Twitter 2020 — Bitcoin-Betrug in 15 Minuten</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> Am 15. Juli 2020 wurden gleichzeitig Konten von <strong>Barack Obama, Elon Musk, Bill Gates, Jeff Bezos, Apple, Uber</strong> und weiteren Ikonen gehackt. Sie alle tweeteten: <em>"Überweise 1 Bitcoin an diese Adresse, ich überweise 2 zurück — nur in den nächsten 30 Minuten!"</em><br><br>
+              <strong>Wie?</strong> Nicht mit Lücke in Twitter-Software. Sondern per <strong>Vishing</strong>: ein 17-jähriger Teenager (Graham Ivan Clark) rief Twitter-Mitarbeiter an, gab sich als IT-Support aus, bat sie in ein gefälschtes Admin-Portal zu loggen. Einer fiel drauf rein. Dadurch bekam der Angreifer Zugriff auf Admin-Tools mit denen man jedes Konto übernehmen kann.<br><br>
+              <strong>Ergebnis:</strong><br>
+              • Über 120.000 $ in Bitcoin eingenommen in 15 Minuten<br>
+              • Twitter musste alle verifizierten Konten vorübergehend sperren<br>
+              • Graham Clark bekam 3 Jahre Jugendstrafe<br>
+              • Twitter-Aktie fiel 4%<br><br>
+              <strong>Lehre:</strong> selbst eines der mächtigsten Tech-Unternehmen der Welt wurde durch einen Telefon-Anruf von einem Teenager kompromittiert. Der schwächste Faktor ist fast immer der Mensch.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Red Flags — wie erkennt man Phishing?</div>
+            <div class="explanation">
+              Trainiere dein Auge für diese Warnsignale — sie treten fast immer gemeinsam auf:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Phishing-Checkliste</span></div>
+              <div class="code-pre">  ⚠ ABSENDER
+    ✗ Email von "service@amaz0n.de" statt "amazon.de" (Zahl statt o!)
+    ✗ Freie Absender-Name täuscht: "Amazon &lt;random@hotmail.com&gt;"
+    → Immer die ECHTE Email-Adresse prüfen, nicht den Anzeigename
+
+  ⚠ DRINGLICHKEIT
+    ✗ "Sie müssen SOFORT..." / "Ihr Konto wird in 24h gesperrt"
+    → Echte Firmen geben dir Zeit
+
+  ⚠ LINKS
+    ✗ Link-Text "amazon.de" → wenn man hovert: weitere Domain
+    ✗ URL-Shortener (bit.ly, t.co) in offiziellen Mails
+    ✗ Seltsame Subdomains: amazon.login-verify.com
+    → Immer hovern und URL lesen. Im Zweifel Domain selbst tippen.
+
+  ⚠ ANHÄNGE
+    ✗ Unerwartete .zip, .exe, .docm, .pdf mit "Rechnung.pdf.exe"
+    ✗ Word/Excel verlangen "Makros aktivieren"
+    → Nie öffnen. Anhänge sind Hauptvektor für Malware.
+
+  ⚠ GENERISCHE ANREDE
+    ✗ "Sehr geehrter Kunde" statt deinem Namen
+    → Banken/Amazon etc. kennen deinen Namen
+
+  ⚠ GRAMMATIK / RECHTSCHREIBUNG
+    ✗ Komische Formulierungen, fehlende Umlaute
+    (Wird seltener — ChatGPT macht Phishing sprachlich besser)
+
+  ⚠ UNGEWÖHNLICHE BITTE
+    ✗ Chef fragt plötzlich per Email nach Gutschein-Codes
+    ✗ "Support" will Fernzugriff auf deinen PC
+    → Im Zweifel persönlich/telefonisch nachfragen (nicht über Link!)</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Beispiel-Phishing-Mail — was stimmt nicht?</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Typische Phishing-Mail</span></div>
+              <div class="code-pre"><span class="cm">Von: PayPal Service &lt;noreply@paypai-security.com&gt;
+An: anna@example.com
+Betreff: Dringende Sicherheitsüberprüfung - Konto wird in 24h gesperrt</span>
+
+Sehr geehrter Kunde,
+
+wir haben ungewöhnliche Aktivität auf Ihrem Konto festgestellt. Zu Ihrer
+Sicherheit wurde Ihr Konto vorübergehend eingeschränkt.
+
+Um Ihr Konto sofort wiederherzustellen, bestätigen Sie bitte Ihre
+Identität hier:
+
+  <span class="st">https://paypal-security.com/verify</span>
+
+Wenn Sie dies nicht innerhalb von 24 Stunden tun, wird Ihr Konto
+permanent gesperrt und Ihr Guthaben eingefroren.
+
+Mit freundlichen Grüßen,
+Das PayPal Sicherheitsteam</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Mindestens 5 Red Flags:</strong><br>
+              1. Absender <code>paypai-security.com</code> (i statt l!) — echt wäre <code>@paypal.com</code><br>
+              2. "Sehr geehrter Kunde" — PayPal kennt deinen Namen<br>
+              3. Künstliche Dringlichkeit ("24 Stunden", "permanent gesperrt")<br>
+              4. Link-Domain <code>paypal-security.com</code> ist NICHT paypal.com (Subdomain-Falle)<br>
+              5. Direkte Aufforderung zum Klick statt "loggen Sie sich in Ihr Konto ein"<br><br>
+              <strong>Richtige Reaktion:</strong> Email löschen. Wenn du dir unsicher bist, tippe paypal.com direkt im Browser ein und prüfe dort.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Weitere Social-Engineering-Techniken</div>
+            <div class="explanation">
+              <strong>Pretexting</strong><br>
+              Der Angreifer erfindet einen glaubwürdigen Vorwand. "Hallo, hier IT-Hotline, ich muss kurz Ihr Passwort zur Prüfung haben..." Funktioniert erstaunlich oft.<br><br>
+              <strong>Baiting (Köder)</strong><br>
+              USB-Stick auf dem Firmen-Parkplatz mit Label "Gehälter 2025". Wer findet, steckt ihn ein — Malware installiert sich. Studien zeigen: bis zu 50% der Sticks werden tatsächlich eingesteckt.<br><br>
+              <strong>Tailgating / Piggybacking</strong><br>
+              Mit Kaffee in der Hand an der Tür warten, jemand hält sie auf — so kommt man in Bürogebäude. "Sorry, Badge vergessen, gehen wir schnell mit".<br><br>
+              <strong>Dumpster Diving</strong><br>
+              Müll durchsuchen. Alte Rechnungen, ausgedruckte Emails, Passwort-Zettel — Goldgrube für den Einstieg.<br><br>
+              <strong>Shoulder Surfing</strong><br>
+              Über die Schulter auf PIN/Bildschirm schauen — im Café, Flughafen, Öffis.<br><br>
+              <strong>Watering Hole</strong><br>
+              Angreifer kompromittiert eine Webseite die seine Ziele häufig besuchen (z.B. Fachforum einer Branche). Wartet bis die Opfer von selbst kommen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Verteidigung als Privatperson</div>
+            <div class="explanation">
+              <strong>Sofort-Regeln:</strong><br>
+              ✓ <strong>Niemals auf Links in unerwarteten Mails klicken</strong> — Domain selbst tippen<br>
+              ✓ <strong>Passwort NIE telefonisch oder per Mail weitergeben</strong> — keine echte Firma fragt danach<br>
+              ✓ <strong>Zeitdruck = Warnsignal</strong> — langsam atmen, nicht reagieren<br>
+              ✓ <strong>Verifizieren über anderen Kanal</strong> — ruft deine Bank an? Leg auf, ruf selbst an unter der Nummer auf der Rückseite deiner Karte<br>
+              ✓ <strong>2FA überall</strong> — selbst wenn sie dein Passwort kriegen<br>
+              ✓ <strong>Passwort-Manager</strong> — lässt dich nur auf der echten Domain einloggen (sieht Phishing-URLs sofort als fremd)<br>
+              ✓ <strong>Email-Anhänge</strong> — im Zweifel in Sandbox (virustotal.com, any.run) prüfen<br>
+              ✓ <strong>Social Media reduzieren</strong> — je weniger öffentliche Daten, desto schwerer gezieltes Spear Phishing<br><br>
+              <strong>Wenn du reingefallen bist:</strong><br>
+              1. <strong>Nicht schämen</strong> — jedem passiert es, CEOs inklusive<br>
+              2. <strong>Sofort Passwort ändern</strong> (auf echter Seite, nicht über Link)<br>
+              3. <strong>2FA prüfen</strong>, alle aktiven Sessions ausloggen<br>
+              4. <strong>Bank/Kreditkarte beobachten</strong>, ggf. sperren<br>
+              5. <strong>Melden:</strong> Phishing bei <code>phishing@bsi.bund.de</code>, echte Betrugsfälle bei der Polizei
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Verteidigung für Firmen / als Entwickler</div>
+            <div class="explanation">
+              <strong>Email-Authentifizierung (technisch):</strong><br>
+              Setze die drei Anti-Phishing-Standards für deine Domain:<br><br>
+              • <strong>SPF</strong> (Sender Policy Framework) — welche Server dürfen Mails in deinem Namen senden<br>
+              • <strong>DKIM</strong> (DomainKeys Identified Mail) — kryptografische Signatur der Mails<br>
+              • <strong>DMARC</strong> (Domain-based Message Authentication) — was tun wenn SPF/DKIM fehlschlagen<br><br>
+              Zusammen verhindern sie dass Angreifer leicht Mails <em>in deinem Namen</em> senden können.<br><br>
+              <strong>Organisatorisch:</strong><br>
+              ✓ <strong>Phishing-Simulationen</strong> — regelmäßig fake-Phishing an eigene Mitarbeiter, wer klickt kriegt Schulung<br>
+              ✓ <strong>Vier-Augen-Prinzip</strong> für Überweisungen — allein Chef-Mail reicht nicht<br>
+              ✓ <strong>Regelmäßige Awareness-Schulungen</strong><br>
+              ✓ <strong>Klare Reporting-Wege</strong> — Mitarbeiter müssen wissen WO sie Verdacht melden<br>
+              ✓ <strong>"Keine Strafe bei Meldung"</strong> — auch wenn schon geklickt<br>
+              ✓ <strong>Physische Sicherheit</strong> — Besuchsregeln, USB-Sticks-Policy, clean-desk<br><br>
+              <strong>Tools:</strong> <code>gophish</code> (Open-Source-Phishing-Simulation für eigene Firma), <code>KnowBe4</code> (kommerziell).
+            </div>
+          </div>
+
+          ${quiz('q_se1', 'Was ist der beste Schutz gegen Phishing?', [
+            {t:'Antivirus-Software', correct:false, why:'Antivirus hilft bei Malware — aber Phishing zielt auf den Menschen, nicht auf technische Lücken.'},
+            {t:'Aufmerksamkeit + Passwort-Manager + 2FA', correct:true, why:'Exakt! Kein einzelnes Tool reicht. Aufmerksamkeit (Red Flags erkennen) + Passwort-Manager (tippt nur auf echter Domain) + 2FA (schützt selbst wenn Passwort geleakt).'},
+            {t:'Keine Emails mehr öffnen', correct:false, why:'Unrealistisch. Man muss lernen bewusst mit Emails umzugehen.'},
+            {t:'Ein komplexes Passwort', correct:false, why:'Hilft nicht — beim Phishing gibst du dein Passwort freiwillig auf einer Fake-Seite ein. Länge/Komplexität egal.'},
+          ])}
+          ${quiz('q_se2', 'Jemand ruft dich an, gibt sich als Microsoft-Support aus und will Fernzugriff auf deinen PC. Was ist das?', [
+            {t:'Normaler Kundenservice', correct:false, why:'Microsoft ruft NIE unaufgefordert an. Niemals.'},
+            {t:'Vishing (Voice Phishing) — sofort auflegen', correct:true, why:'Genau! Klassischer Vishing-Angriff. Auflegen. Keine Software installieren, keine Codes durchgeben. Wenn unsicher: echten Support unter der offiziellen Nummer selbst anrufen.'},
+            {t:'Man sollte zuhören um den Betrüger zu entlarven', correct:false, why:'Gefährlich — jede Sekunde am Telefon gibt dem Angreifer mehr Zeit zu manipulieren. Einfach auflegen.'},
+            {t:'Ein DSGVO-Check', correct:false, why:'Erfunden — so läuft DSGVO nicht ab.'},
+          ])}
+          ${quiz('q_se3', 'Welche Email-Adresse ist MIT HÖCHSTER WAHRSCHEINLICHKEIT Phishing?', [
+            {t:'noreply@amazon.de', correct:false, why:'Das ist die echte Amazon-Domain.'},
+            {t:'service@amaz0n.de (Zahl 0 statt o)', correct:true, why:'Genau! Klassischer Typosquatting-Trick. Immer genau auf die Domain schauen — "paypai" statt "paypal", "micros0ft", "g00gle".'},
+            {t:'info@paypal.com', correct:false, why:'Echte Domain.'},
+            {t:'support@github.com', correct:false, why:'Echte Domain.'},
+          ])}
+          ${quiz('q_se4', 'Was ist "CEO-Fraud"?', [
+            {t:'Ein CEO wird entlassen', correct:false, why:'Hat nichts damit zu tun.'},
+            {t:'Whaling-Angriff: Angreifer gibt sich als CEO aus und bittet Buchhaltung um dringende Überweisung', correct:true, why:'Genau! Nutzt Autorität + Dringlichkeit. Hat viele Firmen Millionen gekostet. Schutz: Vier-Augen-Prinzip und Rückfrage über anderen Kanal bei großen Überweisungen.'},
+            {t:'Ein CEO hackt seine eigene Firma', correct:false, why:'Das wäre Insider-Threat, etwas anderes.'},
+            {t:'Diebstahl eines CEO-Passworts', correct:false, why:'Nein — CEO-Fraud gibt sich NUR als CEO aus, ohne dessen echte Credentials.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">Phishing erkennen & Awareness trainieren</div>
+            <div class="boss-desc">
+              <strong>1.</strong> Google "Phishing Examples 2025" oder schau auf <code>berkeley.edu/phishing/examples</code> — analysiere 5 echte Phishing-Mails und liste pro Mail alle Red Flags auf.<br><br>
+              <strong>2.</strong> Geh durch deinen eigenen Email-Posteingang — findest du verdächtige Mails? Bei echten (nicht simulierten) Phishing-Mails: Melde sie bei <code>phishing@bsi.bund.de</code>.<br><br>
+              <strong>3.</strong> Probiere das Google Phishing Quiz: <code>phishingquiz.withgoogle.com</code> — wie viele erkennst du richtig?<br><br>
+              <strong>4.</strong> Installiere (falls noch nicht) einen Passwort-Manager und stelle dir selbst die Frage: würde er auf einer Phishing-Seite dein echtes Passwort anbieten? (Nein — er prüft die Domain.)<br><br>
+              <strong>5.</strong> Überprüfe deine Haupt-Domain (falls du eine hast) auf <code>mxtoolbox.com/spf.aspx</code> — hast du SPF, DKIM, DMARC konfiguriert?<br><br>
+              <strong>ETHIK-HINWEIS:</strong> Social-Engineering-Techniken gegen echte Menschen ohne deren ausdrückliche Zustimmung sind <strong>Betrug</strong>. Auch "zum Testen bei Freunden" kann strafbar sein. Diese Lektion dient ausschließlich dazu, Angriffe zu ERKENNEN und sich/andere zu SCHÜTZEN.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'l5_5', title: 'Netzwerk-Sicherheit & Kryptographie',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 5</div>
+            <h1 class="lesson-title">Netzwerke abhören & schützen — Krypto-Grundlagen</h1>
+            <p class="lesson-desc">Daten reisen durch viele Hände: dein WLAN, dein Provider, Internet-Backbones. Ohne Verschlüsselung kann jeder unterwegs mitlesen. Hier lernst du wie das technisch funktioniert — und wie man sich schützt.</p>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Warum Verschlüsselung so zentral ist</div>
+            <div class="explanation">
+              Wenn du eine Webseite ohne HTTPS aufrufst, sind <em>alle</em> Inhalte für jeden im selben Netzwerk lesbar:<br><br>
+              • Dein WLAN-Nachbar im Café<br>
+              • Der Café-Betreiber<br>
+              • Dein Internetanbieter<br>
+              • Jeder Router auf dem Weg zum Server<br>
+              • Bei manchen Angriffen: jeder irgendwo im Netz<br><br>
+              Das war bis ca. 2015 normal — heute ist unverschlüsselter HTTP fast verschwunden. HTTPS (= HTTP + TLS) verschlüsselt den Verkehr so, dass nur Client und Server lesen können.<br><br>
+              <strong>Gleichzeitig:</strong> Verschlüsselung ist keine Magie. Schlecht implementiert ist sie wertlos. In dieser Lektion verstehst du das Fundament.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Zwei Arten von Verschlüsselung</div>
+            <div class="explanation">
+              <strong>Symmetrische Verschlüsselung</strong><br>
+              Gleicher Schlüssel zum Verschlüsseln UND Entschlüsseln. Schnell, aber: wie tauscht man den Schlüssel sicher aus?<br><br>
+              • <strong>AES</strong> — der Standard. AES-256 gilt als praktisch unknackbar.<br>
+              • ChaCha20 — Alternative, auf mobilen Geräten oft schneller<br><br>
+              <strong>Asymmetrische Verschlüsselung (Public Key)</strong><br>
+              <em>Zwei</em> Schlüssel: ein öffentlicher (darf jeder haben) und ein privater (nur du). Was mit dem öffentlichen verschlüsselt wird, kann nur der private entschlüsseln — und umgekehrt.<br><br>
+              • <strong>RSA</strong> — Klassiker, gut verstanden, etwas langsamer<br>
+              • <strong>ECC / Elliptic Curve</strong> — moderner, kleinere Schlüssel bei gleicher Sicherheit<br><br>
+              <strong>In der Praxis kombiniert</strong> man beides (Hybrid-Verschlüsselung): Public Key tauscht einen schnellen symmetrischen Key aus. Rest läuft symmetrisch. Genau so macht es TLS.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Vergleich</span></div>
+              <div class="code-pre">                  Symmetrisch (AES)   Asymmetrisch (RSA/ECC)
+  Geschwindigkeit  sehr schnell        1000x langsamer
+  Schlüssel        1 Key (geheim)      2 Keys (1 offen, 1 geheim)
+  Austausch        SCHWIERIG           kein Problem
+  Use Case         große Datenmengen   Schlüsselaustausch, Signaturen
+  Typ. Länge       256 bit             2048-4096 bit (RSA), 256 (ECC)</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">TLS-Handshake — so entsteht eine HTTPS-Verbindung</div>
+            <div class="explanation">
+              Wenn du <code>https://google.com</code> aufrufst, passiert in ~50ms Folgendes:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">TLS 1.3 Handshake (vereinfacht)</span></div>
+              <div class="code-pre">  CLIENT                                SERVER
+  ──────                                ──────
+
+  1. ClientHello
+     "Ich kann TLS 1.3, AES-256,      →
+      ECDHE. Hier ist mein Zufall."
+
+                                          2. ServerHello
+                                       ← "Ich wähle AES-256 und ECDHE.
+                                          Hier mein Zertifikat.
+                                          Hier mein Public Key."
+
+  3. Client prüft Zertifikat
+     ("Ist es von einer Trusted CA?
+      Passt der Name zu google.com?
+      Ist es nicht abgelaufen?")
+
+  4. Beide leiten unabhängig den
+     gleichen Session-Key ab
+     (ECDHE — mathematische Magie)
+     → ab hier symmetrische Verschlüsselung
+
+  5. Verschlüsselte Daten fließen       →
+                                       ←
+
+  Fertig. Selbst wer alles mitschneidet, kann nichts entschlüsseln —
+  der Session-Key wurde nie über die Leitung gesendet.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Forward Secrecy</strong> — durch ECDHE wird der Session-Key für jede neue Verbindung neu ausgewürfelt. Selbst wenn der Server-Private-Key später geklaut wird, kann man alte mitgeschnittene Verbindungen NICHT rückwirkend entschlüsseln. Wichtige Eigenschaft moderner TLS.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Zertifikate & Certificate Authorities</div>
+            <div class="explanation">
+              Woher weiß dein Browser, dass der Server wirklich google.com ist und nicht ein Imitator? Durch <strong>Zertifikate</strong>.<br><br>
+              Ein Zertifikat ist eine signierte Bestätigung: <em>"Diese Domain gehört zu diesem Public Key — bestätigt von Certificate Authority XYZ"</em>. Dein Browser hat eine Liste vertrauenswürdiger CAs vorinstalliert.<br><br>
+              <strong>Wichtige CAs:</strong><br>
+              • <strong>Let's Encrypt</strong> — kostenlos, automatisch, von der Non-Profit-Organisation ISRG betrieben<br>
+              • DigiCert, Sectigo, GlobalSign — kommerziell<br>
+              • Google Trust Services, Amazon Trust Services — für ihre eigenen Dienste<br><br>
+              <strong>Validierungs-Stufen:</strong><br>
+              • <strong>DV</strong> (Domain Validation) — beweist nur: "ich kontrolliere diese Domain". Günstig/gratis.<br>
+              • <strong>OV/EV</strong> (Organization/Extended) — Firma wird verifiziert. Teurer.<br><br>
+              <strong>In der Praxis</strong> nutzt quasi jede Seite heute Let's Encrypt. Mit <code>certbot</code> oder Tools wie Caddy geht das in 5 Minuten.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Man-in-the-Middle (MITM) — zwischen den Leitungen</div>
+            <div class="explanation">
+              Bei einem <strong>MITM-Angriff</strong> sitzt der Angreifer zwischen Client und Server. Alles was sie austauschen läuft über ihn — er kann lesen, manipulieren, oder durchlassen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">MITM-Szenario</span></div>
+              <div class="code-pre">  NORMAL:
+    Client ─────────────→ Server
+
+  MITM:
+    Client ──→ Angreifer ──→ Server
+           ←──           ←──
+
+  Der Angreifer kann:
+    - Alles lesen (wenn unverschlüsselt)
+    - Daten verändern (Inhalte, Überweisungsbeträge, Links)
+    - Falsche Inhalte injizieren (Werbung, Malware)
+    - Verbindung trennen (Denial-of-Service)</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wie kommt der Angreifer da rein?</strong><br>
+              • <strong>Offenes WLAN</strong> — er sitzt auch dort, sniffed Pakete mit<br>
+              • <strong>Evil Twin</strong> — fake-WLAN mit gleichem Namen wie echtes ("Starbucks_Free") öffnen, Leute verbinden sich<br>
+              • <strong>ARP Spoofing</strong> — im lokalen Netz die MAC-Adresse des Routers vortäuschen<br>
+              • <strong>DNS Spoofing</strong> — falsche IP-Adresse für eine Domain ausgeben<br>
+              • <strong>BGP Hijacking</strong> — bei Internetanbieter-Level Routen manipulieren (schon passiert)<br>
+              • <strong>Kompromittierter Router</strong> (z.B. durch Default-Passwort)<br><br>
+              <strong>Gegen alle schützt: TLS/HTTPS.</strong> Weil der Angreifer ohne gültiges Zertifikat für die echte Domain den Handshake nicht erfolgreich durchführen kann — der Browser warnt dann.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Öffentliche WLANs — wie gefährlich ist das wirklich?</div>
+            <div class="explanation">
+              Die alte Warnung "nie öffentliches WLAN nutzen!" ist heute stark übertrieben — weil <strong>die meisten Verbindungen eh TLS nutzen</strong>. Ein Angreifer im Café-WLAN sieht nur dass du "google.com" besucht hast, nicht was du dort machst.<br><br>
+              <strong>Trotzdem gibt es Risiken:</strong><br>
+              • <em>Unverschlüsselte Verbindungen</em> (selten, aber noch existent) — voll lesbar<br>
+              • <em>Captive Portals</em> ("Bitte einloggen") — können Phishing sein<br>
+              • <em>Evil-Twin-Angriffe</em> — du verbindest dich mit einem Fake-AP<br>
+              • <em>DNS-Manipulation</em> — Browser-Warnungen können ignoriert werden<br>
+              • <em>Metadaten</em> — welche Domains du besuchst, wie lange, wie viel Daten<br><br>
+              <strong>Schutz:</strong><br>
+              ✓ Nur HTTPS-Seiten nutzen (und Browser-Warnungen ernst nehmen)<br>
+              ✓ <strong>VPN</strong> aktivieren — verschlüsselt alles bis zum VPN-Server<br>
+              ✓ HTTPS-Only-Mode im Browser aktivieren (Chrome/Firefox haben das)<br>
+              ✓ DNS über HTTPS (DoH) oder TLS (DoT) — versteckt sogar welche Domains du abfragst
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">VPN, Proxy, Tor — was ist der Unterschied?</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Anonymisierung / Sicherheit</span></div>
+              <div class="code-pre">  PROXY        Einfacher Mittelsmann
+               Client → Proxy → Server
+               Proxy sieht alles (falls HTTP). Kein Schutz im lokalen Netz.
+               Use Case: IP verstecken (billig, unsicher)
+
+  VPN          Verschlüsselter Tunnel zum VPN-Server
+               Client ══(verschlüsselt)══ VPN ────→ Server
+               Lokales Netz sieht NUR Tunnel-Verkehr
+               VPN-Anbieter sieht ALLES (daher: vertrauenswürdigen wählen)
+               Use Case: öffentliche WLANs, Geoblocking, Privacy vor ISP
+
+  TOR          Drei-Hop-Relay-Netzwerk
+               Client → Guard → Middle → Exit → Server
+               Jeder Node kennt nur den vor/nach ihm
+               Sehr langsam, aber echte Anonymität
+               Use Case: Whistleblower, Journalisten in Unterdrückungsregimen
+
+  E2E VERSCHLÜSSELUNG (z.B. Signal, WhatsApp)
+               Nachricht ist zwischen SENDER und EMPFÄNGER verschlüsselt
+               Selbst der Server sieht nur Kauderwelsch
+               Use Case: Chats bei denen auch der Anbieter nichts mitlesen soll</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtiger Mythos:</strong> "Ein VPN macht mich anonym." <em>Nein.</em> Ein VPN verschiebt nur das Vertrauen: statt deinem ISP vertraust du dem VPN-Anbieter. Wenn der Logs führt, ist die Anonymität weg. Tor ist echte Anonymität, aber langsam und für Alltag unpraktisch.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Hashes vs. MACs vs. Signaturen — die 3 Integrations-Werkzeuge</div>
+            <div class="explanation">
+              Verschlüsselung schützt Vertraulichkeit. Für <strong>Integrität</strong> (Daten unverändert) gibt's andere Werkzeuge:<br><br>
+              <strong>Hash</strong> (z.B. SHA-256) — Fingerabdruck der Daten. Jeder kann prüfen. Aber: jeder kann auch einen neuen Hash erzeugen — Hash alleine schützt nicht vor aktiver Manipulation.<br><br>
+              <strong>MAC</strong> (Message Authentication Code, z.B. HMAC) — Hash mit geheimem Schlüssel. Nur wer den Schlüssel kennt kann einen gültigen MAC erzeugen. Beide Seiten teilen den Schlüssel.<br><br>
+              <strong>Digitale Signatur</strong> — mit privatem Schlüssel signieren, mit öffentlichem prüfen. Nur der Besitzer des privaten Schlüssels kann signieren, aber <em>jeder</em> kann prüfen. Perfekt für Software-Updates, Emails (GPG), Zertifikate.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Wann was?</span></div>
+              <div class="code-pre">  Datei-Integrität beim Download          → Hash (checksum)
+  API-Anfrage-Integrität (mit Partner)    → HMAC
+  Software-Update-Authentizität           → Signatur
+  Email-Authentizität (selten)            → Signatur (S/MIME, GPG)
+  Git-Commits signieren                   → Signatur (GPG oder SSH)</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Fallbeispiel: Superfish (2014) — als Lenovo seinen eigenen MITM baute</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> Lenovo installierte auf seinen Notebooks eine Software namens <em>Superfish</em> — sie sollte "relevantere Werbung" einblenden. Um das auch in HTTPS-Seiten zu können, machte Superfish etwas Unfassbares: sie installierte ein <strong>eigenes Root-Zertifikat</strong> im Windows-Trust-Store und brach damit die Verschlüsselung zu JEDER Webseite auf.<br><br>
+              <strong>Resultat:</strong> das private Zertifikat war bei allen Geräten GLEICH — und wurde schnell von Sicherheitsforschern extrahiert. Jeder Lenovo-Nutzer im selben WLAN konnte vollständig MITM'd werden und keine Browser-Warnung tauchte auf.<br><br>
+              <strong>Lehre:</strong> Zertifikate sind die Grundlage aller HTTPS-Sicherheit. Wer ein eigenes Root-Cert im System hat, kann alles kaputt machen. Vorsicht bei "unbekannten" Zertifikaten die installiert werden wollen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Wireshark — der Netzwerk-Mikroskop</div>
+            <div class="explanation">
+              <strong>Wireshark</strong> ist DAS Tool zum Mitschneiden und Analysieren von Netzwerkverkehr. Kostenlos, auf allen Betriebssystemen, seit 1998.<br><br>
+              Du startest eine Aufzeichnung, surfst, stoppst — und siehst jedes Paket das dein Computer gesendet/empfangen hat. Perfekt um zu verstehen wie Protokolle tatsächlich aussehen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Lernen mit Wireshark</span></div>
+              <div class="code-pre">  1. Wireshark installieren (wireshark.org)
+  2. Dein WLAN-Interface auswählen, Capture starten
+  3. Filter: "http" oder "tls" oder "dns"
+  4. Eine Seite aufrufen, Capture stoppen
+  5. Pakete aufklicken und zerlegen
+
+  WAS DU SEHEN WIRST:
+  - DNS-Anfragen im Klartext (wenn nicht DoH/DoT)
+  - TLS-Handshake (ClientHello, ServerHello sichtbar)
+  - VERSCHLÜSSELTE Inhalte nach dem Handshake (nicht lesbar)
+  - HTTP-Anfragen (wenn nicht TLS): ALLES lesbar inkl. Cookies/Passwörter
+
+  WICHTIG: Nur auf EIGENEN Netzen / mit Erlaubnis! Fremden Netzwerk-
+  verkehr aufzeichnen kann nach §202b StGB strafbar sein.</div>
+            </div>
+          </div>
+
+          ${quiz('q_net1', 'Was schützt TLS/HTTPS?', [
+            {t:'Nur die Daten, nicht die Metadaten', correct:true, why:'Genau! TLS verschlüsselt den Inhalt (was du sendest, Cookies, Body). Aber welche Domain du besuchst (über SNI + DNS) ist weiterhin sichtbar. DoH/DoT + ESNI können das verbessern.'},
+            {t:'Auch vor Phishing und Malware', correct:false, why:'TLS schützt NUR die Übertragung. Eine Phishing-Seite kann auch HTTPS haben (Schloss-Symbol ≠ vertrauenswürdig).'},
+            {t:'Nichts, es ist nur Werbung', correct:false, why:'TLS ist real und effektiv — das Problem ist nur dass es nicht ALLES schützt.'},
+            {t:'Vor staatlicher Überwachung vollständig', correct:false, why:'Unzureichend — Metadaten sind weiterhin sichtbar, und staatliche Akteure haben oft Zusatzmöglichkeiten.'},
+          ])}
+          ${quiz('q_net2', 'Was ist der Unterschied zwischen symmetrischer und asymmetrischer Verschlüsselung?', [
+            {t:'Symmetrisch ist unsicherer', correct:false, why:'Beide können sicher sein — sie lösen unterschiedliche Probleme.'},
+            {t:'Symmetrisch: 1 geteilter Key. Asymmetrisch: 2 Keys (public + private)', correct:true, why:'Genau! Symmetrisch ist schneller. Asymmetrisch löst das Schlüsselaustausch-Problem. TLS nutzt beide: asymmetrisch für den Austausch, symmetrisch für den Rest.'},
+            {t:'Asymmetrisch benutzt nur 1 Key', correct:false, why:'Umgekehrt — asymmetrisch nutzt ZWEI Keys.'},
+            {t:'Kein echter Unterschied', correct:false, why:'Es gibt große Unterschiede — siehe oben.'},
+          ])}
+          ${quiz('q_net3', 'Macht mich ein VPN anonym?', [
+            {t:'Ja, komplett', correct:false, why:'Nein — ein VPN verschiebt nur das Vertrauen von deinem ISP zum VPN-Anbieter. Der kann alles sehen. Wenn er Logs führt und kooperiert, bist du nicht anonym.'},
+            {t:'Es verbirgt meine IP vor der Webseite und verschlüsselt im lokalen Netz — aber der VPN-Anbieter sieht alles', correct:true, why:'Exakt! Gute Nutzung: in öffentlichen WLANs, vor neugierigem ISP. Für echte Anonymität: Tor. Für tägliche Privacy: vertrauenswürdiger VPN-Anbieter reicht.'},
+            {t:'Ein VPN schützt nicht', correct:false, why:'Doch — er hat echte Schutz-Effekte, aber begrenzt.'},
+            {t:'Nur wenn ich Bitcoin benutze', correct:false, why:'Krypto-Zahlung hat nichts mit VPN-Schutz zu tun.'},
+          ])}
+          ${quiz('q_net4', 'Was ist Forward Secrecy?', [
+            {t:'Eine neue Verschlüsselung die stärker als AES ist', correct:false, why:'Kein neuer Algorithmus — es ist ein Protokoll-Design.'},
+            {t:'Pro Verbindung wird ein neuer Session-Key ausgewürfelt — alter mitgeschnittener Verkehr bleibt sicher selbst bei späterem Key-Leak', correct:true, why:'Genau! Wichtige Eigenschaft moderner TLS (via ECDHE). Selbst wenn der Server-Private-Key Jahre später geklaut wird, kann man alte aufgezeichnete Verbindungen nicht rückwirkend entschlüsseln.'},
+            {t:'Das Weiterleiten von Nachrichten', correct:false, why:'Nein — "Forward" bezieht sich hier auf zeitlich voraus.'},
+            {t:'Eine Art Passwort', correct:false, why:'Erfunden.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">Netzwerke verstehen — lokal & legal</div>
+            <div class="boss-desc">
+              <strong>1.</strong> Installiere <strong>Wireshark</strong>. Starte Capture auf deinem eigenen WLAN-Interface (nicht fremden Netzen!), ruf <code>example.com</code> und <code>https://example.com</code> auf, vergleiche die Aufzeichnungen. Was siehst du bei HTTP vs HTTPS?<br><br>
+              <strong>2.</strong> Rufe im Terminal <code>openssl s_client -connect google.com:443</code> auf — siehst du den Zertifikats-Chain? Finde die Signatur-CA.<br><br>
+              <strong>3.</strong> Nutze <code>nslookup</code> oder <code>dig</code> um die IP von <code>wikipedia.org</code> zu finden. Dann öffne die Verbindung manuell mit <code>curl -v https://wikipedia.org</code> und lies den TLS-Handshake mit.<br><br>
+              <strong>4.</strong> Teste <strong>DNS over HTTPS</strong> in Firefox aktivieren (Einstellungen → Allgemein → Netzwerk) — dann deine Wireshark-Captures nochmal machen. Sind DNS-Anfragen noch sichtbar?<br><br>
+              <strong>5.</strong> Auf <code>testssl.sh</code> ein eigenes HTTPS-Projekt scannen — oder eine Test-Domain wie <code>badssl.com</code>. Welche TLS-Versionen, Cipher Suites?<br><br>
+              <strong>ETHIK-HINWEIS:</strong> mitschneiden ist nur auf Netzen erlaubt die dir gehören (eigenes WLAN). Fremde Netze aufzuzeichnen (auch "nur zum Testen") kann nach §202b StGB strafbar sein ("Abfangen von Daten").
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'l5_6', title: 'Malware verstehen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 6</div>
+            <h1 class="lesson-title">Malware — Viren, Trojaner, Ransomware & Co</h1>
+            <p class="lesson-desc">Malware ist Software die dir schaden will. Um dich und andere zu schützen musst du verstehen wie die verschiedenen Typen funktionieren — und wie moderne Erkennung arbeitet.</p>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist Malware?</div>
+            <div class="explanation">
+              <strong>Malware</strong> (von "malicious software") ist ein Sammelbegriff für jede Software die ohne dein Wissen/Willen Schaden anrichtet oder Daten stiehlt. Manche Malware zerstört, andere spioniert, wieder andere erpresst.<br><br>
+              <strong>Zahlen zur Einordnung (2024/25):</strong><br>
+              • Täglich werden ~500.000 neue Malware-Varianten entdeckt<br>
+              • Ransomware-Schäden weltweit: über 20 Mrd $/Jahr<br>
+              • Die typische Firma hat nach einem Ransomware-Angriff 22 Tage Ausfall<br>
+              • ~60% der KMUs gehen nach einem großen Cyberangriff innerhalb von 6 Monaten in Insolvenz<br><br>
+              <strong>Bildungs-Hinweis:</strong> wir besprechen Malware hier um sie zu <em>erkennen</em>, zu <em>verhindern</em> und zu <em>bekämpfen</em>. Das Entwickeln oder Verbreiten von Malware mit Schädigungsabsicht ist ein schweres Verbrechen (§303a/b StGB, §202c).
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Malware-Typen — nach Funktion</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Die Hauptkategorien</span></div>
+              <div class="code-pre">  VIRUS         Fügt sich an andere Programme an, verbreitet sich
+                wenn diese ausgeführt werden. Braucht "Wirt".
+
+  WURM (Worm)   Verbreitet sich selbstständig übers Netzwerk —
+                kein Wirt nötig. Klassiker: WannaCry, Conficker.
+
+  TROJANER      Tarnt sich als nützliches Programm.
+                "Gratis-PDF-Reader" installiert heimlich Backdoor.
+
+  RANSOMWARE    Verschlüsselt deine Dateien, fordert Lösegeld.
+                Heute das häufigste Geschäftsmodell.
+
+  SPYWARE       Spioniert heimlich: Passwörter, Screenshots, Tastatur.
+                Kommerziell bekannt: Pegasus (NSO Group).
+
+  ADWARE        "Nur" nervige Werbung — aber oft Einstieg für mehr.
+
+  ROOTKIT       Versteckt sich tief im System (Kernel/Bootloader).
+                Extrem schwer zu entfernen.
+
+  BOTNET        Dein PC wird Teil eines Zombie-Netzwerks.
+                Wird für DDoS, Spam, Krypto-Mining "vermietet".
+
+  CRYPTOJACKER  Nutzt deine CPU/GPU um Kryptowährung zu minen —
+                ohne dir was zu geben außer hoher Stromrechnung.
+
+  FILELESS      Lebt nur im RAM, keine Datei auf der Platte.
+                Schwer zu erkennen, überlebt Reboot oft nicht.
+
+  LOGIC BOMB    Schlummert bis zu einem Auslöser (Datum, Aktion),
+                dann aktiviert sie sich. Oft von Insider-Tätern.</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Wie Malware auf deinen Rechner kommt</div>
+            <div class="explanation">
+              <strong>Die häufigsten Vektoren:</strong><br><br>
+              <strong>1. Email-Anhänge</strong> (Phishing)<br>
+              Word-Dokument mit Makros, PDF mit Exploit, ZIP mit Skript. Immer noch Hauptvektor.<br><br>
+              <strong>2. Drive-By-Downloads</strong><br>
+              Du besuchst eine (oft legitime, aber gehackte) Webseite — JavaScript-Exploit installiert Malware ohne Klick.<br><br>
+              <strong>3. Software-Downloads von zweifelhaften Quellen</strong><br>
+              "Kostenlose Vollversion von Photoshop" = meistens Trojaner. Auch "Crack"-Szene: die Tools selbst sind oft Malware.<br><br>
+              <strong>4. Infizierte USB-Sticks</strong><br>
+              Klassischer Baiting-Angriff (siehe Lektion 4).<br><br>
+              <strong>5. Supply-Chain-Angriffe</strong><br>
+              Eine legitime Software wird beim Hersteller kompromittiert. Du installierst brav das Update — und die Malware mit dazu. SolarWinds-Fall 2020.<br><br>
+              <strong>6. Bösartige Browser-Extensions / App-Store-Apps</strong><br>
+              Eine nützliche Extension wird gekauft und mit Malware erweitert.<br><br>
+              <strong>7. Exploit von Schwachstellen im Betriebssystem</strong><br>
+              Updates nicht eingespielt → Worm wie WannaCry verbreitet sich automatisch.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Fallbeispiel: WannaCry (2017)</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> am 12. Mai 2017 begann ein Ransomware-Wurm sich weltweit zu verbreiten. Er nutzte eine Windows-Lücke namens <strong>EternalBlue</strong> — ursprünglich ein geheimes NSA-Werkzeug, Monate zuvor von der Hackergruppe "Shadow Brokers" geleakt.<br><br>
+              <strong>Ausbreitung:</strong> 200.000+ Computer in 150 Ländern in wenigen Stunden. Alles was noch nicht auf Windows gepatcht war und Port 445 offen hatte war angreifbar — ohne dass jemand auf einen Link klicken musste.<br><br>
+              <strong>Dramatische Folgen:</strong><br>
+              • Britischer <em>National Health Service</em> teilweise offline — Operationen abgesagt<br>
+              • Renault musste Fabriken stoppen<br>
+              • Deutsche Bahn: Anzeigetafeln ausgefallen<br>
+              • Telefónica, FedEx, Boeing, Honda betroffen<br>
+              • Geschätzter Schaden: 4 Mrd $<br><br>
+              <strong>Gestoppt durch Zufall:</strong> der Sicherheitsforscher Marcus Hutchins registrierte eine Domain die im Malware-Code vorkam (als "Kill Switch") — was die Ausbreitung abrupt beendete.<br><br>
+              <strong>Zwei Lehren:</strong><br>
+              1. <strong>Patches einspielen</strong> — Microsoft hatte 2 Monate vorher einen Fix veröffentlicht<br>
+              2. <strong>Verantwortliche Offenlegung</strong> — die NSA hatte die Lücke jahrelang für eigene Zwecke genutzt, statt Microsoft zu informieren. Als sie geleakt wurde, zahlte die Welt den Preis.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Ransomware — das dunkle Geschäftsmodell</div>
+            <div class="explanation">
+              Ransomware ist die profitabelste Malware-Art — und hat sich zu einer ganzen Industrie entwickelt.<br><br>
+              <strong>Der typische Angriff:</strong><br>
+              1. Einstieg: Phishing-Mail oder Exploit<br>
+              2. Erkundung: Angreifer schaut sich tagelang bis monatelang im Netzwerk um<br>
+              3. Privilege Escalation: zu Admin-Rechten aufsteigen<br>
+              4. Backups sabotieren: damit du nicht einfach wiederherstellen kannst<br>
+              5. Exfiltration: Daten klauen VOR der Verschlüsselung (<em>double extortion</em>)<br>
+              6. Verschlüsseln: alles wird unlesbar<br>
+              7. Erpressung: "Zahle X Bitcoin oder wir veröffentlichen deine Daten"<br><br>
+              <strong>Ransomware-as-a-Service (RaaS)</strong> — spezialisierte Gruppen entwickeln die Ransomware, "Affiliates" führen die Angriffe durch und teilen den Umsatz. Bekannte Gruppen: <em>LockBit, Conti, BlackCat/ALPHV, REvil, Cl0p</em>.<br><br>
+              <strong>Soll man zahlen?</strong> Offizielle Empfehlung (BSI, FBI): <em>NEIN</em>. Keine Garantie dass du den Schlüssel bekommst, finanziert die nächsten Angriffe, macht dich zum "Opfer das zahlt" → erneut Ziel. Stattdessen: Backups wiederherstellen, Polizei einschalten, forensische Hilfe holen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Wie moderne Erkennung funktioniert</div>
+            <div class="explanation">
+              Klassisches Antivirus sucht nach <strong>Signaturen</strong> — bekannten Byte-Mustern im Code. Das Problem: neue Malware ist nicht bekannt, Angreifer ändern Bytes um Signaturen zu umgehen (<em>Polymorphismus</em>).<br><br>
+              Moderne Security-Tools kombinieren mehrere Ansätze:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Erkennungstechniken</span></div>
+              <div class="code-pre">  SIGNATUR      Hash-Abgleich mit bekannter Malware-DB
+                ✓ Schnell, präzise   ✗ Nur bekannte Malware
+
+  HEURISTIK     Prüft verdächtige Strukturen im Code
+                (z.B. "lädt ausführbaren Code nach")
+
+  VERHALTEN     Beobachtet was ein Programm TUT
+                (Dateien verschlüsseln? Registry manipulieren?)
+                → Fängt auch neue Varianten — False Positives möglich
+
+  SANDBOX       Ausführung in isolierter Umgebung, Verhalten messen
+
+  ML / KI       Trainiertes Modell erkennt Malware-typische Merkmale
+                → Kampf gegen Polymorphismus
+
+  EDR           Endpoint Detection & Response: kontinuierliche
+                Telemetrie + Antwort-Automation
+                → Moderner Nachfolger des klassischen Antivirus
+
+  IOCs          Indicators of Compromise — konkrete Anzeichen:
+                verdächtige IP, Datei-Hash, Domain, Registry-Key</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Verdächtige Datei prüfen — VirusTotal & Sandboxes</div>
+            <div class="explanation">
+              Bevor du eine unbekannte Datei öffnest, kannst du sie online prüfen lassen:<br><br>
+              <strong>VirusTotal</strong> (<code>virustotal.com</code>, kostenlos)<br>
+              Lädst eine Datei hoch (oder Hash, oder URL) — 70+ Antivirus-Engines scannen sie parallel. Zeigt auch Community-Kommentare, Verhaltensanalyse, verwandte Samples.<br><br>
+              <strong>Any.Run</strong> (<code>any.run</code>, teils gratis)<br>
+              Lädt die Datei in einer interaktiven Sandbox-VM aus. Du siehst LIVE was die Malware macht — Netzwerkverbindungen, Dateizugriffe, Registry-Änderungen.<br><br>
+              <strong>Hybrid Analysis</strong> (<code>hybrid-analysis.com</code>, gratis)<br>
+              Ähnlich wie Any.Run, weniger interaktiv, mehr automatische Reports.<br><br>
+              <strong>Wichtig:</strong><br>
+              ⚠ Lade keine <em>sensiblen</em> Firmen-Dateien zu VirusTotal hoch — sie werden mit anderen Sicherheitsfirmen geteilt<br>
+              ⚠ Verdächtige Datei NIE auf deinem Produktiv-Rechner öffnen — nur in Sandbox/VM<br>
+              ⚠ Einige Malware erkennt Sandboxes und verhält sich dort harmlos
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Defensive Security — wie schützt du dich</div>
+            <div class="explanation">
+              <strong>Technisch:</strong><br>
+              ✓ <strong>Updates einspielen</strong> — Betriebssystem, Browser, Apps. 60%+ der Angriffe nutzen gepatchte Lücken<br>
+              ✓ <strong>Modernen Browser + Ad-Blocker</strong> (uBlock Origin) — blockt Drive-By-Exploits und bösartige Werbung<br>
+              ✓ <strong>Gute EDR/Antivirus</strong> — Defender (Windows eingebaut) ist heute völlig ausreichend<br>
+              ✓ <strong>Keine Admin-Rechte im Alltag</strong> — separater Standard-User für normales Arbeiten<br>
+              ✓ <strong>Firewall aktiv</strong> — eingebaut, nicht extra nötig<br>
+              ✓ <strong>Backups 3-2-1</strong>: 3 Kopien, 2 Medien, 1 offline — Ransomware kann Online-Backups auch verschlüsseln<br>
+              ✓ <strong>Keine Makros öffnen</strong> in Office-Dokumenten aus fremden Quellen<br>
+              ✓ <strong>Nur aus App-Stores / offiziellen Quellen installieren</strong><br><br>
+              <strong>Verhalten:</strong><br>
+              ✓ <strong>Phishing-Awareness</strong> (siehe Lektion 4)<br>
+              ✓ <strong>USB-Sticks nicht aufheben</strong> — vor allem keine unbekannten<br>
+              ✓ <strong>Bei Zweifel: nicht öffnen</strong> — auch wenn's der Chef sein soll<br><br>
+              <strong>Für Entwickler/Admins:</strong><br>
+              ✓ <strong>Dependencies scannen</strong> (Dependabot, Snyk, Trivy)<br>
+              ✓ <strong>Container/Images signieren + aus vertrauenswürdigen Registries</strong><br>
+              ✓ <strong>Supply-Chain-Sicherheit</strong> — npm/pip-Pakete kontrollieren, typosquatting-Attacken kennen<br>
+              ✓ <strong>Least Privilege</strong> — Service-Accounts mit minimalen Rechten<br>
+              ✓ <strong>Application Allowlisting</strong> in kritischen Umgebungen
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Was tun wenn du dir Malware eingefangen hast?</div>
+            <div class="explanation">
+              <strong>Sofort (erste 5 Minuten):</strong><br>
+              1. <strong>Netzwerk trennen</strong> — WLAN aus, Kabel ziehen. Verhindert Verbreitung und C2-Kommunikation<br>
+              2. <strong>Gerät NICHT ausschalten</strong> (bei Firmen-Laptops) — Forensiker wollen den RAM analysieren. Zu Hause: ausschalten OK.<br>
+              3. <strong>Keine Credentials eingeben</strong> auf dem befallenen Gerät<br><br>
+              <strong>Danach:</strong><br>
+              4. <strong>Betroffenen Umfang klären</strong> — welche Accounts waren dort eingeloggt?<br>
+              5. <strong>Auf sauberem Gerät</strong> alle Passwörter ändern, 2FA prüfen<br>
+              6. <strong>System plattmachen + neu aufsetzen</strong> — "Ich hab's gelöscht" reicht bei echter Malware oft nicht<br>
+              7. <strong>Aus Backup wiederherstellen</strong> (nicht aus infiziertem Backup!)<br>
+              8. <strong>Bank informieren</strong> falls Finanzdaten involviert<br><br>
+              <strong>Bei Firmen oder schweren Fällen:</strong><br>
+              • <strong>BSI</strong> (Deutschland) hat einen CERT-Bund für Meldungen<br>
+              • <strong>Polizei</strong> (ZAC — Zentrale Ansprechstellen Cybercrime in jedem Bundesland)<br>
+              • <strong>Incident Response Firma</strong> — professionelle Forensik (siehe nächste Lektion)<br>
+              • <strong>DSGVO</strong> — bei Datenverlust Meldepflicht binnen 72 Stunden
+            </div>
+          </div>
+
+          ${quiz('q_mal1', 'Was unterscheidet einen Wurm von einem Virus?', [
+            {t:'Der Wurm ist gefährlicher', correct:false, why:'Nicht per se — beide können harmlos oder katastrophal sein.'},
+            {t:'Der Wurm verbreitet sich selbstständig übers Netzwerk, der Virus braucht einen Wirt den der User ausführt', correct:true, why:'Genau! Würmer wie WannaCry können in Stunden weltweit sein, ohne dass jemand klicken muss. Viren hängen sich an andere Programme an und brauchen deren Ausführung.'},
+            {t:'Viren sind älter als Würmer', correct:false, why:'Beide existieren seit Jahrzehnten — Alter ist kein definierendes Merkmal.'},
+            {t:'Kein echter Unterschied', correct:false, why:'Es gibt einen wichtigen technischen Unterschied.'},
+          ])}
+          ${quiz('q_mal2', 'Sollte man Ransomware-Lösegeld bezahlen?', [
+            {t:'Ja, sofort — das ist der einzige Weg', correct:false, why:'Falsch. Keine Garantie dass du den Schlüssel bekommst, finanziert nächste Angriffe, macht dich zum Wiederholungsziel.'},
+            {t:'Nein — Backups wiederherstellen, Polizei einschalten, Forensik', correct:true, why:'Genau! Offizielle Empfehlung von BSI und FBI. Manche Länder erwägen Zahlungen sogar zu verbieten. Plus: viele Gruppen liefern nach Zahlung nichts.'},
+            {t:'Nur wenn weniger als 1000€ gefordert werden', correct:false, why:'Betrag ist irrelevant — grundsätzlich nicht zahlen.'},
+            {t:'Ja, aber nur in Bitcoin', correct:false, why:'Nein — gar nicht zahlen.'},
+          ])}
+          ${quiz('q_mal3', 'Was ist VirusTotal?', [
+            {t:'Ein Virus', correct:false, why:'Umgekehrt — es ist ein Tool um gegen Viren zu checken.'},
+            {t:'Ein Online-Dienst der Dateien von 70+ Antivirus-Engines gleichzeitig scannen lässt', correct:true, why:'Genau! Gratis, von Google betrieben. Auch Hash- und URL-Scans. Vorsicht: sensible Firmen-Dateien nicht hochladen (werden mit Partnern geteilt).'},
+            {t:'Das bekannteste Antivirus-Programm', correct:false, why:'Nein — VirusTotal ist ein Multi-Engine-Scanner, kein eigenes Antivirus.'},
+            {t:'Ein illegales Tool', correct:false, why:'Komplett legal und empfohlen von Sicherheitsbehörden.'},
+          ])}
+          ${quiz('q_mal4', 'Was ist das Wichtigste gegen Ransomware?', [
+            {t:'Teures Antivirus', correct:false, why:'Hilft, reicht aber nicht — Ransomware entwickelt sich ständig weiter.'},
+            {t:'Offline-Backups (3-2-1-Regel)', correct:true, why:'Genau! Selbst wenn alles verschlüsselt wird: mit Offline-Backup stellst du wieder her und schlägst die Erpressung. Online-Backups werden oft mitverschlüsselt.'},
+            {t:'Niemals Emails öffnen', correct:false, why:'Unrealistisch.'},
+            {t:'Windows verwenden', correct:false, why:'Falsch — Windows ist im Gegenteil ein Hauptziel. Linux/Mac sind nicht immun.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">Malware verstehen — analytisch & defensiv</div>
+            <div class="boss-desc">
+              <strong>1.</strong> Auf <code>virustotal.com</code> eine harmlose Datei hochladen (z.B. eine deiner Text-Dateien), schau wie die Analyse aussieht. Dann recherchiere den Hash einer berüchtigten Malware (Google nach "WannaCry hash SHA256"), such den auf VirusTotal — du siehst Detektionsrate, verwandte Samples, IOCs.<br><br>
+              <strong>2.</strong> Registriere einen <strong>Any.Run</strong>-Account (free), lass eine Demo-Datei laufen, beobachte live was sie macht. Lerne zu lesen was normale vs verdächtige System-Aktivität ist.<br><br>
+              <strong>3.</strong> Schau dir auf YouTube "MalwareTech" oder "John Hammond" an — sie analysieren echte Malware in Sandboxes und erklären Schritt für Schritt.<br><br>
+              <strong>4.</strong> Check deine eigene <strong>Backup-Strategie</strong>:<br>
+              &nbsp;&nbsp;• Gibt's 3 Kopien deiner wichtigen Daten?<br>
+              &nbsp;&nbsp;• Sind sie auf 2 verschiedenen Medien?<br>
+              &nbsp;&nbsp;• Ist mindestens EINE offline (oder air-gapped)?<br><br>
+              <strong>5.</strong> Auf <strong>NoMoreRansom.org</strong> (Polizei-Initiative): wenn du oder jemand den du kennst jemals Ransomware hattet, kann man hier kostenlose Decryptor-Tools für manche Familien finden.<br><br>
+              <strong>ETHIK-HINWEIS:</strong> Malware zu entwickeln, zu verbreiten, oder auch nur an andere weiterzugeben (auch aus "Testmaterial") ist strafbar nach §303a/b StGB und §202c. Diese Lektion ist für Verständnis und Verteidigung.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'l5_7', title: 'OSINT & Reconnaissance',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 7</div>
+            <h1 class="lesson-title">OSINT — was man öffentlich über dich findet</h1>
+            <p class="lesson-desc">Jeder Angriff beginnt mit Aufklärung. Google, LinkedIn, Shodan — die Rohdaten für gezielte Angriffe stehen öffentlich. Zu wissen was über dich findbar ist, ist der erste Schritt zum Schutz.</p>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist OSINT?</div>
+            <div class="explanation">
+              <strong>OSINT</strong> = <em>Open Source Intelligence</em>. Informationen sammeln aus öffentlich zugänglichen Quellen — Webseiten, Social Media, öffentliche Datenbanken, Google.<br><br>
+              <strong>Wer nutzt OSINT?</strong><br>
+              • <em>Pentester/Red Teams</em> — vor einem Angriff das Ziel kartieren<br>
+              • <em>Journalisten</em> — investigative Recherche (bellingcat.com ist legendär dafür)<br>
+              • <em>Strafverfolger</em> — Ermittlungen<br>
+              • <em>Personaler</em> — Bewerber-Screening<br>
+              • <em>Angreifer</em> — Spear-Phishing vorbereiten<br><br>
+              <strong>Warum das für dich wichtig ist:</strong> du willst wissen was Fremde über dich herausfinden können. Erst dann kannst du bewusst entscheiden, was öffentlich bleiben soll.<br><br>
+              <strong>Bildungs-Hinweis:</strong> alle Techniken hier nutzen <em>öffentliche</em> Informationen — nichts davon ist illegal. Trotzdem: systematische Verfolgung Einzelner (Stalking, §238) bleibt strafbar. OSINT über dich selbst = immer OK. OSINT über andere = ethische Abwägung.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Passive vs. aktive Reconnaissance</div>
+            <div class="explanation">
+              <strong>Passive Reconnaissance</strong><br>
+              Das Ziel weiß NIE dass du es untersuchst. Du nutzt nur öffentliche Quellen, touchst das Zielsystem gar nicht.<br>
+              → Google, LinkedIn, archive.org, DNS-Records, WHOIS, Shodan<br><br>
+              <strong>Aktive Reconnaissance</strong><br>
+              Du sendest Pakete direkt an das Ziel — Portscans, Banner-Grabbing, Webseite-Crawling. Das Ziel kann dich in Logs sehen und gegebenenfalls blockieren.<br>
+              → nmap, dirb/ffuf, nikto<br><br>
+              <strong>Wichtig:</strong> passive OSINT ist fast immer legal. Aktive Reconnaissance ohne Erlaubnis kann den Tatbestand des "Computerbetrugs" oder "Ausspähens" erfüllen. Faustregel: <em>was nicht ausgeschrieben öffentlich ist (wie Google-Treffer), darfst du nicht abfragen</em>.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Google Dorks — suchen wie ein Profi</div>
+            <div class="explanation">
+              Mit speziellen Such-Operatoren findet Google Dinge die du nie öffentlich haben wolltest — aber technisch sind.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Google Dorks</span></div>
+              <div class="code-pre">  site:beispiel.de                 alle Seiten dieser Domain
+  site:beispiel.de -site:www       Subdomains außer www
+
+  filetype:pdf site:uni-berlin.de  PDFs auf der Uni-Seite
+  filetype:xls "password"          Excel-Tabellen mit "password"
+  filetype:env                     versehentlich öffentliche .env-Dateien!
+
+  intitle:"index of /"             offen zugängliche Verzeichnisse
+  intitle:"index of" "passwd"      Verzeichnisse mit passwd-Dateien
+
+  inurl:admin                      URLs mit "admin" drin
+  inurl:login.php                  Login-Seiten finden
+
+  intext:"BEGIN RSA PRIVATE KEY"   geleakte Private Keys (gibt's leider)
+
+  "confidential" site:*.gov        vertrauliche Dokumente bei Behörden
+
+  Alles kombinierbar:
+  filetype:sql site:*.com "INSERT INTO users"
+  → exportierte SQL-Dumps mit User-Daten. Ja, echt.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              Die <strong>Google Hacking Database</strong> (<code>exploit-db.com/google-hacking-database</code>) sammelt hunderte solcher Suchen. Such niemals aktiv nach fremden Systemen um sie anzugreifen — aber sie zum <em>Verstehen</em> wie leicht Daten leaken ist augenöffnend.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Shodan — "Google für vernetzte Geräte"</div>
+            <div class="explanation">
+              <strong>Shodan</strong> (<code>shodan.io</code>) scannt kontinuierlich das gesamte öffentliche Internet und erfasst, welche Geräte mit welchen Diensten wo erreichbar sind.<br><br>
+              Du kannst suchen nach:<br>
+              • <em>Offenen Datenbanken</em> (z.B. ungesicherte MongoDBs — gibt's erschreckend viele)<br>
+              • <em>Webcams ohne Passwort</em><br>
+              • <em>Industrieanlagen mit Web-Interface</em> (!)<br>
+              • <em>Druckern, Routern, Smart-TVs</em><br>
+              • <em>Verwundbaren Servern</em> (nach bestimmten Versionen suchen)<br><br>
+              <strong>Berüchtigt:</strong> Shodan hat unzählige öffentliche Ampelsteuerungen, Kraftwerks-Schaltungen und sogar Krankenhaus-MRTs mit Standard-Passwörtern gefunden — weil Admins dachten "das findet doch eh keiner".<br><br>
+              <strong>Für dich zum Lernen:</strong> such nach <code>country:"DE" port:22</code> um zu sehen wie viele SSH-Server in Deutschland offen stehen. <em>Nichts davon anfassen!</em> Nur schauen um zu verstehen wie sichtbar alles ist.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">DNS & WHOIS — Infrastruktur erkunden</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Tools im Terminal</span></div>
+              <div class="code-pre"><span class="cm"># Domain-Besitzer, Anbieter, Technical Contact</span>
+<span class="fn">whois</span> beispiel.de
+
+<span class="cm"># DNS-Records</span>
+<span class="fn">dig</span> beispiel.de ANY
+<span class="fn">dig</span> beispiel.de MX      <span class="cm"># Mail-Server</span>
+<span class="fn">dig</span> beispiel.de TXT     <span class="cm"># oft SPF/DKIM/Verifications</span>
+<span class="fn">dig</span> beispiel.de NS      <span class="cm"># Name-Server</span>
+
+<span class="cm"># Subdomains automatisiert finden</span>
+<span class="fn">amass</span> enum -d beispiel.de
+<span class="fn">subfinder</span> -d beispiel.de
+
+<span class="cm"># Passive subdomain enumeration</span>
+<span class="fn">curl</span> <span class="st">"https://crt.sh/?q=%.beispiel.de&amp;output=json"</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>crt.sh</strong> ist besonders interessant: jedes TLS-Zertifikat wird in "Certificate Transparency Logs" veröffentlicht — dort findest du alle Subdomains die je ein Zertifikat hatten. <em>Versteckte</em> Subdomains wie <code>staging.beispiel.de</code> oder <code>admin.beispiel.de</code> werden so öffentlich auffindbar.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Social Media Intelligence (SOCMINT)</div>
+            <div class="explanation">
+              Die wohl ergiebigste Quelle für gezielte Angriffe. Menschen teilen freiwillig unglaublich viel.<br><br>
+              <strong>LinkedIn</strong> — für Spear-Phishing auf Firmen:<br>
+              • Namen der IT-Abteilung, CEO, Buchhaltung<br>
+              • Welche Technologien benutzt werden ("Skills: Active Directory, VMware")<br>
+              • Neue Mitarbeiter (noch nicht eingearbeitet → leichte Ziele)<br>
+              • Abwesenheit ("Sorry, bin im Urlaub bis...")<br><br>
+              <strong>Instagram/Facebook</strong> — Privatleben:<br>
+              • Geburtsdatum, Haustiere, Geburtsort → typische Sicherheitsfragen<br>
+              • Check-ins → wo du gerade NICHT bist (Einbruchs-Risiko)<br>
+              • Familie, Beziehungen → Spear-Phishing-Material<br><br>
+              <strong>Twitter/X</strong> — öffentliche Äußerungen, Routine, Interessen<br><br>
+              <strong>GitHub</strong> — für Entwickler extrem verräterisch:<br>
+              • Früher-versehentlich-committete Secrets (erhältlich über <code>git log</code> auch nach "Löschen")<br>
+              • Technologie-Stack aus Commits ersichtlich<br>
+              • Interne Email-Adressen in Commits<br>
+              • Coding-Stil → hilft bei Personenzuordnung<br><br>
+              <strong>Plattform-Recherche-Tools:</strong><br>
+              • <strong>Sherlock</strong> — sucht einen Usernamen auf 300+ Plattformen<br>
+              • <strong>Maltego</strong> — grafisches OSINT-Framework<br>
+              • <strong>SpiderFoot</strong> — automatisiert hunderte OSINT-Quellen
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Metadaten in Dateien — was du ungewollt teilst</div>
+            <div class="explanation">
+              Fast jede Datei enthält Metadaten die du nicht siehst — aber jeder auslesen kann.<br><br>
+              <strong>Bilder (EXIF)</strong><br>
+              • GPS-Koordinaten (wo das Foto gemacht wurde)<br>
+              • Kamera/Handy-Modell<br>
+              • Datum/Uhrzeit<br>
+              • Software zur Bearbeitung<br><br>
+              <strong>Office-Dokumente</strong><br>
+              • Autor-Name + Firma<br>
+              • Bearbeitungshistorie<br>
+              • Kommentare und getrackte Änderungen (oft vergessen)<br>
+              • Manchmal gelöschter Text, der noch im XML steckt<br><br>
+              <strong>PDFs</strong><br>
+              • Autor, Erstellungssoftware, Datum<br>
+              • Bei gescannten PDFs: manchmal unsichtbare OCR-Layer<br><br>
+              <strong>Berüchtigt:</strong><br>
+              Viele Doxing-Fälle begannen mit EXIF-GPS-Daten in unschuldig geposteten Fotos. John McAfee wurde 2012 während seiner Flucht in Guatemala geortet weil ein Reporter ein Foto mit EXIF-GPS-Koordinaten auf Twitter postete.<br><br>
+              <strong>Tools zum Auslesen:</strong> <code>exiftool</code> (alle Formate), Windows: Rechtsklick → Eigenschaften → Details.<br><br>
+              <strong>Zum Bereinigen:</strong> <code>exiftool -all= datei.jpg</code>, oder Social-Media-Plattformen strippen EXIF meist automatisch. Aber nicht bei Direkt-Upload zu Blogs oder in Chats.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Dark Web & Leak-Datenbanken</div>
+            <div class="explanation">
+              Daten aus alten Hacks zirkulieren in Foren und auf der Dark-Web-Plattform-Landschaft. Für dich als Privatperson zum Selbst-Check gibt es legale, aggregierte Dienste:<br><br>
+              <strong>Have I Been Pwned</strong> (<code>haveibeenpwned.com</code>)<br>
+              Troy Hunt sammelt öffentliche Leaks und macht sie durchsuchbar. Du gibst deine Email ein — siehst in welchen Breaches sie auftaucht. Auch für Domains (als Admin bestätigen).<br><br>
+              <strong>DeHashed / Intelligence X</strong> — kommerzielle Dienste mit Zugriff auf mehr Leaks. Nur für legitime Zwecke (eigene Accounts, legale Ermittlungen).<br><br>
+              <strong>Firefox Monitor / Google Password Checkup</strong> — eingebaut in Browser, warnen wenn deine gespeicherten Passwörter in Leaks aufgetaucht sind.<br><br>
+              <strong>Was man NIE machen darf:</strong> Leaks anderer nutzen um in ihre Accounts einzudringen. Selbst wenn die Daten "öffentlich" sind — das Einloggen ohne Erlaubnis bleibt §202a StGB.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Deine digitale Angriffsfläche reduzieren</div>
+            <div class="explanation">
+              <strong>Schritt 1 — Bestandsaufnahme</strong><br>
+              Google dich selbst. Bilder-Google dich selbst. Check haveibeenpwned. Such nach deinem Haupt-Usernamen mit Sherlock. Verschaff dir den Schock.<br><br>
+              <strong>Schritt 2 — Account-Hygiene</strong><br>
+              ✓ Accounts die du nicht mehr nutzt → löschen (nicht nur abmelden)<br>
+              ✓ Bei Social Media: auf "privat" stellen, alte Posts durchschauen<br>
+              ✓ Geburtsdatum, Wohnort nicht öffentlich angeben wo nicht nötig<br>
+              ✓ Separate Email für Shops/Newsletter (z.B. über Aliases: SimpleLogin, Apple Hide My Email)<br><br>
+              <strong>Schritt 3 — Metadaten bewusst handhaben</strong><br>
+              ✓ Vor Upload EXIF strippen (oder direkt über Plattformen posten die das automatisch tun)<br>
+              ✓ Bei Office-Docs: "Dokument prüfen" → persönliche Daten entfernen<br><br>
+              <strong>Schritt 4 — Aktive Selbstverteidigung</strong><br>
+              ✓ Google Alerts auf deinen Namen setzen<br>
+              ✓ Regelmäßig haveibeenpwned checken<br>
+              ✓ Bei Bewerbungen: sei dir bewusst, dass Personaler dich googeln<br><br>
+              <strong>Für öffentliche Personen / Journalisten / Aktivisten:</strong><br>
+              ✓ Komplette "digitale Diät" planen — welche Infos sind nötig, welche nicht?<br>
+              ✓ Eigene Domain + eigene Email-Server (Cloudflare Tunnel etc.)<br>
+              ✓ Tor für sensible Recherchen<br>
+              ✓ Sichere Kommunikation (Signal)
+            </div>
+          </div>
+
+          ${quiz('q_osint1', 'Was ist OSINT?', [
+            {t:'Ein Programmier-Framework', correct:false, why:'OSINT ist keine Software — es ist eine Disziplin.'},
+            {t:'Open Source Intelligence — Informationsbeschaffung aus öffentlichen Quellen', correct:true, why:'Genau! Google, LinkedIn, DNS-Records, Shodan, Social Media. Alles was öffentlich zugänglich ist kann zur Aufklärung genutzt werden.'},
+            {t:'Ein Cybersecurity-Zertifikat', correct:false, why:'Gibt zwar Zertifikate im OSINT-Bereich, aber OSINT selbst ist die Disziplin.'},
+            {t:'Ein illegaler Hacker-Tool', correct:false, why:'OSINT nutzt nur öffentliche Daten — grundsätzlich legal (mit Ausnahmen wie Stalking).'},
+          ])}
+          ${quiz('q_osint2', 'Was ist der Unterschied zwischen passiver und aktiver Reconnaissance?', [
+            {t:'Passiv nur nachts, aktiv nur tagsüber', correct:false, why:'Hat nichts mit Zeiten zu tun.'},
+            {t:'Passiv: nur öffentliche Quellen, Ziel merkt nichts. Aktiv: Pakete direkt ans Ziel, Ziel sieht dich in Logs', correct:true, why:'Genau! Passiv ist fast immer legal. Aktiv (Port-Scans, Crawling) ohne Erlaubnis kann rechtlich problematisch sein.'},
+            {t:'Aktiv ist unsicher, passiv sicher', correct:false, why:'Beides sind verschiedene Techniken, keine Sicherheits-Eigenschaften.'},
+            {t:'Beides gleich, nur anderer Name', correct:false, why:'Es gibt einen wichtigen Unterschied.'},
+          ])}
+          ${quiz('q_osint3', 'Was kann man in EXIF-Daten eines Fotos finden?', [
+            {t:'Nur die Dateigröße', correct:false, why:'Dateigröße ist Datei-Metadata, nicht EXIF. EXIF hat viel mehr.'},
+            {t:'GPS-Koordinaten, Kameramodell, Uhrzeit — oft unbewusst mitgeteilt', correct:true, why:'Genau! Viele Kompromittierungen begannen mit EXIF-GPS in harmlos geposteten Fotos. Beim Upload zu Social Media wird EXIF meist gestrippt — aber nicht immer, und nicht bei Direkt-Übertragung.'},
+            {t:'Das Passwort des Besitzers', correct:false, why:'Erfunden — Passwörter sind nicht in EXIF.'},
+            {t:'Den Quellcode der Kamera', correct:false, why:'Erfunden.'},
+          ])}
+          ${quiz('q_osint4', 'Was findet man auf Shodan?', [
+            {t:'Kochrezepte', correct:false, why:'Falscher Service.'},
+            {t:'Öffentlich erreichbare Geräte/Dienste im Internet — Webcams, Drucker, Industrieanlagen, Datenbanken', correct:true, why:'Genau! "Google für vernetzte Geräte". Scannt kontinuierlich Port-Banner. Gut zum Verstehen wie viel ungeschützt online steht — aber NIE auf fremden Systemen eingreifen.'},
+            {t:'Geheime Regierungsdokumente', correct:false, why:'Nein — Shodan indexiert nur öffentlich erreichbare Dienste.'},
+            {t:'Malware-Samples', correct:false, why:'Das wäre VirusTotal / MalwareBazaar, nicht Shodan.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">OSINT über dich selbst — der Spiegel-Test</div>
+            <div class="boss-desc">
+              <strong>1. Google-Self-Search:</strong> such deinen kompletten Namen (in Anführungszeichen) auf Google + Bing + DuckDuckGo. Tab-Bilder auch. Schau was kommt.<br><br>
+              <strong>2. Have-I-Been-Pwned:</strong> prüf deine Email-Adressen. Falls in Leaks: alle betroffenen Passwörter ändern.<br><br>
+              <strong>3. Username-Scan mit Sherlock</strong> (<code>github.com/sherlock-project/sherlock</code>): <code>sherlock deinusername</code> — siehst du auf welchen Plattformen dein Username existiert.<br><br>
+              <strong>4. EXIF-Check</strong>: nimm ein neueres Foto das du online gepostet hast. Lade es mit <code>exiftool foto.jpg</code> aus, oder online auf <code>exif.regex.info/exif.cgi</code>. Was an Metadaten ist drin?<br><br>
+              <strong>5. DNS-Recherche zu deiner eigenen Domain</strong> (falls vorhanden): <code>dig deinedomain.de ANY</code>, <code>crt.sh/?q=deinedomain.de</code> — welche Subdomains sind öffentlich?<br><br>
+              <strong>6. LinkedIn-Bewusstsein</strong>: schau dein Profil aus Sicht eines Spear-Phisher an. Was könnte man daraus für einen gezielten Angriff ableiten?<br><br>
+              <strong>7. Lies einen bellingcat.com-Fall</strong> — sehen wie OSINT-Profis Recherche betreiben. Augenöffnend und absolut legal.<br><br>
+              <strong>ETHIK-HINWEIS:</strong> OSINT über dich selbst ist immer OK. OSINT über fremde Personen kann Stalking (§238 StGB) erfüllen wenn es systematisch wird. Für Journalismus, Security-Recherche, eigenen Schutz: legal. Zum Ausspionieren anderer ohne Grund: kriminell.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'l5_8', title: 'Incident Response & Digitale Forensik',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 8</div>
+            <h1 class="lesson-title">Was tun wenn es passiert ist? — IR & Forensik</h1>
+            <p class="lesson-desc">Nicht "ob", sondern "wann". Jedes Unternehmen wird irgendwann Ziel. Wer vorbereitet ist, begrenzt den Schaden dramatisch. Wer unvorbereitet ist, kämpft um seine Existenz.</p>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die harte Wahrheit</div>
+            <div class="explanation">
+              Die durchschnittliche Dauer bis ein Hack entdeckt wird: <strong>194 Tage</strong> (IBM Cost-of-Data-Breach-Report). Fast 7 Monate, in denen der Angreifer frei in deinem Netz herumlaufen kann.<br><br>
+              Sobald entdeckt, beginnt das Rennen. Jede Stunde früher = weniger Schaden. Genau dafür gibt es <strong>Incident Response (IR)</strong> — ein strukturierter Prozess um Vorfälle zu bearbeiten.<br><br>
+              <strong>Warum du das als Entwickler wissen solltest:</strong><br>
+              • Du bist oft der Erste der merkt dass etwas nicht stimmt<br>
+              • Was du in den ersten Stunden tust (oder nicht tust) entscheidet über Millionenschaden<br>
+              • Ohne IR-Plan reagieren Firmen chaotisch und machen alles schlimmer<br>
+              • Als Entwickler kannst du später in den IR/Security-Bereich wechseln — einer der spannendsten Karrierepfade
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die 6 Phasen von Incident Response (NIST)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Der Ablauf</span></div>
+              <div class="code-pre">  1. PREPARATION         Vor dem Vorfall
+                         Policies, Tools, Team, Kontakte, Backups, Übungen.
+                         Wer macht was? Welche Nummern anrufen?
+
+  2. IDENTIFICATION      Ist das ein echter Vorfall?
+                         Alarm erkennen, Scope einschätzen, priorisieren.
+                         Nicht jeder Alarm ist real — aber jeder wird geprüft.
+
+  3. CONTAINMENT         Eindämmen
+                         Betroffene Systeme isolieren, Ausbreitung stoppen.
+                         Noch nichts reparieren! Forensik-Material bewahren.
+
+  4. ERADICATION         Entfernen
+                         Malware löschen, kompromittierte Accounts schließen,
+                         Ursache beheben (Patch, Config).
+
+  5. RECOVERY            Wiederherstellen
+                         Systeme neu aufsetzen aus sauberen Backups.
+                         Monitoring verstärken, Rückkehr überwachen.
+
+  6. LESSONS LEARNED     Nachbereitung
+                         Was ist passiert? Wie? Was ändern wir?
+                         KEINE Schuldzuweisungen — nur Verbesserungen.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Kritischster Fehler:</strong> direkt nach Entdeckung alles "aufräumen" — <em>bevor</em> forensische Beweise gesichert sind. Dann weiß niemand mehr WIE die Angreifer reinkamen, und sie können über denselben Weg zurückkommen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die ersten 30 Minuten — was du NICHT machen darfst</div>
+            <div class="explanation">
+              <strong>Häufige Anfänger-Fehler die Untersuchungen zerstören:</strong><br><br>
+              ✗ <strong>PC ausschalten</strong> — der RAM-Inhalt ist weg. Malware in RAM (filesless) entwischt. Forensik-Chance verloren.<br><br>
+              ✗ <strong>"Die Dateien mal löschen"</strong> — Beweise sind weg, Reinfektion möglich weil Ursache unbekannt.<br><br>
+              ✗ <strong>Antivirus drüberlaufen lassen</strong> — AV kann aktive Angreifer alarmieren. Beweise werden überschrieben.<br><br>
+              ✗ <strong>Sofort Passwörter ändern von kompromittiertem System aus</strong> — wenn Keylogger aktiv ist, siehst du wie Angreifer die neuen Passwörter übernimmt.<br><br>
+              ✗ <strong>Öffentlich kommunizieren bevor Lage klar ist</strong> — falsche Aussagen zu früh machen es schlimmer.<br><br>
+              ✗ <strong>Alleine handeln</strong> — IR ist Teamarbeit. Chef informieren, ggf. externe Forensiker holen.<br><br>
+              <strong>Richtig:</strong><br>
+              ✓ System vom Netz trennen (Kabel ziehen, WLAN aus) — NICHT ausschalten<br>
+              ✓ Uhrzeit dokumentieren, Screenshots machen<br>
+              ✓ Chef / IR-Team verständigen<br>
+              ✓ Ab jetzt alles aufschreiben — wer, was, wann<br>
+              ✓ Bei echtem Vorfall: Forensik-Profis holen
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Logs — das Gedächtnis des Systems</div>
+            <div class="explanation">
+              Ohne Logs ist Incident Response blind. Du musst im Voraus wissen: was wird geloggt, wo liegt es, wie lange aufbewahrt?
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Wichtige Log-Quellen</span></div>
+              <div class="code-pre">  AUTHENTIFIZIERUNG    Wer hat sich wann eingeloggt? Fehlversuche?
+                       Windows: Event Log (Security, 4624/4625)
+                       Linux: /var/log/auth.log, /var/log/secure
+
+  NETZWERK             Welche Verbindungen gab es?
+                       Firewall-Logs, Router-Logs, VPN-Logs
+                       Wichtig: outgoing auch loggen (Exfiltration!)
+
+  WEB-SERVER           HTTP-Zugriffe, Fehler, User-Agents
+                       access.log, error.log
+
+  APPLICATION          Was tut die App selbst?
+                       Failed logins, privilege changes, admin actions
+
+  ENDPUNKTE            Prozesse, Dateierstellung, Registry
+                       Sysmon (Win), auditd (Linux), EDR-Tools
+
+  DNS                  Welche Domains wurden aufgelöst?
+                       Oft erster Hinweis auf C2-Kommunikation
+
+  CLOUD                AWS CloudTrail, Azure Activity, GCP Audit Logs
+                       Wer hat was in der Cloud gemacht?</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Profi-Setup:</strong> alle Logs zentral sammeln in einem <strong>SIEM</strong> (Security Information and Event Management) — z.B. Splunk, ELK-Stack, Wazuh (Open Source). Damit wird Korrelation über Systeme hinweg möglich.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Forensik-Prinzipien — Chain of Custody</div>
+            <div class="explanation">
+              Wenn der Fall vor Gericht geht (oder nur: du willst später wissen was passiert ist), musst du beweisen dass die Beweise <strong>unverändert</strong> sind und <strong>nachvollziehbar</strong> bearbeitet wurden.<br><br>
+              <strong>Chain of Custody</strong> — "Beweiskette":<br>
+              Wer hatte wann Zugriff auf das Beweismaterial? Lückenlos dokumentiert.<br><br>
+              <strong>Forensik-Grundregeln:</strong><br>
+              ✓ <strong>Niemals auf dem Original arbeiten</strong> — immer einen bitweisen Klon erstellen (<code>dd</code>, FTK Imager)<br>
+              ✓ <strong>Hashes vor und nach jeder Aktion</strong> — SHA-256 beweist: nichts wurde verändert<br>
+              ✓ <strong>Write-Blocker</strong> — Hardware die verhindert dass versehentlich auf die Beweis-Platte geschrieben wird<br>
+              ✓ <strong>Zeitstempel dokumentieren</strong> — Server-Zeit, UTC, genaue Angabe<br>
+              ✓ <strong>Alles loggen</strong> — jedes Kommando das du ausführst<br>
+              ✓ <strong>Zertifizierte Tools</strong> nutzen — FTK, EnCase, Autopsy, Volatility
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Forensik-Disziplinen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Hauptarten</span></div>
+              <div class="code-pre">  DISK FORENSICS       Festplatten analysieren
+                       Gelöschte Dateien wiederherstellen
+                       Timeline erstellen (welche Datei wann)
+                       Tools: Autopsy (OSS), FTK, EnCase
+
+  MEMORY FORENSICS     RAM analysieren (daher: nicht ausschalten!)
+                       Laufende Prozesse, Netzverbindungen, Passwörter
+                       Besonders wichtig für Fileless-Malware
+                       Tool: Volatility (Open Source)
+
+  NETWORK FORENSICS    Netzverkehr analysieren
+                       Packet Captures (.pcap) lesen
+                       Command & Control, Exfiltration finden
+                       Tools: Wireshark, Suricata, Zeek
+
+  MOBILE FORENSICS     Smartphones auslesen
+                       Extrem spezialisiert (iOS-Verschlüsselung!)
+                       Tools: Cellebrite, GrayKey (kommerziell)
+
+  CLOUD FORENSICS      AWS/Azure/GCP untersuchen
+                       CloudTrail, Flow Logs, Snapshots
+
+  MALWARE ANALYSIS     Schadsoftware im Detail zerlegen
+                       Reverse Engineering mit Ghidra, IDA
+                       Dynamic Analysis in Sandboxen</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Fallbeispiel: NotPetya (2017) — 10 Mrd $ Schaden</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> NotPetya sah aus wie Ransomware — war aber <em>Wiper</em> getarnt als solche. Daten wurden verschlüsselt OHNE echten Entschlüsselungs-Mechanismus. Wer zahlte, bekam nichts zurück. Das Ziel war reine Zerstörung.<br><br>
+              <strong>Herkunft:</strong> Zugeschrieben dem russischen Militär-Geheimdienst GRU. Der Einstieg: ein kompromittiertes Update der ukrainischen Buchhaltungssoftware <em>M.E.Doc</em>. Supply-Chain-Angriff.<br><br>
+              <strong>Ausbreitung:</strong> von der Ukraine aus weltweit:<br>
+              • <em>Maersk</em> (Schifffahrt): 4.000 Server + 45.000 PCs offline. Hafenanlagen weltweit still. 300 Mio $ Schaden.<br>
+              • <em>Merck</em> (Pharma): 870 Mio $ Schaden<br>
+              • <em>FedEx</em>: 400 Mio $<br>
+              • <em>Mondelez</em>: 100 Mio $<br>
+              • <em>WPP</em>, <em>Reckitt</em>, <em>Rosneft</em>, <em>Ukrtelecom</em> — alle getroffen<br><br>
+              <strong>Gesamtschaden:</strong> geschätzt 10 Mrd $ — damit einer der teuersten Cyberangriffe der Geschichte.<br><br>
+              <strong>Maersks IR-Story (legendär):</strong> alle Windows-Systeme verschlüsselt. Alle Active-Directory-Server tot. Fast alle Backups auch. ABER: ein AD-Server in Ghana war zum Angriffszeitpunkt offline wegen Stromausfall — wurde zum Rettungsanker. Maersk hat danach komplette IT neu aufgebaut in 10 Tagen.<br><br>
+              <strong>Lehre:</strong> Backups müssen <em>offline</em> sein. IR muss geübt sein. Supply-Chain ist ein echter Angriffsvektor.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Das MITRE ATT&CK Framework</div>
+            <div class="explanation">
+              <strong>MITRE ATT&CK</strong> (Adversarial Tactics, Techniques, and Common Knowledge) ist eine riesige, öffentliche Matrix aller bekannten Angriffstechniken — strukturiert nach Phasen des Angriffs. Der gemeinsame Wortschatz der Security-Branche.<br><br>
+              Die <strong>14 Tactics</strong> (Warum?):<br>
+              Reconnaissance, Resource Development, Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command and Control, Exfiltration, Impact.<br><br>
+              Unter jeder Tactic: dutzende <strong>Techniques</strong> (Wie konkret?).<br><br>
+              <strong>Warum das wichtig ist:</strong><br>
+              • <em>Bei einem Vorfall</em>: du kannst jede Beobachtung einer Technique zuordnen → Muster erkennen<br>
+              • <em>Bei Defense</em>: du kennst die häufigsten Techniken → gezielt abwehren<br>
+              • <em>Threat Intelligence</em>: Reports zitieren ATT&CK-IDs (T1566 = Phishing, T1486 = Data Encrypted for Impact = Ransomware)<br><br>
+              <strong>Schau's dir an:</strong> <code>attack.mitre.org</code> — kostenlos, der Industriestandard.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Rechtliches — Meldepflichten & DSGVO</div>
+            <div class="explanation">
+              In Deutschland/EU bist du bei vielen Vorfällen <strong>gesetzlich verpflichtet zu melden</strong>:<br><br>
+              <strong>DSGVO Art. 33</strong> — Data Breach:<br>
+              Bei einer Verletzung des Schutzes personenbezogener Daten → Meldung an die Datenschutzbehörde binnen <strong>72 Stunden</strong>. Bei hohem Risiko zusätzlich Benachrichtigung der Betroffenen. Bußgelder bei Nichtmeldung: bis 20 Mio € oder 4% Umsatz.<br><br>
+              <strong>NIS2-Richtlinie</strong> (seit 2024):<br>
+              Breite Meldepflichten für "wesentliche und wichtige Einrichtungen" — erweiterter Geltungsbereich als das alte NIS.<br><br>
+              <strong>IT-Sicherheitsgesetz / BSI-Gesetz</strong>:<br>
+              Für KRITIS (Kritische Infrastrukturen wie Energie, Wasser, Finanz, Gesundheit) — Meldepflicht ans BSI.<br><br>
+              <strong>Wem sonst melden?</strong><br>
+              • <strong>BSI</strong> — kostenloses CERT-Bund für Vorfälle<br>
+              • <strong>ZAC</strong> (Zentrale Ansprechstellen Cybercrime) der Polizei — in jedem Bundesland<br>
+              • <strong>Versicherung</strong> — falls Cyber-Versicherung vorhanden (hat oft Vorgaben zur Vorgehensweise)<br>
+              • <strong>Rechtsberatung</strong> — insb. bei DSGVO-Relevanz<br><br>
+              <strong>Praxis-Tipp:</strong> diese Prozesse VOR einem Vorfall klären und in den IR-Plan schreiben. Im Ernstfall hat niemand Zeit "mal zu recherchieren".
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Threat Hunting — proaktiv nach Angreifern suchen</div>
+            <div class="explanation">
+              Klassisches IR ist <em>reaktiv</em>: ein Alarm geht los → wir untersuchen. <strong>Threat Hunting</strong> ist <em>proaktiv</em>: wir suchen aktiv nach Anzeichen dass jemand da ist — auch ohne Alarm.<br><br>
+              <strong>Warum?</strong> Weil Angreifer besser werden im Verstecken. Wer wartet bis ein Alarm kommt, verpasst die raffinierteren Angriffe (APT — Advanced Persistent Threats).<br><br>
+              <strong>Typische Hunting-Hypothesen:</strong><br>
+              • "Wenn ein Angreifer persistent bleiben will, nutzt er Scheduled Tasks — zeig mir alle neu angelegten Tasks der letzten 30 Tage"<br>
+              • "Angreifer exfiltrieren oft nachts — welche Verbindungen aus unserem Netz in der letzten Nacht haben ungewöhnlich viel Daten raus?"<br>
+              • "PowerShell-Skripte die Base64-kodiert sind — das machen seltene legale Tools, häufige Attacker"<br>
+              • "Login von User X aus Land Y — hatten wir nie. Warum jetzt?"<br><br>
+              <strong>Skill-Kombination:</strong> SIEM-Suche + Forensik-Wissen + kreative Hypothesen-Bildung. Einer der intellektuell spannendsten Security-Jobs.
+            </div>
+          </div>
+
+          ${quiz('q_ir1', 'Du merkst dass ein Firmen-Laptop offensichtlich gehackt ist. Was tust du ZUERST?', [
+            {t:'Computer ausschalten', correct:false, why:'FALSCH — dadurch geht der RAM-Inhalt verloren, wo oft wichtige Forensik-Beweise liegen (Fileless-Malware, Passwörter, aktive Prozesse). Lieber: vom Netz trennen aber anlassen.'},
+            {t:'Sofort alle Dateien löschen', correct:false, why:'KATASTROPHAL — damit zerstörst du Beweise und weißt nie wie der Angreifer rein kam. Reinfektion garantiert.'},
+            {t:'Vom Netz trennen (Kabel ziehen, WLAN aus), Chef informieren, NICHT ausschalten, alles dokumentieren', correct:true, why:'Genau! Isolieren verhindert weitere Schäden, RAM bleibt erhalten, Chef/IR-Team übernimmt. Ab jetzt: alles mit Uhrzeit protokollieren.'},
+            {t:'Antivirus drüberlaufen lassen', correct:false, why:'Problematisch — kann aktive Angreifer alarmieren und Beweise zerstören. In Firmenumgebung erst mit IR-Team abstimmen.'},
+          ])}
+          ${quiz('q_ir2', 'Was ist eine "Chain of Custody" in der Forensik?', [
+            {t:'Eine verschlüsselte Kette von Dateien', correct:false, why:'Nein — es ist ein Dokumentations-Konzept.'},
+            {t:'Lückenlose Dokumentation wer wann Zugriff auf Beweismaterial hatte', correct:true, why:'Genau! Wenn der Fall vor Gericht geht, muss beweisbar sein dass Beweise unverändert sind. Jeder Zugriff wird protokolliert, Hashes vor/nach jeder Aktion.'},
+            {t:'Ein Krypto-Algorithmus', correct:false, why:'Nein — forensisches Prinzip, kein Algorithmus.'},
+            {t:'Eine Datenbank-Struktur', correct:false, why:'Unabhängiges Konzept.'},
+          ])}
+          ${quiz('q_ir3', 'Was ist die DSGVO-Meldefrist bei einem Data Breach?', [
+            {t:'24 Stunden', correct:false, why:'Zu kurz — die DSGVO gibt 72 Stunden.'},
+            {t:'72 Stunden ab Kenntnis', correct:true, why:'Genau! DSGVO Art. 33. Meldung an Datenschutzbehörde (in D: je nach Bundesland). Bei hohem Risiko zusätzlich Betroffene informieren. Bußgelder bis 20 Mio € / 4% Umsatz.'},
+            {t:'7 Tage', correct:false, why:'Zu lang. Nach 72h riskierst du erhebliche Bußgelder.'},
+            {t:'30 Tage', correct:false, why:'Viel zu lang.'},
+          ])}
+          ${quiz('q_ir4', 'Was ist MITRE ATT&CK?', [
+            {t:'Ein Antivirus-Programm', correct:false, why:'Nein — es ist ein Wissens-Framework, kein Tool.'},
+            {t:'Öffentliche Matrix aller bekannten Angriffstechniken, strukturiert nach Phasen', correct:true, why:'Genau! Der Industriestandard-Vokabular der Security-Branche. T1566 = Phishing, T1486 = Ransomware-Verschlüsselung. Hilft beim Kategorisieren, Verteidigen, Threat-Intelligence teilen.'},
+            {t:'Ein Cloud-Anbieter', correct:false, why:'Erfunden.'},
+            {t:'Ein Hacker-Kollektiv', correct:false, why:'MITRE ist eine US-Non-Profit-Organisation, kein Hacker-Kollektiv.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="trophy"></i>Abschlussprojekt Phase 5</div>
+            <div class="boss-title">Dein Security-Portfolio</div>
+            <div class="boss-desc">
+              Du hast jetzt die wichtigsten Grundlagen der Cybersecurity. Zeit für Projekte die du öffentlich zeigen kannst — der beste Weg in die Branche.<br><br>
+              <strong>1. Baue einen IR-Plan</strong> für eine fiktive Firma: wer macht was in den ersten 30 Minuten? Welche Tools? Welche Kontakte? 1-2 Seiten reicht.<br><br>
+              <strong>2. OWASP Juice Shop komplett durchspielen</strong> — löse 20+ Challenges, mach Notizen wie du sie gelöst hast. Github-Repo mit Writeups = Lebenslauf-Gold.<br><br>
+              <strong>3. Schreibe einen Blog-Artikel</strong> zu einem Thema aus Phase 5 — z.B. "So funktioniert XSS", "Mein erster CTF", "Bcrypt vs Argon2". Öffentlich veröffentlichen.<br><br>
+              <strong>4. Mach mindestens einen CTF</strong> auf <code>tryhackme.com</code>, <code>picoctf.org</code> oder <code>ctftime.org</code>. Screenshot dir dein Zertifikat/Profil.<br><br>
+              <strong>5. Sicher eine eigene App/Webseite</strong>: Security-Headers, HTTPS, 2FA, bcrypt. Scan mit <code>securityheaders.com</code> und <code>mozilla.observatory</code> — Ziel: A+-Rating.<br><br>
+              <strong>6. Explore deine Karriere</strong>:<br>
+              &nbsp;&nbsp;• Schau Stellenausschreibungen "Junior Pentester" / "Security Engineer" — was wird verlangt?<br>
+              &nbsp;&nbsp;• Starte mit einem Zertifikats-Pfad: TryHackMe Pathways → HackTheBox Academy → OSCP<br>
+              &nbsp;&nbsp;• Trete einer Community bei (r/netsec, DEF CON groups, lokale Chapter von OWASP)<br><br>
+              <strong>ERINNERUNG:</strong> was du hier lernst ist mächtig. Nutze es für Verteidigung, Aufklärung, Forschung mit Erlaubnis. Niemals gegen Systeme auf die du keinen Auftrag/Erlaubnis hast — auch nicht "kurz zum Testen". Die Regel ist einfach, die Konsequenzen wenn du sie brichst sind es nicht.
+            </div>
+          </div>
+        `
       }
     ]
   },
