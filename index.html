@@ -2888,39 +2888,223 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             <p class="lesson-desc">HTML ist kein echtes Programmieren — es ist eine Auszeichnungssprache. Du beschreibst damit die Struktur einer Seite. Jeder Browser versteht sie.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist HTML eigentlich?</div>
+            <div class="explanation">
+              <strong>HTML</strong> steht für <em>HyperText Markup Language</em>. Es ist eine <strong>Auszeichnungssprache</strong>, keine Programmiersprache — du kannst damit nichts berechnen oder Logik schreiben. Du beschreibst nur die <strong>Struktur</strong> einer Seite: "hier ist eine Überschrift, hier ein Absatz, hier ein Bild".<br><br>
+              Stell dir HTML wie das <strong>Skelett</strong> einer Webseite vor. CSS macht es schön (das Aussehen), JavaScript macht es interaktiv (Verhalten). Drei Sprachen, eine Webseite.<br><br>
+              HTML wurde 1991 von Tim Berners-Lee erfunden — derselbe Mann der das ganze Web erfunden hat. Heute (HTML5) sieht jeder Browser dieselben Elemente.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Anatomie eines HTML-Tags</div>
+            <div class="explanation">
+              HTML besteht aus <strong>Tags</strong>. Die meisten Tags haben einen <em>öffnenden</em> und einen <em>schließenden</em> Teil — der Inhalt steht dazwischen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Aufbau</span></div>
+              <div class="code-pre">  &lt;a href="https://google.com"&gt;Klick mich&lt;/a&gt;
+  │  │   │                  │ │         │   │
+  │  │   │                  │ │         │   └── schließender Tag (mit /)
+  │  │   │                  │ │         └────── Inhalt
+  │  │   │                  │ └──────────────── Attribut-Wert
+  │  │   │                  └────────────────── = trennt Name und Wert
+  │  │   └───────────────────────────────────── Attribut-Name
+  │  └───────────────────────────────────────── Tag-Name
+  └──────────────────────────────────────────── öffnender Tag</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Self-Closing Tags</strong> brauchen keinen schließenden Teil — sie haben keinen Inhalt:<br>
+              <code>&lt;img src="logo.png" alt="Logo"&gt;</code><br>
+              <code>&lt;br&gt;</code> (Zeilenumbruch), <code>&lt;hr&gt;</code> (horizontale Linie), <code>&lt;input&gt;</code><br><br>
+              <strong>Verschachtelung:</strong> Tags können andere Tags enthalten — wichtig: in der richtigen Reihenfolge schließen!<br>
+              <code>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Hi&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;</code> ✓<br>
+              <code>&lt;p&gt;&lt;strong&gt;Hi&lt;/p&gt;&lt;/strong&gt;</code> ✗ (Reihenfolge falsch)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Grundstruktur einer HTML-Datei</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">html</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="kw">&lt;!DOCTYPE html&gt;</span>
-<span class="kw">&lt;html</span> <span class="fn">lang</span>=<span class="st">"de"</span><span class="kw">&gt;</span>
+              <div class="code-pre"><span class="kw">&lt;!DOCTYPE html&gt;</span>          <span class="cm">&lt;!-- "Das ist HTML5" --&gt;</span>
+<span class="kw">&lt;html</span> <span class="fn">lang</span>=<span class="st">"de"</span><span class="kw">&gt;</span>            <span class="cm">&lt;!-- Wurzel-Element, Sprache --&gt;</span>
 
 <span class="kw">&lt;head&gt;</span>
-  <span class="cm">&lt;!-- Metadaten — nicht sichtbar --&gt;</span>
+  <span class="cm">&lt;!-- Metadaten — UNSICHTBAR --&gt;</span>
   <span class="kw">&lt;meta</span> <span class="fn">charset</span>=<span class="st">"UTF-8"</span><span class="kw">&gt;</span>
-  <span class="kw">&lt;title&gt;</span>Meine erste Seite<span class="kw">&lt;/title&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"viewport"</span> <span class="fn">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"description"</span> <span class="fn">content</span>=<span class="st">"Mein Portfolio"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;title&gt;</span>Meine Seite<span class="kw">&lt;/title&gt;</span>
+  <span class="kw">&lt;link</span> <span class="fn">rel</span>=<span class="st">"stylesheet"</span> <span class="fn">href</span>=<span class="st">"style.css"</span><span class="kw">&gt;</span>
 <span class="kw">&lt;/head&gt;</span>
 
 <span class="kw">&lt;body&gt;</span>
-  <span class="cm">&lt;!-- Sichtbarer Inhalt --&gt;</span>
-  <span class="kw">&lt;h1&gt;</span>Hallo Welt!<span class="kw">&lt;/h1&gt;</span>
+  <span class="cm">&lt;!-- Alles was der Nutzer SIEHT --&gt;</span>
+  <span class="kw">&lt;h1&gt;</span>Hallo Welt<span class="kw">&lt;/h1&gt;</span>
   <span class="kw">&lt;p&gt;</span>Das ist mein erster Absatz.<span class="kw">&lt;/p&gt;</span>
-  <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"https://google.com"</span><span class="kw">&gt;</span>Link<span class="kw">&lt;/a&gt;</span>
-  <span class="kw">&lt;img</span> <span class="fn">src</span>=<span class="st">"bild.jpg"</span> <span class="fn">alt</span>=<span class="st">"Beschreibung"</span><span class="kw">&gt;</span>
+
+  <span class="kw">&lt;script</span> <span class="fn">src</span>=<span class="st">"main.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
 <span class="kw">&lt;/body&gt;</span>
 
 <span class="kw">&lt;/html&gt;</span></div>
             </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Was machen die wichtigsten Tags im head?</strong><br><br>
+              • <code>&lt;meta charset="UTF-8"&gt;</code> — sagt: nutze UTF-8, damit Umlaute richtig angezeigt werden<br>
+              • <code>&lt;meta name="viewport"&gt;</code> — wichtig für Handys (mehr in Lektion 4)<br>
+              • <code>&lt;meta name="description"&gt;</code> — Text den Google in der Suche anzeigt<br>
+              • <code>&lt;title&gt;</code> — der Text im Browser-Tab<br>
+              • <code>&lt;link rel="stylesheet"&gt;</code> — bindet eine CSS-Datei ein<br>
+              • <code>&lt;script&gt;</code> — bindet JavaScript ein (am Ende des body!)
+            </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Wichtige HTML-Tags</div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Text-Tags — die wichtigsten</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- Überschriften — h1 ist die größte, h6 die kleinste --&gt;</span>
+<span class="kw">&lt;h1&gt;</span>Hauptüberschrift<span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;h2&gt;</span>Unterüberschrift<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;h3&gt;</span>Noch eine Stufe darunter<span class="kw">&lt;/h3&gt;</span>
+
+<span class="cm">&lt;!-- Absätze --&gt;</span>
+<span class="kw">&lt;p&gt;</span>Ein Absatz Text. Browser fügen davor und
+   danach automatisch Abstand ein.<span class="kw">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Inline-Formatierung --&gt;</span>
+<span class="kw">&lt;strong&gt;</span>wichtig<span class="kw">&lt;/strong&gt;</span>      <span class="cm">&lt;!-- fett, semantisch wichtig --&gt;</span>
+<span class="kw">&lt;em&gt;</span>betont<span class="kw">&lt;/em&gt;</span>             <span class="cm">&lt;!-- kursiv, semantisch betont --&gt;</span>
+<span class="kw">&lt;mark&gt;</span>hervorgehoben<span class="kw">&lt;/mark&gt;</span>    <span class="cm">&lt;!-- gelber Marker --&gt;</span>
+<span class="kw">&lt;code&gt;</span>print()<span class="kw">&lt;/code&gt;</span>          <span class="cm">&lt;!-- Code-Schnipsel --&gt;</span>
+<span class="kw">&lt;br&gt;</span>                       <span class="cm">&lt;!-- Zeilenumbruch --&gt;</span>
+<span class="kw">&lt;hr&gt;</span>                       <span class="cm">&lt;!-- horizontale Trennlinie --&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:10px">
+              <strong>Tipp zu h1–h6:</strong> nimm immer nur EIN <code>&lt;h1&gt;</code> pro Seite (das Hauptthema). Die Reihenfolge sollte logisch sein: h1 → h2 → h3 → ... niemals h1 direkt zu h4 springen. Suchmaschinen und Screenreader orientieren sich daran.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Listen, Links & Bilder</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- Ungeordnete Liste (Punkte) --&gt;</span>
+<span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;li&gt;</span>Erstes Element<span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span>Zweites Element<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Geordnete Liste (Nummern) --&gt;</span>
+<span class="kw">&lt;ol&gt;</span>
+  <span class="kw">&lt;li&gt;</span>Erstens<span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span>Zweitens<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ol&gt;</span>
+
+<span class="cm">&lt;!-- Link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"https://google.com"</span><span class="kw">&gt;</span>zu Google<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"about.html"</span><span class="kw">&gt;</span>relativer Link<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"#kontakt"</span><span class="kw">&gt;</span>Sprung zum Anker<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"https://x.com"</span> <span class="fn">target</span>=<span class="st">"_blank"</span><span class="kw">&gt;</span>neuer Tab<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"mailto:hi@x.de"</span><span class="kw">&gt;</span>Email schreiben<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Bild --&gt;
+&lt;!-- alt = Beschreibung für Screenreader und falls Bild fehlt --&gt;</span>
+<span class="kw">&lt;img</span> <span class="fn">src</span>=<span class="st">"logo.png"</span> <span class="fn">alt</span>=<span class="st">"Firmen-Logo"</span> <span class="fn">width</span>=<span class="st">"200"</span><span class="kw">&gt;</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Container — div, span, section</div>
             <div class="explanation">
-              <code>&lt;h1&gt;</code> bis <code>&lt;h6&gt;</code> — Überschriften (h1 = größte)<br><br>
-              <code>&lt;p&gt;</code> — Absatz (paragraph)<br><br>
-              <code>&lt;div&gt;</code> — Container (unsichtbar, für Layout)<br><br>
-              <code>&lt;span&gt;</code> — Inline-Container (für Text innerhalb)<br><br>
-              <code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code> — Listen (ungeordnet / geordnet)<br><br>
-              <code>&lt;button&gt;</code> — Klickbarer Knopf<br><br>
-              <code>&lt;input&gt;</code> — Eingabefeld
+              <strong>Container</strong>-Tags zeigen selbst nichts an — sie gruppieren andere Tags zum Stylen oder Strukturieren.<br><br>
+              <strong>Block vs. Inline</strong> — der wichtigste Unterschied:<br>
+              • <code>&lt;div&gt;</code> ist <strong>block</strong>: nimmt die volle Breite, neue Zeile davor und danach. Für Layouts.<br>
+              • <code>&lt;span&gt;</code> ist <strong>inline</strong>: nimmt nur so viel Platz wie nötig, fließt mit dem Text. Für Wörter mitten im Satz.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- div: rechteckiger Block --&gt;</span>
+<span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="st">"karte"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;h2&gt;</span>Titel<span class="kw">&lt;/h2&gt;</span>
+  <span class="kw">&lt;p&gt;</span>Inhalt<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- span: für Wörter im Text --&gt;</span>
+<span class="kw">&lt;p&gt;</span>Ich liebe <span class="kw">&lt;span</span> <span class="fn">class</span>=<span class="st">"highlight"</span><span class="kw">&gt;</span>Python<span class="kw">&lt;/span&gt;</span>!<span class="kw">&lt;/p&gt;</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Semantisches HTML — Bedeutung statt nur Aussehen</div>
+            <div class="explanation">
+              Du KÖNNTEST alles mit <code>&lt;div&gt;</code> bauen. Solltest du aber nicht. <strong>Semantische Tags</strong> sagen <em>was</em> ein Bereich ist — nicht nur dass er existiert. Das hilft Suchmaschinen, Screenreadern und anderen Entwicklern.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="kw">&lt;header&gt;</span>     <span class="cm">&lt;!-- Kopfbereich (Logo, Navigation) --&gt;</span>
+  <span class="kw">&lt;nav&gt;</span>     <span class="cm">&lt;!-- Navigation --&gt;</span>
+    <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"/"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span>
+  <span class="kw">&lt;/nav&gt;</span>
+<span class="kw">&lt;/header&gt;</span>
+
+<span class="kw">&lt;main&gt;</span>       <span class="cm">&lt;!-- Hauptinhalt der Seite --&gt;</span>
+  <span class="kw">&lt;article&gt;</span>  <span class="cm">&lt;!-- eigenständiger Inhalt (Blogpost) --&gt;</span>
+    <span class="kw">&lt;section&gt;</span>  <span class="cm">&lt;!-- thematischer Abschnitt --&gt;</span>
+      <span class="kw">&lt;h2&gt;</span>Kapitel 1<span class="kw">&lt;/h2&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+  <span class="kw">&lt;/article&gt;</span>
+  <span class="kw">&lt;aside&gt;</span>     <span class="cm">&lt;!-- Nebeninhalt (Sidebar) --&gt;</span>
+<span class="kw">&lt;/main&gt;</span>
+
+<span class="kw">&lt;footer&gt;</span>     <span class="cm">&lt;!-- Fußbereich (Impressum, Kontakt) --&gt;</span>
+<span class="kw">&lt;/footer&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Vergleich:</strong><br>
+              <code>&lt;div class="header"&gt;</code> — sagt nur "Block mit Klasse header"<br>
+              <code>&lt;header&gt;</code> — sagt jedem (Browser, Google, Screenreader): "Das ist der Kopfbereich der Seite"<br><br>
+              Optisch identisch, semantisch riesig — und wichtig für SEO und Barrierefreiheit.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Formulare — Eingaben sammeln</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="kw">&lt;form</span> <span class="fn">action</span>=<span class="st">"/submit"</span> <span class="fn">method</span>=<span class="st">"POST"</span><span class="kw">&gt;</span>
+
+  <span class="cm">&lt;!-- Label macht Klick auf Text → Fokus aufs Feld --&gt;</span>
+  <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"name"</span><span class="kw">&gt;</span>Dein Name:<span class="kw">&lt;/label&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"text"</span> <span class="fn">id</span>=<span class="st">"name"</span> <span class="fn">name</span>=<span class="st">"name"</span> <span class="fn">required</span><span class="kw">&gt;</span>
+
+  <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"email"</span><span class="kw">&gt;</span>Email:<span class="kw">&lt;/label&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"email"</span> <span class="fn">id</span>=<span class="st">"email"</span> <span class="fn">name</span>=<span class="st">"email"</span><span class="kw">&gt;</span>
+
+  <span class="kw">&lt;label</span> <span class="fn">for</span>=<span class="st">"alter"</span><span class="kw">&gt;</span>Alter:<span class="kw">&lt;/label&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"number"</span> <span class="fn">id</span>=<span class="st">"alter"</span> <span class="fn">min</span>=<span class="st">"0"</span> <span class="fn">max</span>=<span class="st">"120"</span><span class="kw">&gt;</span>
+
+  <span class="kw">&lt;label&gt;</span>
+    <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"checkbox"</span> <span class="fn">name</span>=<span class="st">"newsletter"</span><span class="kw">&gt;</span>
+    Newsletter abonnieren
+  <span class="kw">&lt;/label&gt;</span>
+
+  <span class="kw">&lt;textarea</span> <span class="fn">name</span>=<span class="st">"nachricht"</span> <span class="fn">rows</span>=<span class="st">"4"</span><span class="kw">&gt;&lt;/textarea&gt;</span>
+
+  <span class="kw">&lt;select</span> <span class="fn">name</span>=<span class="st">"land"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;option</span> <span class="fn">value</span>=<span class="st">"de"</span><span class="kw">&gt;</span>Deutschland<span class="kw">&lt;/option&gt;</span>
+    <span class="kw">&lt;option</span> <span class="fn">value</span>=<span class="st">"at"</span><span class="kw">&gt;</span>Österreich<span class="kw">&lt;/option&gt;</span>
+  <span class="kw">&lt;/select&gt;</span>
+
+  <span class="kw">&lt;button</span> <span class="fn">type</span>=<span class="st">"submit"</span><span class="kw">&gt;</span>Absenden<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/form&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtige input-Typen:</strong> <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>tel</code>, <code>url</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, <code>file</code>, <code>color</code>, <code>range</code>. Der Browser zeigt für jeden Typ die passende Tastatur (Handy!) und validiert automatisch.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Attribute die du immer brauchst</div>
+            <div class="explanation">
+              <code>id="..."</code> — eindeutiger Bezeichner (nur EIN Element pro Seite mit dieser id)<br><br>
+              <code>class="..."</code> — Klassen-Markierung (mehrere Elemente, mehrere Klassen mit Leerzeichen: <code>class="card big"</code>)<br><br>
+              <code>style="..."</code> — direktes CSS (für schnellen Test, nicht für richtige Projekte)<br><br>
+              <code>title="..."</code> — Tooltip-Text wenn man mit Maus drüberhovert<br><br>
+              <code>data-*="..."</code> — eigene Daten am Element speichern (z.B. <code>data-user-id="42"</code>) — JavaScript kann sie lesen
             </div>
           </div>
           ${quiz('q9', 'Was ist der Unterschied zwischen &lt;head&gt; und &lt;body&gt;?', [
@@ -2929,10 +3113,22 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             {t:'head = Bilder, body = Text', correct:false, why:'Falsch. Bilder UND Text gehören beide in den body.'},
             {t:'head ist für Überschriften', correct:false, why:'Überschriften (h1-h6) kommen in den body, nicht in den head!'},
           ])}
-          <div class="boss-card animate-in" style="animation-delay:0.15s">
+          ${quiz('q9b', 'Welcher Tag ist semantisch korrekt für die Hauptnavigation?', [
+            {t:'&lt;div class="navigation"&gt;', correct:false, why:'Funktioniert optisch — aber sagt niemandem dass es Navigation ist.'},
+            {t:'&lt;nav&gt;', correct:true, why:'Genau! &lt;nav&gt; sagt Browsern, Screenreadern und Suchmaschinen: "Das ist Navigation". Wichtig für Barrierefreiheit und SEO.'},
+            {t:'&lt;header&gt;', correct:false, why:'&lt;header&gt; ist der Kopfbereich. Die Navigation kann darin liegen, ist aber selbst &lt;nav&gt;.'},
+            {t:'&lt;menu&gt;', correct:false, why:'Gibt es zwar, ist aber selten genutzt — der Standard ist &lt;nav&gt;.'},
+          ])}
+          ${quiz('q9c', 'Was ist der Unterschied zwischen "id" und "class"?', [
+            {t:'id ist neuer als class', correct:false, why:'Beide existieren seit den Anfängen von HTML.'},
+            {t:'id muss eindeutig sein (nur 1 pro Seite), class kann mehrfach vorkommen', correct:true, why:'Genau! id = einzigartig (z.B. #header). class = wiederverwendbar (z.B. .button — viele Buttons können diese Klasse haben).'},
+            {t:'class ist für CSS, id für JavaScript', correct:false, why:'Beide funktionieren für CSS UND JavaScript.'},
+            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied bei der Eindeutigkeit.'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.32s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
             <div class="boss-title">Deine erste echte Webseite</div>
-            <div class="boss-desc">Erstelle eine Datei "index.html", öffne sie im Browser (einfach doppelklicken). Baue eine persönliche Über-mich-Seite mit: Überschrift mit deinem Namen, Absatz über dich, eine Liste deiner Hobbys, und einem Link zu einer Webseite die du magst.</div>
+            <div class="boss-desc">Erstelle eine Datei "index.html", öffne sie im Browser (einfach doppelklicken). Baue eine persönliche Über-mich-Seite mit semantischen Tags: <code>&lt;header&gt;</code> mit deinem Namen als h1, <code>&lt;main&gt;</code> mit Absatz und Liste deiner Hobbys, <code>&lt;footer&gt;</code> mit einem Link. Vergiss nicht charset und viewport im head!</div>
           </div>
         `
       },
@@ -2945,36 +3141,345 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             <p class="lesson-desc">HTML ist das Skelett, CSS ist das Aussehen. Mit CSS steuerst du Farben, Schriftarten, Abstände, Layouts — alles was eine Seite schön macht.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">CSS Syntax & Selektoren</div>
+            <div class="card-label">Was ist CSS und wie bindest du es ein?</div>
+            <div class="explanation">
+              <strong>CSS</strong> steht für <em>Cascading Style Sheets</em>. Du sagst dem Browser <em>welche</em> HTML-Elemente <em>wie</em> aussehen sollen.<br><br>
+              Es gibt 3 Wege CSS in HTML einzubinden — der erste ist quasi immer der richtige:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- 1. Externe Datei (BEST PRACTICE) --&gt;</span>
+<span class="kw">&lt;link</span> <span class="fn">rel</span>=<span class="st">"stylesheet"</span> <span class="fn">href</span>=<span class="st">"style.css"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- 2. Im &lt;style&gt;-Tag im head (für kleine Tests) --&gt;</span>
+<span class="kw">&lt;style&gt;</span>
+  h1 { color: red; }
+<span class="kw">&lt;/style&gt;</span>
+
+<span class="cm">&lt;!-- 3. Direkt am Element (NUR im Notfall) --&gt;</span>
+<span class="kw">&lt;p</span> <span class="fn">style</span>=<span class="st">"color: red; font-size: 18px"</span><span class="kw">&gt;</span>Text<span class="kw">&lt;/p&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Warum extern besser ist:</strong> du kannst eine CSS-Datei für 100 Seiten benutzen. Änderst du eine Farbe, ändert sich alles automatisch.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">CSS-Syntax — Aufbau einer Regel</div>
             <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm">/* Element-Selektor */</span>
-<span class="fn">h1</span> {
-  color: <span class="st">#7c6af7</span>;        <span class="cm">/* Schriftfarbe */</span>
+              <div class="code-block-header"><span class="code-lang">Aufbau</span></div>
+              <div class="code-pre">  h1 {
+   ↑ ↑
+   │ └── Anfang des Regelblocks
+   └──── Selektor (welche Elemente?)
+
+    color: blue;
+    │      │     │
+    │      │     └── Semikolon — trennt Eigenschaften
+    │      └──────── Wert
+    └─────────────── Eigenschaft (Property)
+  }</div>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">h1</span> {
+  color: <span class="st">blue</span>;
   font-size: <span class="num">32px</span>;
   font-weight: <span class="num">700</span>;
 }
 
-<span class="cm">/* Klassen-Selektor (. vor dem Namen) */</span>
-<span class="fn">.highlight</span> {
-  background: <span class="st">yellow</span>;
-  padding: <span class="num">4px 8px</span>;
+<span class="cm">/* Mehrere Selektoren — durch Komma getrennt */</span>
+<span class="fn">h1, h2, h3</span> {
+  font-family: sans-serif;
 }
 
-<span class="cm">/* ID-Selektor (# vor dem Namen) */</span>
-<span class="fn">#header</span> {
-  background: <span class="st">#111</span>;
-  color: <span class="st">white</span>;
+<span class="cm">/* Kommentare gehen so */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die wichtigsten Selektoren</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* Element-Selektor — alle Tags dieses Typs */</span>
+<span class="fn">p</span> { color: gray; }
+
+<span class="cm">/* Klassen-Selektor — alle mit class="card" */</span>
+<span class="fn">.card</span> { padding: <span class="num">16px</span>; }
+
+<span class="cm">/* ID-Selektor — das EINE Element mit id="header" */</span>
+<span class="fn">#header</span> { background: black; }
+
+<span class="cm">/* Universal — ALLE Elemente */</span>
+<span class="fn">*</span> { box-sizing: border-box; }
+
+<span class="cm">/* Attribut-Selektor — Inputs vom Typ email */</span>
+<span class="fn">input[type="email"]</span> { border-color: blue; }
+
+<span class="cm">/* Kombinationen */</span>
+<span class="fn">.card h2</span>          <span class="cm">/* h2 IRGENDWO in .card (Nachfahre) */</span>
+<span class="fn">.card &gt; h2</span>        <span class="cm">/* h2 als DIREKTES Kind von .card */</span>
+<span class="fn">.card + p</span>         <span class="cm">/* p direkt NACH .card (Geschwister) */</span>
+<span class="fn">.card.featured</span>    <span class="cm">/* Element mit BEIDEN Klassen */</span>
+
+<span class="cm">/* Pseudo-Klassen — Zustände */</span>
+<span class="fn">a:hover</span>          { color: red; }   <span class="cm">/* Maus drüber */</span>
+<span class="fn">button:disabled</span>  { opacity: <span class="num">0.5</span>; }
+<span class="fn">input:focus</span>      { border-color: blue; }
+<span class="fn">li:first-child</span>   { font-weight: bold; }
+<span class="fn">li:last-child</span>    { border: none; }
+<span class="fn">li:nth-child(odd)</span> { background: <span class="st">#f5f5f5</span>; }</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Spezifität — wer gewinnt bei Konflikten?</div>
+            <div class="explanation">
+              Wenn zwei Regeln auf dasselbe Element zielen, "gewinnt" die <strong>spezifischere</strong>. Faustregel von schwach zu stark:<br><br>
+              <strong>Element</strong> < <strong>Klasse</strong> < <strong>ID</strong> < <strong>inline style</strong> < <strong>!important</strong>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">p</span>           { color: blue; }     <span class="cm">/* Spezifität: 1 */</span>
+<span class="fn">.text</span>       { color: green; }    <span class="cm">/* Spezifität: 10 */</span>
+<span class="fn">#main</span>       { color: red; }      <span class="cm">/* Spezifität: 100 */</span>
+<span class="fn">p.text</span>      { color: orange; }   <span class="cm">/* Spezifität: 11 */</span>
+
+<span class="cm">/* &lt;p class="text" id="main"&gt;...&lt;/p&gt; → wird ROT (id gewinnt) */</span>
+
+<span class="cm">/* !important überschreibt alles — NUR im Notfall verwenden! */</span>
+<span class="fn">.warnung</span> { color: red <span class="kw">!important</span>; }</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Profi-Tipp:</strong> wenn du oft <code>!important</code> brauchst, ist dein CSS schlecht strukturiert. Lieber die Spezifität bewusst gestalten als sie zu erzwingen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Das Box-Modell — die Grundlage von Layout</div>
+            <div class="explanation">
+              <strong>Jedes</strong> HTML-Element ist eine Box. Diese Box hat 4 Schichten — von innen nach außen:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Box-Modell</span></div>
+              <div class="code-pre">  ┌──────────────────────────────┐  ← margin (Außenabstand)
+  │   ┌──────────────────────┐   │
+  │   │  border (Rahmen)     │   │
+  │   │  ┌────────────────┐  │   │
+  │   │  │  padding       │  │   │
+  │   │  │  ┌──────────┐  │  │   │
+  │   │  │  │ Inhalt   │  │  │   │
+  │   │  │  │ (content)│  │  │   │
+  │   │  │  └──────────┘  │  │   │
+  │   │  └────────────────┘  │   │
+  │   └──────────────────────┘   │
+  └──────────────────────────────┘</div>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.box</span> {
+  width: <span class="num">300px</span>;
+  height: <span class="num">200px</span>;
+
+  padding: <span class="num">20px</span>;          <span class="cm">/* Innenabstand (alle Seiten) */</span>
+  padding: <span class="num">10px 20px</span>;     <span class="cm">/* oben/unten 10, links/rechts 20 */</span>
+  padding-top: <span class="num">5px</span>;       <span class="cm">/* einzelne Seite */</span>
+
+  border: <span class="num">2px</span> solid <span class="st">#ccc</span>;
+  border-radius: <span class="num">8px</span>;     <span class="cm">/* abgerundete Ecken */</span>
+
+  margin: <span class="num">16px</span>;           <span class="cm">/* Außenabstand */</span>
+  margin: <span class="num">0 auto</span>;         <span class="cm">/* horizontal zentrieren */</span>
+}</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtig:</strong> standardmäßig wird <code>padding</code> und <code>border</code> zur <code>width</code> ADDIERT. <code>width: 300px + padding: 20px</code> = 340px tatsächlich. Lösung — die wichtigste CSS-Zeile überhaupt:
+            </div>
+            <div class="code-block" style="margin-top:8px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">*</span> {
+  box-sizing: <span class="st">border-box</span>;   <span class="cm">/* width INKLUDIERT padding+border */</span>
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Farben — alle Wege</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* Namen — gibt ~140 vordefinierte */</span>
+color: <span class="st">red</span>;
+color: <span class="st">cornflowerblue</span>;
+color: <span class="st">tomato</span>;
+
+<span class="cm">/* Hex — am häufigsten */</span>
+color: <span class="st">#7c6af7</span>;            <span class="cm">/* RRGGBB */</span>
+color: <span class="st">#7c6</span>;               <span class="cm">/* Kurzform = #77cc66 */</span>
+color: <span class="st">#7c6af780</span>;          <span class="cm">/* mit Alpha (80 = 50% opak) */</span>
+
+<span class="cm">/* RGB — direkt mit Zahlen 0-255 */</span>
+color: <span class="fn">rgb</span>(<span class="num">124</span>, <span class="num">106</span>, <span class="num">247</span>);
+color: <span class="fn">rgba</span>(<span class="num">124</span>, <span class="num">106</span>, <span class="num">247</span>, <span class="num">0.5</span>);   <span class="cm">/* mit Transparenz */</span>
+
+<span class="cm">/* HSL — Farbton, Sättigung, Helligkeit (am intuitivsten) */</span>
+color: <span class="fn">hsl</span>(<span class="num">250</span>, <span class="num">85%</span>, <span class="num">70%</span>);
+
+<span class="cm">/* Spezialwerte */</span>
+color: <span class="st">transparent</span>;
+color: <span class="st">currentColor</span>;        <span class="cm">/* erbt von color der Eltern */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Größen-Einheiten — px, em, rem, %, vw/vh</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* px — feste Pixel — am intuitivsten */</span>
+font-size: <span class="num">16px</span>;
+border: <span class="num">1px</span> solid black;
+
+<span class="cm">/* % — Prozent vom Eltern-Element */</span>
+width: <span class="num">50%</span>;
+
+<span class="cm">/* em — vielfaches der ELTERN-Schriftgröße */</span>
+padding: <span class="num">1.5em</span>;          <span class="cm">/* 1.5× die Schrift des Eltern */</span>
+
+<span class="cm">/* rem — vielfaches der WURZEL-Schriftgröße (html-Tag)
+   ✓ vorhersehbar, ✓ gut für Responsive — DEFAULT EMPFEHLUNG */</span>
+font-size: <span class="num">1.25rem</span>;      <span class="cm">/* 20px wenn Wurzel = 16 */</span>
+
+<span class="cm">/* vw / vh — Prozent vom Bildschirm (viewport) */</span>
+height: <span class="num">100vh</span>;           <span class="cm">/* volle Bildschirmhöhe */</span>
+width: <span class="num">50vw</span>;             <span class="cm">/* halbe Bildschirmbreite */</span>
+
+<span class="cm">/* min/max */</span>
+width: <span class="fn">min</span>(<span class="num">800px</span>, <span class="num">100%</span>);  <span class="cm">/* je nachdem was kleiner ist */</span>
+font-size: <span class="fn">clamp</span>(<span class="num">14px</span>, <span class="num">2vw</span>, <span class="num">24px</span>);  <span class="cm">/* min, ideal, max */</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Faustregel:</strong> <code>rem</code> für Schriftgrößen und Abstände, <code>px</code> für Borders, <code>%</code> oder <code>vh/vw</code> für Layout.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Typografie — Schrift gestalten</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">body</span> {
+  font-family: <span class="st">'Inter'</span>, <span class="st">Helvetica</span>, sans-serif;
+  <span class="cm">/* Browser nimmt die erste verfügbare Schrift.
+     sans-serif = Fallback wenn keine geht */</span>
+
+  font-size: <span class="num">16px</span>;
+  font-weight: <span class="num">400</span>;       <span class="cm">/* 100=dünn ... 700=fett ... 900=dick */</span>
+  font-style: <span class="st">italic</span>;
+  line-height: <span class="num">1.6</span>;       <span class="cm">/* Zeilenabstand — ohne Einheit am besten */</span>
+
+  text-align: <span class="st">center</span>;     <span class="cm">/* left | right | center | justify */</span>
+  text-transform: <span class="st">uppercase</span>;
+  text-decoration: <span class="st">underline</span>;
+  letter-spacing: <span class="num">0.05em</span>;
 }
 
-<span class="cm">/* Box-Modell */</span>
-<span class="fn">.box</span> {
-  width: <span class="num">200px</span>;
-  height: <span class="num">100px</span>;
-  padding: <span class="num">16px</span>;     <span class="cm">/* Innenabstand */</span>
-  margin: <span class="num">24px</span>;      <span class="cm">/* Außenabstand */</span>
-  border: <span class="num">1px</span> solid <span class="st">#ccc</span>;
-  border-radius: <span class="num">8px</span>;
+<span class="cm">/* Google Fonts einbinden (im &lt;head&gt;) */</span>
+<span class="cm">/* &lt;link href="https://fonts.googleapis.com/css2?family=Inter" rel="stylesheet"&gt; */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Hintergründe & Schatten</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.hero</span> {
+  <span class="cm">/* Einfache Hintergrundfarbe */</span>
+  background: <span class="st">#7c6af7</span>;
+
+  <span class="cm">/* Hintergrundbild */</span>
+  background-image: <span class="fn">url</span>(<span class="st">"hero.jpg"</span>);
+  background-size: <span class="st">cover</span>;        <span class="cm">/* füllt den Bereich, evtl. abgeschnitten */</span>
+  background-position: <span class="st">center</span>;
+  background-repeat: <span class="st">no-repeat</span>;
+
+  <span class="cm">/* Linearer Verlauf */</span>
+  background: <span class="fn">linear-gradient</span>(<span class="num">135deg</span>, <span class="st">#7c6af7</span>, <span class="st">#a599f9</span>);
+}
+
+<span class="fn">.karte</span> {
+  <span class="cm">/* Schatten: x-offset y-offset blur ausbreitung farbe */</span>
+  box-shadow: <span class="num">0 4px 12px</span> <span class="fn">rgba</span>(<span class="num">0</span>,<span class="num">0</span>,<span class="num">0</span>,<span class="num">0.1</span>);
+}
+
+<span class="fn">.text</span> {
+  text-shadow: <span class="num">1px 1px 2px</span> <span class="fn">rgba</span>(<span class="num">0</span>,<span class="num">0</span>,<span class="num">0</span>,<span class="num">0.3</span>);
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Display & Position — wie Elemente angeordnet werden</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* display — Block- oder Inline-Verhalten */</span>
+display: <span class="st">block</span>;          <span class="cm">/* eigene Zeile, volle Breite (div) */</span>
+display: <span class="st">inline</span>;         <span class="cm">/* fließt im Text (span) */</span>
+display: <span class="st">inline-block</span>;   <span class="cm">/* inline aber width/height geht */</span>
+display: <span class="st">none</span>;           <span class="cm">/* komplett unsichtbar (kein Platz) */</span>
+display: <span class="st">flex</span>;           <span class="cm">/* siehe Lektion 3 */</span>
+display: <span class="st">grid</span>;           <span class="cm">/* siehe Lektion 3 */</span>
+
+<span class="cm">/* Sichtbarkeit */</span>
+visibility: <span class="st">hidden</span>;       <span class="cm">/* unsichtbar aber Platz bleibt */</span>
+opacity: <span class="num">0.5</span>;             <span class="cm">/* 0=unsichtbar, 1=normal */</span>
+
+<span class="cm">/* Position */</span>
+position: <span class="st">static</span>;         <span class="cm">/* Default — folgt dem Fluss */</span>
+position: <span class="st">relative</span>;       <span class="cm">/* + top/left verschiebt vom Fluss-Ort */</span>
+position: <span class="st">absolute</span>;       <span class="cm">/* aus dem Fluss raus, relativ zum nächsten relative-Eltern */</span>
+position: <span class="st">fixed</span>;          <span class="cm">/* fix am Browser-Fenster (z.B. Header) */</span>
+position: <span class="st">sticky</span>;         <span class="cm">/* normal bis Scroll-Position erreicht, dann fix */</span>
+
+top: <span class="num">0</span>; left: <span class="num">0</span>;          <span class="cm">/* Position bei relative/absolute/fixed */</span>
+z-index: <span class="num">100</span>;             <span class="cm">/* Stapel-Reihenfolge (höher = vorn) */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.34s">
+            <div class="card-label">Übergänge & Transformationen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.knopf</span> {
+  background: <span class="st">#7c6af7</span>;
+  transition: <span class="st">all</span> <span class="num">0.2s</span> <span class="st">ease</span>;
+  <span class="cm">/* Animiere ALLE Eigenschaften, 0.2s, sanft */</span>
+}
+
+<span class="fn">.knopf:hover</span> {
+  background: <span class="st">#a599f9</span>;
+  transform: <span class="fn">scale</span>(<span class="num">1.05</span>);   <span class="cm">/* 5% größer */</span>
+  box-shadow: <span class="num">0 8px 16px</span> <span class="fn">rgba</span>(<span class="num">124</span>,<span class="num">106</span>,<span class="num">247</span>,<span class="num">0.4</span>);
+}
+
+<span class="cm">/* transform — verschiebt/dreht/skaliert (sehr performant) */</span>
+transform: <span class="fn">translateX</span>(<span class="num">10px</span>);
+transform: <span class="fn">rotate</span>(<span class="num">45deg</span>);
+transform: <span class="fn">scale</span>(<span class="num">1.5</span>);
+transform: <span class="fn">translate</span>(<span class="num">10px</span>, <span class="num">20px</span>) <span class="fn">rotate</span>(<span class="num">45deg</span>);  <span class="cm">/* kombiniert */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.37s">
+            <div class="card-label">CSS-Variablen — wiederverwendbare Werte</div>
+            <div class="explanation">
+              Wenn du dieselbe Farbe an 50 Stellen brauchst — definier sie einmal und referenzier sie. Wenn die Farbe geändert wird, ändert sich alles.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* Im :root sind Variablen überall verfügbar */</span>
+<span class="fn">:root</span> {
+  --primaer: <span class="st">#7c6af7</span>;
+  --text: <span class="st">#222</span>;
+  --abstand: <span class="num">16px</span>;
+  --radius: <span class="num">8px</span>;
+}
+
+<span class="fn">.knopf</span> {
+  background: <span class="fn">var</span>(--primaer);
+  padding: <span class="fn">var</span>(--abstand);
+  border-radius: <span class="fn">var</span>(--radius);
+}
+
+<span class="fn">.karte</span> {
+  border: <span class="num">1px</span> solid <span class="fn">var</span>(--primaer);
+  color: <span class="fn">var</span>(--text);
 }</div>
             </div>
           </div>
@@ -2983,6 +3488,18 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             {t:'.card { }', correct:true, why:'Genau! Der Punkt . vor dem Namen ist der Klassen-Selektor in CSS.'},
             {t:'card { }', correct:false, why:'Ohne Präfix ist es ein Element-Selektor — also nur für HTML-Tags wie p, h1, div.'},
             {t:'*card { }', correct:false, why:'* ist der Universal-Selektor (wählt alles). *card ist kein gültiger CSS-Selektor.'},
+          ])}
+          ${quiz('q10b', 'Was bewirkt "box-sizing: border-box"?', [
+            {t:'Macht alle Boxen quadratisch', correct:false, why:'Hat nichts mit der Form zu tun.'},
+            {t:'padding und border werden in width einberechnet, nicht zusätzlich addiert', correct:true, why:'Genau! Ohne border-box: width 300px + padding 20px = 340px. Mit border-box: alles bleibt 300px. Standard in modernen CSS-Setups.'},
+            {t:'Versteckt den Rahmen', correct:false, why:'Den Rahmen versteckst du mit border: none.'},
+            {t:'Zentriert die Box', correct:false, why:'Zentriert wird mit margin: 0 auto oder Flexbox.'},
+          ])}
+          ${quiz('q10c', 'Welche Einheit ist am besten für Schriftgrößen wenn du Responsive Design willst?', [
+            {t:'px — pixelgenau', correct:false, why:'px ist fix — Nutzer können die Schriftgröße nicht skalieren. Schlecht für Barrierefreiheit.'},
+            {t:'rem — vielfaches der Wurzel-Schriftgröße', correct:true, why:'Genau! rem skaliert mit der Browser-Einstellung des Nutzers und ist vorhersehbar (anders als em, das relativ zum Eltern ist).'},
+            {t:'% — Prozent', correct:false, why:'Prozent ist relativ zum Eltern — verhält sich wie em, oft verwirrend.'},
+            {t:'vh — Bildschirmhöhe', correct:false, why:'vh ist für Layouts (volle Höhe), nicht für Text.'},
           ])}
         `
       },
@@ -2995,45 +3512,262 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             <p class="lesson-desc">Früher war Layout ein Albtraum (Tabellen, Float, Clearfix). Heute haben wir Flexbox und Grid — mit wenig Code wunderschöne Layouts.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Flexbox — für 1D-Layouts (Zeilen oder Spalten)</div>
+            <div class="card-label">Wann Flexbox, wann Grid?</div>
+            <div class="explanation">
+              Beide sind moderne Layout-Werkzeuge — sie ersetzen sich nicht, sie ergänzen sich.<br><br>
+              <strong>Flexbox</strong> — für <strong>1D-Layouts</strong> (eine Richtung):<br>
+              Navigationsleiste, Karten in einer Reihe, Header mit Logo links + Menü rechts, vertikales Zentrieren.<br><br>
+              <strong>Grid</strong> — für <strong>2D-Layouts</strong> (Zeilen UND Spalten gleichzeitig):<br>
+              Bildergalerien, Dashboards, ganze Seiten-Layouts (Header oben + Sidebar links + Content + Footer).<br><br>
+              <strong>Faustregel:</strong> wenn du <em>nur in eine Richtung</em> arrangieren willst → Flexbox. Wenn du Spalten UND Zeilen brauchst → Grid. Du kannst sie auch <strong>kombinieren</strong>: Grid für die ganze Seite, Flexbox in einzelnen Karten.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Flexbox — Grundlagen & Achsen</div>
+            <div class="explanation">
+              Sobald du <code>display: flex</code> auf einen Container setzt, werden alle <strong>direkten Kinder</strong> zu Flex-Items und ordnen sich nebeneinander an.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html + css</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="st">"container"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;div&gt;</span>1<span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;div&gt;</span>2<span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;div&gt;</span>3<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cm">/* CSS */</span>
+<span class="fn">.container</span> {
+  display: <span class="st">flex</span>;
+  gap: <span class="num">16px</span>;          <span class="cm">/* Abstand zwischen Items — modern, super */</span>
+}</div>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Achsen verstehen</span></div>
+              <div class="code-pre">       Hauptachse (main axis) →
+       ┌─────────────────────────────┐  ↑
+       │ ┌────┐ ┌────┐ ┌────┐ ┌────┐ │  Querachse
+       │ │ 1  │ │ 2  │ │ 3  │ │ 4  │ │  (cross)
+       │ └────┘ └────┘ └────┘ └────┘ │  ↓
+       └─────────────────────────────┘
+
+  justify-content → entlang der Hauptachse (horizontal)
+  align-items     → entlang der Querachse (vertikal)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Flexbox — Container-Eigenschaften</div>
             <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-block-header"><span class="code-lang">css</span></div>
               <div class="code-pre"><span class="fn">.container</span> {
   display: <span class="st">flex</span>;
-  gap: <span class="num">16px</span>;                 <span class="cm">/* Abstand zwischen Elementen */</span>
-  justify-content: <span class="st">space-between</span>;  <span class="cm">/* horizontal */</span>
-  align-items: <span class="st">center</span>;       <span class="cm">/* vertikal */</span>
-  flex-wrap: <span class="st">wrap</span>;           <span class="cm">/* umbrechen bei wenig Platz */</span>
+
+  <span class="cm">/* Richtung */</span>
+  flex-direction: <span class="st">row</span>;            <span class="cm">/* default: links → rechts */</span>
+  flex-direction: <span class="st">column</span>;         <span class="cm">/* von oben nach unten */</span>
+  flex-direction: <span class="st">row-reverse</span>;
+
+  <span class="cm">/* HORIZONTAL anordnen (Hauptachse) */</span>
+  justify-content: <span class="st">flex-start</span>;    <span class="cm">/* links (default) */</span>
+  justify-content: <span class="st">center</span>;        <span class="cm">/* mitte */</span>
+  justify-content: <span class="st">flex-end</span>;      <span class="cm">/* rechts */</span>
+  justify-content: <span class="st">space-between</span>; <span class="cm">/* erstes ganz links, letztes ganz rechts */</span>
+  justify-content: <span class="st">space-around</span>;  <span class="cm">/* gleicher Abstand um jedes Item */</span>
+  justify-content: <span class="st">space-evenly</span>;  <span class="cm">/* gleiche Lücke überall */</span>
+
+  <span class="cm">/* VERTIKAL anordnen (Querachse) */</span>
+  align-items: <span class="st">stretch</span>;           <span class="cm">/* default — alle gleich hoch */</span>
+  align-items: <span class="st">center</span>;            <span class="cm">/* mitte vertikal */</span>
+  align-items: <span class="st">flex-start</span>;        <span class="cm">/* oben */</span>
+  align-items: <span class="st">flex-end</span>;          <span class="cm">/* unten */</span>
+  align-items: <span class="st">baseline</span>;          <span class="cm">/* an Schrift-Grundlinie */</span>
+
+  <span class="cm">/* Umbruch wenn zu wenig Platz */</span>
+  flex-wrap: <span class="st">nowrap</span>;              <span class="cm">/* default: alles in eine Zeile */</span>
+  flex-wrap: <span class="st">wrap</span>;                <span class="cm">/* umbrechen wenn nötig */</span>
+
+  gap: <span class="num">16px</span>;                       <span class="cm">/* Lücke zwischen Items */</span>
+  gap: <span class="num">12px 24px</span>;                 <span class="cm">/* zeilen-gap spalten-gap */</span>
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Flexbox — Item-Eigenschaften</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* Auf den KINDERN setzen, nicht auf dem Container */</span>
+
+<span class="fn">.item</span> {
+  flex-grow: <span class="num">1</span>;            <span class="cm">/* wachsen — füllt freien Platz */</span>
+  flex-shrink: <span class="num">1</span>;          <span class="cm">/* schrumpfen wenn zu wenig Platz */</span>
+  flex-basis: <span class="num">200px</span>;       <span class="cm">/* Wunsch-Größe vor dem grow/shrink */</span>
+
+  <span class="cm">/* Kurzform: flex: grow shrink basis */</span>
+  flex: <span class="num">1</span>;                 <span class="cm">/* = 1 1 0 — alle gleich groß teilen */</span>
+  flex: <span class="num">2</span>;                 <span class="cm">/* dieses Item 2× so groß wie die mit flex:1 */</span>
+  flex: <span class="num">0 0 200px</span>;         <span class="cm">/* fixe 200px, nicht wachsen/schrumpfen */</span>
+
+  <span class="cm">/* Einzelne Ausrichtung (überschreibt align-items) */</span>
+  align-self: <span class="st">flex-end</span>;
+}</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Beispiel:</strong> 3 Buttons, der mittlere doppelt so breit:<br>
+              <code>.btn1 { flex: 1 } .btn2 { flex: 2 } .btn3 { flex: 1 }</code>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Flexbox — Die 5 wichtigsten Patterns</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* 1. Element ZENTRIEREN — vertikal UND horizontal */</span>
+<span class="fn">.center</span> {
+  display: <span class="st">flex</span>;
+  justify-content: <span class="st">center</span>;
+  align-items: <span class="st">center</span>;
+  min-height: <span class="num">100vh</span>;
 }
 
-<span class="cm">/* Das ist die häufigste Situation:
-   Ein Element links, eins rechts, beide vertikal zentriert */</span>
+<span class="cm">/* 2. HEADER mit Logo links, Nav rechts */</span>
 <span class="fn">.header</span> {
   display: <span class="st">flex</span>;
   justify-content: <span class="st">space-between</span>;
   align-items: <span class="st">center</span>;
-}</div>
-            </div>
-          </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Grid — für 2D-Layouts (Zeilen UND Spalten)</div>
-            <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="fn">.gallery</span> {
-  display: <span class="st">grid</span>;
-  <span class="cm">/* 3 gleiche Spalten */</span>
-  grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span> <span class="num">1fr</span>;
-  gap: <span class="num">20px</span>;
 }
 
-<span class="cm">/* Oder: automatisch anpassen */</span>
-<span class="fn">.gallery</span> {
+<span class="cm">/* 3. SIDEBAR + Content (Sidebar fix, Content füllt Rest) */</span>
+<span class="fn">.layout</span> { display: <span class="st">flex</span>; }
+<span class="fn">.sidebar</span> { flex: <span class="num">0 0 240px</span>; }
+<span class="fn">.content</span> { flex: <span class="num">1</span>; }
+
+<span class="cm">/* 4. KARTEN-Reihe die umbricht */</span>
+<span class="fn">.cards</span> {
+  display: <span class="st">flex</span>;
+  flex-wrap: <span class="st">wrap</span>;
+  gap: <span class="num">20px</span>;
+}
+<span class="fn">.card</span> { flex: <span class="num">1 1 250px</span>; }   <span class="cm">/* min 250px, Rest verteilen */</span>
+
+<span class="cm">/* 5. FOOTER unten festhalten */</span>
+<span class="fn">body</span> {
+  display: <span class="st">flex</span>;
+  flex-direction: <span class="st">column</span>;
+  min-height: <span class="num">100vh</span>;
+}
+<span class="fn">main</span> { flex: <span class="num">1</span>; }              <span class="cm">/* Hauptbereich nimmt Rest */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">CSS Grid — Grundlagen</div>
+            <div class="explanation">
+              Mit <code>display: grid</code> definierst du ein Raster aus Zeilen und Spalten. Items legen sich automatisch in die Zellen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.gallery</span> {
+  display: <span class="st">grid</span>;
+
+  <span class="cm">/* Spalten definieren */</span>
+  grid-template-columns: <span class="num">200px 200px 200px</span>;     <span class="cm">/* 3 fixe Spalten */</span>
+  grid-template-columns: <span class="num">1fr 1fr 1fr</span>;           <span class="cm">/* 3 gleiche, füllen alles */</span>
+  grid-template-columns: <span class="num">200px 1fr 1fr</span>;         <span class="cm">/* erste fix, 2 flexibel */</span>
+  grid-template-columns: <span class="fn">repeat</span>(<span class="num">4</span>, <span class="num">1fr</span>);         <span class="cm">/* = 1fr 1fr 1fr 1fr */</span>
+
+  <span class="cm">/* Zeilen-Höhen */</span>
+  grid-template-rows: <span class="num">100px auto 50px</span>;           <span class="cm">/* fix, nach Inhalt, fix */</span>
+
+  <span class="cm">/* Lücken */</span>
+  gap: <span class="num">20px</span>;                                       <span class="cm">/* Zeilen + Spalten */</span>
+}</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Was ist <code>1fr</code>?</strong> "fr" = "fraction" = ein Anteil am freien Platz. Bei <code>1fr 2fr</code> bekommt die zweite Spalte doppelt so viel Platz. Wie Flexbox-flex.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Grid — Auto-Layout für Galerien</div>
+            <div class="explanation">
+              Das wahrscheinlich nützlichste Grid-Pattern überhaupt — eine Galerie die sich automatisch anpasst:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.gallery</span> {
   display: <span class="st">grid</span>;
   grid-template-columns: <span class="fn">repeat</span>(<span class="fn">auto-fit</span>, <span class="fn">minmax</span>(<span class="num">200px</span>, <span class="num">1fr</span>));
   gap: <span class="num">20px</span>;
-  <span class="cm">/* Füllt so viele Spalten wie möglich,
-     jede mindestens 200px breit */</span>
+}
+
+<span class="cm">/* Was passiert hier:
+   - auto-fit  = "so viele Spalten wie reinpassen"
+   - minmax    = "jede Spalte mindestens 200px, höchstens 1fr"
+
+   Auf großem Bildschirm:  6 Spalten
+   Auf Tablet:             3 Spalten
+   Auf Handy:              1 Spalte
+
+   ALLES OHNE @media — Grid macht es automatisch */</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Grid — Items über mehrere Zellen ziehen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="fn">.grid</span> {
+  display: <span class="st">grid</span>;
+  grid-template-columns: <span class="fn">repeat</span>(<span class="num">4</span>, <span class="num">1fr</span>);
+  gap: <span class="num">10px</span>;
+}
+
+<span class="cm">/* Item dehnt sich über 2 Spalten */</span>
+<span class="fn">.gross</span> {
+  grid-column: span <span class="num">2</span>;
+}
+
+<span class="cm">/* Konkrete Position: von Spalte 1 bis 3 */</span>
+<span class="fn">.hero</span> {
+  grid-column: <span class="num">1</span> / <span class="num">3</span>;
+  grid-row: <span class="num">1</span> / <span class="num">3</span>;     <span class="cm">/* auch über 2 Zeilen */</span>
+}
+
+<span class="cm">/* Erste Spalte bis ans Ende */</span>
+<span class="fn">.banner</span> {
+  grid-column: <span class="num">1</span> / -<span class="num">1</span>;     <span class="cm">/* -1 = letzte Linie */</span>
 }</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Grid — Layout mit Bereichen (template-areas)</div>
+            <div class="explanation">
+              Der lesbarste Weg ein Layout zu definieren: du <em>zeichnest</em> es im CSS.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html + css</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="st">"layout"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;header&gt;</span>...<span class="kw">&lt;/header&gt;</span>
+  <span class="kw">&lt;nav&gt;</span>...<span class="kw">&lt;/nav&gt;</span>
+  <span class="kw">&lt;main&gt;</span>...<span class="kw">&lt;/main&gt;</span>
+  <span class="kw">&lt;aside&gt;</span>...<span class="kw">&lt;/aside&gt;</span>
+  <span class="kw">&lt;footer&gt;</span>...<span class="kw">&lt;/footer&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cm">/* CSS — das Layout sieht visuell aus wie das Ergebnis */</span>
+<span class="fn">.layout</span> {
+  display: <span class="st">grid</span>;
+  grid-template-columns: <span class="num">200px 1fr 200px</span>;
+  grid-template-rows: <span class="num">auto 1fr auto</span>;
+  grid-template-areas:
+    <span class="st">"header  header  header"</span>
+    <span class="st">"nav     main    aside"</span>
+    <span class="st">"footer  footer  footer"</span>;
+  min-height: <span class="num">100vh</span>;
+}
+
+<span class="fn">header</span> { grid-area: header; }
+<span class="fn">nav</span>    { grid-area: nav; }
+<span class="fn">main</span>   { grid-area: main; }
+<span class="fn">aside</span>  { grid-area: aside; }
+<span class="fn">footer</span> { grid-area: footer; }</div>
             </div>
           </div>
           ${quiz('q_flex1', 'Wann nutzt du Flexbox statt Grid?', [
@@ -3041,6 +3775,18 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             {t:'Für 1D-Layouts (nur eine Richtung)', correct:true, why:'Genau! Flexbox für eine Achse (z.B. Navigation in einer Reihe). Grid wenn du Zeilen UND Spalten kontrollieren willst.'},
             {t:'Für kleine Bildschirme', correct:false, why:'Beide funktionieren auf allen Bildschirmen. Responsivität ist eine andere Frage.'},
             {t:'Nur für Text', correct:false, why:'Flexbox funktioniert für jeden Inhalt.'},
+          ])}
+          ${quiz('q_flex2', 'Was macht "justify-content: space-between"?', [
+            {t:'Zentriert alle Items', correct:false, why:'Das wäre center. space-between verteilt anders.'},
+            {t:'Maximaler Abstand zwischen Items, erste links und letzte rechts', correct:true, why:'Genau! Perfekt für Header: Logo links, Nav-Buttons rechts, der Platz dazwischen wird gleichmäßig verteilt.'},
+            {t:'Lücke zwischen Items wie gap', correct:false, why:'gap setzt eine FIXE Lücke. space-between verteilt den freien Platz.'},
+            {t:'Alle Items rechtsbündig', correct:false, why:'Das wäre flex-end.'},
+          ])}
+          ${quiz('q_flex3', 'Was macht "repeat(auto-fit, minmax(200px, 1fr))" in Grid?', [
+            {t:'Genau 200 Spalten erstellen', correct:false, why:'Nein — das wäre repeat(200, ...).'},
+            {t:'So viele 200px-Mindestbreite-Spalten wie reinpassen, jede gleich breit', correct:true, why:'Genau! Magie für responsive Galerien — Browser entscheidet automatisch wie viele Spalten passen, ohne @media zu brauchen.'},
+            {t:'Eine Spalte mit 200px Breite', correct:false, why:'Das wäre einfach grid-template-columns: 200px.'},
+            {t:'Erstellt 1 Spalte für jeden 200px Bildschirm-Breite', correct:false, why:'Nicht ganz — auto-fit + minmax sind cleverer.'},
           ])}
         `
       },
@@ -3053,41 +3799,213 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             <p class="lesson-desc">Über 60% aller Webseiten werden auf dem Handy geöffnet. Deine Seite MUSS auf allen Bildschirmen gut aussehen — sonst verlierst du die Hälfte deiner Besucher.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Media Queries — Regeln für Bildschirmgrößen</div>
-            <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm">/* Normal — für große Bildschirme */</span>
-<span class="fn">.container</span> {
-  display: <span class="st">grid</span>;
-  grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span> <span class="num">1fr</span>;
-}
-
-<span class="cm">/* Ab Bildschirm kleiner als 768px (Tablet und kleiner) */</span>
-<span class="kw">@media</span> (max-width: <span class="num">768px</span>) {
-  <span class="fn">.container</span> {
-    grid-template-columns: <span class="num">1fr</span> <span class="num">1fr</span>;  <span class="cm">/* 2 Spalten */</span>
-  }
-}
-
-<span class="cm">/* Ab Bildschirm kleiner als 480px (Handy) */</span>
-<span class="kw">@media</span> (max-width: <span class="num">480px</span>) {
-  <span class="fn">.container</span> {
-    grid-template-columns: <span class="num">1fr</span>;       <span class="cm">/* 1 Spalte */</span>
-  }
-}</div>
+            <div class="card-label">Was bedeutet "responsive"?</div>
+            <div class="explanation">
+              <strong>Responsive Design</strong> = eine Webseite passt sich automatisch an die Bildschirmgröße an. Auf dem Handy sieht sie anders aus als auf dem Desktop — aber sie bleibt benutzbar und schön.<br><br>
+              Vor 15 Jahren war das einfach: alle hatten 1024×768px. Heute gibt es:<br>
+              • Handys (320px – 480px breit)<br>
+              • Tablets (768px – 1024px)<br>
+              • Laptops (1280px – 1920px)<br>
+              • Riesen-Monitore (über 2560px)<br>
+              • Gefaltete Geräte<br>
+              • Smart-TVs<br><br>
+              Du kannst nicht für jedes Gerät eine eigene Seite bauen. Eine responsive Seite passt sich an alle an — mit den Werkzeugen die du hier lernst.
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Die wichtigste Zeile für Responsive Design</div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die wichtigste Zeile — Viewport-Meta-Tag</div>
             <div class="explanation">
-              In jedem HTML-head MUSS stehen:
+              <strong>Bevor</strong> du irgendetwas anderes machst — diese Zeile MUSS in jedem HTML-head stehen:
             </div>
-            <div class="code-block">
+            <div class="code-block" style="margin-top:10px">
               <div class="code-block-header"><span class="code-lang">html</span></div>
               <div class="code-pre"><span class="kw">&lt;meta</span> <span class="fn">name</span>=<span class="st">"viewport"</span> <span class="fn">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span><span class="kw">&gt;</span></div>
             </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Was passiert ohne diese Zeile?</strong><br>
+              Das Handy denkt, deine Seite sei für Desktop gemacht und rendert sie auf 980px breit — und zoomt dann raus, bis sie ins Display passt. Ergebnis: alles winzig und unlesbar.<br><br>
+              <strong>Mit der Zeile</strong> sagst du dem Handy: "Nutze die ECHTE Geräte-Breite" (z.B. 375px beim iPhone) — und die Schrift bleibt normal lesbar.<br><br>
+              <code>width=device-width</code> → echte Bildschirmbreite verwenden<br>
+              <code>initial-scale=1.0</code> → kein automatischer Zoom
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Mobile First — die richtige Denkweise</div>
             <div class="explanation">
-              Ohne diese Zeile rendert das Handy die Seite wie einen Desktop — winzig und unlesbar. Mit dieser Zeile sagst du: "Nutze die echte Bildschirmbreite".
+              Es gibt zwei Strategien:<br><br>
+              <strong>Desktop First</strong> — Standard-Styles für Desktop, dann mit <code>@media (max-width:...)</code> kleinere Bildschirme anpassen.<br><br>
+              <strong>Mobile First</strong> — Standard-Styles für HANDY, dann mit <code>@media (min-width:...)</code> für größere Bildschirme erweitern.<br><br>
+              <strong>Mobile First gewinnt:</strong><br>
+              • Du denkst zuerst über das einfachste, kleinste Layout nach<br>
+              • Handys sind häufiger genutzt als Desktop<br>
+              • Code ist meist schlanker (kleinere Bildschirme = weniger Layout-Code)<br>
+              • Performance besser auf Handys (weniger CSS zu parsen)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Media Queries — Regeln für Bildschirmgrößen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm">/* Mobile First: Standard ist das Handy-Layout */</span>
+<span class="fn">.container</span> {
+  grid-template-columns: <span class="num">1fr</span>;       <span class="cm">/* 1 Spalte für Handy */</span>
+  padding: <span class="num">12px</span>;
+}
+
+<span class="cm">/* Ab 600px (Tablet): 2 Spalten */</span>
+<span class="kw">@media</span> (min-width: <span class="num">600px</span>) {
+  <span class="fn">.container</span> {
+    grid-template-columns: <span class="num">1fr 1fr</span>;
+    padding: <span class="num">24px</span>;
+  }
+}
+
+<span class="cm">/* Ab 1024px (Laptop): 3 Spalten */</span>
+<span class="kw">@media</span> (min-width: <span class="num">1024px</span>) {
+  <span class="fn">.container</span> {
+    grid-template-columns: <span class="num">1fr 1fr 1fr</span>;
+  }
+}
+
+<span class="cm">/* Andere Bedingungen */</span>
+<span class="kw">@media</span> (max-width: <span class="num">600px</span>) { ... }            <span class="cm">/* bis 600px */</span>
+<span class="kw">@media</span> (orientation: landscape) { ... }       <span class="cm">/* Querformat */</span>
+<span class="kw">@media</span> (prefers-color-scheme: dark) { ... }    <span class="cm">/* User mag Dark Mode */</span>
+<span class="kw">@media</span> (prefers-reduced-motion) { ... }        <span class="cm">/* User mag wenig Animation */</span>
+
+<span class="cm">/* Kombiniert */</span>
+<span class="kw">@media</span> (min-width: <span class="num">600px</span>) and (max-width: <span class="num">1024px</span>) { ... }</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Übliche Breakpoints</div>
+            <div class="explanation">
+              <strong>Es gibt keinen offiziellen Standard</strong> — aber diese Werte sind verbreitet und decken die meisten Geräte ab:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Übliche Breakpoints</span></div>
+              <div class="code-pre">  bis  640px   →  Handy        (sm)
+  ab  640px   →  großes Handy (md)
+  ab  768px   →  Tablet       (lg)
+  ab 1024px   →  Laptop       (xl)
+  ab 1280px   →  Desktop      (2xl)
+  ab 1536px   →  großer Desktop</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Profi-Tipp:</strong> entscheide Breakpoints anhand des INHALTS — nicht anhand bestimmter Geräte. Wenn dein Layout bei 720px hässlich wird, setze dort einen Breakpoint. Du musst nicht den Standard-Werten folgen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Flexible Maßeinheiten — pixel sind nicht alles</div>
+            <div class="explanation">
+              Wenn du nur <code>px</code> benutzt, ist deine Seite NICHT responsive. Diese Einheiten passen sich automatisch an:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* % — Prozent vom Eltern-Element */</span>
+width: <span class="num">90%</span>;                 <span class="cm">/* nimmt 90% der Eltern-Breite */</span>
+
+<span class="cm">/* vw / vh — Prozent vom Bildschirm (viewport) */</span>
+width: <span class="num">100vw</span>;               <span class="cm">/* volle Bildschirmbreite */</span>
+height: <span class="num">100vh</span>;              <span class="cm">/* volle Bildschirmhöhe */</span>
+font-size: <span class="num">2vw</span>;             <span class="cm">/* skaliert mit Bildschirm */</span>
+
+<span class="cm">/* rem — vielfaches der Wurzel-Schriftgröße */</span>
+font-size: <span class="num">1.25rem</span>;          <span class="cm">/* skaliert wenn User Schrift groß stellt */</span>
+
+<span class="cm">/* clamp — min, ideal, max in einem */</span>
+font-size: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span class="num">2.5vw</span>, <span class="num">2rem</span>);
+<span class="cm">/* mindestens 1rem, ideal 2.5vw, höchstens 2rem
+   → automatisch responsive ohne @media! */</span>
+
+<span class="cm">/* min/max-width — Container nicht zu klein/groß */</span>
+<span class="fn">.content</span> {
+  width: <span class="num">90%</span>;
+  max-width: <span class="num">1200px</span>;        <span class="cm">/* nicht breiter als 1200 */</span>
+  margin: <span class="num">0 auto</span>;           <span class="cm">/* zentriert */</span>
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Responsive Bilder & Medien</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">css</span></div>
+              <div class="code-pre"><span class="cm">/* Bilder nie breiter als ihr Container */</span>
+<span class="fn">img</span> {
+  max-width: <span class="num">100%</span>;
+  height: auto;              <span class="cm">/* Seitenverhältnis behalten */</span>
+}
+
+<span class="cm">/* Videos auch (z.B. eingebettete YouTubes) */</span>
+<span class="fn">video, iframe</span> {
+  max-width: <span class="num">100%</span>;
+}</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Bessere Lösung — verschiedene Bilder für verschiedene Bildschirme</strong> (spart Daten auf Handy):
+            </div>
+            <div class="code-block" style="margin-top:8px">
+              <div class="code-block-header"><span class="code-lang">html</span></div>
+              <div class="code-pre"><span class="kw">&lt;img</span>
+  <span class="fn">src</span>=<span class="st">"foto-mittel.jpg"</span>
+  <span class="fn">srcset</span>=<span class="st">"foto-klein.jpg 480w,
+          foto-mittel.jpg 800w,
+          foto-gross.jpg 1600w"</span>
+  <span class="fn">sizes</span>=<span class="st">"(max-width: 600px) 100vw, 50vw"</span>
+  <span class="fn">alt</span>=<span class="st">"Beschreibung"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- Browser wählt automatisch das passende Bild
+     je nach Bildschirmgröße und -dichte (Retina) --&gt;</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Komplettes Mobile-First-Beispiel</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">html + css</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="kw">&lt;header</span> <span class="fn">class</span>=<span class="st">"header"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;div</span> <span class="fn">class</span>=<span class="st">"logo"</span><span class="kw">&gt;</span>CodePath<span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;nav</span> <span class="fn">class</span>=<span class="st">"nav"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"/"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span>
+    <span class="kw">&lt;a</span> <span class="fn">href</span>=<span class="st">"/about"</span><span class="kw">&gt;</span>Über<span class="kw">&lt;/a&gt;</span>
+  <span class="kw">&lt;/nav&gt;</span>
+<span class="kw">&lt;/header&gt;</span>
+
+<span class="cm">/* Mobile (Standard) — Logo oben, Nav darunter, gestapelt */</span>
+<span class="fn">.header</span> {
+  display: <span class="st">flex</span>;
+  flex-direction: <span class="st">column</span>;
+  gap: <span class="num">12px</span>;
+  padding: <span class="num">16px</span>;
+}
+<span class="fn">.nav</span> { display: <span class="st">flex</span>; flex-direction: <span class="st">column</span>; gap: <span class="num">8px</span>; }
+
+<span class="cm">/* Tablet+ — Logo links, Nav rechts (horizontal) */</span>
+<span class="kw">@media</span> (min-width: <span class="num">768px</span>) {
+  <span class="fn">.header</span> {
+    flex-direction: <span class="st">row</span>;
+    justify-content: <span class="st">space-between</span>;
+    align-items: <span class="st">center</span>;
+    padding: <span class="num">24px 48px</span>;
+  }
+  <span class="fn">.nav</span> { flex-direction: <span class="st">row</span>; gap: <span class="num">24px</span>; }
+}</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Testen — DevTools nutzen</div>
+            <div class="explanation">
+              <strong>Du brauchst kein Handy zum Testen.</strong> Jeder Browser hat eingebaute DevTools:<br><br>
+              <strong>1.</strong> Rechtsklick auf der Seite → "Element untersuchen" (oder F12)<br>
+              <strong>2.</strong> Klick auf das Handy/Tablet-Icon (oben links in den DevTools)<br>
+              <strong>3.</strong> Wähle ein Gerät aus (iPhone, Pixel, iPad...) oder zieh den Rand für eigene Größen<br>
+              <strong>4.</strong> Du siehst genau wie deine Seite aussehen würde<br><br>
+              <strong>Profi-Workflow:</strong>
+              <ul style="margin-top:8px;padding-left:20px">
+                <li>Baue zuerst auf 375px (iPhone) — Mobile First</li>
+                <li>Vergrößere langsam — wo wird es hässlich? Da setzt du einen Breakpoint</li>
+                <li>Teste am Ende auch sehr breit (1920px+) — bleibt es schön?</li>
+              </ul>
             </div>
           </div>
           ${quiz('q_resp1', 'Was macht @media (max-width: 768px) { ... }?', [
@@ -3095,6 +4013,18 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
             {t:'Es gilt für Bildschirme 768px und kleiner', correct:true, why:'Genau! max-width = "maximale Breite". Die Regeln im Block greifen bis zu dieser Breite.'},
             {t:'Es macht das Bild 768px breit', correct:false, why:'Das würde width: 768px machen. @media ist eine Bedingung, keine Größe.'},
             {t:'Es blockiert die Seite auf 768px Bildschirmen', correct:false, why:'@media blockiert nichts — es wendet nur CSS-Regeln bedingt an.'},
+          ])}
+          ${quiz('q_resp2', 'Was passiert ohne &lt;meta name="viewport"&gt; auf einem Handy?', [
+            {t:'Die Seite lädt nicht', correct:false, why:'Sie lädt schon — sieht aber furchtbar aus.'},
+            {t:'Das Handy rendert die Seite als Desktop und zoomt raus → alles winzig', correct:true, why:'Genau! Ohne diese Zeile geht das Handy von einer 980px-Desktop-Seite aus und skaliert sie auf den Bildschirm. Schrift wird unlesbar klein.'},
+            {t:'CSS funktioniert nicht mehr', correct:false, why:'CSS funktioniert weiterhin — nur die Größenverhältnisse stimmen nicht.'},
+            {t:'JavaScript wird abgeschaltet', correct:false, why:'Hat nichts mit JavaScript zu tun.'},
+          ])}
+          ${quiz('q_resp3', 'Was ist der Vorteil von "Mobile First"?', [
+            {t:'Schneller Code, kleinere Bildschirme zuerst durchdacht, Mehrheit der Nutzer auf Handy', correct:true, why:'Genau! Du startest mit dem einfachsten Layout (Handy) und erweiterst nach oben. Code wird schlanker, Mobile-Performance besser, und du denkst zuerst an die meisten Nutzer.'},
+            {t:'Es ist die einzige Möglichkeit responsive zu bauen', correct:false, why:'Nein — Desktop First geht auch. Mobile First ist nur die bessere Strategie.'},
+            {t:'Browser unterstützen nur Mobile First', correct:false, why:'Browser unterstützen beide Ansätze gleich.'},
+            {t:'Es ist Pflicht für Google-SEO', correct:false, why:'Google bevorzugt mobile-friendly Seiten — aber Mobile First ist nur eine von vielen Wegen das zu erreichen.'},
           ])}
         `
       },
