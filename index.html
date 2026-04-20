@@ -1710,42 +1710,260 @@ Cache-Control: max-age=300
             <p class="lesson-desc">Programme verarbeiten Daten. Variablen sind Behälter für diese Daten. Lass uns von Grund auf lernen wie Python mit Informationen umgeht.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Variablen erstellen</div>
-            <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># Eine Variable ist ein Name für einen Wert</span>
-name = <span class="st">"Max"</span>          <span class="cm"># String (Text)</span>
-alter = <span class="num">25</span>             <span class="cm"># Integer (Ganzzahl)</span>
-groesse = <span class="num">1.82</span>         <span class="cm"># Float (Kommazahl)</span>
-ist_student = <span class="kw">True</span>    <span class="cm"># Boolean (Wahr/Falsch)</span>
+            <div class="card-label">Was ist eine Variable?</div>
+            <div class="explanation">
+              Eine <strong>Variable</strong> ist ein <em>Name</em> für einen Wert. Der Name dient dir als Etikett, damit du den Wert später wiederfindest und benutzen kannst.<br><br>
+              In Python erstellst du eine Variable mit dem Zeichen <code>=</code>. Das ist <em>kein</em> Vergleich (das wäre <code>==</code>), sondern eine <strong>Zuweisung</strong>: "speichere den Wert rechts unter dem Namen links".
+            </div>
+            <div class="code-block" style="margin-top:12px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">name = <span class="st">"Max"</span>
+<span class="cm">#  ↑      ↑
+#  Name   Wert</span>
 
-<span class="cm"># Ausgeben mit print()</span>
-<span class="fn">print</span>(name)         <span class="cm"># → Max</span>
-<span class="fn">print</span>(alter)        <span class="cm"># → 25</span>
-<span class="fn">print</span>(<span class="fn">type</span>(alter))  <span class="cm"># → &lt;class 'int'&gt;</span>
+<span class="cm"># Ab jetzt steht "Max" unter dem Namen "name"</span>
+<span class="fn">print</span>(name)        <span class="cm"># → Max</span>
 
-<span class="cm"># Strings kombinieren (f-string)</span>
-<span class="fn">print</span>(<span class="st">f"Hallo, ich bin {name} und {alter} Jahre alt."</span>)
-<span class="cm"># → Hallo, ich bin Max und 25 Jahre alt.</span></div>
+<span class="cm"># Du kannst den Wert jederzeit überschreiben</span>
+name = <span class="st">"Anna"</span>
+<span class="fn">print</span>(name)        <span class="cm"># → Anna</span></div>
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Listen & Dictionaries</div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Regeln & Konventionen für Namen</div>
+            <div class="explanation">
+              <strong>Erlaubt:</strong> Buchstaben, Zahlen, Unterstrich. Aber: <strong>nicht mit einer Zahl beginnen</strong>.<br><br>
+              <strong>Konvention in Python:</strong> <code>snake_case</code> — alles klein, Wörter mit Unterstrich getrennt. Das ist der Stil den die ganze Python-Welt benutzt.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># GUT — sprechende Namen, snake_case</span>
+mein_alter = <span class="num">25</span>
+anzahl_versuche = <span class="num">3</span>
+ist_eingeloggt = <span class="kw">True</span>
+
+<span class="cm"># SCHLECHT — nichtssagend, falscher Stil</span>
+x = <span class="num">25</span>                    <span class="cm"># was ist x?</span>
+MeinAlter = <span class="num">25</span>            <span class="cm"># CamelCase ist nicht Python-Stil</span>
+istOK = <span class="kw">True</span>               <span class="cm"># dito</span>
+
+<span class="cm"># NICHT ERLAUBT</span>
+<span class="cm"># 1zahl = 5     # darf nicht mit Zahl beginnen</span>
+<span class="cm"># mein-alter = 5 # Bindestrich ist nicht erlaubt</span>
+<span class="cm"># class = 5     # reserviertes Schlüsselwort</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Reservierte Wörter</strong> (Auswahl) darfst du nicht als Variable benutzen, weil Python sie schon kennt: <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>def</code>, <code>class</code>, <code>return</code>, <code>True</code>, <code>False</code>, <code>None</code>, <code>and</code>, <code>or</code>, <code>not</code>, <code>import</code>.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die wichtigsten Datentypen</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># Liste — geordnete Sammlung</span>
-farben = [<span class="st">"rot"</span>, <span class="st">"grün"</span>, <span class="st">"blau"</span>]
-<span class="fn">print</span>(farben[<span class="num">0</span>])   <span class="cm"># → rot (Index beginnt bei 0)</span>
-farben.append(<span class="st">"gelb"</span>)  <span class="cm"># Element hinzufügen</span>
+              <div class="code-pre"><span class="cm"># int — Ganzzahl</span>
+alter = <span class="num">25</span>
+jahr = <span class="num">2026</span>
+<span class="fn">type</span>(alter)            <span class="cm"># → &lt;class 'int'&gt;</span>
 
-<span class="cm"># Dictionary — Schlüssel-Wert-Paare</span>
-person = {
-  <span class="st">"name"</span>: <span class="st">"Anna"</span>,
-  <span class="st">"alter"</span>: <span class="num">30</span>,
-  <span class="st">"stadt"</span>: <span class="st">"Berlin"</span>
+<span class="cm"># float — Kommazahl (mit Punkt, nicht Komma!)</span>
+groesse = <span class="num">1.82</span>
+preis = <span class="num">19.99</span>
+<span class="fn">type</span>(preis)            <span class="cm"># → &lt;class 'float'&gt;</span>
+
+<span class="cm"># str — String (Text in Anführungszeichen)</span>
+name = <span class="st">"Max"</span>
+nachricht = <span class="st">'Hallo'</span>      <span class="cm"># einfach oder doppelt — egal</span>
+mehrzeilig = <span class="st">"""Zeile 1
+Zeile 2"""</span>
+
+<span class="cm"># bool — Boolean: nur True oder False (groß geschrieben!)</span>
+ist_premium = <span class="kw">True</span>
+hat_rabatt = <span class="kw">False</span>
+
+<span class="cm"># NoneType — "nichts", "kein Wert"</span>
+ergebnis = <span class="kw">None</span>          <span class="cm"># bewusst leer</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Typen umwandeln (Casting)</div>
+            <div class="explanation">
+              Python ist beim Mischen von Typen streng. <code>"5" + 3</code> → Fehler. Du musst manuell umwandeln:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># String → Zahl</span>
+<span class="fn">int</span>(<span class="st">"42"</span>)              <span class="cm"># → 42</span>
+<span class="fn">float</span>(<span class="st">"3.14"</span>)          <span class="cm"># → 3.14</span>
+<span class="fn">int</span>(<span class="st">"abc"</span>)             <span class="cm"># → ValueError!</span>
+
+<span class="cm"># Zahl → String</span>
+<span class="fn">str</span>(<span class="num">42</span>)                <span class="cm"># → "42"</span>
+
+<span class="cm"># float ↔ int (Kommastellen werden abgeschnitten)</span>
+<span class="fn">int</span>(<span class="num">3.9</span>)               <span class="cm"># → 3 (NICHT gerundet!)</span>
+<span class="fn">float</span>(<span class="num">5</span>)                <span class="cm"># → 5.0</span>
+
+<span class="cm"># Typischer Anfänger-Bug</span>
+alter = <span class="fn">input</span>(<span class="st">"Wie alt? "</span>)   <span class="cm"># input() gibt IMMER String zurück</span>
+naechstes_jahr = alter + <span class="num">1</span>     <span class="cm"># TypeError! "25" + 1</span>
+<span class="cm"># Lösung:</span>
+naechstes_jahr = <span class="fn">int</span>(alter) + <span class="num">1</span>   <span class="cm"># OK</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Mathematische Operatoren</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="num">5</span> + <span class="num">3</span>      <span class="cm"># → 8   Addition</span>
+<span class="num">5</span> - <span class="num">3</span>      <span class="cm"># → 2   Subtraktion</span>
+<span class="num">5</span> * <span class="num">3</span>      <span class="cm"># → 15  Multiplikation</span>
+<span class="num">10</span> / <span class="num">3</span>     <span class="cm"># → 3.333...  IMMER float</span>
+<span class="num">10</span> // <span class="num">3</span>    <span class="cm"># → 3   Ganzzahl-Division (ohne Rest)</span>
+<span class="num">10</span> % <span class="num">3</span>     <span class="cm"># → 1   Modulo (der Rest)</span>
+<span class="num">2</span> ** <span class="num">10</span>    <span class="cm"># → 1024 Potenz (2 hoch 10)</span>
+
+<span class="cm"># Kurzschreibweisen</span>
+zaehler = <span class="num">0</span>
+zaehler += <span class="num">1</span>          <span class="cm"># gleich wie: zaehler = zaehler + 1</span>
+zaehler -= <span class="num">1</span>          <span class="cm"># minus 1</span>
+zaehler *= <span class="num">2</span>          <span class="cm"># mal 2</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">f-Strings — Text mit Variablen kombinieren</div>
+            <div class="explanation">
+              Der modernste und lesbarste Weg, Strings zu bauen. Setze ein <code>f</code> vor den String und schreib Variablen in geschweifte Klammern.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">name = <span class="st">"Anna"</span>
+alter = <span class="num">28</span>
+preis = <span class="num">19.987</span>
+
+<span class="cm"># Einfaches Einsetzen</span>
+<span class="fn">print</span>(<span class="st">f"Hallo {name}, du bist {alter}."</span>)
+<span class="cm"># → Hallo Anna, du bist 28.</span>
+
+<span class="cm"># Auch Ausdrücke gehen</span>
+<span class="fn">print</span>(<span class="st">f"In 5 Jahren: {alter + 5}"</span>)
+<span class="cm"># → In 5 Jahren: 33</span>
+
+<span class="cm"># Formatierung — z.B. 2 Nachkommastellen</span>
+<span class="fn">print</span>(<span class="st">f"Preis: {preis:.2f} €"</span>)
+<span class="cm"># → Preis: 19.99 €</span>
+
+<span class="cm"># Mit Tausendertrennzeichen</span>
+<span class="fn">print</span>(<span class="st">f"{1000000:,}"</span>)        <span class="cm"># → 1,000,000</span>
+
+<span class="cm"># In Spalten ausrichten (10 Zeichen breit)</span>
+<span class="fn">print</span>(<span class="st">f"{name:&lt;10}|{alter}"</span>)   <span class="cm"># Anna      |28</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Listen — geordnete Sammlungen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Liste erstellen</span>
+farben = [<span class="st">"rot"</span>, <span class="st">"grün"</span>, <span class="st">"blau"</span>]
+zahlen = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>]
+gemischt = [<span class="num">1</span>, <span class="st">"text"</span>, <span class="kw">True</span>, <span class="num">3.14</span>]   <span class="cm"># Typen mischen erlaubt</span>
+
+<span class="cm"># Einzelne Elemente — Index beginnt bei 0!</span>
+farben[<span class="num">0</span>]              <span class="cm"># → "rot"</span>
+farben[<span class="num">2</span>]              <span class="cm"># → "blau"</span>
+farben[-<span class="num">1</span>]             <span class="cm"># → "blau" (von hinten)</span>
+
+<span class="cm"># Länge prüfen</span>
+<span class="fn">len</span>(farben)            <span class="cm"># → 3</span>
+
+<span class="cm"># Hinzufügen / Entfernen</span>
+farben.append(<span class="st">"gelb"</span>)         <span class="cm"># ans Ende</span>
+farben.insert(<span class="num">0</span>, <span class="st">"weiß"</span>)      <span class="cm"># an Position 0</span>
+farben.remove(<span class="st">"rot"</span>)           <span class="cm"># nach Wert löschen</span>
+letzte = farben.pop()           <span class="cm"># letztes Element entfernen + zurückgeben</span>
+
+<span class="cm"># Slicing — ein Stück der Liste</span>
+zahlen[<span class="num">1</span>:<span class="num">4</span>]            <span class="cm"># → [2, 3, 4] (Index 1 bis vor 4)</span>
+zahlen[:<span class="num">3</span>]             <span class="cm"># → [1, 2, 3] (vom Anfang)</span>
+zahlen[<span class="num">2</span>:]             <span class="cm"># → [3, 4, 5] (bis zum Ende)</span>
+
+<span class="cm"># Sortieren, drehen, prüfen</span>
+zahlen.sort()                   <span class="cm"># aufsteigend sortieren (in-place)</span>
+zahlen.reverse()                <span class="cm"># umkehren</span>
+<span class="num">3</span> <span class="kw">in</span> zahlen                 <span class="cm"># → True (Element drin?)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Tupel — wie Listen, aber unveränderlich</div>
+            <div class="explanation">
+              Ein <strong>Tupel</strong> ist eine geordnete Sammlung wie eine Liste — aber du kannst sie <em>nicht mehr ändern</em> nachdem sie erstellt wurde. Wird oft für Daten benutzt die fest zusammengehören (Koordinaten, Farben in RGB, Funktions-Rückgaben mit mehreren Werten).
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">koordinate = (<span class="num">52.5</span>, <span class="num">13.4</span>)      <span class="cm"># Berlin</span>
+rgb = (<span class="num">124</span>, <span class="num">106</span>, <span class="num">247</span>)
+
+koordinate[<span class="num">0</span>]              <span class="cm"># → 52.5 (lesen geht)</span>
+<span class="cm"># koordinate[0] = 99       # TypeError! Tupel sind unveränderlich</span>
+
+<span class="cm"># Praktisch: mehrere Werte gleichzeitig zuweisen</span>
+breite, hoehe = (<span class="num">1920</span>, <span class="num">1080</span>)
+<span class="fn">print</span>(breite)            <span class="cm"># → 1920</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Dictionaries — Schlüssel-Wert-Paare</div>
+            <div class="explanation">
+              Ein <strong>Dictionary</strong> (oder "Dict") speichert Daten als <em>Schlüssel → Wert</em>-Paare. Wie ein echtes Wörterbuch: du suchst ein Stichwort und bekommst die Erklärung. Wahrscheinlich der wichtigste Datentyp neben der Liste.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">person = {
+    <span class="st">"name"</span>: <span class="st">"Anna"</span>,
+    <span class="st">"alter"</span>: <span class="num">30</span>,
+    <span class="st">"stadt"</span>: <span class="st">"Berlin"</span>
 }
-<span class="fn">print</span>(person[<span class="st">"name"</span>])  <span class="cm"># → Anna</span>
-person[<span class="st">"beruf"</span>] = <span class="st">"Entwicklerin"</span>  <span class="cm"># Neues Feld</span></div>
+
+<span class="cm"># Wert per Schlüssel holen</span>
+person[<span class="st">"name"</span>]            <span class="cm"># → "Anna"</span>
+person[<span class="st">"hobby"</span>]           <span class="cm"># → KeyError! Schlüssel existiert nicht</span>
+
+<span class="cm"># Sicherer mit .get() — gibt None statt Fehler</span>
+person.get(<span class="st">"hobby"</span>)              <span class="cm"># → None</span>
+person.get(<span class="st">"hobby"</span>, <span class="st">"unbekannt"</span>)  <span class="cm"># → "unbekannt" (Default)</span>
+
+<span class="cm"># Hinzufügen / Ändern</span>
+person[<span class="st">"beruf"</span>] = <span class="st">"Entwicklerin"</span>  <span class="cm"># neu</span>
+person[<span class="st">"alter"</span>] = <span class="num">31</span>               <span class="cm"># überschreiben</span>
+
+<span class="cm"># Löschen</span>
+<span class="kw">del</span> person[<span class="st">"stadt"</span>]
+
+<span class="cm"># Über alle Paare laufen</span>
+<span class="kw">for</span> schluessel, wert <span class="kw">in</span> person.items():
+    <span class="fn">print</span>(<span class="st">f"{schluessel}: {wert}"</span>)
+
+<span class="cm"># Nur Schlüssel oder nur Werte</span>
+person.keys()                <span class="cm"># dict_keys(['name', 'alter', 'beruf'])</span>
+person.values()              <span class="cm"># dict_values(['Anna', 31, 'Entwicklerin'])</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Sets — eindeutige Sammlungen</div>
+            <div class="explanation">
+              Ein <strong>Set</strong> ist eine ungeordnete Sammlung <em>ohne Duplikate</em>. Perfekt um z.B. zu prüfen ob ein Wert schon vorkommt, oder um Duplikate aus einer Liste zu entfernen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">tags = {<span class="st">"python"</span>, <span class="st">"web"</span>, <span class="st">"python"</span>, <span class="st">"api"</span>}
+<span class="fn">print</span>(tags)                  <span class="cm"># → {'python', 'web', 'api'}</span>
+
+<span class="cm"># Duplikate aus Liste entfernen</span>
+zahlen = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">3</span>, <span class="num">3</span>]
+einzigartig = <span class="fn">list</span>(<span class="fn">set</span>(zahlen))   <span class="cm"># → [1, 2, 3]</span>
+
+<span class="cm"># Schnelle Mitgliedschafts-Prüfung</span>
+<span class="st">"python"</span> <span class="kw">in</span> tags          <span class="cm"># → True (sehr schnell)</span></div>
             </div>
           </div>
           ${quiz('q6', 'Was gibt print(type(3.14)) aus?', [
@@ -1753,6 +1971,18 @@ person[<span class="st">"beruf"</span>] = <span class="st">"Entwicklerin"</span>
             {t:"<class 'float'>", correct:true, why:'Richtig! Zahlen mit Dezimalpunkt sind float (floating point = Gleitkommazahl).'},
             {t:"<class 'str'>", correct:false, why:'str wäre es nur wenn es in Anführungszeichen stünde: "3.14".'},
             {t:"<class 'number'>", correct:false, why:'number gibt es als Typ in Python nicht.'},
+          ])}
+          ${quiz('q6b', 'Welche Variable ist NICHT erlaubt?', [
+            {t:'mein_alter', correct:false, why:'snake_case mit Buchstaben und Unterstrich — perfekt erlaubt.'},
+            {t:'_name', correct:false, why:'Mit Unterstrich beginnen ist erlaubt (wird per Konvention für "interne" Variablen genutzt).'},
+            {t:'2zahl', correct:true, why:'Richtig! Variablen dürfen nicht mit einer Zahl beginnen — Python wirft hier einen SyntaxError.'},
+            {t:'farbe1', correct:false, why:'Zahl im Namen ist erlaubt — nur nicht als ERSTES Zeichen.'},
+          ])}
+          ${quiz('q6c', 'Was ist der Unterschied zwischen 10 / 3 und 10 // 3?', [
+            {t:'Beide geben 3.333... zurück', correct:false, why:'Nur / gibt einen Float zurück. // ist anders.'},
+            {t:'/ gibt Float (3.333), // gibt int ohne Rest (3)', correct:true, why:'Genau! / ist normale Division (immer float). // ist Ganzzahl-Division (rundet ab).'},
+            {t:'/ ist Modulo, // ist Division', correct:false, why:'Modulo ist %. / ist normale Division.'},
+            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied — siehe oben.'},
           ])}
           ${exercise('ex2', 'Python Variablen', 'Erstelle eine Variable "stadt" mit dem Wert "Berlin" und gib sie mit print() aus:', 'stadt = "Berlin"', 'stadt')}
         `
@@ -1766,48 +1996,222 @@ person[<span class="st">"beruf"</span>] = <span class="st">"Entwicklerin"</span>
             <p class="lesson-desc">Programme müssen Entscheidungen treffen und Aufgaben wiederholen. Das sind die zwei wichtigsten Konzepte der Programmierung überhaupt.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">if / elif / else</div>
-            <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre">alter = <span class="num">18</span>
+            <div class="card-label">Booleans & Vergleichsoperatoren</div>
+            <div class="explanation">
+              Bedingungen sind <strong>Aussagen die entweder wahr oder falsch sind</strong>. In Python: <code>True</code> oder <code>False</code> (großgeschrieben). Das Ergebnis eines Vergleichs ist immer ein Boolean.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="num">5</span> == <span class="num">5</span>            <span class="cm"># → True   gleich (Achtung: doppeltes ==)</span>
+<span class="num">5</span> != <span class="num">3</span>            <span class="cm"># → True   ungleich</span>
+<span class="num">5</span> > <span class="num">3</span>             <span class="cm"># → True   größer als</span>
+<span class="num">5</span> < <span class="num">3</span>             <span class="cm"># → False  kleiner als</span>
+<span class="num">5</span> >= <span class="num">5</span>            <span class="cm"># → True   größer oder gleich</span>
+<span class="num">5</span> <= <span class="num">4</span>            <span class="cm"># → False  kleiner oder gleich</span>
 
-<span class="kw">if</span> alter >= <span class="num">18</span>:
-    <span class="fn">print</span>(<span class="st">"Volljährig!"</span>)
-<span class="kw">elif</span> alter >= <span class="num">16</span>:
-    <span class="fn">print</span>(<span class="st">"Fast volljährig"</span>)
-<span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"Noch minderjährig"</span>)
+<span class="cm"># Auch mit Strings (alphabetisch)</span>
+<span class="st">"apfel"</span> < <span class="st">"banane"</span>   <span class="cm"># → True</span>
+<span class="st">"a"</span> == <span class="st">"A"</span>           <span class="cm"># → False (Groß/Klein zählt!)</span>
 
-<span class="cm"># Vergleichs-Operatoren:
-# ==  gleich
-# !=  nicht gleich
-# >   größer als
-# <   kleiner als
-# >=  größer oder gleich
-# and / or / not</span>
-
-<span class="kw">if</span> alter >= <span class="num">18</span> <span class="kw">and</span> alter < <span class="num">65</span>:
-    <span class="fn">print</span>(<span class="st">"Erwerbsfähiges Alter"</span>)</div>
+<span class="cm"># Häufiger Anfänger-Fehler: = statt ==</span>
+<span class="cm"># if alter = 18:    # SyntaxError! = ist Zuweisung</span>
+<span class="cm"># if alter == 18:   # OK</span></div>
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">for & while Schleifen</div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Logische Operatoren — and, or, not</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">alter = <span class="num">25</span>
+hat_ticket = <span class="kw">True</span>
+
+<span class="cm"># and — beide müssen wahr sein</span>
+alter >= <span class="num">18</span> <span class="kw">and</span> hat_ticket   <span class="cm"># → True</span>
+
+<span class="cm"># or — mindestens eines muss wahr sein</span>
+alter < <span class="num">12</span> <span class="kw">or</span> alter >= <span class="num">65</span>  <span class="cm"># → False (keines stimmt)</span>
+
+<span class="cm"># not — kehrt um</span>
+<span class="kw">not</span> hat_ticket               <span class="cm"># → False</span>
+
+<span class="cm"># Verkettete Vergleiche (sehr lesbar)</span>
+<span class="num">18</span> <= alter < <span class="num">65</span>             <span class="cm"># → True (zwischen 18 und 65)</span>
+
+<span class="cm"># Reihenfolge: not > and > or
+# Bei Unklarheit Klammern setzen — immer.</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Truthy & Falsy — was zählt als "wahr"?</div>
+            <div class="explanation">
+              In Python kann <em>jeder</em> Wert in einer Bedingung benutzt werden — nicht nur Booleans. Manche Werte gelten als "falsch", alle anderen als "wahr".
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Diese Werte sind FALSY</span></div>
+              <div class="code-pre"><span class="kw">False</span>          <span class="cm"># der echte False</span>
+<span class="kw">None</span>           <span class="cm"># nichts</span>
+<span class="num">0</span>              <span class="cm"># die Zahl 0</span>
+<span class="num">0.0</span>            <span class="cm"># Komma-Null</span>
+<span class="st">""</span>             <span class="cm"># leerer String</span>
+[]             <span class="cm"># leere Liste</span>
+{}             <span class="cm"># leeres Dictionary</span>
+()             <span class="cm"># leeres Tupel</span>
+
+<span class="cm"># Alles andere ist truthy → wird als True behandelt</span>
+<span class="kw">if</span> name:           <span class="cm"># True wenn name nicht leer ist</span>
+    <span class="fn">print</span>(<span class="st">"Name vorhanden"</span>)
+
+<span class="kw">if</span> liste:          <span class="cm"># True wenn Liste mindestens 1 Element hat</span>
+    <span class="fn">print</span>(<span class="st">"Liste nicht leer"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">if / elif / else — Entscheidungen treffen</div>
+            <div class="explanation">
+              Mit <code>if</code> sagst du: "wenn diese Bedingung wahr ist, mach das". Wichtig in Python: <strong>der Block wird durch Einrückung markiert</strong> (per Konvention 4 Leerzeichen).
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre">alter = <span class="num">17</span>
+
+<span class="kw">if</span> alter >= <span class="num">18</span>:
+    <span class="fn">print</span>(<span class="st">"Volljährig"</span>)
+<span class="kw">elif</span> alter >= <span class="num">16</span>:
+    <span class="fn">print</span>(<span class="st">"Fast volljährig"</span>)
+<span class="kw">elif</span> alter >= <span class="num">14</span>:
+    <span class="fn">print</span>(<span class="st">"Teenager"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Kind"</span>)
+
+<span class="cm"># Wichtig: nur EIN Block läuft. Der erste der zutrifft.
+# Bei alter=17 → "Fast volljährig" (>=16 trifft, >=18 nicht).</span>
+
+<span class="cm"># Verschachtelt</span>
+<span class="kw">if</span> eingeloggt:
+    <span class="kw">if</span> ist_admin:
+        <span class="fn">print</span>(<span class="st">"Admin-Bereich"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="st">"Nutzer-Bereich"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Bitte einloggen"</span>)
+
+<span class="cm"># Kurze Form: Ternary Operator</span>
+nachricht = <span class="st">"erwachsen"</span> <span class="kw">if</span> alter >= <span class="num">18</span> <span class="kw">else</span> <span class="st">"minderjährig"</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">for-Schleifen — über etwas iterieren</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># for-Schleife — über eine Liste iterieren</span>
+              <div class="code-pre"><span class="cm"># Über eine Liste laufen</span>
 tiere = [<span class="st">"Hund"</span>, <span class="st">"Katze"</span>, <span class="st">"Vogel"</span>]
 <span class="kw">for</span> tier <span class="kw">in</span> tiere:
-    <span class="fn">print</span>(<span class="st">f"Tier: {tier}"</span>)
+    <span class="fn">print</span>(tier)
 
-<span class="cm"># range() — Zahlenbereich</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):      <span class="cm"># 0, 1, 2, 3, 4</span>
+<span class="cm"># Über einen String</span>
+<span class="kw">for</span> buchstabe <span class="kw">in</span> <span class="st">"Python"</span>:
+    <span class="fn">print</span>(buchstabe)        <span class="cm"># P, y, t, h, o, n</span>
+
+<span class="cm"># Über ein Dictionary</span>
+person = {<span class="st">"name"</span>: <span class="st">"Anna"</span>, <span class="st">"alter"</span>: <span class="num">30</span>}
+<span class="kw">for</span> schluessel, wert <span class="kw">in</span> person.items():
+    <span class="fn">print</span>(<span class="st">f"{schluessel}: {wert}"</span>)
+
+<span class="cm"># range() — Zahlen erzeugen</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):           <span class="cm"># 0, 1, 2, 3, 4</span>
     <span class="fn">print</span>(i)
 
-<span class="cm"># while-Schleife — läuft bis Bedingung falsch ist</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="num">8</span>):        <span class="cm"># 2, 3, 4, 5, 6, 7</span>
+    <span class="fn">print</span>(i)
+
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">0</span>, <span class="num">20</span>, <span class="num">5</span>):    <span class="cm"># 0, 5, 10, 15 (Schrittweite 5)</span>
+    <span class="fn">print</span>(i)
+
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>, <span class="num">0</span>, -<span class="num">1</span>):  <span class="cm"># 10, 9, 8, ..., 1 (rückwärts)</span>
+    <span class="fn">print</span>(i)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">enumerate & zip — die Profi-Tools für for</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># enumerate() — gibt dir Index UND Wert</span>
+farben = [<span class="st">"rot"</span>, <span class="st">"grün"</span>, <span class="st">"blau"</span>]
+<span class="kw">for</span> i, farbe <span class="kw">in</span> <span class="fn">enumerate</span>(farben):
+    <span class="fn">print</span>(<span class="st">f"{i}: {farbe}"</span>)
+<span class="cm"># 0: rot
+# 1: grün
+# 2: blau</span>
+
+<span class="cm"># zip() — zwei Listen parallel durchlaufen</span>
+namen = [<span class="st">"Anna"</span>, <span class="st">"Ben"</span>, <span class="st">"Clara"</span>]
+alter = [<span class="num">30</span>, <span class="num">25</span>, <span class="num">28</span>]
+<span class="kw">for</span> name, jahre <span class="kw">in</span> <span class="fn">zip</span>(namen, alter):
+    <span class="fn">print</span>(<span class="st">f"{name} ist {jahre}"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">while-Schleifen — bis eine Bedingung falsch wird</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># while läuft solange die Bedingung True ist</span>
 zahl = <span class="num">1</span>
 <span class="kw">while</span> zahl <= <span class="num">5</span>:
     <span class="fn">print</span>(zahl)
-    zahl += <span class="num">1</span>         <span class="cm"># WICHTIG: sonst Endlosschleife</span></div>
+    zahl += <span class="num">1</span>           <span class="cm"># WICHTIG: ohne das → Endlosschleife!</span>
+
+<span class="cm"># Typischer Use-Case: warten auf gültige Eingabe</span>
+<span class="kw">while</span> <span class="kw">True</span>:
+    eingabe = <span class="fn">input</span>(<span class="st">"Gib 'quit' ein: "</span>)
+    <span class="kw">if</span> eingabe == <span class="st">"quit"</span>:
+        <span class="kw">break</span>           <span class="cm"># Schleife sofort verlassen</span>
+    <span class="fn">print</span>(<span class="st">"Nochmal..."</span>)
+
+<span class="cm"># Wann for, wann while?
+# for   → wenn du weißt wie OFT (z.B. über eine Liste, range(10))
+# while → wenn du nicht weißt wie oft (bis Bedingung erfüllt)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">break & continue — Schleifen steuern</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># break — Schleife komplett abbrechen</span>
+<span class="kw">for</span> zahl <span class="kw">in</span> <span class="fn">range</span>(<span class="num">100</span>):
+    <span class="kw">if</span> zahl == <span class="num">5</span>:
+        <span class="kw">break</span>             <span class="cm"># Stop! Verlasse die Schleife</span>
+    <span class="fn">print</span>(zahl)            <span class="cm"># Ausgabe: 0, 1, 2, 3, 4</span>
+
+<span class="cm"># continue — diese Runde überspringen, mit der nächsten weitermachen</span>
+<span class="kw">for</span> zahl <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>):
+    <span class="kw">if</span> zahl % <span class="num">2</span> == <span class="num">0</span>:
+        <span class="kw">continue</span>          <span class="cm"># gerade Zahlen überspringen</span>
+    <span class="fn">print</span>(zahl)            <span class="cm"># Ausgabe: 1, 3, 5, 7, 9</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">List Comprehensions — kurze Schleifen für neue Listen</div>
+            <div class="explanation">
+              Sobald du eine Schleife schreibst, nur um eine neue Liste zu erzeugen, geht das in Python <strong>kürzer</strong>. Heißt "List Comprehension" und ist sehr typisch für Python-Code.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># Lang: Quadrate aller Zahlen 0..9</span>
+quadrate = []
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>):
+    quadrate.append(i ** <span class="num">2</span>)
+
+<span class="cm"># Kurz: dasselbe in einer Zeile</span>
+quadrate = [i ** <span class="num">2</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>)]
+
+<span class="cm"># Mit Filter: nur gerade Zahlen</span>
+gerade = [i <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">20</span>) <span class="kw">if</span> i % <span class="num">2</span> == <span class="num">0</span>]
+<span class="cm"># → [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span>
+
+<span class="cm"># Strings transformieren</span>
+namen = [<span class="st">"anna"</span>, <span class="st">"ben"</span>, <span class="st">"clara"</span>]
+gross = [n.upper() <span class="kw">for</span> n <span class="kw">in</span> namen]
+<span class="cm"># → ['ANNA', 'BEN', 'CLARA']</span></div>
             </div>
           </div>
           ${quiz('q7', 'Was gibt range(3) zurück?', [
@@ -1815,6 +2219,12 @@ zahl = <span class="num">1</span>
             {t:'0, 1, 2', correct:true, why:'Richtig! range(3) erzeugt 0, 1, 2 — drei Zahlen, beginnend bei 0.'},
             {t:'0, 1, 2, 3', correct:false, why:'Fast! Aber range(3) hört bei 2 auf — die Zahl 3 ist ausgeschlossen.'},
             {t:'1, 2', correct:false, why:'Falsch — weder die Startposition noch die Anzahl stimmt.'},
+          ])}
+          ${quiz('q7b', 'Was passiert bei einer for-Schleife mit "continue"?', [
+            {t:'Die ganze Schleife wird sofort beendet', correct:false, why:'Das wäre break. continue überspringt nur die aktuelle Runde.'},
+            {t:'Die aktuelle Iteration wird übersprungen, die Schleife läuft weiter', correct:true, why:'Genau! continue heißt: "diesen Durchlauf abbrechen, nächster Durchlauf bitte". break stoppt komplett.'},
+            {t:'Es ist ein Synonym für break', correct:false, why:'Nein, sie machen unterschiedliche Dinge.'},
+            {t:'Es startet die Schleife von vorne', correct:false, why:'Der Schleifenzähler läuft normal weiter — es wird nur diese eine Runde übersprungen.'},
           ])}
           ${exercise('ex3', 'Schleife programmieren', 'Schreibe Code der die Zahlen 1 bis 5 ausgibt (eine pro Zeile). Tipp: range(1, 6)', 'for i in range(1, 6): print(i)', 'range')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
@@ -1833,29 +2243,201 @@ zahl = <span class="num">1</span>
             <p class="lesson-desc">Funktionen sind wiederverwendbare Code-Blöcke. Sie sind das wichtigste Werkzeug um Code sauber, lesbar und wartbar zu halten.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Funktionen definieren & aufrufen</div>
+            <div class="card-label">Warum Funktionen?</div>
+            <div class="explanation">
+              Stell dir vor du musst an 30 Stellen im Code dieselbe Berechnung machen. Drei Möglichkeiten:<br><br>
+              1. <strong>Copy &amp; Paste</strong> — wenn du einen Bug findest, musst du ihn 30× fixen. Albtraum.<br>
+              2. <strong>Funktion schreiben</strong> — einmal definieren, 30× aufrufen. Bug? Eine Stelle fixen.<br>
+              3. ... es gibt keine 3. Nimm immer Variante 2.<br><br>
+              Funktionen geben deinem Code <strong>Namen</strong>, <strong>Wiederverwendbarkeit</strong> und <strong>Testbarkeit</strong>. Das wichtigste Werkzeug eines Entwicklers.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Funktion definieren & aufrufen</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># Funktion definieren mit def</span>
+              <div class="code-pre"><span class="cm"># Definieren mit "def"</span>
 <span class="kw">def</span> <span class="fn">begruesse</span>(name):
     <span class="fn">print</span>(<span class="st">f"Hallo, {name}!"</span>)
 
+<span class="cm"># Aufrufen — beliebig oft</span>
 <span class="fn">begruesse</span>(<span class="st">"Anna"</span>)   <span class="cm"># → Hallo, Anna!</span>
 <span class="fn">begruesse</span>(<span class="st">"Max"</span>)    <span class="cm"># → Hallo, Max!</span>
 
-<span class="cm"># Funktion mit Rückgabewert (return)</span>
+<span class="cm"># Anatomie:
+#   def    funktionsname(parameter1, parameter2):
+#    ↑          ↑              ↑
+#  Schlüsselw. Name        Eingaben (in Klammern)
+#       danach Doppelpunkt + eingerückter Block</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">return — einen Wert zurückgeben</div>
+            <div class="explanation">
+              <code>print()</code> zeigt etwas an. <code>return</code> gibt einen Wert <em>zurück</em>, mit dem du weiterarbeiten kannst. Das ist der wichtigste Unterschied. Eine Funktion <em>ohne</em> return gibt automatisch <code>None</code> zurück.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># Mit return — der Wert kann gespeichert werden</span>
 <span class="kw">def</span> <span class="fn">addiere</span>(a, b):
     <span class="kw">return</span> a + b
 
-ergebnis = <span class="fn">addiere</span>(<span class="num">5</span>, <span class="num">3</span>)
-<span class="fn">print</span>(ergebnis)   <span class="cm"># → 8</span>
+ergebnis = <span class="fn">addiere</span>(<span class="num">5</span>, <span class="num">3</span>)        <span class="cm"># → 8</span>
+doppelt = <span class="fn">addiere</span>(<span class="num">5</span>, <span class="num">3</span>) * <span class="num">2</span>    <span class="cm"># → 16</span>
 
-<span class="cm"># Standardwerte für Parameter</span>
+<span class="cm"># Ohne return — gibt immer None zurück</span>
+<span class="kw">def</span> <span class="fn">drucke</span>(x):
+    <span class="fn">print</span>(x)              <span class="cm"># druckt nur</span>
+
+x = <span class="fn">drucke</span>(<span class="st">"hi"</span>)
+<span class="fn">print</span>(x)                  <span class="cm"># → None</span>
+
+<span class="cm"># return beendet die Funktion sofort — alles danach läuft NICHT mehr</span>
+<span class="kw">def</span> <span class="fn">pruefe_alter</span>(alter):
+    <span class="kw">if</span> alter < <span class="num">0</span>:
+        <span class="kw">return</span> <span class="st">"Ungültig"</span>
+    <span class="kw">if</span> alter < <span class="num">18</span>:
+        <span class="kw">return</span> <span class="st">"Minderjährig"</span>
+    <span class="kw">return</span> <span class="st">"Volljährig"</span>
+
+<span class="cm"># Mehrere Werte gleichzeitig zurückgeben (als Tupel)</span>
+<span class="kw">def</span> <span class="fn">teile</span>(a, b):
+    <span class="kw">return</span> a // b, a % b   <span class="cm"># Quotient, Rest</span>
+
+q, r = <span class="fn">teile</span>(<span class="num">17</span>, <span class="num">5</span>)        <span class="cm"># q=3, r=2</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Parameter — Standardwerte & Keyword-Argumente</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># Standardwerte (Defaults) — Parameter muss nicht übergeben werden</span>
 <span class="kw">def</span> <span class="fn">potenz</span>(basis, exponent=<span class="num">2</span>):
     <span class="kw">return</span> basis ** exponent
 
-<span class="fn">print</span>(<span class="fn">potenz</span>(<span class="num">4</span>))      <span class="cm"># → 16 (4²)</span>
-<span class="fn">print</span>(<span class="fn">potenz</span>(<span class="num">2</span>, <span class="num">10</span>))  <span class="cm"># → 1024 (2¹⁰)</span></div>
+<span class="fn">potenz</span>(<span class="num">4</span>)            <span class="cm"># → 16 (4², Default greift)</span>
+<span class="fn">potenz</span>(<span class="num">2</span>, <span class="num">10</span>)        <span class="cm"># → 1024 (2¹⁰)</span>
+
+<span class="cm"># Keyword-Argumente — Reihenfolge egal, dafür sehr lesbar</span>
+<span class="kw">def</span> <span class="fn">erstelle_user</span>(name, alter, premium=<span class="kw">False</span>, sprache=<span class="st">"de"</span>):
+    <span class="kw">return</span> {<span class="st">"name"</span>: name, <span class="st">"alter"</span>: alter,
+            <span class="st">"premium"</span>: premium, <span class="st">"sprache"</span>: sprache}
+
+<span class="cm"># Drei verschiedene gültige Aufrufe:</span>
+<span class="fn">erstelle_user</span>(<span class="st">"Anna"</span>, <span class="num">28</span>)
+<span class="fn">erstelle_user</span>(<span class="st">"Anna"</span>, <span class="num">28</span>, premium=<span class="kw">True</span>)
+<span class="fn">erstelle_user</span>(name=<span class="st">"Anna"</span>, alter=<span class="num">28</span>, sprache=<span class="st">"en"</span>)
+
+<span class="cm"># WICHTIG: niemals veränderbare Defaults wie [] oder {} benutzen</span>
+<span class="cm"># def f(items=[]):  ← FALLE! Wird zwischen Aufrufen geteilt</span>
+<span class="cm"># def f(items=None):    ← richtig
+#     if items is None: items = []</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">*args & **kwargs — beliebig viele Argumente</div>
+            <div class="explanation">
+              Manchmal weißt du nicht im Voraus wie viele Argumente reinkommen (denk an <code>print()</code> — das nimmt beliebig viele).
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># *args — beliebig viele POSITIONS-Argumente (als Tupel)</span>
+<span class="kw">def</span> <span class="fn">summe</span>(*zahlen):
+    <span class="kw">return</span> <span class="fn">sum</span>(zahlen)
+
+<span class="fn">summe</span>(<span class="num">1</span>, <span class="num">2</span>)              <span class="cm"># → 3</span>
+<span class="fn">summe</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>)        <span class="cm"># → 15</span>
+
+<span class="cm"># **kwargs — beliebig viele KEYWORD-Argumente (als Dict)</span>
+<span class="kw">def</span> <span class="fn">drucke_info</span>(**daten):
+    <span class="kw">for</span> k, v <span class="kw">in</span> daten.items():
+        <span class="fn">print</span>(<span class="st">f"{k}: {v}"</span>)
+
+<span class="fn">drucke_info</span>(name=<span class="st">"Anna"</span>, alter=<span class="num">30</span>, stadt=<span class="st">"Berlin"</span>)
+
+<span class="cm"># Beides kombiniert</span>
+<span class="kw">def</span> <span class="fn">flexibel</span>(pflicht, *args, **kwargs):
+    ...</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Scope — wo lebt eine Variable?</div>
+            <div class="explanation">
+              <strong>Scope</strong> bedeutet "Geltungsbereich". Variablen die <em>innerhalb</em> einer Funktion erstellt werden, existieren nur dort. Außerhalb sind sie unsichtbar.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">x = <span class="num">10</span>                <span class="cm"># global — überall sichtbar</span>
+
+<span class="kw">def</span> <span class="fn">test</span>():
+    y = <span class="num">5</span>            <span class="cm"># lokal — nur in dieser Funktion</span>
+    <span class="fn">print</span>(x)         <span class="cm"># → 10 (kann globale x lesen)</span>
+    <span class="fn">print</span>(y)         <span class="cm"># → 5</span>
+
+<span class="fn">test</span>()
+<span class="fn">print</span>(y)              <span class="cm"># → NameError! y ist außerhalb unbekannt</span>
+
+<span class="cm"># Wenn du eine globale Variable in der Funktion ÄNDERN willst:</span>
+zaehler = <span class="num">0</span>
+
+<span class="kw">def</span> <span class="fn">erhoehe</span>():
+    <span class="kw">global</span> zaehler   <span class="cm"># sagt Python: nimm die globale</span>
+    zaehler += <span class="num">1</span>
+
+<span class="cm"># BESSER: Werte zurückgeben statt globale Variablen ändern</span>
+<span class="kw">def</span> <span class="fn">erhoehe_sauber</span>(zaehler):
+    <span class="kw">return</span> zaehler + <span class="num">1</span>
+
+zaehler = <span class="fn">erhoehe_sauber</span>(zaehler)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Docstrings — was macht diese Funktion?</div>
+            <div class="explanation">
+              Schreibe ans Anfang einer Funktion einen <strong>Docstring</strong> — drei Anführungszeichen, kurze Beschreibung. Das hilft anderen (und dir in 6 Monaten) zu verstehen was die Funktion tut. IDEs zeigen den Docstring beim Tippen an.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">def</span> <span class="fn">berechne_brutto</span>(netto, steuersatz=<span class="num">0.19</span>):
+    <span class="st">"""Berechnet den Bruttopreis aus Netto und Steuersatz.
+
+    Args:
+        netto: Nettopreis in Euro
+        steuersatz: Steuersatz als Dezimalzahl (Default 19%)
+
+    Returns:
+        Bruttopreis als float
+    """</span>
+    <span class="kw">return</span> netto * (<span class="num">1</span> + steuersatz)
+
+<span class="cm"># Hilfe zur Funktion abrufen</span>
+<span class="fn">help</span>(berechne_brutto)
+<span class="fn">print</span>(berechne_brutto.__doc__)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Lambda — winzige anonyme Funktionen</div>
+            <div class="explanation">
+              Manchmal brauchst du nur eine winzige Funktion an einer Stelle — ohne Namen. Dafür gibt's <code>lambda</code>.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># Normale Funktion</span>
+<span class="kw">def</span> <span class="fn">verdoppele</span>(x):
+    <span class="kw">return</span> x * <span class="num">2</span>
+
+<span class="cm"># Dasselbe als Lambda</span>
+verdoppele = <span class="kw">lambda</span> x: x * <span class="num">2</span>
+
+<span class="cm"># Häufigste Anwendung: als Argument für sort/map/filter</span>
+namen = [<span class="st">"Anna"</span>, <span class="st">"ben"</span>, <span class="st">"Clara"</span>]
+namen.sort(key=<span class="kw">lambda</span> n: n.lower())   <span class="cm"># Groß/Klein ignorieren</span>
+
+zahlen = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>]
+quadrate = <span class="fn">list</span>(<span class="fn">map</span>(<span class="kw">lambda</span> x: x ** <span class="num">2</span>, zahlen))</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Faustregel:</strong> wenn die Lambda länger als eine Zeile wäre — nimm eine normale Funktion mit <code>def</code>. Lambdas sind nur für kurze Einzeiler gedacht.
             </div>
           </div>
           ${quiz('q8', 'Was macht das Schlüsselwort "return" in einer Funktion?', [
@@ -1863,6 +2445,12 @@ ergebnis = <span class="fn">addiere</span>(<span class="num">5</span>, <span cla
             {t:'Es beendet das Programm', correct:false, why:'exit() oder sys.exit() beendet das Programm. return beendet nur die Funktion.'},
             {t:'Es gibt einen Wert an den Aufrufer zurück', correct:true, why:'Genau! Der Wert nach return kann dann z.B. in einer Variable gespeichert werden.'},
             {t:'Es deklariert eine neue Variable', correct:false, why:'Variablen deklariert man einfach mit name = wert, ohne Schlüsselwort.'},
+          ])}
+          ${quiz('q8b', 'Was gibt eine Funktion ohne return zurück?', [
+            {t:'Einen leeren String ""', correct:false, why:'Nein — "" ist ein expliziter Wert. Ohne return ist die Funktion stumm.'},
+            {t:'Einen Fehler', correct:false, why:'Funktionen ohne return sind völlig normal und legal.'},
+            {t:'None', correct:true, why:'Genau! Jede Python-Funktion gibt automatisch None zurück, wenn kein return angegeben ist.'},
+            {t:'Den letzten berechneten Wert', correct:false, why:'Das macht z.B. Ruby — Python aber NICHT. Du musst explizit returnen.'},
           ])}
           ${exercise('ex4', 'Eigene Funktion schreiben', 'Schreibe eine Funktion "quadrat(n)" die n² zurückgibt. Dann ruf sie mit 7 auf und gib das Ergebnis aus.', 'def quadrat(n): return n ** 2', 'return')}
         `
@@ -1876,35 +2464,168 @@ ergebnis = <span class="fn">addiere</span>(<span class="num">5</span>, <span cla
             <p class="lesson-desc">In fast jedem Programm arbeitest du mit Text. Python hat unglaublich viele Werkzeuge dafür — hier sind die wichtigsten.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die wichtigsten String-Methoden</div>
+            <div class="card-label">Strings erzeugen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># Einfache und doppelte Anführungszeichen — beides geht</span>
+a = <span class="st">"Hallo"</span>
+b = <span class="st">'Welt'</span>
+
+<span class="cm"># Praktisch wenn der String selbst Anführungszeichen enthält</span>
+zitat = <span class="st">"Sie sagte: 'Hallo'"</span>
+pfad = <span class="st">'C:\\Users\\Anna'</span>
+
+<span class="cm"># Mehrzeilige Strings — drei Anführungszeichen</span>
+text = <span class="st">"""Zeile 1
+Zeile 2
+Zeile 3"""</span>
+
+<span class="cm"># Strings aneinanderhängen (+) und vervielfachen (*)</span>
+gruss = <span class="st">"Hallo "</span> + <span class="st">"Welt"</span>     <span class="cm"># → "Hallo Welt"</span>
+linie = <span class="st">"-"</span> * <span class="num">20</span>              <span class="cm"># → "--------------------"</span>
+
+<span class="cm"># Sonderzeichen mit Backslash</span>
+<span class="fn">print</span>(<span class="st">"Zeile1\\nZeile2"</span>)       <span class="cm"># \\n = neue Zeile</span>
+<span class="fn">print</span>(<span class="st">"Spalte\\tA"</span>)            <span class="cm"># \\t = Tab</span>
+<span class="fn">print</span>(<span class="st">"Anführungszeichen: \\""</span>) <span class="cm"># \\" = "</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Strings sind unveränderlich (immutable)</div>
+            <div class="explanation">
+              Wichtig zu verstehen: Strings können <strong>nicht verändert werden</strong>. Jede "Änderung" erzeugt in Wirklichkeit einen neuen String. Das ist anders als bei Listen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">name = <span class="st">"anna"</span>
+<span class="cm"># name[0] = "A"        # TypeError! Nicht erlaubt</span>
+
+<span class="cm"># Stattdessen: neuen String erzeugen</span>
+name = <span class="st">"A"</span> + name[<span class="num">1</span>:]    <span class="cm"># → "Anna"</span>
+<span class="cm"># oder einfacher</span>
+name = name.capitalize()   <span class="cm"># → "Anna"</span>
+
+<span class="cm"># Methoden geben einen NEUEN String zurück, ändern den alten nicht</span>
+text = <span class="st">"hallo"</span>
+text.upper()               <span class="cm"># → "HALLO" (aber text bleibt "hallo")</span>
+text = text.upper()        <span class="cm"># jetzt ist text "HALLO"</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Indexing & Slicing — Stücke aus Strings</div>
+            <div class="explanation">
+              Du kannst auf einzelne Buchstaben oder ganze Teile zugreifen — wie bei einer Liste. Indexe beginnen bei 0. Negative Indexe zählen von hinten.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">text = <span class="st">"Programmieren"</span>
+<span class="cm">#       0123456789012
+#                111
+#       PROGRAMMIEREN
+# rückwärts:    -13...</span>
+
+<span class="cm"># Einzelne Zeichen</span>
+text[<span class="num">0</span>]               <span class="cm"># → "P"</span>
+text[<span class="num">3</span>]               <span class="cm"># → "g"</span>
+text[-<span class="num">1</span>]              <span class="cm"># → "n" (letztes Zeichen)</span>
+text[-<span class="num">3</span>]              <span class="cm"># → "r" (drittletztes)</span>
+
+<span class="cm"># Slicing: text[start:stop:schritt]
+# stop ist EXKLUSIV — also "bis vor"</span>
+text[<span class="num">0</span>:<span class="num">7</span>]             <span class="cm"># → "Program" (Index 0 bis vor 7)</span>
+text[<span class="num">7</span>:]              <span class="cm"># → "mieren" (von 7 bis Ende)</span>
+text[:<span class="num">7</span>]              <span class="cm"># → "Program" (vom Anfang)</span>
+text[-<span class="num">6</span>:]             <span class="cm"># → "mieren" (letzte 6)</span>
+text[::<span class="num">2</span>]             <span class="cm"># → "Pormirn" (jedes 2. Zeichen)</span>
+text[::-<span class="num">1</span>]            <span class="cm"># → "nereimmargorP" (umgekehrt!)</span>
+
+<span class="cm"># Häufige Fragen</span>
+text[<span class="num">100</span>]             <span class="cm"># IndexError</span>
+text[:<span class="num">100</span>]            <span class="cm"># OK — gibt einfach den ganzen String</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Suchen & Prüfen</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
               <div class="code-pre">text = <span class="st">"Hallo Welt"</span>
 
 <span class="cm"># Länge</span>
-<span class="fn">len</span>(text)              <span class="cm"># → 10</span>
+<span class="fn">len</span>(text)                 <span class="cm"># → 10 (inkl. Leerzeichen)</span>
+
+<span class="cm"># Enthält etwas?</span>
+<span class="st">"Welt"</span> <span class="kw">in</span> text           <span class="cm"># → True</span>
+<span class="st">"Mond"</span> <span class="kw">not</span> <span class="kw">in</span> text       <span class="cm"># → True</span>
+
+<span class="cm"># Wo? (Index zurück)</span>
+text.find(<span class="st">"Welt"</span>)         <span class="cm"># → 6</span>
+text.find(<span class="st">"xyz"</span>)          <span class="cm"># → -1 (nicht gefunden)</span>
+text.index(<span class="st">"Welt"</span>)        <span class="cm"># → 6 (wirft Fehler bei nicht gefunden)</span>
+
+<span class="cm"># Beginnt/endet mit?</span>
+text.startswith(<span class="st">"Hallo"</span>)   <span class="cm"># → True</span>
+text.endswith(<span class="st">".jpg"</span>)      <span class="cm"># → False</span>
+
+<span class="cm"># Wie oft kommt etwas vor?</span>
+<span class="st">"banana"</span>.count(<span class="st">"a"</span>)      <span class="cm"># → 3</span>
+
+<span class="cm"># Charakter-Prüfungen (geben True/False zurück)</span>
+<span class="st">"Hello"</span>.isalpha()         <span class="cm"># → True (nur Buchstaben)</span>
+<span class="st">"123"</span>.isdigit()           <span class="cm"># → True (nur Zahlen)</span>
+<span class="st">"Hello123"</span>.isalnum()      <span class="cm"># → True (Buchstaben+Zahlen)</span>
+<span class="st">"   "</span>.isspace()           <span class="cm"># → True (nur Leerzeichen)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Verändern (gibt neuen String zurück)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre">text = <span class="st">"  Hallo Welt  "</span>
 
 <span class="cm"># Groß/Klein</span>
-text.upper()           <span class="cm"># → "HALLO WELT"</span>
-text.lower()           <span class="cm"># → "hallo welt"</span>
-text.title()           <span class="cm"># → "Hallo Welt"</span>
+text.upper()              <span class="cm"># → "  HALLO WELT  "</span>
+text.lower()              <span class="cm"># → "  hallo welt  "</span>
+text.title()              <span class="cm"># → "  Hallo Welt  " (jedes Wort groß)</span>
+text.capitalize()         <span class="cm"># → "  hallo welt  " (nur erstes)</span>
+text.swapcase()           <span class="cm"># → "  hALLO wELT  "</span>
 
-<span class="cm"># Suchen & Ersetzen</span>
-text.find(<span class="st">"Welt"</span>)      <span class="cm"># → 6 (Index wo es beginnt)</span>
-<span class="st">"Welt"</span> <span class="kw">in</span> text        <span class="cm"># → True</span>
-text.replace(<span class="st">"Welt"</span>, <span class="st">"Python"</span>)  <span class="cm"># → "Hallo Python"</span>
+<span class="cm"># Leerzeichen entfernen</span>
+text.strip()              <span class="cm"># → "Hallo Welt" (beide Seiten)</span>
+text.lstrip()             <span class="cm"># → "Hallo Welt  " (links)</span>
+text.rstrip()             <span class="cm"># → "  Hallo Welt" (rechts)</span>
+text.strip(<span class="st">" lH"</span>)        <span class="cm"># → "allo Welt" (bestimmte Zeichen)</span>
 
-<span class="cm"># Säubern</span>
-<span class="st">"  hello  "</span>.strip()  <span class="cm"># → "hello" (Leerzeichen weg)</span>
+<span class="cm"># Ersetzen</span>
+text.replace(<span class="st">"Welt"</span>, <span class="st">"Python"</span>)
+<span class="cm"># → "  Hallo Python  "</span>
+<span class="st">"aaa"</span>.replace(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="num">2</span>)    <span class="cm"># → "bba" (max. 2× ersetzen)</span>
 
-<span class="cm"># Splitten & Joinen</span>
-<span class="st">"a,b,c"</span>.split(<span class="st">","</span>)    <span class="cm"># → ['a', 'b', 'c']</span>
-<span class="st">"-"</span>.join([<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>])  <span class="cm"># → "a-b-c"</span>
+<span class="cm"># Auffüllen (z.B. für Listen-Anzeige)</span>
+<span class="st">"7"</span>.zfill(<span class="num">3</span>)              <span class="cm"># → "007"</span>
+<span class="st">"hi"</span>.ljust(<span class="num">10</span>, <span class="st">"."</span>)        <span class="cm"># → "hi........"</span>
+<span class="st">"hi"</span>.rjust(<span class="num">10</span>, <span class="st">"."</span>)        <span class="cm"># → "........hi"</span>
+<span class="st">"hi"</span>.center(<span class="num">10</span>, <span class="st">"-"</span>)       <span class="cm"># → "----hi----"</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Splitten & Joinen — die wichtigsten Werkzeuge</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># split() — String → Liste</span>
+<span class="st">"a,b,c"</span>.split(<span class="st">","</span>)             <span class="cm"># → ['a', 'b', 'c']</span>
+<span class="st">"Hallo Welt"</span>.split()             <span class="cm"># → ['Hallo', 'Welt']</span>
+<span class="st">"Zeile1\\nZeile2"</span>.splitlines()    <span class="cm"># → ['Zeile1', 'Zeile2']</span>
 
-<span class="cm"># Slicing — Teilstrings</span>
-text[<span class="num">0</span>:<span class="num">5</span>]             <span class="cm"># → "Hallo" (Index 0 bis vor 5)</span>
-text[<span class="num">6</span>:]              <span class="cm"># → "Welt" (von 6 bis Ende)</span>
-text[-<span class="num">4</span>:]             <span class="cm"># → "Welt" (letzte 4)</span></div>
+<span class="cm"># join() — Liste → String</span>
+<span class="st">", "</span>.join([<span class="st">"Anna"</span>, <span class="st">"Ben"</span>, <span class="st">"Clara"</span>])
+<span class="cm"># → "Anna, Ben, Clara"</span>
+
+<span class="st">""</span>.join([<span class="st">"H"</span>, <span class="st">"i"</span>])           <span class="cm"># → "Hi"</span>
+<span class="st">"\\n"</span>.join([<span class="st">"a"</span>, <span class="st">"b"</span>])          <span class="cm"># → "a\\nb"</span>
+
+<span class="cm"># Praktisches Beispiel: CSV-Zeile parsen</span>
+zeile = <span class="st">"Anna,28,Berlin"</span>
+name, alter, stadt = zeile.split(<span class="st">","</span>)</div>
             </div>
           </div>
           ${quiz('q_str1', 'Was gibt "Python".upper() zurück?', [
@@ -1919,6 +2640,12 @@ text[-<span class="num">4</span>:]             <span class="cm"># → "Welt" (le
             {t:'Es ersetzt das Komma', correct:false, why:'Das wäre .replace(). split zerlegt.'},
             {t:'Es wirft einen Fehler', correct:false, why:'split ist eine Standardmethode für Strings und funktioniert immer.'},
           ])}
+          ${quiz('q_str3', 'Was gibt "Programmieren"[::-1] zurück?', [
+            {t:'Programmieren', correct:false, why:'Das wäre der Original-String. Slicing mit [::-1] verändert ihn.'},
+            {t:'nereimmargorP', correct:true, why:'Genau! [::-1] heißt "von Anfang bis Ende, Schritt -1" — also rückwärts.'},
+            {t:'Pormirn', correct:false, why:'Das wäre [::2] — jedes 2. Zeichen.'},
+            {t:'P', correct:false, why:'Das wäre [-1] — nur das letzte Zeichen.'},
+          ])}
           ${exercise('ex_str', 'String bearbeiten', 'Speichere "  Python lernen  " in einer Variable "s", entferne die Leerzeichen mit strip() und gib das Ergebnis in Großbuchstaben aus.', 's.strip().upper()', 'strip')}
         `
       },
@@ -1931,37 +2658,200 @@ text[-<span class="num">4</span>:]             <span class="cm"># → "Welt" (le
             <p class="lesson-desc">Fehler passieren: Datei fehlt, Internet ist weg, User gibt Müll ein. Guter Code bricht nicht einfach ab — er reagiert sinnvoll.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die Grundstruktur</div>
-            <div class="code-block">
-              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm"># Ohne try/except → Programm crasht bei Fehler</span>
-zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Gib eine Zahl ein: "</span>))
-<span class="cm"># User tippt "abc" → ValueError → Programm stürzt ab</span>
+            <div class="card-label">Was passiert wenn ein Fehler auftritt?</div>
+            <div class="explanation">
+              Wenn Python auf einen Fehler stößt, <strong>wirft es eine "Exception"</strong> — und das Programm bricht sofort ab. Du siehst einen <em>Traceback</em>: eine Liste von Funktionsaufrufen die zu dem Fehler geführt haben.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Beispiel — Programm crasht</span></div>
+              <div class="code-pre">zahl = <span class="fn">int</span>(<span class="st">"abc"</span>)        <span class="cm"># User tippte Müll</span>
 
-<span class="cm"># Mit try/except → Fehler wird abgefangen</span>
-<span class="kw">try</span>:
-    zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Gib eine Zahl ein: "</span>))
-    ergebnis = <span class="num">100</span> / zahl
-    <span class="fn">print</span>(<span class="st">f"100 / {zahl} = {ergebnis}"</span>)
-<span class="kw">except</span> <span class="fn">ValueError</span>:
-    <span class="fn">print</span>(<span class="st">"Das war keine gültige Zahl!"</span>)
-<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
-    <span class="fn">print</span>(<span class="st">"Du kannst nicht durch 0 teilen!"</span>)
-<span class="kw">except</span> <span class="fn">Exception</span> <span class="kw">as</span> e:
-    <span class="fn">print</span>(<span class="st">f"Unerwarteter Fehler: {e}"</span>)
-<span class="kw">finally</span>:
-    <span class="fn">print</span>(<span class="st">"Das läuft IMMER — egal ob Fehler oder nicht"</span>)</div>
+<span class="cm">Traceback (most recent call last):
+  File "main.py", line 1, in &lt;module&gt;
+    zahl = int("abc")
+ValueError: invalid literal for int() with base 10: 'abc'
+#  ↑                                                  ↑
+# Fehlertyp                                  Fehler-Detail</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wie du Tracebacks liest:</strong> immer von <strong>unten nach oben</strong>. Unten steht der Fehlertyp und die Erklärung — das ist der wichtigste Teil. Darüber siehst du in welcher Datei und Zeile er passiert ist.<br><br>
+              <strong>Wichtig:</strong> der Traceback ist dein Freund, nicht dein Feind. Lies ihn aufmerksam — meistens steht die Lösung schon drin.
             </div>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Die wichtigsten Fehlerarten</div>
             <div class="explanation">
-              <code>ValueError</code> — falscher Wert (z.B. "abc" zu int)<br><br>
-              <code>TypeError</code> — falscher Typ (z.B. String + Zahl)<br><br>
-              <code>KeyError</code> — Dictionary-Key existiert nicht<br><br>
-              <code>IndexError</code> — Listen-Index außerhalb des Bereichs<br><br>
-              <code>FileNotFoundError</code> — Datei existiert nicht<br><br>
-              <code>ZeroDivisionError</code> — Division durch Null
+              Python kennt dutzende eingebaute Fehler. Diese hier wirst du am häufigsten sehen:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># ValueError — falscher Wert für die Operation</span>
+<span class="fn">int</span>(<span class="st">"abc"</span>)                  <span class="cm"># → ValueError</span>
+
+<span class="cm"># TypeError — falscher Datentyp</span>
+<span class="st">"5"</span> + <span class="num">3</span>                     <span class="cm"># → TypeError (str + int)</span>
+<span class="fn">len</span>(<span class="num">42</span>)                     <span class="cm"># → TypeError (Zahl hat keine Länge)</span>
+
+<span class="cm"># KeyError — Dictionary-Key existiert nicht</span>
+person = {<span class="st">"name"</span>: <span class="st">"Anna"</span>}
+person[<span class="st">"alter"</span>]              <span class="cm"># → KeyError</span>
+
+<span class="cm"># IndexError — Listen-Index zu groß</span>
+liste = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+liste[<span class="num">10</span>]                   <span class="cm"># → IndexError</span>
+
+<span class="cm"># FileNotFoundError — Datei gibt's nicht</span>
+<span class="fn">open</span>(<span class="st">"datei_die_nicht_existiert.txt"</span>)
+
+<span class="cm"># ZeroDivisionError — durch 0 geteilt</span>
+<span class="num">10</span> / <span class="num">0</span>                     <span class="cm"># → ZeroDivisionError</span>
+
+<span class="cm"># AttributeError — Methode/Attribut existiert nicht</span>
+<span class="st">"hi"</span>.foo()                  <span class="cm"># → AttributeError</span>
+
+<span class="cm"># NameError — Variable nicht definiert</span>
+<span class="fn">print</span>(unbekannte_variable)  <span class="cm"># → NameError</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">try / except — der Grundbau</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># try:    versuch das, was schiefgehen könnte
+# except: wenn was schiefgeht, mach DAS</span>
+
+<span class="kw">try</span>:
+    zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Gib eine Zahl ein: "</span>))
+    <span class="fn">print</span>(<span class="st">f"Quadrat: {zahl ** 2}"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Das war keine Zahl!"</span>)
+
+<span class="cm"># Programm läuft normal weiter — kein Crash</span>
+<span class="fn">print</span>(<span class="st">"Tschüss!"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Mehrere Fehler getrennt behandeln</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">try</span>:
+    zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Zahl: "</span>))
+    ergebnis = <span class="num">100</span> / zahl
+
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"Das war keine gültige Zahl!"</span>)
+
+<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"Du kannst nicht durch 0 teilen!"</span>)
+
+<span class="kw">except</span> <span class="fn">Exception</span> <span class="kw">as</span> e:        <span class="cm"># fängt alles andere</span>
+    <span class="fn">print</span>(<span class="st">f"Unerwarteter Fehler: {e}"</span>)
+    <span class="fn">print</span>(<span class="fn">type</span>(e).__name__)        <span class="cm"># welcher Typ war's?</span>
+
+<span class="cm"># Mehrere in einem except zusammenfassen</span>
+<span class="kw">try</span>:
+    ...
+<span class="kw">except</span> (<span class="fn">ValueError</span>, <span class="fn">TypeError</span>) <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Eingabe-Problem: {e}"</span>)</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtig:</strong> Reihenfolge zählt — Python prüft die except-Blöcke von oben nach unten und nimmt den <em>ersten</em> der passt. Spezifische Fehler immer <strong>vor</strong> <code>Exception</code> stellen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.17s">
+            <div class="card-label">else & finally — Vollständige Struktur</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">try</span>:
+    datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
+    inhalt = datei.read()
+
+<span class="kw">except</span> <span class="fn">FileNotFoundError</span>:
+    <span class="fn">print</span>(<span class="st">"Datei nicht gefunden"</span>)
+
+<span class="kw">else</span>:
+    <span class="cm"># Läuft NUR wenn KEIN Fehler im try-Block war</span>
+    <span class="fn">print</span>(<span class="st">f"Inhalt: {inhalt}"</span>)
+
+<span class="kw">finally</span>:
+    <span class="cm"># Läuft IMMER — egal ob Fehler oder nicht
+    # Perfekt zum Aufräumen (Datei schließen, Verbindung trennen)</span>
+    <span class="fn">print</span>(<span class="st">"Aufräumen..."</span>)
+    <span class="kw">try</span>: datei.close()
+    <span class="kw">except</span>: <span class="kw">pass</span>
+
+<span class="cm"># Reihenfolge:  try → (except wenn Fehler / else wenn nicht) → finally</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.2s">
+            <div class="card-label">with-Statement — automatisches Aufräumen</div>
+            <div class="explanation">
+              Für Dateien, Datenbankverbindungen und ähnliches gibt's eine <strong>elegantere Lösung</strong> als try/finally: das <code>with</code>-Statement schließt automatisch alles korrekt — selbst bei Fehlern.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="cm"># Umständlich (mit try/finally)</span>
+datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
+<span class="kw">try</span>:
+    inhalt = datei.read()
+<span class="kw">finally</span>:
+    datei.close()
+
+<span class="cm"># Elegant (mit with) — Datei wird AUTOMATISCH geschlossen</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"daten.txt"</span>) <span class="kw">as</span> datei:
+    inhalt = datei.read()
+<span class="cm"># Hier ist die Datei garantiert zu — auch wenn read() crashed</span>
+
+<span class="cm"># Datei lesen — Standardpattern</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notizen.txt"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    <span class="kw">for</span> zeile <span class="kw">in</span> f:
+        <span class="fn">print</span>(zeile.strip())
+
+<span class="cm"># Datei schreiben</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"output.txt"</span>, <span class="st">"w"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    f.write(<span class="st">"Hallo Welt\\n"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.23s">
+            <div class="card-label">Eigene Fehler werfen — raise</div>
+            <div class="explanation">
+              Manchmal willst du <em>selbst</em> einen Fehler auslösen — z.B. wenn ein Argument nicht plausibel ist. Dafür gibt's <code>raise</code>.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">def</span> <span class="fn">setze_alter</span>(alter):
+    <span class="kw">if</span> <span class="kw">not</span> <span class="fn">isinstance</span>(alter, <span class="fn">int</span>):
+        <span class="kw">raise</span> <span class="fn">TypeError</span>(<span class="st">"Alter muss eine Ganzzahl sein"</span>)
+    <span class="kw">if</span> alter < <span class="num">0</span> <span class="kw">or</span> alter > <span class="num">150</span>:
+        <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="st">f"Alter {alter} ist nicht plausibel"</span>)
+    <span class="kw">return</span> alter
+
+<span class="fn">setze_alter</span>(<span class="num">25</span>)         <span class="cm"># OK</span>
+<span class="fn">setze_alter</span>(-<span class="num">5</span>)         <span class="cm"># ValueError</span>
+<span class="fn">setze_alter</span>(<span class="st">"alt"</span>)      <span class="cm"># TypeError</span>
+
+<span class="cm"># Eigene Fehlerklassen definieren</span>
+<span class="kw">class</span> <span class="fn">UngueltigerLoginError</span>(<span class="fn">Exception</span>):
+    <span class="kw">pass</span>
+
+<span class="kw">def</span> <span class="fn">login</span>(user, passwort):
+    <span class="kw">if</span> passwort != <span class="st">"geheim"</span>:
+        <span class="kw">raise</span> <span class="fn">UngueltigerLoginError</span>(<span class="st">f"Falsches Passwort für {user}"</span>)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.26s">
+            <div class="card-label">Best Practices — Fallen vermeiden</div>
+            <div class="explanation">
+              <strong>1. Fang nur das ab was du erwartest</strong><br>
+              <code>except Exception:</code> ohne guten Grund versteckt Bugs. Lieber spezifisch: <code>except ValueError:</code><br><br>
+              <strong>2. Niemals <code>except: pass</code> ohne Kommentar</strong><br>
+              Das schluckt jeden Fehler, auch <code>KeyboardInterrupt</code> oder Tippfehler im Code. Wenn schon, dann <code>except SpezifischerError: pass  # weil ...</code><br><br>
+              <strong>3. Try-Block so klein wie möglich</strong><br>
+              Nur den Teil rein der wirklich fehlschlagen kann — dann weißt du was schiefging.<br><br>
+              <strong>4. Fehlermeldungen sollen helfen</strong><br>
+              <code>raise ValueError("Alter -5 ist negativ")</code> ist viel hilfreicher als <code>raise ValueError("ungültig")</code>.<br><br>
+              <strong>5. Validiere früh</strong><br>
+              Lieber am Funktionsanfang prüfen und früh einen Fehler werfen, als 100 Zeilen später mit komischem Verhalten kämpfen.
             </div>
           </div>
           ${quiz('q_err1', 'Was passiert im finally-Block?', [
@@ -1969,6 +2859,18 @@ zahl = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st
             {t:'Er läuft nur wenn kein Fehler auftrat', correct:false, why:'Das wäre der else-Block. finally läuft immer.'},
             {t:'Er läuft immer — egal ob Fehler oder nicht', correct:true, why:'Genau! Nützlich um Ressourcen zu schließen (z.B. Dateien) auch wenn etwas schief ging.'},
             {t:'Er beendet das Programm', correct:false, why:'finally beendet nichts — es wird nur garantiert ausgeführt.'},
+          ])}
+          ${quiz('q_err2', 'Welcher Fehler tritt bei int("hallo") auf?', [
+            {t:'TypeError', correct:false, why:'TypeError wäre z.B. bei "5" + 3 (falsche TYPEN). Hier ist der Typ richtig (str), aber der Wert nicht umwandelbar.'},
+            {t:'ValueError', correct:true, why:'Genau! Der Typ ist OK (string), aber der Wert "hallo" ist keine gültige Ganzzahl. ValueError = "Wert passt nicht".'},
+            {t:'NameError', correct:false, why:'NameError gäbs wenn die Variable nicht existiert. int und "hallo" sind beide bekannt.'},
+            {t:'KeyError', correct:false, why:'KeyError ist nur für Dictionaries.'},
+          ])}
+          ${quiz('q_err3', 'Warum ist "with open(...) as f:" besser als "f = open(...)"?', [
+            {t:'Es ist schneller', correct:false, why:'Performance ist gleich.'},
+            {t:'Die Datei wird automatisch geschlossen — auch bei Fehlern', correct:true, why:'Genau! Das with-Statement garantiert, dass die Datei sauber zugemacht wird. Ohne with läuft die Datei evtl. offen weiter wenn ein Fehler kommt.'},
+            {t:'Es kann mehrere Dateien gleichzeitig öffnen', correct:false, why:'Das geht mit beiden Methoden.'},
+            {t:'Es benötigt kein try/except', correct:false, why:'Du brauchst weiterhin try/except wenn die Datei nicht existiert.'},
           ])}
         `
       }
