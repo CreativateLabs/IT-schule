@@ -4102,25 +4102,157 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
             <p class="lesson-desc">Jede App hat zwei Seiten: was du siehst (Frontend) und was im Hintergrund passiert (Backend). Server, Datenbanken, Authentifizierung — das alles ist Backend.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Frontend vs. Backend</div>
+            <div class="card-label">Frontend, Backend, API — die drei Begriffe</div>
             <div class="explanation">
-              <strong>Frontend</strong> — läuft im Browser des Nutzers<br>
-              HTML, CSS, JavaScript, React — alles was der Nutzer sieht und anklickt.<br><br>
-              <strong>Backend</strong> — läuft auf einem Server irgendwo in der Welt<br>
-              Python, Node.js, Datenbanken — alles was der Nutzer nicht sieht.<br><br>
-              <strong>API</strong> — die Brücke zwischen beiden<br>
-              Das Frontend schickt Anfragen an die API, die API antwortet mit Daten (meist als JSON).
+              <strong>Frontend</strong> — läuft im <em>Browser</em> des Nutzers<br>
+              HTML, CSS, JavaScript, React, Vue — alles was der Nutzer sieht und anklickt. Wenn du F12 drückst, siehst du den Frontend-Code.<br><br>
+              <strong>Backend</strong> — läuft auf einem <em>Server</em> irgendwo in der Welt<br>
+              Python, Node.js, Java, Go, Datenbanken, Caching — alles was der Nutzer NICHT sieht. Hier passiert die echte Logik: Daten speichern, Berechnungen, Authentifizierung, Geld abbuchen, Email schicken.<br><br>
+              <strong>API</strong> — die <em>Brücke</em> zwischen beiden<br>
+              Eine API (Application Programming Interface) ist eine Sammlung von URLs die das Backend bereitstellt. Das Frontend schickt Anfragen an diese URLs und bekommt Daten zurück.
             </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">JSON — Datenformat zwischen Frontend & Backend</span></div>
+            <div class="code-block" style="margin-top:12px">
+              <div class="code-block-header"><span class="code-lang">Wie sie zusammenarbeiten</span></div>
+              <div class="code-pre">  ┌──────────────┐                        ┌──────────────┐
+  │   FRONTEND   │   ──── HTTP ───────→   │    BACKEND   │
+  │              │                        │              │
+  │  React/Vue   │   ←──── JSON ────────  │  Python/Node │
+  │  im Browser  │                        │  auf Server  │
+  └──────────────┘                        └──────┬───────┘
+                                                 │
+                                                 ↓
+                                          ┌──────────────┐
+                                          │  Datenbank   │
+                                          │ (PostgreSQL) │
+                                          └──────────────┘</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Konkretes Beispiel: Instagram-Login</div>
+            <div class="explanation">
+              Du tippst dein Passwort in die Instagram-App. Was passiert?<br><br>
+              <strong>1. Frontend</strong> (Instagram-App auf deinem Handy): zeigt das Login-Formular, sammelt Email + Passwort, validiert grob (z.B. "Email muss @ enthalten"), schickt dann eine Anfrage los.<br><br>
+              <strong>2. API-Anfrage:</strong> <code>POST https://api.instagram.com/login</code> mit Body <code>{"email": "...", "password": "..."}</code>.<br><br>
+              <strong>3. Backend</strong> (auf Servern in den USA): empfängt die Anfrage, sucht den User in der Datenbank, vergleicht das Passwort (gehasht), erstellt ein Session-Token, schickt es zurück.<br><br>
+              <strong>4. Frontend</strong> bekommt das Token zurück, speichert es lokal, zeigt deinen Feed.<br><br>
+              <strong>5. Bei jedem weiteren Klick</strong> ("Like", "Folgen", "Foto laden") schickt das Frontend wieder Anfragen ans Backend, diesmal mit dem Token im Header. Das Backend weiß: "Ah, das ist Anna" und antwortet entsprechend.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Was läuft alles im Backend?</div>
+            <div class="explanation">
+              <strong>Datenbank-Verwaltung</strong> — User, Posts, Bestellungen, Likes...<br><br>
+              <strong>Authentifizierung & Autorisierung</strong> — Login, "wer darf was"<br><br>
+              <strong>Geschäftslogik</strong> — Preisberechnung, Rabatte, Versandregeln<br><br>
+              <strong>Externe Dienste</strong> — Email versenden, Zahlungen via Stripe, SMS via Twilio<br><br>
+              <strong>Bilder/Dateien speichern & ausliefern</strong> — z.B. AWS S3<br><br>
+              <strong>Cron-Jobs / Hintergrundaufgaben</strong> — z.B. nächtliche Reports<br><br>
+              <strong>Sicherheit</strong> — Rate-Limiting, Bot-Schutz, Verschlüsselung
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Server, Hosting, Cloud — wo läuft das Backend?</div>
+            <div class="explanation">
+              Ein <strong>Server</strong> ist nichts Magisches — es ist ein Computer der 24/7 läuft und auf Anfragen wartet. Du könntest dein Backend auf deinem Laptop laufen lassen — aber sobald du den Laptop ausschaltest, ist die Webseite weg.<br><br>
+              Deshalb mietet man Server bei <strong>Hosting-Anbietern</strong> oder Cloud-Plattformen:<br><br>
+              <strong>Klassisches Hosting</strong> (vServer/VPS):<br>
+              • Hetzner, DigitalOcean, Linode<br>
+              • Du kriegst einen Linux-Server, machst alles selbst<br>
+              • Günstig (5–20€/Monat), aber mehr Aufwand<br><br>
+              <strong>Platform-as-a-Service</strong> (einfacher Start):<br>
+              • Railway, Render, Fly.io, Vercel<br>
+              • Push deinen Code → automatisches Deploy<br>
+              • Kostenlos für kleine Projekte<br><br>
+              <strong>Cloud-Giganten</strong> (für große Apps):<br>
+              • AWS (Amazon), Google Cloud, Azure (Microsoft)<br>
+              • Mächtig, aber komplex und teurer
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">JSON — die Sprache zwischen Systemen</div>
+            <div class="explanation">
+              <strong>JSON</strong> (JavaScript Object Notation) ist das Standard-Format um Daten zwischen Systemen auszutauschen. Lesbar für Menschen, klein und schnell zu parsen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">JSON-Beispiel</span></div>
               <div class="code-pre">{
-  <span class="st">"nutzer"</span>: {
-    <span class="st">"id"</span>: <span class="num">42</span>,
-    <span class="st">"name"</span>: <span class="st">"Anna Schmidt"</span>,
-    <span class="st">"email"</span>: <span class="st">"anna@example.com"</span>,
-    <span class="st">"premium"</span>: <span class="kw">true</span>
+  <span class="st">"id"</span>: <span class="num">42</span>,
+  <span class="st">"name"</span>: <span class="st">"Anna Schmidt"</span>,
+  <span class="st">"email"</span>: <span class="st">"anna@example.com"</span>,
+  <span class="st">"premium"</span>: <span class="kw">true</span>,
+  <span class="st">"alter"</span>: <span class="kw">null</span>,
+  <span class="st">"hobbies"</span>: [<span class="st">"coding"</span>, <span class="st">"musik"</span>],
+  <span class="st">"adresse"</span>: {
+    <span class="st">"strasse"</span>: <span class="st">"Hauptstr. 1"</span>,
+    <span class="st">"plz"</span>: <span class="st">"10115"</span>
   }
 }</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Erlaubte Datentypen in JSON:</strong><br>
+              • <code>"text"</code> — Strings (IMMER doppelte Anführungszeichen!)<br>
+              • <code>42</code> oder <code>3.14</code> — Zahlen<br>
+              • <code>true</code> / <code>false</code> — Booleans (kleingeschrieben!)<br>
+              • <code>null</code> — leer<br>
+              • <code>[ ... ]</code> — Liste<br>
+              • <code>{ ... }</code> — Objekt<br><br>
+              <strong>Häufige Fehler:</strong> Komma nach dem letzten Element ist NICHT erlaubt. Kommentare auch nicht. Fast alle Sprachen haben eingebaute Tools: in Python <code>json.loads()</code>, in JS <code>JSON.parse()</code>.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Backend-Sprachen & Frameworks</div>
+            <div class="explanation">
+              Du brauchst eine Sprache + ein Framework. Das Framework gibt dir Routing (welche URL macht was), Datenbank-Anbindung, Sicherheit etc.<br><br>
+              <strong>Python</strong><br>
+              • <em>Flask</em> — minimal, perfekt zum Lernen<br>
+              • <em>FastAPI</em> — modern, schnell, automatische API-Doku<br>
+              • <em>Django</em> — riesig, "alles drin", für große Projekte<br><br>
+              <strong>JavaScript/TypeScript (Node.js)</strong><br>
+              • <em>Express</em> — der Klassiker, simpel<br>
+              • <em>NestJS</em> — strukturiert, für größere Projekte<br>
+              • <em>Hono</em> — minimal & schnell<br><br>
+              <strong>Andere</strong><br>
+              • <em>Go</em> mit Gin — sehr schnell, schlanker Code<br>
+              • <em>Rust</em> mit Axum — wenn maximale Performance & Sicherheit zählt<br>
+              • <em>Ruby</em> mit Rails — produktiv, Klassiker<br>
+              • <em>Java</em> mit Spring Boot — Konzern-Standard<br><br>
+              <strong>Empfehlung für Anfänger:</strong> Python + Flask oder FastAPI. Geringste Lernkurve, große Community.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Dein erster Mini-Server mit Flask</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — server.py</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="kw">from</span> flask <span class="kw">import</span> Flask, jsonify
+
+app = <span class="fn">Flask</span>(__name__)
+
+<span class="cm"># Route = welche URL führt zu welcher Funktion</span>
+<span class="kw">@app.route</span>(<span class="st">"/"</span>)
+<span class="kw">def</span> <span class="fn">home</span>():
+    <span class="kw">return</span> <span class="st">"Hallo Welt!"</span>
+
+<span class="kw">@app.route</span>(<span class="st">"/api/user"</span>)
+<span class="kw">def</span> <span class="fn">user</span>():
+    <span class="kw">return</span> <span class="fn">jsonify</span>({
+        <span class="st">"name"</span>: <span class="st">"Anna"</span>,
+        <span class="st">"alter"</span>: <span class="num">28</span>
+    })
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    app.run(debug=<span class="kw">True</span>, port=<span class="num">5000</span>)</div>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">terminal</span></div>
+              <div class="code-pre">$ pip install flask
+$ python server.py
+
+<span class="cm"># Browser öffnen:
+#   http://localhost:5000        → "Hallo Welt!"
+#   http://localhost:5000/api/user → {"name": "Anna", "alter": 28}</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Das war's.</strong> 12 Zeilen Code, und du hast einen funktionierenden Backend-Server. Mit etwas mehr Code kannst du Datenbanken anbinden, User-Logins implementieren, Zahlungen abwickeln — alles auf diesem Fundament.
             </div>
           </div>
           ${quiz('q11', 'Was ist JSON?', [
@@ -4128,6 +4260,18 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
             {t:'Ein Datenformat für den Austausch zwischen Systemen', correct:true, why:'Richtig! JSON = JavaScript Object Notation. Es ist das Standard-Format für APIs weltweit.'},
             {t:'Eine Datenbank', correct:false, why:'Datenbanken speichern Daten dauerhaft. JSON ist nur ein Format zum Übertragen.'},
             {t:'Ein Frontend-Framework', correct:false, why:'React, Vue, Angular sind Frontend-Frameworks. JSON ist nur ein Datenformat.'},
+          ])}
+          ${quiz('q11b', 'Wo läuft Backend-Code?', [
+            {t:'Im Browser des Nutzers', correct:false, why:'Das ist Frontend. Backend läuft NIE im Browser — sonst könnte jeder den Code lesen und manipulieren.'},
+            {t:'Auf einem Server irgendwo in der Welt', correct:true, why:'Genau! Backend läuft auf einem Server (gemietet bei Hetzner, AWS, Railway etc.) und wartet auf HTTP-Anfragen.'},
+            {t:'Auf der Grafikkarte', correct:false, why:'Hat nichts mit Grafik zu tun.'},
+            {t:'Direkt in der Datenbank', correct:false, why:'Backend-Code spricht MIT der Datenbank, läuft aber als eigenes Programm daneben.'},
+          ])}
+          ${quiz('q11c', 'Welcher Datentyp ist in JSON NICHT erlaubt?', [
+            {t:'String', correct:false, why:'Strings sind in JSON erlaubt — in doppelten Anführungszeichen.'},
+            {t:'null', correct:false, why:'null ist erlaubt und steht für "kein Wert".'},
+            {t:'Funktionen', correct:true, why:'Genau! JSON kann nur Daten speichern (String, Zahl, Boolean, null, Array, Objekt). Funktionen, Datums-Objekte, undefined etc. gehen NICHT.'},
+            {t:'Boolean', correct:false, why:'true und false (kleingeschrieben!) sind erlaubt.'},
           ])}
         `
       },
@@ -4140,49 +4284,257 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
             <p class="lesson-desc">99% aller APIs im Web folgen dem REST-Prinzip. Sobald du REST verstehst, kannst du mit jedem Service der Welt kommunizieren.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die 4 wichtigsten HTTP-Verben</div>
+            <div class="card-label">Was ist eine API?</div>
             <div class="explanation">
-              <code>GET</code> — <strong>Lesen</strong> (Daten abfragen)<br>
-              <code>POST</code> — <strong>Erstellen</strong> (neue Daten anlegen)<br>
-              <code>PUT</code> / <code>PATCH</code> — <strong>Ändern</strong> (bestehende Daten updaten)<br>
-              <code>DELETE</code> — <strong>Löschen</strong>
-            </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">REST API Beispiele</span></div>
-              <div class="code-pre"><span class="cm"># Alle User abrufen</span>
-<span class="kw">GET</span>  /api/users              → <span class="num">200</span> OK + Liste
-
-<span class="cm"># Einen User abrufen</span>
-<span class="kw">GET</span>  /api/users/<span class="num">42</span>           → <span class="num">200</span> OK + einzelner User
-
-<span class="cm"># Neuen User erstellen</span>
-<span class="kw">POST</span> /api/users              → <span class="num">201</span> Created
-  Body: { <span class="st">"name"</span>: <span class="st">"Anna"</span> }
-
-<span class="cm"># User updaten</span>
-<span class="kw">PATCH</span> /api/users/<span class="num">42</span>          → <span class="num">200</span> OK
-  Body: { <span class="st">"email"</span>: <span class="st">"neu@x.com"</span> }
-
-<span class="cm"># User löschen</span>
-<span class="kw">DELETE</span> /api/users/<span class="num">42</span>        → <span class="num">204</span> No Content</div>
+              <strong>API</strong> = <em>Application Programming Interface</em>. Eine Schnittstelle damit Programme miteinander reden können.<br><br>
+              Stell dir die API als <strong>Speisekarte im Restaurant</strong> vor: du siehst was du bestellen kannst (welche URLs gibt's), in welcher Form (welche Daten musst du mitschicken), und was zurückkommt. Die Küche (Backend) bleibt verborgen.<br><br>
+              <strong>Was ist REST?</strong><br>
+              REST (Representational State Transfer) ist ein <em>Architektur-Stil</em> für APIs — kein Standard, keine Vorschrift. Aber praktisch alle Web-APIs folgen den REST-Prinzipien:<br><br>
+              • Alles dreht sich um <strong>Ressourcen</strong> (User, Posts, Bestellungen)<br>
+              • Jede Ressource hat eine eindeutige <strong>URL</strong><br>
+              • <strong>HTTP-Verben</strong> sagen was du damit tun willst<br>
+              • <strong>Stateless</strong> — jede Anfrage ist unabhängig, der Server merkt sich nichts<br>
+              • Daten werden meist als <strong>JSON</strong> ausgetauscht
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Eine API mit Python aufrufen</div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die HTTP-Verben (CRUD-Operationen)</div>
+            <div class="explanation">
+              REST mappt 4 Grundoperationen — <strong>CRUD</strong> (Create, Read, Update, Delete) — auf HTTP-Verben:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">CRUD-Mapping</span></div>
+              <div class="code-pre">  CRUD       HTTP-Verb    Bedeutung
+  ───────    ─────────    ─────────────────────────────
+  Create     POST         Neue Ressource erstellen
+  Read       GET          Daten abrufen (verändert NICHTS)
+  Update     PUT/PATCH    Existierende Ressource ändern
+  Delete     DELETE       Ressource löschen</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>PUT vs. PATCH</strong> — der häufige Streit:<br>
+              • <code>PUT</code> ersetzt die <em>komplette</em> Ressource (alle Felder mitgeben)<br>
+              • <code>PATCH</code> ändert nur <em>einzelne Felder</em> (nur das was du updaten willst)<br><br>
+              In der Praxis nutzt man meistens PATCH — weil man selten alle Felder schicken will.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">URL-Konventionen für REST</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">REST URL-Schema</span></div>
+              <div class="code-pre"><span class="cm"># Sammlung (Plural, kein Verb in der URL!)</span>
+<span class="kw">GET</span>    /api/users              <span class="cm"># alle User</span>
+<span class="kw">POST</span>   /api/users              <span class="cm"># neuen User erstellen</span>
+
+<span class="cm"># Einzelnes Element (per ID)</span>
+<span class="kw">GET</span>    /api/users/<span class="num">42</span>           <span class="cm"># EINEN User abrufen</span>
+<span class="kw">PATCH</span>  /api/users/<span class="num">42</span>           <span class="cm"># diesen User ändern</span>
+<span class="kw">DELETE</span> /api/users/<span class="num">42</span>           <span class="cm"># diesen User löschen</span>
+
+<span class="cm"># Verschachtelung (User hat Posts)</span>
+<span class="kw">GET</span>    /api/users/<span class="num">42</span>/posts     <span class="cm"># alle Posts von User 42</span>
+<span class="kw">POST</span>   /api/users/<span class="num">42</span>/posts     <span class="cm"># neuen Post für User 42</span>
+<span class="kw">GET</span>    /api/users/<span class="num">42</span>/posts/<span class="num">7</span>   <span class="cm"># Post 7 von User 42</span>
+
+<span class="cm"># Filter & Sortierung über Query-String</span>
+<span class="kw">GET</span> /api/posts?author=<span class="num">42</span>&sort=neu&limit=<span class="num">10</span>
+
+<span class="cm"># Schlecht (NICHT REST):</span>
+<span class="cm">#   GET /api/getUserById?id=42      ← Verb in URL, nicht in Methode</span>
+<span class="cm">#   POST /api/deleteUser            ← falsche Methode</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Faustregel:</strong> URLs enthalten <strong>Substantive (Plural)</strong>, niemals Verben. Das HTTP-Verb sagt was getan wird.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Vollständiges REST-Beispiel — Blog-API</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">REST-Endpunkte für einen Blog</span></div>
+              <div class="code-pre"><span class="cm"># Alle Posts</span>
+<span class="kw">GET</span>    /api/posts                        → <span class="num">200</span> OK
+   Antwort: [{ id: 1, ... }, { id: 2, ... }]
+
+<span class="cm"># Einen Post</span>
+<span class="kw">GET</span>    /api/posts/<span class="num">42</span>                     → <span class="num">200</span> OK
+   Antwort: { id: 42, titel: "...", text: "..." }
+                                                  → <span class="num">404</span> Not Found
+   wenn Post nicht existiert
+
+<span class="cm"># Neuen Post erstellen</span>
+<span class="kw">POST</span>   /api/posts                        → <span class="num">201</span> Created
+   Body: { titel: "Hallo", text: "Welt" }
+   Antwort: { id: <span class="num">43</span>, titel: "Hallo", ... }
+                                                  → <span class="num">400</span> Bad Request
+   wenn Daten ungültig (z.B. titel fehlt)
+
+<span class="cm"># Post bearbeiten</span>
+<span class="kw">PATCH</span>  /api/posts/<span class="num">42</span>                     → <span class="num">200</span> OK
+   Body: { titel: "Neuer Titel" }
+                                                  → <span class="num">403</span> Forbidden
+   wenn Post nicht dir gehört
+
+<span class="cm"># Post löschen</span>
+<span class="kw">DELETE</span> /api/posts/<span class="num">42</span>                     → <span class="num">204</span> No Content
+
+<span class="cm"># Kommentare zu einem Post (Verschachtelung)</span>
+<span class="kw">GET</span>    /api/posts/<span class="num">42</span>/kommentare           → <span class="num">200</span> OK
+<span class="kw">POST</span>   /api/posts/<span class="num">42</span>/kommentare           → <span class="num">201</span> Created</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">HTTP-Statuscodes für APIs</div>
+            <div class="explanation">
+              Eine gute API antwortet mit dem <em>passenden</em> Statuscode. Das spart dem Client das Raten.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Die wichtigsten</span></div>
+              <div class="code-pre"><span class="cm">  Erfolg (2xx)</span>
+  <span class="num">200</span> OK              <span class="cm"># Standard-Erfolg (GET, PATCH)</span>
+  <span class="num">201</span> Created         <span class="cm"># Etwas Neues erstellt (POST)</span>
+  <span class="num">204</span> No Content      <span class="cm"># Erfolg, aber keine Antwort (DELETE)</span>
+
+<span class="cm">  Client-Fehler (4xx) — DU hast was falsch gemacht</span>
+  <span class="num">400</span> Bad Request     <span class="cm"># Anfrage ungültig (z.B. fehlende Felder)</span>
+  <span class="num">401</span> Unauthorized    <span class="cm"># Nicht eingeloggt</span>
+  <span class="num">403</span> Forbidden       <span class="cm"># Eingeloggt, aber keine Berechtigung</span>
+  <span class="num">404</span> Not Found       <span class="cm"># Ressource existiert nicht</span>
+  <span class="num">409</span> Conflict        <span class="cm"># z.B. Email schon registriert</span>
+  <span class="num">422</span> Unprocessable   <span class="cm"># Validierungsfehler</span>
+  <span class="num">429</span> Too Many        <span class="cm"># Rate-Limit erreicht</span>
+
+<span class="cm">  Server-Fehler (5xx) — DER SERVER hat was falsch gemacht</span>
+  <span class="num">500</span> Internal Error  <span class="cm"># Allgemeiner Server-Crash</span>
+  <span class="num">502</span> Bad Gateway     <span class="cm"># Upstream-Server antwortet nicht</span>
+  <span class="num">503</span> Unavailable     <span class="cm"># Server überlastet/Wartung</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Header — Metadaten der Anfrage</div>
+            <div class="explanation">
+              Header sind Schlüssel-Wert-Paare die mit der Anfrage mitgeschickt werden — getrennt vom Body. Sie tragen Meta-Informationen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Wichtige Request-Header</span></div>
+              <div class="code-pre"><span class="fn">Content-Type</span>:    application/json    <span class="cm"># Format des Body</span>
+<span class="fn">Accept</span>:          application/json    <span class="cm"># Was du zurück willst</span>
+<span class="fn">Authorization</span>:   Bearer eyJhbGc...   <span class="cm"># Login-Token</span>
+<span class="fn">User-Agent</span>:      Mozilla/5.0...      <span class="cm"># welcher Client</span>
+<span class="fn">X-API-Key</span>:       abc123...           <span class="cm"># API-Schlüssel</span>
+
+<span class="cm"># Wichtige Response-Header (vom Server)</span>
+<span class="fn">Content-Type</span>:    application/json
+<span class="fn">Cache-Control</span>:   max-age=<span class="num">300</span>          <span class="cm"># Browser darf 5 Min cachen</span>
+<span class="fn">Set-Cookie</span>:      session=abc...
+<span class="fn">Access-Control-Allow-Origin</span>: *      <span class="cm"># CORS (siehe unten)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Eine API mit Python aufrufen — requests</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
               <div class="code-pre"><span class="kw">import</span> requests
 
-<span class="cm"># GET-Anfrage</span>
+<span class="cm"># Einfacher GET</span>
 antwort = requests.<span class="fn">get</span>(<span class="st">"https://api.github.com/users/ninoborn1-stack"</span>)
-daten = antwort.<span class="fn">json</span>()
-<span class="fn">print</span>(daten[<span class="st">"name"</span>])
+<span class="fn">print</span>(antwort.status_code)        <span class="cm"># 200</span>
+daten = antwort.<span class="fn">json</span>()              <span class="cm"># JSON → Python-Dict</span>
 <span class="fn">print</span>(daten[<span class="st">"public_repos"</span>])
 
-<span class="cm"># POST-Anfrage</span>
-neue_daten = { <span class="st">"titel"</span>: <span class="st">"Mein Post"</span>, <span class="st">"text"</span>: <span class="st">"Hallo"</span> }
-antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.beispiel.de/posts"</span>, json=neue_daten)
-<span class="fn">print</span>(antwort.status_code)  <span class="cm"># 201 bei Erfolg</span></div>
+<span class="cm"># GET mit Query-Parametern</span>
+antwort = requests.<span class="fn">get</span>(
+    <span class="st">"https://api.github.com/search/repositories"</span>,
+    params={<span class="st">"q"</span>: <span class="st">"python"</span>, <span class="st">"sort"</span>: <span class="st">"stars"</span>}
+)
+
+<span class="cm"># POST mit JSON-Body</span>
+antwort = requests.<span class="fn">post</span>(
+    <span class="st">"https://api.beispiel.de/posts"</span>,
+    json={<span class="st">"titel"</span>: <span class="st">"Hallo"</span>, <span class="st">"text"</span>: <span class="st">"Welt"</span>}
+)
+
+<span class="cm"># Mit Auth-Header</span>
+antwort = requests.<span class="fn">get</span>(
+    <span class="st">"https://api.beispiel.de/me"</span>,
+    headers={<span class="st">"Authorization"</span>: <span class="st">"Bearer eyJhbGc..."</span>}
+)
+
+<span class="cm"># Antworten prüfen</span>
+<span class="kw">if</span> antwort.status_code == <span class="num">200</span>:
+    <span class="fn">print</span>(antwort.json())
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">f"Fehler: {antwort.status_code}"</span>)
+    <span class="fn">print</span>(antwort.text)</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Eine API aus dem Browser aufrufen — fetch()</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">javascript</span></div>
+              <div class="code-pre"><span class="cm">// GET — die einfachste Variante</span>
+<span class="kw">const</span> antwort = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">"/api/users"</span>);
+<span class="kw">const</span> daten = <span class="kw">await</span> antwort.<span class="fn">json</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(daten);
+
+<span class="cm">// POST mit Body und Headers</span>
+<span class="kw">const</span> antwort = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">"/api/posts"</span>, {
+  method: <span class="st">"POST"</span>,
+  headers: {
+    <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>,
+    <span class="st">"Authorization"</span>: <span class="st">\`Bearer \${token}\`</span>
+  },
+  body: <span class="fn">JSON</span>.<span class="fn">stringify</span>({ titel: <span class="st">"Hallo"</span>, text: <span class="st">"Welt"</span> })
+});
+
+<span class="kw">if</span> (!antwort.ok) {
+  <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Error</span>(<span class="st">\`HTTP \${antwort.status}\`</span>);
+}
+<span class="kw">const</span> ergebnis = <span class="kw">await</span> antwort.<span class="fn">json</span>();</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">CORS — der häufigste Anfänger-Stolperstein</div>
+            <div class="explanation">
+              <strong>CORS</strong> = <em>Cross-Origin Resource Sharing</em>. Sicherheitsregel im Browser: per Default kann eine Seite auf <code>foo.de</code> KEINE Anfragen an <code>api.bar.de</code> machen. Sonst könnte jede Webseite im Hintergrund deine Bank-API aufrufen.<br><br>
+              <strong>Die Lösung:</strong> der Server (das Backend) muss explizit erlauben, von welcher Domain Anfragen kommen dürfen — über den Header <code>Access-Control-Allow-Origin</code>.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python — Flask CORS</span></div>
+              <div class="code-pre"><span class="kw">from</span> flask <span class="kw">import</span> Flask
+<span class="kw">from</span> flask_cors <span class="kw">import</span> CORS
+
+app = <span class="fn">Flask</span>(__name__)
+<span class="fn">CORS</span>(app)   <span class="cm"># erlaubt Anfragen von ALLEN Domains</span>
+
+<span class="cm"># Oder spezifisch:</span>
+<span class="fn">CORS</span>(app, origins=[<span class="st">"https://meine-seite.de"</span>])</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Das typische Symptom:</strong> deine fetch()-Anfrage funktioniert in Postman — aber im Browser kommt eine Fehlermeldung wie <em>"blocked by CORS policy"</em>. Lösung: CORS auf dem Server konfigurieren.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">APIs testen — Postman, curl, HTTPie</div>
+            <div class="explanation">
+              Bevor du Frontend-Code schreibst, teste die API direkt:<br><br>
+              <strong>Postman / Insomnia / Bruno</strong> — grafisches Tool. Wähle Methode, gib URL + Body ein, klicke "Send". Speichere ganze Sammlungen für später.<br><br>
+              <strong>curl</strong> — Terminal-Klassiker, überall verfügbar:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">terminal</span></div>
+              <div class="code-pre"><span class="cm"># GET</span>
+<span class="fn">curl</span> https://api.github.com/users/ninoborn1-stack
+
+<span class="cm"># POST mit JSON</span>
+<span class="fn">curl</span> -X POST https://api.beispiel.de/posts \\
+  -H <span class="st">"Content-Type: application/json"</span> \\
+  -d <span class="st">'{"titel": "Hallo", "text": "Welt"}'</span>
+
+<span class="cm"># Mit Auth</span>
+<span class="fn">curl</span> -H <span class="st">"Authorization: Bearer eyJhbGc..."</span> https://api/me
+
+<span class="cm"># Schöne Ausgabe (mit jq)</span>
+<span class="fn">curl</span> https://api.github.com/users/torvalds | <span class="fn">jq</span></div>
             </div>
           </div>
           ${quiz('q_rest1', 'Du willst einen neuen Blogpost erstellen. Welches HTTP-Verb nutzt du?', [
@@ -4197,6 +4549,18 @@ antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.be
             {t:'Weitergeleitet', correct:false, why:'Weiterleitungen sind 3xx (z.B. 301, 302).'},
             {t:'Nicht autorisiert', correct:false, why:'Das wäre 401.'},
           ])}
+          ${quiz('q_rest3', 'Welche URL ist NICHT REST-konform?', [
+            {t:'GET /api/users/42', correct:false, why:'Korrekt — Substantiv im Plural, ID per Pfad.'},
+            {t:'POST /api/users', correct:false, why:'Korrekt — POST auf die Sammlung erstellt einen neuen User.'},
+            {t:'GET /api/getUserById?id=42', correct:true, why:'Genau! Verben gehören NICHT in die URL ("getUserById"). Das HTTP-Verb GET sagt schon dass etwas geholt wird.'},
+            {t:'DELETE /api/posts/15', correct:false, why:'Korrekt — DELETE-Methode auf eine konkrete Ressource.'},
+          ])}
+          ${quiz('q_rest4', 'Was ist CORS?', [
+            {t:'Eine Programmiersprache für APIs', correct:false, why:'CORS ist keine Sprache — es ist ein Browser-Sicherheitsmechanismus.'},
+            {t:'Browser-Regel die Cross-Domain-Requests blockiert wenn der Server sie nicht erlaubt', correct:true, why:'Genau! Damit Webseite A nicht heimlich API B aufrufen kann. Server muss explizit erlauben mit "Access-Control-Allow-Origin".'},
+            {t:'Ein Datenformat wie JSON', correct:false, why:'CORS ist kein Datenformat.'},
+            {t:'Eine Verschlüsselungsmethode', correct:false, why:'Verschlüsselung macht TLS/HTTPS, nicht CORS.'},
+          ])}
         `
       },
       {
@@ -4208,48 +4572,306 @@ antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.be
             <p class="lesson-desc">Fast jede App speichert Daten in einer Datenbank. SQL ist die universelle Sprache dafür — und seit über 40 Jahren quasi unverändert.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die vier Grundoperationen — CRUD</div>
+            <div class="card-label">Was ist eine Datenbank?</div>
+            <div class="explanation">
+              Eine <strong>Datenbank</strong> ist ein Programm das große Mengen Daten dauerhaft, strukturiert und schnell durchsuchbar speichert. Daten in normalen Dateien zu speichern wird ab ein paar tausend Einträgen unbrauchbar — Datenbanken sind dafür gemacht.<br><br>
+              Die meisten Datenbanken sind <strong>relational</strong>: Daten liegen in <em>Tabellen</em> (wie Excel-Sheets). Tabellen haben Spalten (Felder) und Zeilen (Einträge). Tabellen können sich gegenseitig referenzieren — daher "relational".<br><br>
+              <strong>SQL</strong> (Structured Query Language) ist die Sprache, mit der du mit relationalen Datenbanken redest. SQL ist seit den 1970ern Standard und sieht überall ähnlich aus.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">SQL vs. NoSQL — die zwei Welten</div>
+            <div class="explanation">
+              <strong>SQL (Relational)</strong> — Daten in Tabellen, festes Schema:<br>
+              • <strong>PostgreSQL</strong> — Open Source, mächtig, der Standard für ernste Projekte<br>
+              • <strong>MySQL / MariaDB</strong> — sehr verbreitet, einfach<br>
+              • <strong>SQLite</strong> — eine einzige Datei, perfekt zum Lernen + für kleine Apps<br>
+              • <em>Vorteile:</em> Datenintegrität, komplexe Abfragen, Transaktionen<br>
+              • <em>Wann nehmen:</em> 90% aller Apps. Default-Wahl.<br><br>
+              <strong>NoSQL (Nicht-relational)</strong> — flexibles Schema, oft JSON-Dokumente:<br>
+              • <strong>MongoDB</strong> — Dokumente (wie JSON-Objekte)<br>
+              • <strong>Redis</strong> — Key-Value, alles im RAM, blitzschnell (für Cache)<br>
+              • <strong>DynamoDB</strong> — Amazons Skalierungs-Monster<br>
+              • <em>Vorteile:</em> hohe Skalierung, flexibles Datenmodell<br>
+              • <em>Wann nehmen:</em> sehr große Datenmengen, Sessions, Cache, Logs.<br><br>
+              <strong>Empfehlung:</strong> starte mit <strong>SQLite</strong> zum Lernen, wechsle für echte Projekte zu <strong>PostgreSQL</strong>.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Tabellen erstellen — Datentypen & Constraints</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">sql</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
-              <div class="code-pre"><span class="cm">-- CREATE: Tabelle anlegen</span>
-<span class="kw">CREATE TABLE</span> users (
-  id <span class="fn">INTEGER PRIMARY KEY</span>,
-  name <span class="fn">TEXT NOT NULL</span>,
-  email <span class="fn">TEXT UNIQUE</span>,
-  alter <span class="fn">INTEGER</span>
+              <div class="code-pre"><span class="kw">CREATE TABLE</span> users (
+  id          <span class="fn">INTEGER PRIMARY KEY</span> AUTOINCREMENT,
+  name        <span class="fn">TEXT NOT NULL</span>,
+  email       <span class="fn">TEXT UNIQUE NOT NULL</span>,
+  alter       <span class="fn">INTEGER</span>,
+  premium     <span class="fn">BOOLEAN DEFAULT FALSE</span>,
+  erstellt_am <span class="fn">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
 );
 
-<span class="cm">-- CREATE: Daten einfügen (INSERT)</span>
+<span class="cm">-- Wichtige Datentypen:
+--   INTEGER    Ganzzahl
+--   TEXT       String beliebiger Länge
+--   VARCHAR(n) String mit max. n Zeichen
+--   BOOLEAN    true/false
+--   REAL       Kommazahl
+--   DATE       Datum (2026-04-20)
+--   TIMESTAMP  Datum + Uhrzeit
+--   BLOB       Binärdaten
+
+-- Wichtige Constraints (Regeln):
+--   PRIMARY KEY     eindeutiger Identifier (oft + AUTOINCREMENT)
+--   NOT NULL        Feld darf nicht leer sein
+--   UNIQUE          Wert darf nicht doppelt vorkommen
+--   DEFAULT x       Standardwert wenn nichts angegeben
+--   FOREIGN KEY     Verweis auf andere Tabelle (siehe Beziehungen)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">CRUD — die vier Grundoperationen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="cm">-- CREATE / INSERT — neuen Eintrag</span>
 <span class="kw">INSERT INTO</span> users (name, email, alter)
 <span class="kw">VALUES</span> (<span class="st">'Anna'</span>, <span class="st">'anna@x.de'</span>, <span class="num">28</span>);
 
-<span class="cm">-- READ: Daten abfragen</span>
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> users;
-<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter > <span class="num">18</span>;
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">ORDER BY</span> name <span class="kw">LIMIT</span> <span class="num">10</span>;
+<span class="cm">-- mehrere auf einmal</span>
+<span class="kw">INSERT INTO</span> users (name, email)
+<span class="kw">VALUES</span> (<span class="st">'Ben'</span>, <span class="st">'ben@x.de'</span>),
+       (<span class="st">'Clara'</span>, <span class="st">'clara@x.de'</span>);
 
-<span class="cm">-- UPDATE: Daten ändern</span>
-<span class="kw">UPDATE</span> users <span class="kw">SET</span> alter = <span class="num">29</span> <span class="kw">WHERE</span> name = <span class="st">'Anna'</span>;
+<span class="cm">-- READ / SELECT — Daten lesen</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users;                        <span class="cm">-- alle Spalten, alle Zeilen</span>
+<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> users;              <span class="cm">-- nur bestimmte Spalten</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> id = <span class="num">42</span>;          <span class="cm">-- gefiltert</span>
 
-<span class="cm">-- DELETE: Daten löschen</span>
-<span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> id = <span class="num">42</span>;</div>
+<span class="cm">-- UPDATE — Daten ändern (IMMER mit WHERE!)</span>
+<span class="kw">UPDATE</span> users <span class="kw">SET</span> premium = <span class="kw">TRUE</span> <span class="kw">WHERE</span> id = <span class="num">42</span>;
+
+<span class="cm">-- mehrere Felder gleichzeitig</span>
+<span class="kw">UPDATE</span> users <span class="kw">SET</span> name = <span class="st">'Anna S.'</span>, alter = <span class="num">29</span>
+<span class="kw">WHERE</span> id = <span class="num">42</span>;
+
+<span class="cm">-- DELETE — IMMER mit WHERE, sonst weg ist alles!</span>
+<span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> id = <span class="num">42</span>;
+<span class="cm">-- DELETE FROM users;   ← LÖSCHT ALLES! Nicht ohne WHERE!</span></div>
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Beziehungen zwischen Tabellen — JOIN</div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">SELECT vertieft — WHERE, ORDER, LIMIT</div>
             <div class="code-block">
               <div class="code-block-header"><span class="code-lang">sql</span></div>
-              <div class="code-pre"><span class="cm">-- User haben Posts — wir verbinden beide Tabellen</span>
+              <div class="code-pre"><span class="cm">-- Vergleichs-Operatoren</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter > <span class="num">18</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter <span class="kw">BETWEEN</span> <span class="num">18</span> <span class="kw">AND</span> <span class="num">65</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'A%'</span>;       <span class="cm">-- beginnt mit A</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="st">'%anna%'</span>;   <span class="cm">-- enthält "anna"</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter <span class="kw">IN</span> (<span class="num">25</span>, <span class="num">30</span>, <span class="num">35</span>);
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> alter <span class="kw">IS NULL</span>;        <span class="cm">-- alter unbekannt</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> premium = <span class="kw">TRUE</span>
+                       <span class="kw">AND</span> alter >= <span class="num">18</span>;             <span class="cm">-- mehrere Bedingungen</span>
+
+<span class="cm">-- Sortieren</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">ORDER BY</span> name;             <span class="cm">-- aufsteigend (A-Z)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">ORDER BY</span> alter <span class="kw">DESC</span>;       <span class="cm">-- absteigend</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">ORDER BY</span> alter <span class="kw">DESC</span>, name;  <span class="cm">-- mehrfach</span>
+
+<span class="cm">-- Begrenzen (Pagination)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">LIMIT</span> <span class="num">10</span>;                  <span class="cm">-- erste 10</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">LIMIT</span> <span class="num">10</span> <span class="kw">OFFSET</span> <span class="num">20</span>;        <span class="cm">-- 21-30</span>
+
+<span class="cm">-- Eindeutige Werte</span>
+<span class="kw">SELECT DISTINCT</span> stadt <span class="kw">FROM</span> users;</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Aggregat-Funktionen — zählen, summieren, mitteln</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="cm">-- Wie viele User gibt es?</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*) <span class="kw">FROM</span> users;
+
+<span class="cm">-- Wie viele Premium-User?</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*) <span class="kw">FROM</span> users <span class="kw">WHERE</span> premium = <span class="kw">TRUE</span>;
+
+<span class="cm">-- Durchschnittsalter</span>
+<span class="kw">SELECT</span> <span class="fn">AVG</span>(alter) <span class="kw">FROM</span> users;
+
+<span class="cm">-- Maximum & Minimum</span>
+<span class="kw">SELECT</span> <span class="fn">MAX</span>(alter), <span class="fn">MIN</span>(alter) <span class="kw">FROM</span> users;
+
+<span class="cm">-- Summe (z.B. von Bestellbeträgen)</span>
+<span class="kw">SELECT</span> <span class="fn">SUM</span>(betrag) <span class="kw">FROM</span> bestellungen;
+
+<span class="cm">-- GROUP BY — gruppiert berechnen</span>
+<span class="cm">-- Wie viele User pro Stadt?</span>
+<span class="kw">SELECT</span> stadt, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> anzahl
+<span class="kw">FROM</span> users
+<span class="kw">GROUP BY</span> stadt
+<span class="kw">ORDER BY</span> anzahl <span class="kw">DESC</span>;
+
+<span class="cm">-- HAVING — Filter NACH GROUP BY (WHERE wäre vorher)</span>
+<span class="kw">SELECT</span> stadt, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> anzahl
+<span class="kw">FROM</span> users
+<span class="kw">GROUP BY</span> stadt
+<span class="kw">HAVING</span> anzahl > <span class="num">10</span>;</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Beziehungen — Foreign Keys</div>
+            <div class="explanation">
+              Daten verteilen sich auf mehrere Tabellen — und referenzieren sich gegenseitig. Beispiel: ein Blog hat User und Posts. Jeder Post gehört zu genau einem User.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="kw">CREATE TABLE</span> users (
+  id   <span class="fn">INTEGER PRIMARY KEY</span>,
+  name <span class="fn">TEXT NOT NULL</span>
+);
+
+<span class="kw">CREATE TABLE</span> posts (
+  id      <span class="fn">INTEGER PRIMARY KEY</span>,
+  titel   <span class="fn">TEXT NOT NULL</span>,
+  text    <span class="fn">TEXT</span>,
+  user_id <span class="fn">INTEGER REFERENCES</span> users(id)   <span class="cm">-- Foreign Key</span>
+);
+
+<span class="cm">-- Beispieldaten</span>
+<span class="kw">INSERT INTO</span> users (id, name) <span class="kw">VALUES</span> (<span class="num">1</span>, <span class="st">'Anna'</span>), (<span class="num">2</span>, <span class="st">'Ben'</span>);
+<span class="kw">INSERT INTO</span> posts (titel, user_id) <span class="kw">VALUES</span>
+  (<span class="st">'Mein erster Post'</span>, <span class="num">1</span>),    <span class="cm">-- gehört zu Anna</span>
+  (<span class="st">'Hallo Welt'</span>, <span class="num">1</span>),
+  (<span class="st">'Bens Idee'</span>, <span class="num">2</span>);            <span class="cm">-- gehört zu Ben</span>
+
+<span class="cm">-- "Beziehungstypen":
+--   1:1   ein User hat ein Profil
+--   1:n   ein User hat viele Posts
+--   n:m   viele Posts haben viele Tags (braucht Zwischen-Tabelle)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">JOIN — Tabellen verbinden</div>
+            <div class="explanation">
+              Mit JOIN holst du verknüpfte Daten aus mehreren Tabellen in einer Abfrage.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="cm">-- INNER JOIN — nur Datensätze die in BEIDEN Tabellen passen</span>
+<span class="kw">SELECT</span> users.name, posts.titel
+<span class="kw">FROM</span> posts
+<span class="kw">JOIN</span> users <span class="kw">ON</span> posts.user_id = users.id;
+<span class="cm">-- Anna  | Mein erster Post
+-- Anna  | Hallo Welt
+-- Ben   | Bens Idee</span>
+
+<span class="cm">-- LEFT JOIN — alle aus der LINKEN Tabelle, auch wenn kein Match</span>
 <span class="kw">SELECT</span> users.name, posts.titel
 <span class="kw">FROM</span> users
-<span class="kw">JOIN</span> posts <span class="kw">ON</span> posts.user_id = users.id
-<span class="kw">WHERE</span> users.name = <span class="st">'Anna'</span>;
+<span class="kw">LEFT JOIN</span> posts <span class="kw">ON</span> posts.user_id = users.id;
+<span class="cm">-- Anna  | Mein erster Post
+-- Anna  | Hallo Welt
+-- Ben   | Bens Idee
+-- Clara | NULL              ← Clara hat keinen Post, kommt trotzdem</span>
 
-<span class="cm">-- Zählen: wie viele Posts hat jeder User?</span>
+<span class="cm">-- Praktisch: User mit Anzahl ihrer Posts</span>
 <span class="kw">SELECT</span> users.name, <span class="fn">COUNT</span>(posts.id) <span class="kw">AS</span> anzahl
 <span class="kw">FROM</span> users
 <span class="kw">LEFT JOIN</span> posts <span class="kw">ON</span> posts.user_id = users.id
 <span class="kw">GROUP BY</span> users.id;</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Faustregel:</strong><br>
+              • <code>INNER JOIN</code> — nur Treffer in beiden Tabellen<br>
+              • <code>LEFT JOIN</code> — alle aus links, rechts NULL wenn kein Match<br>
+              • <code>RIGHT JOIN</code> — umgekehrt (selten benutzt)<br>
+              • <code>FULL OUTER JOIN</code> — alle aus beiden (sehr selten)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Indexe — Geschwindigkeit für große Tabellen</div>
+            <div class="explanation">
+              Eine SELECT mit WHERE muss normalerweise <em>jede Zeile</em> der Tabelle durchsuchen. Bei 1 Million Einträgen wird das langsam. Ein <strong>Index</strong> ist wie ein Inhaltsverzeichnis — die Datenbank findet die richtige Zeile in Millisekunden.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="cm">-- Index auf email anlegen — Suchen nach Email wird sehr schnell</span>
+<span class="kw">CREATE INDEX</span> idx_users_email <span class="kw">ON</span> users(email);
+
+<span class="cm">-- Mehrspaltiger Index</span>
+<span class="kw">CREATE INDEX</span> idx_posts_user_date <span class="kw">ON</span> posts(user_id, erstellt_am);
+
+<span class="cm">-- Eindeutiger Index</span>
+<span class="kw">CREATE UNIQUE INDEX</span> idx_users_email <span class="kw">ON</span> users(email);
+
+<span class="cm">-- WANN Indexe?
+--   ✓ Spalten in WHERE-Klauseln (häufig danach gesucht)
+--   ✓ Spalten in JOIN-Bedingungen (Foreign Keys)
+--   ✓ Spalten in ORDER BY
+-- WANN NICHT?
+--   ✗ Sehr kleine Tabellen
+--   ✗ Spalten die selten gesucht werden
+--   ✗ Wenn die Tabelle viel mehr geschrieben als gelesen wird
+--     (Indexe verlangsamen INSERT/UPDATE etwas)</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">SQL aus Python aufrufen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — sqlite3</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="kw">import</span> sqlite3
+
+<span class="cm"># Verbindung öffnen (Datei wird erstellt wenn sie nicht existiert)</span>
+con = sqlite3.<span class="fn">connect</span>(<span class="st">"meine_app.db"</span>)
+cur = con.<span class="fn">cursor</span>()
+
+<span class="cm"># Tabelle erstellen</span>
+cur.<span class="fn">execute</span>(<span class="st">"""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE
+    )
+"""</span>)
+
+<span class="cm"># WICHTIG: parameterisierte Queries (gegen SQL Injection!)</span>
+cur.<span class="fn">execute</span>(
+    <span class="st">"INSERT INTO users (name, email) VALUES (?, ?)"</span>,
+    (<span class="st">"Anna"</span>, <span class="st">"anna@x.de"</span>)
+)
+
+<span class="cm"># NIEMALS so (SQL Injection möglich!):
+# cur.execute(f"INSERT INTO users (name) VALUES ('{name}')")</span>
+
+<span class="cm"># Lesen</span>
+cur.<span class="fn">execute</span>(<span class="st">"SELECT * FROM users WHERE id = ?"</span>, (<span class="num">1</span>,))
+zeile = cur.<span class="fn">fetchone</span>()              <span class="cm"># eine Zeile</span>
+alle = cur.<span class="fn">fetchall</span>()              <span class="cm"># alle Zeilen</span>
+
+con.<span class="fn">commit</span>()                       <span class="cm"># Änderungen speichern</span>
+con.<span class="fn">close</span>()</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>SICHERHEITS-WARNUNG:</strong> niemals Strings in SQL einbauen! Immer <strong>parameterisierte Queries</strong> mit <code>?</code>-Platzhaltern. Sonst öffnest du SQL Injection (mehr in Phase 5).
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.34s">
+            <div class="card-label">Transaktionen — alles oder nichts</div>
+            <div class="explanation">
+              Manchmal hängen mehrere Operationen zusammen — z.B. Geld überweisen: <em>Konto A abbuchen + Konto B gutschreiben</em>. Wenn der Strom zwischen Schritt 1 und 2 ausfällt, ist Geld verschwunden. <strong>Transaktionen</strong> garantieren: entweder ALLE Änderungen passieren, oder KEINE.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">sql</span></div>
+              <div class="code-pre"><span class="kw">BEGIN TRANSACTION</span>;
+
+<span class="kw">UPDATE</span> konten <span class="kw">SET</span> saldo = saldo - <span class="num">100</span> <span class="kw">WHERE</span> id = <span class="num">1</span>;
+<span class="kw">UPDATE</span> konten <span class="kw">SET</span> saldo = saldo + <span class="num">100</span> <span class="kw">WHERE</span> id = <span class="num">2</span>;
+
+<span class="cm">-- Wenn alles gut: festschreiben</span>
+<span class="kw">COMMIT</span>;
+
+<span class="cm">-- Wenn was schiefgeht: alles zurückrollen</span>
+<span class="kw">ROLLBACK</span>;</div>
             </div>
           </div>
           ${quiz('q_sql1', 'Was macht SELECT * FROM users WHERE alter > 18?', [
@@ -4257,6 +4879,18 @@ antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.be
             {t:'Gibt alle Spalten aller User zurück, die älter als 18 sind', correct:true, why:'Richtig! * = alle Spalten, WHERE filtert.'},
             {t:'Ändert das Alter auf 18', correct:false, why:'Ändern macht UPDATE, nicht SELECT.'},
             {t:'Gibt nur die erste Spalte zurück', correct:false, why:'* steht für ALLE Spalten.'},
+          ])}
+          ${quiz('q_sql2', 'Was passiert bei DELETE FROM users; (ohne WHERE)?', [
+            {t:'Löscht den ersten User', correct:false, why:'Nein — ohne WHERE betrifft DELETE ALLE Zeilen.'},
+            {t:'Wirft einen Fehler', correct:false, why:'Leider nicht — die Datenbank tut genau was du sagst.'},
+            {t:'Löscht ALLE User in der Tabelle', correct:true, why:'Genau! Das ist der Albtraum. IMMER mit WHERE arbeiten — und Backups machen.'},
+            {t:'Löscht die Tabelle', correct:false, why:'Die Tabelle bleibt — nur die Daten sind weg. (Tabelle löschen wäre DROP TABLE.)'},
+          ])}
+          ${quiz('q_sql3', 'Wann nutzt du LEFT JOIN statt INNER JOIN?', [
+            {t:'Wenn die Datenbank am linken Server liegt', correct:false, why:'Hat nichts mit Server-Standorten zu tun.'},
+            {t:'Wenn du auch Datensätze willst die KEINEN Match in der zweiten Tabelle haben', correct:true, why:'Genau! INNER JOIN gibt nur Matches zurück. LEFT JOIN gibt alle aus der linken Tabelle zurück + NULL wo es keinen Match gibt. Z.B. "alle User auflisten — auch die ohne Posts".'},
+            {t:'LEFT JOIN ist immer schneller', correct:false, why:'Performance hängt vom konkreten Fall ab.'},
+            {t:'Wenn du nur die linke Spalte willst', correct:false, why:'Welche Spalten du willst entscheidest du im SELECT.'},
           ])}
         `
       },
@@ -4271,50 +4905,226 @@ antwort = requests.<span class="fn">post</span>(<span class="st">"https://api.be
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Authentifizierung vs. Autorisierung</div>
             <div class="explanation">
-              <strong>Authentifizierung</strong> — <em>Wer bist du?</em><br>
-              → Login mit Email + Passwort → Server prüft → Token wird ausgegeben.<br><br>
-              <strong>Autorisierung</strong> — <em>Was darfst du?</em><br>
-              → Nur Premium-User dürfen auf /api/premium zugreifen.
+              Zwei Wörter die ständig verwechselt werden — aber sie meinen ganz unterschiedliche Dinge:<br><br>
+              <strong>Authentifizierung</strong> (Authentication, "AuthN") — <em>Wer bist du?</em><br>
+              Der Nutzer beweist seine Identität: per Email + Passwort, Google-Login, Fingerabdruck, etc. Server stellt fest "Aha, das ist Anna".<br><br>
+              <strong>Autorisierung</strong> (Authorization, "AuthZ") — <em>Was darfst du?</em><br>
+              Anna ist eingeloggt. Aber darf sie diese Datei sehen? Diesen Post löschen? Auf den Admin-Bereich zugreifen? Das ist Autorisierung.<br><br>
+              <strong>Reihenfolge:</strong> immer erst Authentifizierung, dann Autorisierung. Du musst wissen WER zugreift, bevor du entscheiden kannst WAS er darf.
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">JWT — JSON Web Token</div>
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Wie identifiziert sich ein Nutzer?</div>
             <div class="explanation">
-              Ein <strong>JWT</strong> ist ein signiertes Token das sagt: "Dieser Nutzer hat sich eingeloggt". Der Server stellt es beim Login aus. Der Client schickt es bei jeder Anfrage mit.
-            </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">JWT Flow</span></div>
-              <div class="code-pre"><span class="cm"># 1. Login</span>
-POST /api/login
-  Body: { <span class="st">"email"</span>: <span class="st">"anna@x.de"</span>, <span class="st">"password"</span>: <span class="st">"geheim"</span> }
-
-  Antwort: { <span class="st">"token"</span>: <span class="st">"eyJhbGciOiJIUzI1..."</span> }
-
-<span class="cm"># 2. Geschützte Anfrage mit Token im Header</span>
-GET /api/meine-daten
-  Header: <span class="fn">Authorization</span>: <span class="st">Bearer eyJhbGciOiJIUzI1...</span>
-
-  Antwort: { <span class="st">"name"</span>: <span class="st">"Anna"</span>, ... }
-
-<span class="cm"># Ein JWT besteht aus 3 Teilen (durch . getrennt):
-#   HEADER.PAYLOAD.SIGNATURE
-# Der Server prüft die Signatur → weiß ob das Token echt ist</span></div>
+              <strong>Faktoren der Authentifizierung:</strong><br><br>
+              • <strong>Etwas das du WEISST</strong> — Passwort, PIN, Sicherheitsfrage<br>
+              • <strong>Etwas das du HAST</strong> — Handy (SMS-Code), Hardware-Token, Smartcard<br>
+              • <strong>Etwas das du BIST</strong> — Fingerabdruck, Face-ID, Iris<br><br>
+              <strong>2FA / MFA</strong> (Two-Factor / Multi-Factor Authentication) kombiniert mehrere — z.B. Passwort + SMS-Code. Auch wenn dein Passwort geleakt wird, fehlt dem Angreifer das zweite Mittel.<br><br>
+              <strong>Soziale Logins</strong> ("Mit Google einloggen") — du nutzt einen vertrauten Anbieter und ersparst dem Nutzer ein neues Passwort. Technisch: <em>OAuth 2.0</em> — der Nutzer wird zu Google weitergeleitet, loggt sich dort ein, Google bestätigt der App "Ja, das ist Anna".
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.11s">
-            <div class="card-label">Passwörter NIEMALS im Klartext speichern</div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Sessions vs. Tokens — die zwei Modelle</div>
+            <div class="explanation">
+              Nach dem Login muss der Server bei jeder weiteren Anfrage wissen "wer ist das". Zwei Wege:<br><br>
+              <strong>Session-basiert (klassisch)</strong><br>
+              Server erstellt eine Session-ID, speichert sie in seiner Datenbank, schickt sie als Cookie an den Browser. Bei jeder Anfrage schickt der Browser das Cookie mit, der Server schaut nach.<br>
+              <em>Vorteil:</em> Server kann Session jederzeit ungültig machen (logout).<br>
+              <em>Nachteil:</em> braucht Speicher, schwer zu skalieren über mehrere Server.<br><br>
+              <strong>Token-basiert (z.B. JWT)</strong><br>
+              Server erstellt ein signiertes Token, gibt es dem Client. Der Client schickt es bei jeder Anfrage mit. Server prüft die Signatur — keine Datenbank-Abfrage nötig.<br>
+              <em>Vorteil:</em> stateless, super skalierbar, perfekt für APIs.<br>
+              <em>Nachteil:</em> Token zurückziehen ist schwierig (oft kurze Lebensdauer + Refresh-Tokens).
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">JWT — JSON Web Token im Detail</div>
+            <div class="explanation">
+              Ein <strong>JWT</strong> ist ein String der aus 3 Teilen besteht — getrennt durch Punkte:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">JWT-Aufbau</span></div>
+              <div class="code-pre">  eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiQW5uYSJ9.dBjftJeZ4CV...
+  └────── HEADER ─────┘ └─── PAYLOAD ───┘ └─ SIGNATURE ─┘
+
+  Alle 3 Teile sind Base64-kodiert (kein Geheimnis!) — du kannst
+  sie auf jwt.io entschlüsseln und lesen.
+
+  HEADER (sagt "ich bin ein JWT mit Algorithmus HS256"):
+  { "alg": "HS256", "typ": "JWT" }
+
+  PAYLOAD (die eigentlichen Daten — "claims"):
+  {
+    "user_id": 42,
+    "name": "Anna",
+    "rolle": "admin",
+    "exp": 1745098234     ← Ablaufzeit
+  }
+
+  SIGNATURE:
+  HMACSHA256( base64(HEADER) + "." + base64(PAYLOAD), GEHEIMER_KEY )</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtig zu verstehen:</strong> Header und Payload sind <em>nicht verschlüsselt</em> — jeder kann sie lesen. Sie sind nur Base64-kodiert. Was sie schützt ist die <strong>Signatur</strong>: ohne den geheimen Key auf dem Server kann niemand ein gültiges Token fälschen. Aber: schreib NIEMALS Passwörter oder Geheimnisse in den Payload!
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Der komplette JWT-Flow</div>
             <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Login + geschützte Anfrage</span></div>
+              <div class="code-pre"><span class="cm"># 1. Login</span>
+<span class="kw">POST</span> /api/login
+   Body: { <span class="st">"email"</span>: <span class="st">"anna@x.de"</span>, <span class="st">"password"</span>: <span class="st">"geheim"</span> }
+
+   ↓ Server: prüft Passwort gegen Hash, signiert JWT
+
+   Antwort: { <span class="st">"token"</span>: <span class="st">"eyJhbGciOiJIUzI1..."</span> }
+
+<span class="cm"># 2. Client speichert Token (z.B. localStorage oder Cookie)</span>
+
+<span class="cm"># 3. Geschützte Anfrage</span>
+<span class="kw">GET</span> /api/meine-daten
+   Header: <span class="fn">Authorization</span>: <span class="st">Bearer eyJhbGciOiJIUzI1...</span>
+
+   ↓ Server: prüft Signatur, liest user_id aus Payload
+
+   Antwort: { <span class="st">"name"</span>: <span class="st">"Anna"</span>, ... }
+
+<span class="cm"># 4. Token läuft ab (z.B. nach 1 Stunde)
+#    → Client muss Refresh-Token nutzen oder neu einloggen</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">JWT in Python — Beispiel mit PyJWT</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="kw">import</span> jwt
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime, timedelta
+
+SECRET_KEY = <span class="st">"super-geheim-niemals-ins-git"</span>
+
+<span class="cm"># Token ERSTELLEN (beim Login)</span>
+<span class="kw">def</span> <span class="fn">erstelle_token</span>(user_id):
+    payload = {
+        <span class="st">"user_id"</span>: user_id,
+        <span class="st">"exp"</span>: datetime.<span class="fn">utcnow</span>() + <span class="fn">timedelta</span>(hours=<span class="num">1</span>)
+    }
+    <span class="kw">return</span> jwt.<span class="fn">encode</span>(payload, SECRET_KEY, algorithm=<span class="st">"HS256"</span>)
+
+<span class="cm"># Token PRÜFEN (bei geschützter Anfrage)</span>
+<span class="kw">def</span> <span class="fn">verifiziere_token</span>(token):
+    <span class="kw">try</span>:
+        payload = jwt.<span class="fn">decode</span>(token, SECRET_KEY, algorithms=[<span class="st">"HS256"</span>])
+        <span class="kw">return</span> payload[<span class="st">"user_id"</span>]
+    <span class="kw">except</span> jwt.<span class="fn">ExpiredSignatureError</span>:
+        <span class="kw">return</span> <span class="kw">None</span>   <span class="cm"># Token abgelaufen</span>
+    <span class="kw">except</span> jwt.<span class="fn">InvalidTokenError</span>:
+        <span class="kw">return</span> <span class="kw">None</span>   <span class="cm"># Signatur falsch / manipuliert</span>
+
+<span class="cm"># In einer Flask-Route benutzen</span>
+<span class="kw">from</span> flask <span class="kw">import</span> request, jsonify
+
+<span class="kw">@app.route</span>(<span class="st">"/api/me"</span>)
+<span class="kw">def</span> <span class="fn">me</span>():
+    auth = request.headers.get(<span class="st">"Authorization"</span>, <span class="st">""</span>)
+    token = auth.replace(<span class="st">"Bearer "</span>, <span class="st">""</span>)
+    user_id = <span class="fn">verifiziere_token</span>(token)
+    <span class="kw">if</span> <span class="kw">not</span> user_id:
+        <span class="kw">return</span> <span class="fn">jsonify</span>({<span class="st">"error"</span>: <span class="st">"unauthorized"</span>}), <span class="num">401</span>
+    <span class="kw">return</span> <span class="fn">jsonify</span>({<span class="st">"user_id"</span>: user_id})</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Passwörter — niemals im Klartext speichern</div>
+            <div class="explanation">
+              <strong>Goldene Regel:</strong> deine Datenbank darf NIE wissen wie das Passwort lautet. Du speicherst nur einen <em>Hash</em>. Bei jedem Login wird das eingegebene Passwort gehasht und mit dem gespeicherten Hash verglichen.<br><br>
+              <strong>Warum?</strong> Wenn deine Datenbank geleakt wird (passiert ständig), sind die Passwörter nicht direkt nutzbar. Der Angreifer muss sie aufwendig knacken.<br><br>
+              <strong>Welcher Hash-Algorithmus?</strong> NIEMALS MD5 oder SHA-1. Nimm <strong>bcrypt</strong>, <strong>argon2</strong> oder <strong>scrypt</strong> — die sind absichtlich langsam (macht Brute-Force teuer).
+            </div>
+            <div class="code-block" style="margin-top:10px">
               <div class="code-block-header"><span class="code-lang">python — bcrypt</span></div>
               <div class="code-pre"><span class="kw">import</span> bcrypt
 
-<span class="cm"># Registrierung: Passwort hashen</span>
-passwort = <span class="st">b"geheim123"</span>
-hash = bcrypt.<span class="fn">hashpw</span>(passwort, bcrypt.<span class="fn">gensalt</span>())
-<span class="cm"># Hash: $2b$12$abcDEF... (niemals das Original)</span>
+<span class="cm"># REGISTRIERUNG: Passwort hashen + speichern</span>
+passwort = <span class="st">b"meinPasswort123"</span>
+salt = bcrypt.<span class="fn">gensalt</span>(rounds=<span class="num">12</span>)        <span class="cm"># 2^12 Operationen</span>
+hash = bcrypt.<span class="fn">hashpw</span>(passwort, salt)
+<span class="cm"># Hash: $2b$12$abc...XYZ — das speicherst du in der DB</span>
 
-<span class="cm"># Login: eingegebenes Passwort gegen Hash prüfen</span>
-<span class="kw">if</span> bcrypt.<span class="fn">checkpw</span>(eingabe, hash):
-    <span class="fn">print</span>(<span class="st">"Passwort korrekt"</span>)</div>
+<span class="cm"># LOGIN: eingegebenes Passwort prüfen</span>
+eingabe = <span class="st">b"meinPasswort123"</span>
+<span class="kw">if</span> bcrypt.<span class="fn">checkpw</span>(eingabe, gespeicherter_hash):
+    <span class="fn">print</span>(<span class="st">"Login erfolgreich"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Falsches Passwort"</span>)
+
+<span class="cm"># Wichtig:
+#   - Salt wird automatisch generiert und im Hash gespeichert
+#   - Bei gleichem Passwort kommen unterschiedliche Hashes raus
+#     (deshalb keine Rainbow-Table-Angriffe möglich)
+#   - rounds=12 ist heute (2026) ein guter Wert</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Wo Tokens speichern — die Browser-Frage</div>
+            <div class="explanation">
+              Das Frontend muss das Token irgendwo behalten. Drei Optionen, jede mit Trade-offs:<br><br>
+              <strong>localStorage</strong><br>
+              ✓ Einfach, JavaScript hat direkten Zugriff<br>
+              ✗ Anfällig für XSS — bösartiges JavaScript kann das Token klauen<br><br>
+              <strong>sessionStorage</strong><br>
+              Wie localStorage, aber wird beim Tab-Schließen geleert<br><br>
+              <strong>Cookie mit HttpOnly + Secure + SameSite</strong><br>
+              ✓ JavaScript kann es NICHT lesen → XSS-sicher<br>
+              ✓ Wird automatisch bei jeder Anfrage mitgeschickt<br>
+              ✗ Du musst CSRF zusätzlich schützen<br><br>
+              <strong>Empfehlung 2026:</strong> für sensible Apps → HttpOnly-Cookie mit SameSite=strict. Für einfache Apps → localStorage ist OK wenn du XSS sauber verhinderst.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Autorisierung — Rollen & Berechtigungen</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — einfache Rollen-Prüfung</span></div>
+              <div class="code-pre"><span class="cm"># In der DB: user hat ein Feld "rolle" (z.B. "user" / "admin")</span>
+
+<span class="kw">@app.route</span>(<span class="st">"/api/admin/users"</span>, methods=[<span class="st">"DELETE"</span>])
+<span class="kw">def</span> <span class="fn">delete_user</span>(target_id):
+    user = <span class="fn">aktueller_user</span>()           <span class="cm"># aus dem Token</span>
+
+    <span class="cm"># Authentifiziert?</span>
+    <span class="kw">if</span> <span class="kw">not</span> user:
+        <span class="kw">return</span> {<span class="st">"error"</span>: <span class="st">"login required"</span>}, <span class="num">401</span>
+
+    <span class="cm"># Autorisiert?</span>
+    <span class="kw">if</span> user.rolle != <span class="st">"admin"</span>:
+        <span class="kw">return</span> {<span class="st">"error"</span>: <span class="st">"forbidden"</span>}, <span class="num">403</span>
+
+    <span class="cm"># Jetzt darf gelöscht werden</span>
+    db.<span class="fn">delete_user</span>(target_id)
+    <span class="kw">return</span> <span class="st">""</span>, <span class="num">204</span>
+
+<span class="cm"># Komplexere Systeme: RBAC (Role-Based Access Control)
+# - User hat 1+ Rollen
+# - Rolle hat 1+ Permissions
+# - Endpunkt verlangt bestimmte Permission</span></div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Sicherheits-Checkliste — Auth richtig machen</div>
+            <div class="explanation">
+              <strong>Pflicht-Liste für jede Login-Funktion:</strong><br><br>
+              ✓ <strong>HTTPS überall</strong> — sonst sind Passwörter im Klartext übertragbar<br>
+              ✓ <strong>Bcrypt/Argon2 für Passwort-Hashes</strong> — niemals MD5/SHA1<br>
+              ✓ <strong>Rate-Limiting auf /login</strong> — schützt vor Brute-Force (max. 5 Versuche/Minute)<br>
+              ✓ <strong>Generische Fehlermeldung</strong> — "Email oder Passwort falsch", nicht "Email existiert nicht" (verrät User-Existenz)<br>
+              ✓ <strong>Passwort-Stärke prüfen</strong> — mindestens 8 Zeichen, oder Passphrase erlauben<br>
+              ✓ <strong>2FA anbieten</strong> — bei sensiblen Apps (Banking, Email)<br>
+              ✓ <strong>Logout funktioniert</strong> — Token invalidieren oder Session löschen<br>
+              ✓ <strong>Passwort-Reset über Email-Link</strong> — Link mit Ablaufzeit (15 Min) und nur einmal nutzbar<br>
+              ✓ <strong>Niemals Geheimnisse ins Frontend</strong> — Secret-Keys gehören nur auf den Server<br>
+              ✓ <strong>Bei sensiblen Aktionen Passwort neu abfragen</strong> — z.B. "Konto löschen", "Email ändern"<br><br>
+              <strong>Profi-Tipp:</strong> bei echten Projekten nimm einen <strong>Auth-Provider</strong> wie Auth0, Clerk, Supabase Auth oder Firebase Auth. Die haben das alles schon richtig gemacht.
             </div>
           </div>
           ${quiz('q_auth1', 'Wo wird ein JWT-Token am häufigsten mitgeschickt?', [
@@ -4323,6 +5133,23 @@ hash = bcrypt.<span class="fn">hashpw</span>(passwort, bcrypt.<span class="fn">g
             {t:'Im Cookie — immer ohne Flags', correct:false, why:'Cookies gehen auch, aber immer mit HttpOnly und Secure Flags. "Ohne Flags" ist unsicher.'},
             {t:'Im Request-Body jeder Anfrage', correct:false, why:'Funktioniert theoretisch, ist aber unüblich und umständlich.'},
           ])}
+          ${quiz('q_auth2', 'Was ist der Unterschied zwischen Authentifizierung und Autorisierung?', [
+            {t:'Synonyme — kein Unterschied', correct:false, why:'Sie meinen verschiedene Dinge!'},
+            {t:'Authentifizierung = wer bist du, Autorisierung = was darfst du', correct:true, why:'Genau! Erst beweist man die Identität (Login), dann wird geprüft was die Person darf (Admin-Bereich? Premium-Feature?).'},
+            {t:'Authentifizierung ist neuer als Autorisierung', correct:false, why:'Beide Konzepte sind gleich alt.'},
+            {t:'Authentifizierung ist nur für Admins', correct:false, why:'Authentifizierung gilt für jeden User der sich einloggt.'},
+          ])}
+          ${quiz('q_auth3', 'Warum NICHT MD5 für Passwörter benutzen?', [
+            {t:'MD5 funktioniert nicht in Python', correct:false, why:'MD5 funktioniert überall — das ist nicht das Problem.'},
+            {t:'MD5 ist zu schnell — Angreifer können Milliarden Hashes pro Sekunde testen', correct:true, why:'Genau! Für Passwörter brauchst du absichtlich langsame Algorithmen wie bcrypt oder argon2. MD5 ist außerdem als Hash-Funktion gebrochen.'},
+            {t:'MD5 ist veraltet', correct:false, why:'Veraltet schon — aber das ist nicht der Grund warum es für Passwörter problematisch ist.'},
+            {t:'MD5 ist patentiert', correct:false, why:'MD5 ist frei und Open Source.'},
+          ])}
+          <div class="boss-card animate-in" style="animation-delay:0.4s">
+            <div class="boss-label-text"><i data-lucide="trophy"></i>Abschlussprojekt Phase 4</div>
+            <div class="boss-title">Eine eigene REST-API mit Auth</div>
+            <div class="boss-desc">Bau eine Mini-API mit Flask oder FastAPI: Endpunkte für <code>POST /register</code>, <code>POST /login</code>, <code>GET /api/me</code> (geschützt), <code>POST /api/posts</code> (geschützt). Speichere User in SQLite, hashe Passwörter mit bcrypt, gib JWT-Tokens aus. Teste alles mit curl oder Postman.</div>
+          </div>
         `
       }
     ]
