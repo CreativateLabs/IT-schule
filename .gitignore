@@ -5,4 +5,10 @@ test-results/
 playwright-report/
 playwright/.cache/
 .env
+.env.local
+.env.production
+.env.*.local
 .vscode/
+__pycache__/
+venv/
+*.pyc
