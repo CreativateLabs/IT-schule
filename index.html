@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodePath — Deine Coding Schule</title>
+<title>PyCoBase – PythonCodeBase</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
@@ -946,17 +946,304 @@ body {
   .topbar { padding: 0 18px; }
   .lesson-nav { padding: 14px 18px; }
 }
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+
+#landing {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  overflow-y: auto;
+  z-index: 200;
+  display: none;
+}
+#landing.show { display: block; }
+
+#app { display: none; width: 100%; height: 100vh; overflow: hidden; }
+#app.show { display: flex; }
+
+.landing-nav {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.landing-nav-logo { display: flex; align-items: center; gap: 10px; }
+.landing-nav-logo .logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white;
+}
+.landing-nav-logo .logo-icon [data-lucide] { width: 18px; height: 18px; stroke-width: 2; }
+.landing-nav-logo-text { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); }
+.landing-nav-logo-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.landing-nav-signin {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--text); font-size: 13px; font-family: var(--sans);
+  padding: 8px 16px; border-radius: var(--radius); cursor: pointer;
+  transition: background 0.15s;
+}
+.landing-nav-signin:hover { background: var(--surface3); }
+.landing-nav-signin [data-lucide] { width: 14px; height: 14px; }
+
+.landing-inner { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* Hero */
+.landing-hero { padding: 72px 0 56px; text-align: center; }
+.landing-hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.25);
+  color: var(--accent2); font-size: 12px; font-family: var(--mono);
+  padding: 5px 14px; border-radius: 999px; margin-bottom: 24px; letter-spacing: 0.5px;
+}
+.landing-hero-title {
+  font-family: var(--mono); font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700; line-height: 1.15; color: var(--text);
+  margin-bottom: 20px; letter-spacing: -1px;
+}
+.landing-hero-title span { color: var(--accent2); }
+.landing-hero-desc {
+  font-size: 17px; color: var(--text2); line-height: 1.7;
+  max-width: 580px; margin: 0 auto 36px;
+}
+.landing-cta-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--accent); color: white;
+  font-size: 15px; font-family: var(--sans); font-weight: 600;
+  padding: 13px 28px; border-radius: var(--radius); border: none;
+  cursor: pointer; transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 0 28px rgba(124,106,247,0.35);
+}
+.landing-cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.landing-cta-btn [data-lucide] { width: 18px; height: 18px; }
+
+/* Section headers */
+.landing-section-tag {
+  font-size: 11px; font-family: var(--mono); color: var(--accent2);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;
+}
+.landing-section-title {
+  font-family: var(--mono); font-size: 22px; font-weight: 700;
+  color: var(--text); margin-bottom: 32px; letter-spacing: -0.5px;
+}
+
+/* Phases grid */
+.landing-phases { padding: 48px 0; }
+.landing-phases-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;
+}
+.landing-phase-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px 20px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.landing-phase-card:hover { border-color: var(--border2); background: var(--surface2); }
+.landing-phase-num {
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+}
+.landing-phase-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.landing-phase-icon [data-lucide] { width: 20px; height: 20px; stroke-width: 1.75; }
+.landing-phase-title { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.landing-phase-sub { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.landing-phase-count { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 12px; }
+
+/* Security warning */
+.landing-security {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: rgba(247,106,106,0.07); border: 1px solid rgba(247,106,106,0.2);
+  border-radius: var(--radius-lg); padding: 22px 24px; margin: 0 0 48px;
+}
+.landing-security-icon { color: var(--red); flex-shrink: 0; margin-top: 2px; }
+.landing-security-icon [data-lucide] { width: 22px; height: 22px; }
+.landing-security-title { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 7px; }
+.landing-security-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
+
+/* Profiles section */
+.landing-profiles { padding: 48px 0 0; }
+.landing-profiles-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px 28px; max-width: 520px; margin: 0 auto;
+}
+.landing-profiles-label {
+  font-size: 13px; color: var(--text2); margin-bottom: 14px;
+}
+.landing-existing-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.landing-profile-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 16px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s; width: 100%; text-align: left;
+}
+.landing-profile-item:hover { border-color: var(--accent); background: var(--accent-glow); }
+.landing-profile-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.landing-profile-name { font-size: 14px; color: var(--text); font-weight: 500; }
+.landing-profile-stats { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 2px; }
+.landing-profile-arrow { margin-left: auto; color: var(--text3); }
+.landing-profile-arrow [data-lucide] { width: 14px; height: 14px; }
+
+.landing-divider {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text3); font-size: 12px; margin: 18px 0;
+}
+.landing-divider::before, .landing-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.landing-create-row { display: flex; gap: 10px; }
+.landing-name-input {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius); padding: 10px 14px;
+  color: var(--text); font-family: var(--sans); font-size: 14px; outline: none;
+  transition: border-color 0.15s;
+}
+.landing-name-input:focus { border-color: var(--accent); }
+.landing-name-input::placeholder { color: var(--text3); }
+.landing-start-btn {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--accent); color: white; border: none;
+  font-size: 13px; font-family: var(--sans); font-weight: 600;
+  padding: 10px 18px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s; white-space: nowrap;
+}
+.landing-start-btn:hover { opacity: 0.85; }
+.landing-start-btn [data-lucide] { width: 14px; height: 14px; }
+
+.landing-privacy-note {
+  font-size: 11px; color: var(--text3); text-align: center; margin-top: 14px; line-height: 1.5;
+}
 </style>
 </head>
 <body>
+
+<!-- LANDING PAGE -->
+<div id="landing">
+  <nav class="landing-nav">
+    <div class="landing-nav-logo">
+      <div class="logo-icon"><i data-lucide="code-2"></i></div>
+      <div>
+        <div class="landing-nav-logo-text">PyCoBase</div>
+        <div class="landing-nav-logo-sub">PythonCodeBase</div>
+      </div>
+    </div>
+    <button class="landing-nav-signin" id="landing-signin-btn" style="display:none" onclick="showExistingProfiles()">
+      <i data-lucide="log-in"></i> Profil wählen
+    </button>
+  </nav>
+
+  <div class="landing-inner">
+    <!-- Hero -->
+    <section class="landing-hero">
+      <div class="landing-hero-tag"><i data-lucide="sparkles"></i>Kostenlos &amp; ohne Registrierung</div>
+      <h1 class="landing-hero-title">Python lernen.<br><span>Von Null zum Profi.</span></h1>
+      <p class="landing-hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity. Interaktive Lektionen, Quizzes und Coding-Übungen — alles in einem.</p>
+      <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
+        <i data-lucide="rocket"></i>Jetzt starten
+      </button>
+    </section>
+
+    <!-- Was du lernst -->
+    <section class="landing-phases">
+      <div class="landing-section-tag">Lernpfad</div>
+      <div class="landing-section-title">5 Phasen — von den Grundlagen bis zur Security</div>
+      <div class="landing-phases-grid">
+        <div class="landing-phase-card">
+          <div class="landing-phase-num">Phase 01</div>
+          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.12);color:var(--accent2)"><i data-lucide="cpu"></i></div>
+          <div class="landing-phase-title">Fundament</div>
+          <div class="landing-phase-sub">Wie Computer wirklich funktionieren — Binär, Terminal, Netzwerk</div>
+          <div class="landing-phase-count">6 Lektionen</div>
+        </div>
+        <div class="landing-phase-card">
+          <div class="landing-phase-num">Phase 02</div>
+          <div class="landing-phase-icon" style="background:rgba(62,207,122,0.1);color:var(--green)"><i data-lucide="terminal"></i></div>
+          <div class="landing-phase-title">Python</div>
+          <div class="landing-phase-sub">Programmieren lernen von null — Variablen, Schleifen, Funktionen, Fehlerbehandlung</div>
+          <div class="landing-phase-count">5 Lektionen</div>
+        </div>
+        <div class="landing-phase-card">
+          <div class="landing-phase-num">Phase 03</div>
+          <div class="landing-phase-icon" style="background:rgba(247,201,106,0.1);color:var(--amber)"><i data-lucide="globe"></i></div>
+          <div class="landing-phase-title">Web &amp; HTML/CSS</div>
+          <div class="landing-phase-sub">Webseiten bauen — HTML, CSS, Flexbox, Responsive Design, JavaScript</div>
+          <div class="landing-phase-count">5 Lektionen</div>
+        </div>
+        <div class="landing-phase-card">
+          <div class="landing-phase-num">Phase 04</div>
+          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.1);color:var(--accent)"><i data-lucide="server"></i></div>
+          <div class="landing-phase-title">Backend &amp; APIs</div>
+          <div class="landing-phase-sub">Server, Datenbanken, REST APIs, SQL und Authentication</div>
+          <div class="landing-phase-count">4 Lektionen</div>
+        </div>
+        <div class="landing-phase-card">
+          <div class="landing-phase-num">Phase 05</div>
+          <div class="landing-phase-icon" style="background:rgba(247,106,106,0.1);color:var(--red)"><i data-lucide="shield"></i></div>
+          <div class="landing-phase-title">Hacking &amp; Security</div>
+          <div class="landing-phase-sub">Ethical Hacking, Cybersecurity, OSINT, Kryptographie — nur zu Bildungszwecken</div>
+          <div class="landing-phase-count">8 Lektionen</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security Warning -->
+    <div class="landing-security">
+      <div class="landing-security-icon"><i data-lucide="shield-alert"></i></div>
+      <div>
+        <div class="landing-security-title">Wichtiger rechtlicher Hinweis — Phase 5: Hacking &amp; Security</div>
+        <div class="landing-security-text">Alle Inhalte zu Cybersecurity und Ethical Hacking dienen <strong>ausschließlich zu Bildungs- und Aufklärungszwecken</strong>. Das Anwenden erlernter Techniken ist nur im ausdrücklich genehmigten Rahmen (z.&nbsp;B. eigene Systeme, CTF-Challenges, autorisierte Pentests) legal. Unbefugter Zugriff auf fremde Systeme ist nach §&nbsp;202a&nbsp;StGB eine Straftat und wird strafrechtlich verfolgt. Die Plattform übernimmt keine Haftung für missbräuchliche Verwendung der bereitgestellten Inhalte.</div>
+      </div>
+    </div>
+
+    <!-- Profil erstellen -->
+    <section class="landing-profiles" id="landing-profiles-section">
+      <div class="landing-section-tag">Dein Profil</div>
+      <div class="landing-section-title">Fortschritt wird automatisch lokal gespeichert</div>
+      <div class="landing-profiles-box">
+        <!-- Existing profiles (shown if present) -->
+        <div id="landing-existing-block" style="display:none">
+          <div class="landing-profiles-label">Willkommen zurück — wähle dein Profil:</div>
+          <div class="landing-existing-list" id="landing-existing-list"></div>
+          <div class="landing-divider">oder neues Profil erstellen</div>
+        </div>
+        <!-- Create new -->
+        <div class="landing-create-row">
+          <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" maxlength="30">
+          <button class="landing-start-btn" id="landing-start-btn">
+            <i data-lucide="user-plus"></i>Starten
+          </button>
+        </div>
+        <div class="landing-privacy-note">
+          <i data-lucide="lock"></i> Alle Daten bleiben lokal in deinem Browser. Kein Account, keine E-Mail nötig.
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-icon"><i data-lucide="code-2"></i></div>
     <div>
-      <div class="logo-text">CodePath</div>
-      <div class="logo-sub">Dein Weg zum Profi</div>
+      <div class="logo-text">PyCoBase</div>
+      <div class="logo-sub">PythonCodeBase</div>
     </div>
   </div>
   <div class="profile-bar" onclick="toggleProfileMenu(event)">
@@ -991,6 +1278,8 @@ body {
     <button class="nav-btn primary" id="btn-next" onclick="navigate(1)">Weiter<i data-lucide="arrow-right"></i></button>
   </div>
 </main>
+
+</div><!-- /#app -->
 
 <!-- MODAL -->
 <div class="modal-backdrop" id="modal-backdrop">
@@ -8203,6 +8492,7 @@ function buildProfileMenu() {
     </button>`;
   }).join('') + `
     <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>Zur Startseite</button>
     <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>Neues Profil</button>
     <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>Fortschritt exportieren</button>
     <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>Fortschritt importieren</button>
@@ -8233,7 +8523,8 @@ function switchProfile(profileId) {
 
 function handleProfileAction(action) {
   document.getElementById('profile-menu').classList.remove('show');
-  if (action === 'new') showNewProfileModal();
+  if (action === 'landing') { persistState(); showLanding(); }
+  else if (action === 'new') showNewProfileModal();
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
   else if (action === 'delete') showDeleteConfirm();
@@ -8253,7 +8544,7 @@ function hideModal() {
 
 function showNewProfileModal(isFirst = false) {
   showModal(`
-    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei CodePath' : 'Neues Profil'}</div>
+    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei PyCoBase' : 'Neues Profil'}</div>
     <div class="modal-desc">${isFirst ? 'Erstelle dein Profil um zu starten. Dein Fortschritt wird automatisch gespeichert.' : 'Jedes Profil speichert seinen eigenen Fortschritt.'}</div>
     <input type="text" class="modal-input" id="new-profile-name" placeholder="Dein Name" maxlength="30" autofocus>
     <div class="modal-actions">
@@ -8316,7 +8607,7 @@ function exportProgress() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `codepath-${state.activeProfile.name}-${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `pycobase-${state.activeProfile.name}-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -8358,6 +8649,82 @@ function escapeHtml(s) {
 }
 
 // ============================================================
+//              LANDING PAGE LOGIC
+// ============================================================
+
+function showLanding() {
+  document.getElementById('landing').classList.add('show');
+  document.getElementById('app').classList.remove('show');
+  buildLandingProfiles();
+  lucide.createIcons();
+}
+
+function hideLanding() {
+  document.getElementById('landing').classList.remove('show');
+  document.getElementById('app').classList.add('show');
+}
+
+function buildLandingProfiles() {
+  const profiles = loadProfiles();
+  const signinBtn = document.getElementById('landing-signin-btn');
+  const existingBlock = document.getElementById('landing-existing-block');
+  const existingList = document.getElementById('landing-existing-list');
+
+  if (profiles.length > 0) {
+    signinBtn.style.display = 'flex';
+    existingBlock.style.display = 'block';
+    existingList.innerHTML = profiles.map(p => {
+      const data = loadProfileData(p.id);
+      const totalLessons = getTotalLessons();
+      const pct = totalLessons > 0 ? Math.round(data.completed.size / totalLessons * 100) : 0;
+      return `<button class="landing-profile-item" data-profile-id="${p.id}">
+        <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+        <div>
+          <div class="landing-profile-name">${escapeHtml(p.name)}</div>
+          <div class="landing-profile-stats">${data.xp} XP &middot; ${data.completed.size}/${totalLessons} Lektionen &middot; ${pct}%</div>
+        </div>
+        <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
+      </button>`;
+    }).join('');
+    existingList.querySelectorAll('[data-profile-id]').forEach(btn => {
+      btn.addEventListener('click', () => landingSelectProfile(btn.dataset.profileId));
+    });
+  } else {
+    signinBtn.style.display = 'none';
+    existingBlock.style.display = 'none';
+  }
+}
+
+function showExistingProfiles() {
+  document.getElementById('landing-profiles-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function landingSelectProfile(profileId) {
+  persistState();
+  setActiveProfile(profileId);
+  loadActiveState();
+  state.currentPhase = 0;
+  state.currentLesson = 0;
+  state.quizAnswered.clear();
+  hideLanding();
+  render();
+}
+
+function landingCreateProfile() {
+  const input = document.getElementById('landing-profile-name');
+  const name = input.value.trim();
+  if (!name) { input.focus(); return; }
+  const p = createProfile(name);
+  setActiveProfile(p.id);
+  loadActiveState();
+  state.currentPhase = 0;
+  state.currentLesson = 0;
+  state.quizAnswered.clear();
+  hideLanding();
+  render();
+}
+
+// ============================================================
 //              BOOTSTRAP
 // ============================================================
 
@@ -8368,7 +8735,6 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('modal-backdrop').addEventListener('click', (e) => {
   if (e.target.id === 'modal-backdrop') {
-    // Don't allow closing the first-time profile modal by backdrop click
     if (state.activeProfile) hideModal();
   }
 });
@@ -8385,14 +8751,20 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { e.preventDefault(); if (!document.getElementById('btn-next').disabled) navigate(1); }
 });
 
+// Landing start button & enter key
+document.getElementById('landing-start-btn').addEventListener('click', landingCreateProfile);
+document.getElementById('landing-profile-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') landingCreateProfile();
+});
+
+
 function init() {
   migrateLegacyData();
   const loaded = loadActiveState();
-  lucide.createIcons();
   if (!loaded) {
-    render(); // render empty state before modal
-    showNewProfileModal(true);
+    showLanding();
   } else {
+    hideLanding();
     render();
   }
 }
