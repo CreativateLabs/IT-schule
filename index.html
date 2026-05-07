@@ -963,12 +963,13 @@ body {
 #app { display: none; width: 100%; height: 100vh; overflow: hidden; }
 #app.show { display: flex; }
 
+/* Nav */
 .landing-nav {
   position: sticky; top: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 40px;
-  background: rgba(10,10,15,0.85);
-  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   z-index: 10;
 }
@@ -982,150 +983,297 @@ body {
 .landing-nav-logo-text { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); }
 .landing-nav-logo-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
 .landing-nav-signin {
-  display: flex; align-items: center; gap: 7px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  color: var(--text); font-size: 13px; font-family: var(--sans);
-  padding: 8px 16px; border-radius: var(--radius); cursor: pointer;
-  transition: background 0.15s;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--accent); border: none;
+  color: white; font-size: 13px; font-family: var(--sans); font-weight: 600;
+  padding: 9px 20px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 2px 16px rgba(124,106,247,0.35);
 }
-.landing-nav-signin:hover { background: var(--surface3); }
+.landing-nav-signin:hover { opacity: 0.88; transform: translateY(-1px); }
 .landing-nav-signin [data-lucide] { width: 14px; height: 14px; }
 
-.landing-inner { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+/* Inner */
+.landing-inner { max-width: 980px; margin: 0 auto; padding: 0 36px 100px; }
 
 /* Hero */
-.landing-hero { padding: 72px 0 56px; text-align: center; }
+.landing-hero { padding: 88px 0 72px; text-align: center; position: relative; }
+.landing-hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(124,106,247,0.22) 0%, rgba(124,106,247,0.06) 40%, transparent 70%);
+  top: 0; left: 50%; transform: translateX(-50%);
+  pointer-events: none; z-index: 0;
+}
+.landing-hero > * { position: relative; z-index: 1; }
+
 .landing-hero-tag {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.25);
-  color: var(--accent2); font-size: 12px; font-family: var(--mono);
-  padding: 5px 14px; border-radius: 999px; margin-bottom: 24px; letter-spacing: 0.5px;
+  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.3);
+  color: var(--accent2); font-size: 11.5px; font-family: var(--mono);
+  padding: 5px 16px; border-radius: 999px; margin-bottom: 28px; letter-spacing: 0.7px;
 }
+.landing-hero-tag [data-lucide] { width: 11px; height: 11px; }
 .landing-hero-title {
-  font-family: var(--mono); font-size: clamp(32px, 6vw, 56px);
-  font-weight: 700; line-height: 1.15; color: var(--text);
-  margin-bottom: 20px; letter-spacing: -1px;
+  font-family: var(--mono); font-size: clamp(36px, 5.5vw, 60px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 22px; letter-spacing: -2px;
 }
-.landing-hero-title span { color: var(--accent2); }
+.landing-hero-title span {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
 .landing-hero-desc {
-  font-size: 17px; color: var(--text2); line-height: 1.7;
-  max-width: 580px; margin: 0 auto 36px;
+  font-size: 17px; color: var(--text2); line-height: 1.72;
+  max-width: 540px; margin: 0 auto 40px;
+}
+.landing-hero-btns {
+  display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 52px;
 }
 .landing-cta-btn {
   display: inline-flex; align-items: center; gap: 9px;
   background: var(--accent); color: white;
   font-size: 15px; font-family: var(--sans); font-weight: 600;
   padding: 13px 28px; border-radius: var(--radius); border: none;
-  cursor: pointer; transition: opacity 0.15s, transform 0.15s;
-  box-shadow: 0 0 28px rgba(124,106,247,0.35);
+  cursor: pointer; transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 28px rgba(124,106,247,0.45);
 }
-.landing-cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-.landing-cta-btn [data-lucide] { width: 18px; height: 18px; }
+.landing-cta-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(124,106,247,0.55); }
+.landing-cta-btn [data-lucide] { width: 17px; height: 17px; }
+.landing-outline-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text2); border: 1px solid var(--border2);
+  font-size: 14px; font-family: var(--sans); font-weight: 500;
+  padding: 12px 22px; border-radius: var(--radius); cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.landing-outline-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--accent); }
+.landing-outline-btn [data-lucide] { width: 15px; height: 15px; }
+
+/* Stats strip */
+.landing-stats {
+  display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; max-width: 500px; margin: 0 auto; background: var(--surface);
+}
+.landing-stat {
+  flex: 1; padding: 16px 20px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.landing-stat:last-child { border-right: none; }
+.landing-stat-val {
+  font-family: var(--mono); font-size: 22px; font-weight: 700;
+  color: var(--text); line-height: 1;
+}
+.landing-stat-label { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
 /* Section headers */
 .landing-section-tag {
-  font-size: 11px; font-family: var(--mono); color: var(--accent2);
-  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;
+  font-size: 10.5px; font-family: var(--mono); color: var(--accent2);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
 }
 .landing-section-title {
-  font-family: var(--mono); font-size: 22px; font-weight: 700;
-  color: var(--text); margin-bottom: 32px; letter-spacing: -0.5px;
+  font-family: var(--mono); font-size: 24px; font-weight: 700;
+  color: var(--text); margin-bottom: 36px; letter-spacing: -0.5px;
 }
 
-/* Phases grid */
-.landing-phases { padding: 48px 0; }
+/* Phases grid — 6-col so last 2 cards center naturally */
+.landing-phases { padding: 64px 0 56px; }
 .landing-phases-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
 }
+.landing-phase-card:nth-child(1) { grid-column: 1 / 3; }
+.landing-phase-card:nth-child(2) { grid-column: 3 / 5; }
+.landing-phase-card:nth-child(3) { grid-column: 5 / 7; }
+.landing-phase-card:nth-child(4) { grid-column: 2 / 4; }
+.landing-phase-card:nth-child(5) { grid-column: 4 / 6; }
+
 .landing-phase-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 22px 20px;
-  transition: border-color 0.2s, background 0.2s;
+  border-radius: var(--radius-lg); padding: 24px 22px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.18s;
+  border-top-width: 3px; border-top-style: solid;
 }
-.landing-phase-card:hover { border-color: var(--border2); background: var(--surface2); }
+.landing-phase-card:hover {
+  background: var(--surface2); box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  transform: translateY(-3px);
+}
 .landing-phase-num {
-  font-family: var(--mono); font-size: 11px; color: var(--text3);
-  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
 }
 .landing-phase-icon {
-  width: 38px; height: 38px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
 }
-.landing-phase-icon [data-lucide] { width: 20px; height: 20px; stroke-width: 1.75; }
-.landing-phase-title { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-.landing-phase-sub { font-size: 13px; color: var(--text2); line-height: 1.5; }
-.landing-phase-count { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 12px; }
+.landing-phase-icon [data-lucide] { width: 22px; height: 22px; stroke-width: 1.75; }
+.landing-phase-title { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.landing-phase-sub { font-size: 12.5px; color: var(--text2); line-height: 1.55; }
+.landing-phase-count {
+  display: inline-block; margin-top: 14px;
+  font-size: 10.5px; color: var(--text3); font-family: var(--mono);
+  background: var(--surface3); padding: 3px 9px; border-radius: 5px;
+}
 
 /* Security warning */
 .landing-security {
   display: flex; gap: 18px; align-items: flex-start;
-  background: rgba(247,106,106,0.07); border: 1px solid rgba(247,106,106,0.2);
-  border-radius: var(--radius-lg); padding: 22px 24px; margin: 0 0 48px;
+  background: rgba(247,106,106,0.06); border: 1px solid rgba(247,106,106,0.18);
+  border-left: 3px solid var(--red);
+  border-radius: var(--radius-lg); padding: 22px 26px; margin: 0 0 60px;
 }
 .landing-security-icon { color: var(--red); flex-shrink: 0; margin-top: 2px; }
-.landing-security-icon [data-lucide] { width: 22px; height: 22px; }
-.landing-security-title { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 7px; }
-.landing-security-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.landing-security-icon [data-lucide] { width: 20px; height: 20px; }
+.landing-security-title { font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 6px; }
+.landing-security-text { font-size: 12.5px; color: var(--text2); line-height: 1.65; }
 
-/* Profiles section */
-.landing-profiles { padding: 48px 0 0; }
-.landing-profiles-box {
+/* Profiles section — 2-panel grid */
+.landing-profiles { padding: 0 0 80px; }
+.landing-profiles-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  max-width: 780px; margin: 0 auto;
+}
+.landing-profiles-panel {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 32px 28px; max-width: 520px; margin: 0 auto;
+  border-radius: var(--radius-lg); padding: 28px 26px;
 }
-.landing-profiles-label {
-  font-size: 13px; color: var(--text2); margin-bottom: 14px;
+.landing-panel-title {
+  font-family: var(--mono); font-size: 14px; font-weight: 700;
+  color: var(--text); margin-bottom: 3px;
 }
-.landing-existing-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.landing-panel-sub { font-size: 12px; color: var(--text3); margin-bottom: 18px; line-height: 1.4; }
+.landing-existing-list { display: flex; flex-direction: column; gap: 7px; }
 .landing-profile-item {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 10px;
   background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 12px 16px;
+  border-radius: var(--radius); padding: 10px 13px;
   cursor: pointer; transition: border-color 0.15s, background 0.15s; width: 100%; text-align: left;
 }
 .landing-profile-item:hover { border-color: var(--accent); background: var(--accent-glow); }
 .landing-profile-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
+  width: 32px; height: 32px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+  font-family: var(--mono); font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
 }
-.landing-profile-name { font-size: 14px; color: var(--text); font-weight: 500; }
-.landing-profile-stats { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 2px; }
+.landing-profile-name { font-size: 13px; color: var(--text); font-weight: 500; }
+.landing-profile-stats { font-size: 10.5px; color: var(--text3); font-family: var(--mono); margin-top: 1px; }
 .landing-profile-arrow { margin-left: auto; color: var(--text3); }
-.landing-profile-arrow [data-lucide] { width: 14px; height: 14px; }
+.landing-profile-arrow [data-lucide] { width: 13px; height: 13px; }
 
-.landing-divider {
-  display: flex; align-items: center; gap: 12px;
-  color: var(--text3); font-size: 12px; margin: 18px 0;
-}
-.landing-divider::before, .landing-divider::after {
-  content: ''; flex: 1; height: 1px; background: var(--border);
-}
-
-.landing-create-row { display: flex; gap: 10px; }
+.landing-input-stack { display: flex; flex-direction: column; gap: 8px; }
 .landing-name-input {
-  flex: 1; background: var(--surface2); border: 1px solid var(--border2);
+  background: var(--surface2); border: 1px solid var(--border2);
   border-radius: var(--radius); padding: 10px 14px;
-  color: var(--text); font-family: var(--sans); font-size: 14px; outline: none;
-  transition: border-color 0.15s;
+  color: var(--text); font-family: var(--sans); font-size: 13.5px; outline: none;
+  transition: border-color 0.15s; width: 100%;
 }
 .landing-name-input:focus { border-color: var(--accent); }
 .landing-name-input::placeholder { color: var(--text3); }
+.landing-input-error { font-size: 11.5px; color: var(--red); min-height: 16px; }
 .landing-start-btn {
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
   background: var(--accent); color: white; border: none;
   font-size: 13px; font-family: var(--sans); font-weight: 600;
-  padding: 10px 18px; border-radius: var(--radius); cursor: pointer;
-  transition: opacity 0.15s; white-space: nowrap;
+  padding: 11px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s; width: 100%; margin-top: 2px;
 }
 .landing-start-btn:hover { opacity: 0.85; }
+.landing-start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .landing-start-btn [data-lucide] { width: 14px; height: 14px; }
-
 .landing-privacy-note {
   font-size: 11px; color: var(--text3); text-align: center; margin-top: 14px; line-height: 1.5;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
 }
+.landing-privacy-note [data-lucide] { width: 11px; height: 11px; flex-shrink: 0; }
+
+/* Login overlay */
+.login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.72); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.login-overlay.show { opacity: 1; pointer-events: all; }
+.login-box {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--radius-lg); padding: 32px 28px; width: 380px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+  transform: translateY(20px) scale(0.97); transition: transform 0.25s;
+}
+.login-overlay.show .login-box { transform: translateY(0) scale(1); }
+.login-step { display: none; }
+.login-step.active { display: block; }
+.login-box-avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 22px; font-weight: 700; color: white;
+  margin: 0 auto 16px;
+}
+.login-box-title {
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  color: var(--text); margin-bottom: 4px; text-align: center;
+}
+.login-box-sub { font-size: 12.5px; color: var(--text3); margin-bottom: 20px; text-align: center; }
+.login-pick-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.login-error { font-size: 11.5px; color: var(--red); min-height: 16px; margin-top: 6px; }
+.login-box-actions { display: flex; gap: 8px; margin-top: 14px; }
+.login-box-cancel {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text2);
+  font-size: 13px; font-family: var(--sans); padding: 10px; border-radius: var(--radius);
+  cursor: pointer; transition: background 0.15s;
+}
+.login-box-cancel:hover { background: var(--surface3); }
+.login-box-submit {
+  flex: 2; background: var(--accent); border: none; color: white;
+  font-size: 13px; font-family: var(--sans); font-weight: 600; padding: 10px;
+  border-radius: var(--radius); cursor: pointer; transition: opacity 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.login-box-submit:hover { opacity: 0.85; }
+.login-box-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.login-box-submit [data-lucide] { width: 14px; height: 14px; }
+
+/* Leaderboard in sidebar */
+.leaderboard {
+  border-top: 1px solid var(--border);
+  padding: 12px 12px 14px;
+  flex-shrink: 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.lb-header {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; font-family: var(--mono); color: var(--text3);
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; padding: 0 4px;
+}
+.lb-header [data-lucide] { width: 11px; height: 11px; }
+.lb-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 6px; border-radius: 7px;
+  transition: background 0.1s;
+}
+.lb-item.active { background: var(--accent-glow); }
+.lb-rank {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  width: 18px; text-align: right; flex-shrink: 0;
+}
+.lb-rank.gold { color: #f7c96a; font-weight: 700; }
+.lb-rank.silver { color: #9aaabb; font-weight: 700; }
+.lb-rank.bronze { color: #c8865a; font-weight: 700; }
+.lb-avatar {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 8px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.lb-name { font-size: 12px; color: var(--text2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-item.active .lb-name { color: var(--accent2); font-weight: 500; }
+.lb-xp { font-family: var(--mono); font-size: 10px; color: var(--text3); flex-shrink: 0; }
+.lb-item.active .lb-xp { color: var(--accent2); }
 </style>
 </head>
 <body>
@@ -1140,56 +1288,75 @@ body {
         <div class="landing-nav-logo-sub">PythonCodeBase</div>
       </div>
     </div>
-    <button class="landing-nav-signin" id="landing-signin-btn" style="display:none" onclick="showExistingProfiles()">
-      <i data-lucide="log-in"></i> Profil wählen
+    <button class="landing-nav-signin" id="landing-signin-btn" onclick="openLoginOverlay()">
+      <i data-lucide="log-in"></i>Anmelden
     </button>
   </nav>
 
   <div class="landing-inner">
     <!-- Hero -->
     <section class="landing-hero">
-      <div class="landing-hero-tag"><i data-lucide="sparkles"></i>Kostenlos &amp; ohne Registrierung</div>
+      <div class="landing-hero-tag"><i data-lucide="sparkles"></i>Kostenlos &amp; Open Source</div>
       <h1 class="landing-hero-title">Python lernen.<br><span>Von Null zum Profi.</span></h1>
-      <p class="landing-hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity. Interaktive Lektionen, Quizzes und Coding-Übungen — alles in einem.</p>
-      <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
-        <i data-lucide="rocket"></i>Jetzt starten
-      </button>
+      <p class="landing-hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
+      <div class="landing-hero-btns">
+        <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="rocket"></i>Jetzt starten
+        </button>
+        <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="book-open"></i>Lernpfad ansehen
+        </button>
+      </div>
+      <div class="landing-stats">
+        <div class="landing-stat">
+          <div class="landing-stat-val">28</div>
+          <div class="landing-stat-label">Lektionen</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val">5</div>
+          <div class="landing-stat-label">Themengebiete</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val">100%</div>
+          <div class="landing-stat-label">Kostenlos</div>
+        </div>
+      </div>
     </section>
 
     <!-- Was du lernst -->
-    <section class="landing-phases">
+    <section class="landing-phases" id="landing-phases-section">
       <div class="landing-section-tag">Lernpfad</div>
       <div class="landing-section-title">5 Phasen — von den Grundlagen bis zur Security</div>
       <div class="landing-phases-grid">
-        <div class="landing-phase-card">
+        <div class="landing-phase-card" style="border-top-color:var(--accent2)">
           <div class="landing-phase-num">Phase 01</div>
           <div class="landing-phase-icon" style="background:rgba(124,106,247,0.12);color:var(--accent2)"><i data-lucide="cpu"></i></div>
           <div class="landing-phase-title">Fundament</div>
           <div class="landing-phase-sub">Wie Computer wirklich funktionieren — Binär, Terminal, Netzwerk</div>
           <div class="landing-phase-count">6 Lektionen</div>
         </div>
-        <div class="landing-phase-card">
+        <div class="landing-phase-card" style="border-top-color:var(--green)">
           <div class="landing-phase-num">Phase 02</div>
           <div class="landing-phase-icon" style="background:rgba(62,207,122,0.1);color:var(--green)"><i data-lucide="terminal"></i></div>
           <div class="landing-phase-title">Python</div>
           <div class="landing-phase-sub">Programmieren lernen von null — Variablen, Schleifen, Funktionen, Fehlerbehandlung</div>
           <div class="landing-phase-count">5 Lektionen</div>
         </div>
-        <div class="landing-phase-card">
+        <div class="landing-phase-card" style="border-top-color:var(--amber)">
           <div class="landing-phase-num">Phase 03</div>
           <div class="landing-phase-icon" style="background:rgba(247,201,106,0.1);color:var(--amber)"><i data-lucide="globe"></i></div>
           <div class="landing-phase-title">Web &amp; HTML/CSS</div>
           <div class="landing-phase-sub">Webseiten bauen — HTML, CSS, Flexbox, Responsive Design, JavaScript</div>
           <div class="landing-phase-count">5 Lektionen</div>
         </div>
-        <div class="landing-phase-card">
+        <div class="landing-phase-card" style="border-top-color:var(--accent)">
           <div class="landing-phase-num">Phase 04</div>
           <div class="landing-phase-icon" style="background:rgba(124,106,247,0.1);color:var(--accent)"><i data-lucide="server"></i></div>
           <div class="landing-phase-title">Backend &amp; APIs</div>
           <div class="landing-phase-sub">Server, Datenbanken, REST APIs, SQL und Authentication</div>
           <div class="landing-phase-count">4 Lektionen</div>
         </div>
-        <div class="landing-phase-card">
+        <div class="landing-phase-card" style="border-top-color:var(--red)">
           <div class="landing-phase-num">Phase 05</div>
           <div class="landing-phase-icon" style="background:rgba(247,106,106,0.1);color:var(--red)"><i data-lucide="shield"></i></div>
           <div class="landing-phase-title">Hacking &amp; Security</div>
@@ -1208,29 +1375,72 @@ body {
       </div>
     </div>
 
-    <!-- Profil erstellen -->
+    <!-- Profil -->
     <section class="landing-profiles" id="landing-profiles-section">
-      <div class="landing-section-tag">Dein Profil</div>
-      <div class="landing-section-title">Fortschritt wird automatisch lokal gespeichert</div>
-      <div class="landing-profiles-box">
-        <!-- Existing profiles (shown if present) -->
-        <div id="landing-existing-block" style="display:none">
-          <div class="landing-profiles-label">Willkommen zurück — wähle dein Profil:</div>
-          <div class="landing-existing-list" id="landing-existing-list"></div>
-          <div class="landing-divider">oder neues Profil erstellen</div>
+      <div class="landing-section-tag">Account</div>
+      <div class="landing-section-title">Dein Fortschritt — lokal &amp; sicher gespeichert</div>
+      <div class="landing-profiles-grid">
+
+        <!-- Anmelden -->
+        <div class="landing-profiles-panel">
+          <div class="landing-panel-title">Anmelden</div>
+          <div class="landing-panel-sub">Wähle dein Profil und gib dein Passwort ein</div>
+          <div id="landing-login-profiles">
+            <div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">
+              Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.
+            </div>
+          </div>
         </div>
-        <!-- Create new -->
-        <div class="landing-create-row">
-          <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" maxlength="30">
-          <button class="landing-start-btn" id="landing-start-btn">
-            <i data-lucide="user-plus"></i>Starten
-          </button>
+
+        <!-- Registrieren -->
+        <div class="landing-profiles-panel">
+          <div class="landing-panel-title">Neues Profil erstellen</div>
+          <div class="landing-panel-sub">Wähle einen Namen und ein Passwort</div>
+          <div class="landing-input-stack">
+            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" maxlength="30">
+            <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" maxlength="60">
+            <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" maxlength="60">
+            <div class="landing-input-error" id="landing-reg-error"></div>
+            <button class="landing-start-btn" id="landing-start-btn">
+              <i data-lucide="user-plus"></i>Profil erstellen &amp; starten
+            </button>
+          </div>
+          <div class="landing-privacy-note">
+            <i data-lucide="lock"></i>Daten bleiben lokal. Kein E-Mail-Account nötig.
+          </div>
         </div>
-        <div class="landing-privacy-note">
-          <i data-lucide="lock"></i> Alle Daten bleiben lokal in deinem Browser. Kein Account, keine E-Mail nötig.
-        </div>
+
       </div>
     </section>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <!-- Step 1: Profil wählen -->
+    <div class="login-step active" id="login-step-pick">
+      <div class="login-box-title">Profil wählen</div>
+      <div class="login-box-sub">Wähle dein Profil um fortzufahren</div>
+      <div class="login-pick-list" id="login-pick-list"></div>
+      <div class="login-box-actions">
+        <button class="login-box-cancel" onclick="hideLoginOverlay()">Abbrechen</button>
+      </div>
+    </div>
+    <!-- Step 2: Passwort -->
+    <div class="login-step" id="login-step-pw">
+      <div class="login-box-avatar" id="login-avatar">?</div>
+      <div class="login-box-title" id="login-name">Profil</div>
+      <div class="login-box-sub">Passwort eingeben</div>
+      <input type="password" class="landing-name-input" id="login-pw-input" placeholder="Passwort">
+      <div class="login-error" id="login-error"></div>
+      <div class="login-box-actions">
+        <button class="login-box-cancel" id="login-back-btn">Zurück</button>
+        <button class="login-box-submit" id="login-submit-btn">
+          <i data-lucide="log-in"></i>Anmelden
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1263,6 +1473,7 @@ body {
     <div class="progress-count" id="progress-count">0 / 0 Lektionen</div>
   </div>
   <nav class="nav" id="nav"></nav>
+  <div class="leaderboard" id="leaderboard" style="display:none"></div>
 </aside>
 
 <!-- MAIN -->
@@ -8168,10 +8379,10 @@ function setActiveProfile(profileId) {
   localStorage.setItem(STORAGE.active, profileId);
 }
 
-function createProfile(name) {
+function createProfile(name, passwordHash) {
   const profiles = loadProfiles();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  const profile = { id, name: name.trim() || 'Unbenannt', created: new Date().toISOString() };
+  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString() };
   profiles.push(profile);
   saveProfiles(profiles);
   localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
@@ -8454,6 +8665,7 @@ function render() {
   ca.innerHTML = lesson.content();
   ca.scrollTop = 0;
   updateNav();
+  buildLeaderboard();
 
   // Attach quiz/exercise handlers
   ca.querySelectorAll('[data-quiz]').forEach(btn => {
@@ -8649,13 +8861,29 @@ function escapeHtml(s) {
 }
 
 // ============================================================
+//              PASSWORD HELPERS
+// ============================================================
+
+async function hashPassword(pw) {
+  if (!pw) return null;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function verifyPassword(profile, pw) {
+  if (!profile.passwordHash) return true; // legacy: no password set
+  if (!pw) return false;
+  return (await hashPassword(pw)) === profile.passwordHash;
+}
+
+// ============================================================
 //              LANDING PAGE LOGIC
 // ============================================================
 
 function showLanding() {
   document.getElementById('landing').classList.add('show');
   document.getElementById('app').classList.remove('show');
-  buildLandingProfiles();
+  buildLandingLoginPanel();
   lucide.createIcons();
 }
 
@@ -8664,64 +8892,159 @@ function hideLanding() {
   document.getElementById('app').classList.add('show');
 }
 
-function buildLandingProfiles() {
+function buildLandingLoginPanel() {
+  const el = document.getElementById('landing-login-profiles');
   const profiles = loadProfiles();
-  const signinBtn = document.getElementById('landing-signin-btn');
-  const existingBlock = document.getElementById('landing-existing-block');
-  const existingList = document.getElementById('landing-existing-list');
-
-  if (profiles.length > 0) {
-    signinBtn.style.display = 'flex';
-    existingBlock.style.display = 'block';
-    existingList.innerHTML = profiles.map(p => {
-      const data = loadProfileData(p.id);
-      const totalLessons = getTotalLessons();
-      const pct = totalLessons > 0 ? Math.round(data.completed.size / totalLessons * 100) : 0;
-      return `<button class="landing-profile-item" data-profile-id="${p.id}">
-        <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
-        <div>
-          <div class="landing-profile-name">${escapeHtml(p.name)}</div>
-          <div class="landing-profile-stats">${data.xp} XP &middot; ${data.completed.size}/${totalLessons} Lektionen &middot; ${pct}%</div>
-        </div>
-        <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
-      </button>`;
-    }).join('');
-    existingList.querySelectorAll('[data-profile-id]').forEach(btn => {
-      btn.addEventListener('click', () => landingSelectProfile(btn.dataset.profileId));
-    });
-  } else {
-    signinBtn.style.display = 'none';
-    existingBlock.style.display = 'none';
+  if (profiles.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.</div>';
+    lucide.createIcons();
+    return;
   }
+  const total = getTotalLessons();
+  el.innerHTML = '<div class="landing-existing-list">' + profiles.map(p => {
+    const data = loadProfileData(p.id);
+    const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
+    return `<button class="landing-profile-item" data-profile-id="${p.id}">
+      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div>
+        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
+        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}% abgeschlossen</div>
+      </div>
+      <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
+    </button>`;
+  }).join('') + '</div>';
+  el.querySelectorAll('[data-profile-id]').forEach(btn => {
+    btn.addEventListener('click', () => showLoginOverlay(btn.dataset.profileId));
+  });
+  lucide.createIcons();
 }
 
-function showExistingProfiles() {
-  document.getElementById('landing-profiles-section').scrollIntoView({ behavior: 'smooth' });
-}
+async function landingCreateProfile() {
+  const nameEl = document.getElementById('landing-profile-name');
+  const pwEl   = document.getElementById('landing-profile-pw');
+  const pw2El  = document.getElementById('landing-profile-pw2');
+  const errEl  = document.getElementById('landing-reg-error');
+  const btn    = document.getElementById('landing-start-btn');
 
-function landingSelectProfile(profileId) {
-  persistState();
-  setActiveProfile(profileId);
-  loadActiveState();
-  state.currentPhase = 0;
-  state.currentLesson = 0;
-  state.quizAnswered.clear();
-  hideLanding();
-  render();
-}
+  const name = nameEl.value.trim();
+  const pw   = pwEl.value;
+  const pw2  = pw2El.value;
 
-function landingCreateProfile() {
-  const input = document.getElementById('landing-profile-name');
-  const name = input.value.trim();
-  if (!name) { input.focus(); return; }
-  const p = createProfile(name);
+  if (!name) { errEl.textContent = 'Bitte gib deinen Namen ein.'; nameEl.focus(); return; }
+  if (!pw)   { errEl.textContent = 'Bitte wähle ein Passwort.'; pwEl.focus(); return; }
+  if (pw.length < 4) { errEl.textContent = 'Mindestens 4 Zeichen erforderlich.'; pwEl.focus(); return; }
+  if (pw !== pw2)    { errEl.textContent = 'Passwörter stimmen nicht überein.'; pw2El.focus(); return; }
+
+  errEl.textContent = '';
+  btn.disabled = true;
+  const passwordHash = await hashPassword(pw);
+  const p = createProfile(name, passwordHash);
   setActiveProfile(p.id);
   loadActiveState();
-  state.currentPhase = 0;
-  state.currentLesson = 0;
-  state.quizAnswered.clear();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  btn.disabled = false;
+  hideLanding(); render();
+}
+
+// ============================================================
+//              LOGIN OVERLAY
+// ============================================================
+
+let _loginTargetId = null;
+
+function openLoginOverlay() {
+  const profiles = loadProfiles();
+  if (profiles.length === 0) {
+    document.getElementById('landing-profiles-section').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  const total = getTotalLessons();
+  const list = document.getElementById('login-pick-list');
+  list.innerHTML = profiles.map(p => {
+    const data = loadProfileData(p.id);
+    const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
+    return `<button class="landing-profile-item" data-pid="${p.id}">
+      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div>
+        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
+        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}%</div>
+      </div>
+      <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
+    </button>`;
+  }).join('');
+  list.querySelectorAll('[data-pid]').forEach(btn => {
+    btn.addEventListener('click', () => showLoginOverlay(btn.dataset.pid));
+  });
+  document.getElementById('login-step-pick').classList.add('active');
+  document.getElementById('login-step-pw').classList.remove('active');
+  document.getElementById('login-overlay').classList.add('show');
+  lucide.createIcons();
+}
+
+function showLoginOverlay(profileId) {
+  _loginTargetId = profileId;
+  const profiles = loadProfiles();
+  const profile = profiles.find(p => p.id === profileId);
+  if (!profile) return;
+  document.getElementById('login-avatar').textContent = profile.name.charAt(0).toUpperCase();
+  document.getElementById('login-name').textContent = profile.name;
+  document.getElementById('login-pw-input').value = '';
+  document.getElementById('login-error').textContent = '';
+  document.getElementById('login-step-pick').classList.remove('active');
+  document.getElementById('login-step-pw').classList.add('active');
+  document.getElementById('login-overlay').classList.add('show');
+  setTimeout(() => document.getElementById('login-pw-input').focus(), 80);
+}
+
+function hideLoginOverlay() {
+  document.getElementById('login-overlay').classList.remove('show');
+  _loginTargetId = null;
+}
+
+async function submitLogin() {
+  if (!_loginTargetId) return;
+  const profiles = loadProfiles();
+  const profile = profiles.find(p => p.id === _loginTargetId);
+  if (!profile) return;
+  const pw  = document.getElementById('login-pw-input').value;
+  const err = document.getElementById('login-error');
+  const btn = document.getElementById('login-submit-btn');
+  btn.disabled = true;
+  const ok = await verifyPassword(profile, pw);
+  btn.disabled = false;
+  if (!ok) { err.textContent = 'Falsches Passwort.'; document.getElementById('login-pw-input').select(); return; }
+  persistState();
+  setActiveProfile(profile.id);
+  loadActiveState();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  hideLoginOverlay();
   hideLanding();
   render();
+}
+
+// ============================================================
+//              LEADERBOARD
+// ============================================================
+
+function buildLeaderboard() {
+  const lb = document.getElementById('leaderboard');
+  if (!lb) return;
+  const profiles = loadProfiles();
+  if (profiles.length === 0) { lb.style.display = 'none'; return; }
+  lb.style.display = 'block';
+  const ranked = profiles
+    .map(p => ({ ...p, xp: parseInt(localStorage.getItem(STORAGE.profileKey(p.id, 'xp')) || '0', 10) }))
+    .sort((a, b) => b.xp - a.xp);
+  const rankClass = ['gold', 'silver', 'bronze'];
+  const activeId = state.activeProfile ? state.activeProfile.id : null;
+  lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>Rangliste</div>` +
+    ranked.map((p, i) => `<div class="lb-item${p.id === activeId ? ' active' : ''}">
+      <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
+      <div class="lb-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div class="lb-name">${escapeHtml(p.name)}</div>
+      <div class="lb-xp">${p.xp}&thinsp;XP</div>
+    </div>`).join('');
+  lucide.createIcons();
 }
 
 // ============================================================
@@ -8751,10 +9074,22 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { e.preventDefault(); if (!document.getElementById('btn-next').disabled) navigate(1); }
 });
 
-// Landing start button & enter key
+// Landing: register form
 document.getElementById('landing-start-btn').addEventListener('click', landingCreateProfile);
-document.getElementById('landing-profile-name').addEventListener('keydown', e => {
-  if (e.key === 'Enter') landingCreateProfile();
+['landing-profile-name','landing-profile-pw','landing-profile-pw2'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') landingCreateProfile(); });
+});
+
+// Login overlay
+document.getElementById('login-submit-btn').addEventListener('click', submitLogin);
+document.getElementById('login-pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') submitLogin(); });
+document.getElementById('login-back-btn').addEventListener('click', () => {
+  document.getElementById('login-step-pw').classList.remove('active');
+  document.getElementById('login-step-pick').classList.add('active');
+  _loginTargetId = null;
+});
+document.getElementById('login-overlay').addEventListener('click', e => {
+  if (e.target.id === 'login-overlay') hideLoginOverlay();
 });
 
 
