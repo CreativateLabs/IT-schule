@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodePath — Deine Coding Schule</title>
+<title>PyCoBase – PythonCodeBase</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
@@ -946,17 +946,698 @@ body {
   .topbar { padding: 0 18px; }
   .lesson-nav { padding: 14px 18px; }
 }
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+
+#landing {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  overflow-y: auto;
+  z-index: 200;
+  display: none;
+}
+#landing.show { display: block; }
+
+#app { display: none; width: 100%; height: 100vh; overflow: hidden; }
+#app.show { display: flex; }
+
+/* Nav */
+.landing-nav {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 48px;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.landing-nav-logo { display: flex; align-items: center; gap: 10px; }
+.landing-nav-logo .logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white;
+}
+.landing-nav-logo .logo-icon [data-lucide] { width: 18px; height: 18px; stroke-width: 2; }
+.landing-nav-logo-text { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); }
+.landing-nav-logo-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.landing-nav-signin {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--accent); border: none;
+  color: white; font-size: 13px; font-family: var(--sans); font-weight: 600;
+  padding: 9px 20px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 2px 16px rgba(124,106,247,0.35);
+}
+.landing-nav-signin:hover { opacity: 0.88; transform: translateY(-1px); }
+.landing-nav-signin [data-lucide] { width: 14px; height: 14px; }
+
+/* Inner */
+.landing-inner { max-width: 980px; margin: 0 auto; padding: 0 36px 100px; }
+
+/* Hero */
+.landing-hero { padding: 88px 0 72px; text-align: center; position: relative; }
+.landing-hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(124,106,247,0.22) 0%, rgba(124,106,247,0.06) 40%, transparent 70%);
+  top: 0; left: 50%; transform: translateX(-50%);
+  pointer-events: none; z-index: 0;
+}
+.landing-hero > * { position: relative; z-index: 1; }
+
+.landing-hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.3);
+  color: var(--accent2); font-size: 11.5px; font-family: var(--mono);
+  padding: 5px 16px; border-radius: 999px; margin-bottom: 28px; letter-spacing: 0.7px;
+}
+.landing-hero-tag [data-lucide] { width: 11px; height: 11px; }
+.landing-hero-title {
+  font-family: var(--mono); font-size: clamp(36px, 5.5vw, 60px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 22px; letter-spacing: -2px;
+}
+.landing-hero-title span {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.landing-hero-desc {
+  font-size: 17px; color: var(--text2); line-height: 1.72;
+  max-width: 540px; margin: 0 auto 40px;
+}
+.landing-hero-btns {
+  display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 52px;
+}
+.landing-cta-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--accent); color: white;
+  font-size: 15px; font-family: var(--sans); font-weight: 600;
+  padding: 13px 28px; border-radius: var(--radius); border: none;
+  cursor: pointer; transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 28px rgba(124,106,247,0.45);
+}
+.landing-cta-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(124,106,247,0.55); }
+.landing-cta-btn [data-lucide] { width: 17px; height: 17px; }
+.landing-outline-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text2); border: 1px solid var(--border2);
+  font-size: 14px; font-family: var(--sans); font-weight: 500;
+  padding: 12px 22px; border-radius: var(--radius); cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.landing-outline-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--accent); }
+.landing-outline-btn [data-lucide] { width: 15px; height: 15px; }
+
+/* Stats strip */
+.landing-stats {
+  display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; max-width: 500px; margin: 0 auto; background: var(--surface);
+}
+.landing-stat {
+  flex: 1; padding: 16px 20px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.landing-stat:last-child { border-right: none; }
+.landing-stat-val {
+  font-family: var(--mono); font-size: 22px; font-weight: 700;
+  color: var(--text); line-height: 1;
+}
+.landing-stat-label { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* Section headers */
+.landing-section-tag {
+  font-size: 10.5px; font-family: var(--mono); color: var(--accent2);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+}
+.landing-section-title {
+  font-family: var(--mono); font-size: 24px; font-weight: 700;
+  color: var(--text); margin-bottom: 36px; letter-spacing: -0.5px;
+}
+
+/* Phases grid — 6-col so last 2 cards center naturally */
+.landing-phases { padding: 64px 0 56px; }
+.landing-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+.landing-phase-card:nth-child(1) { grid-column: 1 / 3; }
+.landing-phase-card:nth-child(2) { grid-column: 3 / 5; }
+.landing-phase-card:nth-child(3) { grid-column: 5 / 7; }
+.landing-phase-card:nth-child(4) { grid-column: 2 / 4; }
+.landing-phase-card:nth-child(5) { grid-column: 4 / 6; }
+
+.landing-phase-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px 22px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.18s;
+  border-top-width: 3px; border-top-style: solid;
+}
+.landing-phase-card:hover {
+  background: var(--surface2); box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  transform: translateY(-3px);
+}
+.landing-phase-num {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
+}
+.landing-phase-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+}
+.landing-phase-icon [data-lucide] { width: 22px; height: 22px; stroke-width: 1.75; }
+.landing-phase-title { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.landing-phase-sub { font-size: 12.5px; color: var(--text2); line-height: 1.55; }
+.landing-phase-count {
+  display: inline-block; margin-top: 14px;
+  font-size: 10.5px; color: var(--text3); font-family: var(--mono);
+  background: var(--surface3); padding: 3px 9px; border-radius: 5px;
+}
+.landing-phase-card { position: relative; overflow: hidden; }
+.lpc-svg-wrap {
+  position: absolute; top: 16px; right: 16px;
+  width: 72px; height: 72px; pointer-events: none; opacity: 0.9;
+}
+.lpc-svg-wrap svg { width: 100%; height: 100%; }
+.lpc-topics {
+  list-style: none; padding: 0; margin: 11px 0 0;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.lpc-topics li {
+  font-size: 12px; color: var(--text2);
+  display: flex; align-items: baseline; gap: 8px; line-height: 1.4;
+}
+.lpc-topics li::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: currentColor; flex-shrink: 0; opacity: 0.4; margin-top: 5px;
+}
+
+/* Security warning */
+.landing-security {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: rgba(247,106,106,0.06); border: 1px solid rgba(247,106,106,0.18);
+  border-left: 3px solid var(--red);
+  border-radius: var(--radius-lg); padding: 22px 26px; margin: 0 0 60px;
+}
+.landing-security-icon { color: var(--red); flex-shrink: 0; margin-top: 2px; }
+.landing-security-icon [data-lucide] { width: 20px; height: 20px; }
+.landing-security-title { font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 6px; }
+.landing-security-text { font-size: 12.5px; color: var(--text2); line-height: 1.65; }
+
+/* Profiles section — 2-panel grid */
+.landing-profiles { padding: 0 0 80px; }
+.landing-profiles-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  max-width: 780px; margin: 0 auto;
+}
+.landing-profiles-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 26px;
+}
+.landing-panel-title {
+  font-family: var(--mono); font-size: 14px; font-weight: 700;
+  color: var(--text); margin-bottom: 3px;
+}
+.landing-panel-sub { font-size: 12px; color: var(--text3); margin-bottom: 18px; line-height: 1.4; }
+.landing-existing-list { display: flex; flex-direction: column; gap: 7px; }
+.landing-profile-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 10px 13px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s; width: 100%; text-align: left;
+}
+.landing-profile-item:hover { border-color: var(--accent); background: var(--accent-glow); }
+.landing-profile-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.landing-profile-name { font-size: 13px; color: var(--text); font-weight: 500; }
+.landing-profile-stats { font-size: 10.5px; color: var(--text3); font-family: var(--mono); margin-top: 1px; }
+.landing-profile-arrow { margin-left: auto; color: var(--text3); }
+.landing-profile-arrow [data-lucide] { width: 13px; height: 13px; }
+
+.landing-input-stack { display: flex; flex-direction: column; gap: 8px; }
+.landing-name-input {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius); padding: 10px 14px;
+  color: var(--text); font-family: var(--sans); font-size: 13.5px; outline: none;
+  transition: border-color 0.15s; width: 100%;
+}
+.landing-name-input:focus { border-color: var(--accent); }
+.landing-name-input::placeholder { color: var(--text3); }
+.landing-input-error { font-size: 11.5px; color: var(--red); min-height: 16px; }
+.landing-start-btn {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  background: var(--accent); color: white; border: none;
+  font-size: 13px; font-family: var(--sans); font-weight: 600;
+  padding: 11px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s; width: 100%; margin-top: 2px;
+}
+.landing-start-btn:hover { opacity: 0.85; }
+.landing-start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.landing-start-btn [data-lucide] { width: 14px; height: 14px; }
+.landing-privacy-note {
+  font-size: 11px; color: var(--text3); text-align: center; margin-top: 14px; line-height: 1.5;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.landing-privacy-note [data-lucide] { width: 11px; height: 11px; flex-shrink: 0; }
+
+/* Login overlay */
+.login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.72); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.login-overlay.show { opacity: 1; pointer-events: all; }
+.login-box {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--radius-lg); padding: 32px 28px; width: 380px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+  transform: translateY(20px) scale(0.97); transition: transform 0.25s;
+}
+.login-overlay.show .login-box { transform: translateY(0) scale(1); }
+.login-step { display: none; }
+.login-step.active { display: block; }
+.login-box-avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 22px; font-weight: 700; color: white;
+  margin: 0 auto 16px;
+}
+.login-box-title {
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  color: var(--text); margin-bottom: 4px; text-align: center;
+}
+.login-box-sub { font-size: 12.5px; color: var(--text3); margin-bottom: 20px; text-align: center; }
+.login-pick-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.login-error { font-size: 11.5px; color: var(--red); min-height: 16px; margin-top: 6px; }
+.login-box-actions { display: flex; gap: 8px; margin-top: 14px; }
+.login-box-cancel {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border2); color: var(--text2);
+  font-size: 13px; font-family: var(--sans); padding: 10px; border-radius: var(--radius);
+  cursor: pointer; transition: background 0.15s;
+}
+.login-box-cancel:hover { background: var(--surface3); }
+.login-box-submit {
+  flex: 2; background: var(--accent); border: none; color: white;
+  font-size: 13px; font-family: var(--sans); font-weight: 600; padding: 10px;
+  border-radius: var(--radius); cursor: pointer; transition: opacity 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.login-box-submit:hover { opacity: 0.85; }
+.login-box-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.login-box-submit [data-lucide] { width: 14px; height: 14px; }
+
+/* Leaderboard in sidebar */
+.leaderboard {
+  border-top: 1px solid var(--border);
+  padding: 12px 12px 14px;
+  flex-shrink: 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.lb-header {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; font-family: var(--mono); color: var(--text3);
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; padding: 0 4px;
+}
+.lb-header [data-lucide] { width: 11px; height: 11px; }
+.lb-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 6px; border-radius: 7px;
+  transition: background 0.1s;
+}
+.lb-item.active { background: var(--accent-glow); }
+.lb-rank {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  width: 18px; text-align: right; flex-shrink: 0;
+}
+.lb-rank.gold { color: #f7c96a; font-weight: 700; }
+.lb-rank.silver { color: #9aaabb; font-weight: 700; }
+.lb-rank.bronze { color: #c8865a; font-weight: 700; }
+.lb-avatar {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 8px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.lb-name { font-size: 12px; color: var(--text2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-item.active .lb-name { color: var(--accent2); font-weight: 500; }
+.lb-xp { font-family: var(--mono); font-size: 10px; color: var(--text3); flex-shrink: 0; }
+.lb-item.active .lb-xp { color: var(--accent2); }
 </style>
 </head>
 <body>
+
+<!-- LANDING PAGE -->
+<div id="landing">
+  <nav class="landing-nav">
+    <div class="landing-nav-logo">
+      <div class="logo-icon"><i data-lucide="code-2"></i></div>
+      <div>
+        <div class="landing-nav-logo-text">PyCoBase</div>
+        <div class="landing-nav-logo-sub">PythonCodeBase</div>
+      </div>
+    </div>
+    <button class="landing-nav-signin" id="landing-signin-btn" onclick="openLoginOverlay()">
+      <i data-lucide="log-in"></i>Anmelden
+    </button>
+  </nav>
+
+  <div class="landing-inner">
+    <!-- Hero -->
+    <section class="landing-hero">
+      <div class="landing-hero-tag"><i data-lucide="sparkles"></i>Kostenlos &amp; Open Source</div>
+      <h1 class="landing-hero-title">Python lernen.<br><span>Von Null zum Profi.</span></h1>
+      <p class="landing-hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
+      <div class="landing-hero-btns">
+        <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="rocket"></i>Jetzt starten
+        </button>
+        <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="book-open"></i>Lernpfad ansehen
+        </button>
+      </div>
+      <div class="landing-stats">
+        <div class="landing-stat">
+          <div class="landing-stat-val">28</div>
+          <div class="landing-stat-label">Lektionen</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val">5</div>
+          <div class="landing-stat-label">Themengebiete</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val">100%</div>
+          <div class="landing-stat-label">Kostenlos</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Was du lernst -->
+    <section class="landing-phases" id="landing-phases-section">
+      <div class="landing-section-tag">Lernpfad</div>
+      <div class="landing-section-title">5 Phasen — von den Grundlagen bis zur Security</div>
+      <div class="landing-phases-grid">
+
+        <!-- Phase 01 — Fundament -->
+        <div class="landing-phase-card" style="border-top-color:var(--accent2)">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 34 H24 V18 H44 V34 H60" stroke="rgba(165,153,249,0.2)" stroke-width="1.5"/>
+              <path d="M8 50 H16 V34 H52 V50 H60" stroke="rgba(165,153,249,0.15)" stroke-width="1.5"/>
+              <path d="M34 8 V18" stroke="rgba(165,153,249,0.15)" stroke-width="1.5"/>
+              <circle cx="24" cy="18" r="2.5" fill="rgba(165,153,249,0.3)"/>
+              <circle cx="44" cy="18" r="2.5" fill="rgba(165,153,249,0.3)"/>
+              <circle cx="16" cy="34" r="2.5" fill="rgba(165,153,249,0.25)"/>
+              <circle cx="52" cy="34" r="2.5" fill="rgba(165,153,249,0.25)"/>
+              <rect x="28" y="28" width="12" height="12" rx="2" fill="rgba(165,153,249,0.1)" stroke="rgba(165,153,249,0.5)" stroke-width="1.5"/>
+              <rect x="31" y="31" width="6" height="6" rx="1" fill="rgba(165,153,249,0.3)">
+                <animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.8s" repeatCount="indefinite"/>
+              </rect>
+              <circle r="2.5" fill="#a599f9">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M8,34 H24 V18 H44 V34 H60"/>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite"/>
+              </circle>
+              <text x="5" y="13" fill="rgba(165,153,249,0.5)" font-family="monospace" font-size="7">01</text>
+              <text x="48" y="13" fill="rgba(165,153,249,0.5)" font-family="monospace" font-size="7">10</text>
+              <text x="5" y="63" fill="rgba(165,153,249,0.35)" font-family="monospace" font-size="7">11</text>
+              <text x="48" y="63" fill="rgba(165,153,249,0.35)" font-family="monospace" font-size="7">00</text>
+            </svg>
+          </div>
+          <div class="landing-phase-num">Phase 01</div>
+          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.12);color:var(--accent2)"><i data-lucide="cpu"></i></div>
+          <div class="landing-phase-title">Fundament</div>
+          <div class="landing-phase-sub">Verstehe, wie ein Computer auf unterster Ebene denkt — bevor du eine einzige Zeile Code schreibst.</div>
+          <ul class="lpc-topics">
+            <li>Binär, Hexadezimal &amp; Zeichenkodierung (ASCII/UTF-8)</li>
+            <li>Terminal &amp; Kommandozeile sicher benutzen</li>
+            <li>Dateisysteme, Pfade &amp; Berechtigungen</li>
+            <li>Netzwerk, TCP/IP, DNS &amp; HTTP verstehen</li>
+          </ul>
+          <div class="landing-phase-count">6 Lektionen</div>
+        </div>
+
+        <!-- Phase 02 — Python -->
+        <div class="landing-phase-card" style="border-top-color:var(--green)">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="64" height="64" rx="6" fill="rgba(62,207,122,0.05)" stroke="rgba(62,207,122,0.2)" stroke-width="1"/>
+              <rect x="2" y="2" width="64" height="15" rx="6" fill="rgba(62,207,122,0.08)"/>
+              <circle cx="11" cy="9.5" r="2.2" fill="rgba(247,106,106,0.5)"/>
+              <circle cx="19" cy="9.5" r="2.2" fill="rgba(247,201,106,0.5)"/>
+              <circle cx="27" cy="9.5" r="2.2" fill="rgba(62,207,122,0.6)"/>
+              <text x="7" y="28" fill="rgba(62,207,122,0.6)" font-family="monospace" font-size="6.5">&gt;</text>
+              <rect x="16" y="23" height="4.5" rx="1" fill="rgba(62,207,122,0.65)">
+                <animate attributeName="width" values="0;34;34;34;34" keyTimes="0;0.18;0.45;0.75;1" dur="4s" repeatCount="indefinite"/>
+              </rect>
+              <text x="7" y="39" fill="rgba(62,207,122,0.45)" font-family="monospace" font-size="6.5">&gt;</text>
+              <rect x="16" y="34" height="4.5" rx="1" fill="rgba(62,207,122,0.45)">
+                <animate attributeName="width" values="0;0;26;26;26" keyTimes="0;0.28;0.44;0.75;1" dur="4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="22" y="45" height="4.5" rx="1" fill="rgba(62,207,122,0.3)">
+                <animate attributeName="width" values="0;0;0;30;30" keyTimes="0;0.42;0.56;0.75;1" dur="4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="7" y="54" width="2.5" height="8" rx="1" fill="rgba(62,207,122,0.9)">
+                <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.5;0.92;1" dur="1s" repeatCount="indefinite"/>
+              </rect>
+            </svg>
+          </div>
+          <div class="landing-phase-num">Phase 02</div>
+          <div class="landing-phase-icon" style="background:rgba(62,207,122,0.1);color:var(--green)"><i data-lucide="terminal"></i></div>
+          <div class="landing-phase-title">Python</div>
+          <div class="landing-phase-sub">Lerne die meistgenutzte Programmiersprache der Welt — von der ersten Variable bis zu eigenen Programmen.</div>
+          <ul class="lpc-topics">
+            <li>Variablen, Datentypen &amp; Operatoren</li>
+            <li>Bedingungen, Schleifen &amp; Logik</li>
+            <li>Funktionen, Scope &amp; Module</li>
+            <li>Fehlerbehandlung mit try/except</li>
+          </ul>
+          <div class="landing-phase-count">5 Lektionen</div>
+        </div>
+
+        <!-- Phase 03 — Web & HTML/CSS -->
+        <div class="landing-phase-card" style="border-top-color:var(--amber)">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="64" height="64" rx="6" stroke="rgba(247,201,106,0.25)" stroke-width="1" fill="rgba(247,201,106,0.04)"/>
+              <rect x="2" y="2" width="64" height="16" rx="6" fill="rgba(247,201,106,0.08)"/>
+              <circle cx="11" cy="10" r="2.5" fill="rgba(247,106,106,0.4)"/>
+              <circle cx="19" cy="10" r="2.5" fill="rgba(247,201,106,0.4)"/>
+              <circle cx="27" cy="10" r="2.5" fill="rgba(62,207,122,0.4)"/>
+              <rect x="33" y="6" width="29" height="8" rx="3" fill="rgba(247,201,106,0.08)" stroke="rgba(247,201,106,0.2)" stroke-width="0.75"/>
+              <rect x="6" y="21" width="56" height="9" rx="2" fill="rgba(247,201,106,0.12)" stroke="rgba(247,201,106,0.45)" stroke-width="0.75">
+                <animate attributeName="opacity" values="0;1;1;1;1" keyTimes="0;0.12;0.4;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="10" y="23.5" width="22" height="4" rx="1" fill="rgba(247,201,106,0.5)">
+                <animate attributeName="opacity" values="0;1;1;1;1" keyTimes="0;0.14;0.4;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="6" y="34" width="27" height="20" rx="2" fill="rgba(247,201,106,0.07)" stroke="rgba(247,201,106,0.3)" stroke-width="0.75">
+                <animate attributeName="opacity" values="0;0;1;1;1" keyTimes="0;0.28;0.42;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="37" y="34" width="27" height="20" rx="2" fill="rgba(247,201,106,0.07)" stroke="rgba(247,201,106,0.3)" stroke-width="0.75">
+                <animate attributeName="opacity" values="0;0;0;1;1" keyTimes="0;0.38;0.52;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="10" y="38" width="19" height="3" rx="1" fill="rgba(247,201,106,0.3)">
+                <animate attributeName="opacity" values="0;0;1;1;1" keyTimes="0;0.3;0.44;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="10" y="44" width="14" height="3" rx="1" fill="rgba(247,201,106,0.2)">
+                <animate attributeName="opacity" values="0;0;1;1;1" keyTimes="0;0.3;0.44;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+            </svg>
+          </div>
+          <div class="landing-phase-num">Phase 03</div>
+          <div class="landing-phase-icon" style="background:rgba(247,201,106,0.1);color:var(--amber)"><i data-lucide="globe"></i></div>
+          <div class="landing-phase-title">Web &amp; HTML/CSS</div>
+          <div class="landing-phase-sub">Baue echte Webseiten von Grund auf — Struktur, Styling und dein erstes JavaScript.</div>
+          <ul class="lpc-topics">
+            <li>HTML-Grundstruktur &amp; semantische Tags</li>
+            <li>CSS Selektoren, Box-Model &amp; Layouts</li>
+            <li>Flexbox &amp; CSS Grid meistern</li>
+            <li>Responsive Design &amp; JavaScript-Basics</li>
+          </ul>
+          <div class="landing-phase-count">5 Lektionen</div>
+        </div>
+
+        <!-- Phase 04 — Backend & APIs -->
+        <div class="landing-phase-card" style="border-top-color:var(--accent)">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="34" cy="12" rx="11" ry="4.5" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.4)" stroke-width="1"/>
+              <rect x="23" y="12" width="22" height="9" fill="rgba(124,106,247,0.06)"/>
+              <path d="M23 21 Q34 25.5 45 21" stroke="rgba(124,106,247,0.4)" stroke-width="1" fill="none"/>
+              <line x1="34" y1="21" x2="34" y2="26" stroke="rgba(124,106,247,0.3)" stroke-width="1"/>
+              <rect x="3" y="26" width="19" height="20" rx="3" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.4)" stroke-width="1.2"/>
+              <rect x="46" y="26" width="19" height="20" rx="3" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.4)" stroke-width="1.2"/>
+              <circle cx="11" cy="33" r="1.8" fill="rgba(62,207,122,0.75)">
+                <animate attributeName="fill" values="rgba(62,207,122,0.75);rgba(62,207,122,0.2);rgba(62,207,122,0.75)" dur="1.4s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="11" cy="39" r="1.8" fill="rgba(62,207,122,0.5)">
+                <animate attributeName="fill" values="rgba(62,207,122,0.5);rgba(62,207,122,0.9);rgba(62,207,122,0.5)" dur="1.9s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="55" cy="33" r="1.8" fill="rgba(62,207,122,0.7)">
+                <animate attributeName="fill" values="rgba(62,207,122,0.7);rgba(62,207,122,0.15);rgba(62,207,122,0.7)" dur="1.1s" repeatCount="indefinite"/>
+              </circle>
+              <path d="M22 36 H46" stroke="rgba(124,106,247,0.22)" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <circle r="3.5" fill="#7c6af7">
+                <animateMotion dur="1.9s" repeatCount="indefinite" path="M22,36 L46,36"/>
+                <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.08;0.88;1" dur="1.9s" repeatCount="indefinite"/>
+              </circle>
+              <circle r="2.5" fill="#a599f9">
+                <animateMotion dur="1.9s" repeatCount="indefinite" begin="0.95s" path="M46,36 L22,36"/>
+                <animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.08;0.88;1" dur="1.9s" repeatCount="indefinite" begin="0.95s"/>
+              </circle>
+              <text x="20" y="53" fill="rgba(124,106,247,0.55)" font-family="monospace" font-size="5.5">POST /api</text>
+              <text x="27" y="62" fill="rgba(124,106,247,0.45)" font-family="monospace" font-size="5.5">200 OK</text>
+            </svg>
+          </div>
+          <div class="landing-phase-num">Phase 04</div>
+          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.1);color:var(--accent)"><i data-lucide="server"></i></div>
+          <div class="landing-phase-title">Backend &amp; APIs</div>
+          <div class="landing-phase-sub">Verstehe, was hinter jeder App steckt — Server, Datenbanken und die Kommunikation über REST APIs.</div>
+          <ul class="lpc-topics">
+            <li>Server-Grundlagen &amp; HTTP verstehen</li>
+            <li>REST APIs designen &amp; konsumieren</li>
+            <li>SQL-Datenbanken &amp; Abfragen</li>
+            <li>Authentication mit JWT &amp; Sessions</li>
+          </ul>
+          <div class="landing-phase-count">4 Lektionen</div>
+        </div>
+
+        <!-- Phase 05 — Hacking & Security -->
+        <div class="landing-phase-card" style="border-top-color:var(--red)">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="2" y="13" fill="rgba(247,106,106,0.14)" font-family="monospace" font-size="6">0110 1001</text>
+              <text x="2" y="62" fill="rgba(247,106,106,0.11)" font-family="monospace" font-size="6">1010 0011</text>
+              <path d="M34 4 L58 13 V32 C58 47 34 63 34 63 C34 63 10 47 10 32 V13 L34 4Z" fill="rgba(247,106,106,0.07)" stroke="rgba(247,106,106,0.45)" stroke-width="1.5"/>
+              <path d="M34 4 L58 13 V32 C58 47 34 63 34 63 C34 63 10 47 10 32 V13 L34 4Z" fill="none" stroke="rgba(247,106,106,0.18)" stroke-width="8">
+                <animate attributeName="opacity" values="0.18;0.65;0.18" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-width" values="8;14;8" dur="2.2s" repeatCount="indefinite"/>
+              </path>
+              <clipPath id="sc1">
+                <path d="M34 4 L58 13 V32 C58 47 34 63 34 63 C34 63 10 47 10 32 V13 L34 4Z"/>
+              </clipPath>
+              <rect x="10" y="0" width="48" height="3" fill="rgba(247,106,106,0.5)" rx="1" clip-path="url(#sc1)">
+                <animateTransform attributeName="transform" type="translate" values="0,8;0,56;0,8" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0;0.65;0.65;0" keyTimes="0;0.04;0.92;1" dur="2.2s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="27" y="31" width="14" height="12" rx="2.5" fill="rgba(247,106,106,0.5)"/>
+              <path d="M29.5 31 V27.5 A4.5 4.5 0 0 1 38.5 27.5 V31" stroke="rgba(247,106,106,0.75)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="34" cy="37" r="2" fill="rgba(10,10,15,0.6)"/>
+            </svg>
+          </div>
+          <div class="landing-phase-num">Phase 05</div>
+          <div class="landing-phase-icon" style="background:rgba(247,106,106,0.1);color:var(--red)"><i data-lucide="shield"></i></div>
+          <div class="landing-phase-title">Hacking &amp; Security</div>
+          <div class="landing-phase-sub">Lerne, wie Angriffe funktionieren — um Systeme besser schützen zu können. Nur zu Bildungszwecken.</div>
+          <ul class="lpc-topics">
+            <li>Web-Angriffe: XSS, SQL-Injection, CSRF</li>
+            <li>Passwort-Sicherheit, Hashing &amp; Kryptographie</li>
+            <li>OSINT, Reconnaissance &amp; Netzwerksicherheit</li>
+            <li>Social Engineering &amp; Malware verstehen</li>
+          </ul>
+          <div class="landing-phase-count">8 Lektionen</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Security Warning -->
+    <div class="landing-security">
+      <div class="landing-security-icon"><i data-lucide="shield-alert"></i></div>
+      <div>
+        <div class="landing-security-title">Wichtiger rechtlicher Hinweis — Phase 5: Hacking &amp; Security</div>
+        <div class="landing-security-text">Alle Inhalte zu Cybersecurity und Ethical Hacking dienen <strong>ausschließlich zu Bildungs- und Aufklärungszwecken</strong>. Das Anwenden erlernter Techniken ist nur im ausdrücklich genehmigten Rahmen (z.&nbsp;B. eigene Systeme, CTF-Challenges, autorisierte Pentests) legal. Unbefugter Zugriff auf fremde Systeme ist nach §&nbsp;202a&nbsp;StGB eine Straftat und wird strafrechtlich verfolgt. Die Plattform übernimmt keine Haftung für missbräuchliche Verwendung der bereitgestellten Inhalte.</div>
+      </div>
+    </div>
+
+    <!-- Profil -->
+    <section class="landing-profiles" id="landing-profiles-section">
+      <div class="landing-section-tag">Account</div>
+      <div class="landing-section-title">Dein Fortschritt — lokal &amp; sicher gespeichert</div>
+      <div class="landing-profiles-grid">
+
+        <!-- Anmelden -->
+        <div class="landing-profiles-panel">
+          <div class="landing-panel-title">Anmelden</div>
+          <div class="landing-panel-sub">Wähle dein Profil und gib dein Passwort ein</div>
+          <div id="landing-login-profiles">
+            <div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">
+              Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.
+            </div>
+          </div>
+        </div>
+
+        <!-- Registrieren -->
+        <div class="landing-profiles-panel">
+          <div class="landing-panel-title">Neues Profil erstellen</div>
+          <div class="landing-panel-sub">Wähle einen Namen und ein Passwort</div>
+          <div class="landing-input-stack">
+            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" maxlength="30">
+            <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" maxlength="60">
+            <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" maxlength="60">
+            <div class="landing-input-error" id="landing-reg-error"></div>
+            <button class="landing-start-btn" id="landing-start-btn">
+              <i data-lucide="user-plus"></i>Profil erstellen &amp; starten
+            </button>
+          </div>
+          <div class="landing-privacy-note">
+            <i data-lucide="lock"></i>Daten bleiben lokal. Kein E-Mail-Account nötig.
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <!-- Step 1: Profil wählen -->
+    <div class="login-step active" id="login-step-pick">
+      <div class="login-box-title">Profil wählen</div>
+      <div class="login-box-sub">Wähle dein Profil um fortzufahren</div>
+      <div class="login-pick-list" id="login-pick-list"></div>
+      <div class="login-box-actions">
+        <button class="login-box-cancel" onclick="hideLoginOverlay()">Abbrechen</button>
+      </div>
+    </div>
+    <!-- Step 2: Passwort -->
+    <div class="login-step" id="login-step-pw">
+      <div class="login-box-avatar" id="login-avatar">?</div>
+      <div class="login-box-title" id="login-name">Profil</div>
+      <div class="login-box-sub">Passwort eingeben</div>
+      <input type="password" class="landing-name-input" id="login-pw-input" placeholder="Passwort">
+      <div class="login-error" id="login-error"></div>
+      <div class="login-box-actions">
+        <button class="login-box-cancel" id="login-back-btn">Zurück</button>
+        <button class="login-box-submit" id="login-submit-btn">
+          <i data-lucide="log-in"></i>Anmelden
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-icon"><i data-lucide="code-2"></i></div>
     <div>
-      <div class="logo-text">CodePath</div>
-      <div class="logo-sub">Dein Weg zum Profi</div>
+      <div class="logo-text">PyCoBase</div>
+      <div class="logo-sub">PythonCodeBase</div>
     </div>
   </div>
   <div class="profile-bar" onclick="toggleProfileMenu(event)">
@@ -976,6 +1657,7 @@ body {
     <div class="progress-count" id="progress-count">0 / 0 Lektionen</div>
   </div>
   <nav class="nav" id="nav"></nav>
+  <div class="leaderboard" id="leaderboard" style="display:none"></div>
 </aside>
 
 <!-- MAIN -->
@@ -991,6 +1673,8 @@ body {
     <button class="nav-btn primary" id="btn-next" onclick="navigate(1)">Weiter<i data-lucide="arrow-right"></i></button>
   </div>
 </main>
+
+</div><!-- /#app -->
 
 <!-- MODAL -->
 <div class="modal-backdrop" id="modal-backdrop">
@@ -7879,10 +8563,10 @@ function setActiveProfile(profileId) {
   localStorage.setItem(STORAGE.active, profileId);
 }
 
-function createProfile(name) {
+function createProfile(name, passwordHash) {
   const profiles = loadProfiles();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  const profile = { id, name: name.trim() || 'Unbenannt', created: new Date().toISOString() };
+  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString() };
   profiles.push(profile);
   saveProfiles(profiles);
   localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
@@ -8165,6 +8849,7 @@ function render() {
   ca.innerHTML = lesson.content();
   ca.scrollTop = 0;
   updateNav();
+  buildLeaderboard();
 
   // Attach quiz/exercise handlers
   ca.querySelectorAll('[data-quiz]').forEach(btn => {
@@ -8203,6 +8888,7 @@ function buildProfileMenu() {
     </button>`;
   }).join('') + `
     <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>Zur Startseite</button>
     <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>Neues Profil</button>
     <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>Fortschritt exportieren</button>
     <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>Fortschritt importieren</button>
@@ -8233,7 +8919,8 @@ function switchProfile(profileId) {
 
 function handleProfileAction(action) {
   document.getElementById('profile-menu').classList.remove('show');
-  if (action === 'new') showNewProfileModal();
+  if (action === 'landing') { persistState(); showLanding(); }
+  else if (action === 'new') showNewProfileModal();
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
   else if (action === 'delete') showDeleteConfirm();
@@ -8253,7 +8940,7 @@ function hideModal() {
 
 function showNewProfileModal(isFirst = false) {
   showModal(`
-    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei CodePath' : 'Neues Profil'}</div>
+    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei PyCoBase' : 'Neues Profil'}</div>
     <div class="modal-desc">${isFirst ? 'Erstelle dein Profil um zu starten. Dein Fortschritt wird automatisch gespeichert.' : 'Jedes Profil speichert seinen eigenen Fortschritt.'}</div>
     <input type="text" class="modal-input" id="new-profile-name" placeholder="Dein Name" maxlength="30" autofocus>
     <div class="modal-actions">
@@ -8316,7 +9003,7 @@ function exportProgress() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `codepath-${state.activeProfile.name}-${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `pycobase-${state.activeProfile.name}-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -8358,6 +9045,193 @@ function escapeHtml(s) {
 }
 
 // ============================================================
+//              PASSWORD HELPERS
+// ============================================================
+
+async function hashPassword(pw) {
+  if (!pw) return null;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function verifyPassword(profile, pw) {
+  if (!profile.passwordHash) return true; // legacy: no password set
+  if (!pw) return false;
+  return (await hashPassword(pw)) === profile.passwordHash;
+}
+
+// ============================================================
+//              LANDING PAGE LOGIC
+// ============================================================
+
+function showLanding() {
+  document.getElementById('landing').classList.add('show');
+  document.getElementById('app').classList.remove('show');
+  buildLandingLoginPanel();
+  lucide.createIcons();
+}
+
+function hideLanding() {
+  document.getElementById('landing').classList.remove('show');
+  document.getElementById('app').classList.add('show');
+}
+
+function buildLandingLoginPanel() {
+  const el = document.getElementById('landing-login-profiles');
+  const profiles = loadProfiles();
+  if (profiles.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.</div>';
+    lucide.createIcons();
+    return;
+  }
+  const total = getTotalLessons();
+  el.innerHTML = '<div class="landing-existing-list">' + profiles.map(p => {
+    const data = loadProfileData(p.id);
+    const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
+    return `<button class="landing-profile-item" data-profile-id="${p.id}">
+      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div>
+        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
+        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}% abgeschlossen</div>
+      </div>
+      <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
+    </button>`;
+  }).join('') + '</div>';
+  el.querySelectorAll('[data-profile-id]').forEach(btn => {
+    btn.addEventListener('click', () => showLoginOverlay(btn.dataset.profileId));
+  });
+  lucide.createIcons();
+}
+
+async function landingCreateProfile() {
+  const nameEl = document.getElementById('landing-profile-name');
+  const pwEl   = document.getElementById('landing-profile-pw');
+  const pw2El  = document.getElementById('landing-profile-pw2');
+  const errEl  = document.getElementById('landing-reg-error');
+  const btn    = document.getElementById('landing-start-btn');
+
+  const name = nameEl.value.trim();
+  const pw   = pwEl.value;
+  const pw2  = pw2El.value;
+
+  if (!name) { errEl.textContent = 'Bitte gib deinen Namen ein.'; nameEl.focus(); return; }
+  if (!pw)   { errEl.textContent = 'Bitte wähle ein Passwort.'; pwEl.focus(); return; }
+  if (pw.length < 4) { errEl.textContent = 'Mindestens 4 Zeichen erforderlich.'; pwEl.focus(); return; }
+  if (pw !== pw2)    { errEl.textContent = 'Passwörter stimmen nicht überein.'; pw2El.focus(); return; }
+
+  errEl.textContent = '';
+  btn.disabled = true;
+  const passwordHash = await hashPassword(pw);
+  const p = createProfile(name, passwordHash);
+  setActiveProfile(p.id);
+  loadActiveState();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  btn.disabled = false;
+  hideLanding(); render();
+}
+
+// ============================================================
+//              LOGIN OVERLAY
+// ============================================================
+
+let _loginTargetId = null;
+
+function openLoginOverlay() {
+  const profiles = loadProfiles();
+  if (profiles.length === 0) {
+    document.getElementById('landing-profiles-section').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  const total = getTotalLessons();
+  const list = document.getElementById('login-pick-list');
+  list.innerHTML = profiles.map(p => {
+    const data = loadProfileData(p.id);
+    const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
+    return `<button class="landing-profile-item" data-pid="${p.id}">
+      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div>
+        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
+        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}%</div>
+      </div>
+      <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
+    </button>`;
+  }).join('');
+  list.querySelectorAll('[data-pid]').forEach(btn => {
+    btn.addEventListener('click', () => showLoginOverlay(btn.dataset.pid));
+  });
+  document.getElementById('login-step-pick').classList.add('active');
+  document.getElementById('login-step-pw').classList.remove('active');
+  document.getElementById('login-overlay').classList.add('show');
+  lucide.createIcons();
+}
+
+function showLoginOverlay(profileId) {
+  _loginTargetId = profileId;
+  const profiles = loadProfiles();
+  const profile = profiles.find(p => p.id === profileId);
+  if (!profile) return;
+  document.getElementById('login-avatar').textContent = profile.name.charAt(0).toUpperCase();
+  document.getElementById('login-name').textContent = profile.name;
+  document.getElementById('login-pw-input').value = '';
+  document.getElementById('login-error').textContent = '';
+  document.getElementById('login-step-pick').classList.remove('active');
+  document.getElementById('login-step-pw').classList.add('active');
+  document.getElementById('login-overlay').classList.add('show');
+  setTimeout(() => document.getElementById('login-pw-input').focus(), 80);
+}
+
+function hideLoginOverlay() {
+  document.getElementById('login-overlay').classList.remove('show');
+  _loginTargetId = null;
+}
+
+async function submitLogin() {
+  if (!_loginTargetId) return;
+  const profiles = loadProfiles();
+  const profile = profiles.find(p => p.id === _loginTargetId);
+  if (!profile) return;
+  const pw  = document.getElementById('login-pw-input').value;
+  const err = document.getElementById('login-error');
+  const btn = document.getElementById('login-submit-btn');
+  btn.disabled = true;
+  const ok = await verifyPassword(profile, pw);
+  btn.disabled = false;
+  if (!ok) { err.textContent = 'Falsches Passwort.'; document.getElementById('login-pw-input').select(); return; }
+  persistState();
+  setActiveProfile(profile.id);
+  loadActiveState();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  hideLoginOverlay();
+  hideLanding();
+  render();
+}
+
+// ============================================================
+//              LEADERBOARD
+// ============================================================
+
+function buildLeaderboard() {
+  const lb = document.getElementById('leaderboard');
+  if (!lb) return;
+  const profiles = loadProfiles();
+  if (profiles.length === 0) { lb.style.display = 'none'; return; }
+  lb.style.display = 'block';
+  const ranked = profiles
+    .map(p => ({ ...p, xp: parseInt(localStorage.getItem(STORAGE.profileKey(p.id, 'xp')) || '0', 10) }))
+    .sort((a, b) => b.xp - a.xp);
+  const rankClass = ['gold', 'silver', 'bronze'];
+  const activeId = state.activeProfile ? state.activeProfile.id : null;
+  lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>Rangliste</div>` +
+    ranked.map((p, i) => `<div class="lb-item${p.id === activeId ? ' active' : ''}">
+      <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
+      <div class="lb-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div class="lb-name">${escapeHtml(p.name)}</div>
+      <div class="lb-xp">${p.xp}&thinsp;XP</div>
+    </div>`).join('');
+  lucide.createIcons();
+}
+
+// ============================================================
 //              BOOTSTRAP
 // ============================================================
 
@@ -8368,7 +9242,6 @@ document.addEventListener('click', (e) => {
 
 document.getElementById('modal-backdrop').addEventListener('click', (e) => {
   if (e.target.id === 'modal-backdrop') {
-    // Don't allow closing the first-time profile modal by backdrop click
     if (state.activeProfile) hideModal();
   }
 });
@@ -8385,14 +9258,32 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { e.preventDefault(); if (!document.getElementById('btn-next').disabled) navigate(1); }
 });
 
+// Landing: register form
+document.getElementById('landing-start-btn').addEventListener('click', landingCreateProfile);
+['landing-profile-name','landing-profile-pw','landing-profile-pw2'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') landingCreateProfile(); });
+});
+
+// Login overlay
+document.getElementById('login-submit-btn').addEventListener('click', submitLogin);
+document.getElementById('login-pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') submitLogin(); });
+document.getElementById('login-back-btn').addEventListener('click', () => {
+  document.getElementById('login-step-pw').classList.remove('active');
+  document.getElementById('login-step-pick').classList.add('active');
+  _loginTargetId = null;
+});
+document.getElementById('login-overlay').addEventListener('click', e => {
+  if (e.target.id === 'login-overlay') hideLoginOverlay();
+});
+
+
 function init() {
   migrateLegacyData();
   const loaded = loadActiveState();
-  lucide.createIcons();
   if (!loaded) {
-    render(); // render empty state before modal
-    showNewProfileModal(true);
+    showLanding();
   } else {
+    hideLanding();
     render();
   }
 }
