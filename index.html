@@ -6,8 +6,37 @@
 <title>PyCoBase – PythonCodeBase</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
+<script>(function(){var t=localStorage.getItem('cp_theme');if(t)document.documentElement.setAttribute('data-theme',t);})()</script>
 <style>
 :root {
+  --bg: #f5f5fa;
+  --surface: #ffffff;
+  --surface2: #ededf7;
+  --surface3: #e2e2ef;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text: #1a1a2e;
+  --text2: #5a5a7a;
+  --text3: #9595b8;
+  --accent: #7c6af7;
+  --accent2: #6255d6;
+  --accent-glow: rgba(124,106,247,0.12);
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.08);
+  --red: #dc2626;
+  --red-bg: rgba(220,38,38,0.08);
+  --amber: #b45309;
+  --amber-bg: rgba(217,119,6,0.1);
+  --nav-bg: rgba(245,245,250,0.94);
+  --overlay-bg: rgba(180,180,210,0.55);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+[data-theme="dark"] {
   --bg: #0a0a0f;
   --surface: #111118;
   --surface2: #1a1a24;
@@ -26,10 +55,9 @@
   --red-bg: rgba(247,106,106,0.08);
   --amber: #f7c96a;
   --amber-bg: rgba(247,201,106,0.08);
-  --mono: 'Space Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --radius: 10px;
-  --radius-lg: 16px;
+  --nav-bg: rgba(10,10,15,0.93);
+  --overlay-bg: rgba(5,5,10,0.76);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -287,7 +315,7 @@ body {
 .phase-btn.done .phase-dot {
   background: var(--green);
   border-color: var(--green);
-  color: #0a0a0f;
+  color: white;
 }
 
 .phase-btn.done .phase-dot [data-lucide] { width: 12px; height: 12px; }
@@ -674,8 +702,8 @@ body {
 
 /* BOSS CARD */
 .boss-card {
-  background: linear-gradient(135deg, #1a1228 0%, #12121e 100%);
-  border: 1px solid rgba(124,106,247,0.35);
+  background: var(--surface2);
+  border: 1px solid rgba(124,106,247,0.25);
   border-radius: var(--radius-lg);
   padding: 24px;
   margin-bottom: 18px;
@@ -780,7 +808,7 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(5,5,10,0.75);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   z-index: 100;
   display: none;
@@ -938,13 +966,68 @@ body {
 
 .animate-in { animation: fadeIn 0.3s ease forwards; }
 
-/* RESPONSIVE */
-@media (max-width: 720px) {
-  .sidebar { width: 220px; }
+/* CONTROL BUTTONS (lang/theme toggle) */
+.ctrl-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  background: none;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text2); cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ctrl-btn:hover { background: var(--surface2); color: var(--text); }
+.ctrl-btn [data-lucide] { width: 14px; height: 14px; }
+
+.topbar-controls {
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* HAMBURGER */
+.hamburger-btn {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: none; border: 1px solid var(--border2);
+  border-radius: var(--radius); color: var(--text2); cursor: pointer;
+  transition: background 0.15s; flex-shrink: 0;
+}
+.hamburger-btn:hover { background: var(--surface2); }
+.hamburger-btn [data-lucide] { width: 18px; height: 18px; }
+
+/* SIDEBAR OVERLAY (mobile) */
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 39;
+}
+.sidebar-overlay.show { display: block; }
+
+/* RESPONSIVE — App */
+@media (max-width: 768px) {
+  .hamburger-btn { display: flex; }
+  .sidebar {
+    position: fixed; left: -300px; z-index: 40;
+    transition: left 0.25s ease;
+    box-shadow: 4px 0 32px rgba(0,0,0,0.18);
+  }
+  .sidebar.open { left: 0; }
+  .topbar { padding: 0 14px; }
+  .content-area { padding: 20px 16px; }
+  .lesson-nav { padding: 12px 16px; }
   .lesson-title { font-size: 20px; }
-  .content-area { padding: 20px 18px; }
-  .topbar { padding: 0 18px; }
-  .lesson-nav { padding: 14px 18px; }
+  .breadcrumb { display: none; }
+  .main { height: 100dvh; }
+}
+
+@media (max-width: 480px) {
+  .nav-btn { padding: 8px 12px; font-size: 12px; }
+  .lesson-nav { gap: 6px; }
+  .lesson-complete-badge { display: none !important; }
 }
 
 /* ============================================================
@@ -968,11 +1051,12 @@ body {
   position: sticky; top: 0;
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 48px;
-  background: rgba(10,10,15,0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   z-index: 10;
 }
+.landing-nav-right { display: flex; align-items: center; gap: 8px; }
 .landing-nav-logo { display: flex; align-items: center; gap: 10px; }
 .landing-nav-logo .logo-icon {
   width: 34px; height: 34px;
@@ -1210,7 +1294,7 @@ body {
 /* Login overlay */
 .login-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.72); backdrop-filter: blur(10px);
+  background: var(--overlay-bg); backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
   z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.2s;
 }
@@ -1292,6 +1376,52 @@ body {
 .lb-item.active .lb-name { color: var(--accent2); font-weight: 500; }
 .lb-xp { font-family: var(--mono); font-size: 10px; color: var(--text3); flex-shrink: 0; }
 .lb-item.active .lb-xp { color: var(--accent2); }
+
+/* LEADERBOARD OPT-IN BADGE */
+.lb-private { font-size: 10px; color: var(--text3); font-family: var(--mono); padding: 2px 6px; background: var(--surface3); border-radius: 4px; }
+
+/* LANG BANNER (in lesson for non-translated content) */
+.lang-banner {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--amber-bg); border: 1px solid rgba(180,83,9,0.2);
+  border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px;
+  font-size: 12.5px; color: var(--amber);
+}
+.lang-banner [data-lucide] { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* DARK MODE: boss card gets gradient back */
+[data-theme="dark"] .boss-card {
+  background: linear-gradient(135deg, #1a1228 0%, #12121e 100%);
+  border-color: rgba(124,106,247,0.35);
+}
+[data-theme="dark"] .boss-card::before { display: block; }
+.boss-card::before { display: none; }
+
+/* LANDING RESPONSIVE */
+@media (max-width: 860px) {
+  .landing-nav { padding: 12px 24px; }
+  .landing-inner { padding: 0 24px 80px; }
+  .landing-phases-grid { grid-template-columns: 1fr 1fr; }
+  .landing-phase-card:nth-child(n) { grid-column: auto; }
+  .landing-profiles-grid { grid-template-columns: 1fr; max-width: 460px; }
+}
+
+@media (max-width: 560px) {
+  .landing-nav { padding: 10px 16px; }
+  .landing-inner { padding: 0 16px 60px; }
+  .landing-hero { padding: 52px 0 40px; }
+  .landing-hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
+  .landing-cta-btn, .landing-outline-btn { justify-content: center; }
+  .landing-stats { flex-direction: column; }
+  .landing-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .landing-stat:last-child { border-bottom: none; }
+  .landing-phases-grid { grid-template-columns: 1fr; }
+  .landing-phase-card:nth-child(n) { grid-column: auto; }
+  .landing-section-title { font-size: 19px; }
+  .landing-profiles-grid { grid-template-columns: 1fr; }
+  .landing-security { flex-direction: column; gap: 10px; }
+  .lpc-svg-wrap { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1306,45 +1436,49 @@ body {
         <div class="landing-nav-logo-sub">PythonCodeBase</div>
       </div>
     </div>
-    <button class="landing-nav-signin" id="landing-signin-btn" onclick="openLoginOverlay()">
-      <i data-lucide="log-in"></i>Anmelden
-    </button>
+    <div class="landing-nav-right">
+      <button class="ctrl-btn" id="lang-btn-landing" onclick="toggleLang()" title="Switch language / Sprache wechseln">DE</button>
+      <button class="ctrl-btn" id="theme-btn-landing" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <button class="landing-nav-signin" id="landing-signin-btn" onclick="openLoginOverlay()">
+        <i data-lucide="log-in"></i><span data-i18n="signin">Anmelden</span>
+      </button>
+    </div>
   </nav>
 
   <div class="landing-inner">
     <!-- Hero -->
     <section class="landing-hero">
-      <div class="landing-hero-tag"><i data-lucide="sparkles"></i>Kostenlos &amp; Open Source</div>
-      <h1 class="landing-hero-title">Python lernen.<br><span>Von Null zum Profi.</span></h1>
-      <p class="landing-hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
+      <div class="landing-hero-tag"><i data-lucide="sparkles"></i><span data-i18n="hero_tag">Kostenlos &amp; Open Source</span></div>
+      <h1 class="landing-hero-title" id="hero-title">Python lernen.<br><span>Von Null zum Profi.</span></h1>
+      <p class="landing-hero-desc" id="hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
       <div class="landing-hero-btns">
         <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
-          <i data-lucide="rocket"></i>Jetzt starten
+          <i data-lucide="rocket"></i><span data-i18n="cta_start">Jetzt starten</span>
         </button>
         <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
-          <i data-lucide="book-open"></i>Lernpfad ansehen
+          <i data-lucide="book-open"></i><span data-i18n="cta_view">Lernpfad ansehen</span>
         </button>
       </div>
       <div class="landing-stats">
         <div class="landing-stat">
-          <div class="landing-stat-val">28</div>
-          <div class="landing-stat-label">Lektionen</div>
+          <div class="landing-stat-val">31</div>
+          <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
         </div>
         <div class="landing-stat">
-          <div class="landing-stat-val">5</div>
-          <div class="landing-stat-label">Themengebiete</div>
+          <div class="landing-stat-val">6</div>
+          <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
         </div>
         <div class="landing-stat">
           <div class="landing-stat-val">100%</div>
-          <div class="landing-stat-label">Kostenlos</div>
+          <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
         </div>
       </div>
     </section>
 
     <!-- Was du lernst -->
     <section class="landing-phases" id="landing-phases-section">
-      <div class="landing-section-tag">Lernpfad</div>
-      <div class="landing-section-title">5 Phasen — von den Grundlagen bis zur Security</div>
+      <div class="landing-section-tag" data-i18n="section_tag">Lernpfad</div>
+      <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
       <div class="landing-phases-grid">
 
         <!-- Phase 01 — Fundament -->
@@ -1567,30 +1701,26 @@ body {
 
         <!-- Anmelden -->
         <div class="landing-profiles-panel">
-          <div class="landing-panel-title">Anmelden</div>
-          <div class="landing-panel-sub">Wähle dein Profil und gib dein Passwort ein</div>
-          <div id="landing-login-profiles">
-            <div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">
-              Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.
-            </div>
-          </div>
+          <div class="landing-panel-title" data-i18n="panel_login_title">Anmelden</div>
+          <div class="landing-panel-sub" data-i18n="panel_login_sub">Profil auswählen und fortfahren</div>
+          <div id="landing-login-profiles"></div>
         </div>
 
         <!-- Registrieren -->
         <div class="landing-profiles-panel">
-          <div class="landing-panel-title">Neues Profil erstellen</div>
-          <div class="landing-panel-sub">Wähle einen Namen und ein Passwort</div>
+          <div class="landing-panel-title" data-i18n="panel_reg_title">Neues Profil erstellen</div>
+          <div class="landing-panel-sub" data-i18n="panel_reg_sub">Starte kostenlos — kein Account nötig</div>
           <div class="landing-input-stack">
-            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" maxlength="30">
-            <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" maxlength="60">
-            <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" maxlength="60">
+            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" data-i18n-ph="name_placeholder" maxlength="30">
+            <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" data-i18n-ph="pw_placeholder" maxlength="60">
+            <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" data-i18n-ph="pw2_placeholder" maxlength="60">
             <div class="landing-input-error" id="landing-reg-error"></div>
             <button class="landing-start-btn" id="landing-start-btn">
-              <i data-lucide="user-plus"></i>Profil erstellen &amp; starten
+              <i data-lucide="user-plus"></i><span data-i18n="landing_start_btn">Loslegen</span>
             </button>
           </div>
           <div class="landing-privacy-note">
-            <i data-lucide="lock"></i>Daten bleiben lokal. Kein E-Mail-Account nötig.
+            <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten bleiben lokal. Kein E-Mail-Account nötig.</span>
           </div>
         </div>
 
@@ -1604,24 +1734,24 @@ body {
   <div class="login-box">
     <!-- Step 1: Profil wählen -->
     <div class="login-step active" id="login-step-pick">
-      <div class="login-box-title">Profil wählen</div>
-      <div class="login-box-sub">Wähle dein Profil um fortzufahren</div>
+      <div class="login-box-title" data-i18n="login_pick_title">Profil wählen</div>
+      <div class="login-box-sub" data-i18n="login_pick_sub">Wähle dein Profil um fortzufahren</div>
       <div class="login-pick-list" id="login-pick-list"></div>
       <div class="login-box-actions">
-        <button class="login-box-cancel" onclick="hideLoginOverlay()">Abbrechen</button>
+        <button class="login-box-cancel" onclick="hideLoginOverlay()" data-i18n="cancel">Abbrechen</button>
       </div>
     </div>
     <!-- Step 2: Passwort -->
     <div class="login-step" id="login-step-pw">
       <div class="login-box-avatar" id="login-avatar">?</div>
       <div class="login-box-title" id="login-name">Profil</div>
-      <div class="login-box-sub">Passwort eingeben</div>
-      <input type="password" class="landing-name-input" id="login-pw-input" placeholder="Passwort">
+      <div class="login-box-sub" data-i18n="login_pw_sub">Passwort eingeben</div>
+      <input type="password" class="landing-name-input" id="login-pw-input" placeholder="Passwort" data-i18n-ph="pw_placeholder">
       <div class="login-error" id="login-error"></div>
       <div class="login-box-actions">
-        <button class="login-box-cancel" id="login-back-btn">Zurück</button>
+        <button class="login-box-cancel" id="login-back-btn" data-i18n="login_back">Zurück</button>
         <button class="login-box-submit" id="login-submit-btn">
-          <i data-lucide="log-in"></i>Anmelden
+          <i data-lucide="log-in"></i><span data-i18n="login_submit">Anmelden</span>
         </button>
       </div>
     </div>
@@ -1631,8 +1761,11 @@ body {
 <!-- APP -->
 <div id="app">
 
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
   <div class="logo">
     <div class="logo-icon"><i data-lucide="code-2"></i></div>
     <div>
@@ -1650,11 +1783,11 @@ body {
     <div class="profile-menu" id="profile-menu"></div>
   </div>
   <div class="progress-summary">
-    <div class="progress-label">Gesamtfortschritt</div>
+    <div class="progress-label" data-i18n="overall_progress">Gesamtfortschritt</div>
     <div class="progress-track">
       <div class="progress-fill" id="global-progress" style="width: 0%"></div>
     </div>
-    <div class="progress-count" id="progress-count">0 / 0 Lektionen</div>
+    <div class="progress-count" id="progress-count">0 / 0</div>
   </div>
   <nav class="nav" id="nav"></nav>
   <div class="leaderboard" id="leaderboard" style="display:none"></div>
@@ -1663,14 +1796,21 @@ body {
 <!-- MAIN -->
 <main class="main">
   <div class="topbar">
-    <div class="breadcrumb" id="breadcrumb"><span>Übersicht</span></div>
-    <div class="xp-badge" id="xp-display"><i data-lucide="hexagon"></i><span id="xp-amount">0</span> XP</div>
+    <div style="display:flex;align-items:center;gap:10px;min-width:0">
+      <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Menu"><i data-lucide="menu"></i></button>
+      <div class="breadcrumb" id="breadcrumb"><span data-i18n="overview">Übersicht</span></div>
+    </div>
+    <div class="topbar-controls">
+      <button class="ctrl-btn" id="lang-btn-app" onclick="toggleLang()" title="Switch language">DE</button>
+      <button class="ctrl-btn" id="theme-btn-app" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <div class="xp-badge" id="xp-display"><i data-lucide="hexagon"></i><span id="xp-amount">0</span> XP</div>
+    </div>
   </div>
   <div class="content-area" id="content-area"></div>
   <div class="lesson-nav">
-    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)"><i data-lucide="arrow-left"></i>Zurück</button>
-    <span class="lesson-complete-badge" id="done-badge"><i data-lucide="check"></i>Abgeschlossen</span>
-    <button class="nav-btn primary" id="btn-next" onclick="navigate(1)">Weiter<i data-lucide="arrow-right"></i></button>
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)"><i data-lucide="arrow-left"></i><span data-i18n="btn_back">Zurück</span></button>
+    <span class="lesson-complete-badge" id="done-badge"><i data-lucide="check"></i><span data-i18n="btn_done">Abgeschlossen</span></span>
+    <button class="nav-btn primary" id="btn-next" onclick="navigate(1)"><span data-i18n="btn_next">Weiter</span><i data-lucide="arrow-right"></i></button>
   </div>
 </main>
 
@@ -1686,11 +1826,195 @@ body {
 
 <script>
 // ============================================================
+//   LANGUAGE & THEME SYSTEM
+// ============================================================
+
+const LANG = (() => {
+  let _l = localStorage.getItem('cp_lang') || 'de';
+  return { get: () => _l, set(l) { _l = l; localStorage.setItem('cp_lang', l); applyLang(); } };
+})();
+
+const THEME = (() => {
+  let _t = localStorage.getItem('cp_theme') || 'light';
+  return {
+    get: () => _t,
+    toggle() {
+      _t = _t === 'light' ? 'dark' : 'light';
+      localStorage.setItem('cp_theme', _t);
+      document.documentElement.setAttribute('data-theme', _t);
+      applyThemeIcons();
+    }
+  };
+})();
+
+const I18N = {
+  de: {
+    signin:'Anmelden', overview:'Übersicht', overall_progress:'Gesamtfortschritt',
+    btn_back:'Zurück', btn_next:'Weiter', btn_done:'Abgeschlossen',
+    lessons_count:(d,tot)=>`${d} / ${tot} Lektionen`,
+    leaderboard:'Rangliste', quiz_label:'Quiz', exercise_label:'Übung',
+    exercise_hint:'Tipp:', exercise_run:'Prüfen',
+    exercise_placeholder:'# Schreib deinen Code hier...',
+    exercise_ready:'Bereit. Klick "Prüfen" wenn du fertig bist.',
+    exercise_empty:'Bitte schreib erst etwas!',
+    exercise_good:'Super! Das sieht richtig aus. Gut gemacht!',
+    exercise_hint_kw:(kw)=>`Tipp: Du solltest "${kw}" verwenden.`,
+    exercise_syntax:'Noch nicht ganz. Überprüfe deine Syntax.',
+    copy_btn:'kopieren', copied_btn:'kopiert!',
+    no_profiles:'Noch keine Profile vorhanden.\nErstelle dein erstes Profil rechts.',
+    pct_done:'% abgeschlossen',
+    new_profile_title:'Neues Profil', new_profile_welcome:'Willkommen bei PyCoBase',
+    new_profile_desc:'Erstelle dein Profil um zu starten. Dein Fortschritt wird automatisch gespeichert.',
+    new_profile_desc2:'Jedes Profil speichert seinen eigenen Fortschritt.',
+    new_profile_placeholder:'Dein Name', new_profile_btn:'Profil erstellen',
+    cancel:'Abbrechen',
+    delete_profile_title:'Profil löschen?',
+    delete_profile_desc:(n)=>`Das Profil <strong>${n}</strong> und sein gesamter Fortschritt werden permanent gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.`,
+    delete_btn:'Löschen',
+    import_ok_title:'Import erfolgreich',
+    import_ok_desc:(n,c,x)=>`Profil "<strong>${n}</strong>" mit ${c} abgeschlossenen Lektionen und ${x} XP wurde erstellt.`,
+    import_fail_title:'Import fehlgeschlagen',
+    import_fail_desc:(m)=>`Die Datei konnte nicht gelesen werden: ${m}`,
+    import_format_err:'Ungültiges Format', ok:'OK',
+    login_pick_title:'Profil wählen', login_pick_sub:'Wähle dein Profil um fortzufahren',
+    login_pw_sub:'Passwort eingeben', login_back:'Zurück', login_submit:'Anmelden',
+    login_wrong_pw:'Falsches Passwort.',
+    menu_landing:'Zur Startseite', menu_new:'Neues Profil', menu_export:'Fortschritt exportieren',
+    menu_import:'Fortschritt importieren', menu_delete:'Profil löschen',
+    menu_lb_on:'In Rangliste anzeigen', menu_lb_off:'Aus Rangliste entfernen',
+    name_empty:'Bitte gib deinen Namen ein.', pw_empty:'Bitte wähle ein Passwort.',
+    pw_short:'Mindestens 4 Zeichen erforderlich.', pw_mismatch:'Passwörter stimmen nicht überein.',
+    lang_banner:'Diese Lektion ist derzeit nur auf Deutsch verfügbar.',
+    lb_opt_in_note:'Nur Mitglieder die zugestimmt haben werden angezeigt.',
+    lb_empty:'Noch keine Einträge. Aktiviere die Rangliste in deinem Profil-Menü.',
+    lb_private:'(privat)',
+    hero_tag:'Kostenlos & Open Source',
+    cta_start:'Jetzt starten', cta_view:'Lernpfad ansehen',
+    stat_lessons:'Lektionen', stat_topics:'Themengebiete', stat_free:'Kostenlos',
+    section_tag:'Lernpfad',
+    section_title:'6 Phasen — von den Grundlagen bis zur Security',
+    panel_login_title:'Anmelden', panel_login_sub:'Profil auswählen und fortfahren',
+    panel_reg_title:'Neu registrieren', panel_reg_sub:'Starte kostenlos — kein Account nötig',
+    name_placeholder:'Dein Name', pw_placeholder:'Passwort', pw2_placeholder:'Passwort wiederholen',
+    landing_start_btn:'Loslegen',
+    landing_privacy:'Nur lokal gespeichert · kein Server · kein Account nötig',
+  },
+  en: {
+    signin:'Sign in', overview:'Overview', overall_progress:'Overall Progress',
+    btn_back:'Back', btn_next:'Next', btn_done:'Completed',
+    lessons_count:(d,tot)=>`${d} / ${tot} Lessons`,
+    leaderboard:'Leaderboard', quiz_label:'Quiz', exercise_label:'Exercise',
+    exercise_hint:'Hint:', exercise_run:'Check',
+    exercise_placeholder:'# Write your code here...',
+    exercise_ready:'Ready. Click "Check" when you\'re done.',
+    exercise_empty:'Please write something first!',
+    exercise_good:'Great! That looks correct. Well done!',
+    exercise_hint_kw:(kw)=>`Hint: You should use "${kw}".`,
+    exercise_syntax:'Not quite. Check your syntax.',
+    copy_btn:'copy', copied_btn:'copied!',
+    no_profiles:'No profiles yet.\nCreate your first profile on the right.',
+    pct_done:'% completed',
+    new_profile_title:'New Profile', new_profile_welcome:'Welcome to PyCoBase',
+    new_profile_desc:'Create your profile to get started. Your progress is saved automatically.',
+    new_profile_desc2:'Each profile saves its own progress.',
+    new_profile_placeholder:'Your name', new_profile_btn:'Create Profile',
+    cancel:'Cancel',
+    delete_profile_title:'Delete Profile?',
+    delete_profile_desc:(n)=>`The profile <strong>${n}</strong> and all its progress will be permanently deleted. This cannot be undone.`,
+    delete_btn:'Delete',
+    import_ok_title:'Import successful',
+    import_ok_desc:(n,c,x)=>`Profile "<strong>${n}</strong>" with ${c} completed lessons and ${x} XP was created.`,
+    import_fail_title:'Import failed',
+    import_fail_desc:(m)=>`Could not read the file: ${m}`,
+    import_format_err:'Invalid format', ok:'OK',
+    login_pick_title:'Select Profile', login_pick_sub:'Choose your profile to continue',
+    login_pw_sub:'Enter password', login_back:'Back', login_submit:'Sign in',
+    login_wrong_pw:'Incorrect password.',
+    menu_landing:'Go to Home', menu_new:'New Profile', menu_export:'Export Progress',
+    menu_import:'Import Progress', menu_delete:'Delete Profile',
+    menu_lb_on:'Show on Leaderboard', menu_lb_off:'Remove from Leaderboard',
+    name_empty:'Please enter your name.', pw_empty:'Please choose a password.',
+    pw_short:'Minimum 4 characters required.', pw_mismatch:'Passwords do not match.',
+    lang_banner:'This lesson is currently only available in German.',
+    lb_opt_in_note:'Only members who opted in are shown.',
+    lb_empty:'No entries yet. Enable leaderboard in your profile menu.',
+    lb_private:'(private)',
+    hero_tag:'Free & Open Source',
+    cta_start:'Start now', cta_view:'View curriculum',
+    stat_lessons:'Lessons', stat_topics:'Topics', stat_free:'Free',
+    section_tag:'Curriculum',
+    section_title:'6 Phases — from foundations to security',
+    panel_login_title:'Sign in', panel_login_sub:'Select your profile to continue',
+    panel_reg_title:'Create account', panel_reg_sub:'Start for free — no account needed',
+    name_placeholder:'Your name', pw_placeholder:'Password', pw2_placeholder:'Confirm password',
+    landing_start_btn:'Get started',
+    landing_privacy:'Stored locally only · no server · no account required',
+  }
+};
+
+function t(key, ...args) {
+  const dict = I18N[LANG.get()] || I18N.de;
+  const val = dict[key] !== undefined ? dict[key] : (I18N.de[key] || key);
+  return typeof val === 'function' ? val(...args) : val;
+}
+
+function applyLang() {
+  const lang = LANG.get();
+  const en = lang === 'en';
+  // Simple text elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.dataset.i18n);
+    if (typeof v === 'string') el.textContent = v;
+  });
+  // Placeholder attributes
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPh);
+  });
+  // Lang toggle buttons
+  document.querySelectorAll('[id^="lang-btn"]').forEach(btn => {
+    btn.textContent = en ? 'DE' : 'EN';
+    btn.title = en ? 'Auf Deutsch wechseln' : 'Switch to English';
+  });
+  // Complex: hero title
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) heroTitle.innerHTML = en
+    ? 'Learn Python.<br><span>From Zero to Pro.</span>'
+    : 'Python lernen.<br><span>Von Null zum Profi.</span>';
+  // Complex: hero desc
+  const heroDesc = document.getElementById('hero-desc');
+  if (heroDesc) heroDesc.textContent = en
+    ? 'PyCoBase is your structured learning path for programming, web development and cybersecurity — with interactive lessons, quizzes and coding exercises.'
+    : 'PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.';
+  // Re-render app/landing
+  if (document.getElementById('app').classList.contains('show')) { render(); buildLeaderboard(); }
+  if (document.getElementById('landing').classList.contains('show')) buildLandingLoginPanel();
+}
+
+function applyThemeIcons() {
+  const dark = THEME.get() === 'dark';
+  document.querySelectorAll('[id^="theme-btn"]').forEach(btn => {
+    btn.innerHTML = dark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
+  });
+  lucide.createIcons();
+}
+
+function toggleLang() { LANG.set(LANG.get() === 'de' ? 'en' : 'de'); }
+function toggleTheme() { THEME.toggle(); }
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
+// ============================================================
 //                        DATA: PHASES
 // ============================================================
 const PHASES = [
   {
-    id: 'p1', title: 'Fundament', sub: 'Wie Computer wirklich funktionieren',
+    id: 'p1', title: 'Fundament', title_en: 'Foundation', sub: 'Wie Computer wirklich funktionieren', sub_en: 'How computers really work',
     lessons: [
       {
         id: 'l1_1', title: 'Willkommen & Überblick',
@@ -2383,7 +2707,7 @@ Cache-Control: max-age=300
     ]
   },
   {
-    id: 'p2', title: 'Python', sub: 'Programmieren lernen von null',
+    id: 'p2', title: 'Python', title_en: 'Python', sub: 'Programmieren lernen von null', sub_en: 'Learn programming from scratch',
     lessons: [
       {
         id: 'l2_1', title: 'Variablen & Datentypen',
@@ -3561,7 +3885,7 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
     ]
   },
   {
-    id: 'p3', title: 'Web & HTML/CSS', sub: 'Webseiten bauen & gestalten',
+    id: 'p3', title: 'Web & HTML/CSS', title_en: 'Web & HTML/CSS', sub: 'Webseiten bauen & gestalten', sub_en: 'Build and design websites',
     lessons: [
       {
         id: 'l3_1', title: 'HTML Grundstruktur',
@@ -4775,7 +5099,7 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
     ]
   },
   {
-    id: 'p4', title: 'Backend & APIs', sub: 'Server, Datenbanken, REST',
+    id: 'p4', title: 'Backend & APIs', title_en: 'Backend & APIs', sub: 'Server, Datenbanken, REST', sub_en: 'Servers, databases, REST',
     lessons: [
       {
         id: 'l4_1', title: 'Was ist ein Backend?',
@@ -5839,7 +6163,7 @@ eingabe = <span class="st">b"meinPasswort123"</span>
     ]
   },
   {
-    id: 'p5', title: 'Hacking & Security', sub: 'Ethical Hacking & Cybersecurity',
+    id: 'p5', title: 'Hacking & Security', title_en: 'Hacking & Security', sub: 'Ethical Hacking & Cybersecurity', sub_en: 'Ethical Hacking & Cybersecurity',
     lessons: [
       {
         id: 'l5_1', title: 'Einführung Cybersecurity',
@@ -8321,7 +8645,7 @@ Das PayPal Sicherheitsteam</div>
     ]
   },
   {
-    id: 'p6', title: 'Profi-Level', sub: 'Clean Code, Git, Testing, Job',
+    id: 'p6', title: 'Profi-Level', title_en: 'Pro Level', sub: 'Clean Code, Git, Testing, Job', sub_en: 'Clean Code, Git, Testing, Career',
     lessons: [
       {
         id: 'l6_1', title: 'Clean Code Prinzipien',
@@ -8566,7 +8890,7 @@ function setActiveProfile(profileId) {
 function createProfile(name, passwordHash) {
   const profiles = loadProfiles();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString() };
+  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString(), leaderboardOptIn: false };
   profiles.push(profile);
   saveProfiles(profiles);
   localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
@@ -8623,7 +8947,7 @@ const EXERCISE_DATA = {};
 function quiz(id, question, options) {
   QUIZ_DATA[id] = { question, options };
   return `<div class="quiz-card animate-in" style="animation-delay:0.1s">
-    <div class="card-label">Quiz</div>
+    <div class="card-label">${t('quiz_label')}</div>
     <div class="quiz-question">${question}</div>
     <div class="quiz-options" id="opts-${id}">
       ${options.map((o, i) => `<button class="quiz-option" data-quiz="${id}" data-idx="${i}">${o.t}</button>`).join('')}
@@ -8636,18 +8960,18 @@ function exercise(id, title, desc, hint, keyword) {
   EXERCISE_DATA[id] = { keyword };
   return `<div class="exercise-card animate-in" style="animation-delay:0.12s">
     <div class="exercise-top">
-      <div class="card-label">Übung</div>
+      <div class="card-label">${t('exercise_label')}</div>
       <div class="exercise-title">${title}</div>
       <div class="exercise-desc">${desc}</div>
-      <div class="exercise-hint">Tipp: ${hint}</div>
+      <div class="exercise-hint">${t('exercise_hint')} ${hint}</div>
     </div>
     <div class="editor-area">
       <div class="editor-header">
         <span class="editor-label">code</span>
-        <button class="run-btn" data-exercise="${id}"><i data-lucide="play"></i>Prüfen</button>
+        <button class="run-btn" data-exercise="${id}"><i data-lucide="play"></i>${t('exercise_run')}</button>
       </div>
-      <textarea class="code-editor" id="editor-${id}" placeholder="# Schreib deinen Code hier..." spellcheck="false"></textarea>
-      <div class="output-area" id="out-${id}">Bereit. Klick "Prüfen" wenn du fertig bist.</div>
+      <textarea class="code-editor" id="editor-${id}" placeholder="${t('exercise_placeholder')}" spellcheck="false"></textarea>
+      <div class="output-area" id="out-${id}">${t('exercise_ready')}</div>
     </div>
   </div>`;
 }
@@ -8677,24 +9001,24 @@ function checkExercise(id) {
   const out = document.getElementById('out-' + id);
   const code = codeEl.value.trim();
   if (!code) {
-    out.innerHTML = '<i data-lucide="alert-circle"></i>Bitte schreib erst etwas!';
+    out.innerHTML = `<i data-lucide="alert-circle"></i>${t('exercise_empty')}`;
     out.className = 'output-area error';
     lucide.createIcons();
     return;
   }
   if (!code.includes(data.keyword)) {
-    out.innerHTML = `<i data-lucide="x"></i>Tipp: Du solltest "${data.keyword}" verwenden.`;
+    out.innerHTML = `<i data-lucide="x"></i>${t('exercise_hint_kw', data.keyword)}`;
     out.className = 'output-area error';
     lucide.createIcons();
     return;
   }
   if (code.length > 8) {
-    out.innerHTML = '<i data-lucide="check"></i>Super! Das sieht richtig aus. Gut gemacht!';
+    out.innerHTML = `<i data-lucide="check"></i>${t('exercise_good')}`;
     out.className = 'output-area success';
     lucide.createIcons();
     addXP(20);
   } else {
-    out.innerHTML = '<i data-lucide="x"></i>Noch nicht ganz. Überprüfe deine Syntax.';
+    out.innerHTML = `<i data-lucide="x"></i>${t('exercise_syntax')}`;
     out.className = 'output-area error';
     lucide.createIcons();
   }
@@ -8713,9 +9037,9 @@ function addXP(amount) {
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('.code-pre');
   navigator.clipboard.writeText(pre.innerText).then(() => {
-    btn.innerHTML = '<i data-lucide="check"></i>kopiert!';
+    btn.innerHTML = `<i data-lucide="check"></i>${t('copied_btn')}`;
     lucide.createIcons();
-    setTimeout(() => { btn.innerHTML = '<i data-lucide="copy"></i>kopieren'; lucide.createIcons(); }, 1500);
+    setTimeout(() => { btn.innerHTML = `<i data-lucide="copy"></i>${t('copy_btn')}`; lucide.createIcons(); }, 1500);
   });
 }
 
@@ -8770,25 +9094,28 @@ function navigate(dir) {
 
 function buildNav() {
   const nav = document.getElementById('nav');
+  const en = LANG.get() === 'en';
   nav.innerHTML = PHASES.map((phase, pi) => {
     const isActivePhase = pi === state.currentPhase;
     const doneLessons = phase.lessons.filter(l => state.completed.has(l.id)).length;
     const allDone = doneLessons === phase.lessons.length && doneLessons > 0;
     const dotContent = allDone ? '<i data-lucide="check"></i>' : `0${pi+1}`;
+    const phaseTitle = en ? (phase.title_en || phase.title) : phase.title;
     return `<div class="phase-group">
       <button class="phase-btn ${isActivePhase ? 'active' : ''} ${allDone ? 'done' : ''}" data-phase="${pi}">
         <div class="phase-dot">${dotContent}</div>
         <div class="phase-meta">
-          <div class="phase-name">${phase.title}</div>
-          <div class="phase-lessons">${doneLessons}/${phase.lessons.length} Lektionen</div>
+          <div class="phase-name">${phaseTitle}</div>
+          <div class="phase-lessons">${t('lessons_count', doneLessons, phase.lessons.length)}</div>
         </div>
       </button>
       ${isActivePhase ? `<div class="lesson-list">
         ${phase.lessons.map((l, li) => {
           const isActive = li === state.currentLesson;
           const isDone = state.completed.has(l.id);
+          const lessonTitle = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
           return `<div class="lesson-item ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}" data-lesson="${li}">
-            <div class="lesson-dot"></div>${l.title}
+            <div class="lesson-dot"></div>${lessonTitle}
           </div>`;
         }).join('')}
       </div>` : ''}
@@ -8812,7 +9139,7 @@ function updateProgress() {
   const done = state.completed.size;
   const pct = total > 0 ? Math.round(done / total * 100) : 0;
   document.getElementById('global-progress').style.width = pct + '%';
-  document.getElementById('progress-count').textContent = `${done} / ${total} Lektionen`;
+  document.getElementById('progress-count').textContent = t('lessons_count', done, total);
   document.getElementById('xp-amount').textContent = state.xp;
   document.getElementById('profile-xp').textContent = state.xp + ' XP';
 }
@@ -8824,7 +9151,10 @@ function updateNav() {
   const doneBadge = document.getElementById('done-badge');
   doneBadge.classList.toggle('show', state.completed.has(lesson.id));
   const phase = PHASES[state.currentPhase];
-  document.getElementById('breadcrumb').innerHTML = `<span>Phase ${state.currentPhase+1}</span> / <span>${phase.title}</span> / <span>${lesson.title}</span>`;
+  const en = LANG.get() === 'en';
+  const phaseTitle = en ? (phase.title_en || phase.title) : phase.title;
+  const lessonTitle = en ? (lesson.title_en || lesson.title) : lesson.title;
+  document.getElementById('breadcrumb').innerHTML = `<span>Phase ${state.currentPhase+1}</span> / <span>${phaseTitle}</span> / <span>${lessonTitle}</span>`;
 }
 
 function updateProfileBar() {
@@ -8840,13 +9170,39 @@ function updateProfileBar() {
   }
 }
 
+// English lesson title lookup (avoids modifying every lesson object)
+const LESSON_TITLES_EN = {
+  l1_1:'Welcome & Overview', l1_2:'Binary & Hexadecimal',
+  l1_3:'Character Encoding — ASCII & UTF-8', l1_4:'Terminal & Command Line',
+  l1_5:'File Systems & Paths', l1_6:'Network & Internet',
+  l2_1:'Variables & Data Types', l2_2:'Conditions & Loops',
+  l2_3:'Functions & Scope', l2_4:'Strings & String Methods',
+  l2_5:'Error Handling with try/except',
+  l3_1:'HTML Basic Structure', l3_2:'CSS & Styling',
+  l3_3:'Flexbox & Grid — Layouts', l3_4:'Responsive Design',
+  l3_5:'JavaScript Basics',
+  l4_1:'What is a Backend?', l4_2:'Understanding REST APIs',
+  l4_3:'SQL Basics', l4_4:'Authentication & JWT',
+  l5_1:'Introduction to Cybersecurity', l5_2:'Web Attacks in Depth',
+  l5_3:'Password Security & Hashing', l5_4:'Social Engineering & Phishing',
+  l5_5:'Network Security & Cryptography', l5_6:'Understanding Malware',
+  l5_7:'OSINT & Reconnaissance', l5_8:'Incident Response & Digital Forensics',
+  l6_1:'Clean Code Principles', l6_2:'Git Workflow', l6_3:'Testing & Quality',
+};
+
 function render() {
+  if (window.innerWidth <= 768) closeSidebar();
   buildNav();
   updateProgress();
   updateProfileBar();
   const lesson = getCurrentLesson();
   const ca = document.getElementById('content-area');
-  ca.innerHTML = lesson.content();
+  // Prepend English lang banner for lessons without full English content
+  const needsBanner = LANG.get() === 'en' && !lesson.hasEnglish;
+  const banner = needsBanner
+    ? `<div class="lang-banner animate-in"><i data-lucide="info"></i>${t('lang_banner')}</div>`
+    : '';
+  ca.innerHTML = banner + lesson.content();
   ca.scrollTop = 0;
   updateNav();
   buildLeaderboard();
@@ -8880,6 +9236,8 @@ function buildProfileMenu() {
   const menu = document.getElementById('profile-menu');
   const profiles = loadProfiles();
   const activeId = state.activeProfile ? state.activeProfile.id : null;
+  const activePro = profiles.find(p => p.id === activeId);
+  const isOptIn = activePro ? !!activePro.leaderboardOptIn : false;
   menu.innerHTML = profiles.map(p => {
     const data = loadProfileData(p.id);
     return `<button class="profile-menu-item ${p.id === activeId ? 'current' : ''}" data-switch="${p.id}">
@@ -8888,12 +9246,14 @@ function buildProfileMenu() {
     </button>`;
   }).join('') + `
     <div class="profile-menu-divider"></div>
-    <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>Zur Startseite</button>
-    <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>Neues Profil</button>
-    <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>Fortschritt exportieren</button>
-    <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>Fortschritt importieren</button>
+    <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>${t('menu_landing')}</button>
+    <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>${t('menu_new')}</button>
+    <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>${t('menu_export')}</button>
+    <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
+    <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="lb_toggle"><i data-lucide="${isOptIn ? 'eye-off' : 'trophy'}"></i>${isOptIn ? t('menu_lb_off') : t('menu_lb_on')}</button>
     ${profiles.length > 1 ? `<div class="profile-menu-divider"></div>
-    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>Aktuelles Profil löschen</button>` : ''}
+    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>` : ''}
   `;
   menu.querySelectorAll('[data-switch]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation();
@@ -8924,6 +9284,18 @@ function handleProfileAction(action) {
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
   else if (action === 'delete') showDeleteConfirm();
+  else if (action === 'lb_toggle') toggleLeaderboardOptIn();
+}
+
+function toggleLeaderboardOptIn() {
+  if (!state.activeProfile) return;
+  const profiles = loadProfiles();
+  const p = profiles.find(x => x.id === state.activeProfile.id);
+  if (!p) return;
+  p.leaderboardOptIn = !p.leaderboardOptIn;
+  saveProfiles(profiles);
+  state.activeProfile = p;
+  buildLeaderboard();
 }
 
 function showModal(html) {
@@ -8940,12 +9312,12 @@ function hideModal() {
 
 function showNewProfileModal(isFirst = false) {
   showModal(`
-    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? 'Willkommen bei PyCoBase' : 'Neues Profil'}</div>
-    <div class="modal-desc">${isFirst ? 'Erstelle dein Profil um zu starten. Dein Fortschritt wird automatisch gespeichert.' : 'Jedes Profil speichert seinen eigenen Fortschritt.'}</div>
-    <input type="text" class="modal-input" id="new-profile-name" placeholder="Dein Name" maxlength="30" autofocus>
+    <div class="modal-title"><i data-lucide="user-plus"></i>${isFirst ? t('new_profile_welcome') : t('new_profile_title')}</div>
+    <div class="modal-desc">${isFirst ? t('new_profile_desc') : t('new_profile_desc2')}</div>
+    <input type="text" class="modal-input" id="new-profile-name" placeholder="${t('new_profile_placeholder')}" maxlength="30" autofocus>
     <div class="modal-actions">
-      ${isFirst ? '' : '<button class="nav-btn" onclick="hideModal()">Abbrechen</button>'}
-      <button class="nav-btn primary" id="create-profile-btn">Profil erstellen</button>
+      ${isFirst ? '' : `<button class="nav-btn" onclick="hideModal()">${t('cancel')}</button>`}
+      <button class="nav-btn primary" id="create-profile-btn">${t('new_profile_btn')}</button>
     </div>
   `);
   const input = document.getElementById('new-profile-name');
@@ -8971,11 +9343,11 @@ function showNewProfileModal(isFirst = false) {
 function showDeleteConfirm() {
   if (!state.activeProfile) return;
   showModal(`
-    <div class="modal-title"><i data-lucide="trash-2"></i>Profil löschen?</div>
-    <div class="modal-desc">Das Profil <strong>${escapeHtml(state.activeProfile.name)}</strong> und sein gesamter Fortschritt werden permanent gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.</div>
+    <div class="modal-title"><i data-lucide="trash-2"></i>${t('delete_profile_title')}</div>
+    <div class="modal-desc">${t('delete_profile_desc', escapeHtml(state.activeProfile.name))}</div>
     <div class="modal-actions">
-      <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
-      <button class="nav-btn" style="background:var(--red);border-color:var(--red);color:white" id="confirm-delete-btn">Löschen</button>
+      <button class="nav-btn" onclick="hideModal()">${t('cancel')}</button>
+      <button class="nav-btn" style="background:var(--red);border-color:var(--red);color:white" id="confirm-delete-btn">${t('delete_btn')}</button>
     </div>
   `);
   document.getElementById('confirm-delete-btn').addEventListener('click', () => {
@@ -9013,7 +9385,7 @@ function importProgress(file) {
   reader.onload = e => {
     try {
       const data = JSON.parse(e.target.result);
-      if (!data.profile || !Array.isArray(data.completed)) throw new Error('Ungültiges Format');
+      if (!data.profile || !Array.isArray(data.completed)) throw new Error(t('import_format_err'));
       const name = data.profile.name + ' (importiert)';
       const p = createProfile(name);
       const loaded = { completed: new Set(data.completed), xp: parseInt(data.xp || 0, 10) };
@@ -9025,15 +9397,15 @@ function importProgress(file) {
       state.quizAnswered.clear();
       render();
       showModal(`
-        <div class="modal-title"><i data-lucide="check-circle-2"></i>Import erfolgreich</div>
-        <div class="modal-desc">Profil "<strong>${escapeHtml(name)}</strong>" mit ${loaded.completed.size} abgeschlossenen Lektionen und ${loaded.xp} XP wurde erstellt.</div>
-        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">OK</button></div>
+        <div class="modal-title"><i data-lucide="check-circle-2"></i>${t('import_ok_title')}</div>
+        <div class="modal-desc">${t('import_ok_desc', escapeHtml(name), loaded.completed.size, loaded.xp)}</div>
+        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">${t('ok')}</button></div>
       `);
     } catch (err) {
       showModal(`
-        <div class="modal-title"><i data-lucide="alert-circle"></i>Import fehlgeschlagen</div>
-        <div class="modal-desc">Die Datei konnte nicht gelesen werden: ${escapeHtml(err.message)}</div>
-        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">OK</button></div>
+        <div class="modal-title"><i data-lucide="alert-circle"></i>${t('import_fail_title')}</div>
+        <div class="modal-desc">${t('import_fail_desc', escapeHtml(err.message))}</div>
+        <div class="modal-actions"><button class="nav-btn primary" onclick="hideModal()">${t('ok')}</button></div>
       `);
     }
   };
@@ -9067,7 +9439,7 @@ async function verifyPassword(profile, pw) {
 function showLanding() {
   document.getElementById('landing').classList.add('show');
   document.getElementById('app').classList.remove('show');
-  buildLandingLoginPanel();
+  applyLang();
   lucide.createIcons();
 }
 
@@ -9080,7 +9452,7 @@ function buildLandingLoginPanel() {
   const el = document.getElementById('landing-login-profiles');
   const profiles = loadProfiles();
   if (profiles.length === 0) {
-    el.innerHTML = '<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">Noch keine Profile vorhanden.<br>Erstelle dein erstes Profil rechts.</div>';
+    el.innerHTML = `<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">${t('no_profiles').replace('\n','<br>')}</div>`;
     lucide.createIcons();
     return;
   }
@@ -9092,7 +9464,7 @@ function buildLandingLoginPanel() {
       <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
       <div>
         <div class="landing-profile-name">${escapeHtml(p.name)}</div>
-        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}% abgeschlossen</div>
+        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}${t('pct_done')}</div>
       </div>
       <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
     </button>`;
@@ -9114,10 +9486,10 @@ async function landingCreateProfile() {
   const pw   = pwEl.value;
   const pw2  = pw2El.value;
 
-  if (!name) { errEl.textContent = 'Bitte gib deinen Namen ein.'; nameEl.focus(); return; }
-  if (!pw)   { errEl.textContent = 'Bitte wähle ein Passwort.'; pwEl.focus(); return; }
-  if (pw.length < 4) { errEl.textContent = 'Mindestens 4 Zeichen erforderlich.'; pwEl.focus(); return; }
-  if (pw !== pw2)    { errEl.textContent = 'Passwörter stimmen nicht überein.'; pw2El.focus(); return; }
+  if (!name) { errEl.textContent = t('name_empty'); nameEl.focus(); return; }
+  if (!pw)   { errEl.textContent = t('pw_empty'); pwEl.focus(); return; }
+  if (pw.length < 4) { errEl.textContent = t('pw_short'); pwEl.focus(); return; }
+  if (pw !== pw2)    { errEl.textContent = t('pw_mismatch'); pw2El.focus(); return; }
 
   errEl.textContent = '';
   btn.disabled = true;
@@ -9196,7 +9568,7 @@ async function submitLogin() {
   btn.disabled = true;
   const ok = await verifyPassword(profile, pw);
   btn.disabled = false;
-  if (!ok) { err.textContent = 'Falsches Passwort.'; document.getElementById('login-pw-input').select(); return; }
+  if (!ok) { err.textContent = t('login_wrong_pw'); document.getElementById('login-pw-input').select(); return; }
   persistState();
   setActiveProfile(profile.id);
   loadActiveState();
@@ -9214,20 +9586,27 @@ function buildLeaderboard() {
   const lb = document.getElementById('leaderboard');
   if (!lb) return;
   const profiles = loadProfiles();
-  if (profiles.length === 0) { lb.style.display = 'none'; return; }
-  lb.style.display = 'block';
-  const ranked = profiles
-    .map(p => ({ ...p, xp: parseInt(localStorage.getItem(STORAGE.profileKey(p.id, 'xp')) || '0', 10) }))
-    .sort((a, b) => b.xp - a.xp);
-  const rankClass = ['gold', 'silver', 'bronze'];
   const activeId = state.activeProfile ? state.activeProfile.id : null;
-  lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>Rangliste</div>` +
-    ranked.map((p, i) => `<div class="lb-item${p.id === activeId ? ' active' : ''}">
-      <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
-      <div class="lb-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
-      <div class="lb-name">${escapeHtml(p.name)}</div>
-      <div class="lb-xp">${p.xp}&thinsp;XP</div>
-    </div>`).join('');
+  // Only show profiles that opted in (plus always show current user)
+  const visible = profiles
+    .map(p => ({ ...p, xp: parseInt(localStorage.getItem(STORAGE.profileKey(p.id, 'xp')) || '0', 10) }))
+    .filter(p => p.leaderboardOptIn || p.id === activeId)
+    .sort((a, b) => b.xp - a.xp);
+  lb.style.display = 'block';
+  const rankClass = ['gold', 'silver', 'bronze'];
+  let rows = visible.length === 0
+    ? `<div style="font-size:11px;color:var(--text3);padding:6px 4px;line-height:1.5">${t('lb_empty')}</div>`
+    : visible.map((p, i) => {
+        const isActive = p.id === activeId;
+        const privLabel = isActive && !p.leaderboardOptIn ? ` <span class="lb-private">${t('lb_private')}</span>` : '';
+        return `<div class="lb-item${isActive ? ' active' : ''}">
+          <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
+          <div class="lb-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+          <div class="lb-name">${escapeHtml(p.name)}${privLabel}</div>
+          <div class="lb-xp">${p.xp}&thinsp;XP</div>
+        </div>`;
+      }).join('');
+  lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>${t('leaderboard')}</div>` + rows;
   lucide.createIcons();
 }
 
@@ -9279,6 +9658,9 @@ document.getElementById('login-overlay').addEventListener('click', e => {
 
 function init() {
   migrateLegacyData();
+  // Apply saved language and theme
+  applyLang();
+  applyThemeIcons();
   const loaded = loadActiveState();
   if (!loaded) {
     showLanding();
