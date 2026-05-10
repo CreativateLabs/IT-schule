@@ -1712,6 +1712,7 @@ body {
           <div class="landing-panel-sub" data-i18n="panel_reg_sub">Starte kostenlos — kein Account nötig</div>
           <div class="landing-input-stack">
             <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" data-i18n-ph="name_placeholder" maxlength="30">
+            <input type="email" class="landing-name-input" id="landing-profile-email" placeholder="E-Mail-Adresse" maxlength="100">
             <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" data-i18n-ph="pw_placeholder" maxlength="60">
             <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" data-i18n-ph="pw2_placeholder" maxlength="60">
             <div class="landing-input-error" id="landing-reg-error"></div>
@@ -8822,6 +8823,59 @@ MEHRWERTSTEUER = <span class="num">0.19</span>
 ];
 
 // ============================================================
+//              API CLIENT
+// ============================================================
+
+const API = (() => {
+  const BASE = '/api';
+
+  function getToken() { return localStorage.getItem('cp_api_token'); }
+  function setToken(t) { localStorage.setItem('cp_api_token', t); }
+  function clearToken() { localStorage.removeItem('cp_api_token'); }
+
+  async function req(method, path, body, auth = true) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (auth) { const t = getToken(); if (t) headers['Authorization'] = 'Bearer ' + t; }
+    const res = await fetch(BASE + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.detail || res.status); }
+    return res.json();
+  }
+
+  async function register(username, email, password) {
+    const data = await req('POST', '/register', { username, email, password }, false);
+    setToken(data.token);
+    return data;
+  }
+
+  async function login(username, password) {
+    const res = await fetch(BASE + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    });
+    if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.detail || res.status); }
+    const data = await res.json();
+    setToken(data.access_token);
+    return data;
+  }
+
+  async function getMe() { return req('GET', '/me'); }
+
+  async function updateProgress(xp, lesson) {
+    return req('PUT', `/me/progress?xp=${xp}&lesson=${lesson}`);
+  }
+
+  async function toggleLeaderboard(optIn) {
+    return req('PUT', `/me/leaderboard?opt_in=${optIn}`);
+  }
+
+  function logout() { clearToken(); }
+  function isLoggedIn() { return !!getToken(); }
+
+  return { register, login, getMe, updateProgress, toggleLeaderboard, logout, isLoggedIn, getToken };
+})();
+
+// ============================================================
 //              PROFILE SYSTEM & STATE
 // ============================================================
 
@@ -8935,6 +8989,9 @@ function persistState() {
     completed: state.completed,
     xp: state.xp
   });
+  if (API.isLoggedIn()) {
+    API.updateProgress(state.xp, state.currentLesson).catch(() => {});
+  }
 }
 
 // ============================================================
@@ -9476,23 +9533,35 @@ function buildLandingLoginPanel() {
 }
 
 async function landingCreateProfile() {
-  const nameEl = document.getElementById('landing-profile-name');
-  const pwEl   = document.getElementById('landing-profile-pw');
-  const pw2El  = document.getElementById('landing-profile-pw2');
-  const errEl  = document.getElementById('landing-reg-error');
-  const btn    = document.getElementById('landing-start-btn');
+  const nameEl  = document.getElementById('landing-profile-name');
+  const emailEl = document.getElementById('landing-profile-email');
+  const pwEl    = document.getElementById('landing-profile-pw');
+  const pw2El   = document.getElementById('landing-profile-pw2');
+  const errEl   = document.getElementById('landing-reg-error');
+  const btn     = document.getElementById('landing-start-btn');
 
-  const name = nameEl.value.trim();
-  const pw   = pwEl.value;
-  const pw2  = pw2El.value;
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const pw    = pwEl.value;
+  const pw2   = pw2El.value;
 
-  if (!name) { errEl.textContent = t('name_empty'); nameEl.focus(); return; }
-  if (!pw)   { errEl.textContent = t('pw_empty'); pwEl.focus(); return; }
+  if (!name)  { errEl.textContent = t('name_empty'); nameEl.focus(); return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Bitte eine gültige E-Mail-Adresse eingeben.'; emailEl.focus(); return; }
+  if (!pw)    { errEl.textContent = t('pw_empty'); pwEl.focus(); return; }
   if (pw.length < 4) { errEl.textContent = t('pw_short'); pwEl.focus(); return; }
   if (pw !== pw2)    { errEl.textContent = t('pw_mismatch'); pw2El.focus(); return; }
 
   errEl.textContent = '';
   btn.disabled = true;
+
+  try {
+    await API.register(name, email, pw);
+  } catch(e) {
+    errEl.textContent = e.message || 'Registrierung fehlgeschlagen.';
+    btn.disabled = false;
+    return;
+  }
+
   const passwordHash = await hashPassword(pw);
   const p = createProfile(name, passwordHash);
   setActiveProfile(p.id);
