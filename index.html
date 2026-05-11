@@ -9750,13 +9750,8 @@ function init() {
   // Apply saved language and theme
   applyLang();
   applyThemeIcons();
-  const loaded = loadActiveState();
-  if (!loaded) {
-    showLanding();
-  } else {
-    hideLanding();
-    render();
-  }
+  // Immer Landing Page zeigen — kein automatisches Einloggen
+  showLanding();
 }
 
 init();
