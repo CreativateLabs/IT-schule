@@ -9636,8 +9636,10 @@ async function submitLogin() {
   const btn = document.getElementById('login-submit-btn');
   btn.disabled = true;
   const ok = await verifyPassword(profile, pw);
+  if (!ok) { btn.disabled = false; err.textContent = t('login_wrong_pw'); document.getElementById('login-pw-input').select(); return; }
+  // API login — Token holen (Fehler ignorieren, lokaler Login funktioniert trotzdem)
+  try { await API.login(profile.name, pw); } catch(e) {}
   btn.disabled = false;
-  if (!ok) { err.textContent = t('login_wrong_pw'); document.getElementById('login-pw-input').select(); return; }
   persistState();
   setActiveProfile(profile.id);
   loadActiveState();
@@ -9651,12 +9653,30 @@ async function submitLogin() {
 //              LEADERBOARD
 // ============================================================
 
-function buildLeaderboard() {
+async function buildLeaderboard() {
   const lb = document.getElementById('leaderboard');
   if (!lb) return;
+  // API Leaderboard laden wenn eingeloggt
+  if (API.isLoggedIn()) {
+    try {
+      const data = await API.getLeaderboard ? API.getLeaderboard() : fetch('/api/leaderboard').then(r => r.json());
+      const entries = await data;
+      const rankClass = ['gold', 'silver', 'bronze'];
+      lb.style.display = 'block';
+      const rows = entries.length === 0
+        ? `<div style="font-size:11px;color:var(--text3);padding:6px 4px">${t('lb_empty')}</div>`
+        : entries.map((u, i) => `<div class="lb-row ${i < 3 ? rankClass[i] : ''}">
+            <span class="lb-rank">${i + 1}</span>
+            <span class="lb-name">${escapeHtml(u.username)}</span>
+            <span class="lb-xp">${u.xp} XP</span>
+          </div>`).join('');
+      lb.innerHTML = `<div class="lb-list">${rows}</div>`;
+      return;
+    } catch(e) {}
+  }
+  // Fallback: lokales Leaderboard
   const profiles = loadProfiles();
   const activeId = state.activeProfile ? state.activeProfile.id : null;
-  // Only show profiles that opted in (plus always show current user)
   const visible = profiles
     .map(p => ({ ...p, xp: parseInt(localStorage.getItem(STORAGE.profileKey(p.id, 'xp')) || '0', 10) }))
     .filter(p => p.leaderboardOptIn || p.id === activeId)
