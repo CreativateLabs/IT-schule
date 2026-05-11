@@ -9309,8 +9309,8 @@ function buildProfileMenu() {
     <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
     <div class="profile-menu-divider"></div>
     <button class="profile-menu-item" data-action="lb_toggle"><i data-lucide="${isOptIn ? 'eye-off' : 'trophy'}"></i>${isOptIn ? t('menu_lb_off') : t('menu_lb_on')}</button>
-    ${profiles.length > 1 ? `<div class="profile-menu-divider"></div>
-    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>` : ''}
+    <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>
   `;
   menu.querySelectorAll('[data-switch]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation();
@@ -9409,12 +9409,13 @@ function showDeleteConfirm() {
   `);
   document.getElementById('confirm-delete-btn').addEventListener('click', () => {
     deleteProfile(state.activeProfile.id);
+    API.logout();
     loadActiveState();
     state.currentPhase = 0;
     state.currentLesson = 0;
     state.quizAnswered.clear();
     hideModal();
-    if (!state.activeProfile) showNewProfileModal(true);
+    if (!state.activeProfile) showLanding();
     else render();
   });
 }
