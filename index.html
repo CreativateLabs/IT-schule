@@ -1702,8 +1702,16 @@ body {
         <!-- Anmelden -->
         <div class="landing-profiles-panel">
           <div class="landing-panel-title" data-i18n="panel_login_title">Anmelden</div>
-          <div class="landing-panel-sub" data-i18n="panel_login_sub">Profil auswählen und fortfahren</div>
-          <div id="landing-login-profiles"></div>
+          <div class="landing-panel-sub" data-i18n="panel_login_sub">Mit deinem Account einloggen</div>
+          <div class="landing-input-stack">
+            <input type="text" class="landing-name-input" id="login-username-input" placeholder="Benutzername" maxlength="30">
+            <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60">
+            <div class="landing-input-error" id="landing-login-error"></div>
+            <button class="landing-start-btn" id="landing-login-btn" onclick="landingLogin()">
+              <i data-lucide="log-in"></i><span>Einloggen</span>
+            </button>
+          </div>
+          <div id="landing-login-profiles" style="margin-top:12px"></div>
         </div>
 
         <!-- Registrieren -->
@@ -9531,6 +9539,51 @@ function buildLandingLoginPanel() {
     btn.addEventListener('click', () => showLoginOverlay(btn.dataset.profileId));
   });
   lucide.createIcons();
+}
+
+async function landingLogin() {
+  const usernameEl = document.getElementById('login-username-input');
+  const passwordEl = document.getElementById('login-password-input');
+  const errEl      = document.getElementById('landing-login-error');
+  const btn        = document.getElementById('landing-login-btn');
+
+  const username = usernameEl.value.trim();
+  const password = passwordEl.value;
+
+  if (!username) { errEl.textContent = 'Bitte Benutzername eingeben.'; usernameEl.focus(); return; }
+  if (!password) { errEl.textContent = 'Bitte Passwort eingeben.'; passwordEl.focus(); return; }
+
+  errEl.textContent = '';
+  btn.disabled = true;
+
+  try {
+    await API.login(username, password);
+    const me = await API.getMe();
+
+    // Lokales Profil erstellen oder aktualisieren
+    const profiles = loadProfiles();
+    let profile = profiles.find(p => p.name === me.username);
+    if (!profile) {
+      const passwordHash = await hashPassword(password);
+      profile = createProfile(me.username, passwordHash);
+    }
+    // Fortschritt vom Server laden
+    saveProfileData(profile.id, {
+      completed: new Set(),
+      xp: me.xp
+    });
+    setActiveProfile(profile.id);
+    loadActiveState();
+    state.currentLesson = me.current_lesson || 0;
+    state.currentPhase = 0;
+    state.quizAnswered.clear();
+    btn.disabled = false;
+    hideLanding();
+    render();
+  } catch(e) {
+    errEl.textContent = e.message === '401' ? 'Falscher Benutzername oder Passwort.' : (e.message || 'Login fehlgeschlagen.');
+    btn.disabled = false;
+  }
 }
 
 async function landingCreateProfile() {
