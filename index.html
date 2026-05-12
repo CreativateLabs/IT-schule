@@ -1711,7 +1711,6 @@ body {
               <i data-lucide="log-in"></i><span>Einloggen</span>
             </button>
           </div>
-          <div id="landing-login-profiles" style="margin-top:12px"></div>
         </div>
 
         <!-- Registrieren -->
@@ -1719,7 +1718,8 @@ body {
           <div class="landing-panel-title" data-i18n="panel_reg_title">Neues Profil erstellen</div>
           <div class="landing-panel-sub" data-i18n="panel_reg_sub">Starte kostenlos — kein Account nötig</div>
           <div class="landing-input-stack">
-            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Dein Name" data-i18n-ph="name_placeholder" maxlength="30">
+            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Username" data-i18n-ph="name_placeholder" maxlength="30">
+            <input type="text" class="landing-name-input" id="landing-profile-displayname" placeholder="Echter Name (optional)" maxlength="60">
             <input type="email" class="landing-name-input" id="landing-profile-email" placeholder="E-Mail-Adresse" maxlength="100">
             <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" data-i18n-ph="pw_placeholder" maxlength="60">
             <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" data-i18n-ph="pw2_placeholder" maxlength="60">
@@ -1733,6 +1733,15 @@ body {
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- Leaderboard auf Landing Page -->
+    <section class="landing-profiles" id="landing-leaderboard-section" style="margin-top:0">
+      <div class="landing-section-tag">Rangliste</div>
+      <div class="landing-section-title" id="landing-lb-title">Top-Lernende</div>
+      <div id="landing-lb-content" style="max-width:480px;margin:0 auto;padding:0 16px">
+        <div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Rangliste wird geladen…</div>
       </div>
     </section>
   </div>
@@ -1891,8 +1900,8 @@ const I18N = {
     menu_landing:'Zur Startseite', menu_new:'Neues Profil', menu_export:'Fortschritt exportieren',
     menu_import:'Fortschritt importieren', menu_delete:'Profil löschen',
     menu_lb_on:'In Rangliste anzeigen', menu_lb_off:'Aus Rangliste entfernen',
-    name_empty:'Bitte gib deinen Namen ein.', pw_empty:'Bitte wähle ein Passwort.',
-    pw_short:'Mindestens 4 Zeichen erforderlich.', pw_mismatch:'Passwörter stimmen nicht überein.',
+    name_empty:'Bitte gib einen Benutzernamen ein.', pw_empty:'Bitte wähle ein Passwort.',
+    pw_short:'Mindestens 8 Zeichen, eine Zahl oder ein Sonderzeichen erforderlich.', pw_mismatch:'Passwörter stimmen nicht überein.',
     lang_banner:'Diese Lektion ist derzeit nur auf Deutsch verfügbar.',
     lb_opt_in_note:'Nur Mitglieder die zugestimmt haben werden angezeigt.',
     lb_empty:'Noch keine Einträge. Aktiviere die Rangliste in deinem Profil-Menü.',
@@ -1904,7 +1913,7 @@ const I18N = {
     section_title:'6 Phasen — von den Grundlagen bis zur Security',
     panel_login_title:'Anmelden', panel_login_sub:'Profil auswählen und fortfahren',
     panel_reg_title:'Neu registrieren', panel_reg_sub:'Starte kostenlos — kein Account nötig',
-    name_placeholder:'Dein Name', pw_placeholder:'Passwort', pw2_placeholder:'Passwort wiederholen',
+    name_placeholder:'Username', pw_placeholder:'Passwort', pw2_placeholder:'Passwort wiederholen',
     landing_start_btn:'Loslegen',
     landing_privacy:'Nur lokal gespeichert · kein Server · kein Account nötig',
   },
@@ -1942,8 +1951,8 @@ const I18N = {
     menu_landing:'Go to Home', menu_new:'New Profile', menu_export:'Export Progress',
     menu_import:'Import Progress', menu_delete:'Delete Profile',
     menu_lb_on:'Show on Leaderboard', menu_lb_off:'Remove from Leaderboard',
-    name_empty:'Please enter your name.', pw_empty:'Please choose a password.',
-    pw_short:'Minimum 4 characters required.', pw_mismatch:'Passwords do not match.',
+    name_empty:'Please enter a username.', pw_empty:'Please choose a password.',
+    pw_short:'Minimum 8 characters, including a number or special character.', pw_mismatch:'Passwords do not match.',
     lang_banner:'This lesson is currently only available in German.',
     lb_opt_in_note:'Only members who opted in are shown.',
     lb_empty:'No entries yet. Enable leaderboard in your profile menu.',
@@ -1955,7 +1964,7 @@ const I18N = {
     section_title:'6 Phases — from foundations to security',
     panel_login_title:'Sign in', panel_login_sub:'Select your profile to continue',
     panel_reg_title:'Create account', panel_reg_sub:'Start for free — no account needed',
-    name_placeholder:'Your name', pw_placeholder:'Password', pw2_placeholder:'Confirm password',
+    name_placeholder:'Username', pw_placeholder:'Password', pw2_placeholder:'Confirm password',
     landing_start_btn:'Get started',
     landing_privacy:'Stored locally only · no server · no account required',
   }
@@ -8877,10 +8886,14 @@ const API = (() => {
     return req('PUT', `/me/leaderboard?opt_in=${optIn}`);
   }
 
+  async function getLeaderboard() {
+    return req('GET', '/leaderboard', null, false);
+  }
+
   function logout() { clearToken(); }
   function isLoggedIn() { return !!getToken(); }
 
-  return { register, login, getMe, updateProgress, toggleLeaderboard, logout, isLoggedIn, getToken };
+  return { register, login, getMe, updateProgress, toggleLeaderboard, getLeaderboard, logout, isLoggedIn, getToken };
 })();
 
 // ============================================================
@@ -9507,6 +9520,29 @@ function showLanding() {
   document.getElementById('app').classList.remove('show');
   applyLang();
   lucide.createIcons();
+  buildLandingLeaderboard();
+}
+
+async function buildLandingLeaderboard() {
+  const el = document.getElementById('landing-lb-content');
+  if (!el) return;
+  try {
+    const entries = await API.getLeaderboard();
+    if (entries.length === 0) {
+      el.innerHTML = `<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Noch keine Einträge.</div>`;
+      return;
+    }
+    const rankClass = ['gold', 'silver', 'bronze'];
+    const rows = entries.map((u, i) => `<div class="lb-item">
+      <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
+      <div class="lb-avatar">${escapeHtml(u.username.charAt(0).toUpperCase())}</div>
+      <div class="lb-name">${escapeHtml(u.username)}</div>
+      <div class="lb-xp">${u.xp}&thinsp;XP</div>
+    </div>`).join('');
+    el.innerHTML = `<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;max-width:480px;margin:0 auto">${rows}</div>`;
+  } catch(e) {
+    el.innerHTML = `<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Rangliste nicht verfügbar.</div>`;
+  }
 }
 
 function hideLanding() {
@@ -9515,30 +9551,7 @@ function hideLanding() {
 }
 
 function buildLandingLoginPanel() {
-  const el = document.getElementById('landing-login-profiles');
-  const profiles = loadProfiles();
-  if (profiles.length === 0) {
-    el.innerHTML = `<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0;line-height:1.6">${t('no_profiles').replace('\n','<br>')}</div>`;
-    lucide.createIcons();
-    return;
-  }
-  const total = getTotalLessons();
-  el.innerHTML = '<div class="landing-existing-list">' + profiles.map(p => {
-    const data = loadProfileData(p.id);
-    const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
-    return `<button class="landing-profile-item" data-profile-id="${p.id}">
-      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
-      <div>
-        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
-        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}${t('pct_done')}</div>
-      </div>
-      <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
-    </button>`;
-  }).join('') + '</div>';
-  el.querySelectorAll('[data-profile-id]').forEach(btn => {
-    btn.addEventListener('click', () => showLoginOverlay(btn.dataset.profileId));
-  });
-  lucide.createIcons();
+  // Login panel only shows username/password fields — no localStorage profile list
 }
 
 async function landingLogin() {
@@ -9602,7 +9615,7 @@ async function landingCreateProfile() {
   if (!name)  { errEl.textContent = t('name_empty'); nameEl.focus(); return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Bitte eine gültige E-Mail-Adresse eingeben.'; emailEl.focus(); return; }
   if (!pw)    { errEl.textContent = t('pw_empty'); pwEl.focus(); return; }
-  if (pw.length < 4) { errEl.textContent = t('pw_short'); pwEl.focus(); return; }
+  if (pw.length < 8 || !/[0-9!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]/.test(pw)) { errEl.textContent = t('pw_short'); pwEl.focus(); return; }
   if (pw !== pw2)    { errEl.textContent = t('pw_mismatch'); pw2El.focus(); return; }
 
   errEl.textContent = '';
@@ -9713,18 +9726,18 @@ async function buildLeaderboard() {
   // API Leaderboard laden wenn eingeloggt
   if (API.isLoggedIn()) {
     try {
-      const data = await API.getLeaderboard ? API.getLeaderboard() : fetch('/api/leaderboard').then(r => r.json());
-      const entries = await data;
+      const entries = await API.getLeaderboard();
       const rankClass = ['gold', 'silver', 'bronze'];
       lb.style.display = 'block';
       const rows = entries.length === 0
         ? `<div style="font-size:11px;color:var(--text3);padding:6px 4px">${t('lb_empty')}</div>`
-        : entries.map((u, i) => `<div class="lb-row ${i < 3 ? rankClass[i] : ''}">
-            <span class="lb-rank">${i + 1}</span>
-            <span class="lb-name">${escapeHtml(u.username)}</span>
-            <span class="lb-xp">${u.xp} XP</span>
+        : entries.map((u, i) => `<div class="lb-item">
+            <div class="lb-rank${rankClass[i] ? ' ' + rankClass[i] : ''}">#${i + 1}</div>
+            <div class="lb-avatar">${escapeHtml(u.username.charAt(0).toUpperCase())}</div>
+            <div class="lb-name">${escapeHtml(u.username)}</div>
+            <div class="lb-xp">${u.xp}&thinsp;XP</div>
           </div>`).join('');
-      lb.innerHTML = `<div class="lb-list">${rows}</div>`;
+      lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>${t('leaderboard')}</div>${rows}`;
       return;
     } catch(e) {}
   }
