@@ -1163,26 +1163,49 @@ body {
 
 /* Phases grid — 6-col so last 2 cards center naturally */
 .landing-phases { padding: 64px 0 56px; }
+
+/* Phase path stepper */
+.landing-phase-stepper {
+  display: flex; align-items: center;
+  max-width: 680px; margin: 0 auto 44px;
+  padding: 0 8px; overflow-x: auto;
+}
+.lps-dot { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+.lps-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px; font-weight: 700; color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.lps-name {
+  font-size: 9.5px; color: var(--text3); font-family: var(--mono);
+  white-space: nowrap; letter-spacing: 0.4px; text-align: center;
+}
+.lps-line { flex: 1; height: 1px; min-width: 18px; background: var(--border2); margin-bottom: 22px; }
+
+/* Grid — 3 uniform columns */
 .landing-phases-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
-.landing-phase-card:nth-child(1) { grid-column: 1 / 3; }
-.landing-phase-card:nth-child(2) { grid-column: 3 / 5; }
-.landing-phase-card:nth-child(3) { grid-column: 5 / 7; }
-.landing-phase-card:nth-child(4) { grid-column: 2 / 4; }
-.landing-phase-card:nth-child(5) { grid-column: 4 / 6; }
 
 .landing-phase-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 24px 22px;
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.18s;
-  border-top-width: 3px; border-top-style: solid;
+  border-left-width: 3px; border-left-style: solid;
+  position: relative; overflow: hidden;
 }
 .landing-phase-card:hover {
-  background: var(--surface2); box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  background: var(--surface2); box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   transform: translateY(-3px);
+}
+.landing-phase-bg-num {
+  position: absolute; bottom: -16px; right: 6px;
+  font-family: var(--mono); font-size: 88px; font-weight: 700; line-height: 1;
+  color: var(--border2); pointer-events: none; user-select: none;
+  letter-spacing: -4px; opacity: 0.6;
 }
 .landing-phase-num {
   font-family: var(--mono); font-size: 10px; color: var(--text3);
@@ -1200,7 +1223,6 @@ body {
   font-size: 10.5px; color: var(--text3); font-family: var(--mono);
   background: var(--surface3); padding: 3px 9px; border-radius: 5px;
 }
-.landing-phase-card { position: relative; overflow: hidden; }
 .lpc-svg-wrap {
   position: absolute; top: 16px; right: 16px;
   width: 72px; height: 72px; pointer-events: none; opacity: 0.9;
@@ -1402,7 +1424,9 @@ body {
   .landing-nav { padding: 12px 24px; }
   .landing-inner { padding: 0 24px 80px; }
   .landing-phases-grid { grid-template-columns: 1fr 1fr; }
-  .landing-phase-card:nth-child(n) { grid-column: auto; }
+  .landing-phase-stepper { max-width: 100%; }
+  .lps-name { display: none; }
+  .lps-line { min-width: 12px; }
   .landing-profiles-grid { grid-template-columns: 1fr; max-width: 460px; }
 }
 
@@ -1416,7 +1440,7 @@ body {
   .landing-stat { border-right: none; border-bottom: 1px solid var(--border); }
   .landing-stat:last-child { border-bottom: none; }
   .landing-phases-grid { grid-template-columns: 1fr; }
-  .landing-phase-card:nth-child(n) { grid-column: auto; }
+  .landing-phase-bg-num { font-size: 64px; }
   .landing-section-title { font-size: 19px; }
   .landing-profiles-grid { grid-template-columns: 1fr; }
   .landing-security { flex-direction: column; gap: 10px; }
@@ -1479,10 +1503,44 @@ body {
     <section class="landing-phases" id="landing-phases-section">
       <div class="landing-section-tag" data-i18n="section_tag">Lernpfad</div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
+
+      <!-- Phase path stepper -->
+      <div class="landing-phase-stepper">
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:var(--accent2)">01</div>
+          <div class="lps-name">Fundament</div>
+        </div>
+        <div class="lps-line"></div>
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:var(--green)">02</div>
+          <div class="lps-name">Python</div>
+        </div>
+        <div class="lps-line"></div>
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:var(--amber)">03</div>
+          <div class="lps-name">Web/CSS</div>
+        </div>
+        <div class="lps-line"></div>
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:var(--accent)">04</div>
+          <div class="lps-name">Backend</div>
+        </div>
+        <div class="lps-line"></div>
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:var(--red)">05</div>
+          <div class="lps-name">Security</div>
+        </div>
+        <div class="lps-line"></div>
+        <div class="lps-dot">
+          <div class="lps-circle" style="background:#0ea5e9">06</div>
+          <div class="lps-name">Pro Level</div>
+        </div>
+      </div>
+
       <div class="landing-phases-grid">
 
         <!-- Phase 01 — Fundament -->
-        <div class="landing-phase-card" style="border-top-color:var(--accent2)">
+        <div class="landing-phase-card" style="border-left-color:var(--accent2)">
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 34 H24 V18 H44 V34 H60" stroke="rgba(165,153,249,0.2)" stroke-width="1.5"/>
@@ -1506,6 +1564,7 @@ body {
               <text x="48" y="63" fill="rgba(165,153,249,0.35)" font-family="monospace" font-size="7">00</text>
             </svg>
           </div>
+          <div class="landing-phase-bg-num">01</div>
           <div class="landing-phase-num">Phase 01</div>
           <div class="landing-phase-icon" style="background:rgba(124,106,247,0.12);color:var(--accent2)"><i data-lucide="cpu"></i></div>
           <div class="landing-phase-title">Fundament</div>
@@ -1520,7 +1579,7 @@ body {
         </div>
 
         <!-- Phase 02 — Python -->
-        <div class="landing-phase-card" style="border-top-color:var(--green)">
+        <div class="landing-phase-card" style="border-left-color:var(--green)">
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="64" height="64" rx="6" fill="rgba(62,207,122,0.05)" stroke="rgba(62,207,122,0.2)" stroke-width="1"/>
@@ -1544,6 +1603,7 @@ body {
               </rect>
             </svg>
           </div>
+          <div class="landing-phase-bg-num">02</div>
           <div class="landing-phase-num">Phase 02</div>
           <div class="landing-phase-icon" style="background:rgba(62,207,122,0.1);color:var(--green)"><i data-lucide="terminal"></i></div>
           <div class="landing-phase-title">Python</div>
@@ -1558,7 +1618,7 @@ body {
         </div>
 
         <!-- Phase 03 — Web & HTML/CSS -->
-        <div class="landing-phase-card" style="border-top-color:var(--amber)">
+        <div class="landing-phase-card" style="border-left-color:var(--amber)">
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="64" height="64" rx="6" stroke="rgba(247,201,106,0.25)" stroke-width="1" fill="rgba(247,201,106,0.04)"/>
@@ -1587,6 +1647,7 @@ body {
               </rect>
             </svg>
           </div>
+          <div class="landing-phase-bg-num">03</div>
           <div class="landing-phase-num">Phase 03</div>
           <div class="landing-phase-icon" style="background:rgba(247,201,106,0.1);color:var(--amber)"><i data-lucide="globe"></i></div>
           <div class="landing-phase-title">Web &amp; HTML/CSS</div>
@@ -1601,7 +1662,7 @@ body {
         </div>
 
         <!-- Phase 04 — Backend & APIs -->
-        <div class="landing-phase-card" style="border-top-color:var(--accent)">
+        <div class="landing-phase-card" style="border-left-color:var(--accent)">
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="34" cy="12" rx="11" ry="4.5" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.4)" stroke-width="1"/>
@@ -1632,6 +1693,7 @@ body {
               <text x="27" y="62" fill="rgba(124,106,247,0.45)" font-family="monospace" font-size="5.5">200 OK</text>
             </svg>
           </div>
+          <div class="landing-phase-bg-num">04</div>
           <div class="landing-phase-num">Phase 04</div>
           <div class="landing-phase-icon" style="background:rgba(124,106,247,0.1);color:var(--accent)"><i data-lucide="server"></i></div>
           <div class="landing-phase-title">Backend &amp; APIs</div>
@@ -1646,7 +1708,7 @@ body {
         </div>
 
         <!-- Phase 05 — Hacking & Security -->
-        <div class="landing-phase-card" style="border-top-color:var(--red)">
+        <div class="landing-phase-card" style="border-left-color:var(--red)">
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <text x="2" y="13" fill="rgba(247,106,106,0.14)" font-family="monospace" font-size="6">0110 1001</text>
@@ -1668,6 +1730,7 @@ body {
               <circle cx="34" cy="37" r="2" fill="rgba(10,10,15,0.6)"/>
             </svg>
           </div>
+          <div class="landing-phase-bg-num">05</div>
           <div class="landing-phase-num">Phase 05</div>
           <div class="landing-phase-icon" style="background:rgba(247,106,106,0.1);color:var(--red)"><i data-lucide="shield"></i></div>
           <div class="landing-phase-title">Hacking &amp; Security</div>
@@ -1679,6 +1742,36 @@ body {
             <li>Social Engineering &amp; Malware verstehen</li>
           </ul>
           <div class="landing-phase-count">8 Lektionen</div>
+        </div>
+
+        <!-- Phase 06 — Profi-Level -->
+        <div class="landing-phase-card" style="border-left-color:#0ea5e9">
+          <div class="lpc-svg-wrap">
+            <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="14" width="60" height="40" rx="4" fill="rgba(14,165,233,0.06)" stroke="rgba(14,165,233,0.25)" stroke-width="1"/>
+              <rect x="4" y="14" width="60" height="10" rx="4" fill="rgba(14,165,233,0.1)"/>
+              <circle cx="13" cy="19" r="2" fill="rgba(14,165,233,0.4)"/>
+              <circle cx="21" cy="19" r="2" fill="rgba(14,165,233,0.25)"/>
+              <text x="10" y="34" fill="rgba(14,165,233,0.55)" font-family="monospace" font-size="5.5">git commit -m</text>
+              <text x="10" y="42" fill="rgba(14,165,233,0.4)" font-family="monospace" font-size="5.5">"clean code"</text>
+              <text x="10" y="50" fill="rgba(14,165,233,0.3)" font-family="monospace" font-size="5.5">pytest passed</text>
+              <circle cx="56" cy="38" r="7" fill="none" stroke="rgba(14,165,233,0.35)" stroke-width="1.5"/>
+              <path d="M53 38 L55.5 40.5 L59 36" stroke="rgba(14,165,233,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+              </path>
+            </svg>
+          </div>
+          <div class="landing-phase-bg-num">06</div>
+          <div class="landing-phase-num">Phase 06</div>
+          <div class="landing-phase-icon" style="background:rgba(14,165,233,0.1);color:#0ea5e9"><i data-lucide="award"></i></div>
+          <div class="landing-phase-title">Profi-Level</div>
+          <div class="landing-phase-sub">Schreibe Code wie ein Profi — sauber, testbar und versioniert. Bereit für echte Projekte und Teams.</div>
+          <ul class="lpc-topics">
+            <li>Clean Code Prinzipien &amp; Best Practices</li>
+            <li>Git Workflow, Branches &amp; Pull Requests</li>
+            <li>Testing, Unit Tests &amp; Qualitätssicherung</li>
+          </ul>
+          <div class="landing-phase-count">3 Lektionen</div>
         </div>
 
       </div>
