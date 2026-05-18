@@ -1463,7 +1463,7 @@ body {
     <div class="landing-nav-right">
       <button class="ctrl-btn" id="lang-btn-landing" onclick="toggleLang()" title="Switch language / Sprache wechseln">DE</button>
       <button class="ctrl-btn" id="theme-btn-landing" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
-      <button class="landing-nav-signin" id="landing-signin-btn" onclick="openLoginOverlay()">
+      <button class="landing-nav-signin" id="landing-signin-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
         <i data-lucide="log-in"></i><span data-i18n="signin">Anmelden</span>
       </button>
     </div>
@@ -1985,7 +1985,7 @@ const I18N = {
     login_pw_sub:'Passwort eingeben', login_back:'Zurück', login_submit:'Anmelden',
     login_wrong_pw:'Falsches Passwort.',
     menu_landing:'Zur Startseite', menu_new:'Neues Profil', menu_export:'Fortschritt exportieren',
-    menu_import:'Fortschritt importieren', menu_delete:'Profil löschen',
+    menu_import:'Fortschritt importieren', menu_delete:'Profil löschen', menu_logout:'Abmelden',
     menu_lb_on:'In Rangliste anzeigen', menu_lb_off:'Aus Rangliste entfernen',
     name_empty:'Bitte gib einen Benutzernamen ein.', pw_empty:'Bitte wähle ein Passwort.',
     pw_short:'Mindestens 8 Zeichen, eine Zahl oder ein Sonderzeichen erforderlich.', pw_mismatch:'Passwörter stimmen nicht überein.',
@@ -2036,7 +2036,7 @@ const I18N = {
     login_pw_sub:'Enter password', login_back:'Back', login_submit:'Sign in',
     login_wrong_pw:'Incorrect password.',
     menu_landing:'Go to Home', menu_new:'New Profile', menu_export:'Export Progress',
-    menu_import:'Import Progress', menu_delete:'Delete Profile',
+    menu_import:'Import Progress', menu_delete:'Delete Profile', menu_logout:'Sign out',
     menu_lb_on:'Show on Leaderboard', menu_lb_off:'Remove from Leaderboard',
     name_empty:'Please enter a username.', pw_empty:'Please choose a password.',
     pw_short:'Minimum 8 characters, including a number or special character.', pw_mismatch:'Passwords do not match.',
@@ -15743,7 +15743,12 @@ function buildProfileMenu() {
   const activeId = state.activeProfile ? state.activeProfile.id : null;
   const activePro = profiles.find(p => p.id === activeId);
   const isOptIn = activePro ? !!activePro.leaderboardOptIn : false;
-  menu.innerHTML = profiles.map(p => {
+  const serverLoggedIn = API.isLoggedIn();
+
+  // When logged in via server, only show own profile — never expose other profiles
+  const visibleProfiles = serverLoggedIn ? profiles.filter(p => p.id === activeId) : profiles;
+
+  menu.innerHTML = visibleProfiles.map(p => {
     const data = loadProfileData(p.id);
     return `<button class="profile-menu-item ${p.id === activeId ? 'current' : ''}" data-switch="${p.id}">
       <i data-lucide="${p.id === activeId ? 'check' : 'user'}"></i>
@@ -15752,7 +15757,10 @@ function buildProfileMenu() {
   }).join('') + `
     <div class="profile-menu-divider"></div>
     <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>${t('menu_landing')}</button>
-    <button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>${t('menu_new')}</button>
+    ${serverLoggedIn
+      ? `<button class="profile-menu-item profile-menu-danger" data-action="logout"><i data-lucide="log-out"></i>${t('menu_logout')}</button>`
+      : `<button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>${t('menu_new')}</button>`
+    }
     <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>${t('menu_export')}</button>
     <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
     <div class="profile-menu-divider"></div>
@@ -15771,20 +15779,60 @@ function buildProfileMenu() {
   lucide.createIcons();
 }
 
-function switchProfile(profileId) {
+async function switchProfile(profileId) {
+  if (profileId === state.activeProfile?.id) {
+    document.getElementById('profile-menu').classList.remove('show');
+    return;
+  }
+  const profiles = loadProfiles();
+  const profile = profiles.find(p => p.id === profileId);
+  if (!profile) return;
+  document.getElementById('profile-menu').classList.remove('show');
+  // Password-protected profile → show prompt
+  if (profile.passwordHash) {
+    showModal(`
+      <div class="modal-title"><i data-lucide="lock"></i>Profil wechseln</div>
+      <div class="modal-desc">Gib das Passwort für <strong>${escapeHtml(profile.name)}</strong> ein.</div>
+      <input type="password" class="modal-input" id="switch-pw-input" placeholder="Passwort" maxlength="100" autofocus>
+      <div class="modal-error" id="switch-pw-error" style="color:var(--red);font-size:12px;min-height:18px;margin-top:4px"></div>
+      <div class="modal-actions">
+        <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
+        <button class="nav-btn primary" id="switch-pw-btn">Wechseln</button>
+      </div>
+    `);
+    const input = document.getElementById('switch-pw-input');
+    const btn   = document.getElementById('switch-pw-btn');
+    const err   = document.getElementById('switch-pw-error');
+    const attempt = async () => {
+      btn.disabled = true;
+      const ok = await verifyPassword(profile, input.value);
+      if (!ok) { err.textContent = t('login_wrong_pw'); btn.disabled = false; input.select(); return; }
+      hideModal();
+      doSwitchProfile(profileId);
+    };
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+    setTimeout(() => input.focus(), 50);
+  } else {
+    doSwitchProfile(profileId);
+  }
+}
+
+function doSwitchProfile(profileId) {
   persistState();
+  API.logout(); // clear server token — new profile needs own login
   setActiveProfile(profileId);
   loadActiveState();
   state.currentPhase = 0;
   state.currentLesson = 0;
   state.quizAnswered.clear();
-  document.getElementById('profile-menu').classList.remove('show');
   render();
 }
 
 function handleProfileAction(action) {
   document.getElementById('profile-menu').classList.remove('show');
   if (action === 'landing') { persistState(); showLanding(); }
+  else if (action === 'logout') { persistState(); API.logout(); showLanding(); }
   else if (action === 'new') showNewProfileModal();
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
@@ -16007,9 +16055,10 @@ async function landingLogin() {
       const passwordHash = await hashPassword(password);
       profile = createProfile(me.username, passwordHash);
     }
-    // Fortschritt vom Server laden
+    // XP vom Server laden, completed-Lektionen aus lokalem Cache behalten
+    const existing = loadProfileData(profile.id);
     saveProfileData(profile.id, {
-      completed: new Set(),
+      completed: existing.completed,
       xp: me.xp
     });
     setActiveProfile(profile.id);
