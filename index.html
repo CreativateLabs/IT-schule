@@ -1224,8 +1224,8 @@ body {
   background: var(--surface3); padding: 3px 9px; border-radius: 5px;
 }
 .lpc-svg-wrap {
-  position: absolute; top: 16px; right: 16px;
-  width: 72px; height: 72px; pointer-events: none; opacity: 0.9;
+  display: block; width: 52px; height: 52px;
+  margin-bottom: 16px; pointer-events: none; opacity: 0.9; flex-shrink: 0;
 }
 .lpc-svg-wrap svg { width: 100%; height: 100%; }
 .lpc-topics {
@@ -1541,6 +1541,8 @@ body {
 
         <!-- Phase 01 — Fundament -->
         <div class="landing-phase-card" style="border-left-color:var(--accent2)">
+          <div class="landing-phase-bg-num">01</div>
+          <div class="landing-phase-num">Phase 01</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 34 H24 V18 H44 V34 H60" stroke="rgba(165,153,249,0.2)" stroke-width="1.5"/>
@@ -1564,9 +1566,6 @@ body {
               <text x="48" y="63" fill="rgba(165,153,249,0.35)" font-family="monospace" font-size="7">00</text>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">01</div>
-          <div class="landing-phase-num">Phase 01</div>
-          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.12);color:var(--accent2)"><i data-lucide="cpu"></i></div>
           <div class="landing-phase-title">Fundament</div>
           <div class="landing-phase-sub">Verstehe, wie ein Computer auf unterster Ebene denkt — bevor du eine einzige Zeile Code schreibst.</div>
           <ul class="lpc-topics">
@@ -1580,6 +1579,8 @@ body {
 
         <!-- Phase 02 — Python -->
         <div class="landing-phase-card" style="border-left-color:var(--green)">
+          <div class="landing-phase-bg-num">02</div>
+          <div class="landing-phase-num">Phase 02</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="64" height="64" rx="6" fill="rgba(62,207,122,0.05)" stroke="rgba(62,207,122,0.2)" stroke-width="1"/>
@@ -1603,9 +1604,6 @@ body {
               </rect>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">02</div>
-          <div class="landing-phase-num">Phase 02</div>
-          <div class="landing-phase-icon" style="background:rgba(62,207,122,0.1);color:var(--green)"><i data-lucide="terminal"></i></div>
           <div class="landing-phase-title">Python</div>
           <div class="landing-phase-sub">Lerne die meistgenutzte Programmiersprache der Welt — von der ersten Variable bis zu eigenen Programmen.</div>
           <ul class="lpc-topics">
@@ -1619,6 +1617,8 @@ body {
 
         <!-- Phase 03 — Web & HTML/CSS -->
         <div class="landing-phase-card" style="border-left-color:var(--amber)">
+          <div class="landing-phase-bg-num">03</div>
+          <div class="landing-phase-num">Phase 03</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="64" height="64" rx="6" stroke="rgba(247,201,106,0.25)" stroke-width="1" fill="rgba(247,201,106,0.04)"/>
@@ -1647,9 +1647,6 @@ body {
               </rect>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">03</div>
-          <div class="landing-phase-num">Phase 03</div>
-          <div class="landing-phase-icon" style="background:rgba(247,201,106,0.1);color:var(--amber)"><i data-lucide="globe"></i></div>
           <div class="landing-phase-title">Web &amp; HTML/CSS</div>
           <div class="landing-phase-sub">Baue echte Webseiten von Grund auf — Struktur, Styling und dein erstes JavaScript.</div>
           <ul class="lpc-topics">
@@ -1663,6 +1660,8 @@ body {
 
         <!-- Phase 04 — Backend & APIs -->
         <div class="landing-phase-card" style="border-left-color:var(--accent)">
+          <div class="landing-phase-bg-num">04</div>
+          <div class="landing-phase-num">Phase 04</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="34" cy="12" rx="11" ry="4.5" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.4)" stroke-width="1"/>
@@ -1693,9 +1692,6 @@ body {
               <text x="27" y="62" fill="rgba(124,106,247,0.45)" font-family="monospace" font-size="5.5">200 OK</text>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">04</div>
-          <div class="landing-phase-num">Phase 04</div>
-          <div class="landing-phase-icon" style="background:rgba(124,106,247,0.1);color:var(--accent)"><i data-lucide="server"></i></div>
           <div class="landing-phase-title">Backend &amp; APIs</div>
           <div class="landing-phase-sub">Verstehe, was hinter jeder App steckt — Server, Datenbanken und die Kommunikation über REST APIs.</div>
           <ul class="lpc-topics">
@@ -1709,6 +1705,8 @@ body {
 
         <!-- Phase 05 — Hacking & Security -->
         <div class="landing-phase-card" style="border-left-color:var(--red)">
+          <div class="landing-phase-bg-num">05</div>
+          <div class="landing-phase-num">Phase 05</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <text x="2" y="13" fill="rgba(247,106,106,0.14)" font-family="monospace" font-size="6">0110 1001</text>
@@ -1730,9 +1728,6 @@ body {
               <circle cx="34" cy="37" r="2" fill="rgba(10,10,15,0.6)"/>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">05</div>
-          <div class="landing-phase-num">Phase 05</div>
-          <div class="landing-phase-icon" style="background:rgba(247,106,106,0.1);color:var(--red)"><i data-lucide="shield"></i></div>
           <div class="landing-phase-title">Hacking &amp; Security</div>
           <div class="landing-phase-sub">Lerne, wie Angriffe funktionieren — um Systeme besser schützen zu können. Nur zu Bildungszwecken.</div>
           <ul class="lpc-topics">
@@ -1746,6 +1741,8 @@ body {
 
         <!-- Phase 06 — Profi-Level -->
         <div class="landing-phase-card" style="border-left-color:#0ea5e9">
+          <div class="landing-phase-bg-num">06</div>
+          <div class="landing-phase-num">Phase 06</div>
           <div class="lpc-svg-wrap">
             <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="4" y="14" width="60" height="40" rx="4" fill="rgba(14,165,233,0.06)" stroke="rgba(14,165,233,0.25)" stroke-width="1"/>
@@ -1761,9 +1758,6 @@ body {
               </path>
             </svg>
           </div>
-          <div class="landing-phase-bg-num">06</div>
-          <div class="landing-phase-num">Phase 06</div>
-          <div class="landing-phase-icon" style="background:rgba(14,165,233,0.1);color:#0ea5e9"><i data-lucide="award"></i></div>
           <div class="landing-phase-title">Profi-Level</div>
           <div class="landing-phase-sub">Schreibe Code wie ein Profi — sauber, testbar und versioniert. Bereit für echte Projekte und Teams.</div>
           <ul class="lpc-topics">
@@ -1789,7 +1783,7 @@ body {
     <!-- Profil -->
     <section class="landing-profiles" id="landing-profiles-section">
       <div class="landing-section-tag">Account</div>
-      <div class="landing-section-title">Dein Fortschritt — lokal &amp; sicher gespeichert</div>
+      <div class="landing-section-title">Dein Account — Fortschritt sicher gespeichert</div>
       <div class="landing-profiles-grid">
 
         <!-- Anmelden -->
@@ -1822,7 +1816,7 @@ body {
             </button>
           </div>
           <div class="landing-privacy-note">
-            <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten bleiben lokal. Kein E-Mail-Account nötig.</span>
+            <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server gespeichert · verschlüsselt übertragen</span>
           </div>
         </div>
 
