@@ -1736,34 +1736,91 @@ body {
   .ps-big-num  { font-size: 110px; }
 }
 
-/* ===================== DOOR TRANSITION ===================== */
+/* ===================== DOOR TRANSITION — SPACESHIP AIRLOCK ===================== */
 #door-left, #door-right {
   position: fixed; top: 0; bottom: 0; width: 50%;
-  z-index: 9997; background: var(--bg);
-  pointer-events: none; will-change: transform; overflow: hidden;
+  z-index: 9997; pointer-events: none; will-change: transform; overflow: hidden;
+  /* Brushed dark steel */
+  background:
+    /* Corner status lights */
+    radial-gradient(circle 3px at 28px 28px, rgba(165,153,249,0.5) 3px, transparent 3px),
+    radial-gradient(circle 3px at 28px calc(100% - 28px), rgba(165,153,249,0.5) 3px, transparent 3px),
+    radial-gradient(circle 3px at calc(100% - 28px) 28px, rgba(165,153,249,0.25) 3px, transparent 3px),
+    radial-gradient(circle 3px at calc(100% - 28px) calc(100% - 28px), rgba(165,153,249,0.25) 3px, transparent 3px),
+    /* Steel gradient */
+    linear-gradient(90deg,
+      #05050f 0%, #0c0c1e 12%, #141428 30%,
+      #1c1c38 50%, #141428 70%, #0c0c1e 88%, #05050f 100%
+    );
 }
 #door-left  { left:  0; transform: translateX(-101%); }
 #door-right { right: 0; transform: translateX(101%);  }
-/* Grid overlay on doors */
+
+/* Horizontal panel ridges — like airlock door segments */
 #door-left::after, #door-right::after {
   content: ''; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, transparent 39px, rgba(124,106,247,0.05) 39px, rgba(124,106,247,0.05) 40px) 0 0 / 40px 40px,
-    linear-gradient(0deg,  transparent 39px, rgba(124,106,247,0.05) 39px, rgba(124,106,247,0.05) 40px) 0 0 / 40px 40px;
+    /* Horizontal panel segments */
+    repeating-linear-gradient(180deg,
+      transparent         0px, transparent         58px,
+      rgba(255,255,255,0.012) 58px, rgba(255,255,255,0.028) 59px,
+      rgba(0,0,0,0.35)    59px, rgba(0,0,0,0.35)    62px,
+      rgba(255,255,255,0.008) 62px, rgba(255,255,255,0.008) 63px,
+      transparent         63px
+    ),
+    /* Vertical structural columns */
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 119px,
+      rgba(255,255,255,0.015) 119px, rgba(255,255,255,0.015) 120px
+    ),
+    /* Rivet dots at panel intersections */
+    radial-gradient(circle 1.8px at 120px 59px, rgba(255,255,255,0.12) 1.8px, transparent 1.8px),
+    radial-gradient(circle 1.8px at 120px 122px, rgba(255,255,255,0.12) 1.8px, transparent 1.8px),
+    radial-gradient(circle 1.8px at 240px 59px, rgba(255,255,255,0.12) 1.8px, transparent 1.8px),
+    radial-gradient(circle 1.8px at 240px 122px, rgba(255,255,255,0.12) 1.8px, transparent 1.8px);
 }
-/* Seam accent lines where the doors meet */
+
+/* Inner seam: hazard stripes + neon glow where doors meet */
 #door-left::before {
-  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 2px;
-  background: linear-gradient(180deg, transparent, var(--accent2) 30%, var(--accent) 70%, transparent);
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 22px;
+  background: repeating-linear-gradient(-45deg,
+    rgba(255,130,0,0) 0px, rgba(255,130,0,0) 5px,
+    rgba(255,130,0,0.22) 5px, rgba(255,130,0,0.22) 10px
+  );
+  box-shadow:
+    inset -1px 0 0 rgba(165,153,249,0.9),
+    0 0 24px 10px rgba(165,153,249,0.28),
+    0 0 60px 20px rgba(124,106,247,0.12);
 }
 #door-right::before {
-  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px;
-  background: linear-gradient(180deg, transparent, var(--accent) 30%, var(--accent2) 70%, transparent);
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 22px;
+  background: repeating-linear-gradient(45deg,
+    rgba(255,130,0,0) 0px, rgba(255,130,0,0) 5px,
+    rgba(255,130,0,0.22) 5px, rgba(255,130,0,0.22) 10px
+  );
+  box-shadow:
+    inset 1px 0 0 rgba(165,153,249,0.9),
+    0 0 24px 10px rgba(165,153,249,0.28),
+    0 0 60px 20px rgba(124,106,247,0.12);
 }
-#door-left.close  { animation: dCL 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
-#door-right.close { animation: dCR 0.5s cubic-bezier(0.76,0,0.24,1) 0.04s forwards; }
-#door-left.open   { animation: dOL 0.5s cubic-bezier(0.76,0,0.24,1) 0.06s forwards; }
-#door-right.open  { animation: dOR 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+
+/* Scan line element inside doors */
+.door-scan {
+  position: absolute; left: 0; right: 0; top: -4px; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(165,153,249,0.9) 50%, transparent 100%);
+  box-shadow: 0 0 12px 4px rgba(165,153,249,0.5);
+  opacity: 0;
+}
+.door-scan.scanning {
+  animation: scanDown 0.52s linear forwards;
+}
+@keyframes scanDown { 0% { top: 0; opacity: 1; } 85% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+/* Door open/close animations */
+#door-left.close  { animation: dCL 0.52s cubic-bezier(0.76,0,0.24,1) forwards; }
+#door-right.close { animation: dCR 0.52s cubic-bezier(0.76,0,0.24,1) 0.04s forwards; }
+#door-left.open   { animation: dOL 0.52s cubic-bezier(0.76,0,0.24,1) 0.06s forwards; }
+#door-right.open  { animation: dOR 0.52s cubic-bezier(0.76,0,0.24,1) forwards; }
 @keyframes dCL { from { transform: translateX(-101%); } to { transform: translateX(0); } }
 @keyframes dCR { from { transform: translateX(101%);  } to { transform: translateX(0); } }
 @keyframes dOL { from { transform: translateX(0); } to { transform: translateX(-101%); } }
@@ -1816,8 +1873,8 @@ body {
 </div>
 
 <!-- TECH DOOR TRANSITION PANELS -->
-<div id="door-left"></div>
-<div id="door-right"></div>
+<div id="door-left"><div class="door-scan" id="scan-left"></div></div>
+<div id="door-right"><div class="door-scan" id="scan-right"></div></div>
 
 <!-- LANDING PAGE -->
 <div id="landing">
@@ -15986,8 +16043,8 @@ function doSwitchProfile(profileId) {
 
 function handleProfileAction(action) {
   document.getElementById('profile-menu').classList.remove('show');
-  if (action === 'landing') { persistState(); showLanding(); }
-  else if (action === 'logout') { persistState(); API.logout(); showLanding(); }
+  if (action === 'landing') { persistState(); wipeTransition(() => showLanding()); }
+  else if (action === 'logout') { persistState(); API.logout(); wipeTransition(() => showLanding()); }
   else if (action === 'new') showNewProfileModal();
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
@@ -16066,7 +16123,7 @@ function showDeleteConfirm() {
     state.currentLesson = 0;
     state.quizAnswered.clear();
     hideModal();
-    if (!state.activeProfile) showLanding();
+    if (!state.activeProfile) wipeTransition(() => showLanding());
     else render();
   });
 }
@@ -16548,18 +16605,31 @@ function wipeTransition(cb) {
   const dR = document.getElementById('door-right');
   if (!dL) { cb(); return; }
 
-  // Close doors
+  // Trigger scan lines
+  ['scan-left','scan-right'].forEach(id => {
+    const s = document.getElementById(id);
+    if (!s) return;
+    s.classList.remove('scanning');
+    void s.offsetWidth; // reflow to reset animation
+    s.classList.add('scanning');
+  });
+
+  // Close doors (slide in from sides)
   dL.classList.remove('open'); dR.classList.remove('open');
   dL.classList.add('close');   dR.classList.add('close');
 
   setTimeout(() => {
     cb();
-    // Open doors
+    // Open doors (slide back out)
     dL.classList.remove('close'); dR.classList.remove('close');
     dL.classList.add('open');     dR.classList.add('open');
     setTimeout(() => {
       dL.classList.remove('open'); dR.classList.remove('open');
-    }, 560);
+      ['scan-left','scan-right'].forEach(id => {
+        const s = document.getElementById(id);
+        if (s) s.classList.remove('scanning');
+      });
+    }, 580);
   }, 560);
 }
 
