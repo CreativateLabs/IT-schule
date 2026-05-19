@@ -1049,14 +1049,55 @@ body {
 /* Nav */
 .landing-nav {
   position: sticky; top: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 48px;
   background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  z-index: 10;
+  z-index: 100;
 }
-.landing-nav-right { display: flex; align-items: center; gap: 8px; }
+/* Inner wrapper — aligns with content below */
+.landing-nav-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.landing-nav-right { display: flex; align-items: center; gap: 8px; position: relative; }
+
+/* ---- Nav auth dropdown ---- */
+.nav-auth-btn {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--accent); border: none;
+  color: white; font-size: 13px; font-family: var(--sans); font-weight: 600;
+  padding: 8px 18px; border-radius: var(--radius); cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 2px 16px rgba(124,106,247,0.35);
+}
+.nav-auth-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.nav-auth-btn [data-lucide] { width: 14px; height: 14px; }
+
+.nav-auth-panel {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  width: 340px; background: var(--surface);
+  border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28), 0 0 0 1px rgba(124,106,247,0.1);
+  display: none; z-index: 200; overflow: hidden;
+}
+.nav-auth-panel.open { display: block; animation: fadeSlideDown 0.18s ease; }
+@keyframes fadeSlideDown { from { opacity:0; transform: translateY(-8px); } to { opacity:1; transform: none; } }
+
+.nav-auth-tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+}
+.nav-auth-tab {
+  flex: 1; padding: 12px; background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  color: var(--text3); transition: color 0.15s, background 0.15s;
+}
+.nav-auth-tab:hover { color: var(--text); background: var(--surface2); }
+.nav-auth-tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); margin-bottom: -1px; }
+
+.nav-auth-form { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.nav-auth-form.hidden { display: none; }
+.nav-auth-form .landing-start-btn { margin-top: 4px; }
 .landing-nav-logo { display: flex; align-items: center; gap: 10px; }
 .landing-nav-logo .logo-icon {
   width: 34px; height: 34px;
@@ -1083,12 +1124,10 @@ body {
 /* Hero */
 .landing-hero {
   padding: 0;
-  min-height: 88vh;
   display: flex;
   align-items: center;
   text-align: left;
   position: relative;
-  overflow: hidden;
 }
 /* dot grid */
 .landing-hero::before {
@@ -1517,7 +1556,7 @@ body {
 }
 
 @media (max-width: 860px) {
-  .landing-nav { padding: 12px 24px; }
+  .landing-nav-inner { padding: 0 24px; }
   .landing-inner { padding: 0 24px 80px; }
   .landing-phases-grid { grid-template-columns: 1fr 1fr; }
   .landing-phase-stepper { max-width: 100%; }
@@ -1527,7 +1566,7 @@ body {
 }
 
 @media (max-width: 560px) {
-  .landing-nav { padding: 10px 16px; }
+  .landing-nav-inner { padding: 0 16px; }
   .landing-inner { padding: 0 16px 60px; }
   .landing-hero-content { padding: 52px 0 40px; gap: 36px; }
   .landing-hero-right { display: none; }
@@ -1832,19 +1871,52 @@ body {
 <!-- LANDING PAGE -->
 <div id="landing">
   <nav class="landing-nav">
-    <div class="landing-nav-logo">
-      <div class="logo-icon"><i data-lucide="code-2"></i></div>
-      <div>
-        <div class="landing-nav-logo-text">PyCoBase</div>
-        <div class="landing-nav-logo-sub">PythonCodeBase</div>
+    <div class="landing-nav-inner">
+      <div class="landing-nav-logo">
+        <div class="logo-icon"><i data-lucide="code-2"></i></div>
+        <div>
+          <div class="landing-nav-logo-text">PyCoBase</div>
+          <div class="landing-nav-logo-sub">PythonCodeBase</div>
+        </div>
       </div>
-    </div>
-    <div class="landing-nav-right">
-      <button class="ctrl-btn" id="lang-btn-landing" onclick="toggleLang()" title="Switch language / Sprache wechseln">DE</button>
-      <button class="ctrl-btn" id="theme-btn-landing" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
-      <button class="landing-nav-signin" id="landing-signin-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
-        <i data-lucide="log-in"></i><span data-i18n="signin">Anmelden</span>
-      </button>
+      <div class="landing-nav-right">
+        <button class="ctrl-btn" id="lang-btn-landing" onclick="toggleLang()" title="Switch language / Sprache wechseln">DE</button>
+        <button class="ctrl-btn" id="theme-btn-landing" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+        <button class="nav-auth-btn" id="landing-signin-btn" onclick="toggleNavAuth(event)">
+          <i data-lucide="log-in"></i><span data-i18n="signin">Anmelden</span>
+        </button>
+
+        <!-- Auth dropdown panel -->
+        <div class="nav-auth-panel" id="nav-auth-panel">
+          <div class="nav-auth-tabs">
+            <button class="nav-auth-tab active" id="nav-tab-login" onclick="navAuthTab('login')">Anmelden</button>
+            <button class="nav-auth-tab" id="nav-tab-reg" onclick="navAuthTab('reg')">Registrieren</button>
+          </div>
+          <!-- Login -->
+          <div class="nav-auth-form" id="nav-form-login">
+            <input type="text" class="landing-name-input" id="login-username-input" placeholder="Benutzername" maxlength="30" autocomplete="username">
+            <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password">
+            <div class="landing-input-error" id="landing-login-error"></div>
+            <button class="landing-start-btn" id="landing-login-btn" onclick="landingLogin()">
+              <i data-lucide="log-in"></i><span>Einloggen</span>
+            </button>
+          </div>
+          <!-- Register -->
+          <div class="nav-auth-form hidden" id="nav-form-reg">
+            <input type="text" class="landing-name-input" id="landing-profile-name" placeholder="Benutzername" maxlength="30" autocomplete="username">
+            <input type="email" class="landing-name-input" id="landing-profile-email" placeholder="E-Mail (optional)" maxlength="100" autocomplete="email">
+            <input type="password" class="landing-name-input" id="landing-profile-pw" placeholder="Passwort" maxlength="60" autocomplete="new-password">
+            <input type="password" class="landing-name-input" id="landing-profile-pw2" placeholder="Passwort bestätigen" maxlength="60" autocomplete="new-password">
+            <div class="landing-input-error" id="landing-reg-error"></div>
+            <button class="landing-start-btn" id="landing-start-btn">
+              <i data-lucide="user-plus"></i><span data-i18n="landing_start_btn">Registrieren</span>
+            </button>
+            <div class="landing-privacy-note">
+              <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server · verschlüsselt</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -1858,7 +1930,7 @@ body {
           <h1 class="landing-hero-title" id="hero-title">Python lernen.<br><span>Deine Zukunft. Dein Code.</span></h1>
           <p class="landing-hero-desc" id="hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
           <div class="landing-hero-btns">
-            <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
+            <button class="landing-cta-btn" onclick="toggleNavAuth(event)">
               <i data-lucide="rocket"></i><span data-i18n="cta_start">Jetzt starten</span>
             </button>
             <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
@@ -1924,7 +1996,7 @@ body {
     </div>
 
     <!-- Profil -->
-    <section class="landing-profiles reveal" id="landing-profiles-section">
+    <section class="landing-profiles reveal" id="landing-profiles-section" style="display:none">
       <div class="landing-section-num">02 — Account</div>
       <div class="landing-section-title">Dein Account — Fortschritt sicher gespeichert</div>
       <div class="landing-profiles-grid">
@@ -16295,7 +16367,7 @@ let _loginTargetId = null;
 function openLoginOverlay() {
   const profiles = loadProfiles();
   if (profiles.length === 0) {
-    document.getElementById('landing-profiles-section').scrollIntoView({ behavior: 'smooth' });
+    toggleNavAuth(); // open nav auth dropdown instead
     return;
   }
   const total = getTotalLessons();
@@ -16418,9 +16490,42 @@ async function buildLeaderboard() {
 //              BOOTSTRAP
 // ============================================================
 
+/* ===================== NAV AUTH DROPDOWN ===================== */
+function toggleNavAuth(e) {
+  if (e) e.stopPropagation();
+  const panel = document.getElementById('nav-auth-panel');
+  if (!panel) return;
+  panel.classList.toggle('open');
+  // Default to login tab whenever opened
+  if (panel.classList.contains('open')) navAuthTab('login');
+}
+
+function navAuthTab(tab) {
+  const loginForm = document.getElementById('nav-form-login');
+  const regForm   = document.getElementById('nav-form-reg');
+  const tabLogin  = document.getElementById('nav-tab-login');
+  const tabReg    = document.getElementById('nav-tab-reg');
+  if (!loginForm) return;
+  if (tab === 'login') {
+    loginForm.classList.remove('hidden');
+    regForm.classList.add('hidden');
+    tabLogin.classList.add('active');
+    tabReg.classList.remove('active');
+    document.getElementById('login-username-input')?.focus();
+  } else {
+    loginForm.classList.add('hidden');
+    regForm.classList.remove('hidden');
+    tabLogin.classList.remove('active');
+    tabReg.classList.add('active');
+    document.getElementById('landing-profile-name')?.focus();
+  }
+}
+
 document.addEventListener('click', (e) => {
-  const menu = document.getElementById('profile-menu');
+  const menu  = document.getElementById('profile-menu');
   if (menu && !e.target.closest('.profile-bar')) menu.classList.remove('show');
+  const panel = document.getElementById('nav-auth-panel');
+  if (panel && !e.target.closest('.landing-nav-right')) panel.classList.remove('open');
 });
 
 document.getElementById('modal-backdrop').addEventListener('click', (e) => {
