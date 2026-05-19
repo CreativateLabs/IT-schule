@@ -1543,9 +1543,118 @@ body {
   .landing-security { flex-direction: column; gap: 10px; }
   .lpc-svg-wrap { display: none; }
 }
+
+/* ===================== INTRO LOADER ===================== */
+#intro-loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+#intro-loader.fade-out {
+  animation: introFadeOut 0.65s ease forwards;
+}
+@keyframes introFadeOut {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.03); }
+}
+.intro-terminal {
+  width: min(420px, 88vw);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(124,106,247,0.12);
+  font-family: var(--mono); font-size: 13px;
+}
+.intro-term-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 16px; background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.intro-term-title { font-size: 11px; color: var(--text3); flex: 1; text-align: center; }
+.intro-term-body { padding: 20px 22px 16px; line-height: 2.1; min-height: 130px; }
+.intro-term-line {
+  display: block; color: var(--text2);
+  opacity: 0; animation: introLineIn 0.3s ease forwards;
+}
+.intro-term-line .il-prompt { color: var(--accent2); }
+.intro-term-line .il-ok     { color: #3ecf7a; }
+.intro-term-line .il-hi     { color: #c084fc; }
+@keyframes introLineIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+.intro-progress-wrap { padding: 4px 22px 20px; }
+.intro-progress-bar {
+  height: 2px; background: var(--border);
+  border-radius: 99px; overflow: hidden;
+}
+.intro-progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), #38bdf8);
+  border-radius: 99px; transition: width 0.08s linear;
+}
+.intro-pct { font-size: 10px; color: var(--text3); margin-top: 6px; text-align: right; letter-spacing: 0.5px; }
+
+/* ===================== PAGE WIPE ===================== */
+#page-wipe {
+  position: fixed; inset: 0; z-index: 9997;
+  background: var(--accent);
+  transform: translateY(100%);
+  pointer-events: none; will-change: transform;
+}
+#page-wipe.wipe-in  { animation: wipeIn  0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+#page-wipe.wipe-out { animation: wipeOut 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+@keyframes wipeIn  { from { transform: translateY(100%); } to { transform: translateY(0%); } }
+@keyframes wipeOut { from { transform: translateY(0%); }   to { transform: translateY(-100%); } }
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.18s; }
+.reveal-d3 { transition-delay: 0.28s; }
+.reveal-d4 { transition-delay: 0.38s; }
+.reveal-d5 { transition-delay: 0.48s; }
+
+/* ===================== EDITORIAL TWEAKS ===================== */
+.landing-section-num {
+  font-family: var(--mono); font-size: 10.5px; color: var(--text3);
+  letter-spacing: 2px; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.landing-section-num::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--border2); }
+.landing-section-title {
+  font-size: clamp(26px, 3.2vw, 38px) !important;
+  letter-spacing: -1px !important; line-height: 1.18 !important;
+  margin-bottom: 40px !important;
+}
+/* XP counter glow */
+.landing-stat-val.counting { color: var(--accent2); }
 </style>
 </head>
 <body>
+
+<!-- INTRO LOADER -->
+<div id="intro-loader">
+  <div class="intro-terminal">
+    <div class="intro-term-bar">
+      <div class="hcw-dots"><span></span><span></span><span></span></div>
+      <div class="intro-term-title">pycobase — init</div>
+    </div>
+    <div class="intro-term-body" id="intro-lines"></div>
+    <div class="intro-progress-wrap">
+      <div class="intro-progress-bar"><div class="intro-progress-fill" id="intro-fill"></div></div>
+      <div class="intro-pct" id="intro-pct">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE TRANSITION WIPE -->
+<div id="page-wipe"></div>
 
 <!-- LANDING PAGE -->
 <div id="landing">
@@ -1583,17 +1692,17 @@ body {
               <i data-lucide="book-open"></i><span data-i18n="cta_view">Lernpfad ansehen</span>
             </button>
           </div>
-          <div class="landing-stats">
+          <div class="landing-stats reveal reveal-d3">
             <div class="landing-stat">
-              <div class="landing-stat-val">31</div>
+              <div class="landing-stat-val" data-count="31" id="stat-lessons">31</div>
               <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
             </div>
             <div class="landing-stat">
-              <div class="landing-stat-val">6</div>
+              <div class="landing-stat-val" data-count="6" id="stat-topics">6</div>
               <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
             </div>
             <div class="landing-stat">
-              <div class="landing-stat-val">100%</div>
+              <div class="landing-stat-val" id="stat-free">100%</div>
               <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
             </div>
           </div>
@@ -1632,8 +1741,8 @@ body {
     </section>
 
     <!-- Was du lernst -->
-    <section class="landing-phases" id="landing-phases-section">
-      <div class="landing-section-tag" data-i18n="section_tag">Lernpfad</div>
+    <section class="landing-phases reveal" id="landing-phases-section">
+      <div class="landing-section-num">01 — <span data-i18n="section_tag">Lernpfad</span></div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
 
       <!-- Phase path stepper -->
@@ -1672,7 +1781,7 @@ body {
       <div class="landing-phases-grid">
 
         <!-- Phase 01 — Fundament -->
-        <div class="landing-phase-card" style="border-left-color:var(--accent2)">
+        <div class="landing-phase-card reveal reveal-d1" style="border-left-color:var(--accent2)">
           <div class="landing-phase-bg-num">01</div>
           <div class="landing-phase-num">Phase 01</div>
           <div class="lpc-svg-wrap">
@@ -1710,7 +1819,7 @@ body {
         </div>
 
         <!-- Phase 02 — Python -->
-        <div class="landing-phase-card" style="border-left-color:var(--green)">
+        <div class="landing-phase-card reveal reveal-d2" style="border-left-color:var(--green)">
           <div class="landing-phase-bg-num">02</div>
           <div class="landing-phase-num">Phase 02</div>
           <div class="lpc-svg-wrap">
@@ -1748,7 +1857,7 @@ body {
         </div>
 
         <!-- Phase 03 — Web & HTML/CSS -->
-        <div class="landing-phase-card" style="border-left-color:var(--amber)">
+        <div class="landing-phase-card reveal reveal-d3" style="border-left-color:var(--amber)">
           <div class="landing-phase-bg-num">03</div>
           <div class="landing-phase-num">Phase 03</div>
           <div class="lpc-svg-wrap">
@@ -1791,7 +1900,7 @@ body {
         </div>
 
         <!-- Phase 04 — Backend & APIs -->
-        <div class="landing-phase-card" style="border-left-color:var(--accent)">
+        <div class="landing-phase-card reveal reveal-d1" style="border-left-color:var(--accent)">
           <div class="landing-phase-bg-num">04</div>
           <div class="landing-phase-num">Phase 04</div>
           <div class="lpc-svg-wrap">
@@ -1836,7 +1945,7 @@ body {
         </div>
 
         <!-- Phase 05 — Hacking & Security -->
-        <div class="landing-phase-card" style="border-left-color:var(--red)">
+        <div class="landing-phase-card reveal reveal-d2" style="border-left-color:var(--red)">
           <div class="landing-phase-bg-num">05</div>
           <div class="landing-phase-num">Phase 05</div>
           <div class="lpc-svg-wrap">
@@ -1872,7 +1981,7 @@ body {
         </div>
 
         <!-- Phase 06 — Profi-Level -->
-        <div class="landing-phase-card" style="border-left-color:#0ea5e9">
+        <div class="landing-phase-card reveal reveal-d3" style="border-left-color:#0ea5e9">
           <div class="landing-phase-bg-num">06</div>
           <div class="landing-phase-num">Phase 06</div>
           <div class="lpc-svg-wrap">
@@ -1913,8 +2022,8 @@ body {
     </div>
 
     <!-- Profil -->
-    <section class="landing-profiles" id="landing-profiles-section">
-      <div class="landing-section-tag">Account</div>
+    <section class="landing-profiles reveal" id="landing-profiles-section">
+      <div class="landing-section-num">02 — Account</div>
       <div class="landing-section-title">Dein Account — Fortschritt sicher gespeichert</div>
       <div class="landing-profiles-grid">
 
@@ -1956,8 +2065,8 @@ body {
     </section>
 
     <!-- Leaderboard auf Landing Page -->
-    <section class="landing-profiles" id="landing-leaderboard-section" style="margin-top:0">
-      <div class="landing-section-tag">Rangliste</div>
+    <section class="landing-profiles reveal" id="landing-leaderboard-section" style="margin-top:0">
+      <div class="landing-section-num">03 — Rangliste</div>
       <div class="landing-section-title" id="landing-lb-title">Top-Lernende</div>
       <div id="landing-lb-content" style="max-width:480px;margin:0 auto;padding:0 16px">
         <div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Rangliste wird geladen…</div>
@@ -16150,6 +16259,8 @@ function showLanding() {
   applyLang();
   lucide.createIcons();
   buildLandingLeaderboard();
+  // Re-observe any not-yet-visible reveal elements
+  setTimeout(initScrollReveal, 80);
 }
 
 async function buildLandingLeaderboard() {
@@ -16175,8 +16286,10 @@ async function buildLandingLeaderboard() {
 }
 
 function hideLanding() {
-  document.getElementById('landing').classList.remove('show');
-  document.getElementById('app').classList.add('show');
+  wipeTransition(() => {
+    document.getElementById('landing').classList.remove('show');
+    document.getElementById('app').classList.add('show');
+  });
 }
 
 function buildLandingLoginPanel() {
@@ -16445,13 +16558,112 @@ document.getElementById('login-overlay').addEventListener('click', e => {
 });
 
 
+/* ===================== INTRO LOADER ===================== */
+function runIntroLoader() {
+  const linesEl  = document.getElementById('intro-lines');
+  const fillEl   = document.getElementById('intro-fill');
+  const pctEl    = document.getElementById('intro-pct');
+  const loaderEl = document.getElementById('intro-loader');
+  if (!loaderEl) return;
+
+  const lines = [
+    { html: '<span class="il-prompt">$</span> python pycobase.py',      delay: 0   },
+    { html: '<span class="il-ok">✓</span> Lektionen geladen (31)',       delay: 420 },
+    { html: '<span class="il-ok">✓</span> Quizzes initialisiert',        delay: 820 },
+    { html: '<span class="il-ok">✓</span> Verbindung hergestellt',       delay: 1180 },
+    { html: '<span class="il-hi">→</span> Bereit. Viel Erfolg!',         delay: 1500 },
+  ];
+
+  lines.forEach(({ html, delay }) => {
+    setTimeout(() => {
+      const span = document.createElement('span');
+      span.className = 'intro-term-line';
+      span.innerHTML = html;
+      linesEl.appendChild(span);
+    }, delay);
+  });
+
+  let progress = 0;
+  const tick = setInterval(() => {
+    progress = Math.min(progress + Math.random() * 7 + 3, 100);
+    fillEl.style.width = progress + '%';
+    pctEl.textContent = Math.round(progress) + '%';
+    if (progress >= 100) {
+      clearInterval(tick);
+      setTimeout(() => {
+        loaderEl.classList.add('fade-out');
+        setTimeout(() => { loaderEl.style.display = 'none'; }, 700);
+      }, 320);
+    }
+  }, 75);
+}
+
+/* ===================== PAGE WIPE TRANSITION ===================== */
+function wipeTransition(cb) {
+  const wipe = document.getElementById('page-wipe');
+  if (!wipe) { cb(); return; }
+  wipe.classList.remove('wipe-out');
+  wipe.classList.add('wipe-in');
+  setTimeout(() => {
+    cb();
+    wipe.classList.remove('wipe-in');
+    wipe.classList.add('wipe-out');
+    setTimeout(() => { wipe.classList.remove('wipe-out'); }, 520);
+  }, 500);
+}
+
+/* ===================== SCROLL REVEAL ===================== */
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+/* ===================== STATS COUNTER ===================== */
+function animateCounter(el, target, duration) {
+  const start = performance.now();
+  el.classList.add('counting');
+  const update = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target);
+    if (progress < 1) requestAnimationFrame(update);
+    else { el.textContent = target; el.classList.remove('counting'); }
+  };
+  requestAnimationFrame(update);
+}
+
+function initStatsCounter() {
+  const statsEl = document.querySelector('.landing-stats');
+  if (!statsEl) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.landing-stat-val[data-count]').forEach(el => {
+          animateCounter(el, parseInt(el.dataset.count), 900);
+        });
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(statsEl);
+}
+
 function init() {
   migrateLegacyData();
-  // Apply saved language and theme
   applyLang();
   applyThemeIcons();
-  // Immer Landing Page zeigen — kein automatisches Einloggen
+  runIntroLoader();
   showLanding();
+  setTimeout(initScrollReveal, 100);
+  setTimeout(initStatsCounter, 100);
 }
 
 init();
