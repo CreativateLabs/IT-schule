@@ -1078,43 +1078,133 @@ body {
 .landing-nav-signin [data-lucide] { width: 14px; height: 14px; }
 
 /* Inner */
-.landing-inner { max-width: 980px; margin: 0 auto; padding: 0 36px 100px; }
+.landing-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px 100px; }
 
 /* Hero */
-.landing-hero { padding: 88px 0 72px; text-align: center; position: relative; }
+.landing-hero {
+  padding: 0;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+/* dot grid */
 .landing-hero::before {
   content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(124,106,247,0.18) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 90% at 20% 50%, black 10%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 90% at 20% 50%, black 10%, transparent 75%);
+  pointer-events: none; z-index: 0;
+}
+/* purple glow */
+.landing-hero::after {
+  content: '';
   position: absolute;
-  width: 800px; height: 600px;
-  background: radial-gradient(ellipse at 50% 40%, rgba(124,106,247,0.22) 0%, rgba(124,106,247,0.06) 40%, transparent 70%);
-  top: 0; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(ellipse, rgba(124,106,247,0.2) 0%, rgba(124,106,247,0.05) 50%, transparent 70%);
+  top: 50%; left: -80px; transform: translateY(-50%);
   pointer-events: none; z-index: 0;
 }
 .landing-hero > * { position: relative; z-index: 1; }
+.landing-hero-content {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: center;
+  width: 100%;
+  padding: 80px 0 72px;
+}
+.landing-hero-left {}
 
 .landing-hero-tag {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.3);
-  color: var(--accent2); font-size: 11.5px; font-family: var(--mono);
-  padding: 5px 16px; border-radius: 999px; margin-bottom: 28px; letter-spacing: 0.7px;
+  background: var(--accent-glow); border: 1px solid rgba(124,106,247,0.35);
+  color: var(--accent2); font-size: 11px; font-family: var(--mono);
+  padding: 5px 14px; border-radius: 999px; margin-bottom: 28px; letter-spacing: 0.8px;
 }
 .landing-hero-tag [data-lucide] { width: 11px; height: 11px; }
 .landing-hero-title {
-  font-family: var(--mono); font-size: clamp(36px, 5.5vw, 60px);
-  font-weight: 700; line-height: 1.1; color: var(--text);
-  margin-bottom: 22px; letter-spacing: -2px;
+  font-family: var(--mono); font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 700; line-height: 1.06; color: var(--text);
+  margin-bottom: 24px; letter-spacing: -2.5px;
 }
 .landing-hero-title span {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, #38bdf8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  display: block;
 }
 .landing-hero-desc {
-  font-size: 17px; color: var(--text2); line-height: 1.72;
-  max-width: 540px; margin: 0 auto 40px;
+  font-size: 16.5px; color: var(--text2); line-height: 1.75;
+  max-width: 480px; margin: 0 0 40px;
 }
 .landing-hero-btns {
-  display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 52px;
+  display: flex; align-items: center; justify-content: flex-start; gap: 12px; margin-bottom: 52px;
 }
+
+/* Hero right: code window */
+.landing-hero-right { position: relative; }
+.hero-code-window {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(124,106,247,0.15);
+  font-family: var(--mono);
+  font-size: 13px;
+  position: relative;
+}
+.hero-code-window::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(124,106,247,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hcw-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.hcw-dots { display: flex; gap: 6px; }
+.hcw-dots span {
+  width: 11px; height: 11px; border-radius: 50%;
+}
+.hcw-dots span:nth-child(1) { background: #f76a6a66; }
+.hcw-dots span:nth-child(2) { background: #f7c96a66; }
+.hcw-dots span:nth-child(3) { background: #3ecf7a66; }
+.hcw-filename {
+  font-size: 11px; color: var(--text3); letter-spacing: 0.4px; flex: 1; text-align: center;
+}
+.hcw-body { padding: 20px 22px 22px; line-height: 1.9; }
+.hcw-line { display: block; white-space: pre; }
+.hcw-line.hcw-fade { opacity: 0; animation: hcwFadeIn 0.35s ease forwards; }
+@keyframes hcwFadeIn { to { opacity: 1; } }
+.hcw-i1 { padding-left: 18px; }
+.hcw-i2 { padding-left: 36px; }
+.hcw-kw { color: #c084fc; }
+.hcw-fn { color: #38bdf8; }
+.hcw-str { color: #86efac; }
+.hcw-num { color: #fbbf24; }
+.hcw-cm { color: var(--text3); }
+.hcw-ps { color: var(--accent2); }
+.hcw-ok { color: #3ecf7a; }
+.hcw-cursor {
+  display: inline-block; width: 2px; height: 1em; background: var(--accent2);
+  vertical-align: text-bottom; margin-left: 1px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.hcw-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+.hcw-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(124,106,247,0.12); border: 1px solid rgba(124,106,247,0.2);
+  color: var(--accent2); font-size: 10.5px; padding: 3px 10px; border-radius: 5px; margin-top: 10px;
+}
+.hcw-tag [data-lucide] { width: 10px; height: 10px; }
 .landing-cta-btn {
   display: inline-flex; align-items: center; gap: 9px;
   background: var(--accent); color: white;
@@ -1138,7 +1228,7 @@ body {
 /* Stats strip */
 .landing-stats {
   display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg);
-  overflow: hidden; max-width: 500px; margin: 0 auto; background: var(--surface);
+  overflow: hidden; max-width: 440px; margin: 0; background: var(--surface);
 }
 .landing-stat {
   flex: 1; padding: 16px 20px; text-align: center;
@@ -1420,6 +1510,12 @@ body {
 .boss-card::before { display: none; }
 
 /* LANDING RESPONSIVE */
+@media (max-width: 960px) {
+  .landing-hero-content { grid-template-columns: 1fr; gap: 48px; padding: 72px 0 56px; }
+  .landing-hero-right { max-width: 500px; }
+  .landing-hero-title { font-size: clamp(34px, 7vw, 52px); }
+}
+
 @media (max-width: 860px) {
   .landing-nav { padding: 12px 24px; }
   .landing-inner { padding: 0 24px 80px; }
@@ -1433,10 +1529,11 @@ body {
 @media (max-width: 560px) {
   .landing-nav { padding: 10px 16px; }
   .landing-inner { padding: 0 16px 60px; }
-  .landing-hero { padding: 52px 0 40px; }
+  .landing-hero-content { padding: 52px 0 40px; gap: 36px; }
+  .landing-hero-right { display: none; }
   .landing-hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
   .landing-cta-btn, .landing-outline-btn { justify-content: center; }
-  .landing-stats { flex-direction: column; }
+  .landing-stats { flex-direction: column; max-width: 100%; }
   .landing-stat { border-right: none; border-bottom: 1px solid var(--border); }
   .landing-stat:last-child { border-bottom: none; }
   .landing-phases-grid { grid-template-columns: 1fr; }
@@ -1472,29 +1569,64 @@ body {
   <div class="landing-inner">
     <!-- Hero -->
     <section class="landing-hero">
-      <div class="landing-hero-tag"><i data-lucide="sparkles"></i><span data-i18n="hero_tag">Kostenlos &amp; Open Source</span></div>
-      <h1 class="landing-hero-title" id="hero-title">Python lernen.<br><span>Deine Zukunft. Dein Code.</span></h1>
-      <p class="landing-hero-desc" id="hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
-      <div class="landing-hero-btns">
-        <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
-          <i data-lucide="rocket"></i><span data-i18n="cta_start">Jetzt starten</span>
-        </button>
-        <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
-          <i data-lucide="book-open"></i><span data-i18n="cta_view">Lernpfad ansehen</span>
-        </button>
-      </div>
-      <div class="landing-stats">
-        <div class="landing-stat">
-          <div class="landing-stat-val">31</div>
-          <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
+      <div class="landing-hero-content">
+        <!-- Left column -->
+        <div class="landing-hero-left">
+          <div class="landing-hero-tag"><i data-lucide="sparkles"></i><span data-i18n="hero_tag">Kostenlos &amp; Open Source</span></div>
+          <h1 class="landing-hero-title" id="hero-title">Python lernen.<br><span>Deine Zukunft. Dein Code.</span></h1>
+          <p class="landing-hero-desc" id="hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
+          <div class="landing-hero-btns">
+            <button class="landing-cta-btn" onclick="document.getElementById('landing-profiles-section').scrollIntoView({behavior:'smooth'})">
+              <i data-lucide="rocket"></i><span data-i18n="cta_start">Jetzt starten</span>
+            </button>
+            <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
+              <i data-lucide="book-open"></i><span data-i18n="cta_view">Lernpfad ansehen</span>
+            </button>
+          </div>
+          <div class="landing-stats">
+            <div class="landing-stat">
+              <div class="landing-stat-val">31</div>
+              <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
+            </div>
+            <div class="landing-stat">
+              <div class="landing-stat-val">6</div>
+              <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
+            </div>
+            <div class="landing-stat">
+              <div class="landing-stat-val">100%</div>
+              <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
+            </div>
+          </div>
         </div>
-        <div class="landing-stat">
-          <div class="landing-stat-val">6</div>
-          <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
-        </div>
-        <div class="landing-stat">
-          <div class="landing-stat-val">100%</div>
-          <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
+        <!-- Right column: decorative code window -->
+        <div class="landing-hero-right">
+          <div class="hero-code-window">
+            <div class="hcw-bar">
+              <div class="hcw-dots"><span></span><span></span><span></span></div>
+              <div class="hcw-filename">main.py</div>
+            </div>
+            <div class="hcw-body">
+              <span class="hcw-line"><span class="hcw-cm"># Phase 1 — Python Grundlagen</span></span>
+              <span class="hcw-line"> </span>
+              <span class="hcw-line"><span class="hcw-kw">def</span> <span class="hcw-fn">greet</span>(<span class="hcw-ps">name</span>):</span>
+              <span class="hcw-line hcw-i1"><span class="hcw-ps">msg</span> = <span class="hcw-fn">f</span><span class="hcw-str">"Hallo, {name}!"</span></span>
+              <span class="hcw-line hcw-i1"><span class="hcw-fn">print</span>(<span class="hcw-ps">msg</span>)</span>
+              <span class="hcw-line hcw-i1"><span class="hcw-kw">return</span> <span class="hcw-ps">msg</span></span>
+              <span class="hcw-line"> </span>
+              <span class="hcw-line"><span class="hcw-kw">class</span> <span class="hcw-fn">Student</span>:</span>
+              <span class="hcw-line hcw-i1"><span class="hcw-ps">xp</span> = <span class="hcw-num">0</span></span>
+              <span class="hcw-line"> </span>
+              <span class="hcw-line hcw-i1"><span class="hcw-kw">def</span> <span class="hcw-fn">learn</span>(<span class="hcw-ps">self</span>, <span class="hcw-ps">topic</span>):</span>
+              <span class="hcw-line hcw-i2"><span class="hcw-ps">self</span>.<span class="hcw-ps">xp</span> += <span class="hcw-num">15</span></span>
+              <span class="hcw-line hcw-i2"><span class="hcw-kw">return</span> <span class="hcw-fn">f</span><span class="hcw-str">"{topic} gelernt"</span></span>
+              <span class="hcw-line"> </span>
+              <span class="hcw-line"><span class="hcw-ps">s</span> = <span class="hcw-fn">Student</span>()</span>
+              <span class="hcw-line"><span class="hcw-ps">s</span>.<span class="hcw-fn">learn</span>(<span class="hcw-str">"Python Basics"</span>)</span>
+              <hr class="hcw-divider">
+              <span class="hcw-line"><span class="hcw-ok">✓</span> <span class="hcw-str">Python Basics</span> <span class="hcw-cm">— +15 XP</span><span class="hcw-cursor"></span></span>
+              <div class="hcw-tag"><i data-lucide="zap"></i> 15 XP verdient</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
