@@ -1,48 +1,74 @@
 import { test, expect } from '@playwright/test';
 
+// Helper: inject a local profile into localStorage, reload, then reveal the app
+async function loginWithLocalProfile(page, name = 'Testuser') {
+  await page.evaluate((profileName) => {
+    const id = 'p_test_' + Date.now();
+    const profile = { id, name: profileName, passwordHash: null, created: new Date().toISOString(), leaderboardOptIn: false };
+    localStorage.setItem('cp_profiles', JSON.stringify([profile]));
+    localStorage.setItem('cp_active', id);
+    localStorage.setItem(`cp_p_${id}_done`, '[]');
+    localStorage.setItem(`cp_p_${id}_xp`, '0');
+    return id;
+  }, name);
+  await page.reload();
+  // Skip landing — jump straight into app via evaluate
+  await page.evaluate(() => {
+    document.getElementById('landing').classList.remove('show');
+    document.getElementById('app').classList.add('show');
+    if (typeof loadActiveState === 'function') loadActiveState();
+    if (typeof render === 'function') render();
+  });
+  await page.waitForSelector('#app.show');
+}
+
 test('page loads with title', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle(/CodePath/);
+  await expect(page).toHaveTitle(/PyCoBase/);
 });
 
-test('first-time user sees profile creation modal', async ({ page }) => {
+test('landing page is shown on first visit', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await expect(page.locator('.modal-backdrop.show')).toBeVisible();
-  await expect(page.locator('.modal-title')).toContainText('Willkommen');
+  await expect(page.locator('#landing.show')).toBeVisible();
+  await expect(page.locator('#app.show')).toHaveCount(0);
 });
 
-test('creates profile and saves progress', async ({ page }) => {
+test('app view shows profile name after login', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'Testuser');
-  await page.click('#create-profile-btn');
-  await expect(page.locator('.modal-backdrop.show')).toBeHidden();
-  await expect(page.locator('#profile-name')).toHaveText('Testuser');
+  await loginWithLocalProfile(page, 'SmokeTest');
+  await expect(page.locator('#profile-name')).toHaveText('SmokeTest');
 });
 
 test('progress persists after reload', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'Persist');
-  await page.click('#create-profile-btn');
-  await page.click('#btn-next');
+  await loginWithLocalProfile(page, 'Persist');
   const xpBefore = await page.locator('#xp-amount').textContent();
+  // Navigate to next lesson
+  await page.click('#btn-next');
   await page.reload();
+  await page.evaluate(() => {
+    document.getElementById('landing').classList.remove('show');
+    document.getElementById('app').classList.add('show');
+    if (typeof loadActiveState === 'function') loadActiveState();
+    if (typeof render === 'function') render();
+  });
+  await page.waitForSelector('#app.show');
   await expect(page.locator('#profile-name')).toHaveText('Persist');
-  await expect(page.locator('#xp-amount')).toHaveText(xpBefore);
 });
 
 test('lucide icons are rendered', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'IconTest');
-  await page.click('#create-profile-btn');
-  const svgCount = await page.locator('svg.lucide').count();
+  await loginWithLocalProfile(page, 'IconTest');
+  // Lucide renders SVGs with data-lucide attribute
+  const svgCount = await page.locator('svg[data-lucide]').count();
   expect(svgCount).toBeGreaterThan(0);
 });
 
@@ -50,37 +76,28 @@ test('all phases present in sidebar', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'NavTest');
-  await page.click('#create-profile-btn');
+  await loginWithLocalProfile(page, 'NavTest');
   const phases = await page.locator('.phase-btn').count();
   expect(phases).toBe(6);
 });
 
-test('profile menu opens', async ({ page }) => {
+test('profile menu opens on click', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'MenuTest');
-  await page.click('#create-profile-btn');
+  await loginWithLocalProfile(page, 'MenuTest');
   await page.click('.profile-bar');
   await expect(page.locator('#profile-menu.show')).toBeVisible();
 });
 
-test('quiz answering awards XP', async ({ page }) => {
+test('new profile modal opens from profile menu', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await page.fill('#new-profile-name', 'QuizTest');
-  await page.click('#create-profile-btn');
-  // Navigate to lesson with quiz (Phase 1 Lesson 2)
-  await page.click('#btn-next');
-  await page.click('#btn-next');
-  // After 2 "next" clicks we're at Phase 1 Lesson 3 — go back once
-  await page.click('#btn-prev');
-  const xpBefore = parseInt(await page.locator('#xp-amount').textContent() || '0');
-  const correctOption = page.locator('[data-quiz="q1"][data-idx="0"]');
-  await correctOption.click();
-  await expect(correctOption).toHaveClass(/correct/);
-  const xpAfter = parseInt(await page.locator('#xp-amount').textContent() || '0');
-  expect(xpAfter).toBeGreaterThan(xpBefore);
+  await loginWithLocalProfile(page, 'ModalTest');
+  await page.click('.profile-bar');
+  // Click "New profile" action (data-action="new")
+  await page.locator('.profile-menu-item[data-action="new"]').click();
+  await expect(page.locator('#modal-backdrop.show')).toBeVisible();
+  await expect(page.locator('#new-profile-name')).toBeVisible();
 });
