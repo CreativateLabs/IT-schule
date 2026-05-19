@@ -15287,7 +15287,7 @@ const API = (() => {
 
   async function register(username, email, password) {
     const data = await req('POST', '/register', { username, email, password }, false);
-    setToken(data.token);
+    setToken(data.access_token || data.token); // FastAPI returns access_token
     return data;
   }
 
@@ -15347,10 +15347,10 @@ function saveProfiles(profiles) {
 function loadProfileData(profileId) {
   const doneRaw = localStorage.getItem(STORAGE.profileKey(profileId, 'done'));
   const xpRaw = localStorage.getItem(STORAGE.profileKey(profileId, 'xp'));
-  return {
-    completed: new Set(JSON.parse(doneRaw || '[]')),
-    xp: parseInt(xpRaw || '0', 10)
-  };
+  let completed = new Set();
+  try { completed = new Set(JSON.parse(doneRaw || '[]')); } catch {}
+  const xp = Math.max(0, parseInt(xpRaw || '0', 10) || 0);
+  return { completed, xp };
 }
 
 function saveProfileData(profileId, data) {
@@ -15521,7 +15521,10 @@ function checkExercise(id) {
     out.innerHTML = `<i data-lucide="check"></i>${t('exercise_good')}`;
     out.className = 'output-area success';
     lucide.createIcons();
-    addXP(20);
+    if (!state.quizAnswered.has('ex_' + id)) {
+      state.quizAnswered.add('ex_' + id);
+      addXP(20);
+    }
   } else {
     out.innerHTML = `<i data-lucide="x"></i>${t('exercise_syntax')}`;
     out.className = 'output-area error';
@@ -15541,11 +15544,27 @@ function addXP(amount) {
 
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('.code-pre');
-  navigator.clipboard.writeText(pre.innerText).then(() => {
+  const text = pre.innerText;
+  const done = () => {
     btn.innerHTML = `<i data-lucide="check"></i>${t('copied_btn')}`;
     lucide.createIcons();
     setTimeout(() => { btn.innerHTML = `<i data-lucide="copy"></i>${t('copy_btn')}`; lucide.createIcons(); }, 1500);
-  });
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, cb) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    cb();
+  } catch {}
 }
 
 // ============================================================
@@ -15573,9 +15592,10 @@ function navigate(dir) {
   if (dir === 1) {
     if (!state.completed.has(currentLesson.id)) {
       state.completed.add(currentLesson.id);
-      addXP(15);
+      addXP(15); // addXP already calls persistState internally
+    } else {
+      persistState(); // only persist if no XP was added (addXP handles it otherwise)
     }
-    persistState();
   }
   const newLesson = state.currentLesson + dir;
   if (newLesson >= 0 && newLesson < phase.lessons.length) {
@@ -15658,7 +15678,7 @@ function updateNav() {
   const phase = PHASES[state.currentPhase];
   const en = LANG.get() === 'en';
   const phaseTitle = en ? (phase.title_en || phase.title) : phase.title;
-  const lessonTitle = en ? (lesson.title_en || lesson.title) : lesson.title;
+  const lessonTitle = en ? (LESSON_TITLES_EN[lesson.id] || lesson.title) : lesson.title;
   document.getElementById('breadcrumb').innerHTML = `<span>Phase ${state.currentPhase+1}</span> / <span>${phaseTitle}</span> / <span>${lessonTitle}</span>`;
 }
 
@@ -15697,6 +15717,8 @@ const LESSON_TITLES_EN = {
 
 function render() {
   if (window.innerWidth <= 768) closeSidebar();
+  // Reset QUIZ_DATA so IDs from a previous lesson don't bleed into this one
+  Object.keys(QUIZ_DATA).forEach(k => delete QUIZ_DATA[k]);
   buildNav();
   updateProgress();
   updateProfileBar();
@@ -16063,8 +16085,11 @@ async function landingLogin() {
     });
     setActiveProfile(profile.id);
     loadActiveState();
-    state.currentLesson = me.current_lesson || 0;
+    // Clamp server lesson index safely — server doesn't know phase structure
+    const serverLesson = Math.max(0, parseInt(me.current_lesson || 0, 10));
+    const phase0Len = PHASES[0].lessons.length;
     state.currentPhase = 0;
+    state.currentLesson = Math.min(serverLesson, phase0Len - 1);
     state.quizAnswered.clear();
     btn.disabled = false;
     hideLanding();
