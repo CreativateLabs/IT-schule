@@ -1333,7 +1333,7 @@ body {
 
 /* Stats strip */
 .landing-stats {
-  display: flex; gap: 10px; margin-top: 14px;
+  display: flex; gap: 10px; margin-bottom: 32px; max-width: 480px;
 }
 .landing-stat {
   flex: 1; padding: 13px 14px; text-align: center;
@@ -2111,8 +2111,8 @@ body {
             </button>
           </div>
         </div>
-        <!-- Right column: live terminal + stats below -->
-        <div class="landing-hero-right" style="position:relative;display:flex;flex-direction:column;gap:12px">
+        <!-- Right column: live terminal -->
+        <div class="landing-hero-right" style="position:relative">
           <canvas id="hero-matrix" class="matrix-canvas" style="opacity:0.28;border-radius:16px"></canvas>
           <div class="hero-live-term" id="hero-live-term" style="position:relative;z-index:1">
             <div class="hcw-bar">
@@ -2120,21 +2120,6 @@ body {
               <div class="hcw-filename" id="hero-term-filename">pycobase ~</div>
             </div>
             <div class="hlt-body" id="hero-term-body"></div>
-          </div>
-          <!-- Stats — visible in viewport, below terminal -->
-          <div class="landing-stats" style="opacity:0;animation:fadeUp 0.6s 0.85s ease forwards;position:relative;z-index:1">
-            <div class="landing-stat">
-              <div class="landing-stat-val" data-count="31" id="stat-lessons">31</div>
-              <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
-            </div>
-            <div class="landing-stat">
-              <div class="landing-stat-val" data-count="6" id="stat-topics">6</div>
-              <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
-            </div>
-            <div class="landing-stat">
-              <div class="landing-stat-val" id="stat-free">100%</div>
-              <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
-            </div>
           </div>
         </div>
       </div>
@@ -2145,6 +2130,21 @@ body {
     <section class="landing-phases reveal" id="landing-phases-section">
       <div class="landing-section-num">01 — <span data-i18n="section_tag">Lernpfad</span></div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
+
+      <div class="landing-stats">
+        <div class="landing-stat">
+          <div class="landing-stat-val" data-count="31" id="stat-lessons">31</div>
+          <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val" data-count="6" id="stat-topics">6</div>
+          <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
+        </div>
+        <div class="landing-stat">
+          <div class="landing-stat-val" id="stat-free">100%</div>
+          <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
+        </div>
+      </div>
 
       <!-- Phase card collage intro — animates in on scroll -->
       <div class="phases-collage-row" id="phases-collage-row"></div>
