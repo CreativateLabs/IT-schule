@@ -1865,33 +1865,45 @@ body {
 
 /* ===================== PHASES COLLAGE ROW ===================== */
 .phases-collage-row {
-  display: flex; gap: 14px; align-items: flex-end;
+  display: flex; gap: 12px; align-items: stretch;
   margin-bottom: 40px; overflow-x: auto;
   padding-bottom: 8px; scroll-snap-type: x mandatory;
 }
+/* Stat cards in the unified row */
+.pc-stat-big {
+  font-family: var(--mono); font-size: 26px; font-weight: 700;
+  color: var(--pc-color, var(--accent)); line-height: 1;
+  margin-bottom: 8px;
+}
+.pc-divider {
+  width: 1px; flex-shrink: 0; align-self: stretch;
+  background: var(--border2); margin: 0 2px;
+  opacity: 0; transition: opacity 0.55s ease;
+}
+.pc-divider.visible { opacity: 1; }
 .phases-collage-row::-webkit-scrollbar { height: 3px; }
 .phases-collage-row::-webkit-scrollbar-track { background: transparent; }
 .phases-collage-row::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
 
 .pc-mini-card {
-  flex: 0 0 auto; width: 156px;
+  flex: 0 0 auto; width: 160px;
   background: var(--surface);
   border: 1px solid var(--border2);
-  border-radius: 14px; padding: 16px 16px 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+  border-radius: 14px; padding: 18px 16px 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.07);
   position: relative; overflow: hidden;
-  opacity: 0; transform: translateY(28px) rotate(var(--card-rot, 0deg));
-  transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1),
-              box-shadow 0.25s ease;
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.2s ease;
   cursor: default; scroll-snap-align: start;
   border-top: 2px solid var(--pc-color, var(--accent));
 }
 .pc-mini-card.visible {
-  opacity: 1; transform: translateY(0) rotate(var(--card-rot, 0deg));
+  opacity: 1; transform: translateY(0);
 }
 .pc-mini-card:hover {
-  transform: translateY(-6px) rotate(0deg) !important;
-  box-shadow: 0 18px 48px rgba(0,0,0,0.14);
+  transform: translateY(-5px) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
   z-index: 2;
 }
 .pc-bg-num {
@@ -2140,25 +2152,9 @@ body {
   <div class="landing-inner">
     <!-- Was du lernst -->
     <section class="landing-phases reveal" id="landing-phases-section">
-      <div class="landing-section-num">01 — <span data-i18n="section_tag">Lernpfad</span></div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
 
-      <div class="landing-stats">
-        <div class="landing-stat">
-          <div class="landing-stat-val" data-count="31" id="stat-lessons">31</div>
-          <div class="landing-stat-label" data-i18n="stat_lessons">Lektionen</div>
-        </div>
-        <div class="landing-stat">
-          <div class="landing-stat-val" data-count="6" id="stat-topics">6</div>
-          <div class="landing-stat-label" data-i18n="stat_topics">Themengebiete</div>
-        </div>
-        <div class="landing-stat">
-          <div class="landing-stat-val" id="stat-free">100%</div>
-          <div class="landing-stat-label" data-i18n="stat_free">Kostenlos</div>
-        </div>
-      </div>
-
-      <!-- Phase card collage intro — animates in on scroll -->
+      <!-- Unified scrolling strip: stats + phase cards -->
       <div class="phases-collage-row" id="phases-collage-row"></div>
 
       <div class="phase-carousel-outer">
@@ -16954,47 +16950,64 @@ function initPhasesCollage() {
   const row = document.getElementById('phases-collage-row');
   if (!row) return;
 
-  const phases = [
-    { num:'01', color:'#a599f9', name:'Fundament',        lessons:6  },
-    { num:'02', color:'#3ecf7a', name:'Python',           lessons:5  },
-    { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',   lessons:5  },
-    { num:'04', color:'#7c6af7', name:'Backend & APIs',   lessons:4  },
-    { num:'05', color:'#f76a6a', name:'Hacking &\nSecurity', lessons:8 },
-    { num:'06', color:'#0ea5e9', name:'Profi-Level',      lessons:3  },
+  // ── 3 stat cards prepended to the row ──
+  const stats = [
+    { color:'#7c6af7', val:'31',   id:'stat-lessons', count:31, label:'Lektionen',     bg:'31' },
+    { color:'#0ea5e9', val:'6',    id:'stat-topics',  count:6,  label:'Themengebiete', bg:'6'  },
+    { color:'#10b981', val:'100%', id:'stat-free',    count:null,label:'Kostenlos',    bg:'%'  },
   ];
 
-  // Subtle alternating tilts for visual rhythm
-  const rots = ['-2.5deg','1.8deg','-1.2deg','2.2deg','-1.8deg','1.5deg'];
+  stats.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'pc-mini-card';
+    card.style.cssText = `--pc-color:${s.color};`;
+    card.innerHTML = `
+      <div class="pc-bg-num">${s.bg}</div>
+      <div class="pc-stat-big" id="${s.id}"${s.count ? ` data-count="${s.count}"` : ''}>${s.val}</div>
+      <div class="pc-count">${s.label}</div>
+    `;
+    row.appendChild(card);
+  });
+
+  // thin divider between stats and phases
+  const div = document.createElement('div');
+  div.className = 'pc-divider';
+  row.appendChild(div);
+
+  // ── 6 phase cards ──
+  const phases = [
+    { num:'01', color:'#a599f9', name:'Fundament',           lessons:6 },
+    { num:'02', color:'#3ecf7a', name:'Python',              lessons:5 },
+    { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',      lessons:5 },
+    { num:'04', color:'#7c6af7', name:'Backend & APIs',      lessons:4 },
+    { num:'05', color:'#f76a6a', name:'Hacking &\nSecurity', lessons:8 },
+    { num:'06', color:'#0ea5e9', name:'Profi-Level',         lessons:3 },
+  ];
 
   phases.forEach((p, i) => {
     const card = document.createElement('div');
     card.className = 'pc-mini-card';
-    card.style.cssText = `--pc-color:${p.color}; --card-rot:${rots[i]};`;
+    card.style.cssText = `--pc-color:${p.color};`;
     card.innerHTML = `
       <div class="pc-bg-num">${p.num}</div>
-      <div class="pc-label">Phase ${p.num}</div>
       <div class="pc-name">${p.name.replace('\n','<br>')}</div>
       <div class="pc-count"><strong>${p.lessons}</strong> Lektionen</div>
     `;
-    // Click: scroll carousel to this phase
+    card.style.cursor = 'pointer';
     card.addEventListener('click', () => {
-      const track = document.getElementById('phase-track');
-      if (!track) return;
       const phaseGoTo = window._phaseGoTo;
       if (typeof phaseGoTo === 'function') phaseGoTo(i);
     });
     row.appendChild(card);
   });
 
-  // IntersectionObserver: stagger reveal when section scrolls in
+  // stagger reveal on scroll
   const obs = new IntersectionObserver(entries => {
     if (!entries[0].isIntersecting) return;
     obs.disconnect();
-    const cards = row.querySelectorAll('.pc-mini-card');
-    cards.forEach((c, i) => {
-      setTimeout(() => c.classList.add('visible'), i * 110);
-    });
-  }, { threshold: 0.15 });
+    const cards = row.querySelectorAll('.pc-mini-card, .pc-divider');
+    cards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 80));
+  }, { threshold: 0.1 });
   obs.observe(row);
 }
 
