@@ -1065,8 +1065,9 @@ body {
 /* ---- Scroll-driven background matrix ---- */
 /* Canvas is fixed so it stays in background as content scrolls */
 #bg-matrix-canvas {
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 0; /* lowest layer inside landing's stacking context */
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; /* behind hero content via .landing-hero > * z-index:1 */
 }
 /* Landing nav already z-index:100 (within the fixed #landing z-index:200 stacking context) */
 /* No position overrides needed on #landing — keep its position:fixed intact */
@@ -16804,45 +16805,38 @@ function runIntroLoader() {
 
 /* ===================== BACKGROUND SCROLL MATRIX ===================== */
 function initBgMatrix() {
-  const landing = document.getElementById('landing');
-  if (!landing) return;
+  // Scope canvas to the hero section only
+  const hero = document.querySelector('.landing-hero');
+  if (!hero) return;
 
   let canvas = document.getElementById('bg-matrix-canvas');
   if (!canvas) {
     canvas = document.createElement('canvas');
     canvas.id = 'bg-matrix-canvas';
-    landing.insertBefore(canvas, landing.firstChild);
+    hero.insertBefore(canvas, hero.firstChild); // first child → behind all hero content
   }
   const ctx = canvas.getContext('2d');
 
-  // Full katakana + digits + symbols — authentic Matrix charset
   const CHARS = 'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=-*/|<>_'.split('');
-  const FS      = 15;   // cell size px
-  const SPEED_A = 0.35; // min fall speed (cells/frame at 20fps)
-  const SPEED_B = 0.75; // max fall speed
+  const FS      = 15;
+  const SPEED_A = 0.35;
+  const SPEED_B = 0.75;
 
-  let W, H, COLS, ROWS;
+  let W, H, COLS, ROWS, grid = [];
 
-  // One entry per column — persistent grid of chars + one active stream head
-  let grid = [];
-
-  function randChar() {
-    return CHARS[(Math.random() * CHARS.length) | 0];
-  }
+  function randChar() { return CHARS[(Math.random() * CHARS.length) | 0]; }
 
   function initCol(c, randomHead) {
-    ROWS = Math.ceil(H / FS) + 2;
-    const chars     = Array.from({ length: ROWS }, randChar); // full column of chars
-    const streamLen = 12 + ((Math.random() * 20) | 0);       // visible trail length
+    const chars     = Array.from({ length: ROWS }, randChar);
+    const streamLen = 12 + ((Math.random() * 20) | 0);
     const speed     = SPEED_A + Math.random() * (SPEED_B - SPEED_A);
-    // stagger heads so they don't all start at top at once
     const head      = randomHead ? -(Math.random() * ROWS) : -(streamLen + (Math.random() * 15 | 0));
     grid[c] = { chars, head, speed, streamLen, mutTick: 0 };
   }
 
   function resize() {
-    W    = window.innerWidth;
-    H    = window.innerHeight;
+    W    = hero.offsetWidth  || window.innerWidth;
+    H    = hero.offsetHeight || window.innerHeight * 0.7;
     COLS = Math.floor(W / FS);
     ROWS = Math.ceil(H / FS) + 2;
     canvas.width  = W;
@@ -16851,12 +16845,12 @@ function initBgMatrix() {
     for (let c = 0; c < COLS; c++) initCol(c, true);
   }
 
-  setTimeout(resize, 200);
+  setTimeout(resize, 250);
   window.addEventListener('resize', resize, { passive: true });
 
   let lastTs = 0;
   function draw(ts) {
-    if (ts - lastTs < 45) { requestAnimationFrame(draw); return; } // ~22 fps cap
+    if (ts - lastTs < 45) { requestAnimationFrame(draw); return; }
     const dt = Math.min((ts - lastTs) / 50, 3);
     lastTs = ts;
 
@@ -16865,11 +16859,10 @@ function initBgMatrix() {
     ctx.textAlign = 'left';
 
     for (let c = 0; c < grid.length; c++) {
-      const g  = grid[c];
+      const g = grid[c];
       if (!g) continue;
       g.head += g.speed * dt;
 
-      // ── Char mutation: flicker one char near the head on every few frames ──
       g.mutTick += dt;
       if (g.mutTick >= 2.5) {
         g.mutTick = 0;
@@ -16877,9 +16870,7 @@ function initBgMatrix() {
         if (r >= 0 && r < ROWS) g.chars[r] = randChar();
       }
 
-      // ── When stream has fully left viewport → new chars, restart from top ──
       if (g.head - g.streamLen > ROWS + 2) {
-        // Regenerate every character in the column (user request: "zeichen ändern")
         for (let r = 0; r < ROWS; r++) g.chars[r] = randChar();
         g.head      = -(g.streamLen + (Math.random() * 20 | 0));
         g.speed     = SPEED_A + Math.random() * (SPEED_B - SPEED_A);
@@ -16889,22 +16880,18 @@ function initBgMatrix() {
       const headRow = g.head | 0;
       const px      = c * FS;
 
-      // ── Draw every character in this column that is within the stream window ──
       for (let j = 0; j < g.streamLen; j++) {
         const row = headRow - j;
         if (row < 0 || row >= ROWS) continue;
         const py = row * FS;
         if (py >= H) continue;
 
-        let alpha;
         if (j === 0) {
-          // Head tip — sharpest, most visible
           ctx.fillStyle = 'rgba(200,198,220,0.72)';
         } else if (j === 1) {
           ctx.fillStyle = 'rgba(150,148,170,0.42)';
         } else {
-          // Exponential decay up the trail
-          alpha = Math.pow(1 - j / g.streamLen, 2.2) * 0.22;
+          const alpha = Math.pow(1 - j / g.streamLen, 2.2) * 0.22;
           if (alpha < 0.012) continue;
           ctx.fillStyle = `rgba(95,93,115,${alpha.toFixed(3)})`;
         }
