@@ -16815,36 +16815,40 @@ function initBgMatrix() {
   }
   const ctx = canvas.getContext('2d');
 
-  // Full katakana set + digits + latin — real Matrix charset
-  const CHARS = 'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=-*/\\|<>[]{}$#@%&'.split('');
-  const fs   = 16;  // font / cell size
-  const FPS  = 20;  // target frame rate
-  const INTERVAL = 1000 / FPS;
+  // Full katakana + digits + symbols — authentic Matrix charset
+  const CHARS = 'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=-*/|<>_'.split('');
+  const FS      = 15;   // cell size px
+  const SPEED_A = 0.35; // min fall speed (cells/frame at 20fps)
+  const SPEED_B = 0.75; // max fall speed
 
-  let cols    = 0;
-  let streams = []; // { col, y, speed, len, chars[], mutTimer }
+  let W, H, COLS, ROWS;
+
+  // One entry per column — persistent grid of chars + one active stream head
+  let grid = [];
 
   function randChar() {
-    return CHARS[Math.floor(Math.random() * CHARS.length)];
+    return CHARS[(Math.random() * CHARS.length) | 0];
   }
 
-  function spawnStream(col, startRandom) {
-    const len   = 10 + Math.floor(Math.random() * 24); // trail length in cells
-    const speed = 0.4 + Math.random() * 0.7;            // cells per frame
-    const y     = startRandom
-      ? -(Math.random() * (canvas.height / fs))          // staggered initial position
-      : -(len + 5 + Math.random() * 30);                 // starts above viewport
-    const chars = Array.from({ length: len }, randChar);
-    streams.push({ col, y, speed, len, chars, mutTimer: 0 });
+  function initCol(c, randomHead) {
+    ROWS = Math.ceil(H / FS) + 2;
+    const chars     = Array.from({ length: ROWS }, randChar); // full column of chars
+    const streamLen = 12 + ((Math.random() * 20) | 0);       // visible trail length
+    const speed     = SPEED_A + Math.random() * (SPEED_B - SPEED_A);
+    // stagger heads so they don't all start at top at once
+    const head      = randomHead ? -(Math.random() * ROWS) : -(streamLen + (Math.random() * 15 | 0));
+    grid[c] = { chars, head, speed, streamLen, mutTick: 0 };
   }
 
   function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cols = Math.floor(canvas.width / fs);
-    // Rebuild streams at new column count
-    streams = [];
-    for (let i = 0; i < cols; i++) spawnStream(i, true);
+    W    = window.innerWidth;
+    H    = window.innerHeight;
+    COLS = Math.floor(W / FS);
+    ROWS = Math.ceil(H / FS) + 2;
+    canvas.width  = W;
+    canvas.height = H;
+    grid = [];
+    for (let c = 0; c < COLS; c++) initCol(c, true);
   }
 
   setTimeout(resize, 200);
@@ -16852,57 +16856,60 @@ function initBgMatrix() {
 
   let lastTs = 0;
   function draw(ts) {
-    if (ts - lastTs < INTERVAL) { requestAnimationFrame(draw); return; }
-    const dt = Math.min((ts - lastTs) / INTERVAL, 3); // delta in "frames"
+    if (ts - lastTs < 45) { requestAnimationFrame(draw); return; } // ~22 fps cap
+    const dt = Math.min((ts - lastTs) / 50, 3);
     lastTs = ts;
 
-    // Clear fully transparent each frame — we draw per-character opacity manually
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = `bold ${fs}px 'Space Mono', monospace`;
+    ctx.clearRect(0, 0, W, H);
+    ctx.font      = `${FS}px 'Space Mono', monospace`;
     ctx.textAlign = 'left';
 
-    for (let s = streams.length - 1; s >= 0; s--) {
-      const st = streams[s];
-      st.y += st.speed * dt;
+    for (let c = 0; c < grid.length; c++) {
+      const g  = grid[c];
+      if (!g) continue;
+      g.head += g.speed * dt;
 
-      // Mutate random chars in trail for the flickering effect
-      st.mutTimer += dt;
-      if (st.mutTimer >= 2) {
-        st.mutTimer = 0;
-        const ri = Math.floor(Math.random() * st.chars.length);
-        st.chars[ri] = randChar();
+      // ── Char mutation: flicker one char near the head on every few frames ──
+      g.mutTick += dt;
+      if (g.mutTick >= 2.5) {
+        g.mutTick = 0;
+        const r = (g.head | 0);
+        if (r >= 0 && r < ROWS) g.chars[r] = randChar();
       }
 
-      const headRow = Math.floor(st.y); // lowest row (newest)
-      const px      = st.col * fs;
+      // ── When stream has fully left viewport → new chars, restart from top ──
+      if (g.head - g.streamLen > ROWS + 2) {
+        // Regenerate every character in the column (user request: "zeichen ändern")
+        for (let r = 0; r < ROWS; r++) g.chars[r] = randChar();
+        g.head      = -(g.streamLen + (Math.random() * 20 | 0));
+        g.speed     = SPEED_A + Math.random() * (SPEED_B - SPEED_A);
+        g.streamLen = 12 + (Math.random() * 20 | 0);
+      }
 
-      for (let j = 0; j < st.len; j++) {
+      const headRow = g.head | 0;
+      const px      = c * FS;
+
+      // ── Draw every character in this column that is within the stream window ──
+      for (let j = 0; j < g.streamLen; j++) {
         const row = headRow - j;
-        if (row < 0) continue;
-        const py = row * fs;
-        if (py > canvas.height) continue;
+        if (row < 0 || row >= ROWS) continue;
+        const py = row * FS;
+        if (py >= H) continue;
 
-        let opacity;
+        let alpha;
         if (j === 0) {
-          // Bright head — near white, high contrast
-          ctx.fillStyle = 'rgba(230,230,240,0.82)';
+          // Head tip — sharpest, most visible
+          ctx.fillStyle = 'rgba(200,198,220,0.72)';
         } else if (j === 1) {
-          // Second char — still quite bright
-          ctx.fillStyle = 'rgba(160,160,175,0.55)';
+          ctx.fillStyle = 'rgba(150,148,170,0.42)';
         } else {
-          // Tail fades exponentially
-          opacity = Math.pow(1 - j / st.len, 2.8) * 0.38;
-          if (opacity < 0.015) continue;
-          ctx.fillStyle = `rgba(100,100,120,${opacity.toFixed(3)})`;
+          // Exponential decay up the trail
+          alpha = Math.pow(1 - j / g.streamLen, 2.2) * 0.22;
+          if (alpha < 0.012) continue;
+          ctx.fillStyle = `rgba(95,93,115,${alpha.toFixed(3)})`;
         }
 
-        ctx.fillText(st.chars[j % st.chars.length], px, py + fs);
-      }
-
-      // Recycle stream when tail has left the screen
-      if ((st.y - st.len) * fs > canvas.height) {
-        streams.splice(s, 1);
-        spawnStream(st.col, false);
+        ctx.fillText(g.chars[row], px, py + FS);
       }
     }
 
