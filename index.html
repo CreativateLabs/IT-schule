@@ -1173,7 +1173,10 @@ body {
   gap: 64px;
   align-items: center;
   width: 100%;
-  padding: 96px 0 88px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 96px 40px 88px;
+  position: relative; z-index: 1;
 }
 
 .landing-hero-tag {
@@ -1599,7 +1602,7 @@ body {
 
 /* LANDING RESPONSIVE */
 @media (max-width: 1000px) {
-  .landing-hero-content { grid-template-columns: 1fr; gap: 56px; padding: 80px 0 64px; }
+  .landing-hero-content { grid-template-columns: 1fr; gap: 56px; padding: 80px 24px 64px; }
   .landing-hero-right { max-width: 520px; }
   .hero-card-collage { height: 420px; }
   .landing-hero-title { font-size: clamp(36px, 7vw, 60px); }
@@ -1618,7 +1621,7 @@ body {
 @media (max-width: 560px) {
   .landing-nav-inner { padding: 0 16px; }
   .landing-inner { padding: 0 16px 60px; }
-  .landing-hero-content { padding: 52px 0 40px; gap: 36px; }
+  .landing-hero-content { padding: 52px 16px 40px; gap: 36px; }
   .landing-hero-right { display: none; }
   .landing-hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
   .landing-cta-btn, .landing-outline-btn { justify-content: center; }
@@ -2058,9 +2061,8 @@ body {
     </div>
   </nav>
 
-  <div class="landing-inner">
-    <!-- Hero -->
-    <section class="landing-hero">
+  <!-- Hero — full viewport width, outside landing-inner so canvas reaches both edges -->
+  <section class="landing-hero">
       <div class="hero-grain"></div>
       <div class="landing-hero-content">
         <!-- Left column -->
@@ -2107,8 +2109,9 @@ body {
           </div>
         </div>
       </div>
-    </section>
+  </section>
 
+  <div class="landing-inner">
     <!-- Was du lernst -->
     <section class="landing-phases reveal" id="landing-phases-section">
       <div class="landing-section-num">01 — <span data-i18n="section_tag">Lernpfad</span></div>
