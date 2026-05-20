@@ -1791,8 +1791,11 @@ body {
 #intro-loader {
   position: fixed; inset: 0; z-index: 9999;
   background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
+  display: none; align-items: center; justify-content: center;
   flex-direction: column;
+}
+#intro-loader.active {
+  display: flex;
 }
 #intro-loader.fade-out {
   animation: introFadeOut 0.65s ease forwards;
@@ -21184,6 +21187,8 @@ function runIntroLoader() {
   // Matrix rain in background
   startMatrixRain('intro-matrix', { fontSize: 14, color: 'rgba(0,200,180,0.13)' });
 
+  loaderEl.classList.add('active');
+
   function hideLoader() {
     if (loaderEl._hidden) return;
     loaderEl._hidden = true;
@@ -22039,7 +22044,12 @@ function init() {
   setTimeout(initStatsCounter, 100);
 }
 
-init();
+try { init(); } catch(e) {
+  // Fallback: hide loader and show landing even if init partially fails
+  const l = document.getElementById('intro-loader');
+  if (l) l.style.display = 'none';
+  try { showLanding(); } catch(_) {}
+}
 </script>
 </body>
 </html>
