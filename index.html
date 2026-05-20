@@ -17626,24 +17626,15 @@ function wipeTransition(cb) {
         const filled = Math.round(colFill[c] * ROWS);
         if (filled === 0) continue;
 
-        const px      = c * FS;
-        const fillH   = filled * FS;
+        const px = c * FS;
 
-        // One smooth column background — no per-cell grid
-        ctx.fillStyle = `rgba(${r},${g},${b},0.88)`;
-        ctx.fillRect(px, 0, FS, fillH);
-
-        // Bright head glow at the bottom edge
-        ctx.fillStyle = `rgba(${r},${g},${b},0.35)`;
-        ctx.fillRect(px, fillH, FS, FS * 0.7);
-
-        // Characters — scattered opacity, no background per char
+        // Characters only — no background rects, canvas stays transparent
         for (let row = 0; row < filled; row++) {
-          if (Math.random() < 0.05) colChars[c][row] = randCh();
+          if (Math.random() < 0.06) colChars[c][row] = randCh();
           const isHead = row === filled - 1;
           ctx.fillStyle = isHead
-            ? 'rgba(255,255,255,0.95)'
-            : `rgba(255,255,255,${0.18 + Math.random() * 0.18})`;
+            ? 'rgba(255,255,255,1)'
+            : `rgba(255,255,255,${0.25 + Math.random() * 0.35})`;
           ctx.fillText(colChars[c][row], px + 1, row * FS + FS - 1);
         }
       }
