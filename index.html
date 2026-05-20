@@ -17559,86 +17559,104 @@ function wipeTransition(cb) {
     if (idx === current) return;
     wiping = true;
 
-    const viewport = track.parentElement; // .phase-carousel-viewport
+    const viewport = track.parentElement;
     const phase    = PHASES_DATA[Math.max(0, Math.min(idx, PHASES_DATA.length - 1))];
 
-    // Parse the phase color to RGB for fill
-    const tmp = document.createElement('div');
-    tmp.style.color = phase.color;
-    document.body.appendChild(tmp);
-    const rgb = getComputedStyle(tmp).color.match(/\d+/g) || ['124','106','247'];
-    document.body.removeChild(tmp);
-    const [r, g, b] = rgb;
+    // Hex color → r,g,b
+    const hex = phase.color.replace('#','');
+    const r   = parseInt(hex.slice(0,2),16);
+    const g   = parseInt(hex.slice(2,4),16);
+    const b   = parseInt(hex.slice(4,6),16);
 
     const canvas = document.createElement('canvas');
     canvas.className = 'phase-matrix-wipe';
-    const W = viewport.offsetWidth;
-    const H = viewport.offsetHeight;
+    const rect = viewport.getBoundingClientRect();
+    const W = Math.round(rect.width);
+    const H = Math.round(rect.height);
     canvas.width  = W;
     canvas.height = H;
     viewport.appendChild(canvas);
     const ctx = canvas.getContext('2d');
 
-    const FS   = 13;
-    const COLS = Math.ceil(W / FS);
-    const ROWS = Math.ceil(H / FS) + 2;
-    const CHARS = 'ァアィイウエカキクサシスタチツナニハヒフマミムヤユラリルワヲン01234567ABCDEF'.split('');
-    const randCh = () => CHARS[(Math.random() * CHARS.length) | 0];
+    const FS      = 13;
+    const COLS    = Math.ceil(W / FS);
+    const ROWS    = Math.ceil(H / FS) + 1;
+    const CHARS   = 'ァアィイウエカキクサシスタチツナニハヒフマミムヤユラリルワヲン01234567ABCDEF+-=|>'.split('');
+    const randCh  = () => CHARS[(Math.random() * CHARS.length) | 0];
 
-    // col_progress[c]: 0 = empty, 1 = fully filled, >1 = draining
-    const colProgress = new Float32Array(COLS);
-    const FILL_SPEED  = 0.07;   // how fast each column fills (in fraction per frame)
-    const WAVE_LAG    = 0.018;  // stagger between adjacent columns (fraction)
-    const colChars    = Array.from({length: COLS}, () => Array.from({length: ROWS}, randCh));
+    // Each column has its own character grid
+    const colChars = Array.from({length: COLS}, () => Array.from({length: ROWS}, randCh));
+    // colFill[c]: 0..1  — how full this column is
+    const colFill  = new Float32Array(COLS);
 
-    let switched = false;
-    let phase2   = false;  // draining phase
+    // Frame-based stagger: column c starts filling at fill-frame c * STAGGER
+    // All columns fill at the same SPEED once started — no negative speeds
+    const FILL_SPEED   = 0.22;  // fraction per frame (fill from 0→1)
+    const COL_STAGGER  = 0.55;  // frames between each column's start
+    let   fillFrame    = 0;
+    let   drainFrame   = -1;    // -1 = drain not started yet
+    let   switched     = false;
+
+    ctx.font = `${FS - 1}px 'Space Mono', monospace`;
 
     function tick() {
+      fillFrame++;
+      if (drainFrame >= 0) drainFrame++;
+
       ctx.clearRect(0, 0, W, H);
 
       let allFull = true, allEmpty = true;
 
       for (let c = 0; c < COLS; c++) {
-        if (!phase2) {
-          // Fill wave: each column starts slightly after the previous
-          colProgress[c] = Math.min(1, colProgress[c] + Math.max(0, FILL_SPEED - c * WAVE_LAG * 0.5));
-          if (colProgress[c] < 1) allFull = false;
-        } else {
-          // Drain wave: columns clear from left to right
-          colProgress[c] = Math.max(0, colProgress[c] - Math.max(0, FILL_SPEED - c * WAVE_LAG * 0.3));
-          if (colProgress[c] > 0) allEmpty = false;
+        // --- fill phase ---
+        if (drainFrame < 0) {
+          if (fillFrame > c * COL_STAGGER) {
+            colFill[c] = Math.min(1, colFill[c] + FILL_SPEED);
+          }
+          if (colFill[c] < 1) allFull = false;
+        }
+        // --- drain phase ---
+        else {
+          if (drainFrame > c * COL_STAGGER) {
+            colFill[c] = Math.max(0, colFill[c] - FILL_SPEED);
+          }
+          if (colFill[c] > 0) allEmpty = false;
         }
 
-        const filled = Math.floor(colProgress[c] * ROWS);
+        const filled = Math.round(colFill[c] * ROWS);
         if (filled === 0) continue;
 
+        const px = c * FS;
         for (let row = 0; row < filled; row++) {
-          const py = row * FS;
+          const py     = row * FS;
           const isHead = row === filled - 1;
-          // Colored bg
+
+          // Background cell
           ctx.fillStyle = isHead
-            ? `rgba(${r},${g},${b},0.5)`
-            : `rgba(${r},${g},${b},0.88)`;
-          ctx.fillRect(c * FS, py, FS, FS);
+            ? `rgba(${r},${g},${b},0.45)`
+            : `rgba(${r},${g},${b},0.92)`;
+          ctx.fillRect(px, py, FS, FS);
+
+          // Occasionally mutate char
+          if (Math.random() < 0.06) colChars[c][row] = randCh();
+
           // Character
-          if (Math.random() < 0.08) colChars[c][row] = randCh();
-          ctx.font = `${FS - 1}px 'Space Mono', monospace`;
           ctx.fillStyle = isHead
-            ? 'rgba(240,240,255,0.95)'
-            : `rgba(200,210,255,${0.25 + Math.random() * 0.3})`;
-          ctx.fillText(colChars[c][row], c * FS + 1, py + FS - 1);
+            ? 'rgba(245,245,255,0.95)'
+            : `rgba(215,225,255,${0.28 + Math.random() * 0.22})`;
+          ctx.fillText(colChars[c][row], px + 1, py + FS - 1);
         }
       }
 
-      // Switch slide at midpoint (all columns full)
+      // Midpoint: all columns filled → switch slide, start drain
       if (allFull && !switched) {
-        switched = true;
+        switched   = true;
+        drainFrame = 0;
         switchTo(idx);
-        phase2 = true;
       }
 
-      if (phase2 && allEmpty) {
+      // Done: all columns drained
+      if (drainFrame >= 0 && allEmpty) {
         canvas.remove();
         wiping = false;
         return;
