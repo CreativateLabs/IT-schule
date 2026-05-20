@@ -2667,24 +2667,25 @@ function closeSidebar() {
 //                        DATA: PHASES
 // ============================================================
 const PHASES = [
+  // ── Phase 0: Start ──────────────────────────────────────────
   {
-    id: 'p1', title: 'Fundament', title_en: 'Foundation', sub: 'Wie Computer wirklich funktionieren', sub_en: 'How computers really work',
+    id: 'p0', title: 'Start', title_en: 'Start', sub: 'Willkommen bei PyCoBase', sub_en: 'Welcome to PyCoBase',
     lessons: [
       {
-        id: 'l1_1', title: 'Willkommen & Überblick',
+        id: 'l0_1', title: 'Willkommen & Überblick',
         content: () => `
           <div class="lesson-header animate-in">
-            <div class="lesson-tag">Phase 1 · Einführung</div>
-            <h1 class="lesson-title">Willkommen bei CodePath</h1>
+            <div class="lesson-tag">Einführung</div>
+            <h1 class="lesson-title">Willkommen bei PyCoBase</h1>
             <p class="lesson-desc">Du startest heute eine Reise die dich von null zu einem vollständigen Entwickler führt. Kein Geld nötig, nur Zeit und Durchhaltevermögen. Hier ist was dich erwartet.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Dein Lernweg</div>
             <div class="phases-overview" id="phases-overview-grid">
-              ${PHASES.map((p,i) => {
+              ${PHASES.filter(p => p.id !== 'p0').map((p,i) => {
                 const done = p.lessons.filter(l => state.completed.has(l.id)).length;
                 const pct = p.lessons.length ? Math.round(done/p.lessons.length*100) : 0;
-                return `<div class="phase-overview-card" onclick="goToPhase(${i})">
+                return `<div class="phase-overview-card" onclick="goToPhase(${i+1})">
                   <div class="pov-num">Phase ${i+1}</div>
                   <div class="pov-title">${p.title}</div>
                   <div class="pov-sub">${p.sub}</div>
@@ -2705,17 +2706,17 @@ const PHASES = [
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
-            <div class="lesson-tag">Phase 1 · Introduction</div>
+            <div class="lesson-tag">Introduction</div>
             <h1 class="lesson-title">Welcome to PyCoBase</h1>
             <p class="lesson-desc">Today you start a journey that takes you from zero to a full developer. No money needed — just time and persistence. Here's what to expect.</p>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Your learning path</div>
             <div class="phases-overview" id="phases-overview-grid">
-              ${PHASES.map((p,i) => {
+              ${PHASES.filter(p => p.id !== 'p0').map((p,i) => {
                 const done = p.lessons.filter(l => state.completed.has(l.id)).length;
                 const pct = p.lessons.length ? Math.round(done/p.lessons.length*100) : 0;
-                return `<div class="phase-overview-card" onclick="goToPhase(${i})">
+                return `<div class="phase-overview-card" onclick="goToPhase(${i+1})">
                   <div class="pov-num">Phase ${i+1}</div>
                   <div class="pov-title">${p.title_en || p.title}</div>
                   <div class="pov-sub">${p.sub_en || p.sub}</div>
@@ -2735,6 +2736,12 @@ const PHASES = [
           </div>
         `
       },
+    ]
+  },
+  // ── Phase 1: Fundament ──────────────────────────────────────
+  {
+    id: 'p1', title: 'Fundament', title_en: 'Foundation', sub: 'Wie Computer wirklich funktionieren', sub_en: 'How computers really work',
+    lessons: [
       {
         id: 'l1_2', title: 'Binär & Hexadezimal',
         content: () => `
@@ -3937,7 +3944,313 @@ Set-Cookie: session=abc123; HttpOnly; Secure
             <div class="boss-desc">Open DevTools in your browser (F12) → "Network" tab → load any website. Observe: Which files are loaded? What status codes do you see? What IP address does the server have? Write down 5 observations.</div>
           </div>
         `
-      }
+      },
+      // ── l1_7: Logik & Algorithmen ──────────────────────────
+      {
+        id: 'l1_7', title: 'Logik & Algorithmen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 7</div>
+            <h1 class="lesson-title">Logik & Algorithmen</h1>
+            <p class="lesson-desc">Bevor du eine einzige Zeile Code schreibst, musst du denken wie ein Computer. Was ist ein Algorithmus — und warum ist Logik das Fundament aller Programmierung?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist ein Algorithmus?</div>
+            <div class="explanation">
+              Ein <strong>Algorithmus</strong> ist eine eindeutige Schritt-für-Schritt-Anleitung zur Lösung eines Problems. Nicht mehr, nicht weniger.<br><br>
+              Ein Rezept ist ein Algorithmus. Eine Wegbeschreibung ist ein Algorithmus. Auch "sortiere diese Zahlen von klein nach groß" ist ein Algorithmus — die Frage ist nur: <em>wie</em>?<br><br>
+              Computer sind dumm. Sie können nichts "verstehen". Sie folgen nur Anweisungen — exakt, in Reihenfolge, ohne Kontext. Deshalb muss ein Algorithmus <strong>vollständig und eindeutig</strong> sein. Kein "irgendwie", kein "du weißt schon was ich meine".<br><br>
+              <strong>Drei Grundbausteine jedes Algorithmus:</strong><br>
+              • <strong>Sequenz</strong> — Anweisungen nacheinander ausführen<br>
+              • <strong>Selektion</strong> — Entscheidungen treffen (wenn … dann …)<br>
+              • <strong>Iteration</strong> — Schritte wiederholen (solange … tue …)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Boolesche Logik — Wahr oder Falsch</div>
+            <div class="explanation">
+              Computer kennen nur zwei Zustände: <strong>1 (wahr)</strong> und <strong>0 (falsch)</strong>. Alles — jede Entscheidung, jede Bedingung — baut auf dieser Basis auf.<br><br>
+              Die drei wichtigsten logischen Operatoren:<br><br>
+              <strong>AND (und)</strong> — beide Bedingungen müssen wahr sein:<br>
+              <code>true AND true = true</code> | <code>true AND false = false</code><br><br>
+              <strong>OR (oder)</strong> — mindestens eine Bedingung muss wahr sein:<br>
+              <code>false OR true = true</code> | <code>false OR false = false</code><br><br>
+              <strong>NOT (nicht)</strong> — kehrt den Wert um:<br>
+              <code>NOT true = false</code> | <code>NOT false = true</code><br><br>
+              Beispiel aus dem echten Code: <code>if age >= 18 AND has_ticket:</code> — beide müssen erfüllt sein.
+            </div>
+          </div>
+          ${quiz('q_logic1', 'Was ergibt: true AND false?', [
+            {t:'true', correct:false, why:'AND ist nur true wenn BEIDE Seiten true sind. false macht die ganze Aussage false.'},
+            {t:'false', correct:true, why:'Richtig! AND = beide müssen wahr sein. Eine Seite ist false → Ergebnis ist false.'},
+            {t:'null', correct:false, why:'Null ist kein Bool\'scher Wert. Das Ergebnis ist immer true oder false.'},
+            {t:'error', correct:false, why:'Kein Fehler — das ist eine gültige boolesche Operation.'},
+          ])}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Pseudocode — Algorithmen aufschreiben</div>
+            <div class="explanation">
+              Bevor man Code schreibt, skizziert man Algorithmen oft in <strong>Pseudocode</strong> — einer Art "menschenlesbarer Programmiersprache" ohne feste Syntax-Regeln.<br><br>
+              Beispiel: "Finde die größte Zahl in einer Liste":
+            </div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">pseudocode</span></div>
+              <pre class="code-pre">START
+  größte = erste Zahl in der Liste
+  FÜR JEDE Zahl in der Liste:
+    WENN Zahl > größte:
+      größte = Zahl
+  AUSGABE größte
+END</pre>
+            </div>
+            <div class="explanation">
+              Kein Python, kein JavaScript — trotzdem versteht jeder Entwickler sofort was passiert. Das ist der Punkt.
+            </div>
+          </div>
+          ${quiz('q_logic2', 'Welcher Grundbaustein beschreibt eine wiederholte Ausführung?', [
+            {t:'Sequenz', correct:false, why:'Sequenz = Anweisungen nacheinander, einmal.'},
+            {t:'Selektion', correct:false, why:'Selektion = Verzweigung / Entscheidung (if/else).'},
+            {t:'Iteration', correct:true, why:'Genau! Iteration = Schleife, etwas wiederholen solange eine Bedingung gilt.'},
+            {t:'Kompilation', correct:false, why:'Kompilation ist ein Schritt beim Übersetzen von Code, kein Algorithmus-Baustein.'},
+          ])}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 7</div>
+            <h1 class="lesson-title">Logic & Algorithms</h1>
+            <p class="lesson-desc">Before writing a single line of code, you need to think like a computer. What is an algorithm — and why is logic the foundation of all programming?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What is an algorithm?</div>
+            <div class="explanation">
+              An <strong>algorithm</strong> is an unambiguous step-by-step instruction for solving a problem. Nothing more, nothing less.<br><br>
+              A recipe is an algorithm. Directions are an algorithm. Even "sort these numbers from smallest to largest" is an algorithm — the only question is: <em>how</em>?<br><br>
+              Computers are dumb. They can't "understand" anything. They just follow instructions — exactly, in order, without context. That's why an algorithm must be <strong>complete and unambiguous</strong>.<br><br>
+              <strong>Three building blocks of every algorithm:</strong><br>
+              • <strong>Sequence</strong> — execute instructions one after another<br>
+              • <strong>Selection</strong> — make decisions (if … then …)<br>
+              • <strong>Iteration</strong> — repeat steps (while … do …)
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Boolean Logic — True or False</div>
+            <div class="explanation">
+              Computers know only two states: <strong>1 (true)</strong> and <strong>0 (false)</strong>. Everything — every decision, every condition — is built on this.<br><br>
+              <strong>AND</strong>: both conditions must be true: <code>true AND false = false</code><br>
+              <strong>OR</strong>: at least one must be true: <code>false OR true = true</code><br>
+              <strong>NOT</strong>: flips the value: <code>NOT true = false</code>
+            </div>
+          </div>
+          ${quiz('q_logic1', 'What does: true AND false evaluate to?', [
+            {t:'true', correct:false, why:'AND is only true when BOTH sides are true.'},
+            {t:'false', correct:true, why:'Correct! AND = both must be true. One side is false → result is false.'},
+            {t:'null', correct:false, why:'Null is not a boolean value here.'},
+            {t:'error', correct:false, why:'No error — this is a valid boolean operation.'},
+          ])}
+          ${quiz('q_logic2', 'Which building block describes repeated execution?', [
+            {t:'Sequence', correct:false, why:'Sequence = instructions one after another, once.'},
+            {t:'Selection', correct:false, why:'Selection = branching / decision (if/else).'},
+            {t:'Iteration', correct:true, why:'Exactly! Iteration = loop, repeat something while a condition holds.'},
+            {t:'Compilation', correct:false, why:'Compilation is a code translation step, not an algorithm building block.'},
+          ])}
+        `
+      },
+      // ── l1_8: Hardware-Grundlagen ──────────────────────────
+      {
+        id: 'l1_8', title: 'Hardware-Grundlagen — CPU, RAM & GPU',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 8</div>
+            <h1 class="lesson-title">Hardware: CPU, RAM & GPU</h1>
+            <p class="lesson-desc">Code läuft nicht in der Luft. Er läuft auf Silizium. Wer wirklich verstehen will warum ein Programm schnell oder langsam ist, muss die Hardware kennen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die CPU — der Taktgeber</div>
+            <div class="explanation">
+              Die <strong>CPU (Central Processing Unit)</strong> ist das Gehirn des Computers. Sie führt Anweisungen aus — Milliarden pro Sekunde.<br><br>
+              <strong>Kerne (Cores):</strong> Eine moderne CPU hat 4, 8, 16 oder mehr Kerne. Jeder Kern kann eine Aufgabe gleichzeitig bearbeiten. Mehr Kerne = mehr Parallelarbeit.<br><br>
+              <strong>Taktfrequenz (GHz):</strong> Gibt an wie viele Zyklen pro Sekunde ein Kern schafft. 3,5 GHz = 3,5 Milliarden Takte pro Sekunde.<br><br>
+              <strong>Cache:</strong> Extrem schneller Speicher direkt auf dem Chip (L1/L2/L3). Daten die oft gebraucht werden, liegen im Cache statt im RAM — weil Cache ~100× schneller ist.<br><br>
+              Für Entwickler wichtig: Ein einzelner Thread (Prozess) kann nur einen Kern nutzen. Willst du alle Kerne auslasten, brauchst du Parallelverarbeitung oder mehrere Threads.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">RAM — der Arbeitspeicher</div>
+            <div class="explanation">
+              <strong>RAM (Random Access Memory)</strong> ist der kurzfristige Arbeitsspeicher. Was gerade läuft — Betriebssystem, Browser-Tabs, dein Code — liegt im RAM.<br><br>
+              <strong>Warum nicht alles auf der Festplatte?</strong><br>
+              RAM ist ~1.000× schneller als eine SSD, und eine SSD ist ~10× schneller als eine HDD. Der RAM ist teuer und flüchtig (beim Ausschalten weg), die Festplatte ist billig und dauerhaft.<br><br>
+              <strong>Was passiert wenn RAM voll ist?</strong><br>
+              Das Betriebssystem nutzt dann die Festplatte als "virtuellen RAM" (Swap/Auslagerungsdatei) — und alles wird dramatisch langsamer.<br><br>
+              Als Entwickler: Wenn dein Programm immer mehr RAM frisst und nie freigibt → <strong>Memory Leak</strong>. Ein häufiger Bug.
+            </div>
+          </div>
+          ${quiz('q_hw1', 'Was ist der Hauptunterschied zwischen RAM und Festplatte?', [
+            {t:'RAM ist dauerhafter Speicher, Festplatte ist flüchtig', correct:false, why:'Genau umgekehrt: RAM ist flüchtig (weg beim Ausschalten), Festplatte ist dauerhaft.'},
+            {t:'RAM ist schneller und flüchtig, Festplatte ist langsamer und dauerhaft', correct:true, why:'Richtig! RAM: ~ns Zugriffszeit, Daten weg beim Ausschalten. SSD: ~µs, Daten bleiben.'},
+            {t:'RAM und Festplatte sind gleich schnell', correct:false, why:'RAM ist ca. 1000× schneller als eine SSD.'},
+            {t:'Festplatten haben mehr Kerne als RAM', correct:false, why:'Kerne hat die CPU, nicht Speicher.'},
+          ])}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">GPU — wenn Parallelität gewinnt</div>
+            <div class="explanation">
+              Die <strong>GPU (Graphics Processing Unit)</strong> wurde für Grafik gebaut — aber heute ist sie viel mehr.<br><br>
+              <strong>CPU vs. GPU:</strong><br>
+              • CPU: 8–32 leistungsstarke Kerne → gut für komplexe, sequenzielle Aufgaben<br>
+              • GPU: Tausende einfache Kerne → gut für massiv parallele Aufgaben<br><br>
+              Ein HD-Frame hat 2 Millionen Pixel. Alle gleichzeitig berechnen? GPU. Ein komplexes Machine-Learning-Modell mit Millionen Parametern trainieren? GPU. Einen Algorithmus schrittweise ausführen? CPU.<br><br>
+              <strong>Für Entwickler:</strong> Normale Software läuft auf der CPU. Wenn du KI/ML, Bildverarbeitung oder 3D machst, wirst du früher oder später mit der GPU arbeiten — z.B. via CUDA (NVIDIA) oder WebGL im Browser.
+            </div>
+          </div>
+          ${quiz('q_hw2', 'Wofür ist eine GPU besonders geeignet?', [
+            {t:'Komplexe, sequenzielle Berechnungen', correct:false, why:'Das ist die Stärke der CPU mit wenigen leistungsstarken Kernen.'},
+            {t:'Massiv parallele Berechnungen mit vielen gleichartigen Operationen', correct:true, why:'Genau! Tausende einfache Kerne → perfekt für Grafik, KI-Training, Physik-Simulationen.'},
+            {t:'Dauerhaften Datenspeicher', correct:false, why:'Speicher ist RAM und Festplatte — nicht GPU.'},
+            {t:'Netzwerkkommunikation', correct:false, why:'Netzwerk übernimmt die Netzwerkkarte (NIC), nicht die GPU.'},
+          ])}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 8</div>
+            <h1 class="lesson-title">Hardware: CPU, RAM & GPU</h1>
+            <p class="lesson-desc">Code doesn't run in thin air. It runs on silicon. To understand why a program is fast or slow, you need to know the hardware.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The CPU — the brain</div>
+            <div class="explanation">
+              The <strong>CPU (Central Processing Unit)</strong> executes instructions — billions per second.<br><br>
+              <strong>Cores:</strong> A modern CPU has 4, 8, 16+ cores. Each core processes one task at a time. More cores = more parallelism.<br><br>
+              <strong>Clock speed (GHz):</strong> Cycles per second. 3.5 GHz = 3.5 billion cycles per second.<br><br>
+              <strong>Cache:</strong> Ultra-fast memory on the chip itself (L1/L2/L3). ~100× faster than RAM.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">RAM — working memory</div>
+            <div class="explanation">
+              <strong>RAM</strong> is short-term working memory. Everything currently running — OS, browser tabs, your code — lives in RAM.<br><br>
+              RAM is ~1,000× faster than an SSD. When RAM is full, the OS uses the hard drive as "virtual RAM" (swap) — and everything gets dramatically slower.<br><br>
+              Developer note: If your program continuously consumes more RAM and never frees it → <strong>memory leak</strong>. A classic bug.
+            </div>
+          </div>
+          ${quiz('q_hw1', 'What is the key difference between RAM and a hard drive?', [
+            {t:'RAM is permanent, hard drive is volatile', correct:false, why:"It's the opposite: RAM is volatile (gone when powered off), hard drive is permanent."},
+            {t:'RAM is faster and volatile, hard drive is slower and permanent', correct:true, why:'Correct! RAM: ~ns access time, data lost on shutdown. SSD: ~µs, data persists.'},
+            {t:'RAM and hard drives are equally fast', correct:false, why:'RAM is about 1000× faster than an SSD.'},
+            {t:'Hard drives have more cores than RAM', correct:false, why:'Cores belong to the CPU, not storage.'},
+          ])}
+          ${quiz('q_hw2', 'What is a GPU especially suited for?', [
+            {t:'Complex sequential calculations', correct:false, why:"That's the CPU's strength with few powerful cores."},
+            {t:'Massively parallel calculations with many similar operations', correct:true, why:'Exactly! Thousands of simple cores → perfect for graphics, AI training, physics simulations.'},
+            {t:'Permanent data storage', correct:false, why:'Storage is RAM and hard drives — not GPU.'},
+            {t:'Network communication', correct:false, why:'Networking is handled by the NIC, not the GPU.'},
+          ])}
+        `
+      },
+      // ── l1_9: Betriebssysteme & Prozesse ──────────────────
+      {
+        id: 'l1_9', title: 'Betriebssysteme & Prozesse',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 9</div>
+            <h1 class="lesson-title">Betriebssysteme & Prozesse</h1>
+            <p class="lesson-desc">Was macht ein Betriebssystem eigentlich? Und was passiert, wenn du ein Programm startest? Das ist das Fundament auf dem jeder Code läuft.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist ein Betriebssystem?</div>
+            <div class="explanation">
+              Ein <strong>Betriebssystem (OS)</strong> ist die Software-Schicht zwischen Hardware und Anwendungen. Ohne OS spricht dein Browser direkt mit dem RAM-Chip — das Chaos wäre komplett.<br><br>
+              Das OS übernimmt:<br>
+              • <strong>Speicherverwaltung</strong> — welches Programm bekommt welchen RAM-Bereich?<br>
+              • <strong>Prozessverwaltung</strong> — welcher Prozess bekommt wie viel CPU-Zeit?<br>
+              • <strong>Dateisystem</strong> — Daten auf der Festplatte lesen/schreiben<br>
+              • <strong>Treiber</strong> — Schnittstelle zu Hardware (Tastatur, GPU, Netzwerk)<br>
+              • <strong>Sicherheit</strong> — wer darf was tun?<br><br>
+              Die drei großen OS: <strong>Windows</strong> (dominiert Desktop), <strong>macOS</strong> (Apple), <strong>Linux</strong> (dominiert Server, Android-Basis).
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Prozesse & Threads</div>
+            <div class="explanation">
+              Wenn du ein Programm startest, erzeugt das OS einen <strong>Prozess</strong> — einen isolierten Bereich mit eigenem RAM, eigenem Code, eigenem Zustand.<br><br>
+              Innerhalb eines Prozesses kann es mehrere <strong>Threads</strong> geben. Threads teilen den Speicher des Prozesses und können echt parallel laufen (auf mehreren CPU-Kernen).<br><br>
+              <strong>Analogie:</strong><br>
+              Prozess = ein Restaurant. Thread = ein Koch. Mehrere Köche (Threads) teilen sich die Küche (RAM), können aber gleichzeitig kochen (parallele Ausführung).<br><br>
+              <strong>Warum relevant für Entwickler?</strong><br>
+              • <code>python script.py</code> → ein Prozess, ein Thread (standardmäßig)<br>
+              • Willst du mehrere Kerne nutzen? → Multiprocessing oder async<br>
+              • Zwei Threads ändern gleichzeitig dieselbe Variable? → <strong>Race Condition</strong> — ein gemeiner Bug
+            </div>
+          </div>
+          ${quiz('q_os1', 'Was ist die Hauptaufgabe eines Betriebssystems?', [
+            {t:'Websites anzeigen', correct:false, why:'Das ist die Aufgabe eines Browsers, nicht des OS.'},
+            {t:'Hardware und Anwendungen verwalten und koordinieren', correct:true, why:'Genau! Das OS ist die Schicht zwischen Hardware und Software — Speicher, CPU-Zeit, Dateien, Sicherheit.'},
+            {t:'Code kompilieren', correct:false, why:'Kompilierung übernimmt ein Compiler (z.B. gcc, javac) — nicht das OS selbst.'},
+            {t:'Daten im Internet übertragen', correct:false, why:'Das übernehmen Netzwerkprotokolle (TCP/IP). Das OS stellt nur die Schnittstelle zur Netzwerkkarte bereit.'},
+          ])}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Kernel vs. Userspace</div>
+            <div class="explanation">
+              Das OS teilt sich in zwei Ebenen:<br><br>
+              <strong>Kernel-Space:</strong> Der Kern des OS. Direkter Zugriff auf Hardware. Läuft mit vollen Rechten. Absturz hier → Bluescreen / Kernel Panic.<br><br>
+              <strong>User-Space:</strong> Hier laufen alle normalen Programme. Kein direkter Hardware-Zugriff — alles geht über "Syscalls" (System Calls) an den Kernel.<br><br>
+              Wenn dein Python-Skript eine Datei öffnet: Python → Syscall → Kernel → Festplatten-Treiber → Festplatte. Du siehst davon nichts — das OS abstrahiert all das weg.<br><br>
+              Das ist auch Sicherheit: Ein fehlerhaftes Programm im User-Space kann nicht einfach den Kernel zerstören.
+            </div>
+          </div>
+          ${quiz('q_os2', 'Was ist ein "Race Condition" Bug?', [
+            {t:'Ein Programm das zu schnell läuft und crasht', correct:false, why:'Nicht die Geschwindigkeit ist das Problem, sondern der gleichzeitige Zugriff.'},
+            {t:'Zwei Threads ändern gleichzeitig dieselbe Variable ohne Synchronisation', correct:true, why:'Genau! Das Ergebnis ist zufällig/unkontrollierbar — je nachdem welcher Thread "gewinnt". Schwer zu reproduzieren, schwer zu debuggen.'},
+            {t:'Ein Algorithmus der in einer Endlosschleife steckt', correct:false, why:'Das wäre ein Infinite Loop — ein anderer Bug-Typ.'},
+            {t:'Ein Betriebssystem das abstürzt', correct:false, why:'Ein OS-Absturz heißt Kernel Panic oder Bluescreen — nicht Race Condition.'},
+          ])}
+          ${exercise('ex_os1',
+            'Prozess-Analyse',
+            'Öffne ein Terminal und liste alle laufenden Prozesse auf. Auf Linux/Mac: top oder ps aux. Auf Windows: tasklist. Schreib den Befehl den du verwenden würdest.',
+            'ps, top oder tasklist — je nach Betriebssystem',
+            'ps'
+          )}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 9</div>
+            <h1 class="lesson-title">Operating Systems & Processes</h1>
+            <p class="lesson-desc">What does an operating system actually do? And what happens when you start a program? This is the foundation everything runs on.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What is an operating system?</div>
+            <div class="explanation">
+              An <strong>OS (Operating System)</strong> is the software layer between hardware and applications.<br><br>
+              The OS handles: <strong>memory management</strong>, <strong>process scheduling</strong>, <strong>file system</strong>, <strong>drivers</strong>, and <strong>security</strong>.<br><br>
+              The big three: <strong>Windows</strong> (desktop), <strong>macOS</strong> (Apple), <strong>Linux</strong> (servers, Android base).
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Processes & Threads</div>
+            <div class="explanation">
+              When you start a program, the OS creates a <strong>process</strong> — an isolated space with its own RAM, code, and state.<br><br>
+              Inside a process there can be multiple <strong>threads</strong>. Threads share the process memory and can run truly in parallel (on multiple CPU cores).<br><br>
+              Two threads changing the same variable simultaneously without synchronization → <strong>Race Condition</strong> — a nasty bug.
+            </div>
+          </div>
+          ${quiz('q_os1', "What is an operating system's main job?", [
+            {t:'Display websites', correct:false, why:"That's a browser's job."},
+            {t:'Manage and coordinate hardware and applications', correct:true, why:'Exactly! The OS is the layer between hardware and software — memory, CPU time, files, security.'},
+            {t:'Compile code', correct:false, why:'Compilation is done by a compiler (e.g. gcc, javac), not the OS itself.'},
+            {t:'Transfer data over the internet', correct:false, why:'That is handled by network protocols (TCP/IP). The OS just provides the interface to the network card.'},
+          ])}
+          ${quiz('q_os2', 'What is a "race condition" bug?', [
+            {t:'A program that runs too fast and crashes', correct:false, why:'Speed alone is not the issue — it is about concurrent access.'},
+            {t:'Two threads modify the same variable simultaneously without synchronization', correct:true, why:'Exactly! The result is random/unpredictable — depending on which thread "wins". Hard to reproduce, hard to debug.'},
+            {t:'An algorithm stuck in an infinite loop', correct:false, why:'That would be an infinite loop — a different type of bug.'},
+            {t:'An operating system crash', correct:false, why:'An OS crash is called a Kernel Panic or Blue Screen — not a race condition.'},
+          ])}
+          ${exercise('ex_os1',
+            'Process Analysis',
+            'Open a terminal and list all running processes. On Linux/Mac: top or ps aux. On Windows: tasklist. Write the command you would use.',
+            'ps, top or tasklist — depending on the OS',
+            'ps'
+          )}
+        `
+      },
     ]
   },
   {
@@ -16320,9 +16633,11 @@ function updateProfileBar() {
 
 // English lesson title lookup (avoids modifying every lesson object)
 const LESSON_TITLES_EN = {
-  l1_1:'Welcome & Overview', l1_2:'Binary & Hexadecimal',
+  l0_1:'Welcome & Overview',
+  l1_2:'Binary & Hexadecimal',
   l1_3:'Character Encoding — ASCII & UTF-8', l1_4:'Terminal & Command Line',
   l1_5:'File Systems & Paths', l1_6:'Network & Internet',
+  l1_7:'Logic & Algorithms', l1_8:'Hardware: CPU, RAM & GPU', l1_9:'Operating Systems & Processes',
   l2_1:'Variables & Data Types', l2_2:'Conditions & Loops',
   l2_3:'Functions & Scope', l2_4:'Strings & String Methods',
   l2_5:'Error Handling with try/except',
@@ -17176,7 +17491,7 @@ function initPhasesCollage() {
   // Build one set of cards into a track div, then duplicate for seamless loop
   function buildCards(track, isClone) {
     const stats = [
-      { color:'#00bfae', val:'31',   id: isClone ? null : 'stat-lessons', count:31,  label:'Lektionen',     bg:'31' },
+      { color:'#00bfae', val:'34',   id: isClone ? null : 'stat-lessons', count:34,  label:'Lektionen',     bg:'34' },
       { color:'#0ea5e9', val:'6',    id: isClone ? null : 'stat-topics',  count:6,   label:'Themengebiete', bg:'6'  },
       { color:'#10b981', val:'100%', id: isClone ? null : 'stat-free',    count:null, label:'Kostenlos',    bg:'%'  },
     ];
@@ -17194,7 +17509,7 @@ function initPhasesCollage() {
     });
 
     const phases = [
-      { num:'01', color:'#00d4c8', name:'Fundament',           lessons:6 },
+      { num:'01', color:'#00d4c8', name:'Fundament',           lessons:8 },
       { num:'02', color:'#3ecf7a', name:'Python',              lessons:5 },
       { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',      lessons:5 },
       { num:'04', color:'#00bfae', name:'Backend & APIs',      lessons:4 },
@@ -17619,16 +17934,18 @@ function wipeTransition(cb) {
       num: '01', color: '#00d4c8',
       title: 'Fundament',
       desc: 'Verstehe, wie ein Computer auf unterster Ebene denkt — bevor du eine einzige Zeile Code schreibst.',
-      count: 6,
+      count: 8,
       topics: [
         'Binär, Hexadezimal & Zeichenkodierung',
         'Terminal & Kommandozeile meistern',
         'Dateisysteme, Pfade & Berechtigungen',
         'Netzwerk, TCP/IP, DNS & HTTP',
-        'Prozesse, RAM & Betriebssystem-Basics',
-        'SSH, Ports & Remote-Zugriff',
+        'Logik, Algorithmen & Pseudocode',
+        'Hardware: CPU, RAM & GPU verstehen',
+        'Betriebssysteme, Prozesse & Threads',
+        'Kernel-Space vs. User-Space',
       ],
-      skills: ['Terminal','Bash','Linux','Netzwerk','Binär','SSH'],
+      skills: ['Terminal','Bash','Linux','Netzwerk','Algorithmen','Hardware'],
     },
     {
       num: '02', color: '#3ecf7a',

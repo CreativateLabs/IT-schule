@@ -78,7 +78,7 @@ test('all phases present in sidebar', async ({ page }) => {
   await page.reload();
   await loginWithLocalProfile(page, 'NavTest');
   const phases = await page.locator('.phase-btn').count();
-  expect(phases).toBe(6);
+  expect(phases).toBe(7);
 });
 
 test('profile menu opens on click', async ({ page }) => {
