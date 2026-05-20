@@ -17542,165 +17542,47 @@ function wipeTransition(cb) {
     dotsEl.appendChild(dot);
   });
 
-  let wiping = false;
-
-  const SCRAMBLE_CHARS = 'ァアイウエカキクサシスタチツナニハヒフマミムヤユラリルワヲン01234567ABCDEF+-=|>'.split('');
-  const randSc = () => SCRAMBLE_CHARS[(Math.random() * SCRAMBLE_CHARS.length) | 0];
-
-  function scrambleElement(el, finalText, color, delay) {
-    const LEN      = finalText.length;
-    const FRAMES   = Math.max(12, Math.round(LEN * 1.4));
-    let   frame    = 0;
-    let   revealed = 0;
-    const orig = el.style.color;
-    el.style.color = color;
-    const id = setInterval(() => {
-      frame++;
-      revealed = Math.min(LEN, Math.round((frame / FRAMES) * LEN));
-      let out = finalText.slice(0, revealed);
-      for (let i = revealed; i < LEN; i++) out += randSc();
-      el.textContent = out;
-      if (revealed >= LEN) {
-        clearInterval(id);
-        el.textContent = finalText;
-        // fade color back to original over 300 ms
-        el.style.transition = 'color 300ms';
-        el.style.color = orig;
-        setTimeout(() => { el.style.transition = ''; }, 320);
-      }
-    }, 22);
-  }
-
-  // switchTo: only UI state, no scramble
-  function switchTo(idx) {
-    current = Math.max(0, Math.min(idx, PHASES_DATA.length - 1));
-    track.style.transform = `translateX(calc(-${current * 100}%))`;
-    document.querySelectorAll('.pcc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    if (counter) counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(PHASES_DATA.length).padStart(2,'0');
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current === PHASES_DATA.length - 1;
-    lucide.createIcons();
-  }
-
   function goTo(idx) {
-    if (wiping) return;
     if (idx === current) return;
-    wiping = true;
+    const slides = Array.from(track.children);
+    const prev   = slides[current];
 
-    const viewport  = track.parentElement;
-    const fromPhase = PHASES_DATA[Math.max(0, Math.min(current, PHASES_DATA.length - 1))];
-    const toPhase   = PHASES_DATA[Math.max(0, Math.min(idx,     PHASES_DATA.length - 1))];
-
-    // --- Switch slide & start text scramble immediately (canvas will cover it) ---
-    switchTo(idx);
-    const slide = track.children[current];
-    if (slide) {
-      const color = toPhase.color;
-      const go    = (el, text) => scrambleElement(el, text, color, 0);
-      const titleEl = slide.querySelector('.ps-title');
-      const descEl  = slide.querySelector('.ps-desc');
-      if (titleEl) go(titleEl, toPhase.title);
-      if (descEl)  go(descEl,  toPhase.desc);
-      slide.querySelectorAll('.ps-topic').forEach((el, i) => go(el, toPhase.topics[i] || el.textContent));
-      slide.querySelectorAll('.ps-skill').forEach((el, i) => go(el, toPhase.skills[i]  || el.textContent));
+    // Fade out current slide
+    if (prev) {
+      prev.style.transition = 'opacity 180ms ease, transform 180ms ease';
+      prev.style.opacity    = '0';
+      prev.style.transform  = 'translateY(8px)';
     }
 
-    // --- Canvas wipe uses the FROM phase color ---
-    const phase = fromPhase;
+    setTimeout(() => {
+      current = Math.max(0, Math.min(idx, PHASES_DATA.length - 1));
+      track.style.transform = `translateX(calc(-${current * 100}%))`;
+      document.querySelectorAll('.pcc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      if (counter) counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(PHASES_DATA.length).padStart(2,'0');
+      if (prevBtn) prevBtn.disabled = current === 0;
+      if (nextBtn) nextBtn.disabled = current === PHASES_DATA.length - 1;
+      lucide.createIcons();
 
-    // Hex color → r,g,b  (current phase color, not the target)
-    const hex = phase.color.replace('#','');
-    const r   = parseInt(hex.slice(0,2),16);
-    const g   = parseInt(hex.slice(2,4),16);
-    const b   = parseInt(hex.slice(4,6),16);
-
-    const canvas = document.createElement('canvas');
-    canvas.className = 'phase-matrix-wipe';
-    const rect = viewport.getBoundingClientRect();
-    const W = Math.round(rect.width);
-    const H = Math.round(rect.height);
-    canvas.width  = W;
-    canvas.height = H;
-    viewport.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
-
-    const FS      = 13;
-    const COLS    = Math.ceil(W / FS);
-    const ROWS    = Math.ceil(H / FS) + 1;
-    const CHARS   = 'ァアィイウエカキクサシスタチツナニハヒフマミムヤユラリルワヲン01234567ABCDEF+-=|>'.split('');
-    const randCh  = () => CHARS[(Math.random() * CHARS.length) | 0];
-
-    // Each column has its own character grid
-    const colChars = Array.from({length: COLS}, () => Array.from({length: ROWS}, randCh));
-    // colFill[c]: 0..1  — how full this column is
-    const colFill  = new Float32Array(COLS);
-
-    // Frame-based stagger: column c starts filling at fill-frame c * STAGGER
-    // All columns fill at the same SPEED once started — no negative speeds
-    const FILL_SPEED   = 0.38;  // fraction per frame (fill from 0→1)
-    const COL_STAGGER  = 0.30;  // frames between each column's start
-    let   fillFrame    = 0;
-    let   drainFrame   = -1;    // -1 = drain not started yet
-    let   switched     = false;
-
-    ctx.font = `${FS - 1}px 'Space Mono', monospace`;
-
-    function tick() {
-      fillFrame++;
-      if (drainFrame >= 0) drainFrame++;
-
-      ctx.clearRect(0, 0, W, H);
-
-      let allFull = true, allEmpty = true;
-
-      for (let c = 0; c < COLS; c++) {
-        // --- fill phase ---
-        if (drainFrame < 0) {
-          if (fillFrame > c * COL_STAGGER) {
-            colFill[c] = Math.min(1, colFill[c] + FILL_SPEED);
-          }
-          if (colFill[c] < 1) allFull = false;
-        }
-        // --- drain phase ---
-        else {
-          if (drainFrame > c * COL_STAGGER) {
-            colFill[c] = Math.max(0, colFill[c] - FILL_SPEED);
-          }
-          if (colFill[c] > 0) allEmpty = false;
-        }
-
-        const filled = Math.round(colFill[c] * ROWS);
-        if (filled === 0) continue;
-
-        const px = c * FS;
-
-        // Characters only — no background rects, canvas stays transparent
-        for (let row = 0; row < filled; row++) {
-          if (Math.random() < 0.06) colChars[c][row] = randCh();
-          const isHead = row === filled - 1;
-          ctx.fillStyle = isHead
-            ? `rgba(${r},${g},${b},1)`
-            : `rgba(${r},${g},${b},${0.70 + Math.random() * 0.30})`;
-          ctx.fillText(colChars[c][row], px + 1, row * FS + FS - 1);
-        }
+      // Reset previous slide instantly (off-screen)
+      if (prev) {
+        prev.style.transition = 'none';
+        prev.style.opacity    = '1';
+        prev.style.transform  = '';
       }
 
-      // Midpoint: all columns filled → start drain
-      if (allFull && !switched) {
-        switched   = true;
-        drainFrame = 0;
+      // Fade in new slide
+      const next = slides[current];
+      if (next) {
+        next.style.transition = 'none';
+        next.style.opacity    = '0';
+        next.style.transform  = 'translateY(-8px)';
+        requestAnimationFrame(() => {
+          next.style.transition = 'opacity 200ms ease, transform 200ms ease';
+          next.style.opacity    = '1';
+          next.style.transform  = '';
+        });
       }
-
-      // Done: all columns drained
-      if (drainFrame >= 0 && allEmpty) {
-        canvas.remove();
-        wiping = false;
-        return;
-      }
-
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+    }, 180);
   }
 
   window._phaseGoTo = goTo; // expose for mini-card collage clicks
