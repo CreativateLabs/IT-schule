@@ -17544,6 +17544,33 @@ function wipeTransition(cb) {
 
   let wiping = false;
 
+  const SCRAMBLE_CHARS = 'ァアイウエカキクサシスタチツナニハヒフマミムヤユラリルワヲン01234567ABCDEF+-=|>'.split('');
+  const randSc = () => SCRAMBLE_CHARS[(Math.random() * SCRAMBLE_CHARS.length) | 0];
+
+  function scrambleElement(el, finalText, color, delay) {
+    const LEN      = finalText.length;
+    const FRAMES   = Math.max(12, Math.round(LEN * 1.4));
+    let   frame    = 0;
+    let   revealed = 0;
+    const orig = el.style.color;
+    el.style.color = color;
+    const id = setInterval(() => {
+      frame++;
+      revealed = Math.min(LEN, Math.round((frame / FRAMES) * LEN));
+      let out = finalText.slice(0, revealed);
+      for (let i = revealed; i < LEN; i++) out += randSc();
+      el.textContent = out;
+      if (revealed >= LEN) {
+        clearInterval(id);
+        el.textContent = finalText;
+        // fade color back to original over 300 ms
+        el.style.transition = 'color 300ms';
+        el.style.color = orig;
+        setTimeout(() => { el.style.transition = ''; }, 320);
+      }
+    }, 22);
+  }
+
   function switchTo(idx) {
     current = Math.max(0, Math.min(idx, PHASES_DATA.length - 1));
     track.style.transform = `translateX(calc(-${current * 100}%))`;
@@ -17552,6 +17579,30 @@ function wipeTransition(cb) {
     if (prevBtn) prevBtn.disabled = current === 0;
     if (nextBtn) nextBtn.disabled = current === PHASES_DATA.length - 1;
     lucide.createIcons();
+
+    // Text scramble on the newly visible slide
+    const slide = track.children[current];
+    if (!slide) return;
+    const p     = PHASES_DATA[current];
+    const color = p.color;
+    let   delay = 0;
+    const scramble = (sel, text) => {
+      const el = slide.querySelector(sel);
+      if (el) setTimeout(() => scrambleElement(el, text, color, 0), delay);
+      delay += 40;
+    };
+    scramble('.ps-title',  p.title);
+    scramble('.ps-desc',   p.desc);
+    slide.querySelectorAll('.ps-topic').forEach((el, i) => {
+      const text = p.topics[i] || el.textContent;
+      setTimeout(() => scrambleElement(el, text, color, 0), delay);
+      delay += 30;
+    });
+    slide.querySelectorAll('.ps-skill').forEach((el, i) => {
+      const text = p.skills[i] || el.textContent;
+      setTimeout(() => scrambleElement(el, text, color, 0), delay);
+      delay += 20;
+    });
   }
 
   function goTo(idx) {
@@ -17634,7 +17685,7 @@ function wipeTransition(cb) {
           const isHead = row === filled - 1;
           ctx.fillStyle = isHead
             ? `rgba(${r},${g},${b},1)`
-            : `rgba(${r},${g},${b},${0.45 + Math.random() * 0.45})`;
+            : `rgba(${r},${g},${b},${0.70 + Math.random() * 0.30})`;
           ctx.fillText(colChars[c][row], px + 1, row * FS + FS - 1);
         }
       }
