@@ -17571,6 +17571,7 @@ function wipeTransition(cb) {
     }, 22);
   }
 
+  // switchTo: only UI state, no scramble
   function switchTo(idx) {
     current = Math.max(0, Math.min(idx, PHASES_DATA.length - 1));
     track.style.transform = `translateX(calc(-${current * 100}%))`;
@@ -17579,19 +17580,6 @@ function wipeTransition(cb) {
     if (prevBtn) prevBtn.disabled = current === 0;
     if (nextBtn) nextBtn.disabled = current === PHASES_DATA.length - 1;
     lucide.createIcons();
-
-    // Text scramble on the newly visible slide — all elements start simultaneously
-    const slide = track.children[current];
-    if (!slide) return;
-    const p     = PHASES_DATA[current];
-    const color = p.color;
-    const go    = (el, text) => scrambleElement(el, text, color, 0);
-    const titleEl = slide.querySelector('.ps-title');
-    const descEl  = slide.querySelector('.ps-desc');
-    if (titleEl) go(titleEl, p.title);
-    if (descEl)  go(descEl,  p.desc);
-    slide.querySelectorAll('.ps-topic').forEach((el, i) => go(el, p.topics[i] || el.textContent));
-    slide.querySelectorAll('.ps-skill').forEach((el, i) => go(el, p.skills[i]  || el.textContent));
   }
 
   function goTo(idx) {
@@ -17599,8 +17587,26 @@ function wipeTransition(cb) {
     if (idx === current) return;
     wiping = true;
 
-    const viewport = track.parentElement;
-    const phase    = PHASES_DATA[Math.max(0, Math.min(current, PHASES_DATA.length - 1))];
+    const viewport  = track.parentElement;
+    const fromPhase = PHASES_DATA[Math.max(0, Math.min(current, PHASES_DATA.length - 1))];
+    const toPhase   = PHASES_DATA[Math.max(0, Math.min(idx,     PHASES_DATA.length - 1))];
+
+    // --- Switch slide & start text scramble immediately (canvas will cover it) ---
+    switchTo(idx);
+    const slide = track.children[current];
+    if (slide) {
+      const color = toPhase.color;
+      const go    = (el, text) => scrambleElement(el, text, color, 0);
+      const titleEl = slide.querySelector('.ps-title');
+      const descEl  = slide.querySelector('.ps-desc');
+      if (titleEl) go(titleEl, toPhase.title);
+      if (descEl)  go(descEl,  toPhase.desc);
+      slide.querySelectorAll('.ps-topic').forEach((el, i) => go(el, toPhase.topics[i] || el.textContent));
+      slide.querySelectorAll('.ps-skill').forEach((el, i) => go(el, toPhase.skills[i]  || el.textContent));
+    }
+
+    // --- Canvas wipe uses the FROM phase color ---
+    const phase = fromPhase;
 
     // Hex color → r,g,b  (current phase color, not the target)
     const hex = phase.color.replace('#','');
@@ -17679,11 +17685,10 @@ function wipeTransition(cb) {
         }
       }
 
-      // Midpoint: all columns filled → switch slide, start drain
+      // Midpoint: all columns filled → start drain
       if (allFull && !switched) {
         switched   = true;
         drainFrame = 0;
-        switchTo(idx);
       }
 
       // Done: all columns drained
