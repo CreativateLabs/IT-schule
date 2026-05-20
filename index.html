@@ -17560,9 +17560,9 @@ function wipeTransition(cb) {
     wiping = true;
 
     const viewport = track.parentElement;
-    const phase    = PHASES_DATA[Math.max(0, Math.min(idx, PHASES_DATA.length - 1))];
+    const phase    = PHASES_DATA[Math.max(0, Math.min(current, PHASES_DATA.length - 1))];
 
-    // Hex color → r,g,b
+    // Hex color → r,g,b  (current phase color, not the target)
     const hex = phase.color.replace('#','');
     const r   = parseInt(hex.slice(0,2),16);
     const g   = parseInt(hex.slice(2,4),16);
@@ -17591,8 +17591,8 @@ function wipeTransition(cb) {
 
     // Frame-based stagger: column c starts filling at fill-frame c * STAGGER
     // All columns fill at the same SPEED once started — no negative speeds
-    const FILL_SPEED   = 0.22;  // fraction per frame (fill from 0→1)
-    const COL_STAGGER  = 0.55;  // frames between each column's start
+    const FILL_SPEED   = 0.38;  // fraction per frame (fill from 0→1)
+    const COL_STAGGER  = 0.30;  // frames between each column's start
     let   fillFrame    = 0;
     let   drainFrame   = -1;    // -1 = drain not started yet
     let   switched     = false;
