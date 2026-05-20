@@ -17633,8 +17633,8 @@ function wipeTransition(cb) {
           if (Math.random() < 0.06) colChars[c][row] = randCh();
           const isHead = row === filled - 1;
           ctx.fillStyle = isHead
-            ? 'rgba(255,255,255,1)'
-            : `rgba(255,255,255,${0.25 + Math.random() * 0.35})`;
+            ? `rgba(${r},${g},${b},1)`
+            : `rgba(${r},${g},${b},${0.45 + Math.random() * 0.45})`;
           ctx.fillText(colChars[c][row], px + 1, row * FS + FS - 1);
         }
       }
