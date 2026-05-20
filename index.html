@@ -17626,25 +17626,25 @@ function wipeTransition(cb) {
         const filled = Math.round(colFill[c] * ROWS);
         if (filled === 0) continue;
 
-        const px = c * FS;
+        const px      = c * FS;
+        const fillH   = filled * FS;
+
+        // One smooth column background — no per-cell grid
+        ctx.fillStyle = `rgba(${r},${g},${b},0.88)`;
+        ctx.fillRect(px, 0, FS, fillH);
+
+        // Bright head glow at the bottom edge
+        ctx.fillStyle = `rgba(${r},${g},${b},0.35)`;
+        ctx.fillRect(px, fillH, FS, FS * 0.7);
+
+        // Characters — scattered opacity, no background per char
         for (let row = 0; row < filled; row++) {
-          const py     = row * FS;
+          if (Math.random() < 0.05) colChars[c][row] = randCh();
           const isHead = row === filled - 1;
-
-          // Background cell
           ctx.fillStyle = isHead
-            ? `rgba(${r},${g},${b},0.45)`
-            : `rgba(${r},${g},${b},0.92)`;
-          ctx.fillRect(px, py, FS, FS);
-
-          // Occasionally mutate char
-          if (Math.random() < 0.06) colChars[c][row] = randCh();
-
-          // Character
-          ctx.fillStyle = isHead
-            ? 'rgba(245,245,255,0.95)'
-            : `rgba(215,225,255,${0.28 + Math.random() * 0.22})`;
-          ctx.fillText(colChars[c][row], px + 1, py + FS - 1);
+            ? 'rgba(255,255,255,0.95)'
+            : `rgba(255,255,255,${0.18 + Math.random() * 0.18})`;
+          ctx.fillText(colChars[c][row], px + 1, row * FS + FS - 1);
         }
       }
 
