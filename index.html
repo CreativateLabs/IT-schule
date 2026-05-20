@@ -1055,6 +1055,48 @@ body {
 
 .animate-in { animation: fadeIn 0.3s ease forwards; }
 
+/* STEP LOCK */
+.step-block { position: relative; }
+
+.step-locked {
+  opacity: 0.28;
+  pointer-events: none;
+  user-select: none;
+  filter: blur(2px);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.step-lock-gate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(0,200,180,0.06), rgba(0,0,0,0.04));
+  border: 1px dashed rgba(0,200,180,0.3);
+  backdrop-filter: blur(2px);
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text3);
+  font-family: var(--mono);
+  cursor: default;
+  pointer-events: all;
+}
+
+.step-lock-gate [data-lucide] { width: 16px; height: 16px; color: var(--accent); opacity: 0.7; }
+
+@keyframes stepUnlock {
+  from { opacity: 0.28; filter: blur(2px); transform: translateY(6px); }
+  to   { opacity: 1;    filter: blur(0);   transform: translateY(0);   }
+}
+.step-unlocking {
+  animation: stepUnlock 0.45s ease forwards;
+  pointer-events: all;
+  filter: none;
+}
+
 /* CONTROL BUTTONS (lang/theme toggle) */
 .ctrl-btn {
   display: flex; align-items: center; justify-content: center;
@@ -2470,6 +2512,7 @@ const I18N = {
     exercise_good:'Super! Das sieht richtig aus. Gut gemacht!',
     exercise_hint_kw:(kw)=>`Tipp: Du solltest "${kw}" verwenden.`,
     exercise_syntax:'Noch nicht ganz. Überprüfe deine Syntax.',
+    step_locked:'Schließe die vorherige Aufgabe ab, um fortzufahren.',
     copy_btn:'kopieren', copied_btn:'kopiert!',
     no_profiles:'Noch keine Profile vorhanden.\nErstelle dein erstes Profil rechts.',
     pct_done:'% abgeschlossen',
@@ -2521,6 +2564,7 @@ const I18N = {
     exercise_good:'Great! That looks correct. Well done!',
     exercise_hint_kw:(kw)=>`Hint: You should use "${kw}".`,
     exercise_syntax:'Not quite. Check your syntax.',
+    step_locked:'Complete the previous task to continue.',
     copy_btn:'copy', copied_btn:'copied!',
     no_profiles:'No profiles yet.\nCreate your first profile on the right.',
     pct_done:'% completed',
@@ -16045,6 +16089,80 @@ function addXP(amount) {
   el.classList.remove('xp-flash');
   void el.offsetWidth;
   el.classList.add('xp-flash');
+  unlockNextStep();
+}
+
+// ============================================================
+//              STEP LOCK / UNLOCK
+// ============================================================
+
+// Blocks that grant XP when completed (quiz → correct answer, exercise → correct code)
+// A block is "earned" once its quiz/exercise ID appears in state.quizAnswered,
+// OR if it has no interactive element at all (explanation / code-example only).
+function initStepLocks() {
+  const ca = document.getElementById('content-area');
+  if (!ca) return;
+  const BLOCK_SEL = '.content-card, .quiz-card, .exercise-card, .boss-card';
+  const blocks = Array.from(ca.querySelectorAll(BLOCK_SEL));
+  if (blocks.length <= 1) return; // nothing to lock
+
+  blocks.forEach((block, i) => {
+    block.classList.add('step-block');
+    block.dataset.stepIdx = i;
+
+    // First block always visible
+    if (i === 0) return;
+
+    // Check if already earned (re-render of a previously started lesson)
+    if (isStepEarned(blocks[i - 1])) return;
+
+    // Lock it
+    lockBlock(block);
+  });
+}
+
+function isStepEarned(block) {
+  // A quiz block is earned when its quiz ID is in quizAnswered
+  const quizOpts = block.querySelector('[data-quiz]');
+  if (quizOpts) return state.quizAnswered.has(quizOpts.dataset.quiz);
+  // An exercise block is earned when its ex_ ID is in quizAnswered
+  const runBtn = block.querySelector('[data-exercise]');
+  if (runBtn) return state.quizAnswered.has('ex_' + runBtn.dataset.exercise);
+  // Explanation / code-only block — considered earned by default (no gate)
+  return true;
+}
+
+function lockBlock(block) {
+  block.classList.add('step-locked');
+  // Add gate overlay
+  const gate = document.createElement('div');
+  gate.className = 'step-lock-gate';
+  gate.innerHTML = `<i data-lucide="lock"></i><span>${t('step_locked')}</span>`;
+  block.appendChild(gate);
+  lucide.createIcons({ nodes: [gate] });
+}
+
+function unlockNextStep() {
+  const ca = document.getElementById('content-area');
+  if (!ca) return;
+  const BLOCK_SEL = '.content-card, .quiz-card, .exercise-card, .boss-card';
+  const blocks = Array.from(ca.querySelectorAll(BLOCK_SEL));
+
+  for (let i = 1; i < blocks.length; i++) {
+    const block = blocks[i];
+    if (!block.classList.contains('step-locked')) continue;
+    // Only unlock if the previous block is now earned
+    if (isStepEarned(blocks[i - 1])) {
+      block.classList.remove('step-locked');
+      block.classList.add('step-unlocking');
+      // Remove gate overlay
+      block.querySelector('.step-lock-gate')?.remove();
+      // Scroll into view gently
+      setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+      setTimeout(() => block.classList.remove('step-unlocking'), 500);
+      break; // unlock one at a time
+    }
+  }
 }
 
 function copyCode(btn) {
@@ -16250,6 +16368,7 @@ function render() {
   });
 
   lucide.createIcons();
+  initStepLocks();
 }
 
 // ============================================================
