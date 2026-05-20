@@ -1066,7 +1066,7 @@ body {
 /* Canvas is fixed so it stays in background as content scrolls */
 #bg-matrix-canvas {
   position: fixed; inset: 0;
-  pointer-events: none; z-index: 201; /* above #landing z-index:200 but below nav z-index:100+200 */
+  pointer-events: none; z-index: 0; /* lowest layer inside landing's stacking context */
 }
 /* Landing nav already z-index:100 (within the fixed #landing z-index:200 stacking context) */
 /* No position overrides needed on #landing — keep its position:fixed intact */
@@ -1128,7 +1128,7 @@ body {
 .landing-nav-signin [data-lucide] { width: 14px; height: 14px; }
 
 /* Inner */
-.landing-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px 100px; }
+.landing-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px 100px; position: relative; z-index: 1; }
 
 /* Hero */
 .landing-hero {
@@ -16806,61 +16806,104 @@ function runIntroLoader() {
 function initBgMatrix() {
   const landing = document.getElementById('landing');
   if (!landing) return;
-  const canvas = document.createElement('canvas');
-  canvas.id = 'bg-matrix-canvas';
-  landing.insertBefore(canvas, landing.firstChild);
+
+  let canvas = document.getElementById('bg-matrix-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'bg-matrix-canvas';
+    landing.insertBefore(canvas, landing.firstChild);
+  }
   const ctx = canvas.getContext('2d');
 
-  const fs = 15;
-  let cols = 0, drops = [];
+  // Full katakana set + digits + latin — real Matrix charset
+  const CHARS = 'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=-*/\\|<>[]{}$#@%&'.split('');
+  const fs   = 16;  // font / cell size
+  const FPS  = 20;  // target frame rate
+  const INTERVAL = 1000 / FPS;
+
+  let cols    = 0;
+  let streams = []; // { col, y, speed, len, chars[], mutTimer }
+
+  function randChar() {
+    return CHARS[Math.floor(Math.random() * CHARS.length)];
+  }
+
+  function spawnStream(col, startRandom) {
+    const len   = 10 + Math.floor(Math.random() * 24); // trail length in cells
+    const speed = 0.4 + Math.random() * 0.7;            // cells per frame
+    const y     = startRandom
+      ? -(Math.random() * (canvas.height / fs))          // staggered initial position
+      : -(len + 5 + Math.random() * 30);                 // starts above viewport
+    const chars = Array.from({ length: len }, randChar);
+    streams.push({ col, y, speed, len, chars, mutTimer: 0 });
+  }
 
   function resize() {
-    const w = landing.offsetWidth  || window.innerWidth;
-    const h = landing.scrollHeight || window.innerHeight * 3;
-    canvas.width  = w;
-    canvas.height = h;
-    cols = Math.floor(w / fs);
-    if (drops.length !== cols)
-      drops = Array.from({length: cols}, () => Math.random() * -(h / fs * 0.6));
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cols = Math.floor(canvas.width / fs);
+    // Rebuild streams at new column count
+    streams = [];
+    for (let i = 0; i < cols; i++) spawnStream(i, true);
   }
-  // Defer first resize until landing is displayed (showLanding adds .show)
-  setTimeout(resize, 300);
-  window.addEventListener('resize', () => resize(), { passive: true });
-  // Resize again after intro loader finishes (when full height is known)
-  setTimeout(resize, 3500);
 
-  const chars = '01アイウエカキクサシスBCDEFGH{}[]<>_|'.split('');
-  let scrollY = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+  setTimeout(resize, 200);
+  window.addEventListener('resize', resize, { passive: true });
 
   let lastTs = 0;
   function draw(ts) {
-    if (ts - lastTs < 90) { requestAnimationFrame(draw); return; } // ~11 fps
+    if (ts - lastTs < INTERVAL) { requestAnimationFrame(draw); return; }
+    const dt = Math.min((ts - lastTs) / INTERVAL, 3); // delta in "frames"
     lastTs = ts;
 
-    // Trail fade
-    ctx.fillStyle = 'rgba(245,245,248,0.08)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Clear fully transparent each frame — we draw per-character opacity manually
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = `bold ${fs}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
 
-    ctx.font = `${fs}px 'Space Mono', monospace`;
+    for (let s = streams.length - 1; s >= 0; s--) {
+      const st = streams[s];
+      st.y += st.speed * dt;
 
-    const parallaxBase = scrollY * 0.18; // slow parallax
+      // Mutate random chars in trail for the flickering effect
+      st.mutTimer += dt;
+      if (st.mutTimer >= 2) {
+        st.mutTimer = 0;
+        const ri = Math.floor(Math.random() * st.chars.length);
+        st.chars[ri] = randChar();
+      }
 
-    for (let i = 0; i < cols; i++) {
-      const ch = chars[Math.floor(Math.random() * chars.length)];
-      const x  = i * fs;
-      const rawY = (drops[i] * fs + parallaxBase) % canvas.height;
-      const y = rawY < 0 ? rawY + canvas.height : rawY;
+      const headRow = Math.floor(st.y); // lowest row (newest)
+      const px      = st.col * fs;
 
-      // Vary opacity: left/right columns slightly more visible
-      const edgeFactor = Math.abs((i / cols) - 0.5) * 2; // 0 center, 1 edge
-      const opacity = 0.04 + edgeFactor * 0.06 + Math.sin(i * 1.3) * 0.02;
-      ctx.fillStyle = `rgba(110,110,130,${Math.max(0.03, opacity)})`;
-      ctx.fillText(ch, x, y);
+      for (let j = 0; j < st.len; j++) {
+        const row = headRow - j;
+        if (row < 0) continue;
+        const py = row * fs;
+        if (py > canvas.height) continue;
 
-      drops[i] += 0.22;
-      if (drops[i] * fs > canvas.height + 200)
-        drops[i] = -(Math.random() * 80);
+        let opacity;
+        if (j === 0) {
+          // Bright head — near white, high contrast
+          ctx.fillStyle = 'rgba(230,230,240,0.82)';
+        } else if (j === 1) {
+          // Second char — still quite bright
+          ctx.fillStyle = 'rgba(160,160,175,0.55)';
+        } else {
+          // Tail fades exponentially
+          opacity = Math.pow(1 - j / st.len, 2.8) * 0.38;
+          if (opacity < 0.015) continue;
+          ctx.fillStyle = `rgba(100,100,120,${opacity.toFixed(3)})`;
+        }
+
+        ctx.fillText(st.chars[j % st.chars.length], px, py + fs);
+      }
+
+      // Recycle stream when tail has left the screen
+      if ((st.y - st.len) * fs > canvas.height) {
+        streams.splice(s, 1);
+        spawnStream(st.col, false);
+      }
     }
 
     requestAnimationFrame(draw);
