@@ -9802,10 +9802,10 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
               <pre class="code-pre"><span class="cm">// async/await — sauberer!</span>
 <span class="kw">async</span> <span class="kw">function</span> <span class="fn">loadUser</span>(username) {
   <span class="kw">try</span> {
-    <span class="kw">const</span> <span class="fn">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">`https://api.github.com/users/${username}`</span>);
+    <span class="kw">const</span> <span class="fn">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">\`https://api.github.com/users/\${username}\`</span>);
 
     <span class="kw">if</span> (!response.ok) {
-      <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="st">`HTTP ${response.status}`</span>);
+      <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="st">\`HTTP \${response.status}\`</span>);
     }
 
     <span class="kw">const</span> <span class="fn">data</span> = <span class="kw">await</span> response.<span class="fn">json</span>();
@@ -9856,8 +9856,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
               <div class="code-block-header"><span class="code-lang">javascript</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>copy</button></div>
               <pre class="code-pre"><span class="kw">async</span> <span class="kw">function</span> <span class="fn">loadUser</span>(username) {
   <span class="kw">try</span> {
-    <span class="kw">const</span> <span class="fn">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">`https://api.github.com/users/${username}`</span>);
-    <span class="kw">if</span> (!response.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="st">`HTTP ${response.status}`</span>);
+    <span class="kw">const</span> <span class="fn">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">\`https://api.github.com/users/\${username}\`</span>);
+    <span class="kw">if</span> (!response.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="st">\`HTTP \${response.status}\`</span>);
     <span class="kw">return</span> <span class="kw">await</span> response.<span class="fn">json</span>();
   } <span class="kw">catch</span> (err) {
     <span class="kw">console</span>.<span class="fn">error</span>(err.message);
@@ -19215,7 +19215,7 @@ jobs:
     steps:
       - name: Deploy to Render
         run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}</div>
+          curl -X POST $&&& secrets.RENDER_DEPLOY_HOOK }}</div>
             </div>
           </div>
           ${quiz('q_l6_7_1', 'Was bedeutet "needs: test" in einem GitHub Actions deploy-Job?', [
@@ -19265,7 +19265,7 @@ jobs:
     if: github.ref == <span class="st">'refs/heads/main'</span>
     runs-on: ubuntu-latest
     steps:
-      - run: curl -X POST ${{ secrets.DEPLOY_HOOK }}</div>
+      - run: curl -X POST \${{ secrets.DEPLOY_HOOK }}</div>
             </div>
           </div>
           ${quiz('q_l6_7_1', 'What does "needs: test" mean in a GitHub Actions deploy job?', [
@@ -19750,7 +19750,7 @@ jobs:
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 
       <span class="cm"># Docker-Image auf CVEs scannen</span>
       - name: Trivy Image Scan
@@ -19838,7 +19838,7 @@ git commit -m <span class="st">"refactor(db): extract repository pattern from co
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Gutes Code-Review-Feedback geben</div>
             <div class="explanation">
-              <strong>Nitpick (nit):</strong> Minor-Sache, kein Blocker — "nit: Variable könnte `user_count` statt `n` heißen"<br>
+              <strong>Nitpick (nit):</strong> Minor-Sache, kein Blocker — "nit: Variable könnte <code>user_count</code> statt <code>n</code> heißen"<br>
               <strong>Suggestion:</strong> Verbesserungsvorschlag ohne Zwang — "Suggestion: Du könntest hier lru_cache nutzen für bessere Performance"<br>
               <strong>Blocker:</strong> Muss behoben werden — "Blocker: SQL-Injection möglich in Zeile 42 — bitte parametrisierte Queries nutzen"<br>
               <strong>Praise:</strong> Gutes ansprechen! — "Nice, clean abstraktion hier"<br><br>
@@ -19862,7 +19862,7 @@ git commit -m <span class="st">"refactor(db): extract repository pattern from co
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Giving Good Code Review Feedback</div>
             <div class="explanation">
-              <strong>Nitpick (nit):</strong> minor, non-blocking — "nit: variable could be named `user_count` instead of `n`"<br>
+              <strong>Nitpick (nit):</strong> minor, non-blocking — "nit: variable could be named <code>user_count</code> instead of <code>n</code>"<br>
               <strong>Suggestion:</strong> improvement without obligation — "Suggestion: you could use lru_cache here for better performance"<br>
               <strong>Blocker:</strong> must be fixed — "Blocker: SQL injection possible in line 42 — please use parameterized queries"<br>
               <strong>Praise:</strong> call out good things! — "Nice, clean abstraction here"<br><br>
