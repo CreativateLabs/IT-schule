@@ -1865,9 +1865,20 @@ body {
 
 /* ===================== PHASES COLLAGE ROW ===================== */
 .phases-collage-row {
-  display: flex; gap: 12px; align-items: stretch;
-  margin-bottom: 40px; overflow-x: auto;
-  padding-bottom: 8px; scroll-snap-type: x mandatory;
+  overflow: hidden;
+  margin-bottom: 40px;
+  /* fade edges so the loop looks seamless */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60px, black calc(100% - 60px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 60px, black calc(100% - 60px), transparent 100%);
+}
+.pcr-track {
+  display: flex; gap: 14px; align-items: stretch;
+  width: max-content;
+  animation: pcr-marquee 28s linear infinite;
+}
+@keyframes pcr-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 /* Stat cards in the unified row */
 .pc-stat-big {
@@ -1875,12 +1886,6 @@ body {
   color: var(--pc-color, var(--accent)); line-height: 1;
   margin-bottom: 8px;
 }
-.pc-divider {
-  width: 1px; flex-shrink: 0; align-self: stretch;
-  background: var(--border2); margin: 0 2px;
-  opacity: 0; transition: opacity 0.55s ease;
-}
-.pc-divider.visible { opacity: 1; }
 .phases-collage-row::-webkit-scrollbar { height: 3px; }
 .phases-collage-row::-webkit-scrollbar-track { background: transparent; }
 .phases-collage-row::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
@@ -1902,9 +1907,7 @@ body {
   opacity: 1; transform: translateY(0);
 }
 .pc-mini-card:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
-  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.11);
 }
 .pc-bg-num {
   position: absolute; bottom: -10px; right: -4px;
@@ -16950,65 +16953,58 @@ function initPhasesCollage() {
   const row = document.getElementById('phases-collage-row');
   if (!row) return;
 
-  // ── 3 stat cards prepended to the row ──
-  const stats = [
-    { color:'#7c6af7', val:'31',   id:'stat-lessons', count:31, label:'Lektionen',     bg:'31' },
-    { color:'#0ea5e9', val:'6',    id:'stat-topics',  count:6,  label:'Themengebiete', bg:'6'  },
-    { color:'#10b981', val:'100%', id:'stat-free',    count:null,label:'Kostenlos',    bg:'%'  },
-  ];
+  // Build one set of cards into a track div, then duplicate for seamless loop
+  function buildCards(track, isClone) {
+    const stats = [
+      { color:'#7c6af7', val:'31',   id: isClone ? null : 'stat-lessons', count:31,  label:'Lektionen',     bg:'31' },
+      { color:'#0ea5e9', val:'6',    id: isClone ? null : 'stat-topics',  count:6,   label:'Themengebiete', bg:'6'  },
+      { color:'#10b981', val:'100%', id: isClone ? null : 'stat-free',    count:null, label:'Kostenlos',    bg:'%'  },
+    ];
 
-  stats.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'pc-mini-card';
-    card.style.cssText = `--pc-color:${s.color};`;
-    card.innerHTML = `
-      <div class="pc-bg-num">${s.bg}</div>
-      <div class="pc-stat-big" id="${s.id}"${s.count ? ` data-count="${s.count}"` : ''}>${s.val}</div>
-      <div class="pc-count">${s.label}</div>
-    `;
-    row.appendChild(card);
-  });
-
-  // thin divider between stats and phases
-  const div = document.createElement('div');
-  div.className = 'pc-divider';
-  row.appendChild(div);
-
-  // ── 6 phase cards ──
-  const phases = [
-    { num:'01', color:'#a599f9', name:'Fundament',           lessons:6 },
-    { num:'02', color:'#3ecf7a', name:'Python',              lessons:5 },
-    { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',      lessons:5 },
-    { num:'04', color:'#7c6af7', name:'Backend & APIs',      lessons:4 },
-    { num:'05', color:'#f76a6a', name:'Hacking &\nSecurity', lessons:8 },
-    { num:'06', color:'#0ea5e9', name:'Profi-Level',         lessons:3 },
-  ];
-
-  phases.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'pc-mini-card';
-    card.style.cssText = `--pc-color:${p.color};`;
-    card.innerHTML = `
-      <div class="pc-bg-num">${p.num}</div>
-      <div class="pc-name">${p.name.replace('\n','<br>')}</div>
-      <div class="pc-count"><strong>${p.lessons}</strong> Lektionen</div>
-    `;
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      const phaseGoTo = window._phaseGoTo;
-      if (typeof phaseGoTo === 'function') phaseGoTo(i);
+    stats.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'pc-mini-card visible';
+      card.style.cssText = `--pc-color:${s.color};`;
+      card.innerHTML = `
+        <div class="pc-bg-num">${s.bg}</div>
+        <div class="pc-stat-big"${s.id ? ` id="${s.id}"` : ''}${s.count ? ` data-count="${s.count}"` : ''}>${s.val}</div>
+        <div class="pc-count">${s.label}</div>
+      `;
+      track.appendChild(card);
     });
-    row.appendChild(card);
-  });
 
-  // stagger reveal on scroll
-  const obs = new IntersectionObserver(entries => {
-    if (!entries[0].isIntersecting) return;
-    obs.disconnect();
-    const cards = row.querySelectorAll('.pc-mini-card, .pc-divider');
-    cards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 80));
-  }, { threshold: 0.1 });
-  obs.observe(row);
+    const phases = [
+      { num:'01', color:'#a599f9', name:'Fundament',           lessons:6 },
+      { num:'02', color:'#3ecf7a', name:'Python',              lessons:5 },
+      { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',      lessons:5 },
+      { num:'04', color:'#7c6af7', name:'Backend & APIs',      lessons:4 },
+      { num:'05', color:'#f76a6a', name:'Hacking &\nSecurity', lessons:8 },
+      { num:'06', color:'#0ea5e9', name:'Profi-Level',         lessons:3 },
+    ];
+
+    phases.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'pc-mini-card visible';
+      card.style.cssText = `--pc-color:${p.color}; cursor:pointer;`;
+      card.innerHTML = `
+        <div class="pc-bg-num">${p.num}</div>
+        <div class="pc-name">${p.name.replace('\n','<br>')}</div>
+        <div class="pc-count"><strong>${p.lessons}</strong> Lektionen</div>
+      `;
+      if (!isClone) {
+        card.addEventListener('click', () => {
+          if (typeof window._phaseGoTo === 'function') window._phaseGoTo(i);
+        });
+      }
+      track.appendChild(card);
+    });
+  }
+
+  const track = document.createElement('div');
+  track.className = 'pcr-track';
+  buildCards(track, false);  // original set
+  buildCards(track, true);   // duplicate for seamless loop
+  row.appendChild(track);
 }
 
 /* ===================== HERO: SPLIT TEXT ===================== */
