@@ -9576,7 +9576,7 @@ img.<span class="fn">setAttribute</span>(<span class="st">'alt'</span>, <span cl
           </div>
           ${quiz('q_l3_6_1', 'Was ist der Unterschied zwischen innerHTML und textContent?', [
             {t:'Es gibt keinen Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied.'},
-            {t:'innerHTML parst HTML-Tags, textContent behandelt alles als reinen Text (sicherer)', correct:true, why:'Genau! element.innerHTML = "<script>alert(1)</script>" führt JavaScript aus — XSS-Angriff! textContent fügt das Zeichen-für-Zeichen als Text ein, kein HTML wird interpretiert. Für User-Input immer textContent verwenden!'},
+            {t:'innerHTML parst HTML-Tags, textContent behandelt alles als reinen Text (sicherer)', correct:true, why:'Genau! element.innerHTML = "<scr\x69pt>alert(1)<\/scr\x69pt>" führt JavaScript aus — XSS-Angriff! textContent fügt das Zeichen-für-Zeichen als Text ein, kein HTML wird interpretiert. Für User-Input immer textContent verwenden!'},
             {t:'textContent ist veraltet', correct:false, why:'textContent ist modern und sicherer als innerHTML.'},
             {t:'innerHTML funktioniert nur in Chrome', correct:false, why:'Beide funktionieren in allen Browsern.'},
           ])}
@@ -9621,7 +9621,7 @@ element.textContent = userInput;</pre>
           </div>
           ${quiz('q_l3_6_1e', 'What is the difference between innerHTML and textContent?', [
             {t:'No difference', correct:false, why:'There is an important difference.'},
-            {t:'innerHTML parses HTML tags, textContent treats everything as plain text (safer)', correct:true, why:'Exactly! element.innerHTML = "<script>alert(1)</script>" runs JavaScript — XSS attack! textContent inserts everything as literal text. Always use textContent for user input!'},
+            {t:'innerHTML parses HTML tags, textContent treats everything as plain text (safer)', correct:true, why:'Exactly! element.innerHTML = "<scr\x69pt>alert(1)<\/scr\x69pt>" runs JavaScript — XSS attack! textContent inserts everything as literal text. Always use textContent for user input!'},
             {t:'textContent is deprecated', correct:false, why:'textContent is modern and safer than innerHTML.'},
             {t:'innerHTML only works in Chrome', correct:false, why:'Both work in all browsers.'},
           ])}
