@@ -17580,29 +17580,18 @@ function wipeTransition(cb) {
     if (nextBtn) nextBtn.disabled = current === PHASES_DATA.length - 1;
     lucide.createIcons();
 
-    // Text scramble on the newly visible slide
+    // Text scramble on the newly visible slide — all elements start simultaneously
     const slide = track.children[current];
     if (!slide) return;
     const p     = PHASES_DATA[current];
     const color = p.color;
-    let   delay = 0;
-    const scramble = (sel, text) => {
-      const el = slide.querySelector(sel);
-      if (el) setTimeout(() => scrambleElement(el, text, color, 0), delay);
-      delay += 40;
-    };
-    scramble('.ps-title',  p.title);
-    scramble('.ps-desc',   p.desc);
-    slide.querySelectorAll('.ps-topic').forEach((el, i) => {
-      const text = p.topics[i] || el.textContent;
-      setTimeout(() => scrambleElement(el, text, color, 0), delay);
-      delay += 30;
-    });
-    slide.querySelectorAll('.ps-skill').forEach((el, i) => {
-      const text = p.skills[i] || el.textContent;
-      setTimeout(() => scrambleElement(el, text, color, 0), delay);
-      delay += 20;
-    });
+    const go    = (el, text) => scrambleElement(el, text, color, 0);
+    const titleEl = slide.querySelector('.ps-title');
+    const descEl  = slide.querySelector('.ps-desc');
+    if (titleEl) go(titleEl, p.title);
+    if (descEl)  go(descEl,  p.desc);
+    slide.querySelectorAll('.ps-topic').forEach((el, i) => go(el, p.topics[i] || el.textContent));
+    slide.querySelectorAll('.ps-skill').forEach((el, i) => go(el, p.skills[i]  || el.textContent));
   }
 
   function goTo(idx) {
