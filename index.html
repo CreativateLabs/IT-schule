@@ -21184,15 +21184,28 @@ function runIntroLoader() {
   // Matrix rain in background
   startMatrixRain('intro-matrix', { fontSize: 14, color: 'rgba(0,200,180,0.13)' });
 
+  function hideLoader() {
+    if (loaderEl._hidden) return;
+    loaderEl._hidden = true;
+    clearInterval(tick);
+    loaderEl.classList.add('fade-out');
+    setTimeout(() => { loaderEl.style.display = 'none'; }, 650);
+  }
+
+  // Click anywhere to skip
+  loaderEl.addEventListener('click', hideLoader, { once: true });
+
+  // Hard failsafe — always hide after 3 s no matter what
+  const failsafe = setTimeout(hideLoader, 3000);
+
   // Realistic boot sequence — typed character by character
   const bootLines = [
     { text: 'root@pycobase:~$ python3 -m pycobase --init', cls: '', delay: 0 },
-    { text: 'Initializing PyCoBase v2.4.1...', cls: 'il-dim', delay: 500 },
-    { text: '[  OK  ] Loading lesson index (31 modules)', cls: 'il-ok', delay: 850 },
-    { text: '[  OK  ] Quiz engine started — 0 errors', cls: 'il-ok', delay: 1150 },
-    { text: '[  OK  ] XP system online', cls: 'il-ok', delay: 1420 },
-    { text: '[  OK  ] API connection established', cls: 'il-ok', delay: 1680 },
-    { text: 'System ready. Press any key to continue...', cls: 'il-hi', delay: 1980 },
+    { text: 'Initializing PyCoBase v2.4.1...', cls: 'il-dim', delay: 300 },
+    { text: '[  OK  ] Loading lesson index (68 modules)', cls: 'il-ok', delay: 550 },
+    { text: '[  OK  ] Quiz engine started — 0 errors', cls: 'il-ok', delay: 800 },
+    { text: '[  OK  ] XP system online', cls: 'il-ok', delay: 1000 },
+    { text: 'System ready.', cls: 'il-hi', delay: 1200 },
   ];
 
   let lineIndex = 0;
@@ -21203,32 +21216,28 @@ function runIntroLoader() {
     setTimeout(() => {
       const span = document.createElement('span');
       span.className = 'intro-term-line' + (cls ? ' ' + cls : '');
-      // Type character by character
       let i = 0;
       const typeInterval = setInterval(() => {
         span.textContent = text.slice(0, ++i);
         if (i >= text.length) { clearInterval(typeInterval); typeLine(); }
-      }, 18);
+      }, 14);
       linesEl.appendChild(span);
     }, delay);
   }
   typeLine();
 
-  // Progress bar tied to boot sequence timing
+  // Progress bar — reaches 100% in ~1.4 s
   let progress = 0;
   const tick = setInterval(() => {
-    const speed = progress < 60 ? (Math.random() * 4 + 1) : (Math.random() * 8 + 3);
-    progress = Math.min(progress + speed, 100);
+    progress = Math.min(progress + (Math.random() * 9 + 4), 100);
     fillEl.style.width = progress + '%';
     pctEl.textContent = Math.round(progress) + '%';
     if (progress >= 100) {
+      clearTimeout(failsafe);
       clearInterval(tick);
-      setTimeout(() => {
-        loaderEl.classList.add('fade-out');
-        setTimeout(() => { loaderEl.style.display = 'none'; }, 700);
-      }, 400);
+      setTimeout(hideLoader, 250);
     }
-  }, 80);
+  }, 60);
 }
 
 /* ===================== BACKGROUND SCROLL MATRIX ===================== */
