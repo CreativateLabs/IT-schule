@@ -1068,7 +1068,8 @@ body {
   pointer-events: none; z-index: 0;
 }
 #landing { position: relative; }
-.landing-nav, .landing-inner { position: relative; z-index: 1; }
+/* Only landing-inner needs z-index — nav keeps its own position:sticky */
+.landing-inner { position: relative; z-index: 1; }
 
 /* ---- Nav auth dropdown ---- */
 .nav-auth-btn {
@@ -1167,8 +1168,8 @@ body {
 
 .landing-hero-content {
   display: grid;
-  grid-template-columns: 1fr 480px;
-  gap: 72px;
+  grid-template-columns: 1fr minmax(0, 420px);
+  gap: 64px;
   align-items: center;
   width: 100%;
   padding: 96px 0 88px;
@@ -16814,14 +16815,19 @@ function initBgMatrix() {
   let cols = 0, drops = [];
 
   function resize() {
-    canvas.width  = landing.offsetWidth;
-    canvas.height = landing.scrollHeight;
-    cols = Math.floor(canvas.width / fs);
+    const w = landing.offsetWidth  || window.innerWidth;
+    const h = landing.scrollHeight || window.innerHeight * 3;
+    canvas.width  = w;
+    canvas.height = h;
+    cols = Math.floor(w / fs);
     if (drops.length !== cols)
-      drops = Array.from({length: cols}, () => Math.random() * -(canvas.height / fs * 0.6));
+      drops = Array.from({length: cols}, () => Math.random() * -(h / fs * 0.6));
   }
-  resize();
+  // Defer first resize until landing is displayed (showLanding adds .show)
+  setTimeout(resize, 300);
   window.addEventListener('resize', () => resize(), { passive: true });
+  // Resize again after intro loader finishes (when full height is known)
+  setTimeout(resize, 3500);
 
   const chars = '01アイウエカキクサシスBCDEFGH{}[]<>_|'.split('');
   let scrollY = 0;
