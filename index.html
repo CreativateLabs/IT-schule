@@ -3573,13 +3573,8 @@ So: 0x2F = 47</div>
               <code>man ls</code> zeigt die komplette Anleitung (mit <code>q</code> verlassen). Kürzer: <code>ls --help</code>.
             </div>
           </div>
-          ${quiz('q3', 'Welcher Befehl zeigt dir in welchem Ordner du dich gerade befindest?', [
-            {t:'ls', correct:false, why:'ls zeigt den INHALT des Ordners — nicht wo du bist.'},
-            {t:'pwd', correct:true, why:'Genau! pwd = "print working directory" — zeigt deinen aktuellen Pfad.'},
-            {t:'cd', correct:false, why:'cd wechselt den Ordner, zeigt aber nicht an wo du bist.'},
-            {t:'cat', correct:false, why:'cat liest Dateien aus — hat nichts mit deinem Ort zu tun.'},
-          ])}
-          ${exercise('ex1', 'Terminal Simulation', 'Schreibe den Befehl um einen neuen Ordner namens "mein_code" zu erstellen:', 'mkdir mein_code', 'mkdir')}
+          ${renderQuestions('l1_4', 6)}
+          ${renderBonus('l1_4')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
             <div class="boss-title">Deine erste Terminal-Session</div>
@@ -3710,13 +3705,8 @@ So: 0x2F = 47</div>
               <code>man ls</code> shows the full manual (press <code>q</code> to quit). Shorter: <code>ls --help</code>.
             </div>
           </div>
-          ${quiz('q3', 'Which command shows you which folder you are currently in?', [
-            {t:'ls', correct:false, why:'ls shows the CONTENTS of the folder — not where you are.'},
-            {t:'pwd', correct:true, why:'Correct! pwd = "print working directory" — shows your current path.'},
-            {t:'cd', correct:false, why:'cd changes the folder, it does not show where you are.'},
-            {t:'cat', correct:false, why:'cat reads file contents — nothing to do with your location.'},
-          ])}
-          ${exercise('ex1', 'Terminal Simulation', 'Write the command to create a new folder called "my_code":', 'mkdir my_code', 'mkdir')}
+          ${renderQuestions('l1_4', 6)}
+          ${renderBonus('l1_4')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Practical Task</div>
             <div class="boss-title">Your first terminal session</div>
@@ -20977,6 +20967,162 @@ QUESTION_POOLS['l1_3'] = [
       {t:'4', correct:true,  why:'Richtig! a=97, e=101 → 101-97=4. e ist der 5. Buchstabe (index 4 ab a).'},
       {t:'5', correct:false, why:'Zähle die Positionen ab a: a=0, b=1, c=2, d=3, e=4.'},
       {t:'69',correct:false, why:'69 wäre ord("E") (Großbuchstabe). ord("e")=101, ord("a")=97 → 4.'},
+    ]
+  },
+];
+
+// ── l1_4: Terminal & Kommandozeile ───────────────────────────
+QUESTION_POOLS['l1_4'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_4_mc1', type: 'mc', xp: 10,
+    question: 'Welcher Befehl zeigt dir, in welchem Ordner du dich gerade befindest?',
+    options: [
+      {t:'ls',  correct:false, why:'ls listet den Inhalt des Ordners auf — nicht wo du bist.'},
+      {t:'pwd', correct:true,  why:'Richtig! pwd = "print working directory" — gibt deinen aktuellen Pfad aus.'},
+      {t:'cd',  correct:false, why:'cd wechselt den Ordner, zeigt aber nichts an.'},
+      {t:'cat', correct:false, why:'cat liest Dateiinhalte — nichts mit deiner Position zu tun.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc2', type: 'mc', xp: 10,
+    question: 'Was macht `ls -la`?',
+    options: [
+      {t:'Löscht alle Dateien',              correct:false, why:'Löschen macht rm, nicht ls.'},
+      {t:'Listet Dateien inkl. versteckter, mit Details', correct:true, why:'Richtig! -l = lange Form (Rechte, Größe, Datum), -a = auch versteckte Dateien (die mit einem Punkt).'},
+      {t:'Erstellt einen neuen Ordner',       correct:false, why:'Ordner erstellt mkdir. ls listet nur.'},
+      {t:'Gibt den aktuellen Pfad aus',       correct:false, why:'Das wäre pwd. ls listet Ordnerinhalte.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc3', type: 'mc', xp: 10,
+    question: 'Was bedeutet `cd ..` im Terminal?',
+    options: [
+      {t:'Geht ins Home-Verzeichnis',         correct:false, why:'Home-Verzeichnis wäre cd ~ oder einfach cd.'},
+      {t:'Geht einen Ordner nach oben',       correct:true,  why:'Richtig! .. steht für "Elternordner". cd .. = eine Ebene höher.'},
+      {t:'Erstellt einen Ordner namens ".."', correct:false, why:'.. ist immer der Elternordner — du kannst keinen Ordner so nennen.'},
+      {t:'Löscht den aktuellen Ordner',       correct:false, why:'cd navigiert nur — es löscht nichts.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc4', type: 'mc', xp: 10,
+    question: 'Was ist der Unterschied zwischen `>` und `>>` bei der Ausgabe-Umleitung?',
+    options: [
+      {t:'Kein Unterschied',                  correct:false, why:'Großer Unterschied! > überschreibt, >> hängt an.'},
+      {t:'> überschreibt, >> hängt Inhalt an', correct:true, why:'Genau! echo "Zeile 2" >> datei.txt hängt an — echo "neu" > datei.txt überschreibt den gesamten Inhalt.'},
+      {t:'>> überschreibt, > hängt Inhalt an', correct:false, why:'Andersherum! > überschreibt, >> (doppelt) hängt an.'},
+      {t:'> ist für Ordner, >> für Dateien',    correct:false, why:'Beide sind für Dateien — der Unterschied ist überschreiben vs. anhängen.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc5', type: 'mc', xp: 10,
+    question: 'Was macht der Befehl `mkdir -p a/b/c`?',
+    options: [
+      {t:'Kopiert Ordner a nach b und c',     correct:false, why:'Kopieren macht cp. mkdir erstellt Ordner.'},
+      {t:'Erstellt Ordner a, b, c verschachtelt (a/b/c)', correct:true, why:'Richtig! -p steht für "parents" — erstellt auch alle Zwischenordner falls sie fehlen.'},
+      {t:'Löscht Ordner b und c aus a',       correct:false, why:'Löschen macht rm -r. mkdir erstellt.'},
+      {t:'Zeigt den Inhalt von a/b/c',        correct:false, why:'Anzeigen macht ls. mkdir erstellt Ordner.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc6', type: 'mc', xp: 10,
+    question: 'Was macht die Pipe `|` im Terminal?',
+    options: [
+      {t:'Trennt zwei Befehle voneinander',         correct:false, why:'Trennen würde ; machen. | leitet Ausgabe weiter.'},
+      {t:'Leitet die Ausgabe von A als Eingabe an B weiter', correct:true, why:'Richtig! z.B. ls | wc -l: ls zählt Dateien, wc -l zählt Zeilen der Ausgabe → Anzahl Dateien.'},
+      {t:'Schreibt Ausgabe in eine Datei',          correct:false, why:'In Datei schreiben macht >. Die Pipe | leitet zu einem anderen Befehl weiter.'},
+      {t:'Führt zwei Befehle gleichzeitig aus',     correct:false, why:'Gleichzeitig wäre &. | schickt Ausgabe sequenziell weiter.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc7', type: 'mc', xp: 10,
+    question: 'Wie bricht man einen laufenden Befehl im Terminal ab?',
+    options: [
+      {t:'Ctrl + D', correct:false, why:'Ctrl+D beendet die Shell-Sitzung (wie exit). Zum Abbrechen: Ctrl+C.'},
+      {t:'Ctrl + C', correct:true,  why:'Richtig! Ctrl+C sendet ein Interrupt-Signal (SIGINT) und beendet den aktuellen Prozess.'},
+      {t:'Ctrl + Z', correct:false, why:'Ctrl+Z pausiert den Prozess (SIGSTOP) — er läuft im Hintergrund weiter. Zum Abbrechen: Ctrl+C.'},
+      {t:'Ctrl + X', correct:false, why:'Ctrl+X gibt es in den meisten Shells nicht als Abbruch. Zum Abbrechen: Ctrl+C.'},
+    ]
+  },
+  {
+    id: 'p_l1_4_mc8', type: 'mc', xp: 10,
+    question: 'Was macht `grep -r "TODO" .` ?',
+    options: [
+      {t:'Sucht "TODO" nur in der Datei "."',        correct:false, why:'"." ist kein Dateiname, sondern das aktuelle Verzeichnis. -r macht die Suche rekursiv.'},
+      {t:'Sucht rekursiv nach "TODO" im aktuellen Ordner und allen Unterordnern', correct:true, why:'Richtig! -r = recursive, "." = aktuelles Verzeichnis. Sehr nützlich um TODO-Kommentare in einem ganzen Projekt zu finden.'},
+      {t:'Löscht alle Dateien mit "TODO"',           correct:false, why:'grep sucht — es löscht nichts. Löschen macht rm.'},
+      {t:'Ersetzt "TODO" durch nichts',              correct:false, why:'Ersetzen macht sed. grep sucht und gibt passende Zeilen aus.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_4_tf1', type: 'truefalse', xp: 8,
+    statement: '`rm` verschiebt Dateien in den Papierkorb, von wo man sie wiederherstellen kann.',
+    correct: false,
+    explanation: 'Falsch! rm löscht sofort und endgültig — es gibt keinen Papierkorb im Terminal. Besonders rm -rf ist gefährlich. Einmal ausgeführt: weg.'
+  },
+  {
+    id: 'p_l1_4_tf2', type: 'truefalse', xp: 8,
+    statement: '`ls` steht für "list" und zeigt den Inhalt eines Ordners an.',
+    correct: true,
+    explanation: 'Stimmt! ls (list) ist einer der meistgenutzten Befehle. ls -la zeigt auch versteckte Dateien und Details wie Rechte und Größe.'
+  },
+  {
+    id: 'p_l1_4_tf3', type: 'truefalse', xp: 8,
+    statement: 'Tab-Vervollständigung im Terminal funktioniert nur für Befehle, nicht für Dateinamen.',
+    correct: false,
+    explanation: 'Falsch! Tab vervollständigt beides — Befehle UND Datei- und Ordnernamen. Tipp: einfach mal Tab drücken, wenn du dir nicht sicher bist wie ein Name weitergeht.'
+  },
+  {
+    id: 'p_l1_4_tf4', type: 'truefalse', xp: 8,
+    statement: '`cd ~` und `cd` (ohne Argument) wechseln beide ins Home-Verzeichnis.',
+    correct: true,
+    explanation: 'Stimmt! ~ ist eine Abkürzung für den Home-Ordner (/Users/deinname auf Mac, /home/deinname auf Linux). cd ohne Argument macht dasselbe.'
+  },
+  {
+    id: 'p_l1_4_tf5', type: 'truefalse', xp: 8,
+    statement: 'Der Befehl `man ls` öffnet die vollständige Anleitung (Manual) für ls.',
+    correct: true,
+    explanation: 'Stimmt! man (manual) zeigt die komplette Dokumentation. Mit q verlässt man sie wieder. Alternativ: ls --help für eine kürzere Übersicht.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_4_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Befehl erstellt eine leere Datei (oder aktualisiert das Änderungsdatum einer bestehenden)?',
+    answers: ['touch'],
+    placeholder: 'Befehl eingeben',
+    explanation: 'Richtig! touch datei.txt erstellt eine leere Datei oder aktualisiert den Timestamp einer bestehenden.'
+  },
+  {
+    id: 'p_l1_4_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Welches Zeichen erscheint am Ende des Prompts und zeigt an, dass das Terminal auf einen Befehl wartet?',
+    answers: ['$'],
+    placeholder: 'Zeichen eingeben',
+    explanation: 'Richtig! Das $-Zeichen bedeutet: "bereit für deinen Befehl". Bei Root-Benutzern erscheint stattdessen #.'
+  },
+  {
+    id: 'p_l1_4_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Befehl zeigt nur die ersten 10 Zeilen einer Datei?',
+    answers: ['head', 'head -10', 'head -n 10'],
+    placeholder: 'Befehl eingeben',
+    explanation: 'Richtig! head datei.txt zeigt die ersten 10 Zeilen. tail datei.txt zeigt die letzten 10.'
+  },
+  {
+    id: 'p_l1_4_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Befehl benennt die Datei "alt.txt" in "neu.txt" um?',
+    answers: ['mv alt.txt neu.txt', 'mv  alt.txt  neu.txt'],
+    placeholder: 'Befehl eingeben',
+    explanation: 'Richtig! mv (move) verschiebt UND benennt um. mv alt.txt neu.txt = umbenennen. mv datei.txt ordner/ = verschieben.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_4_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Was gibt `ls -la | grep "^d" | wc -l` aus? (Tipp: "^d" matcht Zeilen die mit "d" beginnen — so beginnen Ordner-Einträge in ls -la)',
+    options: [
+      {t:'Den Inhalt aller Ordner',              correct:false, why:'ls -la | grep "^d" filtert auf Ordner-Zeilen — wc -l zählt diese Zeilen.'},
+      {t:'Die Anzahl der Unterordner im aktuellen Verzeichnis', correct:true, why:'Richtig! ls -la zeigt alle Einträge, grep "^d" behält nur Ordner (beginnen mit "d" für "directory"), wc -l zählt diese. Ergebnis = Anzahl Unterordner.'},
+      {t:'Die Größe aller Dateien in Bytes',     correct:false, why:'Dateigröße bekommst du mit du oder ls -l — diese Pipe zählt Zeilen.'},
+      {t:'Eine Fehlermeldung',                   correct:false, why:'Dieser Befehl ist gültig und gibt eine Zahl aus — die Anzahl der Unterordner.'},
     ]
   },
 ];
