@@ -3751,18 +3751,8 @@ So: 0x2F = 47</div>
     └── anleitung.md</div>
             </div>
           </div>
-          ${quiz('q_path1', 'Du bist in /projekte/web/src/ und willst zu /projekte/assets/. Welcher relative Pfad ist korrekt?', [
-            {t:'./assets/', correct:false, why:'. bedeutet aktueller Ordner — dort gibt es kein assets/.'},
-            {t:'../assets/', correct:false, why:'Das wäre nur /projekte/web/assets/ — einen Ordner höher. Aber du musst noch einen höher.'},
-            {t:'../../assets/', correct:true, why:'Richtig! Erst raus aus src/, dann raus aus web/, dann rein in assets/.'},
-            {t:'/assets/', correct:false, why:'Das wäre ein absoluter Pfad ab Root — also /assets/, nicht /projekte/assets/.'},
-          ])}
-          ${quiz('q_path2', 'Was bedeutet ~ im Terminal?', [
-            {t:'Der aktuelle Ordner', correct:false, why:'Der aktuelle Ordner ist . (ein Punkt).'},
-            {t:'Der Home-Ordner des Nutzers', correct:true, why:'Genau! Auf Mac/Linux oft /Users/name/ oder /home/name/. ~/Downloads ist kurz für dein Downloads-Verzeichnis.'},
-            {t:'Der Root-Ordner', correct:false, why:'Der Root ist / (ein Schrägstrich).'},
-            {t:'Ein Platzhalter für beliebige Zeichen', correct:false, why:'Platzhalter sind * (alle) oder ? (ein Zeichen) — nicht ~.'},
-          ])}
+          ${renderQuestions('l1_5', 6)}
+          ${renderBonus('l1_5')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -3799,18 +3789,8 @@ So: 0x2F = 47</div>
     └── guide.md</div>
             </div>
           </div>
-          ${quiz('q_path1', 'You are in /projects/web/src/ and want to reach /projects/assets/. Which relative path is correct?', [
-            {t:'./assets/', correct:false, why:'. means current folder — there is no assets/ there.'},
-            {t:'../assets/', correct:false, why:'That would be /projects/web/assets/ — only one level up. You need one more.'},
-            {t:'../../assets/', correct:true, why:'Correct! First out of src/, then out of web/, then into assets/.'},
-            {t:'/assets/', correct:false, why:'That is an absolute path from root — /assets/, not /projects/assets/.'},
-          ])}
-          ${quiz('q_path2', 'What does ~ mean in the terminal?', [
-            {t:'The current folder', correct:false, why:'The current folder is . (a dot).'},
-            {t:"The user's home folder", correct:true, why:'Correct! On Mac/Linux typically /Users/name/ or /home/name/. ~/Downloads is short for your Downloads directory.'},
-            {t:'The root folder', correct:false, why:'Root is / (a forward slash).'},
-            {t:'A wildcard for any characters', correct:false, why:'Wildcards are * (any) or ? (one character) — not ~.'},
-          ])}
+          ${renderQuestions('l1_5', 6)}
+          ${renderBonus('l1_5')}
         `
       },
       {
@@ -21123,6 +21103,161 @@ QUESTION_POOLS['l1_4'] = [
       {t:'Die Anzahl der Unterordner im aktuellen Verzeichnis', correct:true, why:'Richtig! ls -la zeigt alle Einträge, grep "^d" behält nur Ordner (beginnen mit "d" für "directory"), wc -l zählt diese. Ergebnis = Anzahl Unterordner.'},
       {t:'Die Größe aller Dateien in Bytes',     correct:false, why:'Dateigröße bekommst du mit du oder ls -l — diese Pipe zählt Zeilen.'},
       {t:'Eine Fehlermeldung',                   correct:false, why:'Dieser Befehl ist gültig und gibt eine Zahl aus — die Anzahl der Unterordner.'},
+    ]
+  },
+];
+
+QUESTION_POOLS['l1_5'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_5_mc1', type: 'mc', xp: 10,
+    question: 'Was bedeutet ein Punkt (.) am Anfang eines Pfades wie ./images/logo.png?',
+    options: [
+      {t:'Versteckte Datei',                correct:false, why:'Versteckte Dateien beginnen mit einem Punkt im Datei-NAMEN, z.B. .gitignore — nicht im Pfad.'},
+      {t:'Aktueller Ordner',                correct:true,  why:'Richtig! . steht für das aktuelle Verzeichnis. ./logo.png und logo.png bedeuten dasselbe.'},
+      {t:'Root-Verzeichnis',                correct:false, why:'Root ist / (ein Schrägstrich). . ist immer "hier", relativ zu deiner aktuellen Position.'},
+      {t:'Home-Verzeichnis des Nutzers',    correct:false, why:'Home ist ~ (Tilde). . ist der aktuelle Ordner.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc2', type: 'mc', xp: 10,
+    question: 'Du bist in /projekte/web/src/ und willst zu /projekte/assets/ navigieren. Welcher relative Pfad ist korrekt?',
+    options: [
+      {t:'./assets/',    correct:false, why:'. ist der aktuelle Ordner — das wäre /projekte/web/src/assets/ und das existiert nicht.'},
+      {t:'../assets/',   correct:false, why:'.. geht einen Ordner hoch: /projekte/web/ — assets/ liegt aber eine Ebene höher.'},
+      {t:'../../assets/', correct:true, why:'Richtig! Erst aus src/ (→ /projekte/web/), dann aus web/ (→ /projekte/), dann rein in assets/.'},
+      {t:'/assets/',     correct:false, why:'Das ist ein absoluter Pfad — /assets/ ab Root, nicht /projekte/assets/.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc3', type: 'mc', xp: 10,
+    question: 'Was ist der Unterschied zwischen einem absoluten und einem relativen Pfad?',
+    options: [
+      {t:'Absolute Pfade sind kürzer',       correct:false, why:'Eher umgekehrt — absolute Pfade starten immer bei Root und können lang sein.'},
+      {t:'Absolute Pfade starten bei Root (/), relative von der aktuellen Position', correct:true, why:'Genau! /Users/anna/index.html ist absolut. ../index.html ist relativ — beide können auf dieselbe Datei zeigen.'},
+      {t:'Relative Pfade funktionieren nur auf Windows', correct:false, why:'Relative Pfade funktionieren auf allen Betriebssystemen.'},
+      {t:'Absolute Pfade können keine Unterordner haben', correct:false, why:'Absolute Pfade können beliebig tiefe Unterordner enthalten.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc4', type: 'mc', xp: 10,
+    question: 'Was bedeutet ~ (Tilde) in einem Pfad wie ~/Downloads?',
+    options: [
+      {t:'Der aktuelle Ordner',              correct:false, why:'Aktueller Ordner ist . (Punkt). ~ steht für dein Home-Verzeichnis.'},
+      {t:'Der Root-Ordner',                  correct:false, why:'Root ist / (Schrägstrich). ~ ist dein persönlicher Home-Ordner.'},
+      {t:'Das Home-Verzeichnis des Nutzers', correct:true,  why:'Richtig! Auf Mac/Linux steht ~ für /Users/deinname/ bzw. /home/deinname/. ~/Downloads = dein Downloads-Ordner.'},
+      {t:'Ein Platzhalter für beliebige Zeichen', correct:false, why:'Platzhalter sind * oder ? — ~ ist das Home-Verzeichnis.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc5', type: 'mc', xp: 10,
+    question: 'In welchem Ordner befindet sich eine Datei mit dem Pfad /Users/anna/projekte/web/src/main.js?',
+    options: [
+      {t:'/Users/anna/projekte/web/',         correct:false, why:'Das ist ein Ordner höher — main.js liegt in src/, nicht direkt in web/.'},
+      {t:'/Users/anna/projekte/web/src/',     correct:true,  why:'Richtig! Der letzte Teil (main.js) ist die Datei selbst — alles davor ist ihr Ordnerpfad.'},
+      {t:'/Users/anna/',                      correct:false, why:'Das ist der Home-Ordner von anna — main.js ist zwei Ebenen tiefer.'},
+      {t:'/Users/anna/projekte/',             correct:false, why:'Drei Ebenen zu hoch. Die Datei liegt in src/ innerhalb von web/ innerhalb von projekte/.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc6', type: 'mc', xp: 10,
+    question: 'Eine index.html verlinkt ein Bild: <img src="../assets/logo.png">. Wo muss logo.png liegen, wenn index.html in /projekt/src/ ist?',
+    options: [
+      {t:'/projekt/src/assets/logo.png',  correct:false, why:'./assets/ wäre der Unterordner von src/ — .. geht eine Ebene höher.'},
+      {t:'/projekt/assets/logo.png',      correct:true,  why:'Richtig! ../assets/ = aus src/ raus (→ /projekt/), dann rein in assets/. Also /projekt/assets/.'},
+      {t:'/assets/logo.png',              correct:false, why:'../../assets/ wäre von src/ aus zweimal hoch. ../ (einmal) landet in /projekt/.'},
+      {t:'/logo.png',                     correct:false, why:'Das wäre Root — ../assets/ zeigt auf /projekt/assets/, nicht auf Root.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc7', type: 'mc', xp: 10,
+    question: 'Was ist der Root-Ordner auf einem Mac / Linux-System?',
+    options: [
+      {t:'~',    correct:false, why:'~ ist dein persönlicher Home-Ordner, z.B. /Users/anna — nicht das Root des Dateisystems.'},
+      {t:'.',    correct:false, why:'. ist der aktuelle Ordner — wechselt je nachdem wo du bist.'},
+      {t:'/',    correct:true,  why:'Richtig! / ist die Wurzel des Dateisystems — alles (Dateien, Ordner, Systemdateien) hängt darunter.'},
+      {t:'C:\\', correct:false, why:'C:\\ ist das Windows-Root — auf Mac/Linux ist es nur /.'},
+    ]
+  },
+  {
+    id: 'p_l1_5_mc8', type: 'mc', xp: 10,
+    question: 'Warum sollten Webprojekte relative Pfade statt absolute verwenden?',
+    options: [
+      {t:'Relative Pfade sind schneller zu laden', correct:false, why:'Die Ladezeit hängt nicht vom Pfadtyp ab, sondern von Dateigröße und Verbindung.'},
+      {t:'Absolute Pfade funktionieren nur im Browser', correct:false, why:'Absolute Pfade funktionieren überall — aber sie sind an einen festen Ort gebunden.'},
+      {t:'Relative Pfade funktionieren unabhängig vom Server-Root-Verzeichnis', correct:true, why:'Genau! Mit relativen Pfaden läuft ein Projekt auf localhost, auf jedem Server und auch lokal — ohne Anpassung.'},
+      {t:'Relative Pfade sind kürzer zu schreiben', correct:false, why:'Das stimmt manchmal, ist aber nicht der Hauptgrund.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_5_tf1', type: 'truefalse', xp: 8,
+    statement: 'Der Pfad /Users/anna/Desktop ist ein relativer Pfad.',
+    correct: false,
+    explanation: 'Falsch! Er beginnt mit / — das macht ihn zu einem absoluten Pfad. Absolute Pfade starten immer bei Root (/).'
+  },
+  {
+    id: 'p_l1_5_tf2', type: 'truefalse', xp: 8,
+    statement: '.. bedeutet "Elternordner" — der Ordner, der den aktuellen Ordner enthält.',
+    correct: true,
+    explanation: 'Stimmt! cd .. wechselt eine Ebene nach oben. ../../ geht zwei Ebenen hoch. Nützlich für relative Pfade.'
+  },
+  {
+    id: 'p_l1_5_tf3', type: 'truefalse', xp: 8,
+    statement: 'Auf Windows ist das Root-Verzeichnis, das alle anderen Dateien enthält, normalerweise C:\\.',
+    correct: true,
+    explanation: 'Stimmt! Windows nutzt Laufwerksbuchstaben (C:\\, D:\\). Mac und Linux haben nur ein /, das alle Dateien enthält.'
+  },
+  {
+    id: 'p_l1_5_tf4', type: 'truefalse', xp: 8,
+    statement: 'Die Pfade ./bild.png und bild.png zeigen immer auf unterschiedliche Dateien.',
+    correct: false,
+    explanation: 'Falsch! Beide zeigen auf dieselbe Datei — . ist der aktuelle Ordner. ./bild.png = "bild.png im aktuellen Ordner" = bild.png.'
+  },
+  {
+    id: 'p_l1_5_tf5', type: 'truefalse', xp: 8,
+    statement: 'Ein Pfad wie ~/Documents/projekt ist nur gültig auf dem Computer des aktuellen Nutzers.',
+    correct: true,
+    explanation: 'Stimmt! ~ wird zum Home-Ordner des angemeldeten Nutzers aufgelöst — auf einem anderen Rechner oder als anderer Nutzer zeigt er woanders hin.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_5_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Welches Symbol steht im Pfad für den Elternordner (eine Ebene höher)?',
+    answers: ['..', '../'],
+    placeholder: 'Symbol eingeben',
+    explanation: 'Richtig! .. (zwei Punkte) = Elternordner. . (ein Punkt) = aktueller Ordner.'
+  },
+  {
+    id: 'p_l1_5_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Du bist in /home/nino/projekte/ und willst mit einem Befehl ins Home-Verzeichnis. Welcher Kurzweg-Pfad genügt? (ein Zeichen)',
+    answers: ['~', 'cd ~'],
+    placeholder: 'Pfad/Befehl eingeben',
+    explanation: 'Richtig! ~ ist die Kurzform für dein Home-Verzeichnis. cd ~ bringt dich immer nach Hause, egal wo du bist.'
+  },
+  {
+    id: 'p_l1_5_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Welches Zeichen startet auf Mac/Linux jeden absoluten Pfad? (ein Zeichen)',
+    answers: ['/'],
+    placeholder: 'Zeichen eingeben',
+    explanation: 'Richtig! Jeder absolute Pfad auf Mac/Linux beginnt mit /. Beispiel: /Users/anna/Desktop/datei.txt.'
+  },
+  {
+    id: 'p_l1_5_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Vervollständige den Pfad: Du bist in /projekt/src/, willst zu /projekt/img/foto.jpg. Relativer Pfad: __/img/foto.jpg',
+    answers: ['..', '../'],
+    placeholder: '__ eingeben',
+    explanation: 'Richtig! ../img/foto.jpg — aus src/ eine Ebene hoch nach /projekt/, dann rein in img/.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_5_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Du hast folgende Struktur: /app/frontend/src/components/Button.jsx. Wie viele .. brauchst du im Pfad, um von Button.jsx aus die Datei /app/config.json zu erreichen?',
+    options: [
+      {t:'2 ×  ../', correct:false, why:'Zweimal hoch: /app/frontend/src/ → nein. Zähle: components → src → frontend → app. Das sind 3 Ebenen.'},
+      {t:'3 × ../',  correct:true,  why:'Richtig! Button.jsx → components (1) → src (2) → frontend (3) → app. Von app aus: config.json. Also ../../../config.json.'},
+      {t:'4 × ../',  correct:false, why:'4× wäre zu weit — dann wärst du über /app hinaus.'},
+      {t:'1 × ../',  correct:false, why:'Einmal hoch wäre nur /app/frontend/src/ — config.json liegt aber in /app/.'},
     ]
   },
 ];
