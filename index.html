@@ -4682,24 +4682,8 @@ einzigartig = <span class="fn">list</span>(<span class="fn">set</span>(zahlen)) 
 <span class="st">"python"</span> <span class="kw">in</span> tags          <span class="cm"># → True (sehr schnell)</span></div>
             </div>
           </div>
-          ${quiz('q6', 'Was gibt print(type(3.14)) aus?', [
-            {t:"<class 'int'>", correct:false, why:'int ist für Ganzzahlen wie 3 oder 42. 3.14 hat einen Dezimalpunkt.'},
-            {t:"<class 'float'>", correct:true, why:'Richtig! Zahlen mit Dezimalpunkt sind float (floating point = Gleitkommazahl).'},
-            {t:"<class 'str'>", correct:false, why:'str wäre es nur wenn es in Anführungszeichen stünde: "3.14".'},
-            {t:"<class 'number'>", correct:false, why:'number gibt es als Typ in Python nicht.'},
-          ])}
-          ${quiz('q6b', 'Welche Variable ist NICHT erlaubt?', [
-            {t:'mein_alter', correct:false, why:'snake_case mit Buchstaben und Unterstrich — perfekt erlaubt.'},
-            {t:'_name', correct:false, why:'Mit Unterstrich beginnen ist erlaubt (wird per Konvention für "interne" Variablen genutzt).'},
-            {t:'2zahl', correct:true, why:'Richtig! Variablen dürfen nicht mit einer Zahl beginnen — Python wirft hier einen SyntaxError.'},
-            {t:'farbe1', correct:false, why:'Zahl im Namen ist erlaubt — nur nicht als ERSTES Zeichen.'},
-          ])}
-          ${quiz('q6c', 'Was ist der Unterschied zwischen 10 / 3 und 10 // 3?', [
-            {t:'Beide geben 3.333... zurück', correct:false, why:'Nur / gibt einen Float zurück. // ist anders.'},
-            {t:'/ gibt Float (3.333), // gibt int ohne Rest (3)', correct:true, why:'Genau! / ist normale Division (immer float). // ist Ganzzahl-Division (rundet ab).'},
-            {t:'/ ist Modulo, // ist Division', correct:false, why:'Modulo ist %. / ist normale Division.'},
-            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied — siehe oben.'},
-          ])}
+          ${renderQuestions('l2_1', 6)}
+          ${renderBonus('l2_1')}
           ${exercise('ex2', 'Python Variablen', 'Erstelle eine Variable "stadt" mit dem Wert "Berlin" und gib sie mit print() aus:', 'stadt = "Berlin"', 'stadt')}
         `,
         content_en: () => `
@@ -4865,24 +4849,8 @@ tags = {<span class="st">"python"</span>, <span class="st">"web"</span>, <span c
 <span class="fn">print</span>(tags)             <span class="cm"># → {'python', 'web'}</span></div>
             </div>
           </div>
-          ${quiz('q6', 'What does print(type(3.14)) output?', [
-            {t:"<class 'int'>", correct:false, why:'int is for whole numbers like 3 or 42. 3.14 has a decimal point.'},
-            {t:"<class 'float'>", correct:true, why:'Correct! Numbers with a decimal point are floats (floating point).'},
-            {t:"<class 'str'>", correct:false, why:"str only if it's in quotes: \"3.14\"."},
-            {t:"<class 'number'>", correct:false, why:"'number' does not exist as a type in Python."},
-          ])}
-          ${quiz('q6b', 'Which variable name is NOT allowed?', [
-            {t:'my_age', correct:false, why:'snake_case with letters and underscores — perfectly valid.'},
-            {t:'_name', correct:false, why:'Starting with an underscore is allowed (conventionally used for internal variables).'},
-            {t:'2count', correct:true, why:'Correct! Variable names cannot start with a digit — Python raises a SyntaxError.'},
-            {t:'color1', correct:false, why:'A digit in the name is fine — just not as the FIRST character.'},
-          ])}
-          ${quiz('q6c', 'What is the difference between 10 / 3 and 10 // 3?', [
-            {t:'Both return 3.333...', correct:false, why:'Only / returns a float. // is different.'},
-            {t:'/ returns float (3.333), // returns int without remainder (3)', correct:true, why:'Exactly! / is regular division (always float). // is floor division (rounds down).'},
-            {t:'/ is modulo, // is division', correct:false, why:'Modulo is %. / is regular division.'},
-            {t:'No difference', correct:false, why:'There is an important difference — see above.'},
-          ])}
+          ${renderQuestions('l2_1', 6)}
+          ${renderBonus('l2_1')}
           ${exercise('ex2', 'Python Variables', 'Create a variable "city" with the value "Berlin" and print it:', 'city = "Berlin"', 'city')}
         `
       },
@@ -5113,18 +5081,8 @@ gross = [n.upper() <span class="kw">for</span> n <span class="kw">in</span> name
 <span class="cm"># → ['ANNA', 'BEN', 'CLARA']</span></div>
             </div>
           </div>
-          ${quiz('q7', 'Was gibt range(3) zurück?', [
-            {t:'1, 2, 3', correct:false, why:'Falsch! range() beginnt bei 0, nicht bei 1.'},
-            {t:'0, 1, 2', correct:true, why:'Richtig! range(3) erzeugt 0, 1, 2 — drei Zahlen, beginnend bei 0.'},
-            {t:'0, 1, 2, 3', correct:false, why:'Fast! Aber range(3) hört bei 2 auf — die Zahl 3 ist ausgeschlossen.'},
-            {t:'1, 2', correct:false, why:'Falsch — weder die Startposition noch die Anzahl stimmt.'},
-          ])}
-          ${quiz('q7b', 'Was passiert bei einer for-Schleife mit "continue"?', [
-            {t:'Die ganze Schleife wird sofort beendet', correct:false, why:'Das wäre break. continue überspringt nur die aktuelle Runde.'},
-            {t:'Die aktuelle Iteration wird übersprungen, die Schleife läuft weiter', correct:true, why:'Genau! continue heißt: "diesen Durchlauf abbrechen, nächster Durchlauf bitte". break stoppt komplett.'},
-            {t:'Es ist ein Synonym für break', correct:false, why:'Nein, sie machen unterschiedliche Dinge.'},
-            {t:'Es startet die Schleife von vorne', correct:false, why:'Der Schleifenzähler läuft normal weiter — es wird nur diese eine Runde übersprungen.'},
-          ])}
+          ${renderQuestions('l2_2', 6)}
+          ${renderBonus('l2_2')}
           ${exercise('ex3', 'Schleife programmieren', 'Schreibe Code der die Zahlen 1 bis 5 ausgibt (eine pro Zeile). Tipp: range(1, 6)', 'for i in range(1, 6): print(i)', 'range')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
@@ -5357,18 +5315,8 @@ upper = [n.upper() <span class="kw">for</span> n <span class="kw">in</span> name
 <span class="cm"># → ['ANNA', 'BEN', 'CLARA']</span></div>
             </div>
           </div>
-          ${quiz('q7', 'What does range(3) return?', [
-            {t:'1, 2, 3', correct:false, why:'Wrong! range() starts at 0, not 1.'},
-            {t:'0, 1, 2', correct:true, why:'Correct! range(3) produces 0, 1, 2 — three numbers starting from 0.'},
-            {t:'0, 1, 2, 3', correct:false, why:'Almost! But range(3) stops at 2 — the number 3 is excluded.'},
-            {t:'1, 2', correct:false, why:"Wrong — neither the start position nor the count is right."},
-          ])}
-          ${quiz('q7b', 'What does "continue" do in a for loop?', [
-            {t:'The whole loop stops immediately', correct:false, why:"That's break. continue only skips the current iteration."},
-            {t:'The current iteration is skipped, the loop keeps running', correct:true, why:'Exactly! continue means: "abort this pass, start the next one". break stops completely.'},
-            {t:"It's a synonym for break", correct:false, why:'No, they do different things.'},
-            {t:'It restarts the loop from the beginning', correct:false, why:'The loop counter advances normally — only this one round is skipped.'},
-          ])}
+          ${renderQuestions('l2_2', 6)}
+          ${renderBonus('l2_2')}
           ${exercise('ex3', 'Write a loop', 'Write code that prints the numbers 1 to 5 (one per line). Hint: range(1, 6)', 'for i in range(1, 6): print(i)', 'range')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Practice challenge</div>
@@ -5583,18 +5531,8 @@ quadrate = <span class="fn">list</span>(<span class="fn">map</span>(<span class=
               <strong>Faustregel:</strong> wenn die Lambda länger als eine Zeile wäre — nimm eine normale Funktion mit <code>def</code>. Lambdas sind nur für kurze Einzeiler gedacht.
             </div>
           </div>
-          ${quiz('q8', 'Was macht das Schlüsselwort "return" in einer Funktion?', [
-            {t:'Es druckt den Wert aus', correct:false, why:'print() druckt aus. return gibt einen Wert zurück — das ist ein großer Unterschied!'},
-            {t:'Es beendet das Programm', correct:false, why:'exit() oder sys.exit() beendet das Programm. return beendet nur die Funktion.'},
-            {t:'Es gibt einen Wert an den Aufrufer zurück', correct:true, why:'Genau! Der Wert nach return kann dann z.B. in einer Variable gespeichert werden.'},
-            {t:'Es deklariert eine neue Variable', correct:false, why:'Variablen deklariert man einfach mit name = wert, ohne Schlüsselwort.'},
-          ])}
-          ${quiz('q8b', 'Was gibt eine Funktion ohne return zurück?', [
-            {t:'Einen leeren String ""', correct:false, why:'Nein — "" ist ein expliziter Wert. Ohne return ist die Funktion stumm.'},
-            {t:'Einen Fehler', correct:false, why:'Funktionen ohne return sind völlig normal und legal.'},
-            {t:'None', correct:true, why:'Genau! Jede Python-Funktion gibt automatisch None zurück, wenn kein return angegeben ist.'},
-            {t:'Den letzten berechneten Wert', correct:false, why:'Das macht z.B. Ruby — Python aber NICHT. Du musst explizit returnen.'},
-          ])}
+          ${renderQuestions('l2_3', 6)}
+          ${renderBonus('l2_3')}
           ${exercise('ex4', 'Eigene Funktion schreiben', 'Schreibe eine Funktion "quadrat(n)" die n² zurückgibt. Dann ruf sie mit 7 auf und gib das Ergebnis aus.', 'def quadrat(n): return n ** 2', 'return')}
         `,
         content_en: () => `
@@ -5801,18 +5739,8 @@ squares = <span class="fn">list</span>(<span class="fn">map</span>(<span class="
               <strong>Rule of thumb:</strong> if the lambda would be longer than one line — use a regular <code>def</code> function. Lambdas are only for short one-liners.
             </div>
           </div>
-          ${quiz('q8', 'What does the "return" keyword do in a function?', [
-            {t:'It prints the value', correct:false, why:'print() prints. return hands a value back — a big difference!'},
-            {t:'It terminates the whole program', correct:false, why:'exit() or sys.exit() terminates the program. return only ends the function.'},
-            {t:'It gives a value back to the caller', correct:true, why:'Exactly! The value after return can then be stored in a variable.'},
-            {t:'It declares a new variable', correct:false, why:'Variables are declared simply with name = value, no keyword needed.'},
-          ])}
-          ${quiz('q8b', 'What does a function without return give back?', [
-            {t:'An empty string ""', correct:false, why:'No — "" is an explicit value. Without return the function is silent.'},
-            {t:'An error', correct:false, why:'Functions without return are perfectly valid and common.'},
-            {t:'None', correct:true, why:'Exactly! Every Python function automatically returns None when no return is given.'},
-            {t:'The last computed value', correct:false, why:"That's how Ruby works — Python does NOT. You must return explicitly."},
-          ])}
+          ${renderQuestions('l2_3', 6)}
+          ${renderBonus('l2_3')}
           ${exercise('ex4', 'Write your own function', 'Write a function "square(n)" that returns n². Then call it with 7 and print the result.', 'def square(n): return n ** 2', 'return')}
         `
       },
@@ -5989,24 +5917,8 @@ zeile = <span class="st">"Anna,28,Berlin"</span>
 name, alter, stadt = zeile.split(<span class="st">","</span>)</div>
             </div>
           </div>
-          ${quiz('q_str1', 'Was gibt "Python".upper() zurück?', [
-            {t:'python', correct:false, why:'.upper() macht GROSS, nicht klein. Klein wäre .lower().'},
-            {t:'Python', correct:false, why:'.upper() verändert den String — er bleibt nicht gleich.'},
-            {t:'PYTHON', correct:true, why:'Richtig! .upper() macht alle Buchstaben groß.'},
-            {t:'PYTHON!', correct:false, why:'.upper() fügt nichts hinzu — es macht nur groß.'},
-          ])}
-          ${quiz('q_str2', 'Was macht "a,b,c".split(",")?', [
-            {t:'Es gibt "abc" zurück', correct:false, why:'split entfernt das Komma, aber gibt eine Liste zurück — keinen String.'},
-            {t:'Es gibt ["a", "b", "c"] zurück', correct:true, why:'Genau! .split(",") zerlegt den String am Komma in eine Liste.'},
-            {t:'Es ersetzt das Komma', correct:false, why:'Das wäre .replace(). split zerlegt.'},
-            {t:'Es wirft einen Fehler', correct:false, why:'split ist eine Standardmethode für Strings und funktioniert immer.'},
-          ])}
-          ${quiz('q_str3', 'Was gibt "Programmieren"[::-1] zurück?', [
-            {t:'Programmieren', correct:false, why:'Das wäre der Original-String. Slicing mit [::-1] verändert ihn.'},
-            {t:'nereimmargorP', correct:true, why:'Genau! [::-1] heißt "von Anfang bis Ende, Schritt -1" — also rückwärts.'},
-            {t:'Pormirn', correct:false, why:'Das wäre [::2] — jedes 2. Zeichen.'},
-            {t:'P', correct:false, why:'Das wäre [-1] — nur das letzte Zeichen.'},
-          ])}
+          ${renderQuestions('l2_4', 6)}
+          ${renderBonus('l2_4')}
           ${exercise('ex_str', 'String bearbeiten', 'Speichere "  Python lernen  " in einer Variable "s", entferne die Leerzeichen mit strip() und gib das Ergebnis in Großbuchstaben aus.', 's.strip().upper()', 'strip')}
         `,
         content_en: () => `
@@ -6178,24 +6090,8 @@ row = <span class="st">"Anna,28,Berlin"</span>
 name, age, city = row.split(<span class="st">","</span>)</div>
             </div>
           </div>
-          ${quiz('q_str1', 'What does "Python".upper() return?', [
-            {t:'python', correct:false, why:'.upper() makes UPPERCASE, not lowercase. Lowercase would be .lower().'},
-            {t:'Python', correct:false, why:'.upper() changes the string — it does not stay the same.'},
-            {t:'PYTHON', correct:true, why:'Correct! .upper() converts all letters to uppercase.'},
-            {t:'PYTHON!', correct:false, why:'.upper() adds nothing — it only uppercases.'},
-          ])}
-          ${quiz('q_str2', 'What does "a,b,c".split(",") do?', [
-            {t:'It returns "abc"', correct:false, why:'split removes the delimiter but returns a list, not a string.'},
-            {t:'It returns ["a", "b", "c"]', correct:true, why:'Exactly! .split(",") splits the string at each comma into a list.'},
-            {t:'It replaces the comma', correct:false, why:"That would be .replace(). split splits."},
-            {t:'It raises an error', correct:false, why:'split is a standard string method and always works.'},
-          ])}
-          ${quiz('q_str3', 'What does "Programming"[::-1] return?', [
-            {t:'Programming', correct:false, why:"That's the original string. Slicing with [::-1] reverses it."},
-            {t:'gnimmargorP', correct:true, why:'Exactly! [::-1] means "from start to end, step -1" — i.e. backwards.'},
-            {t:'Pormig', correct:false, why:'That would be [::2] — every 2nd character.'},
-            {t:'P', correct:false, why:'That would be [0] — only the first character.'},
-          ])}
+          ${renderQuestions('l2_4', 6)}
+          ${renderBonus('l2_4')}
           ${exercise('ex_str', 'Edit a string', 'Store "  Learning Python  " in a variable "s", remove the whitespace with strip() and print the result in uppercase.', 's.strip().upper()', 'strip')}
         `
       },
@@ -6404,24 +6300,8 @@ datei = <span class="fn">open</span>(<span class="st">"daten.txt"</span>)
               Lieber am Funktionsanfang prüfen und früh einen Fehler werfen, als 100 Zeilen später mit komischem Verhalten kämpfen.
             </div>
           </div>
-          ${quiz('q_err1', 'Was passiert im finally-Block?', [
-            {t:'Er läuft nur wenn ein Fehler auftrat', correct:false, why:'Das wäre except. finally läuft immer.'},
-            {t:'Er läuft nur wenn kein Fehler auftrat', correct:false, why:'Das wäre der else-Block. finally läuft immer.'},
-            {t:'Er läuft immer — egal ob Fehler oder nicht', correct:true, why:'Genau! Nützlich um Ressourcen zu schließen (z.B. Dateien) auch wenn etwas schief ging.'},
-            {t:'Er beendet das Programm', correct:false, why:'finally beendet nichts — es wird nur garantiert ausgeführt.'},
-          ])}
-          ${quiz('q_err2', 'Welcher Fehler tritt bei int("hallo") auf?', [
-            {t:'TypeError', correct:false, why:'TypeError wäre z.B. bei "5" + 3 (falsche TYPEN). Hier ist der Typ richtig (str), aber der Wert nicht umwandelbar.'},
-            {t:'ValueError', correct:true, why:'Genau! Der Typ ist OK (string), aber der Wert "hallo" ist keine gültige Ganzzahl. ValueError = "Wert passt nicht".'},
-            {t:'NameError', correct:false, why:'NameError gäbs wenn die Variable nicht existiert. int und "hallo" sind beide bekannt.'},
-            {t:'KeyError', correct:false, why:'KeyError ist nur für Dictionaries.'},
-          ])}
-          ${quiz('q_err3', 'Warum ist "with open(...) as f:" besser als "f = open(...)"?', [
-            {t:'Es ist schneller', correct:false, why:'Performance ist gleich.'},
-            {t:'Die Datei wird automatisch geschlossen — auch bei Fehlern', correct:true, why:'Genau! Das with-Statement garantiert, dass die Datei sauber zugemacht wird. Ohne with läuft die Datei evtl. offen weiter wenn ein Fehler kommt.'},
-            {t:'Es kann mehrere Dateien gleichzeitig öffnen', correct:false, why:'Das geht mit beiden Methoden.'},
-            {t:'Es benötigt kein try/except', correct:false, why:'Du brauchst weiterhin try/except wenn die Datei nicht existiert.'},
-          ])}
+          ${renderQuestions('l2_5', 6)}
+          ${renderBonus('l2_5')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -6626,24 +6506,8 @@ file = <span class="fn">open</span>(<span class="st">"data.txt"</span>)
               Better to check at the start of a function and raise early than fight weird behaviour 100 lines later.
             </div>
           </div>
-          ${quiz('q_err1', 'What happens in the finally block?', [
-            {t:'It runs only when an error occurred', correct:false, why:"That would be except. finally always runs."},
-            {t:'It runs only when no error occurred', correct:false, why:"That would be the else block. finally always runs."},
-            {t:'It always runs — whether error or not', correct:true, why:'Exactly! Useful for closing resources (files etc.) even when something went wrong.'},
-            {t:'It terminates the program', correct:false, why:"finally terminates nothing — it's just guaranteed to execute."},
-          ])}
-          ${quiz('q_err2', 'Which error does int("hello") raise?', [
-            {t:'TypeError', correct:false, why:'TypeError would be e.g. "5" + 3 (wrong TYPES). Here the type is fine (str), but the value cannot be converted.'},
-            {t:'ValueError', correct:true, why:'Exactly! The type is OK (string), but "hello" is not a valid integer. ValueError = "value does not fit".'},
-            {t:'NameError', correct:false, why:'NameError occurs when a variable does not exist. int and "hello" are both known.'},
-            {t:'KeyError', correct:false, why:'KeyError is only for dictionaries.'},
-          ])}
-          ${quiz('q_err3', 'Why is "with open(...) as f:" better than "f = open(...)"?', [
-            {t:'It is faster', correct:false, why:'Performance is the same.'},
-            {t:'The file is automatically closed — even on errors', correct:true, why:'Exactly! The with statement guarantees the file is closed cleanly. Without with, the file might stay open if an error occurs.'},
-            {t:'It can open multiple files at once', correct:false, why:'Both methods support that.'},
-            {t:'It does not need try/except', correct:false, why:'You still need try/except when the file does not exist.'},
-          ])}
+          ${renderQuestions('l2_5', 6)}
+          ${renderBonus('l2_5')}
         `
       },
       {
@@ -6712,12 +6576,8 @@ names.append(<span class="st">"Clara"</span>)
 <span class="kw">print</span>(a - b)  <span class="cm"># {1}  — Differenz</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_6_1', 'Was gibt user.get("email", "N/A") zurück, wenn der Schlüssel "email" nicht im Dictionary existiert?', [
-            {t:'"email"', correct:false, why:'get() gibt den Schlüsselnamen nicht zurück.'},
-            {t:'"N/A"', correct:true, why:'Genau! Das zweite Argument von .get() ist der Default-Wert. So vermeidest du einen KeyError.'},
-            {t:'None', correct:false, why:'Nur wenn kein Default angegeben ist — hier wurde "N/A" als Default übergeben.'},
-            {t:'KeyError wird geworfen', correct:false, why:'Genau das verhindert .get() — keine Exception.'},
-          ])}
+          ${renderQuestions('l2_6', 6)}
+          ${renderBonus('l2_6')}
           ${exercise('ex_l2_6_1', 'Comprehension-Challenge', 'Erstelle eine Liste aller Zahlen von 1 bis 50, die durch 3 teilbar sind, mit einer List Comprehension in einer Zeile. Dann erstelle ein Dictionary, das jede dieser Zahlen auf ihr Quadrat abbildet.', 'Tipp: Benutze for x in range(1, 51) und if x % 3 == 0', 'for')}
         `,
         content_en: () => `
@@ -6766,12 +6626,8 @@ names.append(<span class="st">"Clara"</span>)
 <span class="fn">squared</span> = {x: x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>)}</pre>
             </div>
           </div>
-          ${quiz('q_l2_6_1e', 'What does user.get("email", "N/A") return if "email" key does not exist?', [
-            {t:'"email"', correct:false, why:'get() does not return the key name.'},
-            {t:'"N/A"', correct:true, why:'Exactly! The second argument to .get() is the default value — no KeyError raised.'},
-            {t:'None', correct:false, why:'Only if no default is provided — here "N/A" was passed as default.'},
-            {t:'Raises KeyError', correct:false, why:'That is exactly what .get() prevents.'},
-          ])}
+          ${renderQuestions('l2_6', 6)}
+          ${renderBonus('l2_6')}
           ${exercise('ex_l2_6_1e', 'Comprehension Challenge', 'Create a list of all numbers from 1 to 50 divisible by 3, using a one-line list comprehension. Then create a dictionary mapping each of those numbers to its square.', 'Hint: Use for x in range(1, 51) and if x % 3 == 0', 'for')}
         `
       },
@@ -6841,12 +6697,8 @@ rex.<span class="fn">show_tricks</span>()  <span class="cm"># Rex kann: Sitz</sp
 <span class="kw">print</span>(<span class="fn">isinstance</span>(kitty, Animal))  <span class="cm"># True</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_7_1', 'Was ist der Zweck von __init__ in einer Python-Klasse?', [
-            {t:'Es macht die Klasse importierbar', correct:false, why:'Import hat nichts mit __init__ zu tun.'},
-            {t:'Es ist der Konstruktor — wird automatisch beim Erstellen einer Instanz aufgerufen und setzt Attribute', correct:true, why:'Genau! Jedes Mal wenn du Dog("Rex", "Labrador") schreibst, wird __init__ automatisch ausgeführt.'},
-            {t:'Es definiert eine statische Methode', correct:false, why:'Statische Methoden werden mit @staticmethod deklariert.'},
-            {t:'Es ist optional und hat keine besondere Bedeutung', correct:false, why:'__init__ ist der Standard-Konstruktor — sehr wichtig.'},
-          ])}
+          ${renderQuestions('l2_7', 6)}
+          ${renderBonus('l2_7')}
           ${exercise('ex_l2_7_1', 'Meine erste Klasse', 'Erstelle eine Klasse BankAccount mit __init__(owner, balance=0), einer Methode deposit(amount) zum Einzahlen, withdraw(amount) zum Abheben (prüfe ob genug Geld da ist) und __repr__ der das Konto beschreibt. Erstelle dann eine Instanz und teste alle Methoden.', 'Tipp: Prüfe if amount <= self.balance in withdraw()', 'class')}
         `,
         content_en: () => `
@@ -6897,12 +6749,8 @@ rex.<span class="fn">show_tricks</span>()  <span class="cm"># Rex kann: Sitz</sp
 <span class="kw">print</span>(kitty.<span class="fn">speak</span>())</pre>
             </div>
           </div>
-          ${quiz('q_l2_7_1e', 'What is the purpose of __init__ in a Python class?', [
-            {t:'It makes the class importable', correct:false, why:'Import has nothing to do with __init__.'},
-            {t:'It is the constructor — called automatically when creating an instance and sets attributes', correct:true, why:'Exactly! Every time you write Dog("Rex", "Labrador"), __init__ runs automatically.'},
-            {t:'It defines a static method', correct:false, why:'Static methods are declared with @staticmethod.'},
-            {t:'It is optional and has no special meaning', correct:false, why:'__init__ is the standard constructor — very important.'},
-          ])}
+          ${renderQuestions('l2_7', 6)}
+          ${renderBonus('l2_7')}
           ${exercise('ex_l2_7_1e', 'My First Class', 'Create a class BankAccount with __init__(owner, balance=0), a deposit(amount) method, a withdraw(amount) method (check if enough money), and __repr__ describing the account. Create an instance and test all methods.', 'Hint: Check if amount <= self.balance in withdraw()', 'class')}
         `
       },
@@ -6973,12 +6821,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(r.status_code)  <span class="cm"># 200</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_8_1', 'Was ist der Unterschied zwischen "import math" und "from math import sqrt"?', [
-            {t:'Es gibt keinen Unterschied', correct:false, why:'Doch — der Zugriff funktioniert anders.'},
-            {t:'"import math" lädt das ganze Modul (Zugriff via math.sqrt), "from math import sqrt" macht sqrt direkt verfügbar', correct:true, why:'Genau! Mit "from math import sqrt" kannst du sqrt() direkt schreiben statt math.sqrt(). Bei vielen Importen kann "from" den Code lesbarer machen.'},
-            {t:'"from math import sqrt" ist langsamer', correct:false, why:'Performance-Unterschied ist minimal und irrelevant.'},
-            {t:'"import math" ist veraltet', correct:false, why:'Beide Formen sind aktuell und weit verbreitet.'},
-          ])}
+          ${renderQuestions('l2_8', 6)}
+          ${renderBonus('l2_8')}
           ${exercise('ex_l2_8_1', 'Modul-Werkzeugkasten', 'Schreibe ein Programm das: (1) mit datetime das heutige Datum und die Uhrzeit ausgibt, (2) mit math den Umfang und die Fläche eines Kreises mit Radius 7 berechnet, (3) mit os alle Dateien im aktuellen Verzeichnis auflistet. Nutze from … import für alle drei.', 'Tipp: Umfang = 2 * math.pi * r, Fläche = math.pi * r**2', 'import')}
         `,
         content_en: () => `
@@ -7018,12 +6862,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(r.status_code)  <span class="cm"># 200</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_8_1e', 'What is the difference between "import math" and "from math import sqrt"?', [
-            {t:'No difference', correct:false, why:'Yes there is — access syntax differs.'},
-            {t:'"import math" loads the whole module (access via math.sqrt), "from math import sqrt" makes sqrt directly available', correct:true, why:'Exactly! With "from math import sqrt" you write sqrt() directly instead of math.sqrt().'},
-            {t:'"from math import sqrt" is slower', correct:false, why:'Performance difference is minimal and irrelevant.'},
-            {t:'"import math" is deprecated', correct:false, why:'Both forms are current and widely used.'},
-          ])}
+          ${renderQuestions('l2_8', 6)}
+          ${renderBonus('l2_8')}
           ${exercise('ex_l2_8_1e', 'Module Toolkit', 'Write a program that: (1) prints today\'s date and time using datetime, (2) calculates the circumference and area of a circle with radius 7 using math, (3) lists all files in the current directory using os. Use from … import for all three.', 'Hint: circumference = 2 * math.pi * r, area = math.pi * r**2', 'import')}
         `
       },
@@ -7089,12 +6929,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(config[<span class="st">"hobbies"</span>])  <span class="cm"># ['coding', 'chess']</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_9_1', 'Was ist der Vorteil des with-Statements beim Öffnen von Dateien?', [
-            {t:'Die Datei wird komprimiert', correct:false, why:'with komprimiert nichts.'},
-            {t:'Die Datei wird automatisch geschlossen — auch wenn eine Exception auftritt', correct:true, why:'Genau! Das with-Statement garantiert sauberes Aufräumen. Ohne with könnte eine Datei offen bleiben und Daten könnten verloren gehen oder die Datei gesperrt bleiben.'},
-            {t:'Es ist schneller als open() allein', correct:false, why:'Performance ist gleich — der Vorteil ist Sicherheit.'},
-            {t:'Es unterstützt nur Textdateien', correct:false, why:'with open() funktioniert auch mit Binärdateien (Modus "rb"/"wb").'},
-          ])}
+          ${renderQuestions('l2_9', 6)}
+          ${renderBonus('l2_9')}
           ${exercise('ex_l2_9_1', 'Notiz-App', 'Erstelle ein einfaches Notiz-System: Eine Funktion save_note(text) die eine Notiz (als JSON-Objekt mit timestamp und text) an eine Datei "notes.json" anhängt. Eine Funktion load_notes() die alle gespeicherten Notizen lädt und zurückgibt. Nutze das json-Modul und datetime für den Zeitstempel.', 'Tipp: Lade zuerst die bestehenden Notizen, füge die neue hinzu, speichere dann alles neu.', 'open')}
         `,
         content_en: () => `
@@ -7132,12 +6968,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(parsed[<span class="st">"name"</span>])  <span class="cm"># Alice</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_9_1e', 'What is the advantage of the with statement when opening files?', [
-            {t:'The file gets compressed', correct:false, why:'with does not compress anything.'},
-            {t:'The file is automatically closed — even if an exception occurs', correct:true, why:'Exactly! The with statement guarantees clean cleanup. Without with, a file might stay open and data could be lost.'},
-            {t:'It is faster than open() alone', correct:false, why:'Performance is the same — the advantage is safety.'},
-            {t:'It only supports text files', correct:false, why:'with open() works with binary files too (mode "rb"/"wb").'},
-          ])}
+          ${renderQuestions('l2_9', 6)}
+          ${renderBonus('l2_9')}
           ${exercise('ex_l2_9_1e', 'Note App', 'Create a simple note system: a function save_note(text) that appends a note (as a JSON object with timestamp and text) to a file "notes.json". A function load_notes() that loads and returns all stored notes. Use the json module and datetime for the timestamp.', 'Hint: Load existing notes first, add the new one, then save everything again.', 'open')}
         `
       },
@@ -7211,12 +7043,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="cm"># def home(): ...</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_10_1', 'Was macht ein Dekorator in Python?', [
-            {t:'Er macht eine Funktion schneller', correct:false, why:'Dekoratoren optimieren keine Performance automatisch.'},
-            {t:'Er erweitert eine Funktion mit zusätzlichem Verhalten ohne ihren Code zu ändern', correct:true, why:'Genau! Das ist das Decorator-Pattern. @timer lässt die Originalfunktion unberührt und fügt Timing-Logik drum herum ein. In Flask dekoriert @app.route() Funktionen zu URL-Handlern.'},
-            {t:'Er kompiliert Python zu Maschinencode', correct:false, why:'Das macht PyPy oder Cython — nicht normale Dekoratoren.'},
-            {t:'Er ist dasselbe wie eine Klasse', correct:false, why:'Dekoratoren sind Funktionen die Funktionen zurückgeben.'},
-          ])}
+          ${renderQuestions('l2_10', 6)}
+          ${renderBonus('l2_10')}
           ${exercise('ex_l2_10_1', 'Eigener Dekorator', 'Erstelle einen Dekorator @retry(times=3) der eine Funktion bis zu 3 Mal wiederholt wenn sie eine Exception wirft. Teste ihn mit einer Funktion die zufällig fehlschlägt (import random; if random.random() < 0.7: raise ValueError("Fehler")). Gib bei jedem Versuch aus "Versuch X von 3".', 'Tipp: Der Dekorator muss selbst eine Funktion sein die times als Parameter nimmt und dann den eigentlichen Dekorator zurückgibt.', 'lambda')}
         `,
         content_en: () => `
@@ -7264,12 +7092,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
     <span class="kw">return</span> <span class="st">"done"</span></pre>
             </div>
           </div>
-          ${quiz('q_l2_10_1e', 'What does a decorator do in Python?', [
-            {t:'It makes a function faster', correct:false, why:'Decorators do not automatically optimize performance.'},
-            {t:'It extends a function with additional behavior without changing its code', correct:true, why:'Exactly! @timer leaves the original function untouched and wraps timing logic around it. In Flask, @app.route() decorates functions into URL handlers.'},
-            {t:'It compiles Python to machine code', correct:false, why:'That is PyPy or Cython — not normal decorators.'},
-            {t:'It is the same as a class', correct:false, why:'Decorators are functions that return functions.'},
-          ])}
+          ${renderQuestions('l2_10', 6)}
+          ${renderBonus('l2_10')}
           ${exercise('ex_l2_10_1e', 'Custom Decorator', 'Create a @retry(times=3) decorator that retries a function up to 3 times if it throws an exception. Test it with a function that randomly fails (import random; if random.random() < 0.7: raise ValueError("Error")). Print "Attempt X of 3" on each try.', 'Hint: The decorator itself must be a function that takes times as a parameter and returns the actual decorator.', 'lambda')}
         `
       }
@@ -21395,6 +21219,666 @@ QUESTION_POOLS['l1_6'] = [
       {t:'DNS → TLS → TCP → HTTP GET', correct:false, why:'TLS und TCP in falscher Reihenfolge: erst wird die TCP-Verbindung aufgebaut, dann darüber der TLS-Handshake.'},
     ]
   },
+];
+
+QUESTION_POOLS['l2_1'] = [
+  {id:'p_l2_1_mc1',type:'mc',xp:10,question:'Was gibt type(3.14) zurück?',options:[
+    {t:"<class 'int'>",correct:false,why:'int ist für Ganzzahlen wie 3 oder 42. 3.14 hat einen Dezimalpunkt.'},
+    {t:"<class 'float'>",correct:true,why:'Richtig! Zahlen mit Dezimalpunkt sind float (floating point).'},
+    {t:"<class 'str'>",correct:false,why:'str wäre es nur wenn es in Anführungszeichen stünde: "3.14".'},
+    {t:"<class 'number'>",correct:false,why:"'number' gibt es als Typ in Python nicht."},
+  ]},
+  {id:'p_l2_1_mc2',type:'mc',xp:10,question:'Welcher Variablenname ist in Python NICHT erlaubt?',options:[
+    {t:'mein_alter',correct:false,why:'snake_case mit Buchstaben und Unterstrich — perfekt erlaubt.'},
+    {t:'_name',correct:false,why:'Mit Unterstrich beginnen ist erlaubt.'},
+    {t:'2zahl',correct:true,why:'Richtig! Variablen dürfen nicht mit einer Zahl beginnen — Python wirft einen SyntaxError.'},
+    {t:'farbe1',correct:false,why:'Eine Zahl im Namen ist erlaubt — nur nicht als erstes Zeichen.'},
+  ]},
+  {id:'p_l2_1_mc3',type:'mc',xp:10,question:'Was ist der Unterschied zwischen 10 / 3 und 10 // 3?',options:[
+    {t:'Beide geben 3.333... zurück',correct:false,why:'Nur / gibt float zurück. // macht Ganzzahl-Division.'},
+    {t:'/ gibt float (3.333...), // gibt int ohne Rest (3)',correct:true,why:'Genau! / = normale Division (immer float). // = Ganzzahl-Division (rundet ab).'},
+    {t:'/ ist Modulo, // ist Division',correct:false,why:'Modulo ist %. / ist normale Division.'},
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen großen Unterschied — Typ und Wert unterscheiden sich.'},
+  ]},
+  {id:'p_l2_1_mc4',type:'mc',xp:10,question:'Was macht der Operator % in Python?',options:[
+    {t:'Prozentwert berechnen',correct:false,why:'% ist in Python der Modulo-Operator, nicht Prozent.'},
+    {t:'Rest einer Division zurückgeben',correct:true,why:'Richtig! 10 % 3 = 1, weil 10 / 3 = 3 Rest 1. Sehr nützlich z.B. um gerade/ungerade zu prüfen: n % 2 == 0.'},
+    {t:'Zwei Zahlen dividieren',correct:false,why:'Division macht /. % gibt nur den Rest zurück.'},
+    {t:'Eine Zahl potenzieren',correct:false,why:'Potenz ist **. Beispiel: 2 ** 8 = 256.'},
+  ]},
+  {id:'p_l2_1_mc5',type:'mc',xp:10,question:'Welcher Python-Typ speichert True und False?',options:[
+    {t:'str',correct:false,why:'str ist für Text. True/False sind keine Strings.'},
+    {t:'int',correct:false,why:'int ist für Ganzzahlen. True/False sind zwar technisch 1/0, aber der Typ heißt anders.'},
+    {t:'bool',correct:true,why:'Richtig! bool (Boolean) kennt genau zwei Werte: True und False. In Python sind True und False auch 1 und 0 — bool ist eine Unterklasse von int.'},
+    {t:'flag',correct:false,why:"'flag' gibt es als Typ in Python nicht."},
+  ]},
+  {id:'p_l2_1_mc6',type:'mc',xp:10,question:'Was gibt int("42") zurück?',options:[
+    {t:'"42"',correct:false,why:'"42" ist der Eingabe-String. int() wandelt ihn um.'},
+    {t:'42',correct:true,why:'Richtig! int() konvertiert einen String in eine Ganzzahl — sofern der String eine gültige Zahl ist.'},
+    {t:'42.0',correct:false,why:'42.0 wäre float("42"). int() gibt eine Ganzzahl ohne Dezimalpunkt zurück.'},
+    {t:'ValueError',correct:false,why:'ValueError käme nur bei int("hallo"). int("42") ist gültig.'},
+  ]},
+  {id:'p_l2_1_mc7',type:'mc',xp:10,question:'Was ist None in Python?',options:[
+    {t:'Das Gleiche wie 0',correct:false,why:'0 ist eine Zahl. None ist ein eigener Typ — NoneType. 0 == False, aber None != False.'},
+    {t:'Das Gleiche wie False',correct:false,why:'False ist ein bool. None ist NoneType. Beide sind "falsy", aber verschieden.'},
+    {t:'Ein spezieller Wert der "kein Wert" bedeutet',correct:true,why:'Richtig! None ist Pythons Weg zu sagen "hier ist nichts". Funktionen ohne return geben None zurück. Vergleich immer mit "is None", nicht "== None".'},
+    {t:'Ein Fehler',correct:false,why:'None ist kein Fehler — es ist ein gültiger Wert, der "kein Wert" repräsentiert.'},
+  ]},
+  {id:'p_l2_1_mc8',type:'mc',xp:10,question:'Was macht x += 5?',options:[
+    {t:'Es vergleicht x mit 5',correct:false,why:'Vergleich wäre ==. += ist eine Zuweisung.'},
+    {t:'Es ist dasselbe wie x = x + 5',correct:true,why:'Richtig! += ist ein augmentierter Zuweisungs-Operator — kurz für x = x + 5. Gibt es auch für -=, *=, /= usw.'},
+    {t:'Es erstellt eine neue Variable "x+5"',correct:false,why:'+= verändert die bestehende Variable x — es erstellt keine neue.'},
+    {t:'Es ist nur in Schleifen erlaubt',correct:false,why:'+= funktioniert überall wo eine Variable existiert.'},
+  ]},
+  {id:'p_l2_1_tf1',type:'truefalse',xp:8,statement:'In Python muss man den Typ einer Variable beim Erstellen angeben (z.B. int x = 5).',correct:false,explanation:'Falsch! Python ist dynamisch typisiert — du schreibst einfach x = 5. Python erkennt den Typ automatisch. Anders als Java oder C++.'},
+  {id:'p_l2_1_tf2',type:'truefalse',xp:8,statement:'Der String "3.14" und die Zahl 3.14 sind in Python denselben Typs.',correct:false,explanation:'Falsch! "3.14" ist str, 3.14 ist float. type("3.14") gibt str, type(3.14) gibt float. Mit float("3.14") kannst du konvertieren.'},
+  {id:'p_l2_1_tf3',type:'truefalse',xp:8,statement:'Python-Variablennamen dürfen Leerzeichen enthalten.',correct:false,explanation:'Falsch! Leerzeichen sind in Variablennamen nicht erlaubt. Benutze snake_case: mein_alter statt "mein alter".'},
+  {id:'p_l2_1_tf4',type:'truefalse',xp:8,statement:'2 ** 10 ergibt in Python 1024.',correct:true,explanation:'Stimmt! ** ist der Potenz-Operator. 2^10 = 1024. Python kann mit beliebig großen Ganzzahlen rechnen — kein Overflow wie in C.'},
+  {id:'p_l2_1_tf5',type:'truefalse',xp:8,statement:'str(42) gibt "42" zurück.',correct:true,explanation:'Stimmt! str() konvertiert alles in einen String. str(42) → "42", str(3.14) → "3.14", str(True) → "True".'},
+  {id:'p_l2_1_fb1',type:'fillblank',xp:12,prompt:'Welche eingebaute Funktion gibt den Typ einer Variable zurück?',answers:['type','type()'],placeholder:'Funktion eingeben',explanation:'Richtig! type(x) gibt den Typ zurück: type(42) → <class \'int\'>, type("hi") → <class \'str\'>.'},
+  {id:'p_l2_1_fb2',type:'fillblank',xp:12,prompt:'Was ist der Rest von 17 geteilt durch 5? (Schreibe die Zahl)',answers:['2'],placeholder:'Zahl eingeben',explanation:'Richtig! 17 // 5 = 3 (Ganzzahl), 17 % 5 = 2 (Rest). In Python: 17 % 5 ergibt 2.'},
+  {id:'p_l2_1_fb3',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort konvertiert den String "123" in eine Ganzzahl?',answers:['int','int()'],placeholder:'Funktion eingeben',explanation:'Richtig! int("123") → 123. Für Kommazahlen: float("3.14") → 3.14.'},
+  {id:'p_l2_1_fb4',type:'fillblank',xp:12,prompt:'Was gibt eine Python-Funktion zurück, wenn kein return-Statement angegeben ist? (ein Wort)',answers:['None'],placeholder:'Wert eingeben',explanation:'Richtig! Ohne return gibt Python automatisch None zurück. None ist der "kein Wert"-Wert.'},
+  {id:'p_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgendes aus? x = 5; x *= 3; x -= 7; print(x)',options:[
+    {t:'8',correct:true,why:'Richtig! Schritt für Schritt: x = 5 → x *= 3 → x = 15 → x -= 7 → x = 8. print(x) gibt 8 aus.'},
+    {t:'15',correct:false,why:'15 wäre nach x *= 3. Aber danach kommt noch x -= 7.'},
+    {t:'1',correct:false,why:'1 wäre 5 - 7 + 3 — aber die Reihenfolge der Operationen ist anders.'},
+    {t:'53',correct:false,why:'Das wäre wenn * und -= anders ausgewertet würden. Schritt für Schritt: 5 → 15 → 8.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_2'] = [
+  {id:'p_l2_2_mc1',type:'mc',xp:10,question:'Was gibt range(3) zurück?',options:[
+    {t:'1, 2, 3',correct:false,why:'range() beginnt standardmäßig bei 0, nicht bei 1.'},
+    {t:'0, 1, 2',correct:true,why:'Richtig! range(3) erzeugt 0, 1, 2 — drei Zahlen, Start bei 0, Ende exklusive.'},
+    {t:'0, 1, 2, 3',correct:false,why:'Fast! Aber range(3) hört bei 2 auf — 3 ist ausgeschlossen (Ende ist exklusiv).'},
+    {t:'1, 2',correct:false,why:'Weder Startpunkt noch Anzahl stimmen.'},
+  ]},
+  {id:'p_l2_2_mc2',type:'mc',xp:10,question:'Was passiert bei "continue" in einer for-Schleife?',options:[
+    {t:'Die ganze Schleife wird sofort beendet',correct:false,why:'Das macht break. continue überspringt nur die aktuelle Iteration.'},
+    {t:'Die aktuelle Iteration wird übersprungen, die Schleife läuft weiter',correct:true,why:'Genau! continue = "diese Runde abbrechen, nächste Runde starten". break = Schleife komplett stoppen.'},
+    {t:'Es ist ein Synonym für break',correct:false,why:'Nein — continue und break machen sehr verschiedene Dinge.'},
+    {t:'Die Schleife startet von vorne',correct:false,why:'Der Zähler läuft normal weiter — nur diese eine Runde wird übersprungen.'},
+  ]},
+  {id:'p_l2_2_mc3',type:'mc',xp:10,question:'Was ergibt: range(2, 8, 2)?',options:[
+    {t:'2, 4, 6, 8',correct:false,why:'range() endet exklusiv — 8 ist nicht enthalten.'},
+    {t:'2, 4, 6',correct:true,why:'Richtig! range(start, stop, step): von 2, bis vor 8, in 2er-Schritten → 2, 4, 6.'},
+    {t:'0, 2, 4, 6',correct:false,why:'Start ist 2, nicht 0.'},
+    {t:'2, 3, 4, 5, 6, 7',correct:false,why:'Schritt ist 2, nicht 1.'},
+  ]},
+  {id:'p_l2_2_mc4',type:'mc',xp:10,question:'Wann wird der else-Block nach einer while-Schleife ausgeführt?',options:[
+    {t:'Immer, wenn die Schleife endet',correct:false,why:'Nicht ganz — nur wenn die Schleife NICHT durch break beendet wurde.'},
+    {t:'Wenn die Bedingung von Anfang an False ist',correct:false,why:'Auch dann läuft else (die Schleife endet ohne break), aber das ist nicht die vollständige Antwort.'},
+    {t:'Wenn die Schleife normal endet (nicht durch break)',correct:true,why:'Genau! while ... else: Der else-Block läuft wenn die while-Bedingung False wird — nicht wenn break ausgelöst wurde.'},
+    {t:'Nur wenn die Schleife mindestens einmal lief',correct:false,why:'else läuft auch wenn die Bedingung von Anfang an False war (Schleife läuft 0 Mal).'},
+  ]},
+  {id:'p_l2_2_mc5',type:'mc',xp:10,question:'Was ist das Ergebnis von: True and False or True?',options:[
+    {t:'False',correct:false,why:'and bindet stärker als or: (True and False) or True = False or True = True.'},
+    {t:'True',correct:true,why:'Richtig! Auswertungsreihenfolge: and vor or. (True and False) = False, dann False or True = True.'},
+    {t:'None',correct:false,why:'Boolesche Ausdrücke geben True oder False zurück, nicht None.'},
+    {t:'SyntaxError',correct:false,why:'Das ist gültiger Python-Code.'},
+  ]},
+  {id:'p_l2_2_mc6',type:'mc',xp:10,question:'Was macht break in einer Schleife?',options:[
+    {t:'Überspringt die aktuelle Iteration',correct:false,why:'Überspringen macht continue. break beendet die gesamte Schleife.'},
+    {t:'Beendet die gesamte Schleife sofort',correct:true,why:'Richtig! break verlässt die innerste Schleife sofort. Der Code nach der Schleife läuft weiter.'},
+    {t:'Beendet das Programm',correct:false,why:'Programm beenden macht exit(). break verlässt nur die Schleife.'},
+    {t:'Startet die Schleife neu',correct:false,why:'Schleife von vorne: continue (aber mit weitergeführtem Zähler). break beendet.'},
+  ]},
+  {id:'p_l2_2_mc7',type:'mc',xp:10,question:'Was gibt folgender Code aus? for i in range(5):\\n    if i == 3: break\\n    print(i)',options:[
+    {t:'0 1 2 3 4',correct:false,why:'break bei i==3 stoppt die Schleife bevor 3 ausgegeben wird.'},
+    {t:'0 1 2',correct:true,why:'Richtig! i nimmt Werte 0,1,2,3,... — bei i=3 greift break bevor print(3) läuft.'},
+    {t:'0 1 2 3',correct:false,why:'3 wird nicht ausgegeben — der break kommt VOR print(i) in der Schleife.'},
+    {t:'1 2 3',correct:false,why:'range(5) beginnt bei 0, nicht bei 1.'},
+  ]},
+  {id:'p_l2_2_mc8',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "==" und "is" in Python?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Großer Unterschied! == vergleicht Werte, is vergleicht Identität (Speicheradresse).'},
+    {t:'"==" vergleicht Werte, "is" vergleicht Objekt-Identität',correct:true,why:'Richtig! [] == [] ist True (gleicher Inhalt), [] is [] ist False (verschiedene Objekte im Speicher). Für None immer "is None" benutzen.'},
+    {t:'"is" ist nur für Strings',correct:false,why:'"is" vergleicht Identität für alle Typen — aber verlässlich nur für None, True, False.'},
+    {t:'"==" ist schneller als "is"',correct:false,why:'"is" ist meist schneller (nur Adressvergleich), aber das ist nicht der relevante Unterschied.'},
+  ]},
+  {id:'p_l2_2_tf1',type:'truefalse',xp:8,statement:'Eine while-Schleife läuft solange ihre Bedingung True ist.',correct:true,explanation:'Stimmt! while bedingung: — solange bedingung True ist, wiederholt sich der Block. Vergiss nicht: wenn die Bedingung nie False wird, läuft die Schleife ewig (Endlosschleife).'},
+  {id:'p_l2_2_tf2',type:'truefalse',xp:8,statement:'range(5) erzeugt die Zahlen 1 bis 5.',correct:false,explanation:'Falsch! range(5) erzeugt 0, 1, 2, 3, 4. Start ist 0, Ende exklusiv. Für 1 bis 5: range(1, 6).'},
+  {id:'p_l2_2_tf3',type:'truefalse',xp:8,statement:'In Python darf ein if-Block leer sein (kein Code drin).',correct:false,explanation:'Falsch! Python benötigt mindestens eine Anweisung. Als Platzhalter nimmt man pass: if bedingung: pass'},
+  {id:'p_l2_2_tf4',type:'truefalse',xp:8,statement:'"not True" ergibt False.',correct:true,explanation:'Stimmt! not kehrt einen Booleschen Wert um: not True = False, not False = True.'},
+  {id:'p_l2_2_tf5',type:'truefalse',xp:8,statement:'Eine for-Schleife in Python kann über jeden String iterieren.',correct:true,explanation:'Stimmt! for c in "Python": gibt p, y, t, h, o, n — Strings sind iterierbar, Zeichen für Zeichen.'},
+  {id:'p_l2_2_fb1',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort beendet eine Schleife sofort? (ein Wort)',answers:['break'],placeholder:'Schlüsselwort',explanation:'Richtig! break verlässt die innerste Schleife sofort. continue überspringt nur die aktuelle Iteration.'},
+  {id:'p_l2_2_fb2',type:'fillblank',xp:12,prompt:'range(1, 10, 3) erzeugt: 1, 4, 7 — und dann? (Zahl eingeben)',answers:['fertig','nichts','— fertig','Ende'],placeholder:'nächste Zahl oder "fertig"',explanation:'Fertig! range(1,10,3): 1, 4, 7, und dann wäre 10 — aber 10 ist das exklusive Ende. Also endet die Sequenz bei 7.'},
+  {id:'p_l2_2_fb3',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort überspringt die aktuelle Iteration ohne die Schleife zu beenden?',answers:['continue'],placeholder:'Schlüsselwort',explanation:'Richtig! continue springt zur nächsten Iteration. Die Schleife läuft weiter — nur dieser Durchlauf wird abgebrochen.'},
+  {id:'p_l2_2_fb4',type:'fillblank',xp:12,prompt:'Welcher Operator prüft ob zwei Werte GLEICH sind? (2 Zeichen)',answers:['=='],placeholder:'Operator',explanation:'Richtig! == vergleicht Werte. = ist Zuweisung. Häufiger Anfänger-Fehler: if x = 5 statt if x == 5.'},
+  {id:'p_l2_2_bonus',type:'mc',xp:20,optional:true,question:'Was gibt dieser Code aus?\nnums = [1,2,3,4,5,6]\nresult = [x for x in nums if x % 2 == 0]\nprint(len(result))',options:[
+    {t:'3',correct:true,why:'Richtig! Die List Comprehension filtert gerade Zahlen: [2,4,6]. len([2,4,6]) = 3.'},
+    {t:'6',correct:false,why:'6 wäre len(nums). Die Comprehension filtert — nur gerade Zahlen bleiben.'},
+    {t:'2',correct:false,why:'Es gibt 3 gerade Zahlen in [1..6]: 2, 4, 6.'},
+    {t:'[2,4,6]',correct:false,why:'print(len(result)) gibt die Länge aus, nicht die Liste selbst.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_3'] = [
+  {id:'p_l2_3_mc1',type:'mc',xp:10,question:'Was macht das Schlüsselwort "return" in einer Funktion?',options:[
+    {t:'Es druckt den Wert auf der Konsole aus',correct:false,why:'Ausgeben macht print(). return übergibt den Wert an den Aufrufer — unsichtbar für die Konsole.'},
+    {t:'Es beendet das gesamte Programm',correct:false,why:'Programm beenden macht exit(). return beendet nur die aktuelle Funktion.'},
+    {t:'Es gibt einen Wert an den Aufrufer zurück',correct:true,why:'Genau! ergebnis = meine_funktion() — der Wert nach return landet in der Variable des Aufrufers.'},
+    {t:'Es deklariert eine lokale Variable',correct:false,why:'Variablen deklariert man einfach mit name = wert innerhalb der Funktion.'},
+  ]},
+  {id:'p_l2_3_mc2',type:'mc',xp:10,question:'Was gibt eine Python-Funktion ohne return-Statement zurück?',options:[
+    {t:'Einen leeren String ""',correct:false,why:'"" ist ein expliziter Wert. Ohne return gibt Python etwas anderes zurück.'},
+    {t:'0',correct:false,why:'0 ist eine Zahl. Ohne return kommt etwas anderes.'},
+    {t:'None',correct:true,why:'Richtig! Jede Python-Funktion gibt automatisch None zurück wenn kein return angegeben ist.'},
+    {t:'Den letzten berechneten Wert',correct:false,why:'Das macht Ruby, nicht Python. In Python muss man explizit returnen.'},
+  ]},
+  {id:'p_l2_3_mc3',type:'mc',xp:10,question:'Was ist ein Default-Parameter?',options:[
+    {t:'Ein Parameter der automatisch 0 ist',correct:false,why:'Default kann jeder Wert sein, nicht nur 0.'},
+    {t:'Ein Wert der benutzt wird wenn das Argument beim Aufruf weggelassen wird',correct:true,why:'Richtig! def greet(name="Welt"): — wenn greet() ohne Argument aufgerufen wird, nimmt name den Wert "Welt" an.'},
+    {t:'Ein Parameter der immer als letztes übergeben werden muss',correct:false,why:'Default-Parameter müssen nach positional parameters stehen, aber sind nicht zwingend letztes Argument.'},
+    {t:'Nur verfügbar in Python 3',correct:false,why:'Default-Parameter gibt es in Python seit Anfang an.'},
+  ]},
+  {id:'p_l2_3_mc4',type:'mc',xp:10,question:'Was passiert wenn eine lokale Variable denselben Namen wie eine globale hat?',options:[
+    {t:'Python wirft einen Fehler',correct:false,why:'Es gibt keinen Fehler — Python bevorzugt einfach die lokale.'},
+    {t:'Die lokale Variable überschattet die globale innerhalb der Funktion',correct:true,why:'Richtig! Shadowing: innerhalb der Funktion zeigt der Name auf die lokale Variable. Außerhalb bleibt die globale unverändert.'},
+    {t:'Die globale wird permanent überschrieben',correct:false,why:'Die globale bleibt unverändert. Nur innerhalb der Funktion gilt die lokale.'},
+    {t:'Beide Werte werden addiert',correct:false,why:'Python addiert keine Variablen — lokale überschattet globale im Funktionsscope.'},
+  ]},
+  {id:'p_l2_3_mc5',type:'mc',xp:10,question:'Was macht *args in einer Funktionsdefinition?',options:[
+    {t:'Es macht alle Argumente optional',correct:false,why:'*args erlaubt beliebig viele Argumente, macht aber nicht alle optional.'},
+    {t:'Es erlaubt beliebig viele positionelle Argumente die als Tuple ankommen',correct:true,why:'Richtig! def f(*args): — f(1,2,3) gibt args = (1,2,3). Du kannst mit for x in args: darüber iterieren.'},
+    {t:'Es gibt die Anzahl der Argumente aus',correct:false,why:'*args sammelt Argumente in einem Tuple. Länge mit len(args).'},
+    {t:'Es ist ein Fehler — * ist kein gültiger Operator in Definitionen',correct:false,why:'* in Parameterlisten ist gültig: *args für variable positionale Argumente, **kwargs für variable Keyword-Argumente.'},
+  ]},
+  {id:'p_l2_3_mc6',type:'mc',xp:10,question:'Darf eine Funktion mehrere return-Statements haben?',options:[
+    {t:'Nein, nur ein return pro Funktion',correct:false,why:'Mehrere returns sind erlaubt und häufig nützlich — z.B. als frühe Rückgabe.'},
+    {t:'Ja, aber nur das erste wird ausgeführt',correct:false,why:'Das erste return das erreicht wird beendet die Funktion. Welches das ist, hängt vom Programmfluss ab.'},
+    {t:'Ja — das erste return das ausgeführt wird beendet die Funktion',correct:true,why:'Richtig! Mehrere returns sind üblich: if fehler: return None — dann am Ende return ergebnis.'},
+    {t:'Ja, aber alle müssen denselben Typ zurückgeben',correct:false,why:'Python ist dynamisch typisiert — verschiedene returns dürfen verschiedene Typen haben (auch wenn das oft schlechter Stil ist).'},
+  ]},
+  {id:'p_l2_3_mc7',type:'mc',xp:10,question:'Was ist der Unterschied zwischen print() und return?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Großer Unterschied! print() zeigt etwas an. return gibt einen Wert an den Aufrufer zurück.'},
+    {t:'print() zeigt Ausgabe, return gibt Wert an Aufrufer zurück',correct:true,why:'Richtig! ergebnis = quadrat(5) — wenn quadrat nur print(n**2) macht, ist ergebnis None. Mit return n**2 ist ergebnis 25.'},
+    {t:'return ist nur in Klassen erlaubt',correct:false,why:'return funktioniert in jeder Funktion — egal ob Methode einer Klasse oder normale Funktion.'},
+    {t:'print() kann nur Strings ausgeben',correct:false,why:'print() kann jeden Typ ausgeben — es ruft intern str() auf.'},
+  ]},
+  {id:'p_l2_3_mc8',type:'mc',xp:10,question:'Was ist ein rekursiver Funktionsaufruf?',options:[
+    {t:'Eine Funktion die eine andere Funktion aufruft',correct:false,why:'Das ist einfach ein Funktionsaufruf. Rekursion ist spezifischer.'},
+    {t:'Eine Funktion die sich selbst aufruft',correct:true,why:'Richtig! Rekursion = Funktion ruft sich selbst auf. Braucht immer einen Basisfall (base case) der die Rekursion stoppt — sonst endlose Rekursion.'},
+    {t:'Eine Funktion die innerhalb einer Schleife definiert wird',correct:false,why:'Eine Funktion innerhalb einer Schleife ist keine Rekursion.'},
+    {t:'Eine Funktion mit mehr als 5 Parametern',correct:false,why:'Parameteranzahl hat nichts mit Rekursion zu tun.'},
+  ]},
+  {id:'p_l2_3_tf1',type:'truefalse',xp:8,statement:'Eine Funktion kann in Python nur einen einzigen Wert zurückgeben.',correct:false,explanation:'Falsch! Python kann mehrere Werte als Tuple zurückgeben: return a, b gibt (a, b) zurück. Man kann sie mit a, b = meine_funktion() entpacken.'},
+  {id:'p_l2_3_tf2',type:'truefalse',xp:8,statement:'Variablen die innerhalb einer Funktion definiert werden, existieren nach dem Aufruf weiter.',correct:false,explanation:'Falsch! Lokale Variablen werden beim Funktionsende zerstört. Sie existieren nur während der Ausführung der Funktion.'},
+  {id:'p_l2_3_tf3',type:'truefalse',xp:8,statement:'def ist das Schlüsselwort um eine Funktion in Python zu definieren.',correct:true,explanation:'Stimmt! def funktionsname(parameter): — dann der eingerückte Body. Vergiss den Doppelpunkt nicht!'},
+  {id:'p_l2_3_tf4',type:'truefalse',xp:8,statement:'Eine Funktion muss immer mindestens einen Parameter haben.',correct:false,explanation:'Falsch! Funktionen können keine Parameter haben: def sag_hallo(): print("Hallo") — das ist völlig gültig.'},
+  {id:'p_l2_3_tf5',type:'truefalse',xp:8,statement:'Das global-Schlüsselwort erlaubt einer Funktion eine globale Variable zu verändern.',correct:true,explanation:'Stimmt! def f(): global x; x = 10 — ohne global würde x nur eine neue lokale Variable sein. global sollte sparsam eingesetzt werden.'},
+  {id:'p_l2_3_fb1',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort definiert eine Funktion in Python? (3 Buchstaben)',answers:['def'],placeholder:'Schlüsselwort',explanation:'Richtig! def funktionsname(params): — dann eingerückt der Funktionskörper.'},
+  {id:'p_l2_3_fb2',type:'fillblank',xp:12,prompt:'Was gibt eine Funktion zurück wenn kein return angegeben ist? (ein Wort)',answers:['None'],placeholder:'Wert',explanation:'Richtig! None ist Pythons "kein Wert". Viele Anfänger vergessen return und wundern sich warum None zurückkommt.'},
+  {id:'p_l2_3_fb3',type:'fillblank',xp:12,prompt:'Mit welchem Operator potenziert man in Python? (z.B. 2 __ 8 = 256)',answers:['**'],placeholder:'Operator (2 Zeichen)',explanation:'Richtig! ** ist der Potenz-Operator. 2 ** 10 = 1024. Nicht ^ wie in manchen anderen Sprachen (^ ist XOR in Python).'},
+  {id:'p_l2_3_fb4',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort erlaubt einer Funktion eine globale Variable zu ändern?',answers:['global'],placeholder:'Schlüsselwort',explanation:'Richtig! global x — dann kann die Funktion x verändern. Besser: Werte per return zurückgeben statt global zu nutzen.'},
+  {id:'p_l2_3_bonus',type:'mc',xp:20,optional:true,question:'Was gibt dieser Code aus?\ndef f(x, y=2, z=3):\n    return x + y + z\nprint(f(1, z=10))',options:[
+    {t:'13',correct:true,why:'Richtig! x=1 (positional), y=2 (default), z=10 (keyword-argument). 1+2+10=13.'},
+    {t:'6',correct:false,why:'6 wäre f(1) mit allen Defaults: 1+2+3. Aber z=10 überschreibt den Default.'},
+    {t:'TypeError',correct:false,why:'Keyword-Argumente wie z=10 sind gültig und können Default-Werte überschreiben.'},
+    {t:'14',correct:false,why:'Rechne nochmal: x=1, y=2, z=10 → 1+2+10=13, nicht 14.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_4'] = [
+  {id:'p_l2_4_mc1',type:'mc',xp:10,question:'Was gibt "Python".upper() zurück?',options:[
+    {t:'python',correct:false,why:'.upper() macht GROSS. Klein wäre .lower().'},
+    {t:'Python',correct:false,why:'.upper() verändert den String — er bleibt nicht identisch.'},
+    {t:'PYTHON',correct:true,why:'Richtig! .upper() wandelt alle Zeichen in Großbuchstaben um.'},
+    {t:'PYTHON!',correct:false,why:'.upper() fügt nichts hinzu — nur Groß-Umwandlung.'},
+  ]},
+  {id:'p_l2_4_mc2',type:'mc',xp:10,question:'Was gibt "a,b,c".split(",") zurück?',options:[
+    {t:'"abc"',correct:false,why:'split gibt eine Liste zurück, keinen String.'},
+    {t:'["a","b","c"]',correct:true,why:'Genau! .split(trennzeichen) zerlegt den String in eine Liste von Teilstrings.'},
+    {t:'"a" "b" "c"',correct:false,why:'Das wäre drei separate Strings — split gibt eine Liste zurück.'},
+    {t:'SyntaxError',correct:false,why:'.split() ist eine gültige String-Methode.'},
+  ]},
+  {id:'p_l2_4_mc3',type:'mc',xp:10,question:'Was gibt "Hallo"[::-1] zurück?',options:[
+    {t:'Hallo',correct:false,why:'Das wäre der Originalstring. [::-1] dreht ihn um.'},
+    {t:'ollaH',correct:true,why:'Richtig! [::-1] = von Anfang bis Ende mit Schritt -1 = rückwärts.'},
+    {t:'H',correct:false,why:'Das wäre [0] oder [-1] je nach Richtung.'},
+    {t:'["H","a","l","l","o"]',correct:false,why:'[::-1] gibt einen String zurück, keine Liste.'},
+  ]},
+  {id:'p_l2_4_mc4',type:'mc',xp:10,question:'Was macht f"Ich heiße {name}" in Python?',options:[
+    {t:'Einen Fehler wenn name nicht definiert ist',correct:false,why:'Das ist wahr — aber das ist nicht die Hauptfrage. Was macht der f-String wenn name definiert ist?'},
+    {t:'Einen formatierten String in dem {name} durch den Wert der Variable ersetzt wird',correct:true,why:'Richtig! f-Strings (formatierte String-Literale) ersetzen {ausdruck} durch den Wert. name = "Anna" → "Ich heiße Anna".'},
+    {t:'Es ist dasselbe wie "Ich heiße" + name',correct:false,why:'f-Strings sind mächtiger — sie können beliebige Ausdrücke enthalten: {preis * 1.19:.2f}.'},
+    {t:'Es gibt eine Liste aller Zeichen zurück',correct:false,why:'f-Strings geben einen String zurück, keine Liste.'},
+  ]},
+  {id:'p_l2_4_mc5',type:'mc',xp:10,question:'Was gibt " Hallo ".strip() zurück?',options:[
+    {t:'" Hallo "',correct:false,why:'strip() entfernt die Leerzeichen — der String ändert sich.'},
+    {t:'"Hallo"',correct:true,why:'Richtig! .strip() entfernt führende und abschließende Whitespace-Zeichen (Leerzeichen, Tabs, Zeilenumbrüche).'},
+    {t:'"allo"',correct:false,why:'strip() entfernt Whitespace, keine Buchstaben. Das wäre .lstrip("H").'},
+    {t:'["H","a","l","l","o"]',correct:false,why:'strip() gibt einen String zurück, keine Liste.'},
+  ]},
+  {id:'p_l2_4_mc6',type:'mc',xp:10,question:'Was ist das Ergebnis von ",".join(["a","b","c"])?',options:[
+    {t:'["a,b,c"]',correct:false,why:'join gibt einen String zurück, keine Liste.'},
+    {t:'"a,b,c"',correct:true,why:'Richtig! .join(liste) verbindet Listenelemente mit dem Trennzeichen zu einem String. Das Gegenteil von .split().'},
+    {t:'"abc,"',correct:false,why:'Das Trennzeichen steht zwischen den Elementen, nicht am Ende.'},
+    {t:'SyntaxError',correct:false,why:'.join() ist eine gültige String-Methode.'},
+  ]},
+  {id:'p_l2_4_mc7',type:'mc',xp:10,question:'Was gibt "Python"[1:4] zurück?',options:[
+    {t:'"Pyt"',correct:false,why:'Index 1 beginnt beim zweiten Zeichen (y). Index 4 ist exklusiv.'},
+    {t:'"yth"',correct:true,why:'Richtig! Slicing [start:stop]: Start ist inklusive, Stop exklusiv. [1:4] = Zeichen 1,2,3 = y,t,h.'},
+    {t:'"ytho"',correct:false,why:'[1:4] = y,t,h (3 Zeichen). [1:5] wäre ytho.'},
+    {t:'"Python"',correct:false,why:'Der ganze String wäre [:] oder [0:6].'},
+  ]},
+  {id:'p_l2_4_mc8',type:'mc',xp:10,question:'Was gibt "Hallo Welt".replace("Welt","Python") zurück?',options:[
+    {t:'"Hallo Welt"',correct:false,why:'replace() gibt einen neuen String zurück — Strings sind unveränderlich.'},
+    {t:'"Hallo Python"',correct:true,why:'Richtig! .replace(alt, neu) ersetzt alle Vorkommen von alt durch neu und gibt den neuen String zurück.'},
+    {t:'None',correct:false,why:'replace() gibt immer einen String zurück, nie None.'},
+    {t:'["Hallo","Python"]',correct:false,why:'replace() gibt einen String zurück. .split() würde eine Liste geben.'},
+  ]},
+  {id:'p_l2_4_tf1',type:'truefalse',xp:8,statement:'Strings in Python sind unveränderlich (immutable).',correct:true,explanation:'Stimmt! Du kannst einen String nicht an Ort und Stelle ändern. Methoden wie .upper() geben immer einen NEUEN String zurück. Die Original-Variable bleibt unverändert sofern du sie nicht neu zuweist.'},
+  {id:'p_l2_4_tf2',type:'truefalse',xp:8,statement:'"abc" in "abcdef" gibt True zurück.',correct:true,explanation:'Stimmt! Der in-Operator prüft ob ein Substring enthalten ist. "abc" in "abcdef" → True. "xyz" in "abcdef" → False.'},
+  {id:'p_l2_4_tf3',type:'truefalse',xp:8,statement:'"Hello"[0] gibt "H" zurück.',correct:true,explanation:'Stimmt! Python-Strings sind indexierbar, beginnend bei 0. "Hello"[0] = "H", "Hello"[-1] = "o" (letztes Zeichen).'},
+  {id:'p_l2_4_tf4',type:'truefalse',xp:8,statement:'.split() ohne Argument teilt am Komma auf.',correct:false,explanation:'Falsch! .split() ohne Argument teilt an jedem Whitespace (Leerzeichen, Tab, Newline) auf und ignoriert mehrfache Leerzeichen. Für Komma: .split(",").'},
+  {id:'p_l2_4_tf5',type:'truefalse',xp:8,statement:'len("Python") gibt 6 zurück.',correct:true,explanation:'Stimmt! len() gibt die Länge zurück. "Python" hat 6 Zeichen: P-y-t-h-o-n. len() funktioniert auch für Listen, Tuples und Dicts.'},
+  {id:'p_l2_4_fb1',type:'fillblank',xp:12,prompt:'Welche Methode wandelt einen String in Kleinbuchstaben um?',answers:['lower','lower()','.lower()','.lower'],placeholder:'Methode',explanation:'Richtig! .lower() macht alles klein. .upper() macht alles groß. .title() macht jeden Wortanfang groß.'},
+  {id:'p_l2_4_fb2',type:'fillblank',xp:12,prompt:'Was gibt "Programmieren".count("r") zurück? (Zahl eingeben)',answers:['3'],placeholder:'Zahl',explanation:'Richtig! "Programmieren" enthält r an Position 1 (Pr), 4 (ogr) und 8 (ier) — insgesamt 3 mal. count() zählt Vorkommen eines Substrings.'},
+  {id:'p_l2_4_fb3',type:'fillblank',xp:12,prompt:'Welche Methode verbindet eine Liste von Strings zu einem einzigen String? (ohne Klammern)',answers:['join','.join'],placeholder:'Methode',explanation:'Richtig! ",".join(["a","b","c"]) → "a,b,c". join ist die Umkehroperation zu split.'},
+  {id:'p_l2_4_fb4',type:'fillblank',xp:12,prompt:'Mit welchem Präfix beginnt ein formatierter String (f-String) in Python? (1 Zeichen)',answers:['f'],placeholder:'Präfix',explanation:'Richtig! f"Hallo {name}" — das f vor dem Anführungszeichen aktiviert die Auswertung von {ausdrücken}.'},
+  {id:'p_l2_4_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgendes aus?\ns = "Python Programmierung"\nprint(s.split()[-1][::-1])',options:[
+    {t:'gnureiremmargorP',correct:true,why:'Richtig! s.split() → ["Python","Programmierung"], [-1] → "Programmierung", [::-1] → "gnureiremmargorP".'},
+    {t:'nohtyP',correct:false,why:'nohtyP wäre s.split()[0][::-1] — erstes Element rückwärts.'},
+    {t:'Programmierung',correct:false,why:'Ohne [::-1] wäre das der letzte Teil. Mit [::-1] wird er umgedreht.'},
+    {t:'SyntaxError',correct:false,why:'Dieser Code ist gültig — Methodenverkettung und Slicing funktionieren.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_5'] = [
+  {id:'p_l2_5_mc1',type:'mc',xp:10,question:'Was passiert im finally-Block?',options:[
+    {t:'Er läuft nur wenn ein Fehler auftrat',correct:false,why:'Das wäre except. finally läuft immer.'},
+    {t:'Er läuft nur wenn kein Fehler auftrat',correct:false,why:'Das wäre else. finally läuft immer.'},
+    {t:'Er läuft immer — egal ob Fehler oder nicht',correct:true,why:'Genau! finally ist perfekt um Ressourcen zu schließen (Dateien, Datenbankverbindungen) — egal was passiert.'},
+    {t:'Er beendet das Programm',correct:false,why:'finally beendet nichts — er wird garantiert ausgeführt und dann läuft das Programm weiter.'},
+  ]},
+  {id:'p_l2_5_mc2',type:'mc',xp:10,question:'Welcher Fehler tritt bei int("hallo") auf?',options:[
+    {t:'TypeError',correct:false,why:'TypeError ist ein Typ-Problem, z.B. "5" + 3. Hier ist der Typ (str) für int() OK, der Wert aber nicht.'},
+    {t:'ValueError',correct:true,why:'Genau! Der Typ ist richtig (str), aber "hallo" ist kein gültiger Ganzzahl-Wert. ValueError = Wert passt nicht.'},
+    {t:'NameError',correct:false,why:'NameError: wenn eine Variable nicht existiert. int und "hallo" sind beide bekannt.'},
+    {t:'KeyError',correct:false,why:'KeyError tritt nur bei Dictionaries auf wenn ein Schlüssel fehlt.'},
+  ]},
+  {id:'p_l2_5_mc3',type:'mc',xp:10,question:'Warum ist "with open(...) as f:" besser als "f = open(...)"?',options:[
+    {t:'Es ist schneller',correct:false,why:'Performance ist identisch. Der Vorteil liegt anderswo.'},
+    {t:'Die Datei wird automatisch geschlossen — auch wenn eine Exception auftritt',correct:true,why:'Genau! Das with-Statement garantiert sauberes Aufräumen. Ohne with könnte die Datei offen bleiben wenn ein Fehler passiert.'},
+    {t:'Es kann mehrere Dateien gleichzeitig öffnen',correct:false,why:'Beides kann mehrere Dateien öffnen — with hat einen anderen Vorteil.'},
+    {t:'Es benötigt kein try/except',correct:false,why:'Du brauchst weiterhin try/except z.B. wenn die Datei nicht existiert.'},
+  ]},
+  {id:'p_l2_5_mc4',type:'mc',xp:10,question:'Was ist der Unterschied zwischen TypeError und ValueError?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Klarer Unterschied: TypeError = falscher Typ, ValueError = richtiger Typ, falscher Wert.'},
+    {t:'TypeError = falscher Typ (z.B. String + Int), ValueError = richtiger Typ aber ungültiger Wert',correct:true,why:'Richtig! "5" + 3 → TypeError. int("abc") → ValueError. Beide sind ValueError-Unterklassen von Exception.'},
+    {t:'ValueError tritt nur in Listen auf',correct:false,why:'ValueError kann überall auftreten — überall wo ein Wert nicht passt.'},
+    {t:'TypeError ist schwerwiegender als ValueError',correct:false,why:'Beide sind normale Exceptions — keine ist "schlimmer" als die andere.'},
+  ]},
+  {id:'p_l2_5_mc5',type:'mc',xp:10,question:'Was macht "raise ValueError("Ungültig")"?',options:[
+    {t:'Es druckt die Fehlermeldung aus',correct:false,why:'raise löst die Exception aus — kein print. Der Fehler stoppt die Ausführung (oder wird von except abgefangen).'},
+    {t:'Es löst manuell eine ValueError-Exception aus',correct:true,why:'Richtig! raise wirft eine Exception. Nützlich für eigene Validierung: if alter < 0: raise ValueError("Alter kann nicht negativ sein").'},
+    {t:'Es ignoriert den Fehler',correct:false,why:'Fehler ignorieren macht pass im except-Block. raise löst einen Fehler aus.'},
+    {t:'Es ist nur in Klassen erlaubt',correct:false,why:'raise funktioniert überall — in Funktionen, Methoden, Skripten.'},
+  ]},
+  {id:'p_l2_5_mc6',type:'mc',xp:10,question:'Wann läuft der else-Block in try/except/else?',options:[
+    {t:'Immer',correct:false,why:'Immer läuft finally. else läuft nur wenn KEIN Fehler im try-Block auftrat.'},
+    {t:'Nur wenn ein Fehler auftrat',correct:false,why:'Das wäre except. else ist das Gegenteil.'},
+    {t:'Wenn im try-Block kein Fehler auftrat',correct:true,why:'Genau! try→else heißt: "Hat alles geklappt? Dann mach noch das." Vorteil: der else-Block ist nicht durch try geschützt — Fehler dort werden nicht abgefangen.'},
+    {t:'Nur wenn finally auch ausgeführt wurde',correct:false,why:'finally und else sind unabhängig voneinander.'},
+  ]},
+  {id:'p_l2_5_mc7',type:'mc',xp:10,question:'Wie fängt man mehrere Exception-Typen in einem except ab?',options:[
+    {t:'except ValueError, TypeError:',correct:false,why:'Diese Syntax ist Python-2-Style und in Python 3 ungültig.'},
+    {t:'except (ValueError, TypeError):',correct:true,why:'Richtig! In Python 3 muss man mehrere Exceptions in einem Tuple angeben: except (ValueError, TypeError) as e:'},
+    {t:'catch ValueError or TypeError:',correct:false,why:'catch gibt es in Python nicht — das ist Java/JavaScript. Python nutzt except.'},
+    {t:'except ValueError | TypeError:',correct:false,why:'| für Exceptions ist in Python 3.10+ für isinstance() möglich, aber nicht für except.'},
+  ]},
+  {id:'p_l2_5_mc8',type:'mc',xp:10,question:'Was ist der ZeroDivisionError?',options:[
+    {t:'Ein Fehler wenn eine Variable 0 ist',correct:false,why:'Variablen dürfen 0 sein. ZeroDivisionError tritt nur bei Division durch 0 auf.'},
+    {t:'Ein Fehler bei Division durch 0',correct:true,why:'Richtig! 5 / 0 → ZeroDivisionError. Abfangen mit: except ZeroDivisionError: oder als Prüfung: if divisor != 0: bevor der Code ausgeführt wird.'},
+    {t:'Ein Fehler wenn ein Integer zu groß ist',correct:false,why:'Python hat keine Integer-Overflow-Fehler — Zahlen können beliebig groß werden.'},
+    {t:'Ein Fehler bei negativen Zahlen',correct:false,why:'Negative Zahlen sind kein Fehler. ZeroDivisionError tritt nur bei Division durch 0 auf.'},
+  ]},
+  {id:'p_l2_5_tf1',type:'truefalse',xp:8,statement:'Ein except-Block ohne Angabe eines Fehlertyps fängt alle Exceptions ab.',correct:true,explanation:'Stimmt! "except:" (ohne Typ) fängt alles ab — aber das ist oft schlechte Praxis. Besser: spezifische Exceptions angeben, damit du weißt was du behandelst.'},
+  {id:'p_l2_5_tf2',type:'truefalse',xp:8,statement:'try/except verlangsamt den Code erheblich auch wenn kein Fehler auftritt.',correct:false,explanation:'Falsch! try-Blöcke ohne Fehler haben minimalen Performance-Overhead. Python ist optimiert dafür. Die Kosten entstehen nur wenn tatsächlich eine Exception geworfen wird.'},
+  {id:'p_l2_5_tf3',type:'truefalse',xp:8,statement:'Man kann eigene Exception-Klassen erstellen die von Exception erben.',correct:true,explanation:'Stimmt! class MeinFehler(Exception): pass — dann raise MeinFehler("Details"). In professionellen Projekten ist das üblich für domain-spezifische Fehler.'},
+  {id:'p_l2_5_tf4',type:'truefalse',xp:8,statement:'KeyError tritt auf wenn man auf einen nicht existierenden Dictionary-Schlüssel zugreift.',correct:true,explanation:'Stimmt! d = {"a": 1}; d["b"] → KeyError. Vermeiden mit: d.get("b") (gibt None) oder d.get("b", default).'},
+  {id:'p_l2_5_tf5',type:'truefalse',xp:8,statement:'finally wird nicht ausgeführt wenn das Programm mit exit() beendet wird.',correct:false,explanation:'Falsch! exit() löst SystemExit aus — und finally wird sogar dann ausgeführt. Nur ein harter Absturz (Stromausfall, SIGKILL) umgeht finally.'},
+  {id:'p_l2_5_fb1',type:'fillblank',xp:12,prompt:'Welcher Fehlertyp tritt auf wenn man 5 / 0 rechnet?',answers:['ZeroDivisionError'],placeholder:'Fehlertyp',explanation:'Richtig! ZeroDivisionError. Abfangen: except ZeroDivisionError as e: print(e)'},
+  {id:'p_l2_5_fb2',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort löst manuell eine Exception aus?',answers:['raise'],placeholder:'Schlüsselwort',explanation:'Richtig! raise ValueError("Meldung") — damit kannst du eigene Fehler werfen wenn eine Eingabe ungültig ist.'},
+  {id:'p_l2_5_fb3',type:'fillblank',xp:12,prompt:'Welcher Block läuft garantiert immer — egal ob ein Fehler auftrat oder nicht?',answers:['finally'],placeholder:'Block-Name',explanation:'Richtig! finally: läuft immer. Nützlich um Ressourcen aufzuräumen: Dateien schließen, Verbindungen beenden.'},
+  {id:'p_l2_5_fb4',type:'fillblank',xp:12,prompt:'Welcher Fehler tritt auf wenn man auf einen nicht existierenden Dictionary-Key zugreift?',answers:['KeyError'],placeholder:'Fehlertyp',explanation:'Richtig! KeyError. Vermeiden mit .get(key, default) statt direktem Zugriff mit [key].'},
+  {id:'p_l2_5_bonus',type:'mc',xp:20,optional:true,question:'Was gibt dieser Code aus?\ntry:\n    x = int("42abc")\nexcept ValueError:\n    x = 0\nfinally:\n    print(x)',options:[
+    {t:'42',correct:false,why:'int("42abc") schlägt fehl — der String enthält nicht-numerische Zeichen.'},
+    {t:'0',correct:true,why:'Richtig! int("42abc") → ValueError → except setzt x = 0 → finally print(x) → 0.'},
+    {t:'None',correct:false,why:'x wird im except auf 0 gesetzt, nicht auf None.'},
+    {t:'NameError',correct:false,why:'x wird im except definiert (x = 0), bevor finally print(x) aufruft.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_6'] = [
+  {id:'p_l2_6_mc1',type:'mc',xp:10,question:'Was gibt user.get("email","N/A") zurück wenn "email" nicht im Dict existiert?',options:[
+    {t:'"email"',correct:false,why:'.get() gibt nicht den Schlüsselnamen zurück.'},
+    {t:'"N/A"',correct:true,why:'Genau! Das zweite Argument von .get() ist der Default-Wert. So vermeidest du KeyError.'},
+    {t:'None',correct:false,why:'None nur wenn kein Default angegeben — hier wurde "N/A" übergeben.'},
+    {t:'KeyError',correct:false,why:'Genau das verhindert .get() — keine Exception.'},
+  ]},
+  {id:'p_l2_6_mc2',type:'mc',xp:10,question:'Was ist der Hauptunterschied zwischen einer Liste und einem Tuple?',options:[
+    {t:'Listen können keine Zahlen enthalten',correct:false,why:'Listen können jeden Typ enthalten.'},
+    {t:'Tuples sind unveränderlich (immutable), Listen sind veränderlich (mutable)',correct:true,why:'Richtig! Tuple: einmal erstellt, nicht mehr änderbar. Liste: append, remove, sort etc. möglich. Tuples sind deshalb etwas schneller.'},
+    {t:'Tuples erlauben keine Duplikate',correct:false,why:'Tuples erlauben Duplikate. Keine Duplikate gibt es bei Sets.'},
+    {t:'Listen können nicht sortiert werden',correct:false,why:'Listen können mit .sort() oder sorted() sortiert werden.'},
+  ]},
+  {id:'p_l2_6_mc3',type:'mc',xp:10,question:'Was ist der Hauptvorteil eines Sets gegenüber einer Liste?',options:[
+    {t:'Sets sind geordnet',correct:false,why:'Sets sind NICHT geordnet. Listen sind geordnet.'},
+    {t:'Sets erlauben Duplikate',correct:false,why:'Sets erlauben KEINE Duplikate — das ist einer ihrer Kernvorteile.'},
+    {t:'Sehr schnelle Mitgliedschaftsprüfung (x in s) und keine Duplikate',correct:true,why:'Richtig! in-Prüfung bei Sets ist O(1) (Hashmap), bei Listen O(n). Perfekt um Duplikate zu entfernen: list(set(meine_liste)).'},
+    {t:'Sets sind unveränderlich',correct:false,why:'Sets sind veränderlich (add, remove). Unveränderliche Sets heißen frozenset.'},
+  ]},
+  {id:'p_l2_6_mc4',type:'mc',xp:10,question:'Was gibt [x**2 for x in range(4)] zurück?',options:[
+    {t:'[0,1,4,9]',correct:true,why:'Richtig! List Comprehension: 0²=0, 1²=1, 2²=4, 3²=9. range(4) erzeugt 0,1,2,3.'},
+    {t:'[1,4,9,16]',correct:false,why:'Das wäre range(1,5). range(4) beginnt bei 0.'},
+    {t:'[0,2,4,6]',correct:false,why:'Das wäre [x*2 for x in range(4)], nicht x**2.'},
+    {t:'(0,1,4,9)',correct:false,why:'Das wäre ein Tuple. Die eckigen Klammern [] machen es zur List Comprehension.'},
+  ]},
+  {id:'p_l2_6_mc5',type:'mc',xp:10,question:'Wie fügt man ein Element ans Ende einer Liste an?',options:[
+    {t:'liste.add("neu")',correct:false,why:'.add() gibt es bei Sets, nicht bei Listen.'},
+    {t:'liste.append("neu")',correct:true,why:'Richtig! .append() hängt das Element ans Ende. .extend() hängt eine andere Liste an. .insert(i, x) fügt an Position i ein.'},
+    {t:'liste.push("neu")',correct:false,why:'.push() gibt es in Python-Listen nicht.'},
+    {t:'liste + "neu"',correct:false,why:'+ erwartet eine andere Liste, keinen einzelnen Wert. Außerdem wird dabei eine neue Liste erstellt, nicht die original verändert.'},
+  ]},
+  {id:'p_l2_6_mc6',type:'mc',xp:10,question:'Was gibt {1, 2, 3} & {2, 3, 4} zurück?',options:[
+    {t:'{1,2,3,4}',correct:false,why:'Das wäre die Vereinigung (|). & ist Schnittmenge.'},
+    {t:'{2,3}',correct:true,why:'Richtig! & ist der Schnittmengen-Operator (intersection). Gibt Elemente zurück die in BEIDEN Sets sind.'},
+    {t:'{1,4}',correct:false,why:'Das wäre die symmetrische Differenz (^) — Elemente nur in einem der Sets.'},
+    {t:'True',correct:false,why:'Set-Operationen geben Sets zurück, keine Booleans.'},
+  ]},
+  {id:'p_l2_6_mc7',type:'mc',xp:10,question:'Wie iteriert man über Schlüssel UND Werte eines Dictionaries gleichzeitig?',options:[
+    {t:'for k, v in d.items():',correct:true,why:'Richtig! .items() gibt (key, value)-Paare zurück. Sehr häufig genutzt. .keys() nur Schlüssel, .values() nur Werte.'},
+    {t:'for k, v in d:',correct:false,why:'Über ein Dict iterieren gibt nur Schlüssel zurück. Für Paare braucht man .items().'},
+    {t:'for k, v in d.pairs():',correct:false,why:'.pairs() gibt es in Python-Dicts nicht.'},
+    {t:'for (k, v) in d.keys():',correct:false,why:'.keys() gibt nur Schlüssel zurück, keine Paare.'},
+  ]},
+  {id:'p_l2_6_mc8',type:'mc',xp:10,question:'Was passiert wenn man list.pop() ohne Argument aufruft?',options:[
+    {t:'Gibt das erste Element zurück und entfernt es',correct:false,why:'.pop(0) nimmt das erste. .pop() ohne Argument nimmt das letzte.'},
+    {t:'Gibt das letzte Element zurück und entfernt es',correct:true,why:'Richtig! .pop() ohne Argument entfernt und gibt das letzte Element zurück. .pop(i) für beliebige Position.'},
+    {t:'Leert die gesamte Liste',correct:false,why:'Liste leeren macht .clear(). .pop() entfernt nur ein Element.'},
+    {t:'Gibt einen IndexError',correct:false,why:'IndexError nur wenn die Liste leer ist.'},
+  ]},
+  {id:'p_l2_6_tf1',type:'truefalse',xp:8,statement:'d = {"a": 1}; d["b"] wirft einen KeyError.',correct:true,explanation:'Stimmt! Direkter Zugriff mit [] auf nicht existierenden Key → KeyError. Sicher: d.get("b") → None, oder d.get("b", 0) → 0.'},
+  {id:'p_l2_6_tf2',type:'truefalse',xp:8,statement:'Ein Set kann Listen als Elemente enthalten.',correct:false,explanation:'Falsch! Set-Elemente müssen hashbar (unveränderlich) sein. Listen sind veränderlich → nicht hashbar → können nicht in Sets. Tuples hingegen sind erlaubt.'},
+  {id:'p_l2_6_tf3',type:'truefalse',xp:8,statement:'sorted([3,1,2]) gibt [1,2,3] zurück ohne die Original-Liste zu ändern.',correct:true,explanation:'Stimmt! sorted() gibt eine NEUE sortierte Liste zurück. .sort() sortiert die Liste in place (verändert sie). sorted() lässt das Original unverändert.'},
+  {id:'p_l2_6_tf4',type:'truefalse',xp:8,statement:'Dictionaries in Python 3.7+ merken sich die Einfügereihenfolge der Schlüssel.',correct:true,explanation:'Stimmt! Seit Python 3.7 sind Dicts geordnet (insertion order). In Python 3.6 war das Implementierungsdetail, ab 3.7 Sprachgarantie.'},
+  {id:'p_l2_6_tf5',type:'truefalse',xp:8,statement:'list(set([1,2,2,3,3,3])) gibt [1,2,3] zurück.',correct:true,explanation:'Stimmt! set() entfernt Duplikate, list() wandelt zurück. Aber Achtung: die Reihenfolge ist nicht garantiert! Das Ergebnis könnte auch [3,1,2] o.ä. sein.'},
+  {id:'p_l2_6_fb1',type:'fillblank',xp:12,prompt:'Welche Methode fügt ein Element ans Ende einer Liste an?',answers:['append','append()','.append','.append()'],placeholder:'Methode',explanation:'Richtig! liste.append(wert) hängt wert ans Ende. Liste ändert sich in place, kein Rückgabewert.'},
+  {id:'p_l2_6_fb2',type:'fillblank',xp:12,prompt:'Welche Datenstruktur erlaubt keine Duplikate und hat keine garantierte Reihenfolge?',answers:['Set','set','Set()','set()'],placeholder:'Datenstruktur',explanation:'Richtig! Sets (Mengen) erlauben keine Duplikate und sind ungeordnet. Mitgliedschaftsprüfung ist sehr schnell.'},
+  {id:'p_l2_6_fb3',type:'fillblank',xp:12,prompt:'Mit welcher Methode iteriert man über Key-Value-Paare eines Dictionaries?',answers:['items','items()','.items','.items()'],placeholder:'Methode',explanation:'Richtig! for k, v in d.items(): — gibt (key, value)-Tuples zurück.'},
+  {id:'p_l2_6_fb4',type:'fillblank',xp:12,prompt:'Was gibt len({"a":1,"b":2,"c":3}) zurück? (Zahl)',answers:['3'],placeholder:'Zahl',explanation:'Richtig! len() bei Dicts gibt die Anzahl der Schlüssel zurück. 3 Schlüssel → 3.'},
+  {id:'p_l2_6_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgendes aus?\nd = {"x": [1,2,3]}\nd["x"].append(4)\nprint(d)',options:[
+    {t:"{'x': [1,2,3,4]}",correct:true,why:"Richtig! d['x'] gibt die Liste zurück — .append(4) ändert sie in place. Das Dict enthält jetzt die veränderte Liste."},
+    {t:"{'x': [1,2,3]}",correct:false,why:'append() ändert die Liste in place. Das Dict zeigt auf dieselbe Liste-Objekt — die Änderung ist sichtbar.'},
+    {t:"{'x': [1,2,3], 4: None}",correct:false,why:'append(4) hängt 4 an die Liste, erstellt keinen neuen Dict-Key.'},
+    {t:"TypeError",correct:false,why:'Listen-Werte in Dicts können normal verändert werden.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_7'] = [
+  {id:'p_l2_7_mc1',type:'mc',xp:10,question:'Was ist der Zweck von __init__ in einer Python-Klasse?',options:[
+    {t:'Es macht die Klasse importierbar',correct:false,why:'Import hat nichts mit __init__ zu tun.'},
+    {t:'Es ist der Konstruktor — wird beim Erstellen einer Instanz automatisch aufgerufen',correct:true,why:'Genau! Dog("Rex","Lab") → __init__ läuft automatisch. Hier setzt man Attribute: self.name = name.'},
+    {t:'Es definiert eine statische Methode',correct:false,why:'Statische Methoden: @staticmethod. __init__ ist der Instanz-Konstruktor.'},
+    {t:'Es ist optional und bedeutungslos',correct:false,why:'__init__ ist der Standard-Konstruktor — sehr wichtig für die Initialisierung.'},
+  ]},
+  {id:'p_l2_7_mc2',type:'mc',xp:10,question:'Was bedeutet "self" als erster Parameter einer Methode?',options:[
+    {t:'Ein spezieller Wert der immer 0 ist',correct:false,why:'self ist kein fixer Wert — es ist ein Verweis auf die Instanz.'},
+    {t:'Verweis auf die aktuelle Instanz des Objekts',correct:true,why:'Richtig! self.name verweist auf das name-Attribut dieser spezifischen Instanz. Python übergibt self automatisch beim Aufruf.'},
+    {t:'Ein Schlüsselwort wie in Java "this"',correct:false,why:'Funktionell ähnlich wie "this" in Java/JS, aber self ist nur eine Konvention — man könnte auch "ich" schreiben (tue es nicht).'},
+    {t:'Immer der erste Parameter aller Funktionen',correct:false,why:'Nur Methoden in Klassen brauchen self — normale Funktionen nicht.'},
+  ]},
+  {id:'p_l2_7_mc3',type:'mc',xp:10,question:'Was ist Vererbung (Inheritance) in OOP?',options:[
+    {t:'Eine Klasse kopiert den Code einer anderen',correct:false,why:'Kein Kopieren — die Kindklasse nutzt Methoden der Elternklasse direkt.'},
+    {t:'Eine Kindklasse erbt Methoden und Attribute einer Elternklasse',correct:true,why:'Richtig! class Hund(Tier): — Hund erbt alles von Tier und kann es erweitern oder überschreiben (override).'},
+    {t:'Zwei Klassen die dieselbe Methode haben',correct:false,why:'Das wäre Polymorphismus. Vererbung ist eine is-a Beziehung: Hund ist ein Tier.'},
+    {t:'Eine Klasse die keine Attribute hat',correct:false,why:'Vererbung hat nichts mit der Anzahl der Attribute zu tun.'},
+  ]},
+  {id:'p_l2_7_mc4',type:'mc',xp:10,question:'Was macht @property in Python?',options:[
+    {t:'Markiert eine Variable als konstant',correct:false,why:'Python hat keine echten Konstanten. @property macht etwas anderes.'},
+    {t:'Erlaubt eine Methode wie ein Attribut anzusprechen (ohne Klammern)',correct:true,why:'Richtig! @property: class Kreis: @property def flaeche(self): return 3.14 * self.r**2. Aufruf: k.flaeche (ohne ()) — sieht aus wie Attribut, ist aber Methode.'},
+    {t:'Macht ein Attribut öffentlich sichtbar',correct:false,why:'Python hat kein echtes private/public. @property ist für getter-Logik.'},
+    {t:'Verhindert dass eine Methode überschrieben wird',correct:false,why:'Das wäre in anderen Sprachen "final". Python hat kein Äquivalent.'},
+  ]},
+  {id:'p_l2_7_mc5',type:'mc',xp:10,question:'Was gibt __repr__ zurück?',options:[
+    {t:'Die Speicheradresse des Objekts',correct:false,why:'Die Adresse steht in der Default-repr wie <__main__.Dog object at 0x...>. Wenn man __repr__ implementiert, gibt man etwas Sinnvolles zurück.'},
+    {t:'Eine String-Repräsentation des Objekts — nützlich für Debugging',correct:true,why:'Richtig! __repr__ gibt einen String zurück der das Objekt beschreibt. Wird im REPL und bei print() (als Fallback) genutzt.'},
+    {t:'Die Anzahl der Attribute',correct:false,why:'Attributanzahl wäre len(self.__dict__). __repr__ gibt einen String zurück.'},
+    {t:'Den Namen der Klasse',correct:false,why:'Klassenname: type(obj).__name__ oder self.__class__.__name__. __repr__ gibt einen nutzerdefinierten String zurück.'},
+  ]},
+  {id:'p_l2_7_mc6',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Klasse und Instanz?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Klasse = Bauplan. Instanz = konkretes Objekt nach diesem Bauplan.'},
+    {t:'Klasse ist die Blaupause, Instanz ist das konkrete Objekt',correct:true,why:'Richtig! Dog ist die Klasse (Bauplan). rex = Dog("Rex","Lab") erstellt eine Instanz (konkretes Objekt). Man kann viele Instanzen einer Klasse erstellen.'},
+    {t:'Instanzen können keine Methoden aufrufen',correct:false,why:'Instanzen rufen Methoden auf: rex.bellen(). Die Methode ist in der Klasse definiert.'},
+    {t:'Klassen existieren nur während der Laufzeit',correct:false,why:'Klassen existieren während der gesamten Programmlaufzeit.'},
+  ]},
+  {id:'p_l2_7_mc7',type:'mc',xp:10,question:'Was macht super() in einer Kindklasse?',options:[
+    {t:'Es gibt die Elternklasse als Objekt zurück',correct:false,why:'super() gibt einen Proxy zurück der Methodenaufrufe an die Elternklasse weiterleitet.'},
+    {t:'Es ruft Methoden der Elternklasse auf',correct:true,why:'Richtig! super().__init__(...) ruft den __init__ der Elternklasse auf. Nützlich um Elternlogik zu behalten und trotzdem zu erweitern.'},
+    {t:'Es macht die Kindklasse zur Elternklasse',correct:false,why:'super() ändert keine Hierarchie — es ermöglicht nur den Zugriff auf Elternmethoden.'},
+    {t:'Es ist dasselbe wie self',correct:false,why:'self verweist auf die aktuelle Instanz. super() verweist auf die Elternklasse.'},
+  ]},
+  {id:'p_l2_7_mc8',type:'mc',xp:10,question:'Was ist Encapsulation (Kapselung) in OOP?',options:[
+    {t:'Code in einer Datei zusammenfassen',correct:false,why:'Dateien zusammenfassen ist Modulstruktur. Kapselung betrifft Datenzugriff.'},
+    {t:'Daten und Methoden zu bündeln und internen Zustand zu schützen',correct:true,why:'Richtig! Kapselung = Daten innerhalb einer Klasse halten und Zugriff kontrollieren. _attribut (Konvention: intern), __attribut (Name-mangling). Außen nur über Methoden/properties zugreifen.'},
+    {t:'Eine Klasse von mehreren Elternklassen erben lassen',correct:false,why:'Das wäre Multiple Inheritance. Kapselung betrifft den Schutz von internem Zustand.'},
+    {t:'Eine Funktion innerhalb einer anderen Funktion definieren',correct:false,why:'Das ist eine Closure, kein OOP-Konzept der Kapselung.'},
+  ]},
+  {id:'p_l2_7_tf1',type:'truefalse',xp:8,statement:'In Python beginnen "private" Attribute per Konvention mit einem Unterstrich (_).',correct:true,explanation:'Stimmt! _attribut ist die Konvention für "intern, bitte nicht von außen benutzen". Python erzwingt das nicht — es ist eine Vereinbarung. __attribut (zwei Unterstriche) aktiviert Name-Mangling.'},
+  {id:'p_l2_7_tf2',type:'truefalse',xp:8,statement:'Eine Klasse kann von mehreren Elternklassen gleichzeitig erben (Multiple Inheritance).',correct:true,explanation:'Stimmt! class Kind(Mutter, Vater): — Python unterstützt Multiple Inheritance. Der MRO (Method Resolution Order) bestimmt welche Methode genutzt wird wenn beide Eltern dieselbe definieren.'},
+  {id:'p_l2_7_tf3',type:'truefalse',xp:8,statement:'class Tier: pass erstellt eine gültige leere Klasse.',correct:true,explanation:'Stimmt! pass als Platzhalter ist gültig. Tier() kann dann bereits instanziiert werden — die Instanz hat nur keine eigenen Attribute oder Methoden.'},
+  {id:'p_l2_7_tf4',type:'truefalse',xp:8,statement:'self muss zwingend der Name des ersten Parameters in Methoden sein.',correct:false,explanation:'Falsch! self ist nur eine Konvention — man könnte auch "this" oder "ich" schreiben. Python übergibt die Instanz immer als erstes Argument, egal wie der Parameter heißt. Aber: bitte immer self verwenden.'},
+  {id:'p_l2_7_tf5',type:'truefalse',xp:8,statement:'Instanz-Attribute werden im __init__ mit self.attribut = wert gesetzt.',correct:true,explanation:'Stimmt! def __init__(self, name): self.name = name — so bekommt jede Instanz ihr eigenes name-Attribut.'},
+  {id:'p_l2_7_fb1',type:'fillblank',xp:12,prompt:'Welche Methode wird automatisch aufgerufen wenn eine Instanz erstellt wird?',answers:['__init__','__init__(self)'],placeholder:'Methode',explanation:'Richtig! __init__ ist der Konstruktor. Dog("Rex") → __init__(self, "Rex") wird automatisch aufgerufen.'},
+  {id:'p_l2_7_fb2',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort definiert eine Klasse in Python?',answers:['class'],placeholder:'Schlüsselwort',explanation:'Richtig! class Tier: — dann folgt der eingerückte Klassenrumpf.'},
+  {id:'p_l2_7_fb3',type:'fillblank',xp:12,prompt:'Wie ruft eine Kindklasse den Konstruktor der Elternklasse auf? (Funktion, 2 Wörter)',answers:['super().__init__','super().__init__()'],placeholder:'Aufruf',explanation:'Richtig! super().__init__(args) ruft den __init__ der Elternklasse auf. Wichtig: Parameter der Elternklasse mitübergeben.'},
+  {id:'p_l2_7_fb4',type:'fillblank',xp:12,prompt:'Wie heißt der Parameter der in jeder Methode auf die eigene Instanz zeigt?',answers:['self'],placeholder:'Parameter-Name',explanation:'Richtig! self ist die Konvention. Python übergibt die Instanz automatisch als erstes Argument.'},
+  {id:'p_l2_7_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgender Code aus?\nclass Counter:\n    count = 0\n    def __init__(self):\n        Counter.count += 1\na = Counter()\nb = Counter()\nprint(Counter.count)',options:[
+    {t:'2',correct:true,why:'Richtig! count ist ein Klassen-Attribut (geteilt von allen Instanzen). Jeder __init__-Aufruf inkrementiert es. Zwei Instanzen → count = 2.'},
+    {t:'0',correct:false,why:'0 wäre der Startwert. Zwei __init__-Aufrufe inkrementieren count auf 2.'},
+    {t:'1',correct:false,why:'Jede Instanzerstellung ruft __init__ auf. Zwei Instanzen → zwei Inkremente.'},
+    {t:'AttributeError',correct:false,why:'Counter.count ist ein gültiges Klassenattribut, kein Fehler.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_8'] = [
+  {id:'p_l2_8_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "import math" und "from math import sqrt"?',options:[
+    {t:'Es gibt keinen Unterschied',correct:false,why:'Doch — der Zugriff funktioniert anders.'},
+    {t:'"import math" lädt das ganze Modul (Zugriff via math.sqrt), "from math import sqrt" macht sqrt direkt verfügbar',correct:true,why:'Genau! from math import sqrt → sqrt() direkt nutzbar. import math → math.sqrt() nötig.'},
+    {t:'"from math import sqrt" ist langsamer',correct:false,why:'Performance-Unterschied ist minimal und irrelevant.'},
+    {t:'"import math" ist veraltet',correct:false,why:'Beide Formen sind aktuell und weit verbreitet.'},
+  ]},
+  {id:'p_l2_8_mc2',type:'mc',xp:10,question:'Was macht "pip install requests"?',options:[
+    {t:'Lädt das requests-Modul aus der Standardbibliothek',correct:false,why:'Standardbibliothek-Module müssen nicht installiert werden. pip installiert externe Pakete.'},
+    {t:'Installiert das externe requests-Paket aus dem PyPI-Repository',correct:true,why:'Richtig! pip ist der Package-Installer für Python. PyPI (Python Package Index) ist das offizielle Repository mit Hunderttausenden Paketen.'},
+    {t:'Erstellt eine neue Python-Datei namens requests',correct:false,why:'pip install macht nichts mit Dateien in deinem Projekt — es installiert Pakete systemweit oder in einer virtuellen Umgebung.'},
+    {t:'Aktiviert das requests-Modul im aktuellen Skript',correct:false,why:'Nach der Installation muss man noch "import requests" im Skript schreiben.'},
+  ]},
+  {id:'p_l2_8_mc3',type:'mc',xp:10,question:'Was bedeutet if __name__ == "__main__": ?',options:[
+    {t:'Prüft ob das Modul einen Fehler hat',correct:false,why:'__name__ hat nichts mit Fehlern zu tun.'},
+    {t:'Code darunter läuft nur wenn die Datei direkt ausgeführt wird, nicht wenn sie importiert wird',correct:true,why:'Richtig! Wenn man python mein_skript.py ausführt, ist __name__ == "__main__". Wenn ein anderes Modul das Skript importiert, ist __name__ der Dateiname.'},
+    {t:'Definiert den Programmeinstiegspunkt wie main() in Java',correct:false,why:'Ähnliche Idee, aber technisch anders — es ist eine if-Prüfung, kein automatischer Einstiegspunkt.'},
+    {t:'Verbietet das Importieren des Moduls',correct:false,why:'Das Modul kann weiterhin importiert werden — der Code darunter läuft dann nur nicht.'},
+  ]},
+  {id:'p_l2_8_mc4',type:'mc',xp:10,question:'Was ist eine virtuelle Umgebung (venv)?',options:[
+    {t:'Eine Art Container für Python-Code',correct:false,why:'Container (Docker) ist etwas anderes. venv isoliert Pakete.'},
+    {t:'Eine isolierte Python-Installation mit eigenen Paketen für ein Projekt',correct:true,why:'Richtig! Ohne venv teilen alle Projekte dieselben Pakete — Versions-Konflikte sind unvermeidlich. Mit venv hat jedes Projekt eigene Pakete.'},
+    {t:'Eine Umgebungsvariable für Python',correct:false,why:'Umgebungsvariablen sind im os.environ. venv ist eine Ordnerstruktur mit eigener Python-Installation.'},
+    {t:'Ein Tool zum Testen von Python-Code',correct:false,why:'Testing-Tools sind pytest, unittest. venv isoliert Paket-Installationen.'},
+  ]},
+  {id:'p_l2_8_mc5',type:'mc',xp:10,question:'Welches Modul ist NICHT Teil von Pythons Standardbibliothek?',options:[
+    {t:'os',correct:false,why:'os ist Standardbibliothek — Dateisystem, Umgebungsvariablen.'},
+    {t:'json',correct:false,why:'json ist Standardbibliothek — JSON lesen/schreiben.'},
+    {t:'requests',correct:true,why:'Richtig! requests ist ein externes Paket (pip install requests). Es ist sehr populär für HTTP-Anfragen, aber nicht in der Standardbibliothek.'},
+    {t:'datetime',correct:false,why:'datetime ist Standardbibliothek — Datum und Uhrzeit.'},
+  ]},
+  {id:'p_l2_8_mc6',type:'mc',xp:10,question:'Was macht "import os; os.listdir(".")"?',options:[
+    {t:'Listet alle Python-Module auf',correct:false,why:'os.listdir() listet Dateien und Ordner — nicht nur Python-Module.'},
+    {t:'Gibt alle Dateien und Ordner im aktuellen Verzeichnis zurück',correct:true,why:'Richtig! os.listdir(pfad) gibt eine Liste mit allen Einträgen im Verzeichnis. "." = aktuelles Verzeichnis.'},
+    {t:'Erstellt eine neue Datei "."',correct:false,why:'listdir liest — es erstellt nichts.'},
+    {t:'Gibt den Systempfad zurück',correct:false,why:'Systempfad wäre import sys; sys.path.'},
+  ]},
+  {id:'p_l2_8_mc7',type:'mc',xp:10,question:'Was gibt "import math; math.ceil(4.2)" zurück?',options:[
+    {t:'4',correct:false,why:'4 wäre math.floor(4.2) — abrunden. ceil rundet auf.'},
+    {t:'5',correct:true,why:'Richtig! math.ceil() rundet immer auf (ceiling = Decke). math.floor() rundet ab.'},
+    {t:'4.2',correct:false,why:'ceil gibt einen Integer zurück, keinen float.'},
+    {t:'4.0',correct:false,why:'ceil gibt einen Integer zurück: 5, nicht 4.0.'},
+  ]},
+  {id:'p_l2_8_mc8',type:'mc',xp:10,question:'Wie gibt man einem importierten Modul einen Alias?',options:[
+    {t:'import numpy alias np',correct:false,why:'Das Schlüsselwort ist "as", nicht "alias".'},
+    {t:'import numpy as np',correct:true,why:'Richtig! import numpy as np — dann np.array() statt numpy.array(). Sehr verbreitet: import pandas as pd, import matplotlib.pyplot as plt.'},
+    {t:'from numpy import np',correct:false,why:'Das würde versuchen "np" aus numpy zu importieren — das gibt es nicht.'},
+    {t:'numpy = import("numpy")',correct:false,why:'import() als Funktion ist __import__(), aber das ist selten. Alias macht man mit as.'},
+  ]},
+  {id:'p_l2_8_tf1',type:'truefalse',xp:8,statement:'import math lädt das Modul bei jedem Aufruf erneut.',correct:false,explanation:'Falsch! Python cached importierte Module in sys.modules. Das zweite import math liest aus dem Cache — kein erneutes Laden.'},
+  {id:'p_l2_8_tf2',type:'truefalse',xp:8,statement:'Aus der Standardbibliothek kann man math.pi für die Zahl π nutzen.',correct:true,explanation:'Stimmt! import math; print(math.pi) → 3.141592653589793. Auch math.e (Euler-Zahl), math.inf (Unendlich) usw.'},
+  {id:'p_l2_8_tf3',type:'truefalse',xp:8,statement:'"from math import *" ist generell gute Praxis.',correct:false,explanation:'Falsch! Wildcard-Import (* ) ist schlechte Praxis — er verschmutzt den Namespace und macht unklar woher Funktionen kommen. Ausnahme: __init__.py für Package-Exports.'},
+  {id:'p_l2_8_tf4',type:'truefalse',xp:8,statement:'requirements.txt listet alle Abhängigkeiten eines Projekts auf.',correct:true,explanation:'Stimmt! pip freeze > requirements.txt speichert alle installierten Pakete. pip install -r requirements.txt installiert sie wieder. Standard in Python-Projekten.'},
+  {id:'p_l2_8_tf5',type:'truefalse',xp:8,statement:'Ein eigenes Python-Skript kann man mit import importieren wie ein Modul.',correct:true,explanation:'Stimmt! Jede .py-Datei ist ein Modul. myfile.py → import myfile. __name__ == "__main__" trennt Ausführungs-Code von importierbaren Funktionen.'},
+  {id:'p_l2_8_fb1',type:'fillblank',xp:12,prompt:'Welcher Befehl (CLI) installiert externe Python-Pakete?',answers:['pip','pip install'],placeholder:'Befehl',explanation:'Richtig! pip install paketname — Python Package Installer. Installiert aus PyPI (pypi.org).'},
+  {id:'p_l2_8_fb2',type:'fillblank',xp:12,prompt:'Was gibt math.floor(7.9) zurück? (Zahl)',answers:['7'],placeholder:'Zahl',explanation:'Richtig! math.floor() rundet ab (floor = Boden). 7.9 → 7. math.ceil(7.1) → 8.'},
+  {id:'p_l2_8_fb3',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort gibt einem Modul beim Import einen Kurzname? (import numpy __ np)',answers:['as'],placeholder:'Schlüsselwort',explanation:'Richtig! import numpy as np — danach np.array() statt numpy.array().'},
+  {id:'p_l2_8_fb4',type:'fillblank',xp:12,prompt:'Welches Standardmodul bietet Datum und Uhrzeit in Python?',answers:['datetime'],placeholder:'Modulname',explanation:'Richtig! import datetime; datetime.datetime.now() gibt aktuelles Datum/Uhrzeit. Oder: from datetime import datetime; datetime.now().'},
+  {id:'p_l2_8_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgendes aus?\nimport sys\nprint(type(sys.argv))',options:[
+    {t:"<class 'list'>",correct:true,why:'Richtig! sys.argv ist eine Liste von Strings: der erste Eintrag (argv[0]) ist der Skriptname, danach kommen Kommandozeilenargumente.'},
+    {t:"<class 'dict'>",correct:false,why:'sys.argv ist eine Liste, kein Dict.'},
+    {t:"<class 'tuple'>",correct:false,why:'sys.argv ist eine Liste (veränderlich), kein Tuple.'},
+    {t:"<class 'str'>",correct:false,why:'sys.argv ist eine Liste von Strings — nicht ein einzelner String.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_9'] = [
+  {id:'p_l2_9_mc1',type:'mc',xp:10,question:'Was ist der Vorteil von "with open(...) as f:"?',options:[
+    {t:'Die Datei wird komprimiert',correct:false,why:'with komprimiert nichts.'},
+    {t:'Die Datei wird automatisch geschlossen — auch wenn eine Exception auftritt',correct:true,why:'Genau! with garantiert sauberes Aufräumen. Ohne with könnte die Datei offen bleiben wenn ein Fehler kommt.'},
+    {t:'Es ist schneller als open() allein',correct:false,why:'Performance ist identisch. Der Vorteil ist Sicherheit.'},
+    {t:'Es unterstützt nur Textdateien',correct:false,why:'with open() funktioniert auch für Binärdateien (Modus "rb"/"wb").'},
+  ]},
+  {id:'p_l2_9_mc2',type:'mc',xp:10,question:'Was macht der Modus "a" beim Öffnen einer Datei?',options:[
+    {t:'Liest die Datei',correct:false,why:'"a" steht für append, nicht read. Lesen ist "r".'},
+    {t:'Überschreibt den gesamten Inhalt',correct:false,why:'Überschreiben ist "w". "a" hängt an.'},
+    {t:'Hängt neuen Inhalt ans Ende an ohne vorhandenes zu löschen',correct:true,why:'Richtig! "a" = append. Perfekt für Logdateien. "w" überschreibt komplett, "a" hängt ans Ende.'},
+    {t:'Öffnet die Datei nur zum Lesen und Schreiben',correct:false,why:'Lesen und Schreiben wäre "r+" oder "w+".'},
+  ]},
+  {id:'p_l2_9_mc3',type:'mc',xp:10,question:'Was macht json.dumps({"name": "Anna", "age": 30})?',options:[
+    {t:'Schreibt das Dict direkt in eine Datei',correct:false,why:'dumps() erzeugt einen JSON-String. dump() (ohne s) schreibt in eine Datei.'},
+    {t:'Konvertiert das Python-Dict in einen JSON-String',correct:true,why:'Richtig! dumps = "dump to string". Ergebnis: \'{"name": "Anna", "age": 30}\'. Zum Schreiben in eine Datei: json.dump(daten, datei).'},
+    {t:'Lädt JSON aus einer Datei',correct:false,why:'Laden aus Datei: json.load(datei). Aus String: json.loads(string).'},
+    {t:'Prüft ob ein Dict gültiges JSON ist',correct:false,why:'json.dumps() konvertiert — es prüft nicht. Ungültige Typen würden einen TypeError werfen.'},
+  ]},
+  {id:'p_l2_9_mc4',type:'mc',xp:10,question:'Was ist der Unterschied zwischen json.load() und json.loads()?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Klarer Unterschied: einer liest aus Datei, einer aus String.'},
+    {t:'load() liest aus einer Datei, loads() aus einem String',correct:true,why:'Richtig! load(datei) liest JSON direkt aus einem File-Objekt. loads(string) parst einen JSON-String. Das "s" steht für "string".'},
+    {t:'loads() ist langsamer',correct:false,why:'Performance ist ähnlich. Der Unterschied ist die Eingabequelle.'},
+    {t:'load() ist veraltet',correct:false,why:'Beide sind aktuell und werden regelmäßig genutzt.'},
+  ]},
+  {id:'p_l2_9_mc5',type:'mc',xp:10,question:'Welcher Python-Typ kann NICHT direkt als JSON gespeichert werden?',options:[
+    {t:'dict',correct:false,why:'Dicts werden zu JSON-Objekten {}. Das geht problemlos.'},
+    {t:'list',correct:false,why:'Listen werden zu JSON-Arrays []. Das geht.'},
+    {t:'set',correct:true,why:'Richtig! Sets sind nicht JSON-serialisierbar — JSON kennt keine Sets. Lösung: list(mein_set) vor dem Serialisieren.'},
+    {t:'int',correct:false,why:'Integers werden zu JSON-Zahlen. Das geht.'},
+  ]},
+  {id:'p_l2_9_mc6',type:'mc',xp:10,question:'Was gibt f.read() zurück wenn f eine geöffnete Textdatei ist?',options:[
+    {t:'Eine Liste aller Zeilen',correct:false,why:'Eine Liste der Zeilen gibt f.readlines(). read() gibt einen einzigen String.'},
+    {t:'Den gesamten Dateiinhalt als einen String',correct:true,why:'Richtig! f.read() liest die ganze Datei in einen String. f.readline() liest eine Zeile. f.readlines() gibt eine Liste aller Zeilen.'},
+    {t:'Nur die erste Zeile',correct:false,why:'Erste Zeile: f.readline(). read() liest die gesamte Datei.'},
+    {t:'Die Dateigröße in Bytes',correct:false,why:'Dateigröße: os.path.getsize(pfad). f.read() gibt den Inhalt als String.'},
+  ]},
+  {id:'p_l2_9_mc7',type:'mc',xp:10,question:'Wie schreibt man ein Python-Dict als JSON in eine Datei?',options:[
+    {t:'file.write(dict)',correct:false,why:'write() erwartet einen String. Dict direkt übergeben → TypeError.'},
+    {t:'json.dump(daten, datei)',correct:true,why:'Richtig! with open("datei.json","w") as f: json.dump(daten, f) — schreibt direkt in die Datei.'},
+    {t:'json.dumps(datei, daten)',correct:false,why:'Reihenfolge ist falsch: dumps(daten) → String. dump(daten, datei) → in Datei.'},
+    {t:'pickle.write(daten, datei)',correct:false,why:'pickle.dump(daten, datei) würde als Binärformat schreiben — nicht als JSON.'},
+  ]},
+  {id:'p_l2_9_mc8',type:'mc',xp:10,question:'Wofür ist das encoding="utf-8"-Argument bei open() wichtig?',options:[
+    {t:'Es macht die Datei schneller lesbar',correct:false,why:'encoding hat nichts mit Performance zu tun.'},
+    {t:'Es stellt sicher dass Sonderzeichen (Umlaute, Emojis) korrekt gelesen/geschrieben werden',correct:true,why:'Richtig! Ohne utf-8 könnten ä, ö, ü, 😀 etc. falsch interpretiert werden. utf-8 ist der Standard für modernes Arbeiten.'},
+    {t:'Es komprimiert die Datei',correct:false,why:'Kompression macht gzip oder zipfile. encoding definiert die Zeichenkodierung.'},
+    {t:'Es ist nur auf Windows nötig',correct:false,why:'utf-8 sollte auf allen Systemen angegeben werden — Windows nutzt oft cp1252 als Standard, was zu Problemen führt.'},
+  ]},
+  {id:'p_l2_9_tf1',type:'truefalse',xp:8,statement:'json.loads(\'{"key": "value"}\') gibt ein Python-Dict zurück.',correct:true,explanation:'Stimmt! json.loads() parst einen JSON-String in Python-Objekte. {} → dict, [] → list, Zahlen → int/float, true/false → True/False, null → None.'},
+  {id:'p_l2_9_tf2',type:'truefalse',xp:8,statement:'Der Modus "w" hängt neuen Inhalt an eine bestehende Datei an.',correct:false,explanation:'Falsch! "w" (write) überschreibt die gesamte Datei. Anfügen macht "a" (append). Vorsicht: with open("datei.txt","w") löscht sofort den vorhandenen Inhalt.'},
+  {id:'p_l2_9_tf3',type:'truefalse',xp:8,statement:'pickle ist besser als JSON für das Speichern von Daten die mit anderen Sprachen geteilt werden.',correct:false,explanation:'Falsch! pickle ist Python-spezifisch und nicht sicher (kann schädlichen Code ausführen). JSON ist das richtige Format für Datenaustausch zwischen Systemen.'},
+  {id:'p_l2_9_tf4',type:'truefalse',xp:8,statement:'f.readlines() gibt eine Liste aller Zeilen einer Datei zurück.',correct:true,explanation:'Stimmt! Jede Zeile ist ein String in der Liste, inklusive "\\n" am Ende. Zum Entfernen: [line.strip() for line in f.readlines()].'},
+  {id:'p_l2_9_tf5',type:'truefalse',xp:8,statement:'Nach dem Verlassen eines with-Blocks ist die Datei automatisch geschlossen.',correct:true,explanation:'Stimmt! Das ist das Kernfeature von with für Dateien. Das Datei-Objekt ruft intern __exit__ auf, der f.close() ausführt.'},
+  {id:'p_l2_9_fb1',type:'fillblank',xp:12,prompt:'Welcher Modus öffnet eine Datei zum Anhängen von Inhalt ans Ende?',answers:['a','"a"',"'a'"],placeholder:'Modus (1 Buchstabe)',explanation:'Richtig! "a" = append. Die Datei wird nicht geleert — neuer Inhalt kommt ans Ende.'},
+  {id:'p_l2_9_fb2',type:'fillblank',xp:12,prompt:'Welche json-Funktion parst einen JSON-String zu einem Python-Objekt?',answers:['json.loads','loads','json.loads()'],placeholder:'Funktion',explanation:'Richtig! json.loads(string) — "s" für string. json.load(datei) für Dateiobjekte.'},
+  {id:'p_l2_9_fb3',type:'fillblank',xp:12,prompt:'Welche json-Funktion konvertiert ein Python-Dict in einen JSON-String?',answers:['json.dumps','dumps','json.dumps()'],placeholder:'Funktion',explanation:'Richtig! json.dumps(daten) → String. json.dump(daten, datei) → direkt in Datei.'},
+  {id:'p_l2_9_fb4',type:'fillblank',xp:12,prompt:'Welcher Typ kann NICHT direkt zu JSON serialisiert werden? (eine Datenstruktur)',answers:['set','Set','frozenset'],placeholder:'Typ',explanation:'Richtig! Sets sind nicht JSON-serialisierbar. Lösung: list(mein_set) vorher konvertieren.'},
+  {id:'p_l2_9_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen json.dump() und json.dumps()?\n(Tipp: Das "s" am Ende hat eine Bedeutung)',options:[
+    {t:'dump() ist für Dicts, dumps() für Listen',correct:false,why:'Beide funktionieren für alle JSON-serialisierbaren Typen.'},
+    {t:'dump() schreibt in ein Datei-Objekt, dumps() gibt einen String zurück',correct:true,why:'Richtig! "s" = string. dumps → string, loads → from string. dump → file, load → from file. Merkhilfe: das "s" = "string".'},
+    {t:'dumps() ist die neuere Version von dump()',correct:false,why:'Beide existieren seit Anfang — sie haben verschiedene Zwecke.'},
+    {t:'dump() ist schneller',correct:false,why:'Performance ist kein Unterscheidungsmerkmal.'},
+  ]},
+];
+
+QUESTION_POOLS['l2_10'] = [
+  {id:'p_l2_10_mc1',type:'mc',xp:10,question:'Was macht ein Dekorator in Python?',options:[
+    {t:'Er macht eine Funktion schneller',correct:false,why:'Dekoratoren optimieren keine Performance automatisch.'},
+    {t:'Er erweitert eine Funktion mit zusätzlichem Verhalten ohne ihren Code zu ändern',correct:true,why:'Genau! @timer lässt die Originalfunktion unberührt und fügt Timing-Logik drum herum. In Flask: @app.route() macht Funktionen zu URL-Handlern.'},
+    {t:'Er kompiliert Python zu Maschinencode',correct:false,why:'Das macht PyPy oder Cython — nicht normale Dekoratoren.'},
+    {t:'Er ist dasselbe wie eine Klasse',correct:false,why:'Dekoratoren sind Funktionen die Funktionen zurückgeben.'},
+  ]},
+  {id:'p_l2_10_mc2',type:'mc',xp:10,question:'Was ist eine Lambda-Funktion?',options:[
+    {t:'Eine Funktion die automatisch importiert wird',correct:false,why:'Lambda hat nichts mit Import zu tun.'},
+    {t:'Eine anonyme Einzeilen-Funktion',correct:true,why:'Richtig! lambda x: x * 2 ist äquivalent zu def f(x): return x * 2 — nur ohne Name und kürzer.'},
+    {t:'Eine Funktion die sich selbst aufruft',correct:false,why:'Das wäre eine rekursive Funktion. Lambda ist anonym und einzeilig.'},
+    {t:'Eine Funktion in einer Klasse',correct:false,why:'Methoden in Klassen sind normale Funktionen, keine Lambdas.'},
+  ]},
+  {id:'p_l2_10_mc3',type:'mc',xp:10,question:'Was gibt list(map(lambda x: x**2, [1,2,3,4])) zurück?',options:[
+    {t:'[1,4,9,16]',correct:true,why:'Richtig! map() wendet die Funktion auf jedes Element an. lambda x: x**2 quadriert. list() konvertiert das map-Objekt zu einer Liste.'},
+    {t:'[2,4,6,8]',correct:false,why:'Das wäre lambda x: x*2. Hier ist es x**2.'},
+    {t:'[1,2,3,4]',correct:false,why:'Die Originalwerte wären das wenn die Funktion x: x wäre.'},
+    {t:'24',correct:false,why:'map gibt eine neue Collection zurück, keine Summe. sum(map(...)) wäre 30.'},
+  ]},
+  {id:'p_l2_10_mc4',type:'mc',xp:10,question:'Was macht filter(lambda x: x % 2 == 0, [1,2,3,4,5,6])?',options:[
+    {t:'Teilt alle Zahlen durch 2',correct:false,why:'Division macht map. filter wählt Elemente aus.'},
+    {t:'Gibt nur die geraden Zahlen zurück',correct:true,why:'Richtig! filter() behält nur Elemente für die die Funktion True zurückgibt. x % 2 == 0 ist True für gerade Zahlen. Ergebnis: [2,4,6].'},
+    {t:'Gibt [1,3,5] zurück',correct:false,why:'Das wären die ungeraden Zahlen — für die ist x % 2 == 0 False.'},
+    {t:'Gibt True zurück',correct:false,why:'filter() gibt ein filter-Objekt zurück (Iterable), keine Boolean.'},
+  ]},
+  {id:'p_l2_10_mc5',type:'mc',xp:10,question:'Was gibt [x for x in range(10) if x % 3 == 0] zurück?',options:[
+    {t:'[0,3,6,9]',correct:true,why:'Richtig! List Comprehension mit Filter: range(10) = 0..9. x % 3 == 0 trifft zu bei 0,3,6,9.'},
+    {t:'[3,6,9]',correct:false,why:'0 % 3 == 0 ist auch True! 0 ist durch 3 teilbar.'},
+    {t:'[1,2,4,5,7,8]',correct:false,why:'Das wären die Zahlen die NICHT durch 3 teilbar sind.'},
+    {t:'[0,3,6,9,12]',correct:false,why:'range(10) geht nur bis 9. 12 wäre außerhalb.'},
+  ]},
+  {id:'p_l2_10_mc6',type:'mc',xp:10,question:'Wie schreibt man einen Dekorator richtig?',options:[
+    {t:'function @timer: ...',correct:false,why:'@ kommt vor der Funktionsdefinition, nicht nach function.'},
+    {t:'@timer\ndef meine_funktion(): ...',correct:true,why:'Richtig! @dekorator direkt über def. Äquivalent zu: meine_funktion = timer(meine_funktion).'},
+    {t:'def meine_funktion() @timer: ...',correct:false,why:'Syntaxfehler. @ muss vor der def-Zeile stehen.'},
+    {t:'import timer; timer(meine_funktion)',correct:false,why:'Dekoratoren brauchen kein import (wenn selbst definiert). Und @ ist die saubere Syntax.'},
+  ]},
+  {id:'p_l2_10_mc7',type:'mc',xp:10,question:'Was ist functools.wraps und warum ist es wichtig?',options:[
+    {t:'Es ist ein Hilfsmittel um Metadaten der Originalfunktion zu erhalten',correct:true,why:'Richtig! Ohne @wraps verliert die dekorierte Funktion ihren __name__ und __doc__. @wraps(func) kopiert diese Metadaten.'},
+    {t:'Es macht Dekoratoren schneller',correct:false,why:'Performance-Vorteil ist kein Hauptzweck.'},
+    {t:'Es ist notwendig um Dekoratoren zu importieren',correct:false,why:'Dekoratoren brauchen kein wraps — wraps verbessert nur ihre Qualität.'},
+    {t:'Es verhindert dass Dekoratoren verschachtelt werden',correct:false,why:'Dekoratoren können verschachtelt werden — wraps hat damit nichts zu tun.'},
+  ]},
+  {id:'p_l2_10_mc8',type:'mc',xp:10,question:'Was ist der Vorteil von List Comprehensions gegenüber einer for-Schleife?',options:[
+    {t:'List Comprehensions können mehr Elemente verarbeiten',correct:false,why:'Keine Größenbeschränkung bei Loops.'},
+    {t:'Kompakter, lesbarer und oft schneller für einfache Transformationen',correct:true,why:'Richtig! [x**2 for x in range(10)] ist kürzer und idiomatischer als eine 3-zeilige Loop. Python optimiert Comprehensions intern.'},
+    {t:'List Comprehensions unterstützen else-Branches',correct:false,why:'Comprehensions unterstützen kein elif/else in der Iteration (nur ternary: x if bedingung else y).'},
+    {t:'Sie sind nur für Zahlen geeignet',correct:false,why:'Comprehensions funktionieren für alle Iterables und jeden Inhalt.'},
+  ]},
+  {id:'p_l2_10_tf1',type:'truefalse',xp:8,statement:'sorted(liste, key=lambda x: x[1]) sortiert eine Liste nach dem zweiten Element.',correct:true,explanation:'Stimmt! key= gibt eine Funktion an die bestimmt wonach sortiert wird. lambda x: x[1] nimmt das zweite Element jedes Eintrags als Sortierschlüssel.'},
+  {id:'p_l2_10_tf2',type:'truefalse',xp:8,statement:'Ein Lambda kann mehrere Zeilen Code enthalten.',correct:false,explanation:'Falsch! Lambda ist genau eine Einzeilen-Expression — kein if/else-Block, kein return, keine mehreren Statements. Für komplexere Logik: normale Funktion mit def.'},
+  {id:'p_l2_10_tf3',type:'truefalse',xp:8,statement:'{k: v for k, v in d.items() if v > 0} ist eine Dict Comprehension.',correct:true,explanation:'Stimmt! Dict Comprehensions: {key_expr: val_expr for k, v in iterable if bedingung}. Analog zu List Comprehensions, nur mit {}.'},
+  {id:'p_l2_10_tf4',type:'truefalse',xp:8,statement:'@property ist ein eingebauter Python-Dekorator.',correct:true,explanation:'Stimmt! @property ist in Python eingebaut (built-in). Auch @staticmethod und @classmethod sind eingebaut. Sie brauchen kein import.'},
+  {id:'p_l2_10_tf5',type:'truefalse',xp:8,statement:'map() verändert die ursprüngliche Liste.',correct:false,explanation:'Falsch! map() gibt ein neues Iterable zurück — die Originalliste bleibt unverändert. Gleiches gilt für filter(). Python-Funktionals sind nicht-destruktiv.'},
+  {id:'p_l2_10_fb1',type:'fillblank',xp:12,prompt:'Welches Schlüsselwort definiert eine anonyme Einzeilen-Funktion?',answers:['lambda'],placeholder:'Schlüsselwort',explanation:'Richtig! lambda parameter: ausdruck. Beispiel: verdoppeln = lambda x: x * 2.'},
+  {id:'p_l2_10_fb2',type:'fillblank',xp:12,prompt:'Welche Funktion wendet eine Funktion auf jedes Element einer Liste an?',answers:['map','map()'],placeholder:'Funktion',explanation:'Richtig! map(funktion, iterable) → gibt ein map-Objekt zurück. list(map(...)) für eine Liste.'},
+  {id:'p_l2_10_fb3',type:'fillblank',xp:12,prompt:'Welche Funktion behält aus einer Liste nur Elemente für die eine Funktion True zurückgibt?',answers:['filter','filter()'],placeholder:'Funktion',explanation:'Richtig! filter(funktion, iterable) — Elemente für die funktion(element) True ist bleiben erhalten.'},
+  {id:'p_l2_10_fb4',type:'fillblank',xp:12,prompt:'Was schreibt man vor eine Funktion um einen Dekorator anzuwenden? (1 Zeichen)',answers:['@'],placeholder:'Zeichen',explanation:'Richtig! @dekorator_name auf der Zeile direkt vor def. Das @ ist syntaktischer Zucker für funktion = dekorator(funktion).'},
+  {id:'p_l2_10_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgender Code aus?\nfrom functools import reduce\nresult = reduce(lambda a, b: a * b, [1,2,3,4,5])\nprint(result)',options:[
+    {t:'120',correct:true,why:'Richtig! reduce() faltet eine Liste mit einer Funktion zusammen: 1*2=2, 2*3=6, 6*4=24, 24*5=120. Das ist die Fakultät von 5.'},
+    {t:'15',correct:false,why:'15 wäre die Summe (reduce(lambda a,b: a+b, [1,2,3,4,5])). Hier ist es Multiplikation.'},
+    {t:'[1,2,6,24,120]',correct:false,why:'accumulate() würde die Zwischenwerte ausgeben. reduce() gibt nur den Endwert zurück.'},
+    {t:'5',correct:false,why:'5 wäre das letzte Element. reduce() kombiniert alle Elemente.'},
+  ]},
 ];
 
 function answerQuiz(id, idx, btn) {
