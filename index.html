@@ -10119,24 +10119,8 @@ $ python server.py
               <strong>Das war's.</strong> 12 Zeilen Code, und du hast einen funktionierenden Backend-Server. Mit etwas mehr Code kannst du Datenbanken anbinden, User-Logins implementieren, Zahlungen abwickeln — alles auf diesem Fundament.
             </div>
           </div>
-          ${quiz('q11', 'Was ist JSON?', [
-            {t:'Eine Programmiersprache', correct:false, why:'JSON ist keine Programmiersprache — man kann darin keine Logik schreiben.'},
-            {t:'Ein Datenformat für den Austausch zwischen Systemen', correct:true, why:'Richtig! JSON = JavaScript Object Notation. Es ist das Standard-Format für APIs weltweit.'},
-            {t:'Eine Datenbank', correct:false, why:'Datenbanken speichern Daten dauerhaft. JSON ist nur ein Format zum Übertragen.'},
-            {t:'Ein Frontend-Framework', correct:false, why:'React, Vue, Angular sind Frontend-Frameworks. JSON ist nur ein Datenformat.'},
-          ])}
-          ${quiz('q11b', 'Wo läuft Backend-Code?', [
-            {t:'Im Browser des Nutzers', correct:false, why:'Das ist Frontend. Backend läuft NIE im Browser — sonst könnte jeder den Code lesen und manipulieren.'},
-            {t:'Auf einem Server irgendwo in der Welt', correct:true, why:'Genau! Backend läuft auf einem Server (gemietet bei Hetzner, AWS, Railway etc.) und wartet auf HTTP-Anfragen.'},
-            {t:'Auf der Grafikkarte', correct:false, why:'Hat nichts mit Grafik zu tun.'},
-            {t:'Direkt in der Datenbank', correct:false, why:'Backend-Code spricht MIT der Datenbank, läuft aber als eigenes Programm daneben.'},
-          ])}
-          ${quiz('q11c', 'Welcher Datentyp ist in JSON NICHT erlaubt?', [
-            {t:'String', correct:false, why:'Strings sind in JSON erlaubt — in doppelten Anführungszeichen.'},
-            {t:'null', correct:false, why:'null ist erlaubt und steht für "kein Wert".'},
-            {t:'Funktionen', correct:true, why:'Genau! JSON kann nur Daten speichern (String, Zahl, Boolean, null, Array, Objekt). Funktionen, Datums-Objekte, undefined etc. gehen NICHT.'},
-            {t:'Boolean', correct:false, why:'true und false (kleingeschrieben!) sind erlaubt.'},
-          ])}
+          ${renderQuestions('l4_1', 6)}
+          ${renderBonus('l4_1')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -10298,24 +10282,8 @@ $ python server.py
               <strong>That's it.</strong> 12 lines of code and you have a working backend server. With a little more code you can connect databases, implement user logins, process payments — all built on this foundation.
             </div>
           </div>
-          ${quiz('q11', 'What is JSON?', [
-            {t:'A programming language', correct:false, why:"JSON is not a programming language — you can't write logic in it."},
-            {t:'A data format for exchanging data between systems', correct:true, why:'Correct! JSON = JavaScript Object Notation. It is the standard format for APIs worldwide.'},
-            {t:'A database', correct:false, why:'Databases store data persistently. JSON is just a format for transferring it.'},
-            {t:'A frontend framework', correct:false, why:'React, Vue, Angular are frontend frameworks. JSON is just a data format.'},
-          ])}
-          ${quiz('q11b', 'Where does backend code run?', [
-            {t:"In the user's browser", correct:false, why:'That is frontend. Backend NEVER runs in the browser — otherwise anyone could read and manipulate the code.'},
-            {t:'On a server somewhere in the world', correct:true, why:'Exactly! Backend runs on a server (rented from Hetzner, AWS, Railway etc.) and waits for HTTP requests.'},
-            {t:'On the graphics card', correct:false, why:'Has nothing to do with graphics.'},
-            {t:'Directly in the database', correct:false, why:'Backend code talks TO the database but runs as its own separate program.'},
-          ])}
-          ${quiz('q11c', 'Which data type is NOT allowed in JSON?', [
-            {t:'String', correct:false, why:'Strings are allowed in JSON — in double quotes.'},
-            {t:'null', correct:false, why:'null is allowed and means "no value".'},
-            {t:'Functions', correct:true, why:'Exactly! JSON can only store data (string, number, boolean, null, array, object). Functions, date objects, undefined etc. are NOT allowed.'},
-            {t:'Boolean', correct:false, why:'true and false (lowercase!) are allowed.'},
-          ])}
+          ${renderQuestions('l4_1', 6)}
+          ${renderBonus('l4_1')}
         `
       },
       {
@@ -10580,30 +10548,8 @@ app = <span class="fn">Flask</span>(__name__)
 <span class="fn">curl</span> https://api.github.com/users/torvalds | <span class="fn">jq</span></div>
             </div>
           </div>
-          ${quiz('q_rest1', 'Du willst einen neuen Blogpost erstellen. Welches HTTP-Verb nutzt du?', [
-            {t:'GET', correct:false, why:'GET ist nur zum Lesen — es erzeugt nichts Neues.'},
-            {t:'POST', correct:true, why:'Richtig! POST = Create. Der Body enthält die Daten des neuen Posts.'},
-            {t:'PATCH', correct:false, why:'PATCH ist zum ÄNDERN eines existierenden Objekts.'},
-            {t:'DELETE', correct:false, why:'DELETE löscht — das Gegenteil von Erstellen.'},
-          ])}
-          ${quiz('q_rest2', 'Was bedeutet Statuscode 201?', [
-            {t:'Fehler auf dem Server', correct:false, why:'Server-Fehler sind 5xx (z.B. 500).'},
-            {t:'Erfolgreich erstellt (Created)', correct:true, why:'Exakt! 201 ist der Standard-Code für POST wenn etwas neues erzeugt wurde.'},
-            {t:'Weitergeleitet', correct:false, why:'Weiterleitungen sind 3xx (z.B. 301, 302).'},
-            {t:'Nicht autorisiert', correct:false, why:'Das wäre 401.'},
-          ])}
-          ${quiz('q_rest3', 'Welche URL ist NICHT REST-konform?', [
-            {t:'GET /api/users/42', correct:false, why:'Korrekt — Substantiv im Plural, ID per Pfad.'},
-            {t:'POST /api/users', correct:false, why:'Korrekt — POST auf die Sammlung erstellt einen neuen User.'},
-            {t:'GET /api/getUserById?id=42', correct:true, why:'Genau! Verben gehören NICHT in die URL ("getUserById"). Das HTTP-Verb GET sagt schon dass etwas geholt wird.'},
-            {t:'DELETE /api/posts/15', correct:false, why:'Korrekt — DELETE-Methode auf eine konkrete Ressource.'},
-          ])}
-          ${quiz('q_rest4', 'Was ist CORS?', [
-            {t:'Eine Programmiersprache für APIs', correct:false, why:'CORS ist keine Sprache — es ist ein Browser-Sicherheitsmechanismus.'},
-            {t:'Browser-Regel die Cross-Domain-Requests blockiert wenn der Server sie nicht erlaubt', correct:true, why:'Genau! Damit Webseite A nicht heimlich API B aufrufen kann. Server muss explizit erlauben mit "Access-Control-Allow-Origin".'},
-            {t:'Ein Datenformat wie JSON', correct:false, why:'CORS ist kein Datenformat.'},
-            {t:'Eine Verschlüsselungsmethode', correct:false, why:'Verschlüsselung macht TLS/HTTPS, nicht CORS.'},
-          ])}
+          ${renderQuestions('l4_2', 6)}
+          ${renderBonus('l4_2')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -10721,33 +10667,8 @@ GET /api/posts?page=1&limit=20   → posts 1–20
 GET /api/posts?page=2&limit=20   → posts 21–40</div>
           </div>
 
-          ${quiz('q_rest1', 'You want to create a new blog post. Which HTTP method do you use?', [
-            {t:'GET', correct:false, why:'GET only fetches — it never creates.'},
-            {t:'POST', correct:true, why:'Correct! POST sends data to the server to create a new resource.'},
-            {t:'DELETE', correct:false, why:'DELETE removes resources, not creates them.'},
-            {t:'PATCH', correct:false, why:'PATCH updates an existing resource.'},
-          ])}
-
-          ${quiz('q_rest2', 'An API returns status code 201. What does that mean?', [
-            {t:'Error — request failed', correct:false, why:'2xx codes are always success codes.'},
-            {t:'Resource successfully created', correct:true, why:'Correct! 201 Created means a new resource was created on the server.'},
-            {t:'Not found', correct:false, why:'404 means not found.'},
-            {t:'Unauthorized', correct:false, why:'401 means unauthorized.'},
-          ])}
-
-          ${quiz('q_rest3', 'Which URL is NOT REST-conformant?', [
-            {t:'GET /api/users/42', correct:false, why:'Correct — plural noun, ID in path.'},
-            {t:'POST /api/users', correct:false, why:'Correct — POST on the collection creates a new user.'},
-            {t:'GET /api/getUserById?id=42', correct:true, why:'Exactly! Verbs do NOT belong in URLs ("getUserById"). The HTTP verb GET already says something is being fetched.'},
-            {t:'DELETE /api/posts/15', correct:false, why:'Correct — DELETE method on a specific resource.'},
-          ])}
-
-          ${quiz('q_rest4', 'What is CORS?', [
-            {t:'A programming language for APIs', correct:false, why:'CORS is not a language — it is a browser security mechanism.'},
-            {t:'Browser rule that blocks cross-domain requests when the server does not allow them', correct:true, why:'Exactly! So that website A cannot secretly call API B. The server must explicitly allow it with "Access-Control-Allow-Origin".'},
-            {t:'A data format like JSON', correct:false, why:'CORS is not a data format.'},
-            {t:'An encryption method', correct:false, why:'Encryption is handled by TLS/HTTPS, not CORS.'},
-          ])}
+          ${renderQuestions('l4_2', 6)}
+          ${renderBonus('l4_2')}
         `
       },
       {
@@ -11061,24 +10982,8 @@ con.<span class="fn">close</span>()</div>
 <span class="kw">ROLLBACK</span>;</div>
             </div>
           </div>
-          ${quiz('q_sql1', 'Was macht SELECT * FROM users WHERE alter > 18?', [
-            {t:'Löscht alle User über 18', correct:false, why:'SELECT liest nur — löschen macht DELETE.'},
-            {t:'Gibt alle Spalten aller User zurück, die älter als 18 sind', correct:true, why:'Richtig! * = alle Spalten, WHERE filtert.'},
-            {t:'Ändert das Alter auf 18', correct:false, why:'Ändern macht UPDATE, nicht SELECT.'},
-            {t:'Gibt nur die erste Spalte zurück', correct:false, why:'* steht für ALLE Spalten.'},
-          ])}
-          ${quiz('q_sql2', 'Was passiert bei DELETE FROM users; (ohne WHERE)?', [
-            {t:'Löscht den ersten User', correct:false, why:'Nein — ohne WHERE betrifft DELETE ALLE Zeilen.'},
-            {t:'Wirft einen Fehler', correct:false, why:'Leider nicht — die Datenbank tut genau was du sagst.'},
-            {t:'Löscht ALLE User in der Tabelle', correct:true, why:'Genau! Das ist der Albtraum. IMMER mit WHERE arbeiten — und Backups machen.'},
-            {t:'Löscht die Tabelle', correct:false, why:'Die Tabelle bleibt — nur die Daten sind weg. (Tabelle löschen wäre DROP TABLE.)'},
-          ])}
-          ${quiz('q_sql3', 'Wann nutzt du LEFT JOIN statt INNER JOIN?', [
-            {t:'Wenn die Datenbank am linken Server liegt', correct:false, why:'Hat nichts mit Server-Standorten zu tun.'},
-            {t:'Wenn du auch Datensätze willst die KEINEN Match in der zweiten Tabelle haben', correct:true, why:'Genau! INNER JOIN gibt nur Matches zurück. LEFT JOIN gibt alle aus der linken Tabelle zurück + NULL wo es keinen Match gibt. Z.B. "alle User auflisten — auch die ohne Posts".'},
-            {t:'LEFT JOIN ist immer schneller', correct:false, why:'Performance hängt vom konkreten Fall ab.'},
-            {t:'Wenn du nur die linke Spalte willst', correct:false, why:'Welche Spalten du willst entscheidest du im SELECT.'},
-          ])}
+          ${renderQuestions('l4_3', 6)}
+          ${renderBonus('l4_3')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -11389,24 +11294,8 @@ con.<span class="fn">close</span>()</div>
 <span class="kw">ROLLBACK</span>;</div>
             </div>
           </div>
-          ${quiz('q_sql1', 'What does SELECT * FROM users WHERE age > 18 do?', [
-            {t:'Deletes all users over 18', correct:false, why:'SELECT only reads — deleting is done with DELETE.'},
-            {t:'Returns all columns of all users who are older than 18', correct:true, why:'Correct! * = all columns, WHERE filters.'},
-            {t:'Changes the age to 18', correct:false, why:'Changing is done with UPDATE, not SELECT.'},
-            {t:'Returns only the first column', correct:false, why:'* stands for ALL columns.'},
-          ])}
-          ${quiz('q_sql2', 'What happens with DELETE FROM users; (without WHERE)?', [
-            {t:'Deletes the first user', correct:false, why:'No — without WHERE, DELETE affects ALL rows.'},
-            {t:'Throws an error', correct:false, why:'Unfortunately not — the database does exactly what you say.'},
-            {t:'Deletes ALL users in the table', correct:true, why:"Exactly! That's the nightmare. ALWAYS use WHERE — and make backups."},
-            {t:'Deletes the table', correct:false, why:'The table remains — only the data is gone. (Deleting the table would be DROP TABLE.)'},
-          ])}
-          ${quiz('q_sql3', 'When do you use LEFT JOIN instead of INNER JOIN?', [
-            {t:'When the database is on the left server', correct:false, why:'Nothing to do with server locations.'},
-            {t:'When you also want records that have NO match in the second table', correct:true, why:'Exactly! INNER JOIN only returns matches. LEFT JOIN returns all from the left table + NULL where there is no match. E.g. "list all users — even those without posts".'},
-            {t:'LEFT JOIN is always faster', correct:false, why:'Performance depends on the specific case.'},
-            {t:'When you only want the left column', correct:false, why:'Which columns you want is decided in SELECT.'},
-          ])}
+          ${renderQuestions('l4_3', 6)}
+          ${renderBonus('l4_3')}
         `
       },
       {
@@ -11642,24 +11531,8 @@ eingabe = <span class="st">b"meinPasswort123"</span>
               <strong>Profi-Tipp:</strong> bei echten Projekten nimm einen <strong>Auth-Provider</strong> wie Auth0, Clerk, Supabase Auth oder Firebase Auth. Die haben das alles schon richtig gemacht.
             </div>
           </div>
-          ${quiz('q_auth1', 'Wo wird ein JWT-Token am häufigsten mitgeschickt?', [
-            {t:'Im URL-Pfad', correct:false, why:'Unsicher — URLs werden geloggt. Nicht machen.'},
-            {t:'Im Authorization-Header als "Bearer TOKEN"', correct:true, why:'Genau! Das ist der Standard. Der Server liest den Header und prüft das Token.'},
-            {t:'Im Cookie — immer ohne Flags', correct:false, why:'Cookies gehen auch, aber immer mit HttpOnly und Secure Flags. "Ohne Flags" ist unsicher.'},
-            {t:'Im Request-Body jeder Anfrage', correct:false, why:'Funktioniert theoretisch, ist aber unüblich und umständlich.'},
-          ])}
-          ${quiz('q_auth2', 'Was ist der Unterschied zwischen Authentifizierung und Autorisierung?', [
-            {t:'Synonyme — kein Unterschied', correct:false, why:'Sie meinen verschiedene Dinge!'},
-            {t:'Authentifizierung = wer bist du, Autorisierung = was darfst du', correct:true, why:'Genau! Erst beweist man die Identität (Login), dann wird geprüft was die Person darf (Admin-Bereich? Premium-Feature?).'},
-            {t:'Authentifizierung ist neuer als Autorisierung', correct:false, why:'Beide Konzepte sind gleich alt.'},
-            {t:'Authentifizierung ist nur für Admins', correct:false, why:'Authentifizierung gilt für jeden User der sich einloggt.'},
-          ])}
-          ${quiz('q_auth3', 'Warum NICHT MD5 für Passwörter benutzen?', [
-            {t:'MD5 funktioniert nicht in Python', correct:false, why:'MD5 funktioniert überall — das ist nicht das Problem.'},
-            {t:'MD5 ist zu schnell — Angreifer können Milliarden Hashes pro Sekunde testen', correct:true, why:'Genau! Für Passwörter brauchst du absichtlich langsame Algorithmen wie bcrypt oder argon2. MD5 ist außerdem als Hash-Funktion gebrochen.'},
-            {t:'MD5 ist veraltet', correct:false, why:'Veraltet schon — aber das ist nicht der Grund warum es für Passwörter problematisch ist.'},
-            {t:'MD5 ist patentiert', correct:false, why:'MD5 ist frei und Open Source.'},
-          ])}
+          ${renderQuestions('l4_4', 6)}
+          ${renderBonus('l4_4')}
           <div class="boss-card animate-in" style="animation-delay:0.4s">
             <div class="boss-label-text"><i data-lucide="trophy"></i>Abschlussprojekt Phase 4</div>
             <div class="boss-title">Eine eigene REST-API mit Auth</div>
@@ -11897,24 +11770,8 @@ entered = <span class="st">b"myPassword123"</span>
               <strong>Pro tip:</strong> for real projects, use an <strong>auth provider</strong> like Auth0, Clerk, Supabase Auth, or Firebase Auth. They've already done all of this correctly.
             </div>
           </div>
-          ${quiz('q_auth1', 'Where is a JWT token most commonly sent?', [
-            {t:'In the URL path', correct:false, why:'Insecure — URLs are logged. Do not do this.'},
-            {t:'In the Authorization header as "Bearer TOKEN"', correct:true, why:'Exactly! That is the standard. The server reads the header and verifies the token.'},
-            {t:'In a cookie — always without flags', correct:false, why:'Cookies work too, but always with HttpOnly and Secure flags. "Without flags" is insecure.'},
-            {t:'In the request body of every request', correct:false, why:'Works in theory, but is uncommon and cumbersome.'},
-          ])}
-          ${quiz('q_auth2', 'What is the difference between authentication and authorization?', [
-            {t:'Synonyms — no difference', correct:false, why:'They mean different things!'},
-            {t:'Authentication = who are you, authorization = what are you allowed to do', correct:true, why:'Exactly! First you prove identity (login), then it is checked what that person is allowed to do (admin area? premium feature?).'},
-            {t:'Authentication is newer than authorization', correct:false, why:'Both concepts are equally old.'},
-            {t:'Authentication is only for admins', correct:false, why:'Authentication applies to every user who logs in.'},
-          ])}
-          ${quiz('q_auth3', 'Why NOT use MD5 for passwords?', [
-            {t:'MD5 does not work in Python', correct:false, why:'MD5 works everywhere — that is not the problem.'},
-            {t:'MD5 is too fast — attackers can test billions of hashes per second', correct:true, why:'Exactly! For passwords you need intentionally slow algorithms like bcrypt or argon2. MD5 is also broken as a hash function.'},
-            {t:'MD5 is outdated', correct:false, why:'Outdated yes — but that is not why it is problematic for passwords.'},
-            {t:'MD5 is patented', correct:false, why:'MD5 is free and open source.'},
-          ])}
+          ${renderQuestions('l4_4', 6)}
+          ${renderBonus('l4_4')}
           <div class="boss-card animate-in" style="animation-delay:0.4s">
             <div class="boss-label-text"><i data-lucide="trophy"></i>Phase 4 Final Project</div>
             <div class="boss-title">Your Own REST API with Auth</div>
@@ -11991,12 +11848,8 @@ entered = <span class="st">b"myPassword123"</span>
 );</pre>
             </div>
           </div>
-          ${quiz('q_l4_5_1', 'Was ist der Unterschied zwischen INNER JOIN und LEFT JOIN?', [
-            {t:'Es gibt keinen Unterschied', correct:false, why:'Doch — der Unterschied ist fundamental.'},
-            {t:'INNER JOIN gibt nur Zeilen zurück die in BEIDEN Tabellen einen Treffer haben. LEFT JOIN gibt ALLE Zeilen der linken Tabelle zurück, auch wenn rechts kein Match existiert (dann NULL)', correct:true, why:'Genau! Beispiel: User ohne Posts erscheinen bei LEFT JOIN mit post_count = 0, bei INNER JOIN gar nicht. LEFT JOIN ist sicherer wenn du "alle X mit optionalem Y" brauchst.'},
-            {t:'INNER JOIN ist langsamer als LEFT JOIN', correct:false, why:'Performance hängt von Indizes und Datenmenge ab, nicht vom Join-Typ allein.'},
-            {t:'LEFT JOIN funktioniert nur mit NULL-Spalten', correct:false, why:'LEFT JOIN funktioniert mit allen Spalten.'},
-          ])}
+          ${renderQuestions('l4_5', 6)}
+          ${renderBonus('l4_5')}
           ${exercise('ex_l4_5_1', 'Blog-Datenbankschema', 'Entwirf ein normalisiertes Datenbankschema für einen Blog mit: users, posts, comments, tags, post_tags (Many-to-Many). Schreibe SQL für alle CREATE TABLE Statements mit korrekten Primär- und Fremdschlüsseln. Dann schreibe eine Query die alle Posts mit Autor-Name, Kommentar-Anzahl und Tags listet — sortiert nach Erstellungsdatum.', 'Tipp: Many-to-Many (Post ↔ Tag) braucht eine Hilfstabelle post_tags(post_id, tag_id). Nutze JOIN und GROUP BY.', 'JOIN')}
         `,
         content_en: () => `
@@ -12042,12 +11895,8 @@ entered = <span class="st">b"myPassword123"</span>
 <span class="kw">ORDER BY</span> post_count <span class="kw">DESC</span>;</pre>
             </div>
           </div>
-          ${quiz('q_l4_5_1e', 'What is the difference between INNER JOIN and LEFT JOIN?', [
-            {t:'No difference', correct:false, why:'Yes there is — the difference is fundamental.'},
-            {t:'INNER JOIN returns only rows that have a match in BOTH tables. LEFT JOIN returns ALL rows from the left table, even without a match on the right (then NULL)', correct:true, why:'Exactly! Example: users without posts appear in LEFT JOIN with post_count = 0, in INNER JOIN not at all. LEFT JOIN is safer when you need "all X with optional Y".'},
-            {t:'INNER JOIN is slower than LEFT JOIN', correct:false, why:'Performance depends on indexes and data volume, not the join type alone.'},
-            {t:'LEFT JOIN only works with NULL columns', correct:false, why:'LEFT JOIN works with all columns.'},
-          ])}
+          ${renderQuestions('l4_5', 6)}
+          ${renderBonus('l4_5')}
           ${exercise('ex_l4_5_1e', 'Blog Database Schema', 'Design a normalized database schema for a blog with: users, posts, comments, tags, post_tags (many-to-many). Write SQL for all CREATE TABLE statements with correct primary and foreign keys. Then write a query listing all posts with author name, comment count and tags — sorted by creation date.', 'Hint: Many-to-many (Post ↔ Tag) needs a junction table post_tags(post_id, tag_id). Use JOIN and GROUP BY.', 'JOIN')}
         `
       },
@@ -12131,12 +11980,8 @@ entered = <span class="st">b"myPassword123"</span>
 <span class="cm"># http://localhost:5000/static/style.css</span></pre>
             </div>
           </div>
-          ${quiz('q_l4_6_1', 'Was ist eine Route in einem Web-Framework?', [
-            {t:'Eine Netzwerk-Route (wie in einem Router)', correct:false, why:'Anderer Kontext — Web-Framework-Routen haben nichts mit Netzwerk-Routing zu tun.'},
-            {t:'Eine Verbindung zwischen einer URL und einer Handler-Funktion — "wenn jemand /users aufruft, führe diese Funktion aus"', correct:true, why:'Genau! @app.route("/users") sagt Flask: wenn ein Request auf /users ankommt, ruf die dekorierte Funktion auf. Die Funktion verarbeitet den Request und gibt einen Response zurück.'},
-            {t:'Ein Datenbankpfad zu einem Datensatz', correct:false, why:'Das wäre ein Datenbankpfad, keine Web-Route.'},
-            {t:'Eine CSS-Klasse für Navigation', correct:false, why:'Völlig anderer Kontext.'},
-          ])}
+          ${renderQuestions('l4_6', 6)}
+          ${renderBonus('l4_6')}
           ${exercise('ex_l4_6_1', 'Mini REST API', 'Baue eine Flask API für eine einfache Bücherliste: GET /books gibt alle Bücher zurück, POST /books erstellt ein Buch (erwartet JSON mit title und author), GET /books/<id> gibt ein Buch zurück, DELETE /books/<id> löscht ein Buch. Speichere Bücher in einer Python-Liste (kein DB nötig). Gib immer JSON zurück. Teste mit curl oder dem Browser.', 'Tipp: Nutze eine globale Liste BOOKS = [] und vergib automatisch IDs. from flask import Flask, request, jsonify, abort', 'route')}
         `,
         content_en: () => `
@@ -12181,12 +12026,8 @@ entered = <span class="st">b"myPassword123"</span>
     <span class="kw">return</span> response</pre>
             </div>
           </div>
-          ${quiz('q_l4_6_1e', 'What is a route in a web framework?', [
-            {t:'A network route (like in a router)', correct:false, why:'Different context — web framework routes have nothing to do with network routing.'},
-            {t:'A connection between a URL and a handler function — "when someone calls /users, execute this function"', correct:true, why:'Exactly! @app.route("/users") tells Flask: when a request comes in for /users, call the decorated function. The function processes the request and returns a response.'},
-            {t:'A database path to a record', correct:false, why:'That would be a database path, not a web route.'},
-            {t:'A CSS class for navigation', correct:false, why:'Completely different context.'},
-          ])}
+          ${renderQuestions('l4_6', 6)}
+          ${renderBonus('l4_6')}
           ${exercise('ex_l4_6_1e', 'Mini REST API', 'Build a Flask API for a simple book list: GET /books returns all books, POST /books creates a book (expects JSON with title and author), GET /books/<id> returns one book, DELETE /books/<id> deletes a book. Store books in a Python list (no DB needed). Always return JSON. Test with curl or browser.', 'Hint: Use a global list BOOKS = [] and assign IDs automatically. from flask import Flask, request, jsonify, abort', 'route')}
         `
       },
@@ -12257,12 +12098,8 @@ load_dotenv()  <span class="cm"># lädt .env Datei</span>
 <span class="fn">CORS</span>(app, origins=[<span class="st">"https://meinedomain.de"</span>])</pre>
             </div>
           </div>
-          ${quiz('q_l4_7_1', 'Warum sind Prepared Statements die Lösung für SQL-Injection?', [
-            {t:'Sie machen die Queries schneller', correct:false, why:'Geschwindigkeit ist ein Nebeneffekt — Sicherheit ist der Hauptvorteil.'},
-            {t:'Sie trennen SQL-Code von Daten — der Datenbankserver interpretiert die Parameter niemals als SQL-Code', correct:true, why:'Genau! Bei einem Prepared Statement wird das SQL-Gerüst zuerst kompiliert, dann werden Werte eingesetzt. Selbst wenn der Wert SQL-Code enthält (z.B. \' OR 1=1), wird er als reiner String behandelt — kein Code.'},
-            {t:'Sie verschlüsseln die Daten in der Datenbank', correct:false, why:'Prepared Statements verschlüsseln nichts.'},
-            {t:'Sie sind nur bei MySQL nötig', correct:false, why:'SQL-Injection ist bei ALLEN Datenbanksystemen ein Risiko.'},
-          ])}
+          ${renderQuestions('l4_7', 6)}
+          ${renderBonus('l4_7')}
           ${exercise('ex_l4_7_1', 'Sicheres Login-System', 'Baue ein sicheres Login mit Flask: (1) Alle Passwörter mit bcrypt hashen (pip install bcrypt). (2) Login-Versuche auf 5/Minute begrenzen (Rate Limiting mit flask-limiter). (3) Alle Geheimnisse in .env auslagern. (4) Input-Validierung für Email und Passwort. (5) Security-Header via after_request hinzufügen (X-Content-Type-Options, X-Frame-Options, Strict-Transport-Security).', 'Tipp: import bcrypt; bcrypt.hashpw(password.encode(), bcrypt.gensalt()) zum Hashen, bcrypt.checkpw() zum Prüfen.', 'sanitize')}
         `,
         content_en: () => `
@@ -12307,12 +12144,8 @@ load_dotenv()
     <span class="kw">return</span> u</pre>
             </div>
           </div>
-          ${quiz('q_l4_7_1e', 'Why are prepared statements the solution to SQL injection?', [
-            {t:'They make queries faster', correct:false, why:'Speed is a side effect — security is the main advantage.'},
-            {t:'They separate SQL code from data — the database server never interprets parameters as SQL code', correct:true, why:'Exactly! With a prepared statement, the SQL skeleton is compiled first, then values are substituted. Even if the value contains SQL code (e.g. \' OR 1=1), it is treated as a plain string — not code.'},
-            {t:'They encrypt data in the database', correct:false, why:'Prepared statements do not encrypt anything.'},
-            {t:'They are only needed with MySQL', correct:false, why:'SQL injection is a risk with ALL database systems.'},
-          ])}
+          ${renderQuestions('l4_7', 6)}
+          ${renderBonus('l4_7')}
           ${exercise('ex_l4_7_1e', 'Secure Login System', 'Build a secure login with Flask: (1) Hash all passwords with bcrypt. (2) Limit login attempts to 5/minute (rate limiting with flask-limiter). (3) Move all secrets to .env. (4) Input validation for email and password. (5) Add security headers via after_request (X-Content-Type-Options, X-Frame-Options, Strict-Transport-Security).', 'Hint: import bcrypt; bcrypt.hashpw(password.encode(), bcrypt.gensalt()) to hash, bcrypt.checkpw() to verify.', 'sanitize')}
         `
       },
@@ -12380,12 +12213,8 @@ docker logs &lt;container-id&gt;
 docker exec -it &lt;container-id&gt; /bin/bash</pre>
             </div>
           </div>
-          ${quiz('q_l4_8_1', 'Was ist der Hauptvorteil von Docker für Deployment?', [
-            {t:'Docker macht Code schneller', correct:false, why:'Docker hat keinen Einfluss auf die Code-Performance.'},
-            {t:'Der Container enthält alle Abhängigkeiten — er läuft auf jedem System gleich, egal ob Dev-Laptop oder Produktions-Server', correct:true, why:'Genau! "Works on my machine" wird zum echten Problem wenn Dev-Umgebung und Prod-Umgebung unterschiedliche Python-Versionen, OS-Libraries oder Konfigurationen haben. Docker löst das durch Isolation.'},
-            {t:'Docker ersetzt eine Datenbank', correct:false, why:'Docker ist ein Container-System, keine Datenbank.'},
-            {t:'Docker ist nur für Windows-Server', correct:false, why:'Docker läuft auf Linux, macOS und Windows.'},
-          ])}
+          ${renderQuestions('l4_8', 6)}
+          ${renderBonus('l4_8')}
           ${exercise('ex_l4_8_1', 'Dockerize deine Flask API', 'Nimm die Flask API aus Lektion 4.6 und erstelle ein Dockerfile. Baue das Image, starte den Container mit einem Port-Mapping und teste dass die API unter http://localhost:8000 erreichbar ist. Füge eine .dockerignore Datei hinzu (schließt __pycache__, .env, .git aus). Bonus: Erstelle eine docker-compose.yml die die Flask API und eine Postgres-Datenbank zusammen startet.', 'Tipp: FROM python:3.12-slim als Basis. Vergiss nicht WORKDIR zu setzen und CMD zu definieren.', 'FROM')}
         `,
         content_en: () => `
@@ -12423,12 +12252,8 @@ docker ps
 docker logs &lt;container-id&gt;</pre>
             </div>
           </div>
-          ${quiz('q_l4_8_1e', 'What is the main advantage of Docker for deployment?', [
-            {t:'Docker makes code faster', correct:false, why:'Docker has no effect on code performance.'},
-            {t:'The container includes all dependencies — it runs the same on every system, whether dev laptop or production server', correct:true, why:'Exactly! "Works on my machine" becomes a real problem when dev and prod have different Python versions, OS libraries or configurations. Docker solves this through isolation.'},
-            {t:'Docker replaces a database', correct:false, why:'Docker is a container system, not a database.'},
-            {t:'Docker is only for Windows servers', correct:false, why:'Docker runs on Linux, macOS and Windows.'},
-          ])}
+          ${renderQuestions('l4_8', 6)}
+          ${renderBonus('l4_8')}
           ${exercise('ex_l4_8_1e', 'Dockerize Your Flask API', 'Take the Flask API from Lesson 4.6 and create a Dockerfile. Build the image, start the container with a port mapping and verify the API is reachable at http://localhost:8000. Add a .dockerignore file (excludes __pycache__, .env, .git). Bonus: Create a docker-compose.yml that starts the Flask API and a Postgres database together.', 'Hint: FROM python:3.12-slim as base. Remember to set WORKDIR and define CMD.', 'FROM')}
         `
       }
@@ -22365,6 +22190,535 @@ QUESTION_POOLS['l3_10'] = [
   ]},
 ];
 
+
+
+QUESTION_POOLS['l4_1'] = [
+  {id:'p_l4_1_mc1',type:'mc',xp:10,question:'Was ist JSON?',options:[
+    {t:'Eine Programmiersprache',correct:false,why:'JSON ist keine Programmiersprache — man kann darin keine Logik schreiben.'},
+    {t:'Ein Datenformat für den Austausch zwischen Systemen',correct:true,why:'JSON = JavaScript Object Notation. Es ist das universelle Format für APIs — leicht lesbar für Menschen und Maschinen.'},
+    {t:'Eine Datenbank',correct:false,why:'Datenbanken speichern Daten dauerhaft. JSON ist nur ein Format zum Übertragen.'},
+    {t:'Ein Frontend-Framework',correct:false,why:'React, Vue, Angular sind Frontend-Frameworks. JSON ist nur ein Datenformat.'},
+  ]},
+  {id:'p_l4_1_mc2',type:'mc',xp:10,question:'Wo läuft Backend-Code?',options:[
+    {t:'Im Browser des Nutzers',correct:false,why:'Das ist Frontend. Backend läuft NIE im Browser — sonst könnte jeder den Code lesen und manipulieren.'},
+    {t:'Auf einem Server irgendwo in der Welt',correct:true,why:'Backend läuft auf einem Server (Hetzner, AWS, Railway etc.) und wartet auf HTTP-Anfragen.'},
+    {t:'Auf der Grafikkarte',correct:false,why:'Hat nichts mit Grafik zu tun.'},
+    {t:'Direkt in der Datenbank',correct:false,why:'Backend-Code spricht MIT der Datenbank, läuft aber als eigenes Programm daneben.'},
+  ]},
+  {id:'p_l4_1_mc3',type:'mc',xp:10,question:'Welcher Datentyp ist in JSON NICHT erlaubt?',options:[
+    {t:'String',correct:false,why:'Strings sind in JSON erlaubt — in doppelten Anführungszeichen.'},
+    {t:'null',correct:false,why:'null ist erlaubt und steht für "kein Wert".'},
+    {t:'Funktionen',correct:true,why:'JSON kann nur Daten speichern (String, Zahl, Boolean, null, Array, Objekt). Funktionen, Datums-Objekte, undefined gehen NICHT.'},
+    {t:'Boolean',correct:false,why:'true und false (kleingeschrieben!) sind erlaubt.'},
+  ]},
+  {id:'p_l4_1_mc4',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Frontend und Backend?',options:[
+    {t:'Frontend ist auf dem Server, Backend im Browser',correct:false,why:'Andersherum! Frontend = Browser, Backend = Server.'},
+    {t:'Frontend = was der Nutzer sieht (Browser), Backend = Server-Logik, Datenbank, Auth',correct:true,why:'Frontend (HTML/CSS/JS) läuft im Browser. Backend (Python, Node, etc.) läuft auf dem Server und verarbeitet Daten.'},
+    {t:'Kein Unterschied — modernes JavaScript macht beides',correct:false,why:'Node.js kann auf dem Server laufen, aber Frontend und Backend sind konzeptuell getrennt.'},
+    {t:'Backend ist für mobile Apps, Frontend für Webseiten',correct:false,why:'Beide gibt es für Web UND Mobile.'},
+  ]},
+  {id:'p_l4_1_mc5',type:'mc',xp:10,question:'Was ist eine API (Application Programming Interface)?',options:[
+    {t:'Ein Design-Tool für App-Oberflächen',correct:false,why:'APIs sind keine Design-Tools.'},
+    {t:'Ein definiertes Interface über das Systeme miteinander kommunizieren — z.B. Daten anfragen und zurückbekommen',correct:true,why:'APIs definieren wie Systeme kommunizieren. Wetter-App fragt Wetter-API an → API gibt JSON zurück → App zeigt Wetter an.'},
+    {t:'Ein Betriebssystem für Server',correct:false,why:'APIs sind Kommunikations-Interfaces, keine Betriebssysteme.'},
+    {t:'Eine Programmiersprache',correct:false,why:'APIs können in jeder Sprache implementiert sein.'},
+  ]},
+  {id:'p_l4_1_mc6',type:'mc',xp:10,question:'Was ist ein HTTP-Server?',options:[
+    {t:'Ein Computer der physisch sehr groß ist',correct:false,why:'Server ist ein Konzept, kein physisches Attribut.'},
+    {t:'Ein Programm das HTTP-Anfragen empfängt und Antworten schickt',correct:true,why:'Ein HTTP-Server (Flask, Express, Nginx) wartet auf Requests und verarbeitet sie. Er kann auf jedem Computer laufen.'},
+    {t:'Das Internet selbst',correct:false,why:'Das Internet ist das Netzwerk. HTTP-Server sind Teile davon.'},
+    {t:'Ein Sicherheitssystem für Webanwendungen',correct:false,why:'Server sind nicht per se Sicherheitssysteme — sie können aber Sicherheits-Features implementieren.'},
+  ]},
+  {id:'p_l4_1_mc7',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Python und JavaScript als Backend-Sprache?',options:[
+    {t:'JavaScript kann nur im Browser laufen',correct:false,why:'Node.js bringt JavaScript auf den Server.'},
+    {t:'Python hat stärkere Data-Science-Libraries, JS/Node hat ein event-getriebenes Single-Thread-Modell — beide sind populäre Backend-Sprachen',correct:true,why:'Python: Django/Flask/FastAPI, great for ML/AI. Node.js: Express, great for real-time apps. Beide sind für Backend geeignet.'},
+    {t:'Python ist 10x schneller als Node.js',correct:false,why:'Node.js ist oft schneller bei I/O-bound Tasks dank Event Loop. Die Performance hängt stark vom Use Case ab.'},
+    {t:'Node.js kann keine Datenbanken nutzen',correct:false,why:'Node.js hat hervorragende Datenbank-Libraries für PostgreSQL, MongoDB, SQLite etc.'},
+  ]},
+  {id:'p_l4_1_mc8',type:'mc',xp:10,question:'Was ist ein "stateless" Backend?',options:[
+    {t:'Ein Backend ohne Variablen',correct:false,why:'Stateless bedeutet nicht "keine Variablen".'},
+    {t:'Jeder Request enthält alle nötigen Informationen — der Server speichert keinen Zustand zwischen Requests',correct:true,why:'REST APIs sind stateless: jeder Request ist unabhängig. Auth-Info kommt per Token mit, nicht aus Server-Memory. Das erlaubt horizontales Scaling.'},
+    {t:'Ein Backend das keine Datenbank hat',correct:false,why:'Stateless Backends können Datenbanken nutzen — die externe DB ist der Zustandsspeicher.'},
+    {t:'Ein Backend mit weniger als 100MB RAM',correct:false,why:'Stateless ist ein Architektur-Konzept, keine RAM-Angabe.'},
+  ]},
+  {id:'p_l4_1_tf1',type:'truefalse',xp:8,statement:'JSON-Schlüssel müssen immer in doppelten Anführungszeichen stehen.',correct:true,explanation:'In JSON sind Schlüssel IMMER in doppelten Anführungszeichen: {"name": "Nino"}. Einfache Anführungszeichen oder keine Anführungszeichen sind ungültig.'},
+  {id:'p_l4_1_tf2',type:'truefalse',xp:8,statement:'Backend-Code ist im Browser des Nutzers sichtbar und lesbar.',correct:false,explanation:'Backend-Code läuft auf dem Server. Nutzer sehen nur das Ergebnis (JSON, HTML). Frontend-Code (JS) ist im Browser sichtbar — Backend bleibt verborgen.'},
+  {id:'p_l4_1_tf3',type:'truefalse',xp:8,statement:'Eine Webanwendung kann ein Frontend ohne Backend haben.',correct:true,explanation:'Ja! Static sites (pure HTML/CSS/JS) haben kein Backend. Sie können externe APIs nutzen. GitHub Pages hostet solche Apps kostenlos.'},
+  {id:'p_l4_1_tf4',type:'truefalse',xp:8,statement:'JSON unterstützt Kommentare mit // oder /* */.',correct:false,explanation:'JSON unterstützt KEINE Kommentare. JSON5 und JSONC sind Erweiterungen die Kommentare erlauben, aber Standard-JSON nicht.'},
+  {id:'p_l4_1_tf5',type:'truefalse',xp:8,statement:'HTTP steht für HyperText Transfer Protocol.',correct:true,explanation:'HTTP ist das Protokoll für Dateiübertragung im Web. HTTPS = HTTP + TLS-Verschlüsselung.'},
+  {id:'p_l4_1_fb1',type:'fillblank',xp:12,prompt:'JSON steht für JavaScript Object ___',answers:['Notation'],placeholder:'Wort',explanation:'JSON = JavaScript Object Notation — ein einfaches, universelles Datenformat.'},
+  {id:'p_l4_1_fb2',type:'fillblank',xp:12,prompt:'Das sichere HTTP-Protokoll mit Verschlüsselung heißt: ___',answers:['HTTPS'],placeholder:'Protokoll',explanation:'HTTPS = HTTP + TLS. Alle modernen Websites sollten HTTPS nutzen.'},
+  {id:'p_l4_1_fb3',type:'fillblank',xp:12,prompt:'Ein Backend-Programm das auf HTTP-Anfragen wartet heißt: HTTP- ___',answers:['Server'],placeholder:'Wort',explanation:'HTTP-Server (Flask, Express, Nginx) empfangen Requests und schicken Responses.'},
+  {id:'p_l4_1_fb4',type:'fillblank',xp:12,prompt:'Die Kommunikationsschnittstelle zwischen Systemen heißt: ___',answers:['API'],placeholder:'Abkürzung',explanation:'API = Application Programming Interface — definiert wie Systeme miteinander kommunizieren.'},
+  {id:'p_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen einer "monolithischen" und einer "Microservices"-Architektur?',options:[
+    {t:'Monolith ist veraltet, Microservices sind immer besser',correct:false,why:'Beide haben Vor- und Nachteile — die Wahl hängt vom Kontext ab.'},
+    {t:'Monolith = eine App, alles zusammen; Microservices = viele kleine unabhängige Services die kommunizieren',correct:true,why:'Monolith: einfacher zu starten, schwerer zu skalieren. Microservices: komplexer, aber jeder Service unabhängig deploybar und skalierbar. Netflix, Amazon = Microservices.'},
+    {t:'Microservices sind nur für mobile Apps',correct:false,why:'Microservices können überall eingesetzt werden — Web, Mobile, IoT.'},
+    {t:'Monolith bedeutet kein Backend haben',correct:false,why:'Monolith ist ein Backend-Architektur-Muster.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_2'] = [
+  {id:'p_l4_2_mc1',type:'mc',xp:10,question:'Du willst einen neuen Blogpost erstellen. Welches HTTP-Verb nutzt du?',options:[
+    {t:'GET',correct:false,why:'GET ist nur zum Lesen — es erzeugt nichts Neues.'},
+    {t:'POST',correct:true,why:'POST = Create. Der Body enthält die Daten des neuen Posts. REST-Konvention: POST auf die Collection-URL.'},
+    {t:'PATCH',correct:false,why:'PATCH ist zum ÄNDERN eines existierenden Objekts.'},
+    {t:'DELETE',correct:false,why:'DELETE löscht — das Gegenteil von Erstellen.'},
+  ]},
+  {id:'p_l4_2_mc2',type:'mc',xp:10,question:'Was bedeutet HTTP-Statuscode 201?',options:[
+    {t:'Fehler auf dem Server',correct:false,why:'Server-Fehler sind 5xx (z.B. 500).'},
+    {t:'Erfolgreich erstellt (Created)',correct:true,why:'201 Created ist der Standard-Code wenn ein POST-Request eine neue Ressource erzeugt hat.'},
+    {t:'Weitergeleitet',correct:false,why:'Weiterleitungen sind 3xx (z.B. 301, 302).'},
+    {t:'Nicht autorisiert',correct:false,why:'Das wäre 401 Unauthorized.'},
+  ]},
+  {id:'p_l4_2_mc3',type:'mc',xp:10,question:'Welche URL ist NICHT REST-konform?',options:[
+    {t:'GET /api/users/42',correct:false,why:'Korrekt — Substantiv im Plural, ID per Pfad.'},
+    {t:'POST /api/users',correct:false,why:'Korrekt — POST auf die Collection erstellt einen neuen User.'},
+    {t:'GET /api/getUserById?id=42',correct:true,why:'Verben gehören NICHT in REST-URLs. Das HTTP-Verb GET sagt schon dass etwas geholt wird. Korrekt wäre: GET /api/users/42.'},
+    {t:'DELETE /api/posts/15',correct:false,why:'Korrekt — DELETE-Methode auf eine konkrete Ressource.'},
+  ]},
+  {id:'p_l4_2_mc4',type:'mc',xp:10,question:'Was ist CORS (Cross-Origin Resource Sharing)?',options:[
+    {t:'Eine Programmiersprache für APIs',correct:false,why:'CORS ist keine Sprache — es ist ein Browser-Sicherheitsmechanismus.'},
+    {t:'Browser-Regel die Cross-Domain-Requests blockiert wenn der Server sie nicht erlaubt',correct:true,why:'Damit Webseite A nicht heimlich API B aufrufen kann. Server muss explizit erlauben mit "Access-Control-Allow-Origin"-Header.'},
+    {t:'Ein Datenformat wie JSON',correct:false,why:'CORS ist kein Datenformat.'},
+    {t:'Eine Verschlüsselungsmethode',correct:false,why:'Verschlüsselung macht TLS/HTTPS, nicht CORS.'},
+  ]},
+  {id:'p_l4_2_mc5',type:'mc',xp:10,question:'Was ist der Unterschied zwischen PUT und PATCH?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen semantischen Unterschied.'},
+    {t:'PUT ersetzt die gesamte Ressource, PATCH aktualisiert nur die angegebenen Felder',correct:true,why:'PUT: schicke das komplette Objekt, alles wird ersetzt. PATCH: schicke nur die Felder die sich ändern. PATCH ist effizienter für partielle Updates.'},
+    {t:'PUT ist für Dateien, PATCH für JSON',correct:false,why:'Beide können beliebige Daten übertragen.'},
+    {t:'PATCH ist veraltet',correct:false,why:'PATCH ist modern und weit verbreitet.'},
+  ]},
+  {id:'p_l4_2_mc6',type:'mc',xp:10,question:'Was bedeutet "idempotent" bei HTTP-Methoden?',options:[
+    {t:'Die Methode ist besonders schnell',correct:false,why:'Idempotenz hat nichts mit Geschwindigkeit zu tun.'},
+    {t:'Mehrfaches Ausführen der gleichen Anfrage hat denselben Effekt wie einmaliges Ausführen',correct:true,why:'DELETE /users/1 mehrfach aufgerufen = User ist weg. GET /users/1 mehrfach = gleiche Antwort. POST ist NICHT idempotent — mehrfach erstellt mehrere Ressourcen.'},
+    {t:'Die Methode kann nicht gecacht werden',correct:false,why:'Caching und Idempotenz sind verschiedene Konzepte.'},
+    {t:'Die Methode braucht keinen Body',correct:false,why:'GET hat typisch keinen Body, aber das definiert nicht Idempotenz.'},
+  ]},
+  {id:'p_l4_2_mc7',type:'mc',xp:10,question:'Was ist ein API-Endpunkt?',options:[
+    {t:'Der Server selbst',correct:false,why:'Ein Endpunkt ist eine spezifische URL auf dem Server, nicht der Server.'},
+    {t:'Eine spezifische URL + HTTP-Methode die eine Operation ausführt',correct:true,why:'GET /api/users = ein Endpunkt. POST /api/users = ein anderer Endpunkt. Gleiche URL, anderes Verb — andere Funktion.'},
+    {t:'Der Datenbankpfad zu einem Datensatz',correct:false,why:'Endpunkte sind HTTP-URLs, nicht Datenbankpfade.'},
+    {t:'Die IP-Adresse des Servers',correct:false,why:'IP-Adressen identifizieren Server. Endpunkte sind spezifische URLs darauf.'},
+  ]},
+  {id:'p_l4_2_mc8',type:'mc',xp:10,question:'Was enthält typischerweise ein HTTP-Response?',options:[
+    {t:'Nur den Statuscode',correct:false,why:'Responses bestehen aus mehr als nur dem Statuscode.'},
+    {t:'Statuscode + Headers + Body (optional)',correct:true,why:'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"data": [...]} — Statuscode, Header (Metadaten), Body (Payload).'},
+    {t:'Nur den Body mit Daten',correct:false,why:'Der Body ist optional — Statuscodes und Headers sind immer dabei.'},
+    {t:'Nur die Datenbank-Daten in Rohform',correct:false,why:'Backend bereitet Daten auf und sendet sie als HTTP-Response — nicht als Rohdaten.'},
+  ]},
+  {id:'p_l4_2_tf1',type:'truefalse',xp:8,statement:'GET-Requests können einen Request-Body haben.',correct:false,explanation:'GET-Requests sollen keinen Body haben — Parameter gehen als Query-String (?id=42) in die URL. Manche APIs erlauben es, aber es ist gegen den HTTP-Standard.'},
+  {id:'p_l4_2_tf2',type:'truefalse',xp:8,statement:'HTTP-Statuscode 404 bedeutet "Not Found".',correct:true,explanation:'404 = Ressource nicht gefunden. Weitere häufige Codes: 200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 500 Internal Server Error.'},
+  {id:'p_l4_2_tf3',type:'truefalse',xp:8,statement:'REST ist ein offizieller Standard der von einer Organisation reguliert wird.',correct:false,explanation:'REST (Representational State Transfer) ist ein Architektur-Stil, kein offizieller Standard. Er wurde von Roy Fielding in seiner Dissertation 2000 beschrieben.'},
+  {id:'p_l4_2_tf4',type:'truefalse',xp:8,statement:'Query-Parameter (?key=value) sind ein gültiger Weg Parameter an eine API zu übergeben.',correct:true,explanation:'GET /api/users?role=admin&page=2 — Query-Parameter filtern und paginieren. Pfad-Parameter (/users/42) identifizieren eine spezifische Ressource.'},
+  {id:'p_l4_2_tf5',type:'truefalse',xp:8,statement:'Ein HTTP-Request muss immer eine Antwort bekommen.',correct:true,explanation:'Das Request-Response-Modell ist grundlegend für HTTP. Für bidirektionale Kommunikation (Chat, Games) gibt es WebSockets — aber das ist ein anderes Protokoll.'},
+  {id:'p_l4_2_fb1',type:'fillblank',xp:12,prompt:'Das HTTP-Verb zum Erstellen einer neuen Ressource heißt: ___',answers:['POST'],placeholder:'HTTP-Verb',explanation:'POST = Create. Die neue Ressource wird im Server angelegt, oft mit 201 Created zurückgeantwortet.'},
+  {id:'p_l4_2_fb2',type:'fillblank',xp:12,prompt:'HTTP-Statuscode für "Ressource nicht gefunden": ___',answers:['404'],placeholder:'Statuscode',explanation:'404 Not Found — die URL existiert nicht oder die Ressource wurde gelöscht.'},
+  {id:'p_l4_2_fb3',type:'fillblank',xp:12,prompt:'Das HTTP-Verb zum Lesen von Daten (sicher, idempotent): ___',answers:['GET'],placeholder:'HTTP-Verb',explanation:'GET ist zum Lesen. Keine Seiteneffekte, kann gecacht werden, ist idempotent.'},
+  {id:'p_l4_2_fb4',type:'fillblank',xp:12,prompt:'Browser-Sicherheitsmechanismus für Cross-Domain-Requests: ___',answers:['CORS'],placeholder:'Abkürzung',explanation:'CORS = Cross-Origin Resource Sharing. Server muss mit Access-Control-Allow-Origin Header antworten.'},
+  {id:'p_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen REST und GraphQL?',options:[
+    {t:'GraphQL ist veraltet',correct:false,why:'GraphQL wurde 2015 von Facebook veröffentlicht und ist weit verbreitet.'},
+    {t:'REST: feste Endpunkte pro Ressource; GraphQL: ein Endpunkt, Client bestimmt genau welche Daten er will',correct:true,why:'REST: GET /users/1 gibt alle User-Daten. GraphQL: query { user(id:1) { name email } } gibt nur name und email. GraphQL verhindert Over-/Underfetching.'},
+    {t:'GraphQL ist nur für mobile Apps',correct:false,why:'GraphQL funktioniert überall — Web, Mobile, Desktop.'},
+    {t:'REST kann keine Beziehungen zwischen Ressourcen darstellen',correct:false,why:'REST kann Beziehungen darstellen (z.B. GET /users/1/posts), aber GraphQL macht es eleganter.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_3'] = [
+  {id:'p_l4_3_mc1',type:'mc',xp:10,question:'Was macht "SELECT * FROM users WHERE alter > 18"?',options:[
+    {t:'Löscht alle User über 18',correct:false,why:'Löschen macht DELETE, nicht SELECT.'},
+    {t:'Gibt alle Spalten aller Datensätze in der users-Tabelle zurück wo das Alter über 18 ist',correct:true,why:'SELECT = auswählen, * = alle Spalten, FROM users = aus der Tabelle users, WHERE alter > 18 = Bedingung.'},
+    {t:'Erstellt eine neue Tabelle für erwachsene User',correct:false,why:'Erstellen macht CREATE TABLE, nicht SELECT.'},
+    {t:'Gibt die Anzahl der User über 18 zurück',correct:false,why:'Anzahl gibt SELECT COUNT(*) zurück.'},
+  ]},
+  {id:'p_l4_3_mc2',type:'mc',xp:10,question:'Was passiert bei "DELETE FROM users;" (ohne WHERE)?',options:[
+    {t:'Es werden alle User mit id=0 gelöscht',correct:false,why:'Ohne WHERE gibt es keine Einschränkung.'},
+    {t:'ALLE Datensätze in der Tabelle werden gelöscht — die Tabelle ist danach leer',correct:true,why:'Ohne WHERE-Klausel gilt eine SQL-Anweisung für ALLE Zeilen. DELETE FROM users; löscht jeden einzelnen User — irreversibel ohne Backup!'},
+    {t:'Die Tabelle selbst wird gelöscht',correct:false,why:'Die Tabellenstruktur bleibt — nur die Daten werden gelöscht. DROP TABLE löscht die Tabelle.'},
+    {t:'Ein Fehler wird zurückgegeben',correct:false,why:'SQL wirft keinen Fehler bei DELETE ohne WHERE — es führt es einfach aus.'},
+  ]},
+  {id:'p_l4_3_mc3',type:'mc',xp:10,question:'Wann nutzt du LEFT JOIN statt INNER JOIN?',options:[
+    {t:'Immer — LEFT JOIN ist sicherer',correct:false,why:'LEFT JOIN gibt mehr Daten zurück (inkl. NULLs). INNER JOIN ist korrekt wenn nur übereinstimmende Zeilen gewünscht sind.'},
+    {t:'Wenn du ALLE Zeilen der linken Tabelle behalten willst, auch wenn es rechts keinen Match gibt',correct:true,why:'Alle User mit ihren Posts anzeigen — auch User ohne Posts? LEFT JOIN! user ohne Beitrag erscheint mit post_count = 0 statt gar nicht.'},
+    {t:'Nur bei sehr großen Tabellen',correct:false,why:'Der Tabellengrößen-Faktor bestimmt nicht welchen JOIN-Typ man nutzt.'},
+    {t:'Wenn Tabellen keine Fremdschlüssel haben',correct:false,why:'JOIN-Typ hängt nicht von Fremdschlüsseln ab.'},
+  ]},
+  {id:'p_l4_3_mc4',type:'mc',xp:10,question:'Was macht das SQL-Schlüsselwort GROUP BY?',options:[
+    {t:'Sortiert die Ergebnisse',correct:false,why:'Sortieren macht ORDER BY. GROUP BY fasst zusammen.'},
+    {t:'Fasst Zeilen mit gleichem Wert zusammen — ermöglicht Aggregatfunktionen wie COUNT, SUM, AVG',correct:true,why:'SELECT user_id, COUNT(*) FROM posts GROUP BY user_id → zählt Posts pro User. Ohne GROUP BY könnte man COUNT nicht sinnvoll anwenden.'},
+    {t:'Filtert Zeilen wie WHERE',correct:false,why:'GROUP BY fasst nicht — es filtert nicht. HAVING filtert nach GROUP BY.'},
+    {t:'Erstellt Gruppen von Tabellen',correct:false,why:'GROUP BY operiert auf Zeilen einer Tabelle, nicht auf Tabellen.'},
+  ]},
+  {id:'p_l4_3_mc5',type:'mc',xp:10,question:'Was ist ein Primärschlüssel (PRIMARY KEY) in SQL?',options:[
+    {t:'Das erste Feld jeder Tabelle per Konvention',correct:false,why:'Der PRIMARY KEY kann jedes Feld sein, aber id als erste Spalte ist nur eine Konvention.'},
+    {t:'Ein eindeutiger Bezeichner für jeden Datensatz — niemals NULL, niemals doppelt',correct:true,why:'PRIMARY KEY = einzigartiger Identifier. Jede Tabelle sollte einen haben. Häufig: id INTEGER PRIMARY KEY AUTOINCREMENT.'},
+    {t:'Ein verschlüsselter Schlüssel für sichere Daten',correct:false,why:'PRIMARY KEY hat nichts mit Verschlüsselung zu tun.'},
+    {t:'Ein Pflichtfeld das Passwörter speichert',correct:false,why:'PRIMARY KEY ist ein Datenbankkonzept für eindeutige IDs.'},
+  ]},
+  {id:'p_l4_3_mc6',type:'mc',xp:10,question:'Was ist der Unterschied zwischen WHERE und HAVING in SQL?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Sie werden zu verschiedenen Zeitpunkten in der Query angewendet.'},
+    {t:'WHERE filtert Zeilen VOR GROUP BY, HAVING filtert Gruppen NACH GROUP BY',correct:true,why:'WHERE name = "Anna" filtert einzelne Zeilen. HAVING COUNT(*) > 5 filtert Gruppen die nach GROUP BY entstanden sind.'},
+    {t:'HAVING ist eine neuere, bessere Version von WHERE',correct:false,why:'Beide haben spezifische Use Cases.'},
+    {t:'WHERE funktioniert nur mit Zahlen',correct:false,why:'WHERE funktioniert mit allen Datentypen: Strings, Zahlen, Datumsangaben.'},
+  ]},
+  {id:'p_l4_3_mc7',type:'mc',xp:10,question:'Was macht "INSERT INTO users (name, email) VALUES (\'Anna\', \'anna@example.com\')"?',options:[
+    {t:'Aktualisiert einen bestehenden User',correct:false,why:'Aktualisieren macht UPDATE, nicht INSERT.'},
+    {t:'Fügt einen neuen Datensatz in die users-Tabelle ein',correct:true,why:'INSERT INTO = neuer Datensatz. (name, email) = Spalten, VALUES = Werte. Der Datensatz erhält automatisch eine neue ID (bei AUTOINCREMENT).'},
+    {t:'Erstellt eine neue Tabelle namens users',correct:false,why:'CREATE TABLE erstellt Tabellen, nicht INSERT INTO.'},
+    {t:'Sucht nach User "Anna"',correct:false,why:'Suchen macht SELECT, nicht INSERT.'},
+  ]},
+  {id:'p_l4_3_mc8',type:'mc',xp:10,question:'Was ist ein INDEX in SQL und warum ist er wichtig?',options:[
+    {t:'Eine Liste aller Tabellen in der Datenbank',correct:false,why:'Das wäre ein Schema oder INFORMATION_SCHEMA.'},
+    {t:'Eine Datenstruktur die Abfragen beschleunigt — besonders auf häufig gefilterten Spalten',correct:true,why:'Ohne Index: SELECT * FROM users WHERE email = "x" scannt ALLE Zeilen. Mit Index auf email: direkte Suche. Für Tabellen mit Millionen Zeilen kritisch.'},
+    {t:'Eine Nummerierung der Zeilen',correct:false,why:'Zeilen-Nummern sind keine Indexes. Indexes sind separate Datenstrukturen.'},
+    {t:'Ein Backup der Tabelle',correct:false,why:'Indexes sind keine Backups.'},
+  ]},
+  {id:'p_l4_3_tf1',type:'truefalse',xp:8,statement:'SQL ist case-sensitive — "select" und "SELECT" sind unterschiedliche Befehle.',correct:false,explanation:'SQL-Keywords sind NICHT case-sensitive. "select" und "SELECT" sind gleich. Konvention: Keywords in Großbuchstaben für bessere Lesbarkeit.'},
+  {id:'p_l4_3_tf2',type:'truefalse',xp:8,statement:'Ein Fremdschlüssel (FOREIGN KEY) stellt eine Verbindung zwischen zwei Tabellen her.',correct:true,explanation:'FOREIGN KEY in posts(user_id) REFERENCES users(id) stellt sicher dass user_id immer auf einen existierenden User verweist. Verhindert "verwaiste" Datensätze.'},
+  {id:'p_l4_3_tf3',type:'truefalse',xp:8,statement:'ORDER BY sortiert standardmäßig aufsteigend (ASC).',correct:true,explanation:'ORDER BY name = ORDER BY name ASC. Für absteigende Reihenfolge: ORDER BY created_at DESC.'},
+  {id:'p_l4_3_tf4',type:'truefalse',xp:8,statement:'NULL in SQL ist dasselbe wie 0 oder ein leerer String.',correct:false,explanation:'NULL bedeutet "kein Wert" / "unbekannt". NULL = 0 ist FALSCH. NULL = "" ist FALSCH. Prüfen mit IS NULL, nicht = NULL.'},
+  {id:'p_l4_3_tf5',type:'truefalse',xp:8,statement:'LIMIT 10 in SQL gibt maximal 10 Ergebnisse zurück.',correct:true,explanation:'LIMIT 10 begrenzt die Ergebnismenge. Mit OFFSET für Paginierung: LIMIT 10 OFFSET 20 = Seite 3 bei 10 Ergebnissen pro Seite.'},
+  {id:'p_l4_3_fb1',type:'fillblank',xp:12,prompt:'Der SQL-Befehl zum Lesen von Daten heißt: ___',answers:['SELECT'],placeholder:'SQL-Befehl',explanation:'SELECT spalten FROM tabelle WHERE bedingung — der häufigste SQL-Befehl.'},
+  {id:'p_l4_3_fb2',type:'fillblank',xp:12,prompt:'Um Ergebnisse zu sortieren nutzt man: ORDER ___',answers:['BY'],placeholder:'Schlüsselwort',explanation:'ORDER BY spaltenname ASC/DESC — sortiert die Ergebnisse auf- oder absteigend.'},
+  {id:'p_l4_3_fb3',type:'fillblank',xp:12,prompt:'Aggregatfunktion die die Anzahl der Zeilen zählt: ___(*)',answers:['COUNT'],placeholder:'Funktion',explanation:'COUNT(*) zählt alle Zeilen. COUNT(email) zählt Zeilen mit nicht-NULL email.'},
+  {id:'p_l4_3_fb4',type:'fillblank',xp:12,prompt:'SQL-Klausel die Zeilen mit gleichem Wert zusammenfasst: GROUP ___',answers:['BY'],placeholder:'Schlüsselwort',explanation:'GROUP BY user_id mit COUNT(*) gibt die Anzahl Zeilen pro user_id.'},
+  {id:'p_l4_3_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen SQL und NoSQL Datenbanken?',options:[
+    {t:'NoSQL ist immer schneller als SQL',correct:false,why:'Performance hängt vom Use Case ab. SQL ist oft schneller für relationale Abfragen.'},
+    {t:'SQL: relationale Tabellen mit Schema (PostgreSQL, MySQL); NoSQL: flexible Dokumente/Key-Value ohne festes Schema (MongoDB, Redis)',correct:true,why:'SQL: ACID-Transaktionen, JOINs, strenge Schemas. NoSQL: flexible Strukturen, horizontal skalierbar, gut für große Mengen unstrukturierter Daten.'},
+    {t:'NoSQL kann kein JSON speichern',correct:false,why:'MongoDB speichert BSON (ähnlich JSON). Viele NoSQL-DBs sind auf JSON-ähnliche Daten ausgelegt.'},
+    {t:'SQL ist veraltet',correct:false,why:'SQL ist über 50 Jahre alt und dominiert immer noch — PostgreSQL, MySQL, SQLite sind weit verbreitet.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_4'] = [
+  {id:'p_l4_4_mc1',type:'mc',xp:10,question:'Wo wird ein JWT-Token am häufigsten mitgeschickt?',options:[
+    {t:'Im URL-Pfad',correct:false,why:'Unsicher — URLs werden geloggt und sind in Browser-History sichtbar.'},
+    {t:'Im Authorization-Header als "Bearer TOKEN"',correct:true,why:'Standard! Authorization: Bearer eyJ... Der Server liest den Header und prüft das Token.'},
+    {t:'Im Cookie — immer ohne Flags',correct:false,why:'Cookies gehen auch, aber immer mit HttpOnly und Secure Flags. Ohne Flags ist unsicher.'},
+    {t:'Im Request-Body jeder Anfrage',correct:false,why:'Funktioniert theoretisch, ist aber unüblich und umständlich.'},
+  ]},
+  {id:'p_l4_4_mc2',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Authentifizierung und Autorisierung?',options:[
+    {t:'Synonyme — kein Unterschied',correct:false,why:'Sie bedeuten verschiedene Dinge!'},
+    {t:'Authentifizierung = wer bist du (Login), Autorisierung = was darfst du (Berechtigung)',correct:true,why:'Erst beweist man Identität (Benutzername/Passwort), dann wird geprüft was diese Person darf (Admin-Bereich? Premium-Feature?).'},
+    {t:'Authentifizierung ist nur für Admins',correct:false,why:'Authentifizierung gilt für jeden User der sich einloggt.'},
+    {t:'Autorisierung kommt vor Authentifizierung',correct:false,why:'Immer erst Authentifizierung (wer bist du?), dann Autorisierung (was darfst du?).'},
+  ]},
+  {id:'p_l4_4_mc3',type:'mc',xp:10,question:'Warum NICHT MD5 für Passwörter benutzen?',options:[
+    {t:'MD5 funktioniert nicht in Python',correct:false,why:'MD5 funktioniert überall — das ist nicht das Problem.'},
+    {t:'MD5 ist zu schnell — Angreifer können Milliarden Hashes pro Sekunde testen (Rainbow Tables, Brute Force)',correct:true,why:'Für Passwörter braucht man absichtlich langsame Algorithmen wie bcrypt oder argon2. MD5 ist außerdem als Hash-Funktion gebrochen (Kollisionen).'},
+    {t:'MD5 erzeugt zu lange Hashes',correct:false,why:'MD5-Hashes sind 128-bit (32 Hex-Zeichen) — das ist eher zu kurz, nicht zu lang.'},
+    {t:'MD5 ist patentiert',correct:false,why:'MD5 ist frei und Open Source.'},
+  ]},
+  {id:'p_l4_4_mc4',type:'mc',xp:10,question:'Aus welchen drei Teilen besteht ein JWT?',options:[
+    {t:'Username, Passwort, Ablaufzeit',correct:false,why:'JWTs enthalten nie Passwörter.'},
+    {t:'Header (Algorithmus), Payload (Daten/Claims), Signature (kryptografische Signatur)',correct:true,why:'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.XYZ — alles Base64-kodiert und durch Punkte getrennt.'},
+    {t:'IP-Adresse, Session-ID, Ablaufzeit',correct:false,why:'JWTs enthalten keine IP-Adressen.'},
+    {t:'Benutzername, Rolle, Timestamp',correct:false,why:'Das könnten Claims im Payload sein — aber die JWT-Struktur ist Header.Payload.Signature.'},
+  ]},
+  {id:'p_l4_4_mc5',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Session-basierter und Token-basierter Authentifizierung?',options:[
+    {t:'Token-basiert ist veraltet',correct:false,why:'Token-basiert (JWT) ist der moderne Standard für APIs.'},
+    {t:'Session: Server speichert Zustand; Token (JWT): Server speichert nichts — Token enthält alle Infos (stateless)',correct:true,why:'Sessions skalieren schlecht bei mehreren Servern (welcher hat die Session?). JWTs sind stateless — jeder Server kann sie validieren ohne zentralen Speicher.'},
+    {t:'Sessions sind sicherer als JWTs',correct:false,why:'Beide haben Sicherheitsaspekte. Sessions können leichter invalidiert werden, JWTs sind stateless. Weder ist per se sicherer.'},
+    {t:'JWTs können keine Ablaufzeiten haben',correct:false,why:'exp-Claim im JWT setzt die Ablaufzeit. Nach Ablauf ist der Token ungültig.'},
+  ]},
+  {id:'p_l4_4_mc6',type:'mc',xp:10,question:'Was ist ein "Refresh Token" in einem JWT-System?',options:[
+    {t:'Ein Token der den Access Token erneuert ohne erneuten Login',correct:true,why:'Access Token: kurzlebig (15min - 1h). Refresh Token: langlebig (7-30d). Client nutzt Refresh Token um neuen Access Token zu holen wenn der alte abgelaufen ist.'},
+    {t:'Ein Token der Passwörter erneuert',correct:false,why:'Refresh Tokens haben nichts mit Passwort-Reset zu tun.'},
+    {t:'Ein Token der für jede Anfrage neu generiert wird',correct:false,why:'Das wäre extrem ineffizient.'},
+    {t:'Ein Admin-Token mit erhöhten Rechten',correct:false,why:'Refresh Tokens haben keine besonderen Rechte.'},
+  ]},
+  {id:'p_l4_4_mc7',type:'mc',xp:10,question:'Was ist OAuth 2.0?',options:[
+    {t:'Ein Datenbankprotokoll',correct:false,why:'OAuth ist ein Autorisierungsprotokoll, keine Datenbankverbindung.'},
+    {t:'Ein Autorisierungsrahmen der es Drittanbieter-Apps erlaubt auf Nutzer-Ressourcen zuzugreifen ohne das Passwort zu kennen',correct:true,why:'"Mit Google einloggen" nutzt OAuth 2.0. Google bestätigt die Identität, gibt einen Token — die App bekommt nie das Google-Passwort.'},
+    {t:'Eine Verschlüsselungsmethode',correct:false,why:'OAuth ist kein Verschlüsselungsstandard.'},
+    {t:'Ein SQL-Standard für sichere Abfragen',correct:false,why:'OAuth hat nichts mit SQL zu tun.'},
+  ]},
+  {id:'p_l4_4_mc8',type:'mc',xp:10,question:'Warum sollte man Passwörter niemals im Klartext speichern?',options:[
+    {t:'Weil Datenbanken keine langen Strings speichern können',correct:false,why:'Datenbanken können beliebig lange Strings speichern.'},
+    {t:'Bei einem Datenbankeinbruch sind alle Passwörter sofort kompromittiert — und Nutzer verwenden gleiche Passwörter woanders',correct:true,why:'Passwort-Leaks zeigen: viele Nutzer verwenden dasselbe Passwort überall. Klartext-Leak → Angreifer kann alle Accounts übernehmen. Hashes (bcrypt) begrenzen den Schaden.'},
+    {t:'Weil Klartext-Passwörter zu viel Speicher brauchen',correct:false,why:'Speicher ist nicht das Problem.'},
+    {t:'Es ist nur ein Best-Practice ohne echten Sicherheitsgewinn',correct:false,why:'Passwort-Hashing ist eine fundamentale Sicherheitsmaßnahme.'},
+  ]},
+  {id:'p_l4_4_tf1',type:'truefalse',xp:8,statement:'JWT-Tokens können ohne den Secret Key verifiziert werden.',correct:false,explanation:'Die Signatur eines JWT wird mit dem Secret Key erstellt und muss mit demselben Key verifiziert werden. Ohne Secret Key kann ein Token nicht validiert werden.'},
+  {id:'p_l4_4_tf2',type:'truefalse',xp:8,statement:'bcrypt ist für Passwörter besser geeignet als SHA-256.',correct:true,explanation:'SHA-256 ist zu schnell — GPUs können Milliarden Hashes/Sekunde berechnen. bcrypt ist absichtlich langsam und hat einen einstellbaren "cost factor". Argon2 ist noch moderner.'},
+  {id:'p_l4_4_tf3',type:'truefalse',xp:8,statement:'HTTPS verhindert dass Angreifer JWT-Tokens abfangen können.',correct:true,explanation:'HTTPS verschlüsselt den Traffic zwischen Client und Server. Ohne HTTPS können Tokens im Netzwerk abgefangen werden. HTTPS ist für jeden Auth-Endpunkt Pflicht.'},
+  {id:'p_l4_4_tf4',type:'truefalse',xp:8,statement:'Ein JWT-Payload ist Base64-kodiert und kann von jedem ohne Secret Key gelesen werden.',correct:true,explanation:'Base64 ist keine Verschlüsselung! Der JWT-Payload kann von jedem gelesen werden (dekodieren mit atob()). Deshalb: Keine Passwörter oder sensiblen Daten im Payload speichern.'},
+  {id:'p_l4_4_tf5',type:'truefalse',xp:8,statement:'Rate Limiting schützt effektiv gegen Brute-Force-Angriffe auf Login-Endpoints.',correct:true,explanation:'Rate Limiting (z.B. 5 Versuche/Minute per IP) macht Brute Force unpraktikabel. In Kombination mit Account-Lockout und CAPTCHA sehr effektiv.'},
+  {id:'p_l4_4_fb1',type:'fillblank',xp:12,prompt:'JWT steht für JSON Web ___',answers:['Token'],placeholder:'Wort',explanation:'JWT = JSON Web Token — ein kompaktes, URL-sicheres Format für Claims zwischen zwei Parteien.'},
+  {id:'p_l4_4_fb2',type:'fillblank',xp:12,prompt:'Der JWT-Header wird mit "Authorization: ___ TOKEN" mitgeschickt',answers:['Bearer'],placeholder:'Schlüsselwort',explanation:'Authorization: Bearer eyJ... ist der Standard-Header für JWT-Authentifizierung.'},
+  {id:'p_l4_4_fb3',type:'fillblank',xp:12,prompt:'Der empfohlene Passwort-Hashing-Algorithmus (nicht MD5, nicht SHA) heißt: ___',answers:['bcrypt'],placeholder:'Algorithmus',explanation:'bcrypt ist absichtlich langsam und hat Salt eingebaut. argon2 ist ebenfalls empfohlen.'},
+  {id:'p_l4_4_fb4',type:'fillblank',xp:12,prompt:'Wer bist du? = ___, Was darfst du? = Autorisierung',answers:['Authentifizierung','Authentifikation'],placeholder:'Begriff',explanation:'Authentifizierung = Identitätsnachweis (Login). Autorisierung = Berechtigungsprüfung (was darf dieser Nutzer?).'},
+  {id:'p_l4_4_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen symmetrischer und asymmetrischer JWT-Signierung?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied in der Schlüsselverteilung.'},
+    {t:'Symmetrisch (HS256): ein shared Secret; Asymmetrisch (RS256): Private Key signiert, Public Key verifiziert',correct:true,why:'HS256: Server signiert UND verifiziert mit gleichem Secret — gut wenn ein Service beides macht. RS256: API-Gateway verifiziert mit Public Key ohne den Private Key zu kennen — ideal für Microservices.'},
+    {t:'Asymmetrisch ist immer sicherer',correct:false,why:'Beide können sicher sein. Asymmetrisch löst das Schlüsselverteilungsproblem.'},
+    {t:'HS256 nutzt Passwörter, RS256 nutzt Tokens',correct:false,why:'Beide sind Signierungsalgorithmen — der Unterschied liegt in der Schlüsselstruktur.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_5'] = [
+  {id:'p_l4_5_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen INNER JOIN und LEFT JOIN?',options:[
+    {t:'Es gibt keinen Unterschied',correct:false,why:'Der Unterschied ist fundamental.'},
+    {t:'INNER JOIN: nur Zeilen mit Match in BEIDEN Tabellen; LEFT JOIN: ALLE linken Zeilen, auch ohne rechten Match (dann NULL)',correct:true,why:'User ohne Posts erscheinen bei LEFT JOIN mit post_count=0, bei INNER JOIN gar nicht. LEFT JOIN für "alle X mit optionalem Y".'},
+    {t:'INNER JOIN ist langsamer als LEFT JOIN',correct:false,why:'Performance hängt von Indizes und Datenmenge ab.'},
+    {t:'LEFT JOIN funktioniert nur mit NULL-Spalten',correct:false,why:'LEFT JOIN funktioniert mit allen Spalten.'},
+  ]},
+  {id:'p_l4_5_mc2',type:'mc',xp:10,question:'Was ist die 1. Normalform (1NF) in der Datenbankdesign?',options:[
+    {t:'Jede Tabelle hat einen Primärschlüssel',correct:false,why:'Primärschlüssel ist wichtig, definiert aber nicht 1NF.'},
+    {t:'Jede Zelle enthält nur einen atomaren Wert — keine Listen oder mehrere Werte in einer Spalte',correct:true,why:'Anstatt tags: "python,sql,css" besser eine separate Tags-Tabelle. Jede Zelle = ein Wert.'},
+    {t:'Alle Spalten sind vom gleichen Typ',correct:false,why:'1NF hat keine solche Anforderung.'},
+    {t:'Die Tabelle hat weniger als 10 Spalten',correct:false,why:'Spaltenzahl definiert keine Normalform.'},
+  ]},
+  {id:'p_l4_5_mc3',type:'mc',xp:10,question:'Wie modelliert man eine Many-to-Many Beziehung (Buch ↔ Autor) in SQL?',options:[
+    {t:'Mit einer Array-Spalte in einer der Tabellen',correct:false,why:'Standard-SQL hat keine Arrays (PostgreSQL hat ARRAY, aber das ist nicht 1NF-konform).'},
+    {t:'Mit einer Hilfstabelle (Junction Table): book_authors(book_id, author_id)',correct:true,why:'book_authors verknüpft beide Tabellen. Ein Buch kann viele Autoren haben, ein Autor viele Bücher — sauber modelliert.'},
+    {t:'Man kann Many-to-Many nicht in SQL modellieren',correct:false,why:'Junction Tables sind der Standard-Weg.'},
+    {t:'Mit doppelten Fremdschlüsseln in beiden Tabellen',correct:false,why:'Das würde Redundanz erzeugen — nicht 2NF/3NF-konform.'},
+  ]},
+  {id:'p_l4_5_mc4',type:'mc',xp:10,question:'Was ist ein UNIQUE-Constraint in SQL?',options:[
+    {t:'Macht eine Spalte zum Primärschlüssel',correct:false,why:'PRIMARY KEY impliziert UNIQUE, aber UNIQUE allein ist kein PRIMARY KEY.'},
+    {t:'Stellt sicher dass alle Werte in einer Spalte einzigartig sind (keine Duplikate)',correct:true,why:'email TEXT UNIQUE — verhindert dass zwei User dieselbe E-Mail haben. Datenbankebene ist verlässlicher als nur App-Logik.'},
+    {t:'Verschlüsselt die Daten in der Spalte',correct:false,why:'UNIQUE hat nichts mit Verschlüsselung zu tun.'},
+    {t:'Macht die Spalte optional (nullable)',correct:false,why:'NOT NULL macht Spalten verpflichtend. NULL erlaubt "kein Wert".'},
+  ]},
+  {id:'p_l4_5_mc5',type:'mc',xp:10,question:'Was bedeutet "Normalisierung" in der Datenbankmodellierung?',options:[
+    {t:'Alle Daten in eine einzige Tabelle packen',correct:false,why:'Das wäre das Gegenteil — eine denormalisierte "flache" Tabelle.'},
+    {t:'Daten in strukturierte Tabellen aufteilen um Redundanz zu eliminieren und Konsistenz zu gewährleisten',correct:true,why:'Statt user_email in jedem Post speichern: user_id als FK. Ändert sich die E-Mail, muss sie nur an einer Stelle geändert werden.'},
+    {t:'Alle Spaltennamen auf Kleinbuchstaben setzen',correct:false,why:'Namenskonventionen sind kein Datenbankdesign-Konzept.'},
+    {t:'Die Datenbankgeschwindigkeit optimieren',correct:false,why:'Normalisierung kann Performance-Kosten haben (mehr JOINs). Denormalisierung ist manchmal für Performance gewählt.'},
+  ]},
+  {id:'p_l4_5_mc6',type:'mc',xp:10,question:'Was ist ein FOREIGN KEY (Fremdschlüssel)?',options:[
+    {t:'Ein Passwort für die Datenbank',correct:false,why:'Fremdschlüssel haben nichts mit Passwörtern zu tun.'},
+    {t:'Eine Spalte die auf den Primärschlüssel einer anderen Tabelle verweist und die referenzielle Integrität sicherstellt',correct:true,why:'posts.user_id REFERENCES users.id — verhindert, dass ein Post auf einen nicht-existierenden User zeigt. Löscht man den User, reagiert die DB mit Error oder CASCADE.'},
+    {t:'Ein Schlüssel der aus einer anderen Datenbank importiert wurde',correct:false,why:'Fremdschlüssel sind ein SQL-Constraint, kein Import-Mechanismus.'},
+    {t:'Ein alternativer Name für UNIQUE CONSTRAINT',correct:false,why:'FOREIGN KEY und UNIQUE sind verschiedene Constraints.'},
+  ]},
+  {id:'p_l4_5_mc7',type:'mc',xp:10,question:'Was ist der Vorteil von Datenbankindizes (INDEX)?',options:[
+    {t:'Sie komprimieren die Daten',correct:false,why:'Indexes brauchen zusätzlichen Speicher — sie komprimieren nicht.'},
+    {t:'Sie beschleunigen Leseabfragen auf indizierten Spalten erheblich — auf Kosten von Schreib-Performance',correct:true,why:'Index auf email: SELECT WHERE email = "x" ist O(log n) statt O(n). Aber INSERT/UPDATE sind langsamer weil der Index mitgepflegt wird.'},
+    {t:'Sie machen DELETE-Operationen sicherer',correct:false,why:'Indexes beeinflussen Sicherheit von DELETE nicht direkt.'},
+    {t:'Sie sind nur für Primärschlüssel relevant',correct:false,why:'Indexes lohnen sich auf allen häufig gefilterten/sortierten Spalten — nicht nur PKs.'},
+  ]},
+  {id:'p_l4_5_mc8',type:'mc',xp:10,question:'Was ist ON DELETE CASCADE bei einem Fremdschlüssel?',options:[
+    {t:'Löscht die gesamte Datenbank',correct:false,why:'CASCADE löscht nur abhängige Zeilen, nicht die Datenbank.'},
+    {t:'Wenn der referenzierte Datensatz gelöscht wird, werden automatisch alle abhängigen Datensätze mitgelöscht',correct:true,why:'Löscht man User id=1: alle Posts mit user_id=1 werden automatisch gelöscht. Alternativ: ON DELETE SET NULL (FK auf NULL setzen) oder ON DELETE RESTRICT (Fehler).'},
+    {t:'Verhindert das Löschen von Datensätzen mit Abhängigkeiten',correct:false,why:'Das wäre ON DELETE RESTRICT.'},
+    {t:'Verschlüsselt gelöschte Daten',correct:false,why:'CASCADE hat nichts mit Verschlüsselung zu tun.'},
+  ]},
+  {id:'p_l4_5_tf1',type:'truefalse',xp:8,statement:'Eine Tabelle kann mehrere PRIMARY KEY Spalten haben (Composite Primary Key).',correct:true,explanation:'post_tags(post_id, tag_id) hat einen Composite PK aus beiden Spalten — jede Kombination ist einzigartig. PRIMARY KEY (post_id, tag_id) in CREATE TABLE.'},
+  {id:'p_l4_5_tf2',type:'truefalse',xp:8,statement:'Normalisierung eliminiert immer Redundanz ohne Nachteile.',correct:false,explanation:'Normalisierung reduziert Redundanz, kann aber Performance kosten (mehr JOINs). Data Warehouses nutzen oft Denormalisierung für schnellere Analytics-Abfragen.'},
+  {id:'p_l4_5_tf3',type:'truefalse',xp:8,statement:'NULL und ein leerer String ("") sind in SQL dasselbe.',correct:false,explanation:'NULL = kein Wert vorhanden. "" = leerer String ist ein Wert. WHERE email IS NULL findet nur NULL, nicht leere Strings.'},
+  {id:'p_l4_5_tf4',type:'truefalse',xp:8,statement:'INNER JOIN gibt immer mehr Ergebnisse zurück als LEFT JOIN.',correct:false,explanation:'LEFT JOIN gibt gleich viele oder MEHR Ergebnisse (alle linken Zeilen + NULL für nicht-gematchte). INNER JOIN gibt nur gematchte Zeilen — könnte weniger sein.'},
+  {id:'p_l4_5_tf5',type:'truefalse',xp:8,statement:'Ein Datenbankindex belegt zusätzlichen Speicherplatz.',correct:true,explanation:'Indexes sind eigene Datenstrukturen (B-Trees) die Speicher kosten. Trade-off: mehr Speicher und Schreib-Overhead für bessere Lese-Performance.'},
+  {id:'p_l4_5_fb1',type:'fillblank',xp:12,prompt:'JOIN-Typ der nur Zeilen mit Match in beiden Tabellen zurückgibt: ___ JOIN',answers:['INNER'],placeholder:'Typ',explanation:'INNER JOIN = Schnittmenge. Nur Zeilen die in beiden Tabellen einen Match haben.'},
+  {id:'p_l4_5_fb2',type:'fillblank',xp:12,prompt:'Junction Table für Many-to-Many zwischen posts und tags: post____',answers:['tags'],placeholder:'Tabellenname',explanation:'post_tags(post_id, tag_id) ist die Hilfstabelle für die Many-to-Many Beziehung.'},
+  {id:'p_l4_5_fb3',type:'fillblank',xp:12,prompt:'SQL-Constraint der Duplikate in einer Spalte verhindert: ___',answers:['UNIQUE'],placeholder:'Constraint',explanation:'UNIQUE stellt sicher dass kein Wert doppelt vorkommt. Gut für E-Mail, Username etc.'},
+  {id:'p_l4_5_fb4',type:'fillblank',xp:12,prompt:'Das automatische Löschen abhängiger Datensätze heißt: ON DELETE ___',answers:['CASCADE'],placeholder:'Aktion',explanation:'ON DELETE CASCADE: wenn der Parent gelöscht wird, werden alle Children automatisch gelöscht.'},
+  {id:'p_l4_5_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen einer Transaktion mit COMMIT und ROLLBACK?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Sie sind entgegengesetzt.'},
+    {t:'COMMIT: Änderungen dauerhaft speichern; ROLLBACK: alle Änderungen der Transaktion rückgängig machen',correct:true,why:'BEGIN; UPDATE ... ; UPDATE ... ; COMMIT; — entweder alles oder nichts. Bei Fehler: ROLLBACK macht alle Änderungen rückgängig. Das ist ACID-Atomarität.'},
+    {t:'COMMIT ist langsamer als ROLLBACK',correct:false,why:'COMMIT schreibt Daten dauerhaft, ROLLBACK verwirft sie — beide sind schnell.'},
+    {t:'ROLLBACK löscht die Datenbank',correct:false,why:'ROLLBACK macht nur die Änderungen der aktuellen Transaktion rückgängig.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_6'] = [
+  {id:'p_l4_6_mc1',type:'mc',xp:10,question:'Was ist eine Route in einem Web-Framework?',options:[
+    {t:'Eine Netzwerk-Route (wie in einem Router)',correct:false,why:'Anderer Kontext — Web-Framework-Routen haben nichts mit Netzwerk-Routing zu tun.'},
+    {t:'Eine Verbindung zwischen URL + HTTP-Methode und einer Handler-Funktion',correct:true,why:'@app.route("/users") in Flask: wenn ein Request auf /users ankommt, ruf die Funktion auf. URL-Muster → Handler-Logik.'},
+    {t:'Ein Datenbankpfad zu einem Datensatz',correct:false,why:'Datenbankpfade sind nicht dasselbe wie HTTP-Routen.'},
+    {t:'Eine CSS-Klasse für Navigation',correct:false,why:'Völlig anderer Kontext.'},
+  ]},
+  {id:'p_l4_6_mc2',type:'mc',xp:10,question:'Was ist Middleware in einem Web-Framework?',options:[
+    {t:'Eine Datenbank-Schicht',correct:false,why:'Middleware ist kein Datenbankkonzept im Web-Framework-Kontext.'},
+    {t:'Code der bei jedem Request ausgeführt wird — vor oder nach den Route-Handlern',correct:true,why:'Middleware für Auth-Check, Logging, CORS-Header, Rate Limiting. In Flask: @app.before_request / @app.after_request. In Express: app.use(middleware).'},
+    {t:'Eine Art von Datenbank-Verbindung',correct:false,why:'Middleware ist Request-Processing-Code, kein Datenbankkonzept.'},
+    {t:'Ein Frontend-Framework-Plugin',correct:false,why:'Middleware ist ein Backend-Konzept.'},
+  ]},
+  {id:'p_l4_6_mc3',type:'mc',xp:10,question:'Was gibt jsonify() in Flask zurück?',options:[
+    {t:'Einen JSON-String als plain text',correct:false,why:'jsonify gibt eine Flask Response zurück, nicht nur einen String.'},
+    {t:'Eine Flask Response mit dem Python-Objekt als JSON-Body und korrektem Content-Type Header',correct:true,why:'jsonify({"name": "Anna"}) → HTTP Response mit Content-Type: application/json. Clients können die Antwort automatisch als JSON parsen.'},
+    {t:'Ein Python-Dictionary',correct:false,why:'jsonify konvertiert und gibt eine HTTP-Response zurück — kein Dictionary.'},
+    {t:'Eine Fehlermeldung wenn der Input kein JSON ist',correct:false,why:'jsonify nimmt Python-Daten und macht JSON daraus — es validiert kein eingehendes JSON.'},
+  ]},
+  {id:'p_l4_6_mc4',type:'mc',xp:10,question:'Wie liest man JSON-Daten aus einem POST-Request in Flask?',options:[
+    {t:'request.json()',correct:false,why:'json ist kein aufrufbare Methode — es ist ein Property.'},
+    {t:'request.get_json()',correct:true,why:'data = request.get_json() gibt ein Python-Dictionary mit den JSON-Daten zurück. request.json ist ein Alias, aber get_json() ist expliziter.'},
+    {t:'request.body',correct:false,why:'request.body existiert nicht in Flask — in Express schon.'},
+    {t:'json.loads(request)',correct:false,why:'json.loads() braucht einen String, nicht das request-Objekt selbst.'},
+  ]},
+  {id:'p_l4_6_mc5',type:'mc',xp:10,question:'Was macht "abort(404)" in Flask?',options:[
+    {t:'Stoppt den gesamten Server',correct:false,why:'abort() stoppt nur den aktuellen Request, nicht den Server.'},
+    {t:'Gibt eine 404-HTTP-Response zurück und beendet den Request-Handler',correct:true,why:'abort(404) generiert eine Not Found Response. abort(401) für Unauthorized, abort(403) für Forbidden. Sauberer als manuell Response zu bauen.'},
+    {t:'Löscht einen Datenbankdatensatz',correct:false,why:'abort() ist ein HTTP-Response-Helfer, kein Datenbank-Befehl.'},
+    {t:'Sendet eine Fehlermeldung per E-Mail',correct:false,why:'abort() sendet eine HTTP-Response.'},
+  ]},
+  {id:'p_l4_6_mc6',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Flask und Django?',options:[
+    {t:'Django ist in JavaScript, Flask in Python',correct:false,why:'Beide sind Python-Frameworks.'},
+    {t:'Flask: Micro-Framework (minimal, flexibel); Django: Batteries-included (ORM, Admin, Auth inklusive)',correct:true,why:'Flask: du entscheidest welche Libraries du nutzt. Django: kommt mit ORM, Admin-Panel, User-System, Formularen — schneller für CRUD-Apps, weniger flexibel.'},
+    {t:'Flask ist schneller für alle Use Cases',correct:false,why:'Performance hängt vom Use Case und der Implementierung ab.'},
+    {t:'Django kann keine APIs bauen',correct:false,why:'Django REST Framework (DRF) ist eine der bekanntesten API-Libraries.'},
+  ]},
+  {id:'p_l4_6_mc7',type:'mc',xp:10,question:'Was ist URL-Parameter vs Query-Parameter in Flask?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Sie werden unterschiedlich in der URL definiert und abgerufen.'},
+    {t:'URL-Parameter: /users/<id> (Teil der URL); Query-Parameter: ?page=2 (nach dem ?)',correct:true,why:'/users/42: URL-Parameter id=42 per Pfad. /users?page=2: Query-Parameter per request.args.get("page").'},
+    {t:'Query-Parameter sind sicherer',correct:false,why:'Beide können sicher oder unsicher sein — es hängt von der Validierung ab.'},
+    {t:'URL-Parameter können nur Zahlen sein',correct:false,why:'Flask-Routen haben Typen: <int:id>, <string:name>, <path:filename> etc.'},
+  ]},
+  {id:'p_l4_6_mc8',type:'mc',xp:10,question:'Was ist WSGI in Python-Web-Frameworks?',options:[
+    {t:'Eine Testbibliothek für Flask',correct:false,why:'WSGI ist eine Serverstandard-Schnittstelle, keine Testbibliothek.'},
+    {t:'Web Server Gateway Interface — Standard-Schnittstelle zwischen Python-Apps und Web-Servern',correct:true,why:'WSGI definiert wie Nginx/Apache mit Python-Apps (Flask, Django) kommunizieren. Flask/Django implementieren WSGI. Für async: ASGI (FastAPI).'},
+    {t:'Eine CSS-Bibliothek für Python',correct:false,why:'WSGI hat nichts mit CSS zu tun.'},
+    {t:'Ein Datenbankstandard',correct:false,why:'WSGI ist ein Web-Server-Interface-Standard.'},
+  ]},
+  {id:'p_l4_6_tf1',type:'truefalse',xp:8,statement:'Flask kann automatisch alle API-Endpunkte dokumentieren ohne zusätzliche Libraries.',correct:false,explanation:'Flask allein hat keine API-Dokumentation. Dafür gibt es Flask-RESTX, FastAPI (automatisch via OpenAPI/Swagger), oder Flasgger.'},
+  {id:'p_l4_6_tf2',type:'truefalse',xp:8,statement:'request.args in Flask enthält die Query-Parameter einer URL.',correct:true,explanation:'request.args.get("page", 1) liest den page-Parameter aus /api/posts?page=2. request.args ist ein ImmutableDict.'},
+  {id:'p_l4_6_tf3',type:'truefalse',xp:8,statement:'Ein Flask-Development-Server ist für Produktions-Deployment geeignet.',correct:false,explanation:'Der Flask dev-Server (flask run) ist single-threaded und nicht für Production. Production: Gunicorn oder uWSGI als WSGI-Server.'},
+  {id:'p_l4_6_tf4',type:'truefalse',xp:8,statement:'In Express (Node.js) werden Routen mit app.get(), app.post() etc. definiert.',correct:true,explanation:'app.get("/users", handler) — Express-Routen sind ähnlich zu Flask, aber in JavaScript/Node.js.'},
+  {id:'p_l4_6_tf5',type:'truefalse',xp:8,statement:'"@app.route" in Flask ist ein Python-Dekorator.',correct:true,explanation:'@app.route("/users") ist ein Dekorator der die Funktion als Handler für diese URL registriert. Python-Dekoratoren sind Funktionen die andere Funktionen wrappen.'},
+  {id:'p_l4_6_fb1',type:'fillblank',xp:12,prompt:'Flask-Funktion die ein Python-Objekt als JSON-Response zurückgibt: ___',answers:['jsonify'],placeholder:'Funktion',explanation:'return jsonify({"status": "ok"}) gibt eine Response mit Content-Type: application/json zurück.'},
+  {id:'p_l4_6_fb2',type:'fillblank',xp:12,prompt:'Flask-Funktion zum Auslesen von POST-JSON-Daten: request.get___()',answers:['json','_json'],placeholder:'Methodenname',explanation:'data = request.get_json() gibt das JSON-Payload als Python-Dictionary zurück.'},
+  {id:'p_l4_6_fb3',type:'fillblank',xp:12,prompt:'Flask-Funktion für HTTP-Fehlercodes: ___',answers:['abort'],placeholder:'Funktion',explanation:'abort(404), abort(401), abort(403) — gibt sofort einen HTTP-Fehler zurück.'},
+  {id:'p_l4_6_fb4',type:'fillblank',xp:12,prompt:'Flask URL-Parameter für einen Integer: /users/<___:id>',answers:['int'],placeholder:'Typ',explanation:'<int:id> konvertiert den URL-Teil automatisch zu einem Integer. <string:name> für Strings.'},
+  {id:'p_l4_6_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen Flask und FastAPI?',options:[
+    {t:'FastAPI ist langsamer',correct:false,why:'FastAPI ist einer der schnellsten Python-Web-Frameworks.'},
+    {t:'FastAPI: async/await, automatische OpenAPI-Docs, Pydantic-Validierung; Flask: sync, kein Auto-Docs, flexibler',correct:true,why:'FastAPI nutzt Python Type Hints für automatische API-Dokumentation (Swagger UI), Input-Validierung und ist async-native. Flask ist älter, simpler, hat mehr Plugins.'},
+    {t:'Flask unterstützt kein async',correct:false,why:'Flask 2.0+ unterstützt async Route-Handler.'},
+    {t:'FastAPI kann keine Datenbanken nutzen',correct:false,why:'FastAPI nutzt SQLAlchemy, Tortoise-ORM, oder beliebige andere DB-Libraries.'},
+  ]},
+];
+
+QUESTION_POOLS['l4_7'] = [
+  {id:'p_l4_7_mc1',type:'mc',xp:10,question:'Warum sind Prepared Statements die Lösung für SQL-Injection?',options:[
+    {t:'Sie machen die Queries schneller',correct:false,why:'Geschwindigkeit ist ein Nebeneffekt — Sicherheit ist der Hauptvorteil.'},
+    {t:'Sie trennen SQL-Code von Daten — der Datenbankserver interpretiert Parameter niemals als SQL-Code',correct:true,why:'Das SQL-Gerüst wird zuerst kompiliert, dann Werte eingesetzt. Selbst wenn der Wert SQL enthält wird er als reiner String behandelt.'},
+    {t:'Sie verschlüsseln die Daten in der Datenbank',correct:false,why:'Prepared Statements verschlüsseln nichts.'},
+    {t:'Sie sind nur bei MySQL nötig',correct:false,why:'SQL-Injection ist bei ALLEN Datenbanksystemen ein Risiko.'},
+  ]},
+  {id:'p_l4_7_mc2',type:'mc',xp:10,question:'Was ist OWASP und warum ist es wichtig?',options:[
+    {t:'Ein Betriebssystem für Server',correct:false,why:'OWASP ist keine Software.'},
+    {t:'Open Web Application Security Project — stellt die Top 10 häufigsten Web-Sicherheitslücken bereit',correct:true,why:'OWASP Top 10: SQL Injection, Broken Auth, XSS, Insecure Design, Security Misconfiguration etc. Die Checkliste für Web-Security.'},
+    {t:'Eine Programmiersprache für Sicherheits-Tests',correct:false,why:'OWASP ist eine Organisation und Community, keine Sprache.'},
+    {t:'Ein Verschlüsselungsstandard',correct:false,why:'OWASP definiert keine Verschlüsselungsstandards.'},
+  ]},
+  {id:'p_l4_7_mc3',type:'mc',xp:10,question:'Was ist Cross-Site Scripting (XSS)?',options:[
+    {t:'Ein Angriff auf CSS-Stylesheets',correct:false,why:'XSS hat nichts mit CSS zu tun (obwohl der Name ähnlich klingt).'},
+    {t:'Einschleusen von JavaScript-Code in eine Webseite durch ungefilterten User-Input',correct:true,why:'Angreifer gibt "&lt;script&gt;stealCookies()&lt;\/script&gt;" als Kommentar ein. Wenn nicht gefiltert, wird der Code bei anderen Nutzern ausgeführt.'},
+    {t:'Ein Angriff auf Server-Prozessoren',correct:false,why:'XSS ist ein Client-seitiger Angriff der im Browser des Opfers ausgeführt wird.'},
+    {t:'Unerlaubtes Kopieren von Webseiten',correct:false,why:'Das wäre Copyright-Verletzung, nicht XSS.'},
+  ]},
+  {id:'p_l4_7_mc4',type:'mc',xp:10,question:'Warum sollten Secrets (API-Keys, DB-Passwörter) nicht im Code stehen?',options:[
+    {t:'Weil sie zu lang sind',correct:false,why:'Länge ist nicht das Problem.'},
+    {t:'Git-History ist permanent — selbst gelöschte Secrets sind in der History sichtbar und könnten in öffentliche Repos gelangen',correct:true,why:'Secret im Code → Commit → GitHub → World kann es sehen. Lösung: .env + .gitignore. Selbst nach Löschen ist das Secret in der Git-History.'},
+    {t:'Server können keine Umgebungsvariablen lesen',correct:false,why:'Alle modernen Server unterstützen Umgebungsvariablen.'},
+    {t:'Es ist nur eine Konvention ohne echten Sicherheitsgewinn',correct:false,why:'Secrets im Code sind ein kritisches Sicherheitsrisiko.'},
+  ]},
+  {id:'p_l4_7_mc5',type:'mc',xp:10,question:'Was ist Rate Limiting und wogegen schützt es?',options:[
+    {t:'Begrenzt die Datenbankgröße',correct:false,why:'Rate Limiting hat nichts mit Datenbankgröße zu tun.'},
+    {t:'Begrenzt Anfragen pro Zeit/IP — schützt gegen Brute Force, DDoS und API-Missbrauch',correct:true,why:'5 Login-Versuche/Minute: macht Passwort-Brute-Force unpraktikabel. flask-limiter, nginx rate_limit, oder Cloud-WAFs implementieren es.'},
+    {t:'Begrenzt die Anzahl der Datenbankverbindungen',correct:false,why:'Das ist Connection Pooling, nicht Rate Limiting.'},
+    {t:'Verlangsamt die API absichtlich',correct:false,why:'Rate Limiting blockt zu viele Requests, verlangsamt sie aber nicht grundsätzlich.'},
+  ]},
+  {id:'p_l4_7_mc6',type:'mc',xp:10,question:'Was ist ein "Stored Procedure" in Bezug auf SQL-Sicherheit?',options:[
+    {t:'Eine auf der Datenbank gespeicherte SQL-Funktion die Parameter sicher verarbeitet',correct:true,why:'Stored Procedures sind vorkompilierte SQL-Blöcke — ähnlich wie Prepared Statements. Parameter werden nicht als Code interpretiert.'},
+    {t:'Ein Tool zum Speichern von Passwörtern',correct:false,why:'Stored Procedures sind SQL-Datenbankfunktionen.'},
+    {t:'Eine Verschlüsselungsmethode für Datenbankdaten',correct:false,why:'Stored Procedures verschlüsseln nicht per se.'},
+    {t:'Ein Backup-Verfahren',correct:false,why:'Backups und Stored Procedures sind verschiedene Konzepte.'},
+  ]},
+  {id:'p_l4_7_mc7',type:'mc',xp:10,question:'Was ist das Prinzip des "Least Privilege" (geringste Rechte)?',options:[
+    {t:'Alle User sollen Adminrechte haben um effizient zu arbeiten',correct:false,why:'Das ist das Gegenteil — Least Privilege bedeutet minimale Rechte.'},
+    {t:'Jeder Prozess/User bekommt nur die Rechte die er unbedingt braucht — nichts mehr',correct:true,why:'API-Server: DB-Nutzer darf nur SELECT/INSERT/UPDATE auf bestimmten Tabellen. Kein DROP, kein GRANT. Schadensminimierung bei Kompromittierung.'},
+    {t:'Nutzer dürfen nicht mehr als 5 Dateien hochladen',correct:false,why:'Least Privilege ist ein Sicherheitsprinzip, keine Datei-Beschränkung.'},
+    {t:'Server sollen mit minimaler CPU-Leistung betrieben werden',correct:false,why:'Least Privilege bezieht sich auf Zugriffsrechte, nicht Hardware-Ressourcen.'},
+  ]},
+  {id:'p_l4_7_mc8',type:'mc',xp:10,question:'Welcher HTTP-Header hilft gegen Clickjacking-Angriffe?',options:[
+    {t:'Content-Type',correct:false,why:'Content-Type sagt welchen Typ der Response-Body hat. Kein Sicherheitsheader gegen Clickjacking.'},
+    {t:'X-Frame-Options: DENY',correct:true,why:'X-Frame-Options: DENY verhindert dass deine Seite in einem iframe eingebettet wird. Clickjacking: Angreifer bettet deine Seite in seinem iframe ein und überlagert sie mit transparenten Elementen.'},
+    {t:'Authorization',correct:false,why:'Authorization ist für Auth-Tokens, nicht gegen Clickjacking.'},
+    {t:'Cache-Control',correct:false,why:'Cache-Control steuert Caching-Verhalten.'},
+  ]},
+  {id:'p_l4_7_tf1',type:'truefalse',xp:8,statement:'Input-Validierung auf der Client-Seite (JavaScript) ist ausreichend für Sicherheit.',correct:false,explanation:'Client-seitige Validierung kann vom Angreifer mit Browser-DevTools oder curl umgangen werden. Server-seitige Validierung ist zwingend — Client-Validierung ist nur für UX.'},
+  {id:'p_l4_7_tf2',type:'truefalse',xp:8,statement:'Alle Environment Variables werden automatisch aus .env geladen ohne zusätzliche Libraries.',correct:false,explanation:'In Python braucht man python-dotenv (load_dotenv()). In Node.js: dotenv (require("dotenv").config()). Manche Hosting-Plattformen injizieren Env Vars direkt — dann kein .env nötig.'},
+  {id:'p_l4_7_tf3',type:'truefalse',xp:8,statement:'HTTPS verhindert SQL-Injection.',correct:false,explanation:'HTTPS verschlüsselt den Transport (Man-in-the-Middle-Schutz). SQL-Injection passiert auf dem Server wenn User-Input direkt in SQL eingebaut wird. Beide sind separate Sicherheitskonzepte.'},
+  {id:'p_l4_7_tf4',type:'truefalse',xp:8,statement:'Security-Header wie X-Content-Type-Options können per HTTP-Response gesetzt werden.',correct:true,explanation:'X-Content-Type-Options: nosniff verhindert MIME-Sniffing. Strict-Transport-Security erzwingt HTTPS. Content-Security-Policy kontrolliert welche Ressourcen geladen werden dürfen.'},
+  {id:'p_l4_7_tf5',type:'truefalse',xp:8,statement:'Ein Vulnerability-Scanner kann alle Sicherheitslücken in einer Webanwendung finden.',correct:false,explanation:'Automatische Scanner (OWASP ZAP, Burp Suite) finden häufige Muster — aber Business Logic Bugs, Race Conditions und komplexe Auth-Fehler brauchen manuelles Pentesting.'},
+  {id:'p_l4_7_fb1',type:'fillblank',xp:12,prompt:'SQL-Injections verhindert man mit ___ Statements',answers:['Prepared','prepared'],placeholder:'Adjektiv',explanation:'Prepared Statements trennen Code und Daten. cursor.execute("SELECT * FROM users WHERE id = ?", (id,))'},
+  {id:'p_l4_7_fb2',type:'fillblank',xp:12,prompt:'Secrets werden in einer ___ -Datei gespeichert (wird nicht ins Git commitet)',answers:['.env'],placeholder:'Dateiname',explanation:'.env enthält KEY=VALUE Paare. .gitignore muss .env ausschließen. Auf Servern: Hosting-Platform-Env-Vars nutzen.'},
+  {id:'p_l4_7_fb3',type:'fillblank',xp:12,prompt:'Die OWASP-Liste der kritischsten Sicherheitslücken heißt: OWASP Top ___',answers:['10'],placeholder:'Zahl',explanation:'OWASP Top 10 — die zehn häufigsten Web-Sicherheitsprobleme. Muss jeder Web-Entwickler kennen.'},
+  {id:'p_l4_7_fb4',type:'fillblank',xp:12,prompt:'Einschleusen von JavaScript in Webseiten durch ungefilterten Input: ___',answers:['XSS'],placeholder:'Abkürzung',explanation:'XSS = Cross-Site Scripting. Lösung: Escaping von User-Input, Content-Security-Policy Header.'},
+  {id:'p_l4_7_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen SQL Injection und NoSQL Injection?',options:[
+    {t:'NoSQL-Datenbanken sind immun gegen Injection-Angriffe',correct:false,why:'NoSQL-Datenbanken haben eigene Injection-Vektoren.'},
+    {t:'SQL Injection nutzt SQL-Syntax; NoSQL Injection nutzt Datenbankspezifische Syntax (MongoDB: {$where: "..."}, {$gt: ""})',correct:true,why:'MongoDB: {username: {$gt: ""}} gibt alle User zurück wenn schlecht validiert. Prepared Statements gibt es nicht — stattdessen: Input-Validierung, Typenprüfung, ODM-Libraries.'},
+    {t:'NoSQL Injection ist weniger gefährlich',correct:false,why:'NoSQL Injection kann genauso kritisch sein wie SQL Injection.'},
+    {t:'Beide werden identisch verhindert',correct:false,why:'SQL: Prepared Statements. NoSQL: Libraries, Input-Validierung, Schema-Validierung (Mongoose, Pydantic).'},
+  ]},
+];
+
+QUESTION_POOLS['l4_8'] = [
+  {id:'p_l4_8_mc1',type:'mc',xp:10,question:'Was ist der Hauptvorteil von Docker für Deployment?',options:[
+    {t:'Docker macht Code schneller',correct:false,why:'Docker hat keinen Einfluss auf die Code-Performance.'},
+    {t:'Der Container enthält alle Abhängigkeiten — läuft auf jedem System gleich (Dev-Laptop = Prod-Server)',correct:true,why:'"Works on my machine" wird durch Docker gelöst. Python-Version, Libraries, OS-Libraries — alles im Container eingeschlossen.'},
+    {t:'Docker ersetzt eine Datenbank',correct:false,why:'Docker ist ein Container-System, keine Datenbank.'},
+    {t:'Docker ist nur für Windows-Server',correct:false,why:'Docker läuft auf Linux, macOS und Windows.'},
+  ]},
+  {id:'p_l4_8_mc2',type:'mc',xp:10,question:'Was ist ein Docker-Image vs ein Docker-Container?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Image und Container sind verschiedene Konzepte.'},
+    {t:'Image = unveränderliche Bauvorlage (wie eine ISO); Container = laufende Instanz eines Images',correct:true,why:'docker build erstellt ein Image. docker run startet einen Container aus dem Image. Mehrere Container können aus einem Image laufen.'},
+    {t:'Container ist das Dockerfile, Image ist die laufende App',correct:false,why:'Andersherum: Dockerfile → Image (docker build) → Container (docker run).'},
+    {t:'Images laufen, Container sind gespeichert',correct:false,why:'Container laufen, Images sind gespeicherte Vorlagen.'},
+  ]},
+  {id:'p_l4_8_mc3',type:'mc',xp:10,question:'Was macht die EXPOSE-Anweisung in einem Dockerfile?',options:[
+    {t:'Öffnet automatisch den Port auf dem Host-System',correct:false,why:'EXPOSE dokumentiert nur den Port — es öffnet ihn nicht. Das macht docker run -p.'},
+    {t:'Dokumentiert welchen Port die App im Container nutzt — für docker run -p nötig',correct:true,why:'EXPOSE 8000 ist Dokumentation. Für wirkliches Port-Mapping: docker run -p 8000:8000. Das mappt Host-Port 8000 auf Container-Port 8000.'},
+    {t:'Macht die App öffentlich im Internet erreichbar',correct:false,why:'EXPOSE tut nichts für Internet-Erreichbarkeit — das macht ein Reverse Proxy (Nginx) oder Cloud-Service.'},
+    {t:'Setzt die maximale Anzahl gleichzeitiger Verbindungen',correct:false,why:'Verbindungs-Limits werden in der App-Konfiguration gesetzt.'},
+  ]},
+  {id:'p_l4_8_mc4',type:'mc',xp:10,question:'Was ist Docker Compose?',options:[
+    {t:'Ein Tool zum Erstellen von Docker-Images',correct:false,why:'Docker Compose startet Services — Images werden mit docker build erstellt.'},
+    {t:'Tool zum Definieren und Starten mehrerer Container-Services zusammen (z.B. App + DB)',correct:true,why:'docker-compose.yml definiert web, db, redis Services. docker compose up startet alle. Automatisches Netzwerk zwischen Services.'},
+    {t:'Ein alternatives zu Docker für Windows',correct:false,why:'Docker Compose ist ein Orchestrierungstool, kein Docker-Ersatz.'},
+    {t:'Eine Programmiersprache für Container-Konfiguration',correct:false,why:'docker-compose.yml ist YAML — keine Programmiersprache.'},
+  ]},
+  {id:'p_l4_8_mc5',type:'mc',xp:10,question:'Warum nutzt man in Dockerfiles oft "COPY requirements.txt ." BEVOR "COPY . ."?',options:[
+    {t:'Es ist nur eine Konvention ohne technischen Unterschied',correct:false,why:'Es gibt einen wichtigen Performance-Unterschied durch Docker Layer Caching.'},
+    {t:'Docker cacht Layers — wenn sich requirements.txt nicht ändert wird pip install nicht wiederholt',correct:true,why:'Ändert sich nur der Code aber nicht die Dependencies: pip install wird übersprungen (aus Cache). Ohne diese Reihenfolge würde jeder Code-Commit alle Dependencies neu installieren.'},
+    {t:'requirements.txt muss immer zuerst kommen per Docker-Standard',correct:false,why:'Es gibt kein solches Pflicht-Ordnungsregel — es ist eine Performance-Optimierung.'},
+    {t:'Das verhindert dass die requirements.txt überschrieben wird',correct:false,why:'COPY . . würde requirements.txt überschreiben — aber die Optimierung ist Layer-Caching.'},
+  ]},
+  {id:'p_l4_8_mc6',type:'mc',xp:10,question:'Was ist der Unterschied zwischen einem Container und einer VM (Virtual Machine)?',options:[
+    {t:'Container sind langsamer als VMs',correct:false,why:'Container starten schneller und haben weniger Overhead — VMs sind oft ressourcenintensiver.'},
+    {t:'VM: eigener Kernel + OS; Container: teilt Host-Kernel, isoliert nur Prozesse — leichter und schneller startend',correct:true,why:'VM: 1GB+ RAM, Minuten zum Starten. Container: Megabytes, Sekunden. Container sind leichtgewichtiger weil sie keinen eigenen OS-Kernel haben.'},
+    {t:'Container haben stärkere Isolation als VMs',correct:false,why:'VMs haben stärkere Isolation (eigener Kernel). Container-Isolation ist gut aber nicht so stark wie VMs.'},
+    {t:'VMs können keine Python-Apps hosten',correct:false,why:'VMs können alles hosten — sie sind vollständige Computer.'},
+  ]},
+  {id:'p_l4_8_mc7',type:'mc',xp:10,question:'Was ist Kubernetes (K8s)?',options:[
+    {t:'Eine Alternative zu Docker',correct:false,why:'Kubernetes orchestriert Docker-Container — es ist kein Ersatz.'},
+    {t:'Container-Orchestrierung: automatisches Deployment, Scaling und Management von Container-Gruppen',correct:true,why:'Docker läuft einen Container. K8s: 100 Container auf 50 Servern managen, automatisch skalieren, Fehler beheben, Load Balancing. Google, Netflix, Airbnb.'},
+    {t:'Ein Cloud-Provider wie AWS',correct:false,why:'K8s ist Open Source. AWS bietet EKS (Kubernetes as a Service) an.'},
+    {t:'Ein Python-Web-Framework',correct:false,why:'K8s ist Container-Infrastruktur.'},
+  ]},
+  {id:'p_l4_8_mc8',type:'mc',xp:10,question:'Was ist eine .dockerignore Datei?',options:[
+    {t:'Eine Datei die Docker installiert',correct:false,why:'.dockerignore ist eine Konfigurationsdatei die du erstellst.'},
+    {t:'Wie .gitignore — definiert Dateien/Ordner die nicht in das Docker-Image kopiert werden',correct:true,why:'.dockerignore: __pycache__, .env, .git, *.log — verhindert dass diese im Image landen. Kleineres Image, keine Secrets im Image.'},
+    {t:'Eine Datei für Container-Berechtigungen',correct:false,why:'Berechtigungen werden im Dockerfile mit USER gesetzt.'},
+    {t:'Eine Konfigurationsdatei für Kubernetes',correct:false,why:'.dockerignore ist nur für den Docker Build-Kontext.'},
+  ]},
+  {id:'p_l4_8_tf1',type:'truefalse',xp:8,statement:'Umgebungsvariablen sollten direkt im Dockerfile mit ENV KEY=VALUE gesetzt werden.',correct:false,explanation:'Secrets im Dockerfile landen im Image-Layer und sind sichtbar. Secrets per --env-file .env übergeben (docker run) oder über Kubernetes Secrets / Cloud-Provider-Secrets-Management.'},
+  {id:'p_l4_8_tf2',type:'truefalse',xp:8,statement:'docker ps zeigt alle laufenden Container an.',correct:true,explanation:'docker ps = laufende Container. docker ps -a = alle Container inkl. gestoppter. docker images = alle lokalen Images.'},
+  {id:'p_l4_8_tf3',type:'truefalse',xp:8,statement:'docker run --rm entfernt den Container automatisch wenn er stoppt.',correct:true,explanation:'--rm verhindert Ansammlung von gestoppten Containern. Nützlich für Einweg-Aufgaben oder Entwicklung. Ohne --rm: Container bleibt und muss manuell mit docker rm entfernt werden.'},
+  {id:'p_l4_8_tf4',type:'truefalse',xp:8,statement:'Jede Zeile im Dockerfile erstellt einen neuen Layer im Docker-Image.',correct:true,explanation:'Layers sind gecacht — ändert sich ein Layer, werden alle folgenden neu gebaut. Deshalb: selten ändernde Dinge (base image, requirements) zuerst.'},
+  {id:'p_l4_8_tf5',type:'truefalse',xp:8,statement:'Docker Compose und Kubernetes erfüllen denselben Zweck.',correct:false,explanation:'Docker Compose: für lokale Entwicklung und einfache Multi-Container-Setups. Kubernetes: für Production mit Tausenden Containern auf vielen Servern mit Auto-Healing, Auto-Scaling etc.'},
+  {id:'p_l4_8_fb1',type:'fillblank',xp:12,prompt:'Befehl zum Bauen eines Docker-Images: docker ___',answers:['build'],placeholder:'Befehl',explanation:'docker build -t my-app:1.0 . — baut ein Image aus dem Dockerfile im aktuellen Verzeichnis.'},
+  {id:'p_l4_8_fb2',type:'fillblank',xp:12,prompt:'Befehl zum Starten eines Containers: docker ___',answers:['run'],placeholder:'Befehl',explanation:'docker run -p 8000:8000 my-app:1.0 — startet einen Container und mappt Port 8000.'},
+  {id:'p_l4_8_fb3',type:'fillblank',xp:12,prompt:'Das Tool zum Starten mehrerer Container-Services zusammen: docker ___',answers:['compose'],placeholder:'Befehl/Tool',explanation:'docker compose up startet alle in docker-compose.yml definierten Services.'},
+  {id:'p_l4_8_fb4',type:'fillblank',xp:12,prompt:'Wie .gitignore für Docker — definiert was nicht ins Image soll: .___',answers:['dockerignore'],placeholder:'Dateiname',explanation:'.dockerignore schließt Dateien aus dem Build-Kontext aus: __pycache__, .env, .git, *.log'},
+  {id:'p_l4_8_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen "Horizontal" und "Vertical" Scaling?',options:[
+    {t:'Beide bedeuten das Gleiche',correct:false,why:'Es gibt einen wichtigen architektonischen Unterschied.'},
+    {t:'Vertical: stärkerer Server (mehr CPU/RAM); Horizontal: mehr Server/Container-Instanzen',correct:true,why:'Vertical (Scale Up): Server upgraden — hat eine physische Grenze. Horizontal (Scale Out): mehr Instanzen — theoretisch unbegrenzt. Container machen horizontal scaling einfach.'},
+    {t:'Horizontal Scaling ist immer günstiger',correct:false,why:'Mehr Server bedeuten mehr Managementaufwand und Netzwerk-Komplexität.'},
+    {t:'Vertical Scaling funktioniert nur mit Docker',correct:false,why:'Vertical Scaling funktioniert mit jeder Infrastruktur.'},
+  ]},
+];
 
 function answerQuiz(id, idx, btn) {
   if (state.quizAnswered.has(id)) return;
