@@ -3971,18 +3971,8 @@ Cache-Control: max-age=300
               <strong>Beispiel:</strong> wenn du eine Webseite lädst, reist die Anfrage von oben (HTTP) durch alle Schichten nach unten, durchs Kabel/WLAN, beim Server wieder nach oben — und die Antwort genauso zurück. Du musst dir das nicht alles merken — wichtig ist nur das Konzept der Schichten.
             </div>
           </div>
-          ${quiz('q4', 'Was macht ein DNS-Server?', [
-            {t:'Er verschlüsselt deine Daten', correct:false, why:'Das macht TLS/SSL, nicht DNS.'},
-            {t:'Er übersetzt Domain-Namen in IP-Adressen', correct:true, why:'Genau! DNS = Domain Name System. Es ist wie ein Telefonbuch des Internets.'},
-            {t:'Er speichert Webseiten zwischen', correct:false, why:'Das wäre ein Cache oder CDN, nicht DNS.'},
-            {t:'Er vergibt IP-Adressen an Geräte', correct:false, why:'Das macht DHCP, nicht DNS.'},
-          ])}
-          ${quiz('q5', 'Was bedeutet HTTP-Statuscode 404?', [
-            {t:'Alles OK', correct:false, why:'200 bedeutet OK. 404 ist etwas anderes.'},
-            {t:'Server-Fehler', correct:false, why:'Server-Fehler sind 5xx Codes (z.B. 500). 404 ist ein Client-Fehler.'},
-            {t:'Seite nicht gefunden', correct:true, why:'Richtig! 404 Not Found — die angeforderte Ressource existiert nicht auf dem Server.'},
-            {t:'Weitergeleitet', correct:false, why:'Weiterleitungen sind 3xx Codes (z.B. 301, 302).'},
-          ])}
+          ${renderQuestions('l1_6', 6)}
+          ${renderBonus('l1_6')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Abschlussprojekt Phase 1</div>
             <div class="boss-title">Netzwerk-Detektiv</div>
@@ -4107,18 +4097,8 @@ Set-Cookie: session=abc123; HttpOnly; Secure
               • <code>500 Internal Server Error</code> — server crashed
             </div>
           </div>
-          ${quiz('q4', 'What does a DNS server do?', [
-            {t:'It encrypts your data', correct:false, why:"That's TLS/SSL, not DNS."},
-            {t:'It translates domain names to IP addresses', correct:true, why:'Correct! DNS = Domain Name System. It works like a phone book for the Internet.'},
-            {t:'It caches websites', correct:false, why:"That would be a cache or CDN, not DNS."},
-            {t:'It assigns IP addresses to devices', correct:false, why:"That's DHCP, not DNS."},
-          ])}
-          ${quiz('q5', 'What does HTTP status code 404 mean?', [
-            {t:'Everything is OK', correct:false, why:'200 means OK. 404 is something else.'},
-            {t:'Server error', correct:false, why:'Server errors are 5xx codes (e.g. 500). 404 is a client error.'},
-            {t:'Not found', correct:true, why:'Correct! 404 Not Found — the requested resource does not exist on the server.'},
-            {t:'Redirected', correct:false, why:'Redirects are 3xx codes (e.g. 301, 302).'},
-          ])}
+          ${renderQuestions('l1_6', 6)}
+          ${renderBonus('l1_6')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Phase 1 Final Project</div>
             <div class="boss-title">Network Detective</div>
@@ -21258,6 +21238,161 @@ QUESTION_POOLS['l1_5'] = [
       {t:'3 × ../',  correct:true,  why:'Richtig! Button.jsx → components (1) → src (2) → frontend (3) → app. Von app aus: config.json. Also ../../../config.json.'},
       {t:'4 × ../',  correct:false, why:'4× wäre zu weit — dann wärst du über /app hinaus.'},
       {t:'1 × ../',  correct:false, why:'Einmal hoch wäre nur /app/frontend/src/ — config.json liegt aber in /app/.'},
+    ]
+  },
+];
+
+QUESTION_POOLS['l1_6'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_6_mc1', type: 'mc', xp: 10,
+    question: 'Was macht ein DNS-Server?',
+    options: [
+      {t:'Er verschlüsselt deine Daten',                correct:false, why:'Das macht TLS/HTTPS — DNS verschlüsselt nichts, es übersetzt nur Namen in Adressen.'},
+      {t:'Er übersetzt Domain-Namen in IP-Adressen',    correct:true,  why:'Richtig! DNS = Domain Name System. google.com → 142.250.74.46. Wie ein Telefonbuch des Internets.'},
+      {t:'Er speichert ganze Webseiten zwischen',       correct:false, why:'Das macht ein Cache oder CDN. DNS liefert nur IP-Adressen zurück.'},
+      {t:'Er vergibt IP-Adressen an Geräte im Netz',   correct:false, why:'IP-Adressen vergeben macht DHCP — nicht DNS.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc2', type: 'mc', xp: 10,
+    question: 'Was bedeutet HTTP-Statuscode 404?',
+    options: [
+      {t:'Alles hat geklappt',         correct:false, why:'Erfolg ist 200 OK. 404 bedeutet etwas anderes — ein Client-Fehler.'},
+      {t:'Server hat einen Fehler',    correct:false, why:'Server-Fehler haben Codes 5xx (z.B. 500). 404 ist ein Client-seitiger Fehler.'},
+      {t:'Seite / Ressource nicht gefunden', correct:true, why:'Richtig! 404 Not Found — die angeforderte URL existiert nicht auf dem Server.'},
+      {t:'Weiterleitung auf eine andere Seite', correct:false, why:'Weiterleitungen sind 3xx (z.B. 301 Permanent, 302 Temporary).'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc3', type: 'mc', xp: 10,
+    question: 'Welcher Port ist standardmäßig für HTTPS-Verbindungen reserviert?',
+    options: [
+      {t:'80',   correct:false, why:'Port 80 ist für unverschlüsseltes HTTP. HTTPS nutzt einen anderen Port.'},
+      {t:'22',   correct:false, why:'Port 22 ist für SSH (Secure Shell) — Server-Fernzugriff.'},
+      {t:'443',  correct:true,  why:'Richtig! HTTPS läuft standardmäßig auf Port 443. HTTP auf 80. Wenn du im Browser kein :443 siehst, wird es trotzdem benutzt — Browser lassen es weg.'},
+      {t:'3306', correct:false, why:'3306 ist MySQL-Datenbank. HTTPS läuft auf 443.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc4', type: 'mc', xp: 10,
+    question: 'Was passiert beim TCP-3-Wege-Handshake bevor Daten fließen können?',
+    options: [
+      {t:'DNS löst den Hostnamen auf',               correct:false, why:'DNS-Auflösung passiert noch davor — der Handshake baut dann die Verbindung zur gefundenen IP auf.'},
+      {t:'Browser und Server tauschen SYN, SYN-ACK, ACK aus', correct:true, why:'Richtig! SYN = "ich will verbinden", SYN-ACK = "ok, ich auch", ACK = "super, starten wir". Erst dann fließen Daten.'},
+      {t:'Das TLS-Zertifikat wird übertragen',       correct:false, why:'Das Zertifikat kommt beim TLS-Handshake — der folgt erst nach dem TCP-Handshake.'},
+      {t:'Der Browser sendet sofort die HTTP-Anfrage', correct:false, why:'Die HTTP-Anfrage kommt erst nach TCP- und TLS-Handshake.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc5', type: 'mc', xp: 10,
+    question: 'Was ist der Unterschied zwischen HTTP und HTTPS?',
+    options: [
+      {t:'HTTPS ist schneller als HTTP',                    correct:false, why:'HTTPS hat minimal mehr Overhead (Handshake) — in der Praxis kaum messbar. Der Unterschied liegt woanders.'},
+      {t:'HTTPS verschlüsselt die Übertragung via TLS',    correct:true,  why:'Richtig! HTTPS = HTTP + TLS-Verschlüsselung. Niemand zwischen dir und dem Server kann mitlesen. HTTP sendet alles im Klartext.'},
+      {t:'HTTP funktioniert nur lokal, HTTPS im Internet', correct:false, why:'Beide können lokal und im Internet verwendet werden.'},
+      {t:'HTTPS benötigt immer einen Benutzernamen',       correct:false, why:'HTTPS hat nichts mit Authentifizierung zu tun — es geht um Verschlüsselung.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc6', type: 'mc', xp: 10,
+    question: 'Welche HTTP-Methode wird verwendet, wenn du ein Formular mit neuen Daten abschickst (z.B. einen Benutzer registrierst)?',
+    options: [
+      {t:'GET',    correct:false, why:'GET liest nur Daten — es überträgt keine Formulardaten im Body und sollte keine Zustandsänderungen auslösen.'},
+      {t:'POST',   correct:true,  why:'Richtig! POST sendet Daten an den Server um etwas Neues zu erstellen — Registrierung, Kommentar, Bestellung.'},
+      {t:'DELETE', correct:false, why:'DELETE löscht Ressourcen — es schickt keine Formulardaten.'},
+      {t:'PUT',    correct:false, why:'PUT aktualisiert eine bestehende Ressource komplett. Für neue Ressourcen ist POST üblich.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc7', type: 'mc', xp: 10,
+    question: 'Was identifiziert eine IP-Adresse im Internet?',
+    options: [
+      {t:'Eine einzelne Datei auf einem Server',       correct:false, why:'Dateien werden über URLs/Pfade adressiert — nicht direkt mit der IP.'},
+      {t:'Einen einzelnen Browser-Tab',                correct:false, why:'Browser-Tabs haben keine eigenen IPs — der ganze Rechner hat eine (oder wenige) IP(s).'},
+      {t:'Ein Netzwerkgerät (Computer, Server, Router)', correct:true, why:'Richtig! Eine IP adressiert ein Gerät im Netzwerk. Mehrere Dienste auf demselben Gerät unterscheidet man dann über Ports.'},
+      {t:'Einen DNS-Eintrag',                          correct:false, why:'DNS-Einträge enthalten IPs — aber eine IP selbst ist die Adresse eines Geräts.'},
+    ]
+  },
+  {
+    id: 'p_l1_6_mc8', type: 'mc', xp: 10,
+    question: 'Was bedeutet 127.0.0.1 bzw. "localhost"?',
+    options: [
+      {t:'Die IP-Adresse deines Routers',          correct:false, why:'Router haben oft 192.168.1.1 oder ähnliches — 127.0.0.1 ist dein eigener Rechner.'},
+      {t:'Dein eigener Computer (Loopback)',        correct:true,  why:'Richtig! 127.0.0.1 = localhost = dein eigener Rechner. Anfragen an localhost verlassen den Computer nie — nützlich beim Entwickeln.'},
+      {t:'Googles öffentlicher DNS-Server',         correct:false, why:"Googles DNS ist 8.8.8.8. Cloudflares ist 1.1.1.1. 127.0.0.1 ist dein Rechner selbst."},
+      {t:'Eine ungültige IP-Adresse',               correct:false, why:'127.0.0.1 ist vollkommen gültig — es ist der reservierte Loopback-Bereich für Tests.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_6_tf1', type: 'truefalse', xp: 8,
+    statement: 'IPv4-Adressen bestehen aus 4 Zahlen (0–255), getrennt durch Punkte.',
+    correct: true,
+    explanation: 'Stimmt! z.B. 192.168.1.1 oder 142.250.74.46. Mit nur 4 Bytes gibt es ~4 Milliarden Adressen — zu wenig für heute. Deshalb gibt es IPv6.'
+  },
+  {
+    id: 'p_l1_6_tf2', type: 'truefalse', xp: 8,
+    statement: 'HTTP-Statuscode 200 bedeutet, dass eine Seite nicht gefunden wurde.',
+    correct: false,
+    explanation: 'Falsch! 200 OK bedeutet Erfolg. "Nicht gefunden" ist 404 Not Found. 200 = alles prima.'
+  },
+  {
+    id: 'p_l1_6_tf3', type: 'truefalse', xp: 8,
+    statement: 'Ein HTTPS-Zertifikat beweist, dass du wirklich mit der richtigen Domain kommunizierst und nicht mit einem Imitator.',
+    correct: true,
+    explanation: 'Stimmt! TLS-Zertifikate werden von Certificate Authorities (CAs) ausgestellt und bestätigen: "Ja, das ist wirklich github.com, nicht jemand anderes der sich so nennt."'
+  },
+  {
+    id: 'p_l1_6_tf4', type: 'truefalse', xp: 8,
+    statement: 'Port 80 ist für HTTPS reserviert, Port 443 für HTTP.',
+    correct: false,
+    explanation: 'Falsch! Genau umgekehrt: Port 80 = HTTP (unverschlüsselt), Port 443 = HTTPS (verschlüsselt). Eselsbrücke: 443 > 80, HTTPS > HTTP.'
+  },
+  {
+    id: 'p_l1_6_tf5', type: 'truefalse', xp: 8,
+    statement: 'Das "Web" (Webseiten im Browser) ist die einzige Anwendung des Internets.',
+    correct: false,
+    explanation: 'Falsch! Das Internet ist die Infrastruktur — das Web ist nur eine von vielen Anwendungen. E-Mail, Online-Spiele, Video-Calls, App-Updates — alles läuft über dasselbe Internet.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_6_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Statuscode steht für "alles OK, hier sind deine Daten"?',
+    answers: ['200', '200 OK'],
+    placeholder: 'Statuscode eingeben',
+    explanation: 'Richtig! 200 OK ist der häufigste Erfolgs-Code. Der Server sagt damit: "Anfrage verstanden, hier die Antwort."'
+  },
+  {
+    id: 'p_l1_6_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Das System das Domain-Namen (wie google.com) in IP-Adressen übersetzt heißt … (Abkürzung, 3 Buchstaben)',
+    answers: ['DNS'],
+    placeholder: 'Abkürzung eingeben',
+    explanation: 'Richtig! DNS = Domain Name System. Ohne DNS müsstest du dir für jede Webseite die IP-Adresse merken.'
+  },
+  {
+    id: 'p_l1_6_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Welche HTTP-Methode wird benutzt um eine Webseite zu laden / Daten vom Server zu lesen?',
+    answers: ['GET'],
+    placeholder: 'HTTP-Methode eingeben',
+    explanation: 'Richtig! GET = Daten abrufen. Jedes Mal wenn du eine URL im Browser öffnest, sendet der Browser ein GET-Request.'
+  },
+  {
+    id: 'p_l1_6_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Welche IP-Adresse bezeichnet immer deinen eigenen Computer (Loopback)?',
+    answers: ['127.0.0.1', 'localhost'],
+    placeholder: 'IP-Adresse eingeben',
+    explanation: 'Richtig! 127.0.0.1 (= localhost) ist der Loopback — Anfragen dorthin verlassen deinen Rechner nie. Perfekt zum lokalen Testen.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_6_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Du rufst https://api.example.com/users/42 auf. In welcher Reihenfolge passieren die Schritte im Netzwerk?',
+    options: [
+      {t:'TLS-Handshake → DNS → TCP → HTTP GET', correct:false, why:'DNS muss zuerst kommen — ohne IP-Adresse kann keine Verbindung aufgebaut werden.'},
+      {t:'DNS → TCP-Handshake → TLS-Handshake → HTTP GET', correct:true, why:'Richtig! 1. DNS löst api.example.com auf → IP. 2. TCP baut die Verbindung auf (SYN/SYN-ACK/ACK). 3. TLS handshake verschlüsselt den Kanal. 4. Erst dann kommt die HTTP-Anfrage.'},
+      {t:'HTTP GET → DNS → TCP → TLS', correct:false, why:'HTTP kommt ganz am Ende — erst muss die Verbindung (TCP + TLS) stehen.'},
+      {t:'DNS → TLS → TCP → HTTP GET', correct:false, why:'TLS und TCP in falscher Reihenfolge: erst wird die TCP-Verbindung aufgebaut, dann darüber der TLS-Handshake.'},
     ]
   },
 ];
