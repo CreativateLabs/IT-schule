@@ -7330,24 +7330,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
               <code>data-*="..."</code> — eigene Daten am Element speichern (z.B. <code>data-user-id="42"</code>) — JavaScript kann sie lesen
             </div>
           </div>
-          ${quiz('q9', 'Was ist der Unterschied zwischen &lt;head&gt; und &lt;body&gt;?', [
-            {t:'Kein Unterschied, beide zeigen Inhalt an', correct:false, why:'Falsch — sie haben sehr verschiedene Rollen!'},
-            {t:'head = Metadaten (nicht sichtbar), body = sichtbarer Inhalt', correct:true, why:'Genau! Im head stehen Infos für Browser und Suchmaschinen. Im body steht was der Nutzer sieht.'},
-            {t:'head = Bilder, body = Text', correct:false, why:'Falsch. Bilder UND Text gehören beide in den body.'},
-            {t:'head ist für Überschriften', correct:false, why:'Überschriften (h1-h6) kommen in den body, nicht in den head!'},
-          ])}
-          ${quiz('q9b', 'Welcher Tag ist semantisch korrekt für die Hauptnavigation?', [
-            {t:'&lt;div class="navigation"&gt;', correct:false, why:'Funktioniert optisch — aber sagt niemandem dass es Navigation ist.'},
-            {t:'&lt;nav&gt;', correct:true, why:'Genau! &lt;nav&gt; sagt Browsern, Screenreadern und Suchmaschinen: "Das ist Navigation". Wichtig für Barrierefreiheit und SEO.'},
-            {t:'&lt;header&gt;', correct:false, why:'&lt;header&gt; ist der Kopfbereich. Die Navigation kann darin liegen, ist aber selbst &lt;nav&gt;.'},
-            {t:'&lt;menu&gt;', correct:false, why:'Gibt es zwar, ist aber selten genutzt — der Standard ist &lt;nav&gt;.'},
-          ])}
-          ${quiz('q9c', 'Was ist der Unterschied zwischen "id" und "class"?', [
-            {t:'id ist neuer als class', correct:false, why:'Beide existieren seit den Anfängen von HTML.'},
-            {t:'id muss eindeutig sein (nur 1 pro Seite), class kann mehrfach vorkommen', correct:true, why:'Genau! id = einzigartig (z.B. #header). class = wiederverwendbar (z.B. .button — viele Buttons können diese Klasse haben).'},
-            {t:'class ist für CSS, id für JavaScript', correct:false, why:'Beide funktionieren für CSS UND JavaScript.'},
-            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied bei der Eindeutigkeit.'},
-          ])}
+          ${renderQuestions('l3_1', 6)}
+          ${renderBonus('l3_1')}
           <div class="boss-card animate-in" style="animation-delay:0.32s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Praxisaufgabe</div>
             <div class="boss-title">Deine erste echte Webseite</div>
@@ -7580,24 +7564,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
               <code>data-*="..."</code> — store custom data on an element (e.g. <code>data-user-id="42"</code>) — JavaScript can read it
             </div>
           </div>
-          ${quiz('q9', 'What is the difference between &lt;head&gt; and &lt;body&gt;?', [
-            {t:'No difference, both display content', correct:false, why:'Wrong — they have very different roles!'},
-            {t:'head = metadata (not visible), body = visible content', correct:true, why:'Exactly! The head holds info for browsers and search engines. The body holds what the user sees.'},
-            {t:'head = images, body = text', correct:false, why:'Wrong. Both images AND text belong in the body.'},
-            {t:'head is for headings', correct:false, why:'Headings (h1-h6) go in the body, not in the head!'},
-          ])}
-          ${quiz('q9b', 'Which tag is semantically correct for the main navigation?', [
-            {t:'&lt;div class="navigation"&gt;', correct:false, why:"Works visually — but doesn't tell anyone it's navigation."},
-            {t:'&lt;nav&gt;', correct:true, why:'Exactly! &lt;nav&gt; tells browsers, screen readers and search engines: "This is navigation". Important for accessibility and SEO.'},
-            {t:'&lt;header&gt;', correct:false, why:'&lt;header&gt; is the top section. Navigation can be inside it, but navigation itself is &lt;nav&gt;.'},
-            {t:'&lt;menu&gt;', correct:false, why:'It exists, but is rarely used — the standard is &lt;nav&gt;.'},
-          ])}
-          ${quiz('q9c', 'What is the difference between "id" and "class"?', [
-            {t:'id is newer than class', correct:false, why:'Both have existed since the early days of HTML.'},
-            {t:'id must be unique (only 1 per page), class can appear multiple times', correct:true, why:'Exactly! id = unique (e.g. #header). class = reusable (e.g. .button — many buttons can share this class).'},
-            {t:'class is for CSS, id is for JavaScript', correct:false, why:'Both work for CSS AND JavaScript.'},
-            {t:'No difference', correct:false, why:'There is an important difference in uniqueness.'},
-          ])}
+          ${renderQuestions('l3_1', 6)}
+          ${renderBonus('l3_1')}
           <div class="boss-card animate-in" style="animation-delay:0.32s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Practice challenge</div>
             <div class="boss-title">Your first real webpage</div>
@@ -7956,24 +7924,8 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 }</div>
             </div>
           </div>
-          ${quiz('q10', 'Wie wählt man in CSS alle Elemente mit der Klasse "card" aus?', [
-            {t:'#card { }', correct:false, why:'# ist für IDs, nicht für Klassen. IDs sind einmalig, Klassen können mehrfach vorkommen.'},
-            {t:'.card { }', correct:true, why:'Genau! Der Punkt . vor dem Namen ist der Klassen-Selektor in CSS.'},
-            {t:'card { }', correct:false, why:'Ohne Präfix ist es ein Element-Selektor — also nur für HTML-Tags wie p, h1, div.'},
-            {t:'*card { }', correct:false, why:'* ist der Universal-Selektor (wählt alles). *card ist kein gültiger CSS-Selektor.'},
-          ])}
-          ${quiz('q10b', 'Was bewirkt "box-sizing: border-box"?', [
-            {t:'Macht alle Boxen quadratisch', correct:false, why:'Hat nichts mit der Form zu tun.'},
-            {t:'padding und border werden in width einberechnet, nicht zusätzlich addiert', correct:true, why:'Genau! Ohne border-box: width 300px + padding 20px = 340px. Mit border-box: alles bleibt 300px. Standard in modernen CSS-Setups.'},
-            {t:'Versteckt den Rahmen', correct:false, why:'Den Rahmen versteckst du mit border: none.'},
-            {t:'Zentriert die Box', correct:false, why:'Zentriert wird mit margin: 0 auto oder Flexbox.'},
-          ])}
-          ${quiz('q10c', 'Welche Einheit ist am besten für Schriftgrößen wenn du Responsive Design willst?', [
-            {t:'px — pixelgenau', correct:false, why:'px ist fix — Nutzer können die Schriftgröße nicht skalieren. Schlecht für Barrierefreiheit.'},
-            {t:'rem — vielfaches der Wurzel-Schriftgröße', correct:true, why:'Genau! rem skaliert mit der Browser-Einstellung des Nutzers und ist vorhersehbar (anders als em, das relativ zum Eltern ist).'},
-            {t:'% — Prozent', correct:false, why:'Prozent ist relativ zum Eltern — verhält sich wie em, oft verwirrend.'},
-            {t:'vh — Bildschirmhöhe', correct:false, why:'vh ist für Layouts (volle Höhe), nicht für Text.'},
-          ])}
+          ${renderQuestions('l3_2', 6)}
+          ${renderBonus('l3_2')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -8319,24 +8271,8 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 }</div>
             </div>
           </div>
-          ${quiz('q10', 'How do you select all elements with class "card" in CSS?', [
-            {t:'#card { }', correct:false, why:'# is for IDs, not classes. IDs are unique, classes can appear multiple times.'},
-            {t:'.card { }', correct:true, why:'Exactly! The dot . before the name is the class selector in CSS.'},
-            {t:'card { }', correct:false, why:'Without a prefix it is an element selector — only for HTML tags like p, h1, div.'},
-            {t:'*card { }', correct:false, why:'* is the universal selector (selects everything). *card is not a valid CSS selector.'},
-          ])}
-          ${quiz('q10b', 'What does "box-sizing: border-box" do?', [
-            {t:'Makes all boxes square', correct:false, why:'Has nothing to do with shape.'},
-            {t:'padding and border are included in width, not added on top', correct:true, why:'Exactly! Without border-box: width 300px + padding 20px = 340px. With border-box: everything stays 300px. Standard in modern CSS setups.'},
-            {t:'Hides the border', correct:false, why:'You hide a border with border: none.'},
-            {t:'Centres the box', correct:false, why:'Centring is done with margin: 0 auto or Flexbox.'},
-          ])}
-          ${quiz('q10c', 'Which unit is best for font sizes when you want responsive design?', [
-            {t:'px — pixel-precise', correct:false, why:'px is fixed — users cannot scale the font size. Bad for accessibility.'},
-            {t:'rem — multiple of the root font size', correct:true, why:'Exactly! rem scales with the browser setting and is predictable (unlike em which is relative to the parent).'},
-            {t:'% — percent', correct:false, why:'Percent is relative to the parent — behaves like em, often confusing.'},
-            {t:'vh — screen height', correct:false, why:'vh is for layouts (full height), not text.'},
-          ])}
+          ${renderQuestions('l3_2', 6)}
+          ${renderBonus('l3_2')}
         `
       },
       {
@@ -8606,24 +8542,8 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 <span class="fn">footer</span> { grid-area: footer; }</div>
             </div>
           </div>
-          ${quiz('q_flex1', 'Wann nutzt du Flexbox statt Grid?', [
-            {t:'Immer — Grid ist veraltet', correct:false, why:'Beide sind modern und werden zusammen benutzt.'},
-            {t:'Für 1D-Layouts (nur eine Richtung)', correct:true, why:'Genau! Flexbox für eine Achse (z.B. Navigation in einer Reihe). Grid wenn du Zeilen UND Spalten kontrollieren willst.'},
-            {t:'Für kleine Bildschirme', correct:false, why:'Beide funktionieren auf allen Bildschirmen. Responsivität ist eine andere Frage.'},
-            {t:'Nur für Text', correct:false, why:'Flexbox funktioniert für jeden Inhalt.'},
-          ])}
-          ${quiz('q_flex2', 'Was macht "justify-content: space-between"?', [
-            {t:'Zentriert alle Items', correct:false, why:'Das wäre center. space-between verteilt anders.'},
-            {t:'Maximaler Abstand zwischen Items, erste links und letzte rechts', correct:true, why:'Genau! Perfekt für Header: Logo links, Nav-Buttons rechts, der Platz dazwischen wird gleichmäßig verteilt.'},
-            {t:'Lücke zwischen Items wie gap', correct:false, why:'gap setzt eine FIXE Lücke. space-between verteilt den freien Platz.'},
-            {t:'Alle Items rechtsbündig', correct:false, why:'Das wäre flex-end.'},
-          ])}
-          ${quiz('q_flex3', 'Was macht "repeat(auto-fit, minmax(200px, 1fr))" in Grid?', [
-            {t:'Genau 200 Spalten erstellen', correct:false, why:'Nein — das wäre repeat(200, ...).'},
-            {t:'So viele 200px-Mindestbreite-Spalten wie reinpassen, jede gleich breit', correct:true, why:'Genau! Magie für responsive Galerien — Browser entscheidet automatisch wie viele Spalten passen, ohne @media zu brauchen.'},
-            {t:'Eine Spalte mit 200px Breite', correct:false, why:'Das wäre einfach grid-template-columns: 200px.'},
-            {t:'Erstellt 1 Spalte für jeden 200px Bildschirm-Breite', correct:false, why:'Nicht ganz — auto-fit + minmax sind cleverer.'},
-          ])}
+          ${renderQuestions('l3_3', 6)}
+          ${renderBonus('l3_3')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -8886,24 +8806,8 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 <span class="fn">footer</span> { grid-area: footer; }</div>
             </div>
           </div>
-          ${quiz('q_flex1', 'When do you use Flexbox instead of Grid?', [
-            {t:'Always — Grid is outdated', correct:false, why:'Both are modern and used together.'},
-            {t:'For 1D layouts (only one direction)', correct:true, why:'Exactly! Flexbox for one axis (e.g. navigation in a row). Grid when you want to control rows AND columns simultaneously.'},
-            {t:'For small screens', correct:false, why:'Both work on all screen sizes. Responsiveness is a separate concern.'},
-            {t:'Only for text', correct:false, why:'Flexbox works with any content.'},
-          ])}
-          ${quiz('q_flex2', 'What does "justify-content: space-between" do?', [
-            {t:'Centres all items', correct:false, why:'That would be center. space-between distributes differently.'},
-            {t:'Maximum space between items, first flush left and last flush right', correct:true, why:'Exactly! Perfect for headers: logo left, nav buttons right, the space in between is distributed equally.'},
-            {t:'Gap between items like the gap property', correct:false, why:'gap sets a FIXED gap. space-between distributes available free space.'},
-            {t:'All items right-aligned', correct:false, why:'That would be flex-end.'},
-          ])}
-          ${quiz('q_flex3', 'What does "repeat(auto-fit, minmax(200px, 1fr))" do in Grid?', [
-            {t:'Create exactly 200 columns', correct:false, why:'No — that would be repeat(200, ...).'},
-            {t:'As many 200px-minimum columns as fit, each equally wide', correct:true, why:'Exactly! Magic for responsive galleries — the browser decides automatically how many columns fit, without any @media needed.'},
-            {t:'One column with 200px width', correct:false, why:'That would simply be grid-template-columns: 200px.'},
-            {t:'Creates 1 column per 200px of screen width', correct:false, why:'Not quite — auto-fit + minmax are smarter than that.'},
-          ])}
+          ${renderQuestions('l3_3', 6)}
+          ${renderBonus('l3_3')}
         `
       },
       {
@@ -9124,24 +9028,8 @@ font-size: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span cl
               </ul>
             </div>
           </div>
-          ${quiz('q_resp1', 'Was macht @media (max-width: 768px) { ... }?', [
-            {t:'Es gilt für Bildschirme größer als 768px', correct:false, why:'Umgekehrt — max-width heißt "höchstens 768px", also kleiner oder gleich.'},
-            {t:'Es gilt für Bildschirme 768px und kleiner', correct:true, why:'Genau! max-width = "maximale Breite". Die Regeln im Block greifen bis zu dieser Breite.'},
-            {t:'Es macht das Bild 768px breit', correct:false, why:'Das würde width: 768px machen. @media ist eine Bedingung, keine Größe.'},
-            {t:'Es blockiert die Seite auf 768px Bildschirmen', correct:false, why:'@media blockiert nichts — es wendet nur CSS-Regeln bedingt an.'},
-          ])}
-          ${quiz('q_resp2', 'Was passiert ohne &lt;meta name="viewport"&gt; auf einem Handy?', [
-            {t:'Die Seite lädt nicht', correct:false, why:'Sie lädt schon — sieht aber furchtbar aus.'},
-            {t:'Das Handy rendert die Seite als Desktop und zoomt raus → alles winzig', correct:true, why:'Genau! Ohne diese Zeile geht das Handy von einer 980px-Desktop-Seite aus und skaliert sie auf den Bildschirm. Schrift wird unlesbar klein.'},
-            {t:'CSS funktioniert nicht mehr', correct:false, why:'CSS funktioniert weiterhin — nur die Größenverhältnisse stimmen nicht.'},
-            {t:'JavaScript wird abgeschaltet', correct:false, why:'Hat nichts mit JavaScript zu tun.'},
-          ])}
-          ${quiz('q_resp3', 'Was ist der Vorteil von "Mobile First"?', [
-            {t:'Schneller Code, kleinere Bildschirme zuerst durchdacht, Mehrheit der Nutzer auf Handy', correct:true, why:'Genau! Du startest mit dem einfachsten Layout (Handy) und erweiterst nach oben. Code wird schlanker, Mobile-Performance besser, und du denkst zuerst an die meisten Nutzer.'},
-            {t:'Es ist die einzige Möglichkeit responsive zu bauen', correct:false, why:'Nein — Desktop First geht auch. Mobile First ist nur die bessere Strategie.'},
-            {t:'Browser unterstützen nur Mobile First', correct:false, why:'Browser unterstützen beide Ansätze gleich.'},
-            {t:'Es ist Pflicht für Google-SEO', correct:false, why:'Google bevorzugt mobile-friendly Seiten — aber Mobile First ist nur eine von vielen Wegen das zu erreichen.'},
-          ])}
+          ${renderQuestions('l3_4', 6)}
+          ${renderBonus('l3_4')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -9359,24 +9247,8 @@ font-size: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span cl
               </ul>
             </div>
           </div>
-          ${quiz('q_resp1', 'What does @media (max-width: 768px) { ... } do?', [
-            {t:'It applies to screens larger than 768px', correct:false, why:'Reversed — max-width means "at most 768px", i.e. smaller or equal.'},
-            {t:'It applies to screens 768px and smaller', correct:true, why:'Exactly! max-width = "maximum width". The rules inside take effect up to this width.'},
-            {t:'It makes the image 768px wide', correct:false, why:'That would be width: 768px. @media is a condition, not a size.'},
-            {t:'It blocks the page on 768px screens', correct:false, why:'@media blocks nothing — it only applies CSS rules conditionally.'},
-          ])}
-          ${quiz('q_resp2', 'What happens without &lt;meta name="viewport"&gt; on a phone?', [
-            {t:'The page does not load', correct:false, why:"It loads — it just looks terrible."},
-            {t:'The phone renders the page as desktop and zooms out → everything tiny', correct:true, why:'Exactly! Without this tag the phone assumes a 980px desktop page and scales it to fit the screen. Text becomes unreadably small.'},
-            {t:'CSS stops working', correct:false, why:'CSS still works — only the proportions are wrong.'},
-            {t:'JavaScript is disabled', correct:false, why:'Has nothing to do with JavaScript.'},
-          ])}
-          ${quiz('q_resp3', 'What is the advantage of "Mobile First"?', [
-            {t:'Leaner code, smaller screens thought through first, majority of users on phones', correct:true, why:'Exactly! You start with the simplest layout (phone) and expand upwards. Code becomes leaner, mobile performance is better, and you think about the most users first.'},
-            {t:'It is the only way to build responsively', correct:false, why:'No — Desktop First also works. Mobile First is just the better strategy.'},
-            {t:'Browsers only support Mobile First', correct:false, why:'Browsers support both approaches equally.'},
-            {t:'It is required for Google SEO', correct:false, why:'Google prefers mobile-friendly pages — but Mobile First is just one of many ways to achieve that.'},
-          ])}
+          ${renderQuestions('l3_4', 6)}
+          ${renderBonus('l3_4')}
         `
       },
       {
@@ -9426,12 +9298,8 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
 });</div>
             </div>
           </div>
-          ${quiz('q_js1', 'Was ist der Unterschied zwischen "const" und "let"?', [
-            {t:'const ist schneller', correct:false, why:'Performance-mäßig identisch.'},
-            {t:'const kann nach Zuweisung nicht mehr geändert werden, let schon', correct:true, why:'Richtig! Nutze const als Standard und nur let wenn du wirklich ändern musst. Das macht Code sicherer.'},
-            {t:'let ist nur für Zahlen', correct:false, why:'Beide funktionieren für alle Datentypen.'},
-            {t:'Kein Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied in der Wiederzuweisbarkeit!'},
-          ])}
+          ${renderQuestions('l3_5', 6)}
+          ${renderBonus('l3_5')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Abschlussprojekt Phase 3</div>
             <div class="boss-title">Interaktiver Quiz-Builder</div>
@@ -9483,12 +9351,8 @@ button.<span class="fn">addEventListener</span>(<span class="st">"click"</span>,
 });</div>
             </div>
           </div>
-          ${quiz('q_js1', 'What is the difference between "const" and "let"?', [
-            {t:'const is faster', correct:false, why:'Performance-wise identical.'},
-            {t:'const cannot be reassigned after declaration, let can', correct:true, why:'Correct! Use const as default and only let when you genuinely need to reassign. This makes code safer.'},
-            {t:'let is only for numbers', correct:false, why:'Both work for all data types.'},
-            {t:'No difference', correct:false, why:'There is an important difference in reassignability!'},
-          ])}
+          ${renderQuestions('l3_5', 6)}
+          ${renderBonus('l3_5')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
             <div class="boss-label-text"><i data-lucide="sparkles"></i>Phase 3 final project</div>
             <div class="boss-title">Interactive quiz builder</div>
@@ -9559,12 +9423,8 @@ img.<span class="fn">setAttribute</span>(<span class="st">'alt'</span>, <span cl
 <span class="kw">const</span> <span class="fn">src</span> = img.<span class="fn">getAttribute</span>(<span class="st">'src'</span>);</pre>
             </div>
           </div>
-          ${quiz('q_l3_6_1', 'Was ist der Unterschied zwischen innerHTML und textContent?', [
-            {t:'Es gibt keinen Unterschied', correct:false, why:'Es gibt einen wichtigen Unterschied.'},
-            {t:'innerHTML parst HTML-Tags, textContent behandelt alles als reinen Text (sicherer)', correct:true, why:'Genau! element.innerHTML = "<scr\x69pt>alert(1)<\/scr\x69pt>" führt JavaScript aus — XSS-Angriff! textContent fügt das Zeichen-für-Zeichen als Text ein, kein HTML wird interpretiert. Für User-Input immer textContent verwenden!'},
-            {t:'textContent ist veraltet', correct:false, why:'textContent ist modern und sicherer als innerHTML.'},
-            {t:'innerHTML funktioniert nur in Chrome', correct:false, why:'Beide funktionieren in allen Browsern.'},
-          ])}
+          ${renderQuestions('l3_6', 6)}
+          ${renderBonus('l3_6')}
           ${exercise('ex_l3_6_1', 'Dynamische To-Do-Liste', 'Erstelle eine HTML-Seite mit einem Input-Feld, einem Button und einer leeren Liste (<ul id="todo-list">). Mit JavaScript: Wenn der Button geklickt wird, füge den Text aus dem Input als neues <li> in die Liste ein. Das <li> soll beim Klick darauf durchgestrichen werden (classList.toggle). Der Input soll danach geleert werden.', 'Tipp: Nutze querySelector("#todo-list") und createElement("li"). Für den Toggle: li.addEventListener("click", ...) mit classList.toggle("done")', 'querySelector')}
         `,
         content_en: () => `
@@ -9604,12 +9464,8 @@ element.innerHTML = userInput;
 element.textContent = userInput;</pre>
             </div>
           </div>
-          ${quiz('q_l3_6_1e', 'What is the difference between innerHTML and textContent?', [
-            {t:'No difference', correct:false, why:'There is an important difference.'},
-            {t:'innerHTML parses HTML tags, textContent treats everything as plain text (safer)', correct:true, why:'Exactly! element.innerHTML = "<scr\x69pt>alert(1)<\/scr\x69pt>" runs JavaScript — XSS attack! textContent inserts everything as literal text. Always use textContent for user input!'},
-            {t:'textContent is deprecated', correct:false, why:'textContent is modern and safer than innerHTML.'},
-            {t:'innerHTML only works in Chrome', correct:false, why:'Both work in all browsers.'},
-          ])}
+          ${renderQuestions('l3_6', 6)}
+          ${renderBonus('l3_6')}
           ${exercise('ex_l3_6_1e', 'Dynamic To-Do List', 'Create an HTML page with an input field, a button and an empty list (<ul id="todo-list">). With JavaScript: when the button is clicked, add the input text as a new <li> to the list. The <li> should get strikethrough on click (classList.toggle). The input should be cleared afterwards.', 'Hint: Use querySelector("#todo-list") and createElement("li"). For the toggle: li.addEventListener("click", ...) with classList.toggle("done")', 'querySelector')}
         `
       },
@@ -9694,12 +9550,8 @@ emailInput.<span class="fn">addEventListener</span>(<span class="st">'input'</sp
 });</pre>
             </div>
           </div>
-          ${quiz('q_l3_7_1', 'Warum braucht man event.preventDefault() beim Formular-Submit?', [
-            {t:'Weil es ohne die Seite abstürzt', correct:false, why:'Die Seite stürzt nicht ab — sie lädt neu.'},
-            {t:'Ohne preventDefault lädt der Browser die Seite neu beim Absenden — das verhindert moderne JS-Verarbeitung', correct:true, why:'Genau! Das ist das Standard-Verhalten von HTML-Formularen — sie senden Daten an den Server und laden die Seite neu. Mit preventDefault kannst du die Daten per fetch() senden und die Seite bleibt interaktiv.'},
-            {t:'Es ist nur für AJAX-Requests nötig', correct:false, why:'Es ist immer nötig wenn du das Standard-Submit-Verhalten überschreiben willst.'},
-            {t:'Es ist eine veraltete Methode', correct:false, why:'event.preventDefault() ist der Standard-Weg in modernem JavaScript.'},
-          ])}
+          ${renderQuestions('l3_7', 6)}
+          ${renderBonus('l3_7')}
           ${exercise('ex_l3_7_1', 'Kontaktformular mit Validierung', 'Erstelle ein Formular mit Name, E-Mail und Nachricht. Implementiere JavaScript-Validierung: Name muss mindestens 3 Zeichen haben, E-Mail muss @ enthalten, Nachricht mindestens 10 Zeichen. Zeige Fehlermeldungen neben den Feldern an. Bei Erfolg: zeige eine Erfolgsmeldung und leere das Formular.', 'Tipp: Nutze addEventListener auf dem form-Element für "submit" und prüfe jedes Feld. Füge CSS-Klasse "error" zu ungültigen Feldern hinzu.', 'addEventListener')}
         `,
         content_en: () => `
@@ -9739,12 +9591,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 });</pre>
             </div>
           </div>
-          ${quiz('q_l3_7_1e', 'Why do you need event.preventDefault() on form submit?', [
-            {t:'Because the page crashes without it', correct:false, why:'The page does not crash — it reloads.'},
-            {t:'Without preventDefault the browser reloads the page on submit — preventing modern JS processing', correct:true, why:'Exactly! That is the default HTML form behavior — sending data to the server and reloading. preventDefault lets you send data via fetch() and keep the page interactive.'},
-            {t:'It is only needed for AJAX requests', correct:false, why:'It is needed whenever you want to override the default submit behavior.'},
-            {t:'It is a deprecated method', correct:false, why:'event.preventDefault() is the standard way in modern JavaScript.'},
-          ])}
+          ${renderQuestions('l3_7', 6)}
+          ${renderBonus('l3_7')}
           ${exercise('ex_l3_7_1e', 'Contact Form with Validation', 'Create a form with name, email and message fields. Implement JavaScript validation: name must be at least 3 chars, email must contain @, message at least 10 chars. Show error messages next to fields. On success: show a success message and clear the form.', 'Hint: Use addEventListener on the form element for "submit" and check each field. Add CSS class "error" to invalid fields.', 'addEventListener')}
         `
       },
@@ -9815,12 +9663,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 ]);</pre>
             </div>
           </div>
-          ${quiz('q_l3_8_1', 'Warum prüft man response.ok nach einem fetch()-Aufruf?', [
-            {t:'fetch() wirft automatisch einen Fehler bei HTTP 404 oder 500', correct:false, why:'Das ist falsch — das ist genau der Grund warum man response.ok prüfen muss.'},
-            {t:'fetch() wirft KEINEN Fehler bei HTTP-Fehler-Codes (404, 500) — nur bei Netzwerkfehlern. response.ok ist false wenn der Status nicht 2xx ist', correct:true, why:'Genau! Das ist ein häufiger Fehler. fetch() löst das Promise auch bei 404 oder 500 — nur bei komplettem Netzwerkausfall kommt .catch(). Deshalb immer if(!response.ok) throw new Error(response.status) prüfen.'},
-            {t:'response.ok ist immer true', correct:false, why:'response.ok ist false bei Status 400-599.'},
-            {t:'response.ok prüft ob die Antwort JSON ist', correct:false, why:'Es prüft nur ob der HTTP-Status im 200-299 Bereich liegt.'},
-          ])}
+          ${renderQuestions('l3_8', 6)}
+          ${renderBonus('l3_8')}
           ${exercise('ex_l3_8_1', 'GitHub-Profil-Karte', 'Baue eine Webseite mit einem Input-Feld für einen GitHub-Benutzernamen und einem Button. Bei Klick: lade die Daten von https://api.github.com/users/USERNAME und zeige Name, Bio, Avatar und Follower-Zahl als Karte an. Nutze async/await und behandle Fehler (User nicht gefunden, Netzwerkfehler). Zeige einen Ladezustand (z.B. "Lade...") während der Request läuft.', 'Tipp: const res = await fetch(...); if (!res.ok) throw new Error(...); const data = await res.json()', 'fetch')}
         `,
         content_en: () => `
@@ -9861,12 +9705,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 ]);</pre>
             </div>
           </div>
-          ${quiz('q_l3_8_1e', 'Why check response.ok after a fetch() call?', [
-            {t:'fetch() automatically throws on HTTP 404 or 500', correct:false, why:'That is false — that is exactly why you need to check response.ok.'},
-            {t:'fetch() does NOT throw on HTTP error codes (404, 500) — only on network failures. response.ok is false when status is not 2xx', correct:true, why:'Exactly! This is a common mistake. fetch() resolves the promise even on 404 or 500 — only on complete network failure does .catch() trigger. Always check if(!response.ok) throw new Error(response.status).'},
-            {t:'response.ok is always true', correct:false, why:'response.ok is false for status 400-599.'},
-            {t:'response.ok checks if the response is JSON', correct:false, why:'It only checks if the HTTP status is in the 200-299 range.'},
-          ])}
+          ${renderQuestions('l3_8', 6)}
+          ${renderBonus('l3_8')}
           ${exercise('ex_l3_8_1e', 'GitHub Profile Card', 'Build a webpage with an input for a GitHub username and a button. On click: load data from https://api.github.com/users/USERNAME and display name, bio, avatar and follower count as a card. Use async/await and handle errors (user not found, network error). Show a loading state ("Loading...") while the request runs.', 'Hint: const res = await fetch(...); if (!res.ok) throw new Error(...); const data = await res.json()', 'fetch')}
         `
       },
@@ -9950,12 +9790,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 .<span class="fn">item</span>:nth-child(3) { animation-delay: 0.2s; }</pre>
             </div>
           </div>
-          ${quiz('q_l3_9_1', 'Warum sollte man für performante Animationen transform und opacity bevorzugen statt width/height?', [
-            {t:'transform und opacity sehen besser aus', correct:false, why:'Der Grund ist technisch, nicht ästhetisch.'},
-            {t:'transform und opacity werden auf der GPU berechnet und lösen keinen Reflow aus — width/height veranlassen den Browser, das gesamte Layout neu zu berechnen', correct:true, why:'Genau! Das ist der Kern von CSS-Performance. Jede Änderung von width/height/top/left löst Layout (Reflow) + Paint + Composite aus — sehr teuer. transform/opacity nur Composite — läuft direkt auf der GPU, kein Blockieren des Main-Threads.'},
-            {t:'Browser unterstützen width-Animationen nicht', correct:false, why:'Browser unterstützen sie — sie sind nur langsamer.'},
-            {t:'Es gibt keinen Unterschied in der Performance', correct:false, why:'Es gibt einen sehr großen Unterschied — besonders auf Mobilgeräten.'},
-          ])}
+          ${renderQuestions('l3_9', 6)}
+          ${renderBonus('l3_9')}
           ${exercise('ex_l3_9_1', 'Animiertes Card-Deck', 'Erstelle eine HTML-Seite mit 5 Karten (divs mit Text). Implementiere: (1) Eine @keyframes Animation die die Karten beim Laden von unten einsliden lässt (gestaffelt, je 0.1s Verzögerung). (2) Eine :hover Transition die die Karte leicht skaliert und einen Schatten zeigt. (3) Einen Button der alle Karten gleichzeitig "flippt" (180deg rotateY).', 'Tipp: Für den Flip-Effekt: perspective auf dem Container, rotateY(180deg) auf der Karte, backface-visibility: hidden für Vor- und Rückseite.', 'animation')}
         `,
         content_en: () => `
@@ -9999,12 +9835,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 }</pre>
             </div>
           </div>
-          ${quiz('q_l3_9_1e', 'Why prefer transform and opacity over width/height for performant animations?', [
-            {t:'transform and opacity look better', correct:false, why:'The reason is technical, not aesthetic.'},
-            {t:'transform and opacity are GPU-accelerated and trigger no reflow — width/height force the browser to recalculate the entire layout', correct:true, why:'Exactly! Every change to width/height/top/left triggers Layout + Paint + Composite — very expensive. transform/opacity only Composite — runs directly on the GPU, no blocking the main thread.'},
-            {t:'Browsers do not support width animation', correct:false, why:'Browsers support it — it is just slower.'},
-            {t:'There is no performance difference', correct:false, why:'There is a very large difference — especially on mobile devices.'},
-          ])}
+          ${renderQuestions('l3_9', 6)}
+          ${renderBonus('l3_9')}
           ${exercise('ex_l3_9_1e', 'Animated Card Deck', 'Create an HTML page with 5 cards (divs with text). Implement: (1) A @keyframes animation that slides cards in from below on load (staggered, 0.1s delay each). (2) A :hover transition that slightly scales the card and shows a shadow. (3) A button that flips all cards simultaneously (180deg rotateY).', 'Hint: For the flip effect: perspective on the container, rotateY(180deg) on the card, backface-visibility: hidden for front and back.', 'animation')}
         `
       },
@@ -10078,12 +9910,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 <span class="cm">/* *:focus-visible { outline: 2px solid #00bfae; outline-offset: 2px; } */</span></pre>
             </div>
           </div>
-          ${quiz('q_l3_10_1', 'Was ist Cumulative Layout Shift (CLS) und warum ist er für Nutzer ärgerlich?', [
-            {t:'Ein Messwert für die Serverantwortzeit', correct:false, why:'Das wäre Time to First Byte (TTFB).'},
-            {t:'Unerwartete Layout-Verschiebungen während des Ladens — Nutzer klicken auf falsche Elemente weil sich die Seite verschiebt', correct:true, why:'Genau! Klassisches Beispiel: Du willst einen Button klicken, dann lädt ein Bild und alles verschiebt sich — du klickst auf etwas anderes. CLS < 0.1 ist Googles Empfehlung. Ursachen: Bilder ohne width/height, dynamisch eingefügte Inhalte über bestehendem Inhalt.'},
-            {t:'Die Gesamtgröße einer Webseite', correct:false, why:'Das wäre Page Weight / Transfer Size.'},
-            {t:'Die Anzahl der HTTP-Requests', correct:false, why:'CLS misst Layouts-Verschiebungen, nicht Requests.'},
-          ])}
+          ${renderQuestions('l3_10', 6)}
+          ${renderBonus('l3_10')}
           ${exercise('ex_l3_10_1', 'Accessibility Audit', 'Nimm deine bisherige Webseite (oder erstelle eine einfache) und führe einen Accessibility-Audit durch: (1) Prüfe alle Bilder auf alt-Attribute. (2) Ersetze alle <div onclick="..."> durch echte <button>-Elemente. (3) Stelle sicher dass alle Formularfelder <label>-Tags haben. (4) Teste die Seite nur mit Tastatur (Tab, Enter, Leertaste). (5) Prüfe den Farbkontrast — min. 4.5:1 für Text (nutze browser.devtools oder webaim.org/resources/contrastchecker).', 'Tipp: Chrome DevTools → Lighthouse → Accessibility-Audit gibt dir einen Score und konkrete Verbesserungsvorschläge.', 'alt')}
         `,
         content_en: () => `
@@ -10119,12 +9947,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
      <span class="fn">width</span>=<span class="st">"800"</span> <span class="fn">height</span>=<span class="st">"400"</span>&gt;</pre>
             </div>
           </div>
-          ${quiz('q_l3_10_1e', 'What is Cumulative Layout Shift (CLS) and why is it annoying for users?', [
-            {t:'A measure of server response time', correct:false, why:'That would be Time to First Byte (TTFB).'},
-            {t:'Unexpected layout shifts during loading — users click wrong elements because the page shifts', correct:true, why:'Exactly! Classic example: you want to click a button, then an image loads and everything shifts — you click something else. CLS < 0.1 is Google\'s recommendation. Causes: images without width/height, dynamic content inserted above existing content.'},
-            {t:'The total size of a webpage', correct:false, why:'That would be Page Weight / Transfer Size.'},
-            {t:'The number of HTTP requests', correct:false, why:'CLS measures layout shifts, not requests.'},
-          ])}
+          ${renderQuestions('l3_10', 6)}
+          ${renderBonus('l3_10')}
           ${exercise('ex_l3_10_1e', 'Accessibility Audit', 'Take your existing webpage (or create a simple one) and run an accessibility audit: (1) Check all images for alt attributes. (2) Replace all <div onclick="..."> with real <button> elements. (3) Ensure all form fields have <label> tags. (4) Test the page with keyboard only (Tab, Enter, Space). (5) Check color contrast — min. 4.5:1 for text (use browser devtools or webaim.org/resources/contrastchecker).', 'Hint: Chrome DevTools → Lighthouse → Accessibility audit gives you a score and concrete improvement suggestions.', 'alt')}
         `
       }
@@ -21880,6 +21704,667 @@ QUESTION_POOLS['l2_10'] = [
     {t:'5',correct:false,why:'5 wäre das letzte Element. reduce() kombiniert alle Elemente.'},
   ]},
 ];
+
+QUESTION_POOLS['l3_1'] = [
+  {id:'p_l3_1_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen <head> und <body>?',options:[
+    {t:'Kein Unterschied, beide zeigen Inhalt an',correct:false,why:'Sie haben sehr verschiedene Rollen!'},
+    {t:'head = Metadaten (nicht sichtbar), body = sichtbarer Inhalt',correct:true,why:'Genau! Im head stehen Infos für Browser und Suchmaschinen. Im body steht was der Nutzer sieht.'},
+    {t:'head = Bilder, body = Text',correct:false,why:'Bilder UND Text gehören beide in den body.'},
+    {t:'head ist für Überschriften',correct:false,why:'Überschriften (h1-h6) kommen in den body, nicht in den head!'},
+  ]},
+  {id:'p_l3_1_mc2',type:'mc',xp:10,question:'Welcher Tag ist semantisch korrekt für die Hauptnavigation?',options:[
+    {t:'<div class="navigation">',correct:false,why:'Funktioniert optisch — sagt aber niemandem, dass es Navigation ist.'},
+    {t:'<nav>',correct:true,why:'<nav> sagt Browsern, Screenreadern und Suchmaschinen: "Das ist Navigation".'},
+    {t:'<header>',correct:false,why:'<header> ist der Kopfbereich. Navigation kann darin liegen, ist aber selbst <nav>.'},
+    {t:'<menu>',correct:false,why:'<menu> ist selten genutzt — der Standard ist <nav>.'},
+  ]},
+  {id:'p_l3_1_mc3',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "id" und "class"?',options:[
+    {t:'id ist neuer als class',correct:false,why:'Beide existieren seit den Anfängen von HTML.'},
+    {t:'id muss eindeutig sein (nur 1 pro Seite), class kann mehrfach vorkommen',correct:true,why:'id = einzigartig (z.B. #header). class = wiederverwendbar (z.B. .button).'},
+    {t:'class ist für CSS, id für JavaScript',correct:false,why:'Beide funktionieren für CSS UND JavaScript.'},
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied bei der Eindeutigkeit.'},
+  ]},
+  {id:'p_l3_1_mc4',type:'mc',xp:10,question:'Welcher Tag ist für eigenständige Inhalte wie Blog-Beiträge gedacht?',options:[
+    {t:'<section>',correct:false,why:'<section> gruppiert thematisch zusammengehörige Inhalte — <article> ist für eigenständige Inhalte.'},
+    {t:'<article>',correct:true,why:'<article> steht für eigenständige, wiederverwendbare Inhalte wie Blog-Posts oder News-Artikel.'},
+    {t:'<aside>',correct:false,why:'<aside> ist für Nebenbemerkungen oder Seitenleisten.'},
+    {t:'<main>',correct:false,why:'<main> enthält den Hauptinhalt der Seite, aber <article> ist der spezifische Container.'},
+  ]},
+  {id:'p_l3_1_mc5',type:'mc',xp:10,question:'Was bewirkt die DOCTYPE-Deklaration am Anfang einer HTML-Datei?',options:[
+    {t:'Sie gibt den Titel der Seite an',correct:false,why:'Der Titel steht im <title>-Tag innerhalb des <head>.'},
+    {t:'Sie teilt dem Browser mit, welchen HTML-Standard er verwenden soll',correct:true,why:'<!DOCTYPE html> sagt dem Browser: "Nutze modernen HTML5-Parsing-Modus, keinen Quirks-Mode."'},
+    {t:'Sie ist optional und hat keinen Effekt',correct:false,why:'Ohne DOCTYPE kann der Browser in den "Quirks Mode" fallen und Seiten falsch darstellen.'},
+    {t:'Sie lädt externe CSS-Dateien',correct:false,why:'CSS wird über <link> oder <style> eingebunden.'},
+  ]},
+  {id:'p_l3_1_mc6',type:'mc',xp:10,question:'Welches Tag ist semantisch korrekt für Fußzeileninhalte (Copyright, Links)?',options:[
+    {t:'<bottom>',correct:false,why:'<bottom> existiert nicht in HTML.'},
+    {t:'<footer>',correct:true,why:'<footer> kennzeichnet den Fußbereich einer Seite oder eines Abschnitts.'},
+    {t:'<end>',correct:false,why:'<end> ist kein gültiges HTML-Element.'},
+    {t:'<div id="footer">',correct:false,why:'Funktioniert, aber <footer> ist semantisch präziser und zugänglicher.'},
+  ]},
+  {id:'p_l3_1_mc7',type:'mc',xp:10,question:'Wozu dient das alt-Attribut bei einem <img>-Tag?',options:[
+    {t:'Es bestimmt die Bildgröße',correct:false,why:'Größe wird über width/height oder CSS gesteuert.'},
+    {t:'Es liefert einen Alternativtext für Screenreader und bei fehlgeschlagenem Laden',correct:true,why:'alt verbessert Barrierefreiheit und SEO. Screenreader lesen ihn vor; bei Ladeproblemen wird er angezeigt.'},
+    {t:'Es ist nur für SEO wichtig',correct:false,why:'alt ist auch für Barrierefreiheit unerlässlich.'},
+    {t:'Es versteckt das Bild',correct:false,why:'alt blendet kein Bild aus — dafür nutzt man CSS display:none.'},
+  ]},
+  {id:'p_l3_1_mc8',type:'mc',xp:10,question:'Wie verlinkt man eine externe CSS-Datei im <head>?',options:[
+    {t:'<style src="style.css">',correct:false,why:'<style> nimmt kein src-Attribut — das ist <link>.'},
+    {t:'<link rel="stylesheet" href="style.css">',correct:true,why:'<link rel="stylesheet"> ist der korrekte Weg, externe CSS-Dateien einzubinden.'},
+    {t:'<css href="style.css">',correct:false,why:'<css> ist kein gültiges HTML-Element.'},
+    {t:'<import href="style.css">',correct:false,why:'<import> ist kein HTML-Tag — @import gibt es nur in CSS selbst.'},
+  ]},
+  {id:'p_l3_1_tf1',type:'truefalse',xp:8,statement:'Das <div>-Element hat eine eigene semantische Bedeutung.',correct:false,explanation:'<div> ist ein generischer Container ohne semantische Bedeutung. Nutze lieber <section>, <article>, <nav> etc., wenn der Inhalt eine Bedeutung hat.'},
+  {id:'p_l3_1_tf2',type:'truefalse',xp:8,statement:'Eine HTML-Seite darf mehrere Elemente mit der gleichen id haben.',correct:false,explanation:'id muss einzigartig sein — nur ein Element pro Seite darf eine bestimmte id haben. Browser verhalten sich sonst undefiniert.'},
+  {id:'p_l3_1_tf3',type:'truefalse',xp:8,statement:'Semantisches HTML verbessert die Barrierefreiheit für Screenreader-Nutzer.',correct:true,explanation:'Screenreader nutzen semantische Tags wie <nav>, <main>, <header> um Nutzern die Seitenstruktur zu vermitteln und Navigation zu ermöglichen.'},
+  {id:'p_l3_1_tf4',type:'truefalse',xp:8,statement:'Der Inhalt des <head>-Tags wird direkt im Browser angezeigt.',correct:false,explanation:'<head> enthält Metadaten, Titel, CSS-Links — nichts davon ist sichtbarer Seiteninhalt. Nur <title> erscheint im Browser-Tab.'},
+  {id:'p_l3_1_tf5',type:'truefalse',xp:8,statement:'Man kann einem HTML-Element mehrere Klassen gleichzeitig geben.',correct:true,explanation:'class="card highlighted active" — ein Element kann beliebig viele Klassen haben, getrennt durch Leerzeichen.'},
+  {id:'p_l3_1_fb1',type:'fillblank',xp:12,prompt:'Der semantische Tag für die Hauptnavigation lautet: ___',answers:['<nav>','nav'],placeholder:'<...>',explanation:'<nav> kennzeichnet Navigationsbereiche und hilft Screenreadern, die Seitenstruktur zu verstehen.'},
+  {id:'p_l3_1_fb2',type:'fillblank',xp:12,prompt:'Die Deklaration ganz oben in jeder HTML-Datei heißt: ___',answers:['<!DOCTYPE html>','DOCTYPE html','doctype html'],placeholder:'<!...>',explanation:'<!DOCTYPE html> aktiviert den modernen HTML5-Parsing-Modus im Browser.'},
+  {id:'p_l3_1_fb3',type:'fillblank',xp:12,prompt:'Das Attribut, das bei <img> den Alternativtext angibt, heißt: ___',answers:['alt'],placeholder:'Attributname',explanation:'alt="Beschreibung" ist Pflicht für Barrierefreiheit und wird von Screenreadern vorgelesen.'},
+  {id:'p_l3_1_fb4',type:'fillblank',xp:12,prompt:'Der Tag, der den gesamten sichtbaren Seiteninhalt enthält, heißt: ___',answers:['<body>','body'],placeholder:'<...>',explanation:'<body> enthält alles, was der Nutzer im Browser sieht — Texte, Bilder, Links, Formulare.'},
+  {id:'p_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Aussage zu HTML-Entitäten ist korrekt?\n&lt;p&gt;Preis: 5 &amp; 10 Euro&lt;/p&gt;',options:[
+    {t:'&amp; ist ein Fehler — man schreibt einfach &',correct:false,why:'& in HTML-Text kann zu Parse-Problemen führen — &amp; ist korrekt.'},
+    {t:'&amp; ist die HTML-Entität für das &-Zeichen im Textinhalt',correct:true,why:'HTML-Entitäten wie &amp; (für &), &lt; (für <), &gt; (für >) verhindern Konflikte mit HTML-Syntax.'},
+    {t:'&amp; steht für ein Leerzeichen',correct:false,why:'Leerzeichen ist &nbsp;. &amp; ist für das Et-Zeichen (&).'},
+    {t:'Entitäten funktionieren nur in Attributwerten',correct:false,why:'Entitäten funktionieren überall im HTML — in Text-Inhalt und Attributwerten.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_2'] = [
+  {id:'p_l3_2_mc1',type:'mc',xp:10,question:'Wie wählt man in CSS alle Elemente mit der Klasse "card" aus?',options:[
+    {t:'#card {}',correct:false,why:'# selektiert nach id, nicht nach Klasse.'},
+    {t:'.card {}',correct:true,why:'Der Punkt (.) ist der Klassenselektor in CSS.'},
+    {t:'card {}',correct:false,why:'Ohne Präfix wird nach dem Element-Tag gesucht (z.B. <card>) — das existiert nicht.'},
+    {t:'*card {}',correct:false,why:'* ist der Universalselektor. *card ist kein gültiger CSS-Selektor.'},
+  ]},
+  {id:'p_l3_2_mc2',type:'mc',xp:10,question:'Was bewirkt "box-sizing: border-box"?',options:[
+    {t:'Es entfernt den Rahmen vom Element',correct:false,why:'Es entfernt keinen Rahmen — es ändert die Berechnung der Breite.'},
+    {t:'Padding und Border werden in die angegebene Breite eingerechnet',correct:true,why:'Mit border-box: width:200px bedeutet 200px Gesamtbreite inkl. Padding und Border. Viel intuitiver!'},
+    {t:'Es macht das Element unsichtbar',correct:false,why:'Dafür wäre display:none oder visibility:hidden zuständig.'},
+    {t:'Es gilt nur für <div>-Elemente',correct:false,why:'box-sizing gilt für alle Block- und Inline-Block-Elemente.'},
+  ]},
+  {id:'p_l3_2_mc3',type:'mc',xp:10,question:'Welche Einheit ist am besten für Schriftgrößen wenn du Responsive Design willst?',options:[
+    {t:'px',correct:false,why:'px ist absolut — es skaliert nicht mit der Browser-Schriftgröße des Nutzers.'},
+    {t:'rem',correct:true,why:'rem ist relativ zur root-Schriftgröße (html-Element). Wenn der Nutzer die Browsergröße ändert, skaliert alles mit.'},
+    {t:'cm',correct:false,why:'cm ist eine physische Einheit — sinnlos für Bildschirme.'},
+    {t:'%',correct:false,why:'% ist relativ zum Elternelement und kann sich verschachtelt vervielfachen — schwer zu kontrollieren.'},
+  ]},
+  {id:'p_l3_2_mc4',type:'mc',xp:10,question:'Was macht "display: flex" auf einem Container-Element?',options:[
+    {t:'Alle Kindelemente werden übereinander gestapelt',correct:false,why:'Übereinander wäre display:block. Flex ordnet Kinder nebeneinander an (per Default).'},
+    {t:'Der Container wird zu einem Flexbox-Container, Kinder werden flex-items',correct:true,why:'display:flex aktiviert das Flexbox-Layout. Kinder können dann mit flex-grow, flex-shrink etc. gesteuert werden.'},
+    {t:'Das Element verschwindet aus dem Dokumentfluss',correct:false,why:'Dafür wäre position:absolute oder float zuständig.'},
+    {t:'Es ist dasselbe wie display:inline',correct:false,why:'display:inline ist für Inline-Elemente. display:flex ist ein eigenes Layout-Modell.'},
+  ]},
+  {id:'p_l3_2_mc5',type:'mc',xp:10,question:'Was ist CSS-Spezifizität?',options:[
+    {t:'Die Reihenfolge der CSS-Dateien',correct:false,why:'Die Reihenfolge hat Einfluss, aber Spezifizität ist ein anderes Konzept.'},
+    {t:'Ein Gewichtssystem das bestimmt, welche CSS-Regel bei Konflikten gilt',correct:true,why:'ID-Selektor (100) > Klassen-Selektor (10) > Element-Selektor (1). Höhere Spezifizität gewinnt.'},
+    {t:'Die Anzahl der CSS-Eigenschaften in einer Regel',correct:false,why:'Spezifizität bezieht sich auf Selektoren, nicht auf die Anzahl der Eigenschaften.'},
+    {t:'Die Geschwindigkeit des CSS-Renderings',correct:false,why:'Das hat nichts mit Rendering-Performance zu tun.'},
+  ]},
+  {id:'p_l3_2_mc6',type:'mc',xp:10,question:'Welche CSS-Eigenschaft steuert den Außenabstand eines Elements?',options:[
+    {t:'padding',correct:false,why:'padding ist der Innenabstand (zwischen Inhalt und Border).'},
+    {t:'margin',correct:true,why:'margin ist der Außenabstand — der Abstand zu anderen Elementen und zum Elternelement.'},
+    {t:'border',correct:false,why:'border ist der Rahmen des Elements, nicht der Abstand.'},
+    {t:'spacing',correct:false,why:'spacing ist keine CSS-Eigenschaft.'},
+  ]},
+  {id:'p_l3_2_mc7',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "position: relative" und "position: absolute"?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied im Bezugspunkt.'},
+    {t:'relative: Verschiebung relativ zur normalen Position; absolute: Herauslösung aus dem Fluss, relativ zum nächsten positionierten Vorfahren',correct:true,why:'relative verschiebt ohne den Dokumentfluss zu stören. absolute reißt das Element aus dem Fluss heraus.'},
+    {t:'absolute ist genauer als relative',correct:false,why:'Beide sind präzise — sie haben nur unterschiedliche Bezugspunkte.'},
+    {t:'relative funktioniert nur mit top/left',correct:false,why:'Beide funktionieren mit top, right, bottom und left.'},
+  ]},
+  {id:'p_l3_2_mc8',type:'mc',xp:10,question:'Was bewirkt "overflow: hidden" auf einem Container?',options:[
+    {t:'Das Element wird transparent',correct:false,why:'Transparenz steuert man mit opacity oder rgba.'},
+    {t:'Inhalt der über den Container hinausragt wird abgeschnitten',correct:true,why:'overflow:hidden beschneidet überfließenden Inhalt. Nützlich für Bilder-Galerien oder cleared Floats.'},
+    {t:'Das Element wird unsichtbar',correct:false,why:'overflow:hidden macht das Element selbst nicht unsichtbar — nur überfließenden Inhalt.'},
+    {t:'Es versteckt das Element vor Screenreadern',correct:false,why:'Für Barrierefreiheit nutzt man aria-hidden="true" — nicht overflow:hidden.'},
+  ]},
+  {id:'p_l3_2_tf1',type:'truefalse',xp:8,statement:'CSS-Klassen beginnen mit einem Punkt (.) im Stylesheet.',correct:true,explanation:'.card {} selektiert alle Elemente mit class="card". IDs beginnen mit #, Tags ohne Präfix.'},
+  {id:'p_l3_2_tf2',type:'truefalse',xp:8,statement:'Mit "margin: auto" kann man ein Block-Element horizontal zentrieren.',correct:true,explanation:'margin: 0 auto (mit definierter Breite) zentriert Block-Elemente horizontal — ein klassischer CSS-Trick.'},
+  {id:'p_l3_2_tf3',type:'truefalse',xp:8,statement:'"!important" sollte regelmäßig benutzt werden um CSS-Konflikte zu lösen.',correct:false,explanation:'!important überschreibt die Kaskade und macht CSS schwer wartbar. Besser: Spezifizität richtig nutzen.'},
+  {id:'p_l3_2_tf4',type:'truefalse',xp:8,statement:'CSS-Variablen (Custom Properties) werden mit zwei Bindestrichen definiert: --farbe: red.',correct:true,explanation:':root { --primary: #3498db; } und dann color: var(--primary); — CSS-Variablen sind wiederverwendbar und theme-fähig.'},
+  {id:'p_l3_2_tf5',type:'truefalse',xp:8,statement:'px-Werte in CSS skalieren automatisch mit der Browserschriftgröße des Nutzers.',correct:false,explanation:'px ist absolut. rem und em skalieren mit der Schriftgröße — das ist wichtig für Barrierefreiheit.'},
+  {id:'p_l3_2_fb1',type:'fillblank',xp:12,prompt:'Der CSS-Innenabstand (zwischen Inhalt und Rahmen) heißt: ___',answers:['padding'],placeholder:'Eigenschaft',explanation:'padding ist der Innenabstand. margin ist der Außenabstand.'},
+  {id:'p_l3_2_fb2',type:'fillblank',xp:12,prompt:'Um eine CSS-Variable zu nutzen, schreibt man: color: ___(--primary)',answers:['var'],placeholder:'Funktion',explanation:'var(--variablenname) greift auf eine CSS Custom Property zu.'},
+  {id:'p_l3_2_fb3',type:'fillblank',xp:12,prompt:'Die CSS-Eigenschaft für die Hintergrundfarbe lautet: ___',answers:['background-color','background'],placeholder:'Eigenschaft',explanation:'background-color setzt die Hintergrundfarbe. background ist die Kurzschreibweise für alle Hintergrund-Eigenschaften.'},
+  {id:'p_l3_2_fb4',type:'fillblank',xp:12,prompt:'Der Selektor, der ein Element mit id="header" anspricht: ___',answers:['#header'],placeholder:'Selektor',explanation:'#id-name ist der ID-Selektor in CSS — eindeutig pro Seite.'},
+  {id:'p_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Was ist das CSS Box Model und in welcher Reihenfolge (von innen nach außen) sind die Schichten?',options:[
+    {t:'Inhalt → Margin → Padding → Border',correct:false,why:'Falsche Reihenfolge! Padding kommt direkt um den Inhalt, dann Border, dann Margin.'},
+    {t:'Inhalt → Padding → Border → Margin',correct:true,why:'Das Box Model: Inhalt in der Mitte, dann Padding (Innenabstand), dann Border (Rahmen), dann Margin (Außenabstand).'},
+    {t:'Border → Inhalt → Padding → Margin',correct:false,why:'Border liegt außen um den Inhalt und das Padding — nicht innen.'},
+    {t:'Margin → Padding → Inhalt → Border',correct:false,why:'Margin ist die äußerste Schicht, nicht die innerste.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_3'] = [
+  {id:'p_l3_3_mc1',type:'mc',xp:10,question:'Wann nutzt du Flexbox statt Grid?',options:[
+    {t:'Immer — Flexbox ist Grid überlegen',correct:false,why:'Beide haben ihre Stärken. Flexbox = 1D, Grid = 2D.'},
+    {t:'Für eindimensionale Layouts (Zeile oder Spalte)',correct:true,why:'Flexbox ist perfekt für Navigationsleisten, Karten in einer Reihe oder Button-Gruppen — alles in einer Dimension.'},
+    {t:'Nur für mobile Ansichten',correct:false,why:'Flexbox funktioniert auf allen Bildschirmgrößen.'},
+    {t:'Für komplexe Raster-Layouts mit Zeilen UND Spalten',correct:false,why:'Das wäre CSS Grid — das kann beide Dimensionen gleichzeitig steuern.'},
+  ]},
+  {id:'p_l3_3_mc2',type:'mc',xp:10,question:'Was macht "justify-content: space-between"?',options:[
+    {t:'Alle Elemente werden links ausgerichtet',correct:false,why:'Links wäre justify-content: flex-start.'},
+    {t:'Gleichmäßige Abstände zwischen den Elementen, erstes und letztes am Rand',correct:true,why:'space-between verteilt Elemente gleichmäßig. Das erste ist am Start-Rand, das letzte am End-Rand.'},
+    {t:'Elemente werden gleichmäßig mit Rand-Abstand verteilt',correct:false,why:'Das wäre space-around oder space-evenly.'},
+    {t:'Elemente werden alle in die Mitte gepackt',correct:false,why:'Zentrieren wäre justify-content: center.'},
+  ]},
+  {id:'p_l3_3_mc3',type:'mc',xp:10,question:'Was macht "repeat(auto-fit, minmax(200px, 1fr))" in Grid?',options:[
+    {t:'Es erstellt genau 3 Spalten',correct:false,why:'auto-fit bestimmt die Anzahl dynamisch — nicht fix 3.'},
+    {t:'Es erstellt automatisch so viele Spalten wie passen, mindestens 200px breit',correct:true,why:'auto-fit + minmax = responsive Raster ohne Media Queries! Passt so viele Spalten wie möglich rein.'},
+    {t:'Es verhindert Zeilenumbrüche',correct:false,why:'Zeilenumbrüche (wrapping) sind erwünscht — deshalb auto-fit.'},
+    {t:'Es funktioniert nur mit Flexbox',correct:false,why:'repeat() und minmax() sind CSS Grid-Funktionen.'},
+  ]},
+  {id:'p_l3_3_mc4',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "align-items" und "justify-content" in Flexbox?',options:[
+    {t:'Es gibt keinen Unterschied',correct:false,why:'Sie steuern verschiedene Achsen.'},
+    {t:'justify-content = Hauptachse, align-items = Querachse',correct:true,why:'Bei flex-direction:row ist die Hauptachse horizontal (justify-content) und die Querachse vertikal (align-items).'},
+    {t:'align-items = Hauptachse, justify-content = Querachse',correct:false,why:'Andersherum: justify-content steuert die Hauptachse.'},
+    {t:'Beide steuern die vertikale Ausrichtung',correct:false,why:'Nur align-items steuert die Querachse (bei row = vertikal).'},
+  ]},
+  {id:'p_l3_3_mc5',type:'mc',xp:10,question:'Was macht "flex: 1" auf einem flex-item?',options:[
+    {t:'Das Element bekommt eine Breite von 1px',correct:false,why:'flex:1 bedeutet nicht 1px Breite.'},
+    {t:'Das Element wächst und schrumpft flexibel und nimmt verfügbaren Platz ein',correct:true,why:'flex:1 ist Kurzschreibweise für flex-grow:1 flex-shrink:1 flex-basis:0. Das Element füllt den verfügbaren Raum.'},
+    {t:'Das Element wird als erstes angezeigt',correct:false,why:'Die Reihenfolge steuert man mit der order-Eigenschaft.'},
+    {t:'Das Element wird unsichtbar',correct:false,why:'Für Unsichtbarkeit: display:none oder visibility:hidden.'},
+  ]},
+  {id:'p_l3_3_mc6',type:'mc',xp:10,question:'Wie platzierst du ein Grid-Element über 2 Spalten?',options:[
+    {t:'width: 2cols',correct:false,why:'width:2cols ist keine gültige CSS-Eigenschaft.'},
+    {t:'grid-column: span 2',correct:true,why:'grid-column: span 2 lässt ein Grid-Element 2 Spalten überspannen.'},
+    {t:'colspan="2"',correct:false,why:'colspan ist ein HTML-Attribut für Tabellenzellen — nicht für CSS Grid.'},
+    {t:'flex-grow: 2',correct:false,why:'flex-grow ist für Flexbox, nicht Grid.'},
+  ]},
+  {id:'p_l3_3_mc7',type:'mc',xp:10,question:'Was bewirkt "flex-wrap: wrap"?',options:[
+    {t:'Text im Element wird umgebrochen',correct:false,why:'flex-wrap steuert das Verhalten der flex-items, nicht den Text-Umbruch.'},
+    {t:'Flex-items brechen in neue Zeilen um wenn kein Platz mehr ist',correct:true,why:'Ohne flex-wrap: flex-items werden gequetscht. Mit wrap: sie brechen in neue Zeilen um.'},
+    {t:'Das Element bekommt abgerundete Ecken',correct:false,why:'Abgerundete Ecken: border-radius.'},
+    {t:'Es hat den gleichen Effekt wie display:grid',correct:false,why:'flex-wrap ist ein Flexbox-Property — kein Wechsel zu Grid.'},
+  ]},
+  {id:'p_l3_3_mc8',type:'mc',xp:10,question:'Was ist "grid-template-columns: 1fr 2fr 1fr"?',options:[
+    {t:'3 gleich breite Spalten',correct:false,why:'Die mittlere Spalte ist doppelt so breit (2fr vs 1fr).'},
+    {t:'3 Spalten: erste und letzte gleich breit, mittlere doppelt so breit',correct:true,why:'fr = fraction (Bruchteil). 1fr+2fr+1fr = 4 Teile. Erste/letzte = 25%, mittlere = 50% des verfügbaren Raums.'},
+    {t:'3 Spalten mit 1px, 2px und 1px Breite',correct:false,why:'fr ist keine Pixel-Einheit — es ist eine relative Einheit.'},
+    {t:'Das Grid hat 3 Zeilen, keine Spalten',correct:false,why:'grid-template-columns steuert Spalten. Zeilen wären grid-template-rows.'},
+  ]},
+  {id:'p_l3_3_tf1',type:'truefalse',xp:8,statement:'CSS Grid ist für zweidimensionale Layouts (Zeilen UND Spalten gleichzeitig) geeignet.',correct:true,explanation:'Grid = 2D. Du kannst Elemente gleichzeitig in Zeilen und Spalten positionieren — perfekt für komplexe Layouts.'},
+  {id:'p_l3_3_tf2',type:'truefalse',xp:8,statement:'"align-items: center" in Flexbox zentriert Elemente auf der Hauptachse.',correct:false,explanation:'align-items steuert die Querachse (bei flex-direction:row = vertikal). Die Hauptachse steuert justify-content.'},
+  {id:'p_l3_3_tf3',type:'truefalse',xp:8,statement:'Man kann Flexbox und Grid im gleichen Projekt mischen.',correct:true,explanation:'Absolut! Oft ist das ideal: Grid für das Seiten-Layout, Flexbox für Komponenten innerhalb der Grid-Zellen.'},
+  {id:'p_l3_3_tf4',type:'truefalse',xp:8,statement:'"gap" funktioniert sowohl in Flexbox als auch in Grid.',correct:true,explanation:'gap (früher grid-gap) funktioniert in beiden Layout-Systemen und ist der einfachste Weg, Abstände zwischen Items zu setzen.'},
+  {id:'p_l3_3_tf5',type:'truefalse',xp:8,statement:'Mit "flex-direction: column" wird die Hauptachse vertikal.',correct:true,explanation:'Standardmäßig ist flex-direction: row (horizontal). Mit column wird die Hauptachse vertikal — justify-content steuert dann vertikal.'},
+  {id:'p_l3_3_fb1',type:'fillblank',xp:12,prompt:'Die Flexbox-Eigenschaft für Abstände zwischen Items (ohne Außenabstand) heißt: ___',answers:['gap','grid-gap'],placeholder:'Eigenschaft',explanation:'gap setzt Abstände zwischen flex-items oder grid-items — kein margin nötig.'},
+  {id:'p_l3_3_fb2',type:'fillblank',xp:12,prompt:'Um alle flex-items zu zentrieren schreibt man: justify-content: ___',answers:['center'],placeholder:'Wert',explanation:'justify-content: center zentriert alle flex-items auf der Hauptachse.'},
+  {id:'p_l3_3_fb3',type:'fillblank',xp:12,prompt:'Die CSS Grid Funktion für Mindest-/Maximalbreite heißt: ___',answers:['minmax'],placeholder:'Funktion()',explanation:'minmax(200px, 1fr) bedeutet: mindestens 200px, maximal 1fr des verfügbaren Raums.'},
+  {id:'p_l3_3_fb4',type:'fillblank',xp:12,prompt:'Um ein Grid-Element über 3 Zeilen zu erstrecken: grid-row: span ___',answers:['3'],placeholder:'Zahl',explanation:'grid-row: span 3 lässt das Element 3 Zeilen überspannen.'},
+  {id:'p_l3_3_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen "auto-fit" und "auto-fill" in CSS Grid repeat()?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen feinen, aber wichtigen Unterschied.'},
+    {t:'auto-fit kollabiert leere Tracks, auto-fill behält sie',correct:true,why:'Bei wenigen Items: auto-fit kollabiert leere Spalten → Items strecken sich. auto-fill behält leere Spalten → Items bleiben bei minmax-Mindestgröße.'},
+    {t:'auto-fill ist schneller als auto-fit',correct:false,why:'Performance-technisch identisch.'},
+    {t:'auto-fit funktioniert nur mit fr-Einheiten',correct:false,why:'Beide funktionieren mit beliebigen Einheiten.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_4'] = [
+  {id:'p_l3_4_mc1',type:'mc',xp:10,question:'Was macht @media (max-width: 768px) { ... }?',options:[
+    {t:'Die Stile gelten für alle Bildschirme über 768px',correct:false,why:'max-width: 768px bedeutet: nur wenn der Viewport 768px oder kleiner ist.'},
+    {t:'Die Stile gelten wenn der Viewport höchstens 768px breit ist (Tablets, Handys)',correct:true,why:'@media (max-width: 768px) ist eine der meistgenutzten Breakpoints für mobile/Tablet-Layouts.'},
+    {t:'Es setzt die Breite aller Elemente auf 768px',correct:false,why:'Media Queries setzen keine Breiten — sie aktivieren nur bestimmte Stile bei bestimmten Bedingungen.'},
+    {t:'Es gilt nur für iPhones',correct:false,why:'Media Queries sind gerätunabhängig — sie reagieren auf Viewport-Breite, nicht auf Gerätetyp.'},
+  ]},
+  {id:'p_l3_4_mc2',type:'mc',xp:10,question:'Was passiert ohne <meta name="viewport"> auf einem Handy?',options:[
+    {t:'Die Seite lädt nicht',correct:false,why:'Die Seite lädt — sieht nur schlecht aus.'},
+    {t:'Der Browser rendert die Seite als wäre sie 980px breit und zoomt heraus',correct:true,why:'Ohne viewport-Meta denkt der Browser, die Seite sei für einen Desktop gemacht und stellt sie winzig dar.'},
+    {t:'Alle CSS-Regeln werden ignoriert',correct:false,why:'CSS wird weiterhin geladen, nur der Viewport stimmt nicht.'},
+    {t:'Media Queries funktionieren trotzdem korrekt',correct:false,why:'Media Queries versagen ohne viewport-Meta — der Viewport-Wert ist falsch.'},
+  ]},
+  {id:'p_l3_4_mc3',type:'mc',xp:10,question:'Was ist der Vorteil von "Mobile First"?',options:[
+    {t:'Mobilgeräte sind schneller als Desktop-Computer',correct:false,why:'Das ist ein Mythos und hat nichts mit Mobile First zu tun.'},
+    {t:'Man startet mit minimalem CSS für mobile, fügt Komplexität für größere Screens hinzu — schlanker und zukunftssicher',correct:true,why:'Mobile First = Kerninhalt zuerst, dann progressive Erweiterung. Über 60% des Web-Traffics kommt von Mobilgeräten.'},
+    {t:'Mobile First bedeutet, erst nach dem Launch für Mobil zu optimieren',correct:false,why:'Mobile First bedeutet Design-Priorität von Anfang an, nicht nachträglich.'},
+    {t:'Es funktioniert nur mit Frameworks wie Bootstrap',correct:false,why:'Mobile First ist eine Design-Philosophie, keine Framework-Abhängigkeit.'},
+  ]},
+  {id:'p_l3_4_mc4',type:'mc',xp:10,question:'Welche Media Query ist "Mobile First" Ansatz?',options:[
+    {t:'@media (max-width: 768px)',correct:false,why:'max-width ist Desktop First — man schreibt Stile für Desktop, überschreibt sie für kleine Screens.'},
+    {t:'@media (min-width: 768px)',correct:true,why:'min-width ist Mobile First — Basis-Stile für Mobile, dann Stile für größere Screens hinzufügen.'},
+    {t:'@media (screen)',correct:false,why:'@media screen gilt für alle Bildschirme — kein responsiver Breakpoint.'},
+    {t:'@media (mobile)',correct:false,why:'@media (mobile) ist kein gültiger Media Query.'},
+  ]},
+  {id:'p_l3_4_mc5',type:'mc',xp:10,question:'Was macht "max-width: 1200px; margin: 0 auto" auf einem Container?',options:[
+    {t:'Das Element wird auf 1200px Mindestbreite gesetzt',correct:false,why:'max-width setzt die Maximalbreite — bei kleineren Viewports schrumpft es.'},
+    {t:'Begrenzt die Breite auf 1200px und zentriert den Container horizontal',correct:true,why:'Klassisches Layout-Pattern: max-width begrenzt bei breiten Screens, margin:auto zentriert. Seite bleibt lesbar.'},
+    {t:'Das Element überlappt andere Elemente',correct:false,why:'margin:auto erzeugt keine Überlappungen.'},
+    {t:'Es funktioniert nur mit position:absolute',correct:false,why:'margin:auto für Zentrierung funktioniert bei normalen Block-Elementen ohne position:absolute.'},
+  ]},
+  {id:'p_l3_4_mc6',type:'mc',xp:10,question:'Was sind typische CSS-Breakpoints für Responsive Design?',options:[
+    {t:'100px, 500px, 1000px',correct:false,why:'Diese Werte sind nicht an reale Gerätegrößen angepasst.'},
+    {t:'~480px (Handy), ~768px (Tablet), ~1024px (Desktop)',correct:true,why:'Diese Breakpoints orientieren sich an echten Gerätegrößen und sind weit verbreitet.'},
+    {t:'Breakpoints sind nicht nötig mit modernem CSS',correct:false,why:'Breakpoints sind weiterhin wichtig — ergänzt durch Flexbox und Grid.'},
+    {t:'Es gibt nur einen Standard-Breakpoint: 600px',correct:false,why:'Es gibt mehrere sinnvolle Breakpoints je nach Inhalt und Zielgeräten.'},
+  ]},
+  {id:'p_l3_4_mc7',type:'mc',xp:10,question:'Wie macht man ein Bild responsive (passt sich an die Container-Breite an)?',options:[
+    {t:'width: 100vw',correct:false,why:'vw ist relativ zur Viewport-Breite, nicht zum Container — das könnte das Bild zu breit machen.'},
+    {t:'max-width: 100%; height: auto',correct:true,why:'max-width:100% verhindert, dass das Bild über seinen Container hinausläuft. height:auto erhält die Proportionen.'},
+    {t:'display: responsive',correct:false,why:'display:responsive ist kein gültiger CSS-Wert.'},
+    {t:'position: flexible',correct:false,why:'position:flexible existiert nicht in CSS.'},
+  ]},
+  {id:'p_l3_4_mc8',type:'mc',xp:10,question:'Was ist eine CSS-Custom Property (Variable) und wie verwendet man sie?',options:[
+    {t:'Eine JavaScript-Variable die in CSS genutzt wird',correct:false,why:'CSS Custom Properties sind rein in CSS definiert — kein JavaScript nötig.'},
+    {t:'Eine Variable die mit "--name" definiert und mit "var(--name)" genutzt wird',correct:true,why:':root { --color: #3498db; } dann color: var(--color); — änderst du die Variable, ändern sich alle Stellen.'},
+    {t:'Eine Variable aus einem CSS-Framework',correct:false,why:'CSS Custom Properties sind ein natives Browser-Feature, kein Framework.'},
+    {t:'Nur in SASS/LESS möglich',correct:false,why:'SASS hat Variablen mit $, aber CSS Custom Properties sind nativ im Browser.'},
+  ]},
+  {id:'p_l3_4_tf1',type:'truefalse',xp:8,statement:'Das viewport-Meta-Tag ist für funktionierendes Responsive Design auf Mobilgeräten unverzichtbar.',correct:true,explanation:'<meta name="viewport" content="width=device-width, initial-scale=1"> sagt dem Browser, den echten Geräte-Viewport zu nutzen.'},
+  {id:'p_l3_4_tf2',type:'truefalse',xp:8,statement:'@media print {} Stile gelten für den Druckdialog des Browsers.',correct:true,explanation:'Mit @media print kannst du spezielle Stile für den Druck definieren — z.B. Navigationsmenüs ausblenden.'},
+  {id:'p_l3_4_tf3',type:'truefalse',xp:8,statement:'CSS Grid und Flexbox alleine machen eine Webseite vollständig responsiv — Media Queries sind nicht mehr nötig.',correct:false,explanation:'Grid und Flexbox helfen viel, aber Media Queries sind weiterhin nötig für spezifische Layout-Änderungen bei bestimmten Breakpoints.'},
+  {id:'p_l3_4_tf4',type:'truefalse',xp:8,statement:'Bei Mobile First schreibt man die Basis-CSS für mobile Screens und nutzt min-width Media Queries für größere Screens.',correct:true,explanation:'Mobile First: Basis = Mobile. Dann @media(min-width:768px) { Desktop-Stile } — im Gegensatz zu Desktop First mit max-width.'},
+  {id:'p_l3_4_tf5',type:'truefalse',xp:8,statement:'vh und vw sind relative Einheiten die sich auf die Viewport-Größe beziehen.',correct:true,explanation:'100vh = 100% der Viewport-Höhe. 100vw = 100% der Viewport-Breite. Nützlich für Fullscreen-Layouts.'},
+  {id:'p_l3_4_fb1',type:'fillblank',xp:12,prompt:'Das HTML-Meta-Tag für responsiven Viewport lautet: <meta name="___ " content="width=device-width, initial-scale=1">',answers:['viewport'],placeholder:'Attributwert',explanation:'name="viewport" ist unverzichtbar für Responsive Design auf Mobilgeräten.'},
+  {id:'p_l3_4_fb2',type:'fillblank',xp:12,prompt:'Die Media Query für "Viewport breiter als 768px" (Mobile First) lautet: @media (___ : 768px)',answers:['min-width'],placeholder:'Bedingung',explanation:'min-width ist der Mobile-First-Ansatz. max-width wäre Desktop-First.'},
+  {id:'p_l3_4_fb3',type:'fillblank',xp:12,prompt:'Um ein Bild responsiv zu machen setzt man: max-width: ___ %',answers:['100'],placeholder:'Zahl',explanation:'max-width: 100% verhindert, dass das Bild über seinen Container hinausragt.'},
+  {id:'p_l3_4_fb4',type:'fillblank',xp:12,prompt:'Die CSS-Einheit relativ zur Viewport-Höhe heißt: ___',answers:['vh'],placeholder:'Einheit',explanation:'100vh = 100% der Viewport-Höhe. Nützlich für Fullscreen-Sections.'},
+  {id:'p_l3_4_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen "em" und "rem" in CSS?',options:[
+    {t:'em ist veraltet, rem ist modern',correct:false,why:'Beide sind aktuelle, gültige CSS-Einheiten.'},
+    {t:'em ist relativ zum Elternelement, rem ist relativ zum Root-Element (html)',correct:true,why:'em kann sich verschachteln: 1.2em in einem 1.2em-Element = 1.44em. rem ist immer relativ zu :root — konsistenter für UI.'},
+    {t:'rem ist nur für Schriftgrößen',correct:false,why:'Beide funktionieren für Schriftgrößen, Abstände und andere Eigenschaften.'},
+    {t:'Kein Unterschied',correct:false,why:'Der Bezugspunkt ist verschieden — das macht einen großen Unterschied bei verschachtelten Elementen.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_5'] = [
+  {id:'p_l3_5_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen "const" und "let"?',options:[
+    {t:'const ist schneller',correct:false,why:'Performance-mäßig identisch.'},
+    {t:'const kann nach Zuweisung nicht mehr geändert werden, let schon',correct:true,why:'Nutze const als Standard und nur let wenn du wirklich ändern musst. Das macht Code sicherer.'},
+    {t:'let ist nur für Zahlen',correct:false,why:'Beide funktionieren für alle Datentypen.'},
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied in der Wiederzuweisbarkeit!'},
+  ]},
+  {id:'p_l3_5_mc2',type:'mc',xp:10,question:'Was ist eine Arrow Function in JavaScript?',options:[
+    {t:'Eine Funktion die sich selbst aufruft',correct:false,why:'Selbstaufruf wäre eine IIFE (Immediately Invoked Function Expression).'},
+    {t:'Eine kürzere Syntax für Funktionen: const fn = (x) => x * 2',correct:true,why:'Arrow Functions haben kürzere Syntax und kein eigenes "this" — ideal für Callbacks.'},
+    {t:'Eine Funktion die nur in Schleifen genutzt werden kann',correct:false,why:'Arrow Functions können überall genutzt werden.'},
+    {t:'Eine veraltete Funktion aus ES5',correct:false,why:'Arrow Functions wurden mit ES6 (2015) eingeführt und sind modern.'},
+  ]},
+  {id:'p_l3_5_mc3',type:'mc',xp:10,question:'Was gibt typeof [] in JavaScript zurück?',options:[
+    {t:'"array"',correct:false,why:'Überraschend: typeof [] gibt "object" zurück — ein klassischer JS-Fallstrick.'},
+    {t:'"object"',correct:true,why:'Arrays sind Objekte in JavaScript. Um echte Arrays zu prüfen: Array.isArray([]) → true.'},
+    {t:'"list"',correct:false,why:'"list" ist kein JavaScript-Typ.'},
+    {t:'"undefined"',correct:false,why:'typeof [] ist definiert — es ist "object".'},
+  ]},
+  {id:'p_l3_5_mc4',type:'mc',xp:10,question:'Was macht der "===" Operator in JavaScript?',options:[
+    {t:'Prüft nur den Wert, nicht den Typ',correct:false,why:'Das wäre "==" (loser Vergleich). === prüft Wert UND Typ.'},
+    {t:'Prüft Wert UND Typ ohne Typkonvertierung (strikter Vergleich)',correct:true,why:'"5" === 5 → false (String vs Number). "5" == 5 → true. Immer === bevorzugen!'},
+    {t:'Weist einen Wert zu',correct:false,why:'Zuweisung ist "=". Vergleich ist "==" oder "===".'},
+    {t:'Prüft ob zwei Objekte identisch sind',correct:false,why:'=== prüft Referenzgleichheit bei Objekten, aber das ist nicht die Definition.'},
+  ]},
+  {id:'p_l3_5_mc5',type:'mc',xp:10,question:'Was ist "hoisting" in JavaScript?',options:[
+    {t:'Das Hochladen von Dateien',correct:false,why:'Hoisting ist ein JavaScript-Konzept, nicht Datei-Upload.'},
+    {t:'var-Deklarationen und Funktionsdeklarationen werden an den Anfang ihres Scopes verschoben',correct:true,why:'var x; wird "hochgezogen" — x kann vor der Deklaration genutzt werden (ist aber undefined). const/let werden nicht gehoisted.'},
+    {t:'Code wird nach oben kopiert und ausgeführt',correct:false,why:'Nur Deklarationen werden hochgezogen, nicht der gesamte Code.'},
+    {t:'Funktionen werden in Arrays umgewandelt',correct:false,why:'Hoisting hat nichts mit Arrays zu tun.'},
+  ]},
+  {id:'p_l3_5_mc6',type:'mc',xp:10,question:'Was macht Array.map() in JavaScript?',options:[
+    {t:'Sucht ein Element im Array',correct:false,why:'Suchen macht Array.find() oder Array.indexOf().'},
+    {t:'Erstellt ein neues Array indem jedes Element transformiert wird',correct:true,why:'[1,2,3].map(x => x*2) → [2,4,6]. map() gibt immer ein neues Array gleicher Länge zurück.'},
+    {t:'Sortiert das Array',correct:false,why:'Sortieren macht Array.sort().'},
+    {t:'Löscht doppelte Elemente',correct:false,why:'Duplikate entfernen: [...new Set(array)] oder Array.filter().'},
+  ]},
+  {id:'p_l3_5_mc7',type:'mc',xp:10,question:'Was ist der Unterschied zwischen null und undefined in JavaScript?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen semantischen Unterschied.'},
+    {t:'undefined = Variable deklariert aber kein Wert zugewiesen; null = bewusst "kein Wert" gesetzt',correct:true,why:'let x; → x ist undefined. let y = null; → y ist bewusst "leer". typeof undefined = "undefined", typeof null = "object" (JS-Bug).'},
+    {t:'null ist für Zahlen, undefined für Strings',correct:false,why:'Beide sind Werte-Typen, nicht typspezifisch.'},
+    {t:'undefined kann nicht auftreten — nur null',correct:false,why:'undefined tritt sehr häufig auf: nicht-initialisierte Variablen, fehlende Objekt-Properties etc.'},
+  ]},
+  {id:'p_l3_5_mc8',type:'mc',xp:10,question:'Was ist ein Promise in JavaScript?',options:[
+    {t:'Eine Variable die sich nie ändert',correct:false,why:'Das klingt eher nach const.'},
+    {t:'Ein Objekt das einen asynchronen Vorgang repräsentiert (pending/fulfilled/rejected)',correct:true,why:'Promises lösen Callback-Hölle auf. fetch() gibt ein Promise zurück. .then() für Erfolg, .catch() für Fehler.'},
+    {t:'Eine Funktion die garantiert ausgeführt wird',correct:false,why:'Promises können rejected werden — keine Garantie auf Erfolg.'},
+    {t:'Ein synchroner Datentyp',correct:false,why:'Promises sind für asynchrone Operationen.'},
+  ]},
+  {id:'p_l3_5_tf1',type:'truefalse',xp:8,statement:'"var" hat Block-Scope wie "let" und "const".',correct:false,explanation:'var hat Funktions-Scope. let und const haben Block-Scope. { let x = 1; } → x ist außerhalb nicht zugänglich. { var y = 1; } → y ist zugänglich!'},
+  {id:'p_l3_5_tf2',type:'truefalse',xp:8,statement:'In JavaScript können Funktionen als Argumente an andere Funktionen übergeben werden.',correct:true,explanation:'Funktionen sind "First-Class Citizens" in JS. arr.forEach(function(item) {...}) — die Funktion ist das Argument.'},
+  {id:'p_l3_5_tf3',type:'truefalse',xp:8,statement:'Der "+" Operator in JavaScript funktioniert nur für Zahlen.',correct:false,explanation:'+ macht auch String-Konkatenation: "Hello" + " World" = "Hello World". Und Fallstricke: "5" + 3 = "53" (String!).'},
+  {id:'p_l3_5_tf4',type:'truefalse',xp:8,statement:'Array.filter() gibt ein neues Array mit den Elementen zurück, die die Bedingung erfüllen.',correct:true,explanation:'[1,2,3,4,5].filter(x => x > 3) → [4,5]. filter() mutiert das Original nicht.'},
+  {id:'p_l3_5_tf5',type:'truefalse',xp:8,statement:'console.log() zeigt Ausgaben im HTML sichtbar an.',correct:false,explanation:'console.log() schreibt in die Browser-Konsole (F12). Im HTML sichtbar: document.write() oder DOM-Manipulation.'},
+  {id:'p_l3_5_fb1',type:'fillblank',xp:12,prompt:'Um zu prüfen ob ein Wert ein Array ist nutzt man: Array.___(wert)',answers:['isArray'],placeholder:'Methodenname',explanation:'Array.isArray([]) → true. typeof [] gibt fälschlicherweise "object" zurück.'},
+  {id:'p_l3_5_fb2',type:'fillblank',xp:12,prompt:'Die kürzere Syntax für eine anonyme Funktion heißt: ___ Function',answers:['Arrow','arrow'],placeholder:'Typ',explanation:'Arrow Functions: const fn = (x) => x * 2; Kürzer und kein eigenes "this".'},
+  {id:'p_l3_5_fb3',type:'fillblank',xp:12,prompt:'Um alle Elemente eines Arrays zu transformieren nutzt man Array.___() ',answers:['map'],placeholder:'Methode',explanation:'map() erstellt ein neues Array mit transformierten Werten. [1,2,3].map(x => x*2) → [2,4,6].'},
+  {id:'p_l3_5_fb4',type:'fillblank',xp:12,prompt:'Der strikte Gleichheitsoperator (Wert UND Typ) lautet: ___',answers:['==='],placeholder:'Operator',explanation:'=== prüft Wert und Typ. "5" === 5 → false. Immer === statt == bevorzugen!'},
+  {id:'p_l3_5_bonus',type:'mc',xp:20,optional:true,question:'Was gibt folgender Code aus?\nconsole.log(typeof null);\nconsole.log(null === undefined);\nconsole.log(null == undefined);',options:[
+    {t:'"null", false, false',correct:false,why:'typeof null ist ein bekannter JS-Bug.'},
+    {t:'"object", false, true',correct:true,why:'typeof null = "object" (historischer JS-Bug, nie gefixt). null === undefined → false (verschiedene Typen). null == undefined → true (loser Vergleich).'},
+    {t:'"undefined", true, true',correct:false,why:'typeof null gibt nicht "undefined" zurück.'},
+    {t:'"object", true, true',correct:false,why:'null === undefined ist false — strikt sind sie verschiedene Werte.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_6'] = [
+  {id:'p_l3_6_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen innerHTML und textContent?',options:[
+    {t:'Es gibt keinen Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied.'},
+    {t:'innerHTML parst HTML-Tags, textContent behandelt alles als reinen Text (sicherer)',correct:true,why:'element.innerHTML = "<script>alert(1)<\/script>" führt JS aus — XSS! textContent fügt als Text ein — sicher für User-Input.'},
+    {t:'textContent ist veraltet',correct:false,why:'textContent ist modern und sicherer als innerHTML.'},
+    {t:'innerHTML funktioniert nur in Chrome',correct:false,why:'Beide funktionieren in allen modernen Browsern.'},
+  ]},
+  {id:'p_l3_6_mc2',type:'mc',xp:10,question:'Welche Methode wählt ein Element anhand seiner CSS-Klasse aus?',options:[
+    {t:'document.getElementById("meine-klasse")',correct:false,why:'getElementById sucht nach ID, nicht nach Klasse.'},
+    {t:'document.querySelector(".meine-klasse")',correct:true,why:'querySelector nutzt CSS-Selektoren: .klasse für Klassen, #id für IDs, tag für Element-Tags.'},
+    {t:'document.getClass("meine-klasse")',correct:false,why:'getClass() existiert nicht.'},
+    {t:'document.findElement(".meine-klasse")',correct:false,why:'findElement() ist keine DOM-Methode.'},
+  ]},
+  {id:'p_l3_6_mc3',type:'mc',xp:10,question:'Was macht document.createElement("div")?',options:[
+    {t:'Es sucht alle divs auf der Seite',correct:false,why:'Suchen macht querySelector oder querySelectorAll.'},
+    {t:'Es erstellt ein neues div-Element im Speicher — noch nicht auf der Seite',correct:true,why:'createElement erstellt ein Element. Es muss danach mit appendChild() oder insertBefore() in den DOM eingefügt werden.'},
+    {t:'Es löscht alle div-Elemente',correct:false,why:'Löschen: element.remove() oder parentNode.removeChild(element).'},
+    {t:'Es klont ein vorhandenes div',correct:false,why:'Klonen: element.cloneNode(true).'},
+  ]},
+  {id:'p_l3_6_mc4',type:'mc',xp:10,question:'Wie fügt man ein Element als letztes Kind zu einem Container hinzu?',options:[
+    {t:'container.addElement(element)',correct:false,why:'addElement() ist keine DOM-Methode.'},
+    {t:'container.appendChild(element)',correct:true,why:'appendChild() fügt ein Element als letztes Kind ein. insertBefore() für spezifische Position.'},
+    {t:'container.push(element)',correct:false,why:'push() ist eine Array-Methode — nicht für DOM-Elemente.'},
+    {t:'container.add(element)',correct:false,why:'add() ist keine DOM-Methode (außer classList.add() für Klassen).'},
+  ]},
+  {id:'p_l3_6_mc5',type:'mc',xp:10,question:'Was macht element.classList.toggle("active")?',options:[
+    {t:'Es prüft ob die Klasse vorhanden ist und gibt true/false zurück',correct:false,why:'Prüfen macht classList.contains("active").'},
+    {t:'Fügt "active" hinzu falls nicht vorhanden, entfernt sie falls vorhanden',correct:true,why:'toggle() ist perfekt für An/Aus-Zustände: Dark Mode, Menü auf/zu, aktiver Button.'},
+    {t:'Es benennt die Klasse in "active" um',correct:false,why:'Es gibt keine Klassen-Umbenennung — man würde remove() + add() nutzen.'},
+    {t:'Es animiert das Element',correct:false,why:'Animationen steuert man über CSS transitions/animations oder die Web Animations API.'},
+  ]},
+  {id:'p_l3_6_mc6',type:'mc',xp:10,question:'Was gibt querySelectorAll() zurück?',options:[
+    {t:'Das erste übereinstimmende Element',correct:false,why:'Das erste Element gibt querySelector() zurück (ohne "All").'},
+    {t:'Eine NodeList mit allen übereinstimmenden Elementen',correct:true,why:'querySelectorAll() gibt eine NodeList zurück. Mit forEach() iterieren oder in Array umwandeln: [...document.querySelectorAll(".item")]'},
+    {t:'Ein Array mit HTML-Strings',correct:false,why:'Es gibt DOM-Elemente zurück, keine HTML-Strings.'},
+    {t:'null wenn kein Element gefunden',correct:false,why:'Bei keinem Treffer gibt querySelectorAll() eine leere NodeList zurück — nie null.'},
+  ]},
+  {id:'p_l3_6_mc7',type:'mc',xp:10,question:'Warum ist innerHTML gefährlich bei User-Eingaben?',options:[
+    {t:'Es ist zu langsam',correct:false,why:'Performance ist nicht das Hauptproblem.'},
+    {t:'User kann HTML/JS einschleusen — XSS (Cross-Site Scripting) Angriff',correct:true,why:'element.innerHTML = userInput könnte &lt;script&gt;böserCode()&lt;\/script&gt; ausführen. textContent escaped automatisch.'},
+    {t:'Es funktioniert nicht in Firefox',correct:false,why:'innerHTML funktioniert in allen Browsern.'},
+    {t:'Es löscht vorhandenen Inhalt',correct:false,why:'innerHTML überschreibt Inhalt — das ist gewollt, aber kein Sicherheitsproblem per se.'},
+  ]},
+  {id:'p_l3_6_mc8',type:'mc',xp:10,question:'Was macht element.setAttribute("href", "https://example.com")?',options:[
+    {t:'Setzt den Textwert des Elements',correct:false,why:'Textinhalt setzt man mit textContent oder innerHTML.'},
+    {t:'Setzt oder überschreibt einen HTML-Attributwert',correct:true,why:'setAttribute(name, value) setzt beliebige Attribute. getAttribute(name) liest sie aus.'},
+    {t:'Fügt dem Element eine CSS-Klasse hinzu',correct:false,why:'Klassen: classList.add(). Attribute: setAttribute().'},
+    {t:'Es funktioniert nur für Link-Elemente',correct:false,why:'setAttribute funktioniert für alle HTML-Attribute auf allen Elementen.'},
+  ]},
+  {id:'p_l3_6_tf1',type:'truefalse',xp:8,statement:'document.getElementById() gibt eine NodeList zurück.',correct:false,explanation:'getElementById() gibt genau ein Element oder null zurück — keine Liste. querySelectorAll() gibt eine NodeList zurück.'},
+  {id:'p_l3_6_tf2',type:'truefalse',xp:8,statement:'Mit classList.add() können mehrere Klassen gleichzeitig hinzugefügt werden.',correct:true,explanation:'element.classList.add("a", "b", "c") — mehrere Klassen auf einmal. Auch entfernen: classList.remove("a", "b").'},
+  {id:'p_l3_6_tf3',type:'truefalse',xp:8,statement:'innerHTML ist sicherer als textContent für User-Eingaben.',correct:false,explanation:'innerHTML ist GEFÄHRLICH für User-Eingaben wegen XSS. textContent behandelt alles als Text und ist sicher.'},
+  {id:'p_l3_6_tf4',type:'truefalse',xp:8,statement:'Mit element.remove() kann man ein Element aus dem DOM löschen.',correct:true,explanation:'element.remove() entfernt das Element direkt. Ältere Alternative: parent.removeChild(element).'},
+  {id:'p_l3_6_tf5',type:'truefalse',xp:8,statement:'querySelector(".nav a") wählt alle Links in der Navigation aus.',correct:false,explanation:'querySelector() wählt nur das ERSTE übereinstimmende Element. Alle Links: querySelectorAll(".nav a").'},
+  {id:'p_l3_6_fb1',type:'fillblank',xp:12,prompt:'Um Text sicher (ohne XSS-Risiko) in ein Element einzufügen nutzt man: element.___Content = "Text"',answers:['text','Text'],placeholder:'Eigenschaft',explanation:'textContent ist sicher — es escaped HTML-Zeichen und führt kein Markup aus.'},
+  {id:'p_l3_6_fb2',type:'fillblank',xp:12,prompt:'Alle Elemente mit Klasse "item" abrufen: document.___All(".item")',answers:['querySelectorAll'],placeholder:'Methode',explanation:'querySelectorAll() gibt eine NodeList aller übereinstimmenden Elemente zurück.'},
+  {id:'p_l3_6_fb3',type:'fillblank',xp:12,prompt:'Um eine CSS-Klasse an/aus zu schalten (toggle) nutzt man: element.classList.___("active")',answers:['toggle'],placeholder:'Methode',explanation:'classList.toggle() fügt hinzu falls nicht vorhanden, entfernt falls vorhanden.'},
+  {id:'p_l3_6_fb4',type:'fillblank',xp:12,prompt:'Ein neues Element erstellen: document.___(tagName)',answers:['createElement'],placeholder:'Methode',explanation:'createElement("div") erstellt ein neues div-Element im Speicher. Dann mit appendChild() in den DOM einfügen.'},
+  {id:'p_l3_6_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen "event delegation" und direktem Event-Listening?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Performance-Unterschied.'},
+    {t:'Event Delegation: ein Listener auf dem Elternelement für alle Kinder (nutzt event.target); direktes Listening: ein Listener pro Element',correct:true,why:'Bei 1000 List-Items: Ein Listener auf der <ul> ist effizienter als 1000 Listener auf den <li>-Elementen. event.target zeigt welches Kind geklickt wurde.'},
+    {t:'Event Delegation ist veraltet',correct:false,why:'Event Delegation ist eine empfohlene Best Practice.'},
+    {t:'Direktes Listening ist immer besser',correct:false,why:'Bei vielen dynamischen Kindelementen ist Event Delegation effizienter.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_7'] = [
+  {id:'p_l3_7_mc1',type:'mc',xp:10,question:'Warum braucht man event.preventDefault() beim Formular-Submit?',options:[
+    {t:'Weil es ohne die Seite abstürzt',correct:false,why:'Die Seite stürzt nicht ab — sie lädt neu.'},
+    {t:'Ohne preventDefault lädt der Browser die Seite neu beim Absenden — das verhindert moderne JS-Verarbeitung',correct:true,why:'HTML-Formulare senden Daten an den Server und laden die Seite neu. Mit preventDefault bleibt die Seite interaktiv.'},
+    {t:'Es ist nur für AJAX-Requests nötig',correct:false,why:'Es ist immer nötig wenn du das Standard-Submit-Verhalten überschreiben willst.'},
+    {t:'Es ist eine veraltete Methode',correct:false,why:'event.preventDefault() ist der Standard-Weg in modernem JavaScript.'},
+  ]},
+  {id:'p_l3_7_mc2',type:'mc',xp:10,question:'Welches Event feuert wenn ein Nutzer in ein Input-Feld tippt?',options:[
+    {t:'ontype',correct:false,why:'"ontype" ist kein gültiges DOM-Event.'},
+    {t:'input',correct:true,why:'Das "input"-Event feuert bei jeder Änderung. "change" feuert nur wenn der Nutzer das Feld verlässt.'},
+    {t:'keypress',correct:false,why:'"keypress" ist veraltet und feuert nicht für alle Tasten. "input" oder "keydown" bevorzugen.'},
+    {t:'write',correct:false,why:'"write" ist kein DOM-Event.'},
+  ]},
+  {id:'p_l3_7_mc3',type:'mc',xp:10,question:'Wie liest man den aktuellen Wert eines Input-Felds mit JavaScript?',options:[
+    {t:'input.text',correct:false,why:'Die Eigenschaft heißt nicht "text".'},
+    {t:'input.value',correct:true,why:'input.value gibt den aktuellen Wert zurück. Auch zum Setzen: input.value = "neuer Text".'},
+    {t:'input.innerHTML',correct:false,why:'innerHTML gibt den HTML-Inhalt zurück — für Input-Werte ist .value korrekt.'},
+    {t:'input.content',correct:false,why:'content ist keine Eigenschaft von Input-Elementen.'},
+  ]},
+  {id:'p_l3_7_mc4',type:'mc',xp:10,question:'Was macht event.stopPropagation()?',options:[
+    {t:'Es verhindert das Standard-Verhalten des Browser',correct:false,why:'Das ist preventDefault(). stopPropagation() ist etwas anderes.'},
+    {t:'Es verhindert dass das Event zu Elternelementen weitergeleitet wird',correct:true,why:'Events "bubblen" nach oben — Click auf Button → propagiert zu div, body, document. stopPropagation() stoppt dieses Bubbling.'},
+    {t:'Es deaktiviert alle Event-Listener auf der Seite',correct:false,why:'Es deaktiviert nur das Bubbling dieses einzelnen Events.'},
+    {t:'Es löscht das Event aus dem Browser-Speicher',correct:false,why:'Events leben nicht persistent im Speicher.'},
+  ]},
+  {id:'p_l3_7_mc5',type:'mc',xp:10,question:'Welche Methode entfernt einen Event-Listener?',options:[
+    {t:'element.deleteEventListener("click", handler)',correct:false,why:'Die Methode heißt nicht "delete".'},
+    {t:'element.removeEventListener("click", handler)',correct:true,why:'removeEventListener() entfernt einen spezifischen Listener. Wichtig: Die Handler-Funktion muss identisch sein (nicht anonym).'},
+    {t:'element.addEventListener("click", null)',correct:false,why:'null als Handler ist kein gültiger Weg zum Entfernen.'},
+    {t:'element.off("click", handler)',correct:false,why:'.off() gibt es in jQuery — nicht nativ im DOM.'},
+  ]},
+  {id:'p_l3_7_mc6',type:'mc',xp:10,question:'Was ist FormData in JavaScript?',options:[
+    {t:'Ein CSS-Property für Formulare',correct:false,why:'FormData ist ein JavaScript-Objekt, keine CSS-Eigenschaft.'},
+    {t:'Ein Objekt das Formular-Daten für fetch()-Requests kapselt',correct:true,why:'const fd = new FormData(formElement) sammelt alle Formular-Felder. Kann direkt an fetch() übergeben werden.'},
+    {t:'Eine HTML-Validator-Funktion',correct:false,why:'HTML-Validierung erfolgt über required, pattern etc. — nicht FormData.'},
+    {t:'Ein JSON-Format für Formulare',correct:false,why:'FormData ist kein JSON — es ist ein spezielles Objekt für multipart/form-data.'},
+  ]},
+  {id:'p_l3_7_mc7',type:'mc',xp:10,question:'Welches Event feuert wenn der Nutzer ein Eingabefeld verlässt?',options:[
+    {t:'leave',correct:false,why:'"leave" ist kein Formular-Event.'},
+    {t:'blur',correct:true,why:'"blur" feuert wenn ein Element den Fokus verliert. "focus" feuert wenn es Fokus erhält.'},
+    {t:'exit',correct:false,why:'"exit" ist kein DOM-Event.'},
+    {t:'unfocus',correct:false,why:'Es heißt "blur", nicht "unfocus".'},
+  ]},
+  {id:'p_l3_7_mc8',type:'mc',xp:10,question:'Was ist HTML5 Form Validation und wie aktiviert man sie?',options:[
+    {t:'JavaScript-Code der selbst geschrieben werden muss',correct:false,why:'HTML5 hat eingebaute Validierung — kein JS nötig.'},
+    {t:'Eingebaute Browser-Validierung über Attribute wie required, minlength, pattern',correct:true,why:'<input required minlength="3" pattern="[A-Za-z]+"> — der Browser validiert automatisch vor dem Submit.'},
+    {t:'Ein externes Library das eingebunden werden muss',correct:false,why:'Keine Library nötig — HTML5 hat native Validierung.'},
+    {t:'Validierung die nur auf dem Server funktioniert',correct:false,why:'Client-seitige Validierung ist wichtig für UX, aber Server-Validierung ist zusätzlich nötig für Sicherheit.'},
+  ]},
+  {id:'p_l3_7_tf1',type:'truefalse',xp:8,statement:'"input"-Event und "change"-Event feuern zum gleichen Zeitpunkt.',correct:false,explanation:'"input" feuert bei jeder Änderung (jede Taste). "change" feuert wenn der Nutzer das Feld verlässt. Für Live-Suche: input. Für finale Änderung: change.'},
+  {id:'p_l3_7_tf2',type:'truefalse',xp:8,statement:'Event-Listener können auf dem document-Objekt registriert werden.',correct:true,explanation:'document.addEventListener("click", handler) fängt alle Klicks auf der Seite (Event Delegation). Auch: window.addEventListener("resize", handler).'},
+  {id:'p_l3_7_tf3',type:'truefalse',xp:8,statement:'Die required-Attribut in HTML5 ersetzt die Server-seitige Validierung vollständig.',correct:false,explanation:'Client-seitige Validierung ist nur für UX — sie kann umgangen werden. Server-Validierung ist immer zwingend für Sicherheit.'},
+  {id:'p_l3_7_tf4',type:'truefalse',xp:8,statement:'event.target gibt das Element zurück, das das Event ausgelöst hat.',correct:true,explanation:'event.target = das geklickte/getippte Element. event.currentTarget = das Element mit dem Event-Listener. Bei Delegation unterscheiden sich die beiden.'},
+  {id:'p_l3_7_tf5',type:'truefalse',xp:8,statement:'Mit "addEventListener" können mehrere Handler für dasselbe Event registriert werden.',correct:true,explanation:'button.addEventListener("click", fn1); button.addEventListener("click", fn2) — beide feuern. Im Gegensatz zu button.onclick = fn, das den vorherigen Handler überschreibt.'},
+  {id:'p_l3_7_fb1',type:'fillblank',xp:12,prompt:'Um das Standard-Formular-Submit zu verhindern ruft man auf: event.___Default()',answers:['prevent','preventDefault'],placeholder:'Methode/Teil',explanation:'event.preventDefault() verhindert das Standard-Browserverhalten — bei Formularen: kein Seitenneuladen.'},
+  {id:'p_l3_7_fb2',type:'fillblank',xp:12,prompt:'Den Wert eines Input-Felds liest man mit: input.___',answers:['value'],placeholder:'Eigenschaft',explanation:'input.value gibt den aktuellen Eingabewert. Für Checkboxen: input.checked.'},
+  {id:'p_l3_7_fb3',type:'fillblank',xp:12,prompt:'Das Event das bei Fokusverlust eines Felds feuert heißt: ___',answers:['blur'],placeholder:'Eventname',explanation:'blur feuert wenn ein Element Fokus verliert. Gut für Inline-Validierung nach dem Tippen.'},
+  {id:'p_l3_7_fb4',type:'fillblank',xp:12,prompt:'Einen Event-Listener hinzufügen: element.___EventListener("click", handler)',answers:['add','addEventListener'],placeholder:'Methode/Teil',explanation:'addEventListener ist die moderne, empfohlene Methode. Erlaubt mehrere Handler und saubere Entfernung.'},
+  {id:'p_l3_7_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen "submit"-Event auf dem <form> und "click"-Event auf dem Submit-Button?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied.'},
+    {t:'"submit" feuert auch bei Enter-Taste in Inputs; "click" nur beim Klick auf den Button',correct:true,why:'Auf dem form-Element "submit" zu hören ist besser: es fängt alle Wege (Button-Klick, Enter, JS submit()) ab.'},
+    {t:'"click" ist moderner als "submit"',correct:false,why:'Beide sind modern — aber form.addEventListener("submit") ist die empfohlene Praxis.'},
+    {t:'"submit" funktioniert nur bei POST-Formularen',correct:false,why:'"submit" feuert unabhängig von der HTTP-Methode des Formulars.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_8'] = [
+  {id:'p_l3_8_mc1',type:'mc',xp:10,question:'Warum prüft man response.ok nach einem fetch()-Aufruf?',options:[
+    {t:'fetch() wirft automatisch einen Fehler bei 404',correct:false,why:'Das ist das Problem! fetch() wirft KEINEN Fehler bei 404 oder 500.'},
+    {t:'fetch() löst nur bei Netzwerkfehlern eine Exception aus — nicht bei HTTP-Fehlern wie 404/500',correct:true,why:'response.ok ist true wenn der Status 200-299 ist. Ohne diese Prüfung verarbeitet man auch fehlgeschlagene Responses.'},
+    {t:'response.ok ist optional und schadet nicht',correct:false,why:'Ohne response.ok können 404-Antworten als Erfolg behandelt werden — ein Bug.'},
+    {t:'Nur bei POST-Requests nötig',correct:false,why:'Fehlerbehandlung ist bei allen HTTP-Methoden wichtig.'},
+  ]},
+  {id:'p_l3_8_mc2',type:'mc',xp:10,question:'Was gibt fetch() zurück?',options:[
+    {t:'Die JSON-Daten direkt',correct:false,why:'fetch() gibt ein Promise zurück — die Daten kommen asynchron.'},
+    {t:'Ein Promise das zu einem Response-Objekt auflöst',correct:true,why:'fetch(url).then(response => response.json()).then(data => ...) — zwei Promises hintereinander.'},
+    {t:'Ein XMLHttpRequest-Objekt',correct:false,why:'XMLHttpRequest (XHR) ist die ältere API. fetch() ist moderner und Promise-basiert.'},
+    {t:'Einen synchronen HTTP-Response',correct:false,why:'Netzwerk-Requests sind immer asynchron.'},
+  ]},
+  {id:'p_l3_8_mc3',type:'mc',xp:10,question:'Was macht response.json() nach einem fetch()?',options:[
+    {t:'Es validiert ob die Response gültiges JSON ist',correct:false,why:'json() parst JSON, validiert aber nicht.'},
+    {t:'Es parst den Response-Body als JSON und gibt ein Promise zurück',correct:true,why:'response.json() gibt selbst ein Promise zurück — deshalb await response.json() oder .then().'},
+    {t:'Es konvertiert JSON in einen String',correct:false,why:'json() konvertiert Response-Body (Text) zu einem JavaScript-Objekt.'},
+    {t:'Es funktioniert nur mit GET-Requests',correct:false,why:'json() funktioniert unabhängig von der HTTP-Methode.'},
+  ]},
+  {id:'p_l3_8_mc4',type:'mc',xp:10,question:'Wie macht man einen POST-Request mit fetch()?',options:[
+    {t:'fetch.post(url, data)',correct:false,why:'fetch() ist eine Funktion, kein Objekt mit .post() Methode.'},
+    {t:'fetch(url, { method: "POST", body: JSON.stringify(data), headers: {...} })',correct:true,why:'fetch() nimmt ein optionales Options-Objekt. method, body und headers werden dort gesetzt.'},
+    {t:'POST wird automatisch erkannt wenn man body mitgibt',correct:false,why:'Die Methode muss explizit mit method: "POST" angegeben werden.'},
+    {t:'Nur XMLHttpRequest kann POST-Requests machen',correct:false,why:'fetch() unterstützt alle HTTP-Methoden: GET, POST, PUT, DELETE etc.'},
+  ]},
+  {id:'p_l3_8_mc5',type:'mc',xp:10,question:'Was ist async/await in JavaScript?',options:[
+    {t:'Eine neue Datenstruktur für asynchrone Daten',correct:false,why:'async/await ist syntaktischer Zucker über Promises.'},
+    {t:'Syntax-Zucker über Promises für lesbareren asynchronen Code',correct:true,why:'async function fn() { const data = await fetch(url); } macht asynchronen Code wie synchronen Code lesbar.'},
+    {t:'Eine Methode um Code parallel auszuführen',correct:false,why:'await macht Code sequenziell, nicht parallel. Für Parallelität: Promise.all().'},
+    {t:'Nur für Node.js, nicht im Browser',correct:false,why:'async/await ist nativ in allen modernen Browsern verfügbar.'},
+  ]},
+  {id:'p_l3_8_mc6',type:'mc',xp:10,question:'Was ist CORS (Cross-Origin Resource Sharing)?',options:[
+    {t:'Eine JavaScript-Bibliothek für API-Calls',correct:false,why:'CORS ist ein Browser-Sicherheitsmechanismus, keine Library.'},
+    {t:'Ein Browser-Sicherheitsmechanismus der API-Calls zu anderen Domains einschränkt',correct:true,why:'Browser blockieren Anfragen von example.com an api.andere-domain.com ohne CORS-Header. Server muss Access-Control-Allow-Origin senden.'},
+    {t:'Ein HTTP-Status-Code',correct:false,why:'CORS ist kein Status-Code sondern ein Protokoll mit HTTP-Headern.'},
+    {t:'Ein Verschlüsselungsstandard',correct:false,why:'CORS ist keine Verschlüsselung.'},
+  ]},
+  {id:'p_l3_8_mc7',type:'mc',xp:10,question:'Was ist der Unterschied zwischen fetch() und XMLHttpRequest (XHR)?',options:[
+    {t:'XHR ist moderner und besser',correct:false,why:'fetch() ist moderner — XHR ist die ältere API aus den 2000ern.'},
+    {t:'fetch() ist Promise-basiert und lesbarer; XHR ist callback-basiert und verbose',correct:true,why:'fetch() schreibt man in 3 Zeilen was XHR in 15+ Zeilen braucht. fetch() ist der moderne Standard.'},
+    {t:'fetch() kann keine POST-Requests machen',correct:false,why:'fetch() unterstützt alle HTTP-Methoden.'},
+    {t:'Beide sind identisch',correct:false,why:'Sie sind API-kompatibel in der Funktion aber nicht in der Syntax.'},
+  ]},
+  {id:'p_l3_8_mc8',type:'mc',xp:10,question:'Wie fängt man Fehler in einer async/await-Funktion ab?',options:[
+    {t:'Mit .catch() direkt auf der async-Funktion',correct:false,why:'.catch() funktioniert auch, aber try/catch ist idiomatisch in async/await.'},
+    {t:'Mit try/catch um den await-Aufruf',correct:true,why:'async function fn() { try { const r = await fetch(url); } catch(e) { console.error(e); } }'},
+    {t:'Fehler können in async-Funktionen nicht auftreten',correct:false,why:'Netzwerkfehler, JSON-Parse-Fehler etc. können auftreten und müssen behandelt werden.'},
+    {t:'Mit window.onerror',correct:false,why:'window.onerror fängt unbehandelte Fehler — nicht der empfohlene Weg für async/await.'},
+  ]},
+  {id:'p_l3_8_tf1',type:'truefalse',xp:8,statement:'fetch() gibt automatisch einen Fehler zurück wenn der Server 404 antwortet.',correct:false,explanation:'fetch() rejected das Promise NUR bei Netzwerkfehlern. Bei 404, 500 etc. ist das Promise fulfilled — man muss response.ok prüfen.'},
+  {id:'p_l3_8_tf2',type:'truefalse',xp:8,statement:'await kann nur in async-Funktionen verwendet werden.',correct:true,explanation:'await außerhalb einer async-Funktion ist ein Syntax-Fehler. (Ausnahme: Top-Level Await in ES Modules.)'},
+  {id:'p_l3_8_tf3',type:'truefalse',xp:8,statement:'JSON.stringify() wandelt ein JavaScript-Objekt in einen JSON-String um.',correct:true,explanation:'JSON.stringify({name: "Nino"}) → \'{"name":"Nino"}\'. JSON.parse() macht das Gegenteil.'},
+  {id:'p_l3_8_tf4',type:'truefalse',xp:8,statement:'fetch() ist in allen modernen Browsern ohne Polyfill verfügbar.',correct:true,explanation:'fetch() ist seit Chrome 42, Firefox 39, Safari 10.1 nativ verfügbar. IE11 benötigt einen Polyfill.'},
+  {id:'p_l3_8_tf5',type:'truefalse',xp:8,statement:'Promise.all() wartet bis alle übergebenen Promises erfüllt sind.',correct:true,explanation:'Promise.all([fetch(url1), fetch(url2)]) wartet auf alle. Scheitert ein Promise, scheitert Promise.all(). Für unabhängige Requests besser als sequenzielles await.'},
+  {id:'p_l3_8_fb1',type:'fillblank',xp:12,prompt:'Um die HTTP-Methode bei fetch() auf POST zu setzen nutzt man: { method: "___ " }',answers:['POST'],placeholder:'HTTP-Methode',explanation:'fetch(url, { method: "POST", body: ..., headers: ... }) für POST-Requests.'},
+  {id:'p_l3_8_fb2',type:'fillblank',xp:12,prompt:'Um ein JS-Objekt in JSON zu wandeln: JSON.___({key: "value"})',answers:['stringify'],placeholder:'Methode',explanation:'JSON.stringify() serialisiert ein JS-Objekt. JSON.parse() deserialisiert einen JSON-String.'},
+  {id:'p_l3_8_fb3',type:'fillblank',xp:12,prompt:'Eine async-Funktion definiert man mit dem Schlüsselwort: ___',answers:['async'],placeholder:'Keyword',explanation:'async function fetchData() { ... } oder const fetchData = async () => { ... }'},
+  {id:'p_l3_8_fb4',type:'fillblank',xp:12,prompt:'Den Response-Body als JSON auslesen: await response.___() ',answers:['json'],placeholder:'Methode',explanation:'response.json() gibt ein Promise zurück das zu einem JS-Objekt auflöst.'},
+  {id:'p_l3_8_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Unterschied zwischen response.json(), response.text() und response.blob()?',options:[
+    {t:'Kein Unterschied — alle geben dasselbe zurück',correct:false,why:'Sie parsen den Response-Body unterschiedlich.'},
+    {t:'json() → JS-Objekt; text() → String; blob() → Binärdaten (z.B. Bilder)',correct:true,why:'Für APIs: response.json(). Für HTML/Text: response.text(). Für Dateien/Bilder: response.blob(). Alle geben Promises zurück.'},
+    {t:'json() ist veraltet, nur text() und blob() sind modern',correct:false,why:'Alle drei sind aktuell und werden aktiv genutzt.'},
+    {t:'blob() ist nur für Audio-Dateien',correct:false,why:'blob() funktioniert für alle Binärdaten: Bilder, PDFs, Videos etc.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_9'] = [
+  {id:'p_l3_9_mc1',type:'mc',xp:10,question:'Warum sollte man transform und opacity für performante Animationen bevorzugen?',options:[
+    {t:'Sie sind einfacher zu schreiben',correct:false,why:'Einfachheit ist ein Vorteil, aber nicht der Performance-Grund.'},
+    {t:'Sie werden vom GPU compositor gehandhabt ohne Layout-Neuberechnung (Reflow)',correct:true,why:'transform/opacity triggern nur den Composite-Schritt. width/height triggern Layout+Paint+Composite — viel teurer.'},
+    {t:'Sie funktionieren in älteren Browsern besser',correct:false,why:'transform wird seit CSS3 unterstützt — das ist kein spezieller Browser-Vorteil.'},
+    {t:'Nur diese beiden Properties können animiert werden',correct:false,why:'Viele Properties können animiert werden — aber transform/opacity sind am performantesten.'},
+  ]},
+  {id:'p_l3_9_mc2',type:'mc',xp:10,question:'Was ist der Unterschied zwischen CSS "transition" und "animation"?',options:[
+    {t:'transition ist neuer als animation',correct:false,why:'Beide wurden mit CSS3 eingeführt.'},
+    {t:'transition = Zustandsänderung zwischen zwei Werten (getriggert); animation = Keyframe-Ablauf (läuft automatisch)',correct:true,why:'transition: color 0.3s ease — läuft wenn sich color ändert. @keyframes — läuft beim Laden oder on-demand, mit mehreren Schritten.'},
+    {t:'animation ist nur für SVGs',correct:false,why:'CSS animations funktionieren für alle HTML-Elemente.'},
+    {t:'transition kann keine Farben animieren',correct:false,why:'transition funktioniert für color, background-color, opacity, transform und viele andere Properties.'},
+  ]},
+  {id:'p_l3_9_mc3',type:'mc',xp:10,question:'Was macht "will-change: transform" in CSS?',options:[
+    {t:'Es setzt eine Animation in Gang',correct:false,why:'will-change startet keine Animation — es ist ein Performance-Hinweis.'},
+    {t:'Teilt dem Browser mit, dass sich das Element bald transformieren wird — erlaubt Vorab-Optimierung',correct:true,why:'will-change: transform lässt den Browser das Element auf einer eigenen GPU-Ebene vorbereiten — reduziert Jank bei Animationen.'},
+    {t:'Es ist dasselbe wie transform: none',correct:false,why:'transform:none setzt Transformationen zurück. will-change ist ein Optimierungs-Hint.'},
+    {t:'Es deaktiviert Animationen auf dem Element',correct:false,why:'Animationen deaktiviert man mit animation: none.'},
+  ]},
+  {id:'p_l3_9_mc4',type:'mc',xp:10,question:'Was beschreibt die CSS-Eigenschaft "animation-fill-mode: forwards"?',options:[
+    {t:'Die Animation läuft vorwärts (nicht rückwärts)',correct:false,why:'Vorwärts/Rückwärts steuert animation-direction. fill-mode ist etwas anderes.'},
+    {t:'Das Element behält die Stile des letzten Keyframes nach Animationsende',correct:true,why:'Ohne fill-mode: forwards springt das Element nach der Animation in seinen ursprünglichen Zustand zurück. forwards erhält den Endzustand.'},
+    {t:'Die Animation füllt den gesamten Viewport',correct:false,why:'fill-mode hat nichts mit dem Viewport zu tun.'},
+    {t:'Die Animation wartet auf den forwards-State bevor sie startet',correct:false,why:'Das klingt nach animation-delay.'},
+  ]},
+  {id:'p_l3_9_mc5',type:'mc',xp:10,question:'Was ist requestAnimationFrame() (rAF)?',options:[
+    {t:'Eine Funktion um Bilder in den Browser zu laden',correct:false,why:'rAF hat nichts mit Bild-Loading zu tun.'},
+    {t:'Eine Browser-API die eine Funktion vor dem nächsten Frame aufruft — synchron mit dem Display-Refresh',correct:true,why:'rAF ist der korrekte Weg für JS-Animationen — synchron mit dem 60fps-Refresh-Cycle, batterieschonend wenn Tab im Hintergrund.'},
+    {t:'Eine CSS-Funktion für Keyframes',correct:false,why:'@keyframes ist CSS. requestAnimationFrame ist JavaScript.'},
+    {t:'Ein Event das bei jedem Maus-Klick feuert',correct:false,why:'rAF feuert vor jedem Browser-Frame — nicht bei Maus-Klicks.'},
+  ]},
+  {id:'p_l3_9_mc6',type:'mc',xp:10,question:'Was bedeutet "60fps" in Bezug auf Web-Animationen?',options:[
+    {t:'Die Seite hat maximal 60 Elemente',correct:false,why:'fps = frames per second, keine Element-Anzahl.'},
+    {t:'60 Frames pro Sekunde — jeder Frame hat 16.67ms Budget für Rendering',correct:true,why:'Bei 60fps muss der Browser alle 16.67ms einen Frame rendern. Operationen die länger dauern verursachen "Jank" (Ruckeln).'},
+    {t:'Das CSS animation-duration-Minimum',correct:false,why:'animation-duration kennt kein Minimum.'},
+    {t:'Die maximale Anzahl gleichzeitiger Animationen',correct:false,why:'Es gibt kein offizielles Limit für gleichzeitige Animationen.'},
+  ]},
+  {id:'p_l3_9_mc7',type:'mc',xp:10,question:'Welche CSS-Syntax startet eine Keyframe-Animation automatisch beim Laden?',options:[
+    {t:'.element { transform: spin 1s; }',correct:false,why:'transform ist für statische oder transitionierte Transformationen — kein Keyframe-Start.'},
+    {t:'.element { animation: spin 1s linear infinite; }',correct:true,why:'animation: [name] [duration] [timing] [iteration] — verknüpft ein Element mit @keyframes spin.'},
+    {t:'.element { animate: spin; }',correct:false,why:'animate ist keine CSS-Eigenschaft.'},
+    {t:'.element { @keyframes: spin; }',correct:false,why:'@keyframes ist eine At-Rule — sie wird nicht als Property verwendet.'},
+  ]},
+  {id:'p_l3_9_mc8',type:'mc',xp:10,question:'Was triggert "Reflow" im Browser?',options:[
+    {t:'Das Ändern der Farbe eines Elements',correct:false,why:'color/background-color triggern Repaint, nicht Reflow.'},
+    {t:'Änderungen an Größe, Position oder Layout-Properties (width, height, top, margin)',correct:true,why:'Reflow = der Browser berechnet alle Positionen neu. Das ist teuer! transform hat keinen Reflow — deshalb besser für Animationen.'},
+    {t:'Das Hinzufügen einer CSS-Klasse ohne Layout-Änderung',correct:false,why:'Nur wenn die neue Klasse Layout-Properties ändert gibt es einen Reflow.'},
+    {t:'Das Laden von Schriften',correct:false,why:'Font-Loading kann FOUT (Flash of Unstyled Text) verursachen, aber kein klassischer Reflow.'},
+  ]},
+  {id:'p_l3_9_tf1',type:'truefalse',xp:8,statement:'CSS transition und CSS animation erfordern beide @keyframes.',correct:false,explanation:'transition braucht kein @keyframes — es interpoliert zwischen zwei Zuständen. animation braucht @keyframes für den Ablauf.'},
+  {id:'p_l3_9_tf2',type:'truefalse',xp:8,statement:'opacity: 0 macht ein Element unsichtbar UND entfernt es aus dem Dokumentfluss.',correct:false,explanation:'opacity: 0 macht unsichtbar, aber das Element nimmt weiter Platz ein. display: none entfernt aus dem Fluss. visibility: hidden macht unsichtbar aber behält Platz.'},
+  {id:'p_l3_9_tf3',type:'truefalse',xp:8,statement:'requestAnimationFrame() ist besser als setInterval() für Animationen.',correct:true,explanation:'rAF ist synchron mit dem Refresh-Cycle, stoppt wenn der Tab im Hintergrund ist (batterieschonend) und hat bessere Performance als setInterval.'},
+  {id:'p_l3_9_tf4',type:'truefalse',xp:8,statement:'animation-duration: 0s deaktiviert die Animation vollständig.',correct:true,explanation:'Mit 0s Dauer springt das Element sofort in den Endzustand. animation: none deaktiviert sie komplett. Nützlich für prefers-reduced-motion.'},
+  {id:'p_l3_9_tf5',type:'truefalse',xp:8,statement:'"prefers-reduced-motion" ist ein Media Query für Nutzer die Animationen reduzieren möchten.',correct:true,explanation:'@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; } } — wichtig für Barrierefreiheit und Epilepsie-Schutz.'},
+  {id:'p_l3_9_fb1',type:'fillblank',xp:12,prompt:'Eine sanfte Übergangsanimation bei Hover wird mit der CSS-Eigenschaft ___ definiert.',answers:['transition'],placeholder:'Eigenschaft',explanation:'transition: all 0.3s ease; sorgt für sanfte Übergänge wenn CSS-Eigenschaften sich ändern.'},
+  {id:'p_l3_9_fb2',type:'fillblank',xp:12,prompt:'Die CSS At-Rule für Keyframe-Animationen lautet: ___',answers:['@keyframes'],placeholder:'At-Rule',explanation:'@keyframes animName { from { opacity:0 } to { opacity:1 } }'},
+  {id:'p_l3_9_fb3',type:'fillblank',xp:12,prompt:'Die JavaScript-API für 60fps-synchrone Animationen heißt: request___Frame()',answers:['Animation','animation'],placeholder:'Teil',explanation:'requestAnimationFrame(callback) ruft callback vor dem nächsten Browser-Paint auf.'},
+  {id:'p_l3_9_fb4',type:'fillblank',xp:12,prompt:'CSS-Eigenschaft um dem Browser eine Optimierungs-Vorabrückgabe zu geben: will-___',answers:['change'],placeholder:'Teil',explanation:'will-change: transform teilt dem Browser mit, dass sich die Transformation bald ändern wird.'},
+  {id:'p_l3_9_bonus',type:'mc',xp:20,optional:true,question:'Was ist der "Rendering Pipeline" im Browser und warum ist es wichtig für Animationen?',options:[
+    {t:'Die Reihenfolge wie HTML heruntergeladen wird',correct:false,why:'Das wäre die Netzwerk-Pipeline, nicht die Rendering-Pipeline.'},
+    {t:'Die Schritte: JavaScript → Style → Layout → Paint → Composite — teurere Schritte vermeiden = bessere Performance',correct:true,why:'transform/opacity triggern nur Composite. color triggert Paint. width/height triggert Layout+Paint+Composite. Frühere Schritte = mehr Arbeit = Jank.'},
+    {t:'Das Laden von CSS-Dateien',correct:false,why:'CSS-Loading gehört zum Critical Rendering Path, ist aber nicht die Rendering Pipeline im Animationskontext.'},
+    {t:'Eine Browser-Erweiterung für Performance-Tests',correct:false,why:'Die Rendering Pipeline ist ein internes Browser-Konzept, keine Erweiterung.'},
+  ]},
+];
+
+QUESTION_POOLS['l3_10'] = [
+  {id:'p_l3_10_mc1',type:'mc',xp:10,question:'Was ist Cumulative Layout Shift (CLS) und warum ist er für Nutzer ärgerlich?',options:[
+    {t:'Die Zeit bis die Seite vollständig geladen ist',correct:false,why:'Das wäre Largest Contentful Paint (LCP) oder Time to Load.'},
+    {t:'Unerwartete Layout-Verschiebungen während des Ladens — z.B. ein Button der plötzlich nach unten springt',correct:true,why:'CLS passiert wenn Elemente (Bilder, Ads) ohne definierte Größe nachgeladen werden und alles verschieben. Guter CLS-Score: < 0.1.'},
+    {t:'Zu viel CSS auf der Seite',correct:false,why:'CSS-Menge ist kein CLS-Faktor.'},
+    {t:'Fehler in der JavaScript-Konsole',correct:false,why:'JS-Fehler beeinflussen die Funktionalität, aber nicht direkt CLS.'},
+  ]},
+  {id:'p_l3_10_mc2',type:'mc',xp:10,question:'Was ist das ARIA-Attribut "aria-label" und wozu dient es?',options:[
+    {t:'Es gibt einem Element einen CSS-Klassennamen',correct:false,why:'Klassennamen: class-Attribut. aria-label ist für Barrierefreiheit.'},
+    {t:'Es gibt Screenreadern einen alternativen Text für Elemente ohne sichtbaren Text',correct:true,why:'<button aria-label="Menü öffnen"><i data-lucide="menu"></i></button> — Screenreader liest "Menü öffnen".'},
+    {t:'Es versteckt Elemente vor Screenreadern',correct:false,why:'Elemente verstecken: aria-hidden="true".'},
+    {t:'Es ist dasselbe wie das alt-Attribut',correct:false,why:'alt gilt nur für <img>. aria-label gilt für alle Elemente.'},
+  ]},
+  {id:'p_l3_10_mc3',type:'mc',xp:10,question:'Was ist "Largest Contentful Paint" (LCP)?',options:[
+    {t:'Die Anzahl der Elemente auf der Seite',correct:false,why:'LCP ist eine Zeitangabe, keine Zählung.'},
+    {t:'Die Zeit bis das größte sichtbare Inhaltselement gerendert wurde — Messgröße für wahrgenommene Ladegeschwindigkeit',correct:true,why:'Guter LCP: < 2.5 Sekunden. Großes Bild oder H1 ohne Optimierung kann LCP verschlechtern.'},
+    {t:'Die Gesamtgröße aller Bilder',correct:false,why:'Dateigröße beeinflusst LCP, aber LCP selbst ist eine Zeit-Metrik.'},
+    {t:'Ein JavaScript-Performance-Tool',correct:false,why:'LCP ist eine Core Web Vital Metrik, kein Tool.'},
+  ]},
+  {id:'p_l3_10_mc4',type:'mc',xp:10,question:'Was macht das loading="lazy"-Attribut bei <img>?',options:[
+    {t:'Das Bild wird gar nicht geladen',correct:false,why:'Das Bild wird geladen — aber erst wenn es in den Viewport scrollt.'},
+    {t:'Das Bild wird erst geladen wenn es in den Viewport scrollt',correct:true,why:'Lazy loading spart Bandbreite und beschleunigt den initialen Seitenload. Bilder unterhalb des Folds werden erst bei Bedarf geladen.'},
+    {t:'Das Bild wird in niedrigerer Qualität geladen',correct:false,why:'loading="lazy" ändert nicht die Bildqualität.'},
+    {t:'Das Bild wird gecacht',correct:false,why:'Browser cachen Bilder sowieso — loading="lazy" hat damit nichts zu tun.'},
+  ]},
+  {id:'p_l3_10_mc5',type:'mc',xp:10,question:'Was ist "Critical Rendering Path" und wie kann man ihn optimieren?',options:[
+    {t:'Der Pfad zu CSS-Dateien auf dem Server',correct:false,why:'Der Critical Rendering Path ist ein Browser-Prozess, kein Dateipfad.'},
+    {t:'Die Schritte bis der Browser etwas anzeigen kann — optimieren durch CSS im head, JS am Ende',correct:true,why:'HTML→CSS→CSSOM+DOM→Render Tree→Layout→Paint. Render-blockierendes CSS im head, JS am Ende (oder async/defer).'},
+    {t:'Ein Werkzeug zur Fehlersuche',correct:false,why:'DevTools kann ihn visualisieren, aber CRP ist ein Konzept, kein Werkzeug.'},
+    {t:'Die Route von HTTP-Requests',correct:false,why:'CRP ist der Rendering-Prozess im Browser — nicht das Netzwerk.'},
+  ]},
+  {id:'p_l3_10_mc6',type:'mc',xp:10,question:'Was ist das Unterschied zwischen "defer" und "async" beim <script>-Tag?',options:[
+    {t:'Kein Unterschied',correct:false,why:'Es gibt einen wichtigen Unterschied in der Ausführungsreihenfolge.'},
+    {t:'defer: lädt parallel, führt nach DOM-Parse aus (in Reihenfolge); async: lädt parallel, führt sofort aus (ungeordnet)',correct:true,why:'defer ist sicher wenn Scripts voneinander abhängen. async für unabhängige Scripts (Analytics).'},
+    {t:'async ist für externe Scripts, defer für interne',correct:false,why:'Beide funktionieren für externe Scripts (mit src-Attribut).'},
+    {t:'defer verzögert den Seitenload, async nicht',correct:false,why:'Beide laden parallel zum HTML-Parsing — der Unterschied liegt im Ausführungszeitpunkt.'},
+  ]},
+  {id:'p_l3_10_mc7',type:'mc',xp:10,question:'Was ist "tabindex" und wann braucht man es?',options:[
+    {t:'Es gibt einem Element einen Tab-basierten Namen',correct:false,why:'Für Namen: id-Attribut. tabindex steuert Tastatur-Navigation.'},
+    {t:'Steuert die Tastatur-Tab-Reihenfolge — tabindex="0" macht ein nicht-interaktives Element fokussierbar',correct:true,why:'tabindex="0" = Element in natürliche Tab-Reihenfolge aufnehmen. tabindex="-1" = per JS fokussierbar, nicht per Tab. Wichtig für Custom-Widgets.'},
+    {t:'Es ist ein CSS-Property',correct:false,why:'tabindex ist ein HTML-Attribut.'},
+    {t:'Es verbessert SEO',correct:false,why:'tabindex ist für Barrierefreiheit (Tastatur-Navigation), nicht SEO.'},
+  ]},
+  {id:'p_l3_10_mc8',type:'mc',xp:10,question:'Was ist das Ziel der WCAG (Web Content Accessibility Guidelines)?',options:[
+    {t:'Richtlinien für schnellere Webseiten',correct:false,why:'Performance ist nicht das Ziel von WCAG.'},
+    {t:'Internationale Standards für barrierefreie Webinhalte (WCAG AA = 4.5:1 Kontrast etc.)',correct:true,why:'WCAG 2.1 AA ist der Standard für Barrierefreiheit: Farbkontrast, Tastatur-Navigation, Screenreader-Kompatibilität, Alt-Texte.'},
+    {t:'SEO-Richtlinien von Google',correct:false,why:'SEO-Richtlinien kommen von Google und anderen — WCAG ist vom W3C für Barrierefreiheit.'},
+    {t:'Richtlinien für responsive Design',correct:false,why:'Responsive Design-Richtlinien gibt es, aber WCAG ist speziell für Barrierefreiheit.'},
+  ]},
+  {id:'p_l3_10_tf1',type:'truefalse',xp:8,statement:'Ein guter Farbkontrast ist wichtig für Barrierefreiheit und WCAG-Konformität.',correct:true,explanation:'WCAG AA fordert mindestens 4.5:1 Kontrast für normalen Text. Tools wie WebAIM Contrast Checker helfen bei der Prüfung.'},
+  {id:'p_l3_10_tf2',type:'truefalse',xp:8,statement:'"aria-hidden=true" sagt Screenreadern, dass sie das Element ignorieren sollen.',correct:true,explanation:'aria-hidden="true" auf dekorativen Elementen (Icons, Trennlinien) verhindert, dass Screenreader sie vorlesen.'},
+  {id:'p_l3_10_tf3',type:'truefalse',xp:8,statement:'Bilder immer mit loading="lazy" zu laden ist immer optimal.',correct:false,explanation:'Bilder above-the-fold (im initialen Viewport) sollten NICHT lazy geladen werden — das würde LCP verschlechtern. Lazy loading nur für Bilder below-the-fold.'},
+  {id:'p_l3_10_tf4',type:'truefalse',xp:8,statement:'Core Web Vitals (LCP, CLS, FID/INP) sind Google-Ranking-Faktoren.',correct:true,explanation:'Seit 2021 fließen Core Web Vitals in Googles Page Experience Signal ein. Schlechte Werte können das Ranking verschlechtern.'},
+  {id:'p_l3_10_tf5',type:'truefalse',xp:8,statement:'Barrierefreiheit (Accessibility) ist nur für Nutzer mit Behinderungen wichtig.',correct:false,explanation:'Accessibility verbessert die Nutzung für alle: Nutzer in hellem Sonnenlicht, ältere Nutzer, Nutzer mit langsamer Verbindung, Tastatur-Power-User und Screenreader-Nutzer.'},
+  {id:'p_l3_10_fb1',type:'fillblank',xp:12,prompt:'Das ARIA-Attribut das ein Element für Screenreader unsichtbar macht: aria-___ ="true"',answers:['hidden'],placeholder:'Attributname',explanation:'aria-hidden="true" versteckt dekorative Elemente vor Screenreadern ohne sie visuell zu verstecken.'},
+  {id:'p_l3_10_fb2',type:'fillblank',xp:12,prompt:'Die Core Web Vital Metrik für Layout-Verschiebungen heißt: ___ (Abkürzung)',answers:['CLS'],placeholder:'Abkürzung',explanation:'CLS = Cumulative Layout Shift. Guter Wert: < 0.1. Verhindert durch width/height auf Bildern.'},
+  {id:'p_l3_10_fb3',type:'fillblank',xp:12,prompt:'Um ein Bild erst beim Scrollen zu laden: <img loading="___">',answers:['lazy'],placeholder:'Wert',explanation:'loading="lazy" verzögert das Laden bis das Bild in den Viewport kommt.'},
+  {id:'p_l3_10_fb4',type:'fillblank',xp:12,prompt:'Das Script-Attribut das paralleles Laden UND Ausführen nach DOM-Parse garantiert: ___',answers:['defer'],placeholder:'Attributname',explanation:'defer lädt das Script parallel zum HTML-Parsing und führt es aus nachdem das DOM vollständig ist — in Reihenfolge.'},
+  {id:'p_l3_10_bonus',type:'mc',xp:20,optional:true,question:'Was ist "First Input Delay" (FID) / "Interaction to Next Paint" (INP) und wie verbessert man es?',options:[
+    {t:'Die Zeit bis das erste Bild geladen ist',correct:false,why:'Das wäre LCP. FID/INP misst Reaktionszeit auf User-Interaktion.'},
+    {t:'Die Verzögerung zwischen Nutzer-Interaktion und Browser-Reaktion — verbessern durch weniger Haupt-Thread-Blockierung',correct:true,why:'Wenn der JS-Haupt-Thread beschäftigt ist (langes Script), verzögert sich die Reaktion auf Klicks. Lösung: Code-Splitting, Web Workers, kleinere JS-Bundles.'},
+    {t:'Die Ladezeit des JavaScript-Bundles',correct:false,why:'Bundle-Ladezeit beeinflusst FID, aber FID misst die Interaktions-Latenz.'},
+    {t:'Ein HTML-Attribut für interaktive Elemente',correct:false,why:'FID/INP ist eine Metrik, kein HTML-Attribut.'},
+  ]},
+];
+
 
 function answerQuiz(id, idx, btn) {
   if (state.quizAnswered.has(id)) return;
