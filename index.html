@@ -713,6 +713,165 @@ body {
 .quiz-feedback.good { background: var(--green-bg); color: var(--green); border: 1px solid rgba(62,207,122,0.2); }
 .quiz-feedback.bad { background: var(--red-bg); color: var(--red); border: 1px solid rgba(247,106,106,0.2); }
 
+/* ── QUESTION TYPE: TRUE/FALSE ─────────────────────────────── */
+.tf-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.tf-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.15s;
+}
+.tf-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--text); }
+.tf-btn.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.tf-btn.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red);   }
+.tf-btn:disabled { cursor: not-allowed; }
+
+/* ── QUESTION TYPE: FILL IN THE BLANK ──────────────────────── */
+.fill-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.fill-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--mono);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.fill-input:focus { border-color: var(--accent); }
+.fill-input:disabled { opacity: 0.6; cursor: not-allowed; }
+.fill-btn {
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: none;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+.fill-btn:hover:not(:disabled) { opacity: 0.9; }
+.fill-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── QUESTION TYPE: OUTPUT PREDICT ─────────────────────────── */
+.output-predict-code {
+  margin-bottom: 12px;
+}
+
+/* ── PROFI BONUS QUESTION ───────────────────────────────────── */
+.profi-card {
+  border: 1px solid var(--amber);
+  background: var(--amber-bg);
+  position: relative;
+}
+.profi-card .quiz-card-inner { position: relative; z-index: 1; }
+.profi-label {
+  font-size: 10px;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.profi-label [data-lucide] { width: 12px; height: 12px; }
+
+/* ── PASS / FAIL SUMMARY ────────────────────────────────────── */
+.lesson-result {
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.lesson-result.pass {
+  background: var(--green-bg);
+  border: 1px solid rgba(62,207,122,0.25);
+}
+.lesson-result.fail {
+  background: var(--red-bg);
+  border: 1px solid rgba(247,106,106,0.25);
+}
+.result-title {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lesson-result.pass .result-title { color: var(--green); }
+.lesson-result.fail .result-title { color: var(--red); }
+.result-stats {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.result-bar-wrap {
+  height: 8px;
+  background: var(--surface3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.result-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.lesson-result.pass .result-bar-fill { background: var(--green); }
+.lesson-result.fail .result-bar-fill { background: var(--red); }
+.retry-btn {
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: none;
+  background: linear-gradient(135deg, #dc2626, #f76a6a);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  transition: opacity 0.15s;
+}
+.retry-btn:hover { opacity: 0.9; }
+.retry-btn [data-lucide] { width: 14px; height: 14px; }
+
+/* ── DIFFICULTY BADGE in profile bar ────────────────────────── */
+.diff-badge {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 /* CODE EXERCISE */
 .exercise-card {
   background: var(--surface);
@@ -2956,18 +3115,8 @@ Also: 0x2F = 47</div>
               • <strong>Git-Commits</strong>: <code>a3f9c21...</code> — die Commit-IDs
             </div>
           </div>
-          ${quiz('q1', 'Was ist die Dezimalzahl 13 in Binär?', [
-            {t:'1101', correct:true, why:'Richtig! 8+4+1 = 13. Die Stelle für 2 ist 0.'},
-            {t:'1011', correct:false, why:'Falsch. 1011 ist 8+2+1 = 11, nicht 13.'},
-            {t:'1110', correct:false, why:'Falsch. 1110 ist 8+4+2 = 14, nicht 13.'},
-            {t:'0110', correct:false, why:'Falsch. 0110 ist 4+2 = 6, nicht 13.'},
-          ])}
-          ${quiz('q2', 'Was bedeutet 0xFF in Dezimal?', [
-            {t:'128', correct:false, why:'Falsch. 128 wäre 0x80.'},
-            {t:'256', correct:false, why:'Fast! Aber 256 wäre 0x100. 0xFF hat nur 2 Stellen.'},
-            {t:'255', correct:true, why:'Perfekt! F=15, also FF = 15×16 + 15 = 255.'},
-            {t:'15', correct:false, why:'Falsch. 15 wäre 0x0F — nur eine Stelle.'},
-          ])}
+          ${renderQuestions('l1_2', 6)}
+          ${renderBonus('l1_2')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -3081,18 +3230,8 @@ So: 0x2F = 47</div>
               • <strong>Git commits</strong>: <code>a3f9c21...</code> — the commit IDs
             </div>
           </div>
-          ${quiz('q1', 'What is the decimal number 13 in binary?', [
-            {t:'1101', correct:true, why:'Correct! 8+4+1 = 13. The 2-position is 0.'},
-            {t:'1011', correct:false, why:'Wrong. 1011 is 8+2+1 = 11, not 13.'},
-            {t:'1110', correct:false, why:'Wrong. 1110 is 8+4+2 = 14, not 13.'},
-            {t:'0110', correct:false, why:'Wrong. 0110 is 4+2 = 6, not 13.'},
-          ])}
-          ${quiz('q2', 'What does 0xFF equal in decimal?', [
-            {t:'128', correct:false, why:'Wrong. 128 would be 0x80.'},
-            {t:'256', correct:false, why:'Close! But 256 would be 0x100. 0xFF only has 2 digits.'},
-            {t:'255', correct:true, why:'Perfect! F=15, so FF = 15×16 + 15 = 255.'},
-            {t:'15', correct:false, why:'Wrong. 15 would be 0x0F — just one digit.'},
-          ])}
+          ${renderQuestions('l1_2', 6)}
+          ${renderBonus('l1_2')}
         `
       },
       {
@@ -20216,7 +20355,13 @@ let state = {
   completed: new Set(),
   xp: 0,
   activeProfile: null,
-  quizAnswered: new Set()
+  quizAnswered: new Set(),   // cleared on navigation — used for step-locks
+  earnedQuizIds: new Set(),  // persistent — prevents double-awarding XP
+  shownForLesson: {},        // { lessonId: [questionId, ...] } — tracks shown pool questions
+  lessonAttemptXP: 0,        // XP earned in current lesson attempt (pool lessons)
+  lessonAttemptMaxXP: 0,     // Max XP possible this attempt
+  lessonPassed: false,       // Whether the pass threshold was met this attempt
+  difficulty: 'moderate',    // 'easy' | 'moderate' | 'hard'
 };
 
 function loadActiveState() {
@@ -20226,6 +20371,17 @@ function loadActiveState() {
   state.activeProfile = profile;
   state.completed = data.completed;
   state.xp = data.xp;
+  state.difficulty = profile.difficulty || 'moderate';
+  // Load earned quiz IDs (no double-award guard)
+  try {
+    const ek = localStorage.getItem(`cp_p_${profile.id}_earned`);
+    state.earnedQuizIds = new Set(JSON.parse(ek || '[]'));
+  } catch { state.earnedQuizIds = new Set(); }
+  // Load shown-questions-per-lesson
+  try {
+    const sk = localStorage.getItem(`cp_p_${profile.id}_shown`);
+    state.shownForLesson = JSON.parse(sk || '{}');
+  } catch { state.shownForLesson = {}; }
   return true;
 }
 
@@ -20235,6 +20391,9 @@ function persistState() {
     completed: state.completed,
     xp: state.xp
   });
+  const id = state.activeProfile.id;
+  localStorage.setItem(`cp_p_${id}_earned`, JSON.stringify([...state.earnedQuizIds]));
+  localStorage.setItem(`cp_p_${id}_shown`, JSON.stringify(state.shownForLesson));
   if (API.isLoggedIn()) {
     API.updateProgress(state.xp, state.currentLesson).catch(() => {});
   }
@@ -20279,6 +20438,413 @@ function exercise(id, title, desc, hint, keyword) {
   </div>`;
 }
 
+// ============================================================
+//    QUESTION POOL SYSTEM — MULTI-TYPE TASKS
+// ============================================================
+
+const QUESTION_POOLS = {};
+
+function getPassThreshold() {
+  const d = state.difficulty || 'moderate';
+  return d === 'easy' ? 0.6 : d === 'hard' ? 0.8 : 0.7;
+}
+
+function getDifficultyLabel() {
+  const d = state.difficulty || 'moderate';
+  return d === 'easy' ? 'Leicht' : d === 'hard' ? 'Schwer' : 'Moderat';
+}
+
+// Pick N questions from pool for a lesson — avoids recently shown ones
+function pickQuestions(pool, count, lessonId) {
+  const required = pool.filter(q => !q.optional);
+  const alreadyShown = state.shownForLesson[lessonId] || [];
+  const fresh = required.filter(q => !alreadyShown.includes(q.id));
+  const seen  = required.filter(q =>  alreadyShown.includes(q.id));
+
+  // Shuffle both groups
+  const shuffled = [...fresh].sort(() => Math.random() - 0.5);
+  const shuffledSeen = [...seen].sort(() => Math.random() - 0.5);
+
+  const picked = [];
+  while (picked.length < count && shuffled.length > 0) picked.push(shuffled.shift());
+  // If pool is exhausted, reuse seen (prioritize questions user got wrong)
+  while (picked.length < count && shuffledSeen.length > 0) picked.push(shuffledSeen.shift());
+
+  // Update shown-questions tracking
+  const shownIds = picked.map(q => q.id);
+  state.shownForLesson[lessonId] = [...new Set([...alreadyShown, ...shownIds])];
+
+  return picked;
+}
+
+// Render a question from the pool
+function renderOneQuestion(q, isBonus) {
+  if (q.type === 'mc')          return renderMCQ(q, isBonus);
+  if (q.type === 'truefalse')   return renderTFQ(q, isBonus);
+  if (q.type === 'fillblank')   return renderFillQ(q, isBonus);
+  if (q.type === 'outputpredict') return renderOutputQ(q, isBonus);
+  return '';
+}
+
+function renderMCQ(q, isBonus) {
+  QUIZ_DATA[q.id] = { question: q.question, options: q.options, xp: q.xp || 10, optional: !!isBonus, poolQuestion: true };
+  const opts = q.options.map((o, i) =>
+    `<button class="quiz-option" data-quiz="${q.id}" data-idx="${i}">${o.t}</button>`
+  ).join('');
+  const label = isBonus
+    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
+    : `<div class="card-label">Quiz</div>`;
+  return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
+    ${label}
+    <div class="quiz-question">${q.question}</div>
+    <div class="quiz-options" id="opts-${q.id}">${opts}</div>
+    <div class="quiz-feedback" id="fb-${q.id}"></div>
+  </div>`;
+}
+
+function renderTFQ(q, isBonus) {
+  QUIZ_DATA[q.id] = { type: 'truefalse', correct: q.correct, why: q.explanation, xp: q.xp || 8, optional: !!isBonus, poolQuestion: true };
+  const label = isBonus
+    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
+    : `<div class="card-label">Richtig oder Falsch?</div>`;
+  return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
+    ${label}
+    <div class="quiz-question">${q.statement}</div>
+    <div class="tf-options" id="opts-${q.id}">
+      <button class="tf-btn" data-tf="${q.id}" data-val="true">Richtig</button>
+      <button class="tf-btn" data-tf="${q.id}" data-val="false">Falsch</button>
+    </div>
+    <div class="quiz-feedback" id="fb-${q.id}"></div>
+  </div>`;
+}
+
+function renderFillQ(q, isBonus) {
+  QUIZ_DATA[q.id] = { type: 'fillblank', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
+  const label = isBonus
+    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
+    : `<div class="card-label">Lückentext</div>`;
+  return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
+    ${label}
+    <div class="quiz-question">${q.prompt}</div>
+    ${q.code ? `<div class="code-block" style="margin-bottom:12px"><div class="code-pre">${q.code}</div></div>` : ''}
+    <div class="fill-area">
+      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="${q.placeholder || 'Antwort eingeben...'}" autocomplete="off" spellcheck="false">
+      <button class="fill-btn" data-fill="${q.id}">Prüfen</button>
+    </div>
+    <div class="quiz-feedback" id="fb-${q.id}"></div>
+  </div>`;
+}
+
+function renderOutputQ(q, isBonus) {
+  QUIZ_DATA[q.id] = { type: 'outputpredict', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
+  const label = isBonus
+    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
+    : `<div class="card-label">Was ist der Output?</div>`;
+  return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
+    ${label}
+    <div class="quiz-question">${q.question}</div>
+    <div class="code-block output-predict-code" style="margin-bottom:12px"><div class="code-pre">${q.code}</div></div>
+    <div class="fill-area">
+      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="Output eingeben..." autocomplete="off" spellcheck="false">
+      <button class="fill-btn" data-fill="${q.id}">Prüfen</button>
+    </div>
+    <div class="quiz-feedback" id="fb-${q.id}"></div>
+  </div>`;
+}
+
+// Called by content() functions to render N random questions from the pool
+function renderQuestions(lessonId, count) {
+  const pool = QUESTION_POOLS[lessonId];
+  if (!pool || pool.length === 0) return '';
+  const selected = pickQuestions(pool, count, lessonId);
+  // Set attempt tracking
+  state.lessonAttemptMaxXP = selected.reduce((s, q) => s + (q.xp || 10), 0);
+  state.lessonAttemptXP = 0;
+  state.lessonPassed = false;
+  return selected.map(q => renderOneQuestion(q, false)).join('');
+}
+
+// Render the optional bonus question (if pool has one marked optional:true)
+function renderBonus(lessonId) {
+  const pool = QUESTION_POOLS[lessonId];
+  if (!pool) return '';
+  const bonus = pool.find(q => q.optional);
+  if (!bonus) return '';
+  // Override XP to 20 for bonus
+  bonus.xp = 20;
+  return `<div class="content-card animate-in" style="animation-delay:0.05s;background:var(--amber-bg);border-color:var(--amber)">
+    <div class="card-label" style="color:var(--amber)"><i data-lucide="star"></i>&nbsp;Profi-Herausforderung (optional)</div>
+    <div class="explanation" style="color:var(--text2)">Diese Frage ist optional — sie zählt <strong>nicht</strong> zur Bewertung. Richtige Antwort: <strong>+20 XP Bonus</strong>.</div>
+  </div>
+  ${renderOneQuestion(bonus, true)}`;
+}
+
+// Answer a True/False question
+function answerTF(id, val, btn) {
+  if (state.quizAnswered.has(id)) return;
+  const data = QUIZ_DATA[id];
+  if (!data) return;
+  const correct = (val === 'true') === data.correct;
+  state.quizAnswered.add(id);
+  const btns = document.querySelectorAll(`#opts-${id} .tf-btn`);
+  btns.forEach(b => b.disabled = true);
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) btns.forEach(b => { if ((b.dataset.val === 'true') === data.correct) b.classList.add('correct'); });
+  const fb = document.getElementById('fb-' + id);
+  fb.textContent = data.why;
+  fb.className = 'quiz-feedback show ' + (correct ? 'good' : 'bad');
+  if (correct) {
+    const xpAmt = data.xp || 8;
+    if (!data.optional && data.poolQuestion) state.lessonAttemptXP += xpAmt;
+    if (!state.earnedQuizIds.has(id)) { state.earnedQuizIds.add(id); addXP(xpAmt); }
+    else { unlockNextStep(); checkLessonComplete(); }
+  } else { checkLessonComplete(); }
+}
+
+// Answer a fill-in / output-predict question
+function answerFill(id) {
+  if (state.quizAnswered.has(id)) return;
+  const data = QUIZ_DATA[id];
+  if (!data) return;
+  const input = document.getElementById('fill-' + id);
+  if (!input) return;
+  const userVal = input.value.trim().toLowerCase();
+  if (!userVal) return;
+  const correct = (data.answers || []).some(a => a.toLowerCase() === userVal);
+  state.quizAnswered.add(id);
+  input.disabled = true;
+  const fillBtn = document.querySelector(`[data-fill="${id}"]`);
+  if (fillBtn) fillBtn.disabled = true;
+  const fb = document.getElementById('fb-' + id);
+  fb.textContent = correct ? (data.why || 'Richtig!') : `Falsch. Richtig wäre: ${data.answers[0]}`;
+  fb.className = 'quiz-feedback show ' + (correct ? 'good' : 'bad');
+  if (correct) {
+    const xpAmt = data.xp || 12;
+    if (!data.optional && data.poolQuestion) state.lessonAttemptXP += xpAmt;
+    if (!state.earnedQuizIds.has(id)) { state.earnedQuizIds.add(id); addXP(xpAmt); }
+    else { unlockNextStep(); checkLessonComplete(); }
+  } else { checkLessonComplete(); }
+}
+
+// Check if all required questions in a pool-based lesson are answered
+function allRequiredAnswered() {
+  const ca = document.getElementById('content-area');
+  if (!ca) return false;
+  const required = Array.from(ca.querySelectorAll('[data-qid][data-qtype="required"]'));
+  if (required.length === 0) return true;
+  return required.every(el => state.quizAnswered.has(el.dataset.qid));
+}
+
+// Show fail/retry summary in the lesson body
+function showFailSummary(xp, maxXP, threshold) {
+  const ca = document.getElementById('content-area');
+  const body = ca ? (ca.querySelector('.lesson-body') || ca) : null;
+  if (!body) return;
+  const pct = maxXP > 0 ? Math.round(xp / maxXP * 100) : 0;
+  const needed = Math.ceil(maxXP * threshold);
+  // Remove any existing result
+  body.querySelector('.lesson-result')?.remove();
+  const div = document.createElement('div');
+  div.className = 'lesson-result fail animate-in';
+  div.innerHTML = `
+    <div class="result-title"><i data-lucide="x-circle"></i>Nicht bestanden</div>
+    <div class="result-stats">
+      Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%).<br>
+      Mindestens <strong>${needed} XP (${Math.round(threshold*100)}%)</strong> nötig für <em>${getDifficultyLabel()}</em>-Modus.
+    </div>
+    <div class="result-bar-wrap"><div class="result-bar-fill" style="width:${pct}%"></div></div>
+    <button class="retry-btn" onclick="retryLesson()"><i data-lucide="refresh-cw"></i>Neue Aufgaben – nochmal versuchen</button>
+  `;
+  body.appendChild(div);
+  lucide.createIcons({ nodes: [div] });
+}
+
+function showPassSummary(xp, maxXP) {
+  const ca = document.getElementById('content-area');
+  const body = ca ? (ca.querySelector('.lesson-body') || ca) : null;
+  if (!body) return;
+  const pct = maxXP > 0 ? Math.round(xp / maxXP * 100) : 0;
+  body.querySelector('.lesson-result')?.remove();
+  const div = document.createElement('div');
+  div.className = 'lesson-result pass animate-in';
+  div.innerHTML = `
+    <div class="result-title"><i data-lucide="check-circle"></i>Bestanden!</div>
+    <div class="result-stats">Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%). Weiter geht's!</div>
+    <div class="result-bar-wrap"><div class="result-bar-fill" style="width:${pct}%"></div></div>
+  `;
+  body.appendChild(div);
+  lucide.createIcons({ nodes: [div] });
+}
+
+// Retry a pool-based lesson with fresh questions
+function retryLesson() {
+  const lesson = getCurrentLesson();
+  // Reset shown questions so new ones are picked (but keep earnedQuizIds — no double award)
+  delete state.shownForLesson[lesson.id];
+  state.quizAnswered.clear();
+  state.lessonAttemptXP = 0;
+  state.lessonAttemptMaxXP = 0;
+  state.lessonPassed = false;
+  render();
+}
+
+// ── LESSON POOLS ─────────────────────────────────────────────
+
+QUESTION_POOLS['l1_2'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_2_mc1', type: 'mc', xp: 10,
+    question: 'Was ist die Dezimalzahl 13 in Binär?',
+    options: [
+      {t:'1101', correct:true,  why:'Richtig! 8+4+0+1 = 13. Stellen: 8·1, 4·1, 2·0, 1·1.'},
+      {t:'1011', correct:false, why:'1011 = 8+2+1 = 11, nicht 13.'},
+      {t:'1110', correct:false, why:'1110 = 8+4+2 = 14, nicht 13.'},
+      {t:'0110', correct:false, why:'0110 = 4+2 = 6, nicht 13.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc2', type: 'mc', xp: 10,
+    question: 'Was ist 0xFF in Dezimal?',
+    options: [
+      {t:'128',  correct:false, why:'128 = 0x80. FF hat 2 Stellen mit je F=15.'},
+      {t:'256',  correct:false, why:'256 = 0x100 — eine Stelle mehr als FF.'},
+      {t:'255',  correct:true,  why:'Richtig! F×16 + F×1 = 240+15 = 255.'},
+      {t:'15',   correct:false, why:'15 = 0x0F — nur eine Stelle.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc3', type: 'mc', xp: 10,
+    question: 'Welchen Dezimalwert hat 0xC?',
+    options: [
+      {t:'10',  correct:false, why:'10 ist A im Hexadezimalsystem.'},
+      {t:'11',  correct:false, why:'11 ist B im Hexadezimalsystem.'},
+      {t:'12',  correct:true,  why:'Richtig! C = 12. A=10, B=11, C=12, D=13, E=14, F=15.'},
+      {t:'13',  correct:false, why:'13 ist D im Hexadezimalsystem.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc4', type: 'mc', xp: 10,
+    question: 'Wie viele Binär-Stellen entsprechen genau einer Hexadezimal-Stelle?',
+    options: [
+      {t:'2', correct:false, why:'2 Binär-Stellen ergeben nur 4 Werte (00–11 = 0–3).'},
+      {t:'4', correct:true,  why:'Richtig! 4 Bits → 16 Kombinationen (0000–1111) = 1 Hex-Ziffer.'},
+      {t:'6', correct:false, why:'6 Bits wären zu viel für eine Hex-Stelle.'},
+      {t:'8', correct:false, why:'8 Bits sind 2 Hex-Stellen (1 Byte).'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc5', type: 'mc', xp: 10,
+    question: 'Was ist die Dezimalzahl 42 in Binär?',
+    options: [
+      {t:'101010', correct:true,  why:'Richtig! 32+8+2 = 42 → Bits: 101010.'},
+      {t:'101001', correct:false, why:'101001 = 32+8+1 = 41, nicht 42.'},
+      {t:'110010', correct:false, why:'110010 = 32+16+2 = 50, nicht 42.'},
+      {t:'100110', correct:false, why:'100110 = 32+4+2 = 38, nicht 42.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc6', type: 'mc', xp: 10,
+    question: 'Was ist Binär 1111 in Dezimal?',
+    options: [
+      {t:'13', correct:false, why:'13 ist 1101 in Binär.'},
+      {t:'14', correct:false, why:'14 ist 1110 in Binär.'},
+      {t:'15', correct:true,  why:'Richtig! 8+4+2+1 = 15. Alle Stellen sind 1.'},
+      {t:'16', correct:false, why:'16 wäre 10000 — eine Stelle mehr.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc7', type: 'mc', xp: 10,
+    question: 'Was ist 0x10 in Dezimal?',
+    options: [
+      {t:'10', correct:false, why:'10 dezimal ist 0xA, nicht 0x10.'},
+      {t:'16', correct:true,  why:'Richtig! 0x10 = 1×16 + 0×1 = 16.'},
+      {t:'17', correct:false, why:'17 dezimal ist 0x11.'},
+      {t:'32', correct:false, why:'32 dezimal ist 0x20.'},
+    ]
+  },
+  {
+    id: 'p_l1_2_mc8', type: 'mc', xp: 10,
+    question: 'Was ist Dezimal 255 in Hex?',
+    options: [
+      {t:'0xEE', correct:false, why:'0xEE = 14×16+14 = 238, nicht 255.'},
+      {t:'0xFE', correct:false, why:'0xFE = 15×16+14 = 254, nicht 255.'},
+      {t:'0xFF', correct:true,  why:'Richtig! F=15, also 15×16+15 = 255.'},
+      {t:'0x100',correct:false, why:'0x100 = 256 — eine mehr als 255.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_2_tf1', type: 'truefalse', xp: 8,
+    statement: 'Die Binärdarstellung von 8 (dezimal) ist 1000.',
+    correct: true,
+    explanation: 'Stimmt! 8 = 2³, also steht eine 1 an der 8er-Stelle: 1000.'
+  },
+  {
+    id: 'p_l1_2_tf2', type: 'truefalse', xp: 8,
+    statement: 'Im Hexadezimalsystem hat der Buchstabe F den Wert 16.',
+    correct: false,
+    explanation: 'Falsch. F = 15. Der Wert 16 wird als "10" in Hex geschrieben (1×16 + 0 = 16).'
+  },
+  {
+    id: 'p_l1_2_tf3', type: 'truefalse', xp: 8,
+    statement: '0x1F entspricht dem Dezimalwert 31.',
+    correct: true,
+    explanation: 'Stimmt! 1×16 + F×1 = 16+15 = 31.'
+  },
+  {
+    id: 'p_l1_2_tf4', type: 'truefalse', xp: 8,
+    statement: 'Ein Byte (8 Bit) kann maximal den Dezimalwert 255 speichern.',
+    correct: true,
+    explanation: 'Richtig! 8 Bits alle auf 1: 11111111 = 0xFF = 255.'
+  },
+  {
+    id: 'p_l1_2_tf5', type: 'truefalse', xp: 8,
+    statement: 'Binär 10000 entspricht dem Dezimalwert 16.',
+    correct: true,
+    explanation: 'Stimmt! 10000 = 2⁴ = 16. Jede neue Stelle verdoppelt den Wert.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_2_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Was ist die Binärdarstellung von 10 (dezimal)?',
+    answers: ['1010', '0b1010'],
+    placeholder: 'z.B. 1010',
+    explanation: 'Richtig! 10 = 8+2 → Bits: 1010 (Stelle 8=1, 4=0, 2=1, 1=0).'
+  },
+  {
+    id: 'p_l1_2_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Welchen Dezimalwert hat das Hexadezimalzeichen A?',
+    answers: ['10'],
+    placeholder: 'Zahl eingeben',
+    explanation: 'Richtig! A = 10. Im Hex-System: A=10, B=11, C=12, D=13, E=14, F=15.'
+  },
+  {
+    id: 'p_l1_2_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Was ist Binär 0101 in Dezimal?',
+    answers: ['5'],
+    placeholder: 'Zahl eingeben',
+    explanation: 'Richtig! 0101 = 4+1 = 5.'
+  },
+  {
+    id: 'p_l1_2_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Die CSS-Farbe #FF0000 steht für welche Grundfarbe? (auf Deutsch)',
+    answers: ['rot', 'red'],
+    placeholder: 'Farbe eingeben',
+    explanation: 'Richtig! #FF0000 = R=255, G=0, B=0 → reines Rot.'
+  },
+  // ── Bonus (optional Profi-Frage) ─────────────────────────
+  {
+    id: 'p_l1_2_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Was ist 0xDEAD in Dezimal? (Tipp: D=13, E=14, A=10)',
+    options: [
+      {t:'56997', correct:false, why:'Nochmal rechnen: D×4096 + E×256 + A×16 + D×1.'},
+      {t:'57005', correct:true,  why:'Richtig! 13×4096 + 14×256 + 10×16 + 13 = 53248+3584+160+13 = 57005.'},
+      {t:'57069', correct:false, why:'Nochmal rechnen: überprüfe jeden Stellenwert.'},
+      {t:'48879', correct:false, why:'Nochmal rechnen: D=13, E=14, A=10, D=13 — richtige Stellenwerte nutzen.'},
+    ]
+  },
+];
+
 function answerQuiz(id, idx, btn) {
   if (state.quizAnswered.has(id)) return;
   const data = QUIZ_DATA[id];
@@ -20294,7 +20860,25 @@ function answerQuiz(id, idx, btn) {
   const fb = document.getElementById('fb-' + id);
   fb.textContent = option.why;
   fb.className = 'quiz-feedback show ' + (option.correct ? 'good' : 'bad');
-  if (option.correct) addXP(10);
+  if (option.correct) {
+    const xpAmt = data.xp || 10;
+    // Track attempt XP for pool-based lessons (non-optional questions)
+    if (!data.optional && data.poolQuestion) {
+      state.lessonAttemptXP += xpAmt;
+    }
+    // No double-award: only grant XP if not already earned
+    if (!state.earnedQuizIds.has(id)) {
+      state.earnedQuizIds.add(id);
+      addXP(xpAmt);
+    } else {
+      // Already earned — just unlock next step, don't award again
+      unlockNextStep();
+      checkLessonComplete();
+    }
+  } else {
+    // Wrong answer: still check if all required questions are done for pool lessons
+    checkLessonComplete();
+  }
 }
 
 function checkExercise(id) {
@@ -20474,25 +21058,52 @@ function isLessonUnlocked(pi, li) {
 function isLessonComplete() {
   const lesson = getCurrentLesson();
   if (state.completed.has(lesson.id)) return true;
+  // Pool-based lesson: complete only when passed
+  if (QUESTION_POOLS[lesson.id]) return state.lessonPassed;
+  // Legacy lesson: all quiz/exercise IDs answered
   const ca = document.getElementById('content-area');
   if (!ca) return true;
   const quizIds = [...new Set(Array.from(ca.querySelectorAll('[data-quiz]')).map(el => el.dataset.quiz))];
   const exIds   = [...new Set(Array.from(ca.querySelectorAll('[data-exercise]')).map(el => 'ex_' + el.dataset.exercise))];
-  // Pure-content lesson with no interactive elements → auto-complete
   if (quizIds.length === 0 && exIds.length === 0) return true;
   return [...quizIds, ...exIds].every(id => state.quizAnswered.has(id));
 }
 
 // Called after every XP award and on render — marks lesson done and refreshes the nav
 function checkLessonComplete() {
-  if (!isLessonComplete()) return;
   const lesson = getCurrentLesson();
+  const hasPool = !!QUESTION_POOLS[lesson.id];
+
+  if (hasPool) {
+    // Pool lesson: check if all required questions answered
+    if (!allRequiredAnswered()) return;
+    // Check pass threshold
+    const threshold = getPassThreshold();
+    const passed = state.lessonAttemptMaxXP > 0
+      ? state.lessonAttemptXP >= state.lessonAttemptMaxXP * threshold
+      : true; // no required questions → auto-pass
+    if (!passed) {
+      if (!document.querySelector('.lesson-result')) {
+        showFailSummary(state.lessonAttemptXP, state.lessonAttemptMaxXP, threshold);
+      }
+      return;
+    }
+    state.lessonPassed = true;
+    if (!document.querySelector('.lesson-result.pass')) {
+      showPassSummary(state.lessonAttemptXP, state.lessonAttemptMaxXP);
+    }
+  } else {
+    // Legacy lesson: just check all quizzes answered
+    if (!isLessonComplete()) return;
+  }
+
+  // Mark as complete
   if (!state.completed.has(lesson.id)) {
     state.completed.add(lesson.id);
     persistState();
     document.getElementById('done-badge')?.classList.add('show');
   }
-  updateNav(); // re-enable the Weiter button now that the lesson is done
+  updateNav();
 }
 
 function goToPhase(idx) {
@@ -20688,6 +21299,24 @@ function render() {
   });
   ca.querySelectorAll('[data-exercise]').forEach(btn => {
     btn.addEventListener('click', () => checkExercise(btn.dataset.exercise));
+  });
+
+  // Attach True/False handlers
+  ca.querySelectorAll('[data-tf]').forEach(btn => {
+    btn.addEventListener('click', () => answerTF(btn.dataset.tf, btn.dataset.val, btn));
+  });
+  // Attach fill-in-the-blank handlers
+  ca.querySelectorAll('[data-fill]').forEach(btn => {
+    btn.addEventListener('click', () => answerFill(btn.dataset.fill));
+  });
+  // Enter key in fill inputs
+  ca.querySelectorAll('.fill-input').forEach(input => {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const btn = input.closest('.quiz-card').querySelector('[data-fill]');
+        if (btn) answerFill(btn.dataset.fill);
+      }
+    });
   });
 
   lucide.createIcons();
