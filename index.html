@@ -3334,18 +3334,8 @@ So: 0x2F = 47</div>
               <strong>Merke:</strong> kaputte Umlaute wie <code>Ã¤</code>, <code>Ã¶</code>, <code>Ã¼</code> sind <em>kein Server-Fehler, kein Virus, kein Font-Problem</em>. Es ist immer: "Datei in einer Kodierung gespeichert, aber in einer anderen gelesen." Fehlende Fonts zeigen dagegen leere Rechtecke (▯) oder Fragezeichen.
             </div>
           </div>
-          ${quiz('q_ascii1', 'Was ist der ASCII-Wert von "B"?', [
-            {t:'64', correct:false, why:'Fast — das wäre @ (kurz vor A).'},
-            {t:'65', correct:false, why:'65 ist A. B kommt direkt danach.'},
-            {t:'66', correct:true, why:'Richtig! A=65, B=66, C=67, usw.'},
-            {t:'98', correct:false, why:'98 ist das kleine b (97 = a, +1 = b).'},
-          ])}
-          ${quiz('q_ascii2', 'Warum siehst du manchmal "Ã¤" statt "ä" auf einer Webseite?', [
-            {t:'Der Server ist kaputt', correct:false, why:'Meistens ist nur die Zeichenkodierung falsch eingestellt.'},
-            {t:'Ein Virus hat die Seite befallen', correct:false, why:'Nein — das ist ein Kodierungsproblem, kein Sicherheitsproblem.'},
-            {t:'Die Seite wurde als UTF-8 kodiert aber als ISO-8859 gelesen', correct:true, why:'Exakt! Der Browser liest die UTF-8 Bytes falsch. Mit &lt;meta charset="UTF-8"&gt; sagst du ihm: "Lies es richtig".'},
-            {t:'Die Schriftart fehlt', correct:false, why:'Schriftart-Probleme zeigen Vierecke oder Fragezeichen — nicht solche kaputten Zeichen-Paare.'},
-          ])}
+          ${renderQuestions('l1_3', 6)}
+          ${renderBonus('l1_3')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -3437,18 +3427,8 @@ So: 0x2F = 47</div>
     content = f.read()</div>
             </div>
           </div>
-          ${quiz('q_ascii1', 'What is the ASCII value of "B"?', [
-            {t:'64', correct:false, why:'Close — that would be @ (just before A).'},
-            {t:'65', correct:false, why:'65 is A. B comes right after.'},
-            {t:'66', correct:true, why:'Correct! A=65, B=66, C=67, and so on.'},
-            {t:'98', correct:false, why:'98 is lowercase b (a=97, b=98).'},
-          ])}
-          ${quiz('q_ascii2', 'Why do you sometimes see "Ã¤" instead of "ä" on a website?', [
-            {t:'The server is broken', correct:false, why:'Usually just a character encoding misconfiguration.'},
-            {t:'A virus attacked the page', correct:false, why:'No — this is an encoding problem, not a security issue.'},
-            {t:'The page was encoded as UTF-8 but read as ISO-8859', correct:true, why:'Exactly! The browser misreads the UTF-8 bytes. Adding &lt;meta charset="UTF-8"&gt; fixes it.'},
-            {t:'The font is missing', correct:false, why:'Missing fonts show empty rectangles or question marks — not broken character pairs like this.'},
-          ])}
+          ${renderQuestions('l1_3', 6)}
+          ${renderBonus('l1_3')}
         `
       },
       {
@@ -20841,6 +20821,162 @@ QUESTION_POOLS['l1_2'] = [
       {t:'57005', correct:true,  why:'Richtig! 13×4096 + 14×256 + 10×16 + 13 = 53248+3584+160+13 = 57005.'},
       {t:'57069', correct:false, why:'Nochmal rechnen: überprüfe jeden Stellenwert.'},
       {t:'48879', correct:false, why:'Nochmal rechnen: D=13, E=14, A=10, D=13 — richtige Stellenwerte nutzen.'},
+    ]
+  },
+];
+
+// ── l1_3: Zeichenkodierung — ASCII & UTF-8 ───────────────────
+QUESTION_POOLS['l1_3'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_3_mc1', type: 'mc', xp: 10,
+    question: 'Was ist der ASCII-Wert von "B"?',
+    options: [
+      {t:'64', correct:false, why:'64 ist das @-Zeichen — kurz vor A.'},
+      {t:'65', correct:false, why:'65 ist A. B kommt direkt danach.'},
+      {t:'66', correct:true,  why:'Richtig! A=65, B=66, C=67 — die Reihenfolge im Alphabet entspricht den Zahlen.'},
+      {t:'98', correct:false, why:'98 ist das kleine b (a=97, b=98). Groß/Klein unterscheiden sich um 32.'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc2', type: 'mc', xp: 10,
+    question: 'Warum erscheint manchmal "Ã¤" statt "ä" auf einer Webseite?',
+    options: [
+      {t:'Der Server ist kaputt', correct:false, why:'Das ist ein Kodierungsproblem — der Server hat damit nichts zu tun.'},
+      {t:'Die Schriftart fehlt', correct:false, why:'Fehlende Fonts zeigen Rechtecke oder Fragezeichen, keine Zeichenpaare.'},
+      {t:'Die Seite wurde als UTF-8 gespeichert, aber als ISO-8859-1 gelesen', correct:true, why:'Genau! "ä" = C3 A4 in UTF-8. ISO-8859-1 interpretiert C3=Ã und A4=¤ → "Ã¤". Effekt: Mojibake.'},
+      {t:'Ein Virus hat die Zeichen verändert', correct:false, why:'Kein Sicherheitsproblem — nur falsche Dekodierung der Bytes.'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc3', type: 'mc', xp: 10,
+    question: 'Was gibt `ord("A")` in Python zurück?',
+    options: [
+      {t:'1',  correct:false, why:'1 wäre der erste Buchstabe wenn man bei 1 anfangen würde — ASCII startet aber woanders.'},
+      {t:'65', correct:true,  why:'Richtig! ord() gibt den ASCII-Wert zurück. A = 65.'},
+      {t:'97', correct:false, why:'97 ist das kleine a. Groß A = 65.'},
+      {t:'0',  correct:false, why:'0 ist das Null-Steuerzeichen (NUL). A=65.'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc4', type: 'mc', xp: 10,
+    question: 'Was gibt `chr(97)` in Python zurück?',
+    options: [
+      {t:'"A"', correct:false, why:'A (Großbuchstabe) = 65. chr(97) ist der Kleinbuchstabe.'},
+      {t:'"9"', correct:false, why:'"9" hat den ASCII-Wert 57, nicht 97.'},
+      {t:'"a"', correct:true,  why:'Richtig! chr() wandelt einen ASCII-Wert ins Zeichen um. 97 = a.'},
+      {t:'"@"', correct:false, why:'@ = 64. chr(97) = a.'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc5', type: 'mc', xp: 10,
+    question: 'Wie viele Bytes braucht das Emoji 😀 in UTF-8?',
+    options: [
+      {t:'1 Byte', correct:false, why:'1 Byte reicht nur für ASCII-Zeichen (0–127).'},
+      {t:'2 Bytes', correct:false, why:'2 Bytes reichen für europäische Sonderzeichen wie ä, ö, ü.'},
+      {t:'3 Bytes', correct:false, why:'3 Bytes braucht z.B. das Euro-Zeichen €.'},
+      {t:'4 Bytes', correct:true,  why:'Richtig! Emojis liegen außerhalb des Basis-Unicode-Bereichs und brauchen 4 Bytes in UTF-8.'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc6', type: 'mc', xp: 10,
+    question: 'Welchen ASCII-Wert hat das @-Zeichen?',
+    options: [
+      {t:'32', correct:false, why:'32 ist das Leerzeichen (Space).'},
+      {t:'58', correct:false, why:'58 ist der Doppelpunkt ":".'},
+      {t:'64', correct:true,  why:'Richtig! @ = 64 — genau eine Stelle vor A (=65). Deshalb: "fast A, aber nicht ganz".'},
+      {t:'91', correct:false, why:'91 ist die öffnende eckige Klammer "[".'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc7', type: 'mc', xp: 10,
+    question: 'Was gibt `chr(ord("A") + 32)` in Python zurück?',
+    options: [
+      {t:'"B"', correct:false, why:'+32 springt nicht zum nächsten Buchstaben, sondern zum Kleinbuchstaben.'},
+      {t:'"a"', correct:true,  why:'Richtig! ord("A")=65, +32=97=a. Die Differenz Groß/Klein ist in ASCII immer 32.'},
+      {t:'"["', correct:false, why:'"[" = 91, aber chr(65+32) = chr(97) = "a".'},
+      {t:'"Z"', correct:false, why:'Z = 90. chr(65+32) = chr(97) = "a".'},
+    ]
+  },
+  {
+    id: 'p_l1_3_mc8', type: 'mc', xp: 10,
+    question: 'Wie viele Zeichen kann ASCII maximal darstellen?',
+    options: [
+      {t:'64',   correct:false, why:'64 wäre 2⁶ — ASCII hat aber 7 Bit.'},
+      {t:'128',  correct:true,  why:'Richtig! ASCII nutzt 7 Bit → 2⁷ = 128 Zeichen (Werte 0–127).'},
+      {t:'256',  correct:false, why:'256 = 2⁸ (1 Byte). ASCII nutzt nur 7 Bit.'},
+      {t:'1024', correct:false, why:'Viel zu viel — ASCII hat 128 Zeichen.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_3_tf1', type: 'truefalse', xp: 8,
+    statement: 'ASCII kann Emojis und chinesische Schriftzeichen darstellen.',
+    correct: false,
+    explanation: 'Falsch. ASCII hat nur 128 Zeichen (0–127) — nur für englisches Alphabet + Basis-Sonderzeichen. Für Emojis braucht man UTF-8.'
+  },
+  {
+    id: 'p_l1_3_tf2', type: 'truefalse', xp: 8,
+    statement: 'UTF-8 ist rückwärtskompatibel zu ASCII: die ersten 128 Zeichen sind identisch.',
+    correct: true,
+    explanation: 'Stimmt! ASCII-Zeichen (0–127) werden in UTF-8 mit exakt demselben 1-Byte-Wert kodiert. Ein reines ASCII-Dokument ist deshalb auch gültiges UTF-8.'
+  },
+  {
+    id: 'p_l1_3_tf3', type: 'truefalse', xp: 8,
+    statement: 'Das Zeichen "5" und die Zahl 5 haben in ASCII denselben Wert.',
+    correct: false,
+    explanation: 'Falsch. Das Zeichen \'5\' hat den ASCII-Wert 53 (Ziffern beginnen bei \'0\'=48). Die Zahl 5 ist einfach die Zahl 5 — zwei verschiedene Dinge.'
+  },
+  {
+    id: 'p_l1_3_tf4', type: 'truefalse', xp: 8,
+    statement: 'Das Umlaut "ä" benötigt in UTF-8 genau zwei Bytes (C3 A4).',
+    correct: true,
+    explanation: 'Richtig! Europäische Sonderzeichen wie ä, ö, ü, é etc. liegen außerhalb der ersten 128 ASCII-Zeichen und brauchen 2 Bytes in UTF-8.'
+  },
+  {
+    id: 'p_l1_3_tf5', type: 'truefalse', xp: 8,
+    statement: 'Die Differenz zwischen einem Großbuchstaben und dem entsprechenden Kleinbuchstaben in ASCII ist immer 32.',
+    correct: true,
+    explanation: 'Stimmt! A=65, a=97 → Differenz 32. B=66, b=98 → 32. Das war Absicht: man kann mit einem einzigen Bit-Flip zwischen Groß/Klein wechseln.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_3_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Was gibt `ord("Z")` zurück? (A=65, Alphabet hat 26 Buchstaben)',
+    answers: ['90'],
+    placeholder: 'Zahl eingeben',
+    explanation: 'Richtig! A=65, Z ist der 26. Buchstabe → 65 + 25 = 90.'
+  },
+  {
+    id: 'p_l1_3_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Wie lautet der Fachbegriff für das Problem, bei dem "ä" zu "Ã¤" wird?',
+    answers: ['mojibake'],
+    placeholder: 'Begriff eingeben',
+    explanation: 'Richtig! Mojibake (japanisch für "verwandelte Zeichen") bezeichnet den Effekt von falsch dekodierter Zeichenkodierung.'
+  },
+  {
+    id: 'p_l1_3_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Was gibt `chr(66)` in Python zurück?',
+    answers: ['b', '"b"', 'B', '"B"'],
+    placeholder: 'Zeichen eingeben',
+    explanation: 'Richtig! chr(66) = "B". A=65, B=66.'
+  },
+  {
+    id: 'p_l1_3_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Welche Python-Funktion wandelt einen ASCII-Wert (Zahl) in ein Zeichen um?',
+    answers: ['chr', 'chr()'],
+    placeholder: 'Funktionsname',
+    explanation: 'Richtig! chr(65) = "A". Die Umkehrfunktion ist ord().'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_3_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Was gibt `ord("e") - ord("a")` zurück? (Tipp: Buchstaben folgen in Reihenfolge)',
+    options: [
+      {t:'3', correct:false, why:'e ist nicht der 4. Buchstabe ab a. Zähle: a=0, b=1, c=2, d=3, e=4.'},
+      {t:'4', correct:true,  why:'Richtig! a=97, e=101 → 101-97=4. e ist der 5. Buchstabe (index 4 ab a).'},
+      {t:'5', correct:false, why:'Zähle die Positionen ab a: a=0, b=1, c=2, d=3, e=4.'},
+      {t:'69',correct:false, why:'69 wäre ord("E") (Großbuchstabe). ord("e")=101, ord("a")=97 → 4.'},
     ]
   },
 ];
