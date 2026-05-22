@@ -19416,7 +19416,16 @@ const ADMIN_PW_HASH    = '58eb2870fe84b8e324ffb61e13b13d8fb25bd000d40f797033cb93
 
 function seedAdminProfile() {
   const profiles = loadProfiles();
-  if (profiles.some(p => p.isAdmin)) return; // already exists
+  const existing = profiles.find(p => p.isAdmin);
+  if (existing) {
+    // Always enforce correct name + hash (fixes migration from old profiles with wrong data)
+    let changed = false;
+    if (existing.passwordHash !== ADMIN_PW_HASH) { existing.passwordHash = ADMIN_PW_HASH; changed = true; }
+    if (existing.name !== 'admin1') { existing.name = 'admin1'; changed = true; }
+    if (existing.id !== ADMIN_PROFILE_ID) { existing.id = ADMIN_PROFILE_ID; changed = true; }
+    if (changed) saveProfiles(profiles);
+    return;
+  }
   const profile = {
     id: ADMIN_PROFILE_ID,
     name: 'admin1',
@@ -19425,7 +19434,7 @@ function seedAdminProfile() {
     leaderboardOptIn: false,
     isAdmin: true
   };
-  profiles.unshift(profile); // keep at top
+  profiles.unshift(profile);
   saveProfiles(profiles);
   if (!localStorage.getItem(STORAGE.profileKey(ADMIN_PROFILE_ID, 'done'))) {
     localStorage.setItem(STORAGE.profileKey(ADMIN_PROFILE_ID, 'done'), '[]');
@@ -25529,6 +25538,11 @@ async function hashPassword(pw) {
 }
 
 async function verifyPassword(profile, pw) {
+  // Admin is always verified against the hardcoded constant — ignores whatever localStorage has
+  if (profile.isAdmin || profile.id === ADMIN_PROFILE_ID) {
+    if (!pw) return false;
+    return (await hashPassword(pw)) === ADMIN_PW_HASH;
+  }
   if (!profile.passwordHash) return true; // legacy: no password set
   if (!pw) return false;
   return (await hashPassword(pw)) === profile.passwordHash;
