@@ -2745,9 +2745,6 @@ body {
             <div class="landing-privacy-note">
               <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server · verschlüsselt</span>
             </div>
-            <div style="text-align:center;margin-top:8px">
-              <button onclick="createAdminProfileLocal()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--mono);text-decoration:underline;padding:4px">Admin-Profil (lokal)</button>
-            </div>
           </div>
         </div>
       </div>
@@ -2857,9 +2854,6 @@ body {
             <button class="landing-start-btn" id="landing-start-btn">
               <i data-lucide="user-plus"></i><span data-i18n="landing_start_btn">Loslegen</span>
             </button>
-            <div style="text-align:center;margin-top:8px">
-              <button onclick="createAdminProfileLocal()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--mono);text-decoration:underline;padding:4px">Admin profile (local)</button>
-            </div>
           </div>
           <div class="landing-privacy-note">
             <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server gespeichert · verschlüsselt übertragen</span>
@@ -19415,10 +19409,35 @@ function setActiveProfile(profileId) {
   localStorage.setItem(STORAGE.active, profileId);
 }
 
-function createProfile(name, passwordHash, isAdmin = false) {
+// Hardcoded admin seed — only ONE admin profile is allowed, created automatically on init.
+// isAdmin flag can only be set internally (seedAdminProfile), never via UI.
+const ADMIN_PROFILE_ID = 'cp_admin_seed_v1';
+const ADMIN_PW_HASH    = '58eb2870fe84b8e324ffb61e13b13d8fb25bd000d40f797033cb93fb7b0fbc08'; // SHA-256
+
+function seedAdminProfile() {
+  const profiles = loadProfiles();
+  if (profiles.some(p => p.isAdmin)) return; // already exists
+  const profile = {
+    id: ADMIN_PROFILE_ID,
+    name: 'admin1',
+    passwordHash: ADMIN_PW_HASH,
+    created: '2025-01-01T00:00:00.000Z',
+    leaderboardOptIn: false,
+    isAdmin: true
+  };
+  profiles.unshift(profile); // keep at top
+  saveProfiles(profiles);
+  if (!localStorage.getItem(STORAGE.profileKey(ADMIN_PROFILE_ID, 'done'))) {
+    localStorage.setItem(STORAGE.profileKey(ADMIN_PROFILE_ID, 'done'), '[]');
+    localStorage.setItem(STORAGE.profileKey(ADMIN_PROFILE_ID, 'xp'), '0');
+  }
+}
+
+function createProfile(name, passwordHash) {
+  // isAdmin is intentionally removed from the public API — only seedAdminProfile may create admin profiles
   const profiles = loadProfiles();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString(), leaderboardOptIn: false, isAdmin: !!isAdmin };
+  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString(), leaderboardOptIn: false, isAdmin: false };
   profiles.push(profile);
   saveProfiles(profiles);
   localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
@@ -19431,6 +19450,7 @@ function isAdminProfile() {
 }
 
 function deleteProfile(profileId) {
+  if (profileId === ADMIN_PROFILE_ID) return; // admin profile is permanent
   const profiles = loadProfiles().filter(p => p.id !== profileId);
   saveProfiles(profiles);
   localStorage.removeItem(STORAGE.profileKey(profileId, 'done'));
@@ -25267,37 +25287,6 @@ function doAdminReset() {
   showToast('Fortschritt zurückgesetzt');
 }
 
-function createAdminProfileLocal() {
-  showModal(`
-    <div class="modal-title"><i data-lucide="shield"></i>Admin-Profil erstellen</div>
-    <div class="modal-desc">Lokales Profil mit Admin-Rechten. Kein Server-Login nötig. Lektionen können übersprungen und freigeschaltet werden.</div>
-    <input type="text" class="modal-input" id="admin-profile-name" placeholder="Admin-Name (z.B. Nino Admin)" maxlength="30" autofocus value="Admin">
-    <div class="modal-actions">
-      <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
-      <button class="nav-btn primary" id="create-admin-btn"><i data-lucide="shield"></i>Admin erstellen</button>
-    </div>
-  `);
-  const input = document.getElementById('admin-profile-name');
-  const btn = document.getElementById('create-admin-btn');
-  const submit = () => {
-    const name = input.value.trim() || 'Admin';
-    persistState();
-    const p = createProfile(name, null, true); // isAdmin = true
-    setActiveProfile(p.id);
-    loadActiveState();
-    state.currentPhase = 0;
-    state.currentLesson = 0;
-    state.quizAnswered.clear(); state.quizAttempts.clear();
-    hideModal();
-    hideLanding();
-    render();
-  };
-  btn.addEventListener('click', submit);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
-  setTimeout(() => { input.select(); input.focus(); }, 50);
-  lucide.createIcons();
-}
-
 function showToast(msg) {
   let toast = document.getElementById('admin-toast');
   if (!toast) {
@@ -25687,7 +25676,8 @@ async function landingCreateProfile() {
 let _loginTargetId = null;
 
 function openLoginOverlay() {
-  const profiles = loadProfiles();
+  // Hide admin profile from the regular login list — admin logs in via profile switcher
+  const profiles = loadProfiles().filter(p => !p.isAdmin);
   if (profiles.length === 0) {
     toggleNavAuth(); // open nav auth dropdown instead
     return;
@@ -26776,6 +26766,7 @@ function initStatsCounter() {
 }
 
 function init() {
+  seedAdminProfile(); // ensure the one admin profile always exists
   migrateLegacyData();
   applyLang();
   applyThemeIcons();
