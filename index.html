@@ -1105,6 +1105,102 @@ body {
 }
 .psp-admin-btn.green:hover { background: rgba(34,197,94,.18); }
 
+/* ── ADMIN USER LIST ─────────────────────────────────────────── */
+.psp-users-zone {
+  margin-top: 28px;
+}
+.psp-users-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.psp-users-title [data-lucide] { width: 16px; height: 16px; color: var(--accent2); }
+.psp-users-count {
+  font-size: 11px;
+  font-family: var(--mono);
+  background: var(--accent-glow);
+  color: var(--accent2);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+.psp-users-empty {
+  color: var(--text3);
+  font-size: 13px;
+  padding: 16px;
+  text-align: center;
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius);
+}
+.psp-user-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  transition: background .15s;
+}
+.psp-user-row:hover { background: var(--surface2); }
+.psp-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent2);
+  font-family: var(--mono);
+  flex-shrink: 0;
+}
+.psp-user-info { min-width: 0; }
+.psp-user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.psp-user-meta { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.psp-user-xp {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--accent2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.psp-user-bar-wrap { width: 64px; }
+.psp-user-bar-bg {
+  height: 5px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.psp-user-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+.psp-user-pct {
+  font-size: 10px;
+  color: var(--text3);
+  font-family: var(--mono);
+  margin-top: 2px;
+  text-align: right;
+}
+
 /* ── DIFFICULTY BADGE in profile bar ────────────────────────── */
 .diff-badge {
   font-size: 10px;
@@ -25346,15 +25442,54 @@ function showProfileStats() {
     </div>`;
   }).join('');
 
-  const adminZone = p.isAdmin ? `
+  const adminZone = p.isAdmin ? (() => {
+    // Admin controls
+    const controls = `
     <div class="psp-admin-zone">
       <div class="psp-admin-title"><i data-lucide="shield"></i>Admin-Kontrollen</div>
       <div class="psp-admin-btns">
         <button class="psp-admin-btn green" onclick="adminUnlockAll();buildPspBody()"><i data-lucide="unlock"></i>Alles freischalten</button>
         <button class="psp-admin-btn" onclick="adminResetProgress()"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</button>
       </div>
-    </div>
-  ` : '';
+    </div>`;
+
+    // User list
+    const allUsers = loadProfiles().filter(u => !u.isAdmin);
+    const totalL = getTotalLessons();
+    const userRows = allUsers.length === 0
+      ? `<div class="psp-users-empty"><i data-lucide="users"></i>&nbsp; Noch keine registrierten Nutzer.</div>`
+      : allUsers.map(u => {
+          const ud = loadProfileData(u.id);
+          const done = ud.completed.size;
+          const pct  = totalL > 0 ? Math.round(done / totalL * 100) : 0;
+          const initials = escapeHtml(u.name.charAt(0).toUpperCase());
+          const joined = u.created ? new Date(u.created).toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'numeric'}) : '—';
+          return `
+          <div class="psp-user-row">
+            <div class="psp-user-avatar">${initials}</div>
+            <div class="psp-user-info">
+              <div class="psp-user-name">${escapeHtml(u.name)}</div>
+              <div class="psp-user-meta">Beigetreten ${joined} · ${done} / ${totalL} Lektionen</div>
+            </div>
+            <div class="psp-user-xp">${ud.xp} XP</div>
+            <div class="psp-user-bar-wrap">
+              <div class="psp-user-bar-bg"><div class="psp-user-bar-fill" style="width:${pct}%"></div></div>
+              <div class="psp-user-pct">${pct}%</div>
+            </div>
+          </div>`;
+        }).join('');
+
+    const userList = `
+    <div class="psp-users-zone">
+      <div class="psp-users-title">
+        <i data-lucide="users"></i>Registrierte Nutzer
+        <span class="psp-users-count">${allUsers.length}</span>
+      </div>
+      ${userRows}
+    </div>`;
+
+    return controls + userList;
+  })() : '';
 
   const body = `
     <div class="psp-hero">
