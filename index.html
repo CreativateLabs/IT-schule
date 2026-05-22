@@ -700,6 +700,22 @@ body {
   color: var(--red);
 }
 
+/* wrong-attempt = 1st wrong try — option disabled but no full lock yet */
+.quiz-option.wrong-attempt {
+  border-color: var(--red);
+  background: var(--red-bg);
+  color: var(--red);
+  opacity: 0.7;
+  animation: quizShake 0.35s ease;
+}
+@keyframes quizShake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
 .quiz-feedback {
   margin-top: 12px;
   padding: 12px 16px;
@@ -711,7 +727,54 @@ body {
 
 .quiz-feedback.show { display: block; }
 .quiz-feedback.good { background: var(--green-bg); color: var(--green); border: 1px solid rgba(62,207,122,0.2); }
-.quiz-feedback.bad { background: var(--red-bg); color: var(--red); border: 1px solid rgba(247,106,106,0.2); }
+.quiz-feedback.bad  { background: var(--red-bg); color: var(--red); border: 1px solid rgba(247,106,106,0.2); }
+/* soft-bad = "Noch ein Versuch" — less alarming, keeps options active */
+.quiz-feedback.try-again { background: rgba(245,158,11,.1); color: #d97706; border: 1px solid rgba(245,158,11,.25); font-weight: 500; }
+
+/* ── RETRY CHOICE (after 2nd wrong) ──────────────────────────── */
+.quiz-retry-choice {
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--red-bg);
+  border: 1px solid rgba(247,106,106,.25);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.quiz-retry-msg {
+  font-size: 13px;
+  color: var(--red);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.quiz-retry-msg [data-lucide] { width: 14px; height: 14px; flex-shrink: 0; }
+.quiz-retry-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.quiz-retry-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all .15s;
+}
+.quiz-retry-btn:hover { border-color: var(--border3,var(--border2)); background: var(--surface3,var(--surface)); color: var(--text); }
+.quiz-retry-btn.hint-btn { border-color: rgba(245,158,11,.4); color: #d97706; background: rgba(245,158,11,.06); }
+.quiz-retry-btn.hint-btn:hover { background: rgba(245,158,11,.14); }
+.quiz-retry-btn.reveal-btn { border-color: rgba(247,106,106,.4); color: var(--red); background: rgba(247,106,106,.06); }
+.quiz-retry-btn.reveal-btn:hover { background: rgba(247,106,106,.14); }
+.quiz-retry-btn [data-lucide] { width: 12px; height: 12px; }
 
 /* ── QUESTION TYPE: TRUE/FALSE ─────────────────────────────── */
 .tf-options {
@@ -757,6 +820,7 @@ body {
 }
 .fill-input:focus { border-color: var(--accent); }
 .fill-input:disabled { opacity: 0.6; cursor: not-allowed; }
+.fill-input.fill-shake { animation: quizShake 0.35s ease; border-color: var(--red); }
 .fill-btn {
   padding: 10px 18px;
   border-radius: var(--radius);
@@ -19385,6 +19449,7 @@ let state = {
   xp: 0,
   activeProfile: null,
   quizAnswered: new Set(),   // cleared on navigation — used for step-locks
+  quizAttempts: new Map(),   // id → wrong-attempt count (1 = 1st wrong, 2+ = show choice)
   earnedQuizIds: new Set(),  // persistent — prevents double-awarding XP
   shownForLesson: {},        // { lessonId: [questionId, ...] } — tracks shown pool questions
   lessonAttemptXP: 0,        // XP earned in current lesson attempt (pool lessons)
@@ -19614,20 +19679,39 @@ function answerTF(id, val, btn) {
   const data = QUIZ_DATA[id];
   if (!data) return;
   const correct = (val === 'true') === data.correct;
-  state.quizAnswered.add(id);
-  const btns = document.querySelectorAll(`#opts-${id} .tf-btn`);
-  btns.forEach(b => b.disabled = true);
-  btn.classList.add(correct ? 'correct' : 'wrong');
-  if (!correct) btns.forEach(b => { if ((b.dataset.val === 'true') === data.correct) b.classList.add('correct'); });
-  const fb = document.getElementById('fb-' + id);
-  fb.textContent = data.why;
-  fb.className = 'quiz-feedback show ' + (correct ? 'good' : 'bad');
+  const en = LANG.get() === 'en';
+
   if (correct) {
+    // TF correct — reuse common helper (xp 8 default)
     const xpAmt = data.xp || 8;
+    state.quizAnswered.add(id);
+    state.quizAttempts.delete(id);
+    document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(b => b.disabled = true);
+    btn.classList.add('correct');
+    const fb = document.getElementById('fb-' + id);
+    const why = data.explanation || data.why || '';
+    if (fb) { fb.style.cssText = ''; fb.textContent = why; fb.className = 'quiz-feedback show good'; }
     if (!data.optional && data.poolQuestion) state.lessonAttemptXP += xpAmt;
     if (!state.earnedQuizIds.has(id)) { state.earnedQuizIds.add(id); addXP(xpAmt); }
     else { unlockNextStep(); checkLessonComplete(); }
-  } else { checkLessonComplete(); }
+  } else {
+    // TF wrong — only 2 options, so 1st wrong = try again (other button still active)
+    const attempts = (state.quizAttempts.get(id) || 0) + 1;
+    state.quizAttempts.set(id, attempts);
+    btn.classList.add('wrong-attempt');
+    btn.disabled = true;
+    if (attempts === 1) {
+      const fb = document.getElementById('fb-' + id);
+      fb.innerHTML = `<i data-lucide="rotate-ccw"></i> ${en ? 'Wrong — one more try!' : 'Falsch — noch ein Versuch!'}`;
+      fb.className = 'quiz-feedback show try-again';
+      fb.style.cssText = '';
+      lucide.createIcons({ nodes: [fb] });
+    } else {
+      // 2nd wrong: both buttons already disabled, show choice
+      document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(b => b.disabled = true);
+      _showRetryChoice(id, data, 'tf');
+    }
+  }
 }
 
 // Answer a fill-in / output-predict question
@@ -19640,19 +19724,41 @@ function answerFill(id) {
   const userVal = input.value.trim().toLowerCase();
   if (!userVal) return;
   const correct = (data.answers || []).some(a => a.toLowerCase() === userVal);
-  state.quizAnswered.add(id);
-  input.disabled = true;
-  const fillBtn = document.querySelector(`[data-fill="${id}"]`);
-  if (fillBtn) fillBtn.disabled = true;
-  const fb = document.getElementById('fb-' + id);
-  fb.textContent = correct ? (data.why || 'Richtig!') : `Falsch. Richtig wäre: ${data.answers[0]}`;
-  fb.className = 'quiz-feedback show ' + (correct ? 'good' : 'bad');
+  const en = LANG.get() === 'en';
+
   if (correct) {
+    state.quizAnswered.add(id);
+    state.quizAttempts.delete(id);
+    input.disabled = true;
+    const fillBtn = document.querySelector(`[data-fill="${id}"]`);
+    if (fillBtn) fillBtn.disabled = true;
+    const fb = document.getElementById('fb-' + id);
+    const why = data.explanation || data.why || (en ? 'Correct!' : 'Richtig!');
+    if (fb) { fb.style.cssText = ''; fb.textContent = why; fb.className = 'quiz-feedback show good'; }
     const xpAmt = data.xp || 12;
     if (!data.optional && data.poolQuestion) state.lessonAttemptXP += xpAmt;
     if (!state.earnedQuizIds.has(id)) { state.earnedQuizIds.add(id); addXP(xpAmt); }
     else { unlockNextStep(); checkLessonComplete(); }
-  } else { checkLessonComplete(); }
+  } else {
+    const attempts = (state.quizAttempts.get(id) || 0) + 1;
+    state.quizAttempts.set(id, attempts);
+    input.value = '';
+    input.classList.add('fill-shake');
+    setTimeout(() => input.classList.remove('fill-shake'), 400);
+    if (attempts === 1) {
+      const fb = document.getElementById('fb-' + id);
+      fb.innerHTML = `<i data-lucide="rotate-ccw"></i> ${en ? 'Wrong — one more try!' : 'Falsch — noch ein Versuch!'}`;
+      fb.className = 'quiz-feedback show try-again';
+      fb.style.cssText = '';
+      lucide.createIcons({ nodes: [fb] });
+      input.focus();
+    } else {
+      input.disabled = true;
+      const fillBtn = document.querySelector(`[data-fill="${id}"]`);
+      if (fillBtn) fillBtn.disabled = true;
+      _showRetryChoice(id, data, 'fill');
+    }
+  }
 }
 
 // Check if all required questions in a pool-based lesson are answered
@@ -19710,7 +19816,7 @@ function retryLesson() {
   const lesson = getCurrentLesson();
   // Reset shown questions so new ones are picked (but keep earnedQuizIds — no double award)
   delete state.shownForLesson[lesson.id];
-  state.quizAnswered.clear();
+  state.quizAnswered.clear(); state.quizAttempts.clear();
   state.lessonAttemptXP = 0;
   state.lessonAttemptMaxXP = 0;
   state.lessonPassed = false;
@@ -24406,35 +24512,117 @@ function answerQuiz(id, idx, btn) {
   const data = QUIZ_DATA[id];
   if (!data) return;
   const option = data.options[idx];
-  state.quizAnswered.add(id);
-  const opts = document.querySelectorAll(`#opts-${id} .quiz-option`);
-  opts.forEach(o => o.disabled = true);
-  btn.classList.add(option.correct ? 'correct' : 'wrong');
-  if (!option.correct) {
-    opts.forEach((o, i) => { if (data.options[i].correct) o.classList.add('correct'); });
-  }
-  const fb = document.getElementById('fb-' + id);
-  fb.textContent = option.why;
-  fb.className = 'quiz-feedback show ' + (option.correct ? 'good' : 'bad');
+
   if (option.correct) {
-    const xpAmt = data.xp || 10;
-    // Track attempt XP for pool-based lessons (non-optional questions)
-    if (!data.optional && data.poolQuestion) {
-      state.lessonAttemptXP += xpAmt;
-    }
-    // No double-award: only grant XP if not already earned
-    if (!state.earnedQuizIds.has(id)) {
-      state.earnedQuizIds.add(id);
-      addXP(xpAmt);
-    } else {
-      // Already earned — just unlock next step, don't award again
-      unlockNextStep();
-      checkLessonComplete();
-    }
+    _quizMarkCorrect(id, data, btn, option.why);
   } else {
-    // Wrong answer: still check if all required questions are done for pool lessons
-    checkLessonComplete();
+    const attempts = (state.quizAttempts.get(id) || 0) + 1;
+    state.quizAttempts.set(id, attempts);
+    btn.classList.add('wrong-attempt');
+    btn.disabled = true;
+    if (attempts === 1) {
+      const fb = document.getElementById('fb-' + id);
+      const en = LANG.get() === 'en';
+      fb.innerHTML = `<i data-lucide="rotate-ccw"></i> ${en ? 'Wrong — one more try!' : 'Falsch — noch ein Versuch!'}`;
+      fb.className = 'quiz-feedback show try-again';
+      lucide.createIcons({ nodes: [fb] });
+    } else {
+      document.querySelectorAll(`#opts-${id} .quiz-option`).forEach(o => o.disabled = true);
+      _showRetryChoice(id, data, 'mc');
+    }
   }
+}
+
+function _quizMarkCorrect(id, data, btn, why) {
+  state.quizAnswered.add(id);
+  state.quizAttempts.delete(id);
+  document.querySelectorAll(`#opts-${id} .quiz-option`).forEach(o => o.disabled = true);
+  document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(o => o.disabled = true);
+  if (btn) btn.classList.add('correct');
+  const fb = document.getElementById('fb-' + id);
+  if (fb) { fb.style.padding = ''; fb.style.background = ''; fb.style.border = ''; fb.textContent = why || ''; fb.className = 'quiz-feedback show good'; }
+  const xpAmt = data.xp || 10;
+  if (!data.optional && data.poolQuestion) state.lessonAttemptXP += xpAmt;
+  if (!state.earnedQuizIds.has(id)) { state.earnedQuizIds.add(id); addXP(xpAmt); }
+  else { unlockNextStep(); checkLessonComplete(); }
+}
+
+function _showRetryChoice(id, data, type) {
+  const fb = document.getElementById('fb-' + id);
+  if (!fb) return;
+  const en = LANG.get() === 'en';
+  fb.innerHTML = `
+    <div class="quiz-retry-choice">
+      <div class="quiz-retry-msg"><i data-lucide="x-circle"></i>${en ? 'Wrong again. What would you like to do?' : 'Nochmal falsch. Was möchtest du tun?'}</div>
+      <div class="quiz-retry-btns">
+        <button class="quiz-retry-btn hint-btn" onclick="quizShowHint('${id}','${type}')"><i data-lucide="lightbulb"></i>${en ? 'Hint' : 'Hinweis'}</button>
+        <button class="quiz-retry-btn reveal-btn" onclick="quizRevealAnswer('${id}','${type}')"><i data-lucide="eye"></i>${en ? 'Show answer' : 'Antwort zeigen'}</button>
+      </div>
+    </div>`;
+  fb.className = 'quiz-feedback show';
+  fb.style.cssText = 'padding:0;background:none;border:none;margin-top:12px;display:block';
+  lucide.createIcons({ nodes: [fb] });
+}
+
+function quizShowHint(id, type) {
+  const data = QUIZ_DATA[id];
+  if (!data) return;
+  const en = LANG.get() === 'en';
+  const fb = document.getElementById('fb-' + id);
+  if (!fb) return;
+  let hintText = '';
+  if (type === 'mc') {
+    const correct = data.options.find(o => o.correct);
+    if (correct) {
+      const words = correct.t.split(' ').slice(0, 3).join(' ');
+      hintText = (en ? 'Hint: The correct answer starts with "' : 'Hinweis: Die richtige Antwort beginnt mit "') + words + '…"';
+    }
+  } else if (type === 'tf') {
+    const expl = data.explanation || data.why || '';
+    hintText = (en ? 'Hint: ' : 'Hinweis: ') + expl.replace(/^(Richtig!|Falsch!|Correct!|Wrong!|True\.|False\.)\s*/i, '');
+  } else if (type === 'fill') {
+    hintText = (en ? 'Hint — expected format: ' : 'Hinweis — erwartetes Format: ') + (data.placeholder || data.answers[0]);
+  }
+  fb.innerHTML = `
+    <div class="quiz-retry-choice">
+      <div class="quiz-retry-msg" style="color:#d97706"><i data-lucide="lightbulb"></i>${hintText}</div>
+      <div class="quiz-retry-btns">
+        <button class="quiz-retry-btn reveal-btn" onclick="quizRevealAnswer('${id}','${type}')"><i data-lucide="eye"></i>${en ? 'Show answer' : 'Antwort zeigen'}</button>
+      </div>
+    </div>`;
+  fb.className = 'quiz-feedback show';
+  fb.style.cssText = 'padding:0;background:none;border:none;margin-top:12px;display:block';
+  lucide.createIcons({ nodes: [fb] });
+}
+
+function quizRevealAnswer(id, type) {
+  const data = QUIZ_DATA[id];
+  if (!data) return;
+  state.quizAnswered.add(id);
+  state.quizAttempts.delete(id);
+  const fb = document.getElementById('fb-' + id);
+  if (fb) fb.style.cssText = '';
+  if (type === 'mc') {
+    document.querySelectorAll(`#opts-${id} .quiz-option`).forEach((o, i) => {
+      o.disabled = true;
+      if (data.options[i] && data.options[i].correct) o.classList.add('correct');
+    });
+    const correct = data.options.find(o => o.correct);
+    if (fb) { fb.textContent = correct ? correct.why : ''; fb.className = 'quiz-feedback show bad'; }
+  } else if (type === 'tf') {
+    document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(b => {
+      b.disabled = true;
+      if ((b.dataset.val === 'true') === data.correct) b.classList.add('correct');
+    });
+    if (fb) { fb.textContent = data.explanation || data.why || ''; fb.className = 'quiz-feedback show bad'; }
+  } else if (type === 'fill') {
+    const input = document.getElementById('fill-' + id);
+    if (input) { input.disabled = true; input.value = data.answers[0]; }
+    const fillBtn = document.querySelector(`[data-fill="${id}"]`);
+    if (fillBtn) fillBtn.disabled = true;
+    if (fb) { fb.textContent = data.explanation || ''; fb.className = 'quiz-feedback show bad'; }
+  }
+  checkLessonComplete();
 }
 
 function checkExercise(id) {
@@ -24666,7 +24854,7 @@ function goToPhase(idx) {
   if (!isPhaseUnlocked(idx)) return; // phase not yet accessible
   state.currentPhase = idx;
   state.currentLesson = 0;
-  state.quizAnswered.clear();
+  state.quizAnswered.clear(); state.quizAttempts.clear();
   render();
 }
 
@@ -24686,7 +24874,7 @@ function navigate(dir) {
   const newLesson = state.currentLesson + dir;
   if (newLesson >= 0 && newLesson < phase.lessons.length) {
     state.currentLesson = newLesson;
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     render();
     return;
   }
@@ -24696,7 +24884,7 @@ function navigate(dir) {
     if (dir === 1 && !isPhaseUnlocked(newPhase)) return;
     state.currentPhase = newPhase;
     state.currentLesson = dir === 1 ? 0 : PHASES[newPhase].lessons.length - 1;
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     render();
   }
 }
@@ -24744,7 +24932,7 @@ function buildNav() {
     item.addEventListener('click', () => {
       if (item.dataset.locked) return; // blocked — lesson not yet unlocked
       state.currentLesson = parseInt(item.dataset.lesson, 10);
-      state.quizAnswered.clear();
+      state.quizAnswered.clear(); state.quizAttempts.clear();
       render();
     });
   });
@@ -25011,7 +25199,7 @@ function doSwitchProfile(profileId) {
   loadActiveState();
   state.currentPhase = 0;
   state.currentLesson = 0;
-  state.quizAnswered.clear();
+  state.quizAnswered.clear(); state.quizAttempts.clear();
   render();
 }
 
@@ -25071,7 +25259,7 @@ function doAdminReset() {
   state.xp = 0;
   state.earnedQuizIds = new Set();
   state.shownForLesson = {};
-  state.quizAnswered.clear();
+  state.quizAnswered.clear(); state.quizAttempts.clear();
   persistState();
   updateProgress();
   updateNav();
@@ -25099,7 +25287,7 @@ function createAdminProfileLocal() {
     loadActiveState();
     state.currentPhase = 0;
     state.currentLesson = 0;
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     hideModal();
     hideLanding();
     render();
@@ -25255,7 +25443,7 @@ function showNewProfileModal(isFirst = false) {
     loadActiveState();
     state.currentPhase = 0;
     state.currentLesson = 0;
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     hideModal();
     render();
   };
@@ -25280,7 +25468,7 @@ function showDeleteConfirm() {
     loadActiveState();
     state.currentPhase = 0;
     state.currentLesson = 0;
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     hideModal();
     if (!state.activeProfile) wipeTransition(() => showLanding());
     else render();
@@ -25319,7 +25507,7 @@ function importProgress(file) {
       loadActiveState();
       state.currentPhase = 0;
       state.currentLesson = 0;
-      state.quizAnswered.clear();
+      state.quizAnswered.clear(); state.quizAttempts.clear();
       render();
       showModal(`
         <div class="modal-title"><i data-lucide="check-circle-2"></i>${t('import_ok_title')}</div>
@@ -25443,7 +25631,7 @@ async function landingLogin() {
     const phase0Len = PHASES[0].lessons.length;
     state.currentPhase = 0;
     state.currentLesson = Math.min(serverLesson, phase0Len - 1);
-    state.quizAnswered.clear();
+    state.quizAnswered.clear(); state.quizAttempts.clear();
     btn.disabled = false;
     hideLanding();
     render();
@@ -25487,7 +25675,7 @@ async function landingCreateProfile() {
   const p = createProfile(name, passwordHash);
   setActiveProfile(p.id);
   loadActiveState();
-  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear(); state.quizAttempts.clear();
   btn.disabled = false;
   hideLanding(); render();
 }
@@ -25564,7 +25752,7 @@ async function submitLogin() {
   persistState();
   setActiveProfile(profile.id);
   loadActiveState();
-  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear();
+  state.currentPhase = 0; state.currentLesson = 0; state.quizAnswered.clear(); state.quizAttempts.clear();
   hideLoginOverlay();
   hideLanding();
   render();
