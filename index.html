@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>PyCoBase – PythonCodeBase</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -2832,7 +2835,12 @@ body {
           <div class="landing-panel-sub" data-i18n="panel_login_sub">Mit deinem Account einloggen</div>
           <div class="landing-input-stack">
             <input type="text" class="landing-name-input" id="login-username-input" placeholder="Benutzername" maxlength="30" autocomplete="username" autocorrect="off" autocapitalize="none" spellcheck="false">
-            <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password" autocorrect="off" autocapitalize="none" spellcheck="false">
+            <div style="position:relative;display:flex;align-items:center;">
+              <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password" autocorrect="off" autocapitalize="none" spellcheck="false" style="width:100%;padding-right:2.6rem;">
+              <button type="button" id="login-pw-toggle" onclick="toggleLoginPw()" style="position:absolute;right:0.7rem;background:none;border:none;cursor:pointer;color:var(--text2);padding:0;display:flex;" title="Passwort anzeigen">
+                <i data-lucide="eye" style="width:18px;height:18px;"></i>
+              </button>
+            </div>
             <div class="landing-input-error" id="landing-login-error"></div>
             <button class="landing-start-btn" id="landing-login-btn" onclick="landingLogin()">
               <i data-lucide="log-in"></i><span>Einloggen</span>
@@ -25629,7 +25637,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     loadActiveState();
     state.currentPhase = 0; state.currentLesson = 0;
     state.quizAnswered.clear(); state.quizAttempts.clear();
-    toggleNavAuth();
+    closeNavAuth();
     hideLanding();
     render();
     return;
@@ -25649,7 +25657,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     loadActiveState();
     state.currentPhase = 0; state.currentLesson = 0;
     state.quizAnswered.clear(); state.quizAttempts.clear();
-    toggleNavAuth(); // close dropdown
+    closeNavAuth();
     hideLanding();
     render();
     return;
@@ -25681,11 +25689,32 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     state.currentLesson = Math.min(serverLesson, phase0Len - 1);
     state.quizAnswered.clear(); state.quizAttempts.clear();
     btn.disabled = false;
+    closeNavAuth();
     hideLanding();
     render();
   } catch(e) {
     errEl.textContent = e.message === '401' ? 'Falscher Benutzername oder Passwort.' : (e.message || 'Login fehlgeschlagen.');
     btn.disabled = false;
+  }
+}
+
+// Close nav auth panel (safe — never accidentally opens it)
+function closeNavAuth() {
+  const panel = document.getElementById('nav-auth-panel');
+  if (panel) panel.classList.remove('open');
+}
+
+function toggleLoginPw() {
+  const inp = document.getElementById('login-password-input');
+  const btn = document.getElementById('login-pw-toggle');
+  if (!inp) return;
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  if (btn) {
+    btn.innerHTML = show
+      ? '<i data-lucide="eye-off" style="width:18px;height:18px;"></i>'
+      : '<i data-lucide="eye" style="width:18px;height:18px;"></i>';
+    lucide.createIcons({ nodes: [btn] });
   }
 }
 
