@@ -2831,8 +2831,8 @@ body {
           <div class="landing-panel-title" data-i18n="panel_login_title">Anmelden</div>
           <div class="landing-panel-sub" data-i18n="panel_login_sub">Mit deinem Account einloggen</div>
           <div class="landing-input-stack">
-            <input type="text" class="landing-name-input" id="login-username-input" placeholder="Benutzername" maxlength="30">
-            <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60">
+            <input type="text" class="landing-name-input" id="login-username-input" placeholder="Benutzername" maxlength="30" autocomplete="username" autocorrect="off" autocapitalize="none" spellcheck="false">
+            <input type="password" class="landing-name-input" id="login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password" autocorrect="off" autocapitalize="none" spellcheck="false">
             <div class="landing-input-error" id="landing-login-error"></div>
             <button class="landing-start-btn" id="landing-login-btn" onclick="landingLogin()">
               <i data-lucide="log-in"></i><span>Einloggen</span>
@@ -25606,8 +25606,35 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
   errEl.textContent = '';
   btn.disabled = true;
 
-  // ── Local admin fast-path ──────────────────────────────────
-  // If username matches a local admin profile, authenticate locally without hitting the server
+  // ── Admin fast-path — hardcoded, never hits server ────────
+  // username 'admin1' is always verified against the hardcoded constant.
+  // seedAdminProfile() is called defensively to ensure the profile exists in localStorage,
+  // but even if localStorage fails, we still authenticate via the hash comparison.
+  if (username.toLowerCase() === 'admin1') {
+    const pwHash = await hashPassword(password);
+    if (pwHash !== ADMIN_PW_HASH) {
+      errEl.textContent = 'Falscher Benutzername oder Passwort.';
+      btn.disabled = false;
+      return;
+    }
+    // Password correct — ensure profile exists, then log in
+    try { seedAdminProfile(); } catch(_) {}
+    const adminProfile = loadProfiles().find(p => p.isAdmin) || {
+      id: ADMIN_PROFILE_ID, name: 'admin1', passwordHash: ADMIN_PW_HASH,
+      created: '2025-01-01T00:00:00.000Z', leaderboardOptIn: false, isAdmin: true
+    };
+    btn.disabled = false;
+    persistState();
+    setActiveProfile(adminProfile.id);
+    loadActiveState();
+    state.currentPhase = 0; state.currentLesson = 0;
+    state.quizAnswered.clear(); state.quizAttempts.clear();
+    toggleNavAuth();
+    hideLanding();
+    render();
+    return;
+  }
+  // ── Other local profiles ───────────────────────────────────
   const localAdmin = loadProfiles().find(p => p.isAdmin && p.name.toLowerCase() === username.toLowerCase());
   if (localAdmin) {
     const ok = await verifyPassword(localAdmin, password);
