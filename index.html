@@ -25610,6 +25610,28 @@ async function landingLogin() {
   errEl.textContent = '';
   btn.disabled = true;
 
+  // ── Local admin fast-path ──────────────────────────────────
+  // If username matches a local admin profile, authenticate locally without hitting the server
+  const localAdmin = loadProfiles().find(p => p.isAdmin && p.name.toLowerCase() === username.toLowerCase());
+  if (localAdmin) {
+    const ok = await verifyPassword(localAdmin, password);
+    if (!ok) {
+      errEl.textContent = 'Falscher Benutzername oder Passwort.';
+      btn.disabled = false;
+      return;
+    }
+    btn.disabled = false;
+    persistState();
+    setActiveProfile(localAdmin.id);
+    loadActiveState();
+    state.currentPhase = 0; state.currentLesson = 0;
+    state.quizAnswered.clear(); state.quizAttempts.clear();
+    toggleNavAuth(); // close dropdown
+    hideLanding();
+    render();
+    return;
+  }
+  // ── Server login ───────────────────────────────────────────
   try {
     await API.login(username, password);
     const me = await API.getMe();
