@@ -25676,8 +25676,11 @@ async function landingCreateProfile() {
 let _loginTargetId = null;
 
 function openLoginOverlay() {
-  // Hide admin profile from the regular login list — admin logs in via profile switcher
-  const profiles = loadProfiles().filter(p => !p.isAdmin);
+  const allProfiles = loadProfiles();
+  // Regular profiles first, admin always last (visually separated)
+  const regular = allProfiles.filter(p => !p.isAdmin);
+  const admin   = allProfiles.filter(p => p.isAdmin);
+  const profiles = [...regular, ...admin];
   if (profiles.length === 0) {
     toggleNavAuth(); // open nav auth dropdown instead
     return;
@@ -25687,11 +25690,12 @@ function openLoginOverlay() {
   list.innerHTML = profiles.map(p => {
     const data = loadProfileData(p.id);
     const pct = total > 0 ? Math.round(data.completed.size / total * 100) : 0;
+    const adminTag = p.isAdmin ? `<span style="font-size:9px;font-family:var(--mono);padding:1px 6px;border-radius:8px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#ef4444;text-transform:uppercase;margin-left:6px">Admin</span>` : '';
     return `<button class="landing-profile-item" data-pid="${p.id}">
-      <div class="landing-profile-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div class="landing-profile-avatar" ${p.isAdmin ? 'style="background:#ef4444"' : ''}>${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
       <div>
-        <div class="landing-profile-name">${escapeHtml(p.name)}</div>
-        <div class="landing-profile-stats">${data.xp} XP &middot; ${pct}%</div>
+        <div class="landing-profile-name">${escapeHtml(p.name)}${adminTag}</div>
+        <div class="landing-profile-stats">${p.isAdmin ? 'Passwort erforderlich' : data.xp + ' XP · ' + pct + '%'}</div>
       </div>
       <div class="landing-profile-arrow"><i data-lucide="arrow-right"></i></div>
     </button>`;
