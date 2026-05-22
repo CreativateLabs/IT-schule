@@ -26848,6 +26848,28 @@ function initStatsCounter() {
   obs.observe(statsEl);
 }
 
+// ── Admin URL-trigger: navigate to /#admin to bypass form login ──
+// Uses native prompt() — no form IDs, no localStorage dependency.
+async function _adminUrlLogin() {
+  history.replaceState(null, '', location.pathname + location.search);
+  await new Promise(r => setTimeout(r, 600)); // wait for landing to render
+  const pw = prompt('Admin-Passwort:');
+  if (!pw) return;
+  const hash = await hashPassword(pw);
+  if (hash !== ADMIN_PW_HASH) { alert('Falsches Passwort.'); return; }
+  try { seedAdminProfile(); } catch(_) {}
+  const adminProfile = loadProfiles().find(p => p.isAdmin) || {
+    id: ADMIN_PROFILE_ID, name: 'admin1', passwordHash: ADMIN_PW_HASH,
+    created: '2025-01-01T00:00:00.000Z', leaderboardOptIn: false, isAdmin: true
+  };
+  try { localStorage.setItem(STORAGE.active, adminProfile.id); } catch(_) {}
+  loadActiveState();
+  state.currentPhase = 0; state.currentLesson = 0;
+  state.quizAnswered.clear(); state.quizAttempts.clear();
+  hideLanding();
+  render();
+}
+
 function init() {
   seedAdminProfile(); // ensure the one admin profile always exists
   migrateLegacyData();
@@ -26861,6 +26883,7 @@ function init() {
   showLanding();
   setTimeout(initScrollReveal, 100);
   setTimeout(initStatsCounter, 100);
+  if (window.location.hash === '#admin') _adminUrlLogin();
 }
 
 try { init(); } catch(e) {
