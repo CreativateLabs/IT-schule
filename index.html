@@ -860,6 +860,184 @@ body {
 .retry-btn:hover { opacity: 0.9; }
 .retry-btn [data-lucide] { width: 14px; height: 14px; }
 
+/* ── ADMIN BADGE & SKIP BUTTON ──────────────────────────────── */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-family: var(--mono);
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(239,68,68,.12);
+  border: 1px solid rgba(239,68,68,.3);
+  color: #ef4444;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+.admin-badge [data-lucide] { width: 9px; height: 9px; }
+#btn-admin-skip {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(239,68,68,.35);
+  background: rgba(239,68,68,.08);
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s;
+}
+#btn-admin-skip:hover { background: rgba(239,68,68,.18); }
+#btn-admin-skip [data-lucide] { width: 14px; height: 14px; }
+#btn-admin-skip.visible { display: inline-flex; }
+
+/* ── PROFILE STATS PAGE ──────────────────────────────────────── */
+#profile-stats-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  overflow-y: auto;
+  animation: fadeIn .18s ease;
+}
+#profile-stats-page.show { display: block; }
+.psp-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.psp-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: background .15s;
+}
+.psp-back:hover { background: var(--surface2); color: var(--text); }
+.psp-back [data-lucide] { width: 14px; height: 14px; }
+.psp-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.psp-body { max-width: 760px; margin: 0 auto; padding: 32px 24px 60px; }
+.psp-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+.psp-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.psp-hero-info { flex: 1; }
+.psp-hero-name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.psp-hero-meta { font-size: 13px; color: var(--text3); font-family: var(--mono); }
+.psp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.psp-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.psp-stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; font-family: var(--mono); }
+.psp-stat-value { font-size: 28px; font-weight: 700; color: var(--accent); font-family: var(--mono); line-height: 1.1; }
+.psp-stat-sub { font-size: 12px; color: var(--text3); }
+.psp-section-title { font-size: 13px; font-weight: 600; color: var(--text2); margin: 0 0 12px; text-transform: uppercase; letter-spacing: .06em; }
+.psp-phases { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.psp-phase-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+}
+.psp-phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.psp-phase-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.psp-phase-count { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+.psp-phase-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.psp-phase-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .4s ease; }
+.psp-phase-fill.complete { background: var(--green, #22c55e); }
+.psp-admin-zone {
+  background: rgba(239,68,68,.06);
+  border: 1px solid rgba(239,68,68,.25);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.psp-admin-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ef4444;
+  margin-bottom: 12px;
+}
+.psp-admin-title [data-lucide] { width: 14px; height: 14px; }
+.psp-admin-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.psp-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(239,68,68,.35);
+  background: rgba(239,68,68,.08);
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s;
+}
+.psp-admin-btn:hover { background: rgba(239,68,68,.18); }
+.psp-admin-btn [data-lucide] { width: 14px; height: 14px; }
+.psp-admin-btn.green {
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.08);
+  color: #22c55e;
+}
+.psp-admin-btn.green:hover { background: rgba(34,197,94,.18); }
+
 /* ── DIFFICULTY BADGE in profile bar ────────────────────────── */
 .diff-badge {
   font-size: 10px;
@@ -2503,6 +2681,9 @@ body {
             <div class="landing-privacy-note">
               <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server · verschlüsselt</span>
             </div>
+            <div style="text-align:center;margin-top:8px">
+              <button onclick="createAdminProfileLocal()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--mono);text-decoration:underline;padding:4px">Admin-Profil (lokal)</button>
+            </div>
           </div>
         </div>
       </div>
@@ -2612,6 +2793,9 @@ body {
             <button class="landing-start-btn" id="landing-start-btn">
               <i data-lucide="user-plus"></i><span data-i18n="landing_start_btn">Loslegen</span>
             </button>
+            <div style="text-align:center;margin-top:8px">
+              <button onclick="createAdminProfileLocal()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:var(--mono);text-decoration:underline;padding:4px">Admin profile (local)</button>
+            </div>
           </div>
           <div class="landing-privacy-note">
             <i data-lucide="lock"></i><span data-i18n="landing_privacy">Daten sicher auf unserem Server gespeichert · verschlüsselt übertragen</span>
@@ -2713,9 +2897,19 @@ body {
   <div class="lesson-nav">
     <button class="nav-btn" id="btn-prev" onclick="navigate(-1)"><i data-lucide="arrow-left"></i><span data-i18n="btn_back">Zurück</span></button>
     <span class="lesson-complete-badge" id="done-badge"><i data-lucide="check"></i><span data-i18n="btn_done">Abgeschlossen</span></span>
+    <button id="btn-admin-skip" onclick="adminSkipLesson()" title="Admin: Lektion überspringen"><i data-lucide="fast-forward"></i>Skip</button>
     <button class="nav-btn primary" id="btn-next" onclick="navigate(1)"><span data-i18n="btn_next">Weiter</span><i data-lucide="arrow-right"></i></button>
   </div>
 </main>
+
+<!-- ── PROFILE STATS PAGE ─────────────────────────────────────── -->
+<div id="profile-stats-page">
+  <div class="psp-topbar">
+    <button class="psp-back" onclick="closeProfileStats()"><i data-lucide="arrow-left"></i>Zurück</button>
+    <span class="psp-title">Mein Profil</span>
+  </div>
+  <div class="psp-body" id="psp-body"></div>
+</div>
 
 </div><!-- /#app -->
 
@@ -19157,15 +19351,19 @@ function setActiveProfile(profileId) {
   localStorage.setItem(STORAGE.active, profileId);
 }
 
-function createProfile(name, passwordHash) {
+function createProfile(name, passwordHash, isAdmin = false) {
   const profiles = loadProfiles();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString(), leaderboardOptIn: false };
+  const profile = { id, name: name.trim() || 'Unbenannt', passwordHash: passwordHash || null, created: new Date().toISOString(), leaderboardOptIn: false, isAdmin: !!isAdmin };
   profiles.push(profile);
   saveProfiles(profiles);
   localStorage.setItem(STORAGE.profileKey(id, 'done'), '[]');
   localStorage.setItem(STORAGE.profileKey(id, 'xp'), '0');
   return profile;
+}
+
+function isAdminProfile() {
+  return !!(state.activeProfile && state.activeProfile.isAdmin);
 }
 
 function deleteProfile(profileId) {
@@ -24567,6 +24765,13 @@ function updateNav() {
   const atEnd = (state.currentPhase === PHASES.length-1 && state.currentLesson === PHASES[state.currentPhase].lessons.length-1);
   // Weiter is disabled when at the last lesson OR when the current lesson is not yet complete
   document.getElementById('btn-next').disabled = atEnd || !isLessonComplete();
+  // Admin skip button
+  const skipBtn = document.getElementById('btn-admin-skip');
+  if (isAdminProfile() && !atEnd && !isLessonComplete()) {
+    skipBtn.classList.add('visible');
+  } else {
+    skipBtn.classList.remove('visible');
+  }
   const lesson = getCurrentLesson();
   const doneBadge = document.getElementById('done-badge');
   doneBadge.classList.toggle('show', state.completed.has(lesson.id));
@@ -24584,9 +24789,25 @@ function updateProfileBar() {
   if (p) {
     avatar.textContent = p.name.charAt(0).toUpperCase();
     nameEl.textContent = p.name;
+    // Admin badge
+    let badge = document.getElementById('profile-admin-badge');
+    if (p.isAdmin) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.id = 'profile-admin-badge';
+        badge.className = 'admin-badge';
+        badge.innerHTML = '<i data-lucide="shield"></i>Admin';
+        nameEl.parentNode.insertBefore(badge, nameEl.nextSibling);
+        lucide.createIcons();
+      }
+    } else {
+      if (badge) badge.remove();
+    }
   } else {
     avatar.textContent = '?';
     nameEl.textContent = '—';
+    const badge = document.getElementById('profile-admin-badge');
+    if (badge) badge.remove();
   }
 }
 
@@ -24715,6 +24936,7 @@ function buildProfileMenu() {
     </button>`;
   }).join('') + `
     <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="stats"><i data-lucide="bar-chart-2"></i>Mein Profil</button>
     <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>${t('menu_landing')}</button>
     ${serverLoggedIn
       ? `<button class="profile-menu-item profile-menu-danger" data-action="logout"><i data-lucide="log-out"></i>${t('menu_logout')}</button>`
@@ -24724,6 +24946,11 @@ function buildProfileMenu() {
     <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
     <div class="profile-menu-divider"></div>
     <button class="profile-menu-item" data-action="lb_toggle"><i data-lucide="${isOptIn ? 'eye-off' : 'trophy'}"></i>${isOptIn ? t('menu_lb_off') : t('menu_lb_on')}</button>
+    ${activePro && activePro.isAdmin ? `
+    <div class="profile-menu-divider"></div>
+    <button class="profile-menu-item" data-action="unlock_all" style="color:#22c55e"><i data-lucide="unlock"></i>Alles freischalten</button>
+    <button class="profile-menu-item" data-action="reset_all" style="color:#f59e0b"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</button>
+    ` : ''}
     <div class="profile-menu-divider"></div>
     <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>
   `;
@@ -24797,6 +25024,191 @@ function handleProfileAction(action) {
   else if (action === 'import') document.getElementById('import-input').click();
   else if (action === 'delete') showDeleteConfirm();
   else if (action === 'lb_toggle') toggleLeaderboardOptIn();
+  else if (action === 'stats') showProfileStats();
+  else if (action === 'unlock_all') adminUnlockAll();
+  else if (action === 'reset_all') adminResetProgress();
+}
+
+// ── ADMIN FUNCTIONS ──────────────────────────────────────────
+function adminSkipLesson() {
+  if (!isAdminProfile()) return;
+  const lesson = getCurrentLesson();
+  state.completed.add(lesson.id);
+  persistState();
+  updateProgress();
+  updateNav();
+}
+
+function adminUnlockAll() {
+  if (!isAdminProfile()) return;
+  PHASES.forEach(phase => {
+    phase.lessons.forEach(lesson => {
+      state.completed.add(lesson.id);
+    });
+  });
+  persistState();
+  updateProgress();
+  updateNav();
+  render();
+  showToast('Alle Lektionen freigeschaltet (ohne XP)');
+}
+
+function adminResetProgress() {
+  if (!isAdminProfile()) return;
+  showModal(`
+    <div class="modal-title"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</div>
+    <div class="modal-desc">Alle abgeschlossenen Lektionen und XP dieses Admin-Profils werden gelöscht. Bist du sicher?</div>
+    <div class="modal-actions">
+      <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
+      <button class="nav-btn primary" onclick="doAdminReset()">Zurücksetzen</button>
+    </div>
+  `);
+}
+
+function doAdminReset() {
+  hideModal();
+  state.completed.clear();
+  state.xp = 0;
+  state.earnedQuizIds = new Set();
+  state.shownForLesson = {};
+  state.quizAnswered.clear();
+  persistState();
+  updateProgress();
+  updateNav();
+  render();
+  showToast('Fortschritt zurückgesetzt');
+}
+
+function createAdminProfileLocal() {
+  showModal(`
+    <div class="modal-title"><i data-lucide="shield"></i>Admin-Profil erstellen</div>
+    <div class="modal-desc">Lokales Profil mit Admin-Rechten. Kein Server-Login nötig. Lektionen können übersprungen und freigeschaltet werden.</div>
+    <input type="text" class="modal-input" id="admin-profile-name" placeholder="Admin-Name (z.B. Nino Admin)" maxlength="30" autofocus value="Admin">
+    <div class="modal-actions">
+      <button class="nav-btn" onclick="hideModal()">Abbrechen</button>
+      <button class="nav-btn primary" id="create-admin-btn"><i data-lucide="shield"></i>Admin erstellen</button>
+    </div>
+  `);
+  const input = document.getElementById('admin-profile-name');
+  const btn = document.getElementById('create-admin-btn');
+  const submit = () => {
+    const name = input.value.trim() || 'Admin';
+    persistState();
+    const p = createProfile(name, null, true); // isAdmin = true
+    setActiveProfile(p.id);
+    loadActiveState();
+    state.currentPhase = 0;
+    state.currentLesson = 0;
+    state.quizAnswered.clear();
+    hideModal();
+    hideLanding();
+    render();
+  };
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  setTimeout(() => { input.select(); input.focus(); }, 50);
+  lucide.createIcons();
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('admin-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'admin-toast';
+    toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;pointer-events:none;transition:opacity .3s;border:1px solid rgba(255,255,255,.1)';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
+
+// ── PROFILE STATS PAGE ────────────────────────────────────────
+function showProfileStats() {
+  const p = state.activeProfile;
+  if (!p) return;
+  const data = loadProfileData(p.id);
+  const totalLessons = PHASES.reduce((s, ph) => s + ph.lessons.length, 0);
+  const doneLessons = data.completed.size;
+  const pct = totalLessons ? Math.round(doneLessons / totalLessons * 100) : 0;
+  const created = p.created ? new Date(p.created).toLocaleDateString('de-DE') : '—';
+
+  const phaseBars = PHASES.filter(ph => ph.id !== 'p0').map((ph, i) => {
+    const total = ph.lessons.length;
+    const done = ph.lessons.filter(l => data.completed.has(l.id)).length;
+    const phasePct = total ? Math.round(done / total * 100) : 0;
+    const complete = done === total;
+    return `<div class="psp-phase-row">
+      <div class="psp-phase-header">
+        <span class="psp-phase-name">Phase ${i + 1} — ${ph.title}</span>
+        <span class="psp-phase-count">${done} / ${total}</span>
+      </div>
+      <div class="psp-phase-bar">
+        <div class="psp-phase-fill${complete ? ' complete' : ''}" style="width:${phasePct}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const adminZone = p.isAdmin ? `
+    <div class="psp-admin-zone">
+      <div class="psp-admin-title"><i data-lucide="shield"></i>Admin-Kontrollen</div>
+      <div class="psp-admin-btns">
+        <button class="psp-admin-btn green" onclick="adminUnlockAll();buildPspBody()"><i data-lucide="unlock"></i>Alles freischalten</button>
+        <button class="psp-admin-btn" onclick="adminResetProgress()"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</button>
+      </div>
+    </div>
+  ` : '';
+
+  const body = `
+    <div class="psp-hero">
+      <div class="psp-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      <div class="psp-hero-info">
+        <div class="psp-hero-name">${escapeHtml(p.name)}${p.isAdmin ? ' <span class="admin-badge"><i data-lucide="shield"></i>Admin</span>' : ''}</div>
+        <div class="psp-hero-meta">Erstellt: ${created}</div>
+      </div>
+    </div>
+    <div class="psp-stats-grid">
+      <div class="psp-stat-card">
+        <div class="psp-stat-label">Gesamt-XP</div>
+        <div class="psp-stat-value">${data.xp}</div>
+        <div class="psp-stat-sub">Punkte verdient</div>
+      </div>
+      <div class="psp-stat-card">
+        <div class="psp-stat-label">Lektionen</div>
+        <div class="psp-stat-value">${doneLessons}</div>
+        <div class="psp-stat-sub">von ${totalLessons} abgeschlossen</div>
+      </div>
+      <div class="psp-stat-card">
+        <div class="psp-stat-label">Fortschritt</div>
+        <div class="psp-stat-value">${pct}<span style="font-size:16px">%</span></div>
+        <div class="psp-stat-sub">Gesamtfortschritt</div>
+      </div>
+      <div class="psp-stat-card">
+        <div class="psp-stat-label">Phasen</div>
+        <div class="psp-stat-value">${PHASES.filter(ph => ph.id !== 'p0' && ph.lessons.every(l => data.completed.has(l.id))).length}</div>
+        <div class="psp-stat-sub">von ${PHASES.filter(ph => ph.id !== 'p0').length} abgeschlossen</div>
+      </div>
+    </div>
+    ${adminZone}
+    <div class="psp-section-title">Fortschritt pro Phase</div>
+    <div class="psp-phases">${phaseBars}</div>
+  `;
+
+  document.getElementById('psp-body').innerHTML = body;
+  document.getElementById('profile-stats-page').classList.add('show');
+  lucide.createIcons();
+}
+
+function buildPspBody() {
+  // Refresh stats page content after admin actions
+  const p = state.activeProfile;
+  if (!p || !document.getElementById('profile-stats-page').classList.contains('show')) return;
+  showProfileStats();
+}
+
+function closeProfileStats() {
+  document.getElementById('profile-stats-page').classList.remove('show');
 }
 
 function toggleLeaderboardOptIn() {
