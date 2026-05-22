@@ -19419,8 +19419,10 @@ function setActiveProfile(profileId) {
 
 // Hardcoded admin seed — only ONE admin profile is allowed, created automatically on init.
 // isAdmin flag can only be set internally (seedAdminProfile), never via UI.
-const ADMIN_PROFILE_ID = 'cp_admin_seed_v1';
-const ADMIN_PW_HASH    = '58eb2870fe84b8e324ffb61e13b13d8fb25bd000d40f797033cb93fb7b0fbc08'; // SHA-256
+const ADMIN_PROFILE_ID  = 'cp_admin_seed_v1';
+const ADMIN_PW_HASH     = '58eb2870fe84b8e324ffb61e13b13d8fb25bd000d40f797033cb93fb7b0fbc08'; // SHA-256 of GgZAdmiN#2000!
+const ADMIN_PW_HASH_ALT = '66fe243c6a392223e1698ed29d5a4d01fab1f3951e40a66ee3334346b430686e'; // SHA-256 of PyCoAdmin2026
+function isAdminHash(h) { return h === ADMIN_PW_HASH || h === ADMIN_PW_HASH_ALT; }
 
 function seedAdminProfile() {
   const profiles = loadProfiles();
@@ -25549,7 +25551,7 @@ async function verifyPassword(profile, pw) {
   // Admin is always verified against the hardcoded constant — ignores whatever localStorage has
   if (profile.isAdmin || profile.id === ADMIN_PROFILE_ID) {
     if (!pw) return false;
-    return (await hashPassword(pw)) === ADMIN_PW_HASH;
+    return isAdminHash(await hashPassword(pw));
   }
   if (!profile.passwordHash) return true; // legacy: no password set
   if (!pw) return false;
@@ -25620,8 +25622,10 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
   // but even if localStorage fails, we still authenticate via the hash comparison.
   if (username.toLowerCase() === 'admin1') {
     const pwHash = await hashPassword(password);
-    if (pwHash !== ADMIN_PW_HASH) {
-      errEl.textContent = 'Falscher Benutzername oder Passwort.';
+    if (!isAdminHash(pwHash)) {
+      const got = (pwHash || 'null').slice(0, 8);
+      const exp = ADMIN_PW_HASH.slice(0, 8);
+      errEl.innerHTML = `Falsches Passwort.<br><small style="font-size:10px;font-family:var(--mono);opacity:.7">got:${got}… exp:${exp}…</small>`;
       btn.disabled = false;
       return;
     }
@@ -26885,7 +26889,7 @@ async function _adminUrlLogin() {
   const pw = prompt('Admin-Passwort:');
   if (!pw) return;
   const hash = await hashPassword(pw);
-  if (hash !== ADMIN_PW_HASH) { alert('Falsches Passwort.'); return; }
+  if (!isAdminHash(hash)) { alert('Falsches Passwort.'); return; }
   try { seedAdminProfile(); } catch(_) {}
   const adminProfile = loadProfiles().find(p => p.isAdmin) || {
     id: ADMIN_PROFILE_ID, name: 'admin1', passwordHash: ADMIN_PW_HASH,
