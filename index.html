@@ -1572,79 +1572,50 @@ body {
 .profile-list-item-stats { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 2px; }
 
 /* PHASE OVERVIEW */
-.phases-overview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 14px;
-  margin-bottom: 28px;
-}
-
-.phase-overview-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 18px;
-  cursor: pointer;
-  transition: all 0.2s;
+/* ---- Duolingo-style winding learning path ---- */
+.path-map {
   position: relative;
-  overflow: hidden;
+  max-width: 400px;
+  margin: 4px auto 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 8px 0;
 }
-
-.phase-overview-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--card-color, var(--accent)), transparent);
-  opacity: 0;
-  transition: opacity 0.2s;
+.path-node-wrap { display: flex; align-items: center; gap: 16px; max-width: 300px; }
+.path-node-wrap.pos-l { align-self: flex-start; }
+.path-node-wrap.pos-c { align-self: center; }
+.path-node-wrap.pos-r { align-self: flex-end; flex-direction: row-reverse; text-align: right; }
+.path-node { border: none; background: none; padding: 0; cursor: pointer; flex-shrink: 0; }
+.path-node-ring {
+  display: grid; place-items: center;
+  width: 72px; height: 72px; border-radius: 50%;
+  background: conic-gradient(var(--green) calc(var(--pct, 0) * 1%), var(--surface3) 0);
+  transition: transform 0.12s ease;
 }
-
-.phase-overview-card:hover {
-  border-color: var(--border2);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow);
+.path-node-inner {
+  display: grid; place-items: center;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--surface2); color: var(--text3);
+  box-shadow: 0 4px 0 var(--border2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
-
-.phase-overview-card:hover::after { opacity: 1; }
-
-.pov-num {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--card-color, var(--accent));
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.path-node [data-lucide] { width: 26px; height: 26px; stroke-width: 2; }
+.path-node.active .path-node-inner { background: var(--accent); color: #fff; box-shadow: 0 4px 0 var(--accent-ink); }
+.path-node.done .path-node-inner  { background: var(--green);  color: #fff; box-shadow: 0 4px 0 var(--green-ink); }
+.path-node:hover .path-node-ring { transform: translateY(-2px); }
+.path-node:active .path-node-inner { transform: translateY(4px); box-shadow: 0 0 0 var(--border2); }
+.path-node.active { position: relative; }
+.path-node.active::after {
+  content: 'START'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff; font-family: var(--display); font-weight: 600;
+  font-size: 9px; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 999px; white-space: nowrap;
 }
-
-.pov-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
-  line-height: 1.3;
+.path-node-label .pnl-phase {
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text3); font-weight: 600; margin-bottom: 2px;
 }
-
-.pov-sub {
-  font-size: 12px;
-  color: var(--text3);
-  margin-bottom: 10px;
-  font-family: var(--mono);
-}
-
-.pov-bar {
-  height: 3px;
-  background: var(--surface3);
-  border-radius: 2px;
-}
-
-.pov-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: var(--card-color, var(--accent));
-  transition: width 0.6s ease;
-  box-shadow: 0 0 6px var(--accent-glow);
-}
+.path-node-label .pnl-title { font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--text); line-height: 1.2; }
 
 /* XP flash */
 @keyframes xpFlash {
@@ -3398,17 +3369,32 @@ const PHASES = [
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Your learning path</div>
-            <div class="phases-overview" id="phases-overview-grid">
-              ${PHASES.filter(p => p.id !== 'p0').map((p,i) => {
-                const done = p.lessons.filter(l => state.completed.has(l.id)).length;
-                const pct = p.lessons.length ? Math.round(done/p.lessons.length*100) : 0;
-                return `<div class="phase-overview-card" onclick="goToPhase(${i+1})">
-                  <div class="pov-num">Phase ${i+1}</div>
-                  <div class="pov-title">${p.title_en || p.title}</div>
-                  <div class="pov-sub">${p.sub_en || p.sub}</div>
-                  <div class="pov-bar"><div class="pov-fill" style="width:${pct}%"></div></div>
-                </div>`;
-              }).join('')}
+            <div class="path-map" id="phases-path-map">
+              ${(() => {
+                const phases = PHASES.filter(p => p.id !== 'p0');
+                const pos = ['c','r','c','l','c','r','l'];
+                const icons = ['cpu','code-2','layout-template','server','shield-check','graduation-cap','rocket'];
+                let currentAssigned = false;
+                return phases.map((p,i) => {
+                  const done = p.lessons.filter(l => state.completed.has(l.id)).length;
+                  const total = p.lessons.length;
+                  const pct = total ? Math.round(done/total*100) : 0;
+                  const complete = total > 0 && done === total;
+                  let cls = 'upcoming';
+                  if (complete) cls = 'done';
+                  else if (!currentAssigned) { cls = 'active'; currentAssigned = true; }
+                  const icon = complete ? 'check' : (icons[i] || 'circle');
+                  return `<div class="path-node-wrap pos-${pos[i % pos.length]}">
+                    <button class="path-node ${cls}" onclick="goToPhase(${i+1})" title="${p.title_en || p.title}" aria-label="Phase ${i+1}: ${p.title_en || p.title}">
+                      <span class="path-node-ring" style="--pct:${pct}"><span class="path-node-inner"><i data-lucide="${icon}"></i></span></span>
+                    </button>
+                    <div class="path-node-label">
+                      <div class="pnl-phase">Phase ${i+1} · ${done}/${total}</div>
+                      <div class="pnl-title">${p.title_en || p.title}</div>
+                    </div>
+                  </div>`;
+                }).join('');
+              })()}
             </div>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.1s">
