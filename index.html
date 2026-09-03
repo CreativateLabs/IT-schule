@@ -465,6 +465,33 @@ body {
 }
 .xp-badge [data-lucide] { width: 12px; height: 12px; }
 
+/* ---- Gamification widgets (streak / daily goal / level) ---- */
+.gami-item {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--display); font-weight: 600; font-size: 13px;
+  color: var(--text2); white-space: nowrap;
+}
+.gami-streak { color: var(--text3); transition: color 0.2s; }
+.gami-streak.active { color: var(--orange); }
+.gami-streak [data-lucide] { width: 17px; height: 17px; }
+.gami-goal { color: var(--text2); font-size: 12px; }
+.goal-ring { transform: rotate(-90deg); flex-shrink: 0; }
+.goal-ring-bg { fill: none; stroke: var(--border2); stroke-width: 3.5; }
+.goal-ring-fg {
+  fill: none; stroke: var(--green); stroke-width: 3.5; stroke-linecap: round;
+  stroke-dasharray: 56.55; stroke-dashoffset: 56.55;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.gami-goal.reached .goal-ring-fg { stroke: var(--green); }
+.gami-goal.reached { color: var(--green-ink); }
+.gami-level {
+  color: #fff; background: var(--accent); padding: 3px 10px; border-radius: 999px; font-size: 12px;
+}
+.gami-level [data-lucide] { width: 13px; height: 13px; }
+@media (max-width: 700px) {
+  .gami-goal, .gami-level { display: none; }
+}
+
 .content-area {
   flex: 1;
   overflow-y: auto;
@@ -3072,6 +3099,15 @@ body {
     <div class="topbar-controls">
       <button class="ctrl-btn" id="lang-btn-app" onclick="toggleLang()" title="Switch language">DE</button>
       <button class="ctrl-btn" id="theme-btn-app" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <div class="gami-item gami-streak" id="gami-streak" title="Streak — Tage in Folge"><i data-lucide="flame"></i><span id="streak-count">0</span></div>
+      <div class="gami-item gami-goal" id="gami-goal" title="Tagesziel">
+        <svg class="goal-ring" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <circle class="goal-ring-bg" cx="12" cy="12" r="9"></circle>
+          <circle class="goal-ring-fg" id="goal-ring-fg" cx="12" cy="12" r="9"></circle>
+        </svg>
+        <span id="goal-txt">0/30</span>
+      </div>
+      <div class="gami-item gami-level" id="gami-level" title="Level"><i data-lucide="star"></i><span id="level-num">1</span></div>
       <div class="xp-badge" id="xp-display"><i data-lucide="hexagon"></i><span id="xp-amount">0</span> XP</div>
     </div>
   </div>
@@ -19630,6 +19666,7 @@ function loadActiveState() {
   state.activeProfile = profile;
   state.completed = data.completed;
   state.xp = data.xp;
+  state.gami = loadGami(profile.id);
   state.difficulty = profile.difficulty || 'moderate';
   // Load earned quiz IDs (no double-award guard)
   try {
@@ -24823,9 +24860,59 @@ function checkExercise(id) {
   }
 }
 
+// ============================================================
+//              GAMIFICATION: Streak · Tagesziel · Level
+// ============================================================
+const DAILY_GOAL_DEFAULT = 30;
+function _gamiKey(id) { return `cp_p_${id}_gami`; }
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function _dayDiff(a, b) { return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000); }
+function loadGami(id) {
+  let g = { streak: 0, lastActiveDay: null, todayDay: null, todayXP: 0, dailyGoal: DAILY_GOAL_DEFAULT };
+  try { const raw = localStorage.getItem(_gamiKey(id)); if (raw) g = Object.assign(g, JSON.parse(raw)); } catch {}
+  const today = todayStr();
+  if (g.todayDay !== today) { g.todayDay = today; g.todayXP = 0; }       // roll over daily XP
+  if (g.lastActiveDay && _dayDiff(g.lastActiveDay, today) > 1) g.streak = 0; // streak broken by a gap
+  if (!g.dailyGoal) g.dailyGoal = DAILY_GOAL_DEFAULT;
+  return g;
+}
+function saveGami(id, g) { try { localStorage.setItem(_gamiKey(id), JSON.stringify(g)); } catch {} }
+function awardGami(amount) {
+  if (!state.activeProfile) return;
+  const id = state.activeProfile.id;
+  const g = state.gami || loadGami(id);
+  const today = todayStr();
+  if (g.todayDay !== today) { g.todayDay = today; g.todayXP = 0; }
+  g.todayXP += amount;
+  if (g.lastActiveDay !== today) {                     // first activity of a new day
+    const diff = g.lastActiveDay ? _dayDiff(g.lastActiveDay, today) : null;
+    if (diff === 1 || diff === null) g.streak = (g.streak || 0) + 1; // consecutive day or first ever
+    else if (diff > 1) g.streak = 1;                                  // gap -> restart at 1
+    g.lastActiveDay = today;
+  }
+  state.gami = g;
+  saveGami(id, g);
+}
+function getLevel(xp) { return Math.floor((xp || 0) / 100) + 1; }
+function updateGamiUI() {
+  const g = state.gami || { streak: 0, todayXP: 0, dailyGoal: DAILY_GOAL_DEFAULT };
+  const goal = g.dailyGoal || DAILY_GOAL_DEFAULT;
+  const sc = document.getElementById('streak-count'); if (sc) sc.textContent = g.streak || 0;
+  const lvl = document.getElementById('level-num'); if (lvl) lvl.textContent = getLevel(state.xp);
+  const gt = document.getElementById('goal-txt'); if (gt) gt.textContent = (g.todayXP || 0) + '/' + goal;
+  const ring = document.getElementById('goal-ring-fg');
+  if (ring) { const C = 2 * Math.PI * 9; const pct = Math.min(1, (g.todayXP || 0) / goal); ring.style.strokeDasharray = C.toFixed(2); ring.style.strokeDashoffset = (C * (1 - pct)).toFixed(2); }
+  const sf = document.getElementById('gami-streak'); if (sf) sf.classList.toggle('active', (g.streak || 0) > 0);
+  const gg = document.getElementById('gami-goal'); if (gg) gg.classList.toggle('reached', (g.todayXP || 0) >= goal);
+}
+
 function addXP(amount) {
   state.xp += amount;
   persistState();
+  awardGami(amount);
   updateProgress();
   const el = document.getElementById('xp-display');
   el.classList.remove('xp-flash');
@@ -25114,6 +25201,7 @@ function updateProgress() {
   document.getElementById('progress-count').textContent = t('lessons_count', done, total);
   document.getElementById('xp-amount').textContent = state.xp;
   document.getElementById('profile-xp').textContent = state.xp + ' XP';
+  updateGamiUI();
 }
 
 function updateNav() {

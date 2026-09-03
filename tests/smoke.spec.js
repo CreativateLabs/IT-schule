@@ -101,3 +101,19 @@ test('new profile modal opens from profile menu', async ({ page }) => {
   await expect(page.locator('#modal-backdrop.show')).toBeVisible();
   await expect(page.locator('#new-profile-name')).toBeVisible();
 });
+
+test('gamification widgets update on XP gain (streak, daily goal, level)', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await loginWithLocalProfile(page, 'GamiTest');
+  // Widgets exist
+  await expect(page.locator('#streak-count')).toBeVisible();
+  await expect(page.locator('#goal-txt')).toBeVisible();
+  await expect(page.locator('#level-num')).toBeVisible();
+  // Earn XP -> streak becomes 1, today's goal reflects the XP
+  await page.evaluate(() => addXP(20));
+  await expect(page.locator('#streak-count')).toHaveText('1');
+  await expect(page.locator('#goal-txt')).toHaveText('20/30');
+  await expect(page.locator('#level-num')).toHaveText('1');
+});
