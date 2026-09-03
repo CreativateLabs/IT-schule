@@ -549,6 +549,7 @@ body {
 .psp-gami-ico { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
 .psp-gami-ico [data-lucide] { width: 18px; height: 18px; }
 .psp-gami-val { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--text); }
+.psp-level-title { font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--accent2); background: var(--accent-glow); padding: 2px 7px; border-radius: 999px; margin-left: auto; }
 .psp-gami-bar { height: 8px; background: var(--surface3); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
 .psp-gami-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
 .psp-gami-sub { font-size: 11.5px; color: var(--text3); }
@@ -25144,21 +25145,31 @@ function awardGami(amount) {
   const today = todayStr();
   if (g.todayDay !== today) { g.todayDay = today; g.todayXP = 0; }
   g.todayXP += amount;
+  state._newStreakMilestone = null;
   if (g.lastActiveDay !== today) {                     // first activity of a new day
     const diff = g.lastActiveDay ? _dayDiff(g.lastActiveDay, today) : null;
     if (diff === 1 || diff === null) g.streak = (g.streak || 0) + 1; // consecutive day or first ever
     else if (diff > 1) g.streak = 1;                                  // gap -> restart at 1
     g.lastActiveDay = today;
+    if ([14, 30, 50, 100, 200, 365].includes(g.streak)) state._newStreakMilestone = g.streak; // 3/7 handled by achievements
   }
   state.gami = g;
   saveGami(id, g);
 }
+
+// Level titles (shown in profile + header tooltip)
+const LEVEL_TITLES = [
+  { min: 25, name: 'Meister' }, { min: 17, name: 'Experte' }, { min: 12, name: 'Profi' },
+  { min: 8, name: 'Entwickler' }, { min: 5, name: 'Lehrling' }, { min: 3, name: 'Einsteiger' }, { min: 0, name: 'Neuling' },
+];
+function getLevelTitle(level) { return (LEVEL_TITLES.find(t => level >= t.min) || LEVEL_TITLES[LEVEL_TITLES.length - 1]).name; }
 function getLevel(xp) { return Math.floor((xp || 0) / 100) + 1; }
 function updateGamiUI() {
   const g = state.gami || { streak: 0, todayXP: 0, dailyGoal: DAILY_GOAL_DEFAULT };
   const goal = g.dailyGoal || DAILY_GOAL_DEFAULT;
   const sc = document.getElementById('streak-count'); if (sc) sc.textContent = g.streak || 0;
   const lvl = document.getElementById('level-num'); if (lvl) lvl.textContent = getLevel(state.xp);
+  const lvlBadge = document.getElementById('gami-level'); if (lvlBadge) lvlBadge.title = 'Level ' + getLevel(state.xp) + ' · ' + getLevelTitle(getLevel(state.xp));
   const gt = document.getElementById('goal-txt'); if (gt) gt.textContent = (g.todayXP || 0) + '/' + goal;
   const ring = document.getElementById('goal-ring-fg');
   if (ring) { const C = 2 * Math.PI * 9; const pct = Math.min(1, (g.todayXP || 0) / goal); ring.style.strokeDasharray = C.toFixed(2); ring.style.strokeDashoffset = (C * (1 - pct)).toFixed(2); }
@@ -25211,8 +25222,8 @@ function checkAchievements() {
 function celebrate(kind, msg, icon) {
   let el = document.getElementById('celebrate-toast');
   if (!el) { el = document.createElement('div'); el.id = 'celebrate-toast'; document.body.appendChild(el); }
-  const color = kind === 'level' ? 'var(--accent)' : kind === 'achievement' ? 'var(--orange)' : 'var(--green)';
-  const head = kind === 'level' ? 'Level Up!' : kind === 'achievement' ? 'Achievement freigeschaltet' : 'Geschafft!';
+  const color = kind === 'level' ? 'var(--accent)' : (kind === 'achievement' || kind === 'streak') ? 'var(--orange)' : 'var(--green)';
+  const head = kind === 'level' ? 'Level Up!' : kind === 'achievement' ? 'Achievement freigeschaltet' : kind === 'streak' ? 'Streak-Meilenstein!' : 'Geschafft!';
   el.innerHTML = `<span class="celebrate-ico" style="background:${color}"><i data-lucide="${icon || 'party-popper'}"></i></span>` +
                  `<span class="celebrate-txt"><b>${head}</b>${msg}</span>`;
   try { lucide.createIcons({ nodes: [el] }); } catch {}
@@ -25231,7 +25242,8 @@ function addXP(amount) {
   persistState();
   awardGami(amount);
   updateProgress();
-  if (getLevel(state.xp) > prevLevel) celebrate('level', 'Du bist jetzt Level ' + getLevel(state.xp), 'star');
+  if (getLevel(state.xp) > prevLevel) celebrate('level', 'Level ' + getLevel(state.xp) + ' · ' + getLevelTitle(getLevel(state.xp)), 'star');
+  if (state._newStreakMilestone) { const m = state._newStreakMilestone; state._newStreakMilestone = null; setTimeout(() => celebrate('streak', m + ' Tage in Folge!', 'flame'), 500); }
   checkAchievements();
   const el = document.getElementById('xp-display');
   el.classList.remove('xp-flash');
@@ -25970,7 +25982,7 @@ function showProfileStats() {
       const goalOpts = isSelf ? `<div class="psp-goal-select">${[10,30,50].map(v => `<button class="psp-goal-opt ${((g.dailyGoal||30)===v)?'active':''}" onclick="setDailyGoal(${v})">${v}</button>`).join('')}</div>` : '';
       return `<div class="psp-gami">
         <div class="psp-gami-card">
-          <div class="psp-gami-head"><span class="psp-gami-ico" style="background:var(--accent)"><i data-lucide="star"></i></span><span class="psp-gami-val">Level ${lvl}</span></div>
+          <div class="psp-gami-head"><span class="psp-gami-ico" style="background:var(--accent)"><i data-lucide="star"></i></span><span class="psp-gami-val">Level ${lvl}</span><span class="psp-level-title">${getLevelTitle(lvl)}</span></div>
           <div class="psp-gami-bar"><div class="psp-gami-fill" style="width:${xpInLvl}%"></div></div>
           <div class="psp-gami-sub">${xpInLvl} / 100 XP bis Level ${lvl+1}</div>
         </div>
