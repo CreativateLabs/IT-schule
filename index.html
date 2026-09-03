@@ -2126,11 +2126,11 @@ body {
 
 /* Section headers */
 .landing-section-tag {
-  font-size: 10.5px; font-family: var(--mono); color: var(--accent2);
-  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+  font-size: 10.5px; font-family: var(--mono); color: var(--orange);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 700;
 }
 .landing-section-title {
-  font-family: var(--mono); font-size: 24px; font-weight: 700;
+  font-family: var(--display); font-size: 28px; font-weight: 700;
   color: var(--text); margin-bottom: 36px; letter-spacing: -0.5px;
 }
 
@@ -2164,15 +2164,15 @@ body {
 }
 
 .landing-phase-card {
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 2px solid var(--border);
   border-radius: var(--radius-lg); padding: 24px 22px;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.18s;
-  border-left-width: 3px; border-left-style: solid;
+  box-shadow: 0 4px 0 var(--border2);
+  transition: border-color 0.15s, box-shadow 0.12s ease, transform 0.12s ease;
+  border-left-width: 4px; border-left-style: solid;
   position: relative; overflow: hidden;
 }
 .landing-phase-card:hover {
-  background: var(--surface2); box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  transform: translateY(-3px);
+  transform: translateY(-3px); box-shadow: 0 7px 0 var(--border2);
 }
 .landing-phase-bg-num {
   position: absolute; bottom: -16px; right: 6px;
@@ -2189,14 +2189,14 @@ body {
   display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
 }
 .landing-phase-icon [data-lucide] { width: 22px; height: 22px; stroke-width: 1.75; }
-.landing-phase-title { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.landing-phase-title { font-family: var(--display); font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 7px; }
 .landing-phase-sub { font-size: 12.5px; color: var(--text2); line-height: 1.55; }
 .landing-phase-count {
   display: inline-block; margin-top: 14px;
-  font-size: 10.5px; font-family: var(--mono);
+  font-size: 10.5px; font-family: var(--mono); font-weight: 700;
   background: var(--accent-glow); color: var(--accent2);
-  border: 1px solid rgba(99,102,241,0.2);
-  padding: 3px 9px; border-radius: 5px;
+  border: 1.5px solid rgba(99,102,241,0.2);
+  padding: 3px 10px; border-radius: 999px;
 }
 .lpc-svg-wrap {
   display: block; width: 52px; height: 52px;
@@ -2214,6 +2214,66 @@ body {
 .lpc-topics li::before {
   content: ''; width: 4px; height: 4px; border-radius: 50%;
   background: currentColor; flex-shrink: 0; opacity: 0.4; margin-top: 5px;
+}
+
+/* ---- Features grid ---- */
+.landing-features { padding: 56px 0 8px; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.feature-card {
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px 22px; box-shadow: 0 4px 0 var(--border2);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: 0 7px 0 var(--border2); }
+.feature-ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: #fff; margin-bottom: 16px; }
+.feature-ico [data-lucide] { width: 24px; height: 24px; }
+.feature-title { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--text); margin-bottom: 8px; }
+.feature-text { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+
+/* ---- How it works (steps) ---- */
+.landing-steps { padding: 48px 0 40px; }
+.steps-row { display: flex; align-items: stretch; gap: 8px; }
+.step-card {
+  flex: 1; background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 26px 22px; box-shadow: 0 4px 0 var(--border2);
+}
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: #fff; font-family: var(--display); font-weight: 700; font-size: 18px;
+  margin-bottom: 16px; box-shadow: 0 3px 0 var(--accent-ink);
+}
+.step-connector { display: grid; place-items: center; color: var(--border2); flex-shrink: 0; }
+.step-connector [data-lucide] { width: 22px; height: 22px; }
+
+/* ---- Final CTA band ---- */
+.landing-cta-band { margin: 56px 0 40px; }
+.cta-band-inner { background: var(--accent); border-radius: 28px; padding: 48px 32px; text-align: center; box-shadow: 0 8px 0 var(--accent-ink); }
+.cta-band-title { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3.5vw, 34px); color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+.cta-band-sub { font-size: 15px; color: rgba(255,255,255,0.88); max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
+.cta-band-btn { background: #fff; color: var(--accent2); box-shadow: 0 5px 0 rgba(0,0,0,0.18); }
+.cta-band-btn:hover { background: #fff; box-shadow: 0 3px 0 rgba(0,0,0,0.18); }
+.cta-band-btn:active { box-shadow: 0 0 0 rgba(0,0,0,0.18); }
+
+/* ---- Footer ---- */
+.landing-footer { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; padding: 40px 0 48px; border-top: 2px solid var(--border); margin-top: 24px; }
+.lf-brand { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--text); margin-bottom: 8px; }
+.lf-logo { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: #fff; display: grid; place-items: center; }
+.lf-logo [data-lucide] { width: 17px; height: 17px; }
+.lf-tag { font-size: 13px; color: var(--text3); line-height: 1.6; max-width: 320px; }
+.lf-head { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--text); margin-bottom: 12px; }
+.lf-link { display: block; font-size: 13px; color: var(--text2); text-decoration: none; margin-bottom: 8px; cursor: pointer; transition: color 0.15s; }
+.lf-link:hover { color: var(--accent); }
+.lf-copy { grid-column: 1 / -1; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); padding-top: 20px; margin-top: 8px; }
+
+@media (max-width: 860px) {
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .steps-row { flex-direction: column; }
+  .step-connector { transform: rotate(90deg); }
+  .landing-footer { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .feature-grid { grid-template-columns: 1fr; }
+  .landing-footer { grid-template-columns: 1fr; }
 }
 
 /* Security warning */
@@ -2729,20 +2789,17 @@ body {
 /* Section numbers — bigger, ghost */
 .landing-section-num {
   font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase; margin-bottom: 12px;
-  display: inline-flex; align-items: center; gap: 8px;
-  background: linear-gradient(90deg, var(--accent), var(--teal));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  text-transform: uppercase; margin-bottom: 12px; color: var(--orange);
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 700;
 }
 .landing-section-num::before {
-  content: ''; display: block; width: 22px; height: 2px; flex-shrink: 0; border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--teal));
-  -webkit-text-fill-color: unset; /* reset for pseudoelement */
+  content: ''; display: block; width: 22px; height: 3px; flex-shrink: 0; border-radius: 2px;
+  background: var(--orange);
 }
 .landing-section-title {
-  font-family: var(--mono); font-size: clamp(22px, 3.5vw, 32px);
-  font-weight: 800; color: var(--text); margin-bottom: 36px;
-  letter-spacing: -1px; line-height: 1.1;
+  font-family: var(--display); font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700; color: var(--text); margin-bottom: 36px;
+  letter-spacing: -0.5px; line-height: 1.1;
 }
 
 /* Phases section: colored left border on section */
@@ -2958,6 +3015,44 @@ body {
   </section>
 
   <div class="landing-inner">
+    <!-- Warum PyCoBase -->
+    <section class="landing-features reveal">
+      <div class="landing-section-num">Warum PyCoBase</div>
+      <div class="landing-section-title">Lernen, das sich wie ein Spiel anfühlt</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--accent)"><i data-lucide="gamepad-2"></i></div>
+          <div class="feature-title">Gamifiziert lernen</div>
+          <div class="feature-text">XP, Level, tägliche Ziele und eine Streak-Flamme halten dich am Ball — jeden Tag ein Stück weiter.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--orange)"><i data-lucide="layers"></i></div>
+          <div class="feature-title">68 Lektionen, 6 Phasen</div>
+          <div class="feature-text">Von Binärzahlen bis Ethical Hacking — ein durchdachter Pfad vom absoluten Anfänger zum Profi.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--green)"><i data-lucide="circle-check-big"></i></div>
+          <div class="feature-title">Interaktive Quizzes</div>
+          <div class="feature-text">Multiple-Choice, Wahr/Falsch, Lückentext und echte Coding-Übungen — mit sofortigem Feedback.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--teal)"><i data-lucide="save"></i></div>
+          <div class="feature-title">Fortschritt gespeichert</div>
+          <div class="feature-text">Mehrere Profile pro Browser, jederzeit als Datei exportierbar. Dein Weg bleibt erhalten.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--accent)"><i data-lucide="moon-star"></i></div>
+          <div class="feature-title">Dark Mode & DE / EN</div>
+          <div class="feature-text">Hell oder dunkel, Deutsch oder Englisch — lern genau so, wie es für dich am besten passt.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico" style="background:var(--orange)"><i data-lucide="gift"></i></div>
+          <div class="feature-title">100 % kostenlos</div>
+          <div class="feature-text">Open Source, keine Paywall, kein Account nötig. Einfach im Browser loslegen und lernen.</div>
+        </div>
+      </div>
+    </section>
+
     <!-- Was du lernst -->
     <section class="landing-phases reveal" id="landing-phases-section">
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
@@ -2976,6 +3071,31 @@ body {
         </div>
         <div class="phase-carousel-viewport">
           <div class="phase-carousel-track" id="phase-track"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- So funktioniert's -->
+    <section class="landing-steps reveal">
+      <div class="landing-section-num">So funktioniert's</div>
+      <div class="landing-section-title">In drei Schritten zum Code-Profi</div>
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="feature-title">Phase wählen</div>
+          <div class="feature-text">Starte beim Fundament oder spring dahin, wo du stehst. Der Lernpfad führt dich Schritt für Schritt.</div>
+        </div>
+        <div class="step-connector"><i data-lucide="arrow-right"></i></div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="feature-title">Üben & Quizzen</div>
+          <div class="feature-text">Lies kurze Erklärungen, beantworte Quizzes und löse echte Coding-Aufgaben mit direktem Feedback.</div>
+        </div>
+        <div class="step-connector"><i data-lucide="arrow-right"></i></div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="feature-title">XP & Streak sammeln</div>
+          <div class="feature-text">Jede richtige Antwort bringt XP. Halte deine Streak, steig im Level auf und knack Achievements.</div>
         </div>
       </div>
     </section>
@@ -3045,6 +3165,36 @@ body {
         <div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Rangliste wird geladen…</div>
       </div>
     </section>
+
+    <!-- Final CTA -->
+    <section class="landing-cta-band reveal">
+      <div class="cta-band-inner">
+        <div class="cta-band-title">Bereit, deine Zukunft zu programmieren?</div>
+        <div class="cta-band-sub">Kostenlos, ohne Account, direkt im Browser. Deine ersten XP sind nur einen Klick entfernt.</div>
+        <button class="landing-cta-btn cta-band-btn" onclick="document.getElementById('landing').scrollTo({top:0,behavior:'smooth'})">
+          <i data-lucide="rocket"></i><span>Jetzt kostenlos starten</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <div class="lf-col lf-brand-col">
+        <div class="lf-brand"><span class="lf-logo"><i data-lucide="code-2"></i></span>PyCoBase</div>
+        <div class="lf-tag">PythonCodeBase — von null zum Profi. Interaktiv, gamifiziert, kostenlos.</div>
+      </div>
+      <div class="lf-col">
+        <div class="lf-head">Lernen</div>
+        <a class="lf-link" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">6 Phasen</a>
+        <a class="lf-link" onclick="document.getElementById('landing').scrollTo({top:0,behavior:'smooth'})">Jetzt starten</a>
+      </div>
+      <div class="lf-col">
+        <div class="lf-head">Info</div>
+        <a class="lf-link" href="https://github.com/CreativateLabs/IT-schule" target="_blank" rel="noopener">Open Source</a>
+        <span class="lf-link" style="cursor:default">100 % kostenlos</span>
+      </div>
+      <div class="lf-copy">© 2026 PyCoBase · Icons von Lucide</div>
+    </footer>
   </div>
 </div>
 
