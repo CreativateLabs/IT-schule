@@ -542,6 +542,25 @@ body {
 .psp-ach-name { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--text); margin-bottom: 3px; }
 .psp-ach-desc { font-size: 11px; color: var(--text3); line-height: 1.35; }
 
+/* ---- Gamification cards (profile stats) ---- */
+.psp-gami { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+.psp-gami-card { background: var(--surface); border: 2px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: 0 4px 0 var(--border2); }
+.psp-gami-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.psp-gami-ico { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+.psp-gami-ico [data-lucide] { width: 18px; height: 18px; }
+.psp-gami-val { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--text); }
+.psp-gami-bar { height: 8px; background: var(--surface3); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+.psp-gami-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.psp-gami-sub { font-size: 11.5px; color: var(--text3); }
+.psp-goal-select { display: flex; gap: 6px; margin-top: 10px; }
+.psp-goal-opt {
+  flex: 1; font-family: var(--display); font-weight: 600; font-size: 12px; padding: 6px; border-radius: 9px;
+  background: var(--surface); border: 2px solid var(--border2); color: var(--text2); cursor: pointer; transition: all 0.15s;
+}
+.psp-goal-opt:hover { border-color: var(--accent); }
+.psp-goal-opt.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (max-width: 560px) { .psp-gami { grid-template-columns: 1fr; } }
+
 /* ---- Onboarding tour ---- */
 #onboarding-overlay {
   position: fixed; inset: 0; z-index: 500;
@@ -25147,6 +25166,16 @@ function updateGamiUI() {
   const gg = document.getElementById('gami-goal'); if (gg) gg.classList.toggle('reached', (g.todayXP || 0) >= goal);
 }
 
+function setDailyGoal(v) {
+  if (!state.activeProfile) return;
+  const g = state.gami || loadGami(state.activeProfile.id);
+  g.dailyGoal = v;
+  state.gami = g;
+  saveGami(state.activeProfile.id, g);
+  updateGamiUI();
+  showProfileStats(); // re-render stats with new goal
+}
+
 // ---- Achievements ----
 function _phaseComplete(s, phaseId) {
   const ph = PHASES.find(p => p.id === phaseId);
@@ -25932,6 +25961,30 @@ function showProfileStats() {
         <div class="psp-stat-sub">von ${PHASES.filter(ph => ph.id !== 'p0').length} abgeschlossen</div>
       </div>
     </div>
+    <div class="psp-section-title">Gamification</div>
+    ${(() => {
+      const g = loadGami(p.id);
+      const lvl = getLevel(data.xp);
+      const xpInLvl = data.xp % 100;
+      const isSelf = state.activeProfile && state.activeProfile.id === p.id;
+      const goalOpts = isSelf ? `<div class="psp-goal-select">${[10,30,50].map(v => `<button class="psp-goal-opt ${((g.dailyGoal||30)===v)?'active':''}" onclick="setDailyGoal(${v})">${v}</button>`).join('')}</div>` : '';
+      return `<div class="psp-gami">
+        <div class="psp-gami-card">
+          <div class="psp-gami-head"><span class="psp-gami-ico" style="background:var(--accent)"><i data-lucide="star"></i></span><span class="psp-gami-val">Level ${lvl}</span></div>
+          <div class="psp-gami-bar"><div class="psp-gami-fill" style="width:${xpInLvl}%"></div></div>
+          <div class="psp-gami-sub">${xpInLvl} / 100 XP bis Level ${lvl+1}</div>
+        </div>
+        <div class="psp-gami-card">
+          <div class="psp-gami-head"><span class="psp-gami-ico" style="background:var(--orange)"><i data-lucide="flame"></i></span><span class="psp-gami-val">${g.streak||0} ${(g.streak||0)===1?'Tag':'Tage'}</span></div>
+          <div class="psp-gami-sub">Aktuelle Lern-Streak</div>
+        </div>
+        <div class="psp-gami-card">
+          <div class="psp-gami-head"><span class="psp-gami-ico" style="background:var(--green)"><i data-lucide="target"></i></span><span class="psp-gami-val">${g.todayXP||0} / ${g.dailyGoal||30}</span></div>
+          <div class="psp-gami-sub">Heute · Tagesziel${isSelf ? ' anpassen:' : ''}</div>
+          ${goalOpts}
+        </div>
+      </div>`;
+    })()}
     ${adminZone}
     <div class="psp-section-title">Achievements <span class="psp-ach-count">${loadAchievements(p.id).size}/${ACHIEVEMENTS.length}</span></div>
     <div class="psp-ach-grid">${(() => { const set = loadAchievements(p.id); return ACHIEVEMENTS.map(a => { const un = set.has(a.id); return `<div class="psp-ach ${un ? 'unlocked' : 'locked'}" title="${a.desc}"><div class="psp-ach-ico"><i data-lucide="${un ? a.icon : 'lock'}"></i></div><div class="psp-ach-name">${a.name}</div><div class="psp-ach-desc">${a.desc}</div></div>`; }).join(''); })()}</div>
