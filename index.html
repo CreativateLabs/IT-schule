@@ -542,6 +542,42 @@ body {
 .psp-ach-name { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--text); margin-bottom: 3px; }
 .psp-ach-desc { font-size: 11px; color: var(--text3); line-height: 1.35; }
 
+/* ---- Onboarding tour ---- */
+#onboarding-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: var(--overlay-bg);
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+#onboarding-overlay.show { display: flex; }
+.ob-card {
+  background: var(--surface); border: 2px solid var(--border2);
+  border-radius: 24px; padding: 34px 28px 24px; width: 100%; max-width: 440px;
+  max-height: calc(100vh - 40px); overflow-y: auto;
+  box-shadow: 0 8px 0 var(--border2), 0 24px 60px rgba(30,27,75,0.3);
+  text-align: center; position: relative;
+  animation: obPop 0.28s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes obPop { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+.ob-close { position: absolute; top: 14px; right: 14px; background: none; border: none; cursor: pointer; color: var(--text3); padding: 4px; line-height: 0; }
+.ob-close:hover { color: var(--text); }
+.ob-close [data-lucide] { width: 20px; height: 20px; }
+.ob-icon { width: 74px; height: 74px; border-radius: 22px; display: grid; place-items: center; color: #fff; margin: 6px auto 22px; box-shadow: 0 5px 0 rgba(0,0,0,0.14); }
+.ob-icon [data-lucide] { width: 34px; height: 34px; stroke-width: 2; }
+.ob-title { font-family: var(--display); font-weight: 700; font-size: 23px; color: var(--text); margin-bottom: 12px; letter-spacing: -0.3px; }
+.ob-text { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 24px; }
+.ob-text strong { color: var(--text); font-weight: 600; }
+.ob-dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 22px; }
+.ob-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); transition: all 0.25s ease; }
+.ob-dot.active { width: 24px; border-radius: 99px; background: var(--accent); }
+.ob-actions { display: flex; gap: 10px; }
+.ob-btn { flex: 1; font-family: var(--display); font-weight: 600; font-size: 14px; padding: 12px; border-radius: 12px; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s, border-color 0.15s; }
+.ob-back { background: var(--surface); border: 2px solid var(--border2); color: var(--text2); box-shadow: 0 3px 0 var(--border2); }
+.ob-back:hover { border-color: var(--text3); color: var(--text); }
+.ob-back:active { transform: translateY(3px); box-shadow: 0 0 0 var(--border2); }
+.ob-next { background: var(--accent); border: 2px solid var(--accent); color: #fff; box-shadow: 0 4px 0 var(--accent-ink); }
+.ob-next:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(2px); box-shadow: 0 2px 0 var(--accent-ink); }
+.ob-next:active { transform: translateY(4px); box-shadow: 0 0 0 var(--accent-ink); }
+
 .content-area {
   flex: 1;
   overflow-y: auto;
@@ -3284,6 +3320,7 @@ body {
     <div class="topbar-controls">
       <button class="ctrl-btn" id="lang-btn-app" onclick="toggleLang()" title="Switch language">DE</button>
       <button class="ctrl-btn" id="theme-btn-app" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <button class="ctrl-btn" id="help-btn-app" onclick="showOnboarding()" title="Tour / Hilfe" aria-label="Tour anzeigen"><i data-lucide="help-circle"></i></button>
       <div class="gami-item gami-streak" id="gami-streak" title="Streak — Tage in Folge"><i data-lucide="flame"></i><span id="streak-count">0</span></div>
       <div class="gami-item gami-goal" id="gami-goal" title="Tagesziel">
         <svg class="goal-ring" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -26105,10 +26142,57 @@ async function buildLandingLeaderboard() {
   }
 }
 
+// ============================================================
+//              ONBOARDING TOUR
+// ============================================================
+const ONBOARDING_STEPS = [
+  { icon: 'rocket', color: '--accent', title: 'Willkommen bei PyCoBase!', text: 'Dein interaktiver Weg vom absoluten Anfänger zum Code-Profi — kostenlos, direkt im Browser. Wir zeigen dir in 30 Sekunden, wie alles funktioniert.' },
+  { icon: 'map', color: '--accent', title: 'Dein Lernpfad', text: 'Links siehst du deinen Pfad: <strong>6 Phasen</strong> von den Grundlagen bis zur Security mit <strong>68 Lektionen</strong>. Du schaltest Schritt für Schritt frei — erledigte Knoten werden grün.' },
+  { icon: 'circle-check-big', color: '--accent', title: 'Lernen & Quizzen', text: 'Jede Lektion hat kurze Erklärungen, interaktive <strong>Quizzes</strong> (Multiple-Choice, Wahr/Falsch, Lückentext) und <strong>Coding-Übungen</strong>. Richtige Antworten schalten den nächsten Schritt frei.' },
+  { icon: 'flame', color: '--orange', title: 'XP, Streak & Level', text: 'Für jede richtige Antwort gibt es <strong>XP</strong>. Halte deine <strong>Streak</strong> mit dem täglichen Ziel, steig im <strong>Level</strong> auf und schalte <strong>Achievements</strong> frei — oben rechts siehst du alles live.' },
+  { icon: 'trophy', color: '--orange', title: "Los geht's!", text: 'Alles klar? Dann starte mit deiner ersten Lektion. Diese Tour kannst du jederzeit über das <strong>?</strong>-Symbol oben rechts wieder öffnen.' },
+];
+function _obRender(i) {
+  const s = ONBOARDING_STEPS[i];
+  const total = ONBOARDING_STEPS.length;
+  const ov = document.getElementById('onboarding-overlay');
+  if (!ov) return;
+  ov.querySelector('.ob-card').innerHTML =
+    `<button class="ob-close" onclick="finishOnboarding()" aria-label="Schließen"><i data-lucide="x"></i></button>` +
+    `<div class="ob-icon" style="background:var(${s.color})"><i data-lucide="${s.icon}"></i></div>` +
+    `<div class="ob-title">${s.title}</div>` +
+    `<div class="ob-text">${s.text}</div>` +
+    `<div class="ob-dots">${ONBOARDING_STEPS.map((_, j) => `<span class="ob-dot ${j === i ? 'active' : ''}"></span>`).join('')}</div>` +
+    `<div class="ob-actions">` +
+      (i > 0
+        ? `<button class="ob-btn ob-back" onclick="_obGo(${i - 1})">Zurück</button>`
+        : `<button class="ob-btn ob-back" onclick="finishOnboarding()">Überspringen</button>`) +
+      `<button class="ob-btn ob-next" onclick="${i < total - 1 ? `_obGo(${i + 1})` : 'finishOnboarding()'}">${i < total - 1 ? 'Weiter' : "Los geht's"}</button>` +
+    `</div>`;
+  try { lucide.createIcons({ nodes: [ov] }); } catch {}
+}
+function _obGo(i) { _obRender(i); }
+function showOnboarding() {
+  let ov = document.getElementById('onboarding-overlay');
+  if (!ov) { ov = document.createElement('div'); ov.id = 'onboarding-overlay'; ov.innerHTML = '<div class="ob-card"></div>'; document.body.appendChild(ov); }
+  _obRender(0);
+  ov.classList.add('show');
+}
+function finishOnboarding() {
+  const ov = document.getElementById('onboarding-overlay');
+  if (ov) ov.classList.remove('show');
+  try { localStorage.setItem('cp_onboarding_done', '1'); } catch {}
+}
+function maybeShowOnboarding() {
+  try { if (localStorage.getItem('cp_onboarding_done')) return; } catch {}
+  setTimeout(showOnboarding, 650);
+}
+
 function hideLanding() {
   wipeTransition(() => {
     document.getElementById('landing').classList.remove('show');
     document.getElementById('app').classList.add('show');
+    maybeShowOnboarding();
   });
 }
 
