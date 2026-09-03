@@ -589,10 +589,11 @@ body {
 }
 
 .lesson-title {
-  font-size: 30px;
-  font-weight: 800;
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 700;
   color: #fff;
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 14px;
   letter-spacing: -0.5px;
   position: relative;
@@ -616,10 +617,11 @@ body {
 
 .content-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: 24px;
   margin-bottom: 18px;
+  box-shadow: 0 4px 0 var(--border2);
   position: relative;
   overflow: hidden;
 }
@@ -627,10 +629,10 @@ body {
 .content-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), transparent 60%);
-  opacity: 0.6;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--accent);
+  opacity: 0;
 }
 
 .card-label {
