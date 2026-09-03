@@ -598,6 +598,54 @@ body {
 .ob-next:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(2px); box-shadow: 0 2px 0 var(--accent-ink); }
 .ob-next:active { transform: translateY(4px); box-shadow: 0 0 0 var(--accent-ink); }
 
+/* ---- Review mode (Fehler wiederholen) ---- */
+.psp-review-btn {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  background: var(--orange-bg); border: 2px solid var(--orange); border-radius: 16px;
+  padding: 16px 18px; margin-bottom: 28px; cursor: pointer; box-shadow: 0 4px 0 var(--orange);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.psp-review-btn:hover { transform: translateY(2px); box-shadow: 0 2px 0 var(--orange); }
+.psp-review-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--orange); }
+.psp-review-ico { width: 40px; height: 40px; border-radius: 12px; background: var(--orange); color: #fff; display: grid; place-items: center; flex-shrink: 0; }
+.psp-review-ico [data-lucide] { width: 20px; height: 20px; }
+.psp-review-txt { display: flex; flex-direction: column; }
+.psp-review-txt b { font-family: var(--display); font-size: 15px; color: var(--text); }
+.psp-review-txt span { font-size: 12px; color: var(--text2); }
+.psp-review-arrow { margin-left: auto; color: var(--orange-ink); }
+.psp-review-arrow[data-lucide] { width: 20px; height: 20px; }
+
+#review-overlay {
+  position: fixed; inset: 0; z-index: 500; background: var(--overlay-bg);
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+#review-overlay.show { display: flex; }
+.rv-card {
+  background: var(--surface); border: 2px solid var(--border2); border-radius: 24px;
+  padding: 30px 28px 24px; width: 100%; max-width: 480px;
+  max-height: calc(100vh - 40px); overflow-y: auto;
+  box-shadow: 0 8px 0 var(--border2), 0 24px 60px rgba(30,27,75,0.3);
+  position: relative; text-align: center;
+  animation: obPop 0.28s cubic-bezier(0.16,1,0.3,1);
+}
+.rv-head { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 18px; }
+.rv-head [data-lucide] { width: 15px; height: 15px; }
+.rv-q { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--text); line-height: 1.4; margin-bottom: 20px; text-align: left; }
+.rv-opts { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.rv-opts .quiz-option { width: 100%; }
+.rv-tf { display: flex; gap: 12px; }
+.rv-tf .tf-btn { flex: 1; }
+.rv-fill { display: flex; gap: 8px; }
+.rv-input.ok { border-color: var(--green); }
+.rv-input.bad { border-color: var(--red); }
+.rv-fb { display: none; margin-top: 18px; padding: 14px 16px; border-radius: 12px; font-size: 13px; line-height: 1.55; text-align: left; }
+.rv-fb.show { display: block; }
+.rv-fb.good { background: var(--green-bg); color: var(--green-ink); border: 2px solid var(--green); }
+.rv-fb.bad { background: var(--red-bg); color: var(--red); border: 2px solid var(--red); }
+.rv-fb b { font-family: var(--display); }
+.rv-next { margin-top: 14px; }
+.rv-next .ob-next { width: 100%; }
+
 .content-area {
   flex: 1;
   overflow-y: auto;
@@ -19925,6 +19973,7 @@ function loadActiveState() {
   state.xp = data.xp;
   state.gami = loadGami(profile.id);
   state.achievements = loadAchievements(profile.id);
+  state.wrongQuestions = loadWrongSet(profile.id);
   state.difficulty = profile.difficulty || 'moderate';
   // Load earned quiz IDs (no double-award guard)
   try {
@@ -20146,6 +20195,7 @@ function answerTF(id, val, btn) {
     const xpAmt = data.xp || 8;
     state.quizAnswered.add(id);
     state.quizAttempts.delete(id);
+    recordCorrect(id);
     document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(b => b.disabled = true);
     btn.classList.add('correct');
     const fb = document.getElementById('fb-' + id);
@@ -20189,6 +20239,7 @@ function answerFill(id) {
   if (correct) {
     state.quizAnswered.add(id);
     state.quizAttempts.delete(id);
+    recordCorrect(id);
     input.disabled = true;
     const fillBtn = document.querySelector(`[data-fill="${id}"]`);
     if (fillBtn) fillBtn.disabled = true;
@@ -24996,6 +25047,7 @@ function answerQuiz(id, idx, btn) {
 function _quizMarkCorrect(id, data, btn, why) {
   state.quizAnswered.add(id);
   state.quizAttempts.delete(id);
+  recordCorrect(id);
   document.querySelectorAll(`#opts-${id} .quiz-option`).forEach(o => o.disabled = true);
   document.querySelectorAll(`#opts-${id} .tf-btn`).forEach(o => o.disabled = true);
   if (btn) btn.classList.add('correct');
@@ -25010,6 +25062,7 @@ function _quizMarkCorrect(id, data, btn, why) {
 function _showRetryChoice(id, data, type) {
   const fb = document.getElementById('fb-' + id);
   if (!fb) return;
+  recordWrong(id);
   const en = LANG.get() === 'en';
   fb.innerHTML = `
     <div class="quiz-retry-choice">
@@ -25163,6 +25216,12 @@ const LEVEL_TITLES = [
   { min: 8, name: 'Entwickler' }, { min: 5, name: 'Lehrling' }, { min: 3, name: 'Einsteiger' }, { min: 0, name: 'Neuling' },
 ];
 function getLevelTitle(level) { return (LEVEL_TITLES.find(t => level >= t.min) || LEVEL_TITLES[LEVEL_TITLES.length - 1]).name; }
+
+// ---- Wrong-answer tracking (for the review / practice-mistakes mode) ----
+function loadWrongSet(pid) { try { return new Set(JSON.parse(localStorage.getItem(`cp_p_${pid}_wrong`) || '[]')); } catch { return new Set(); } }
+function saveWrongSet(pid, s) { try { localStorage.setItem(`cp_p_${pid}_wrong`, JSON.stringify([...s])); } catch {} }
+function recordWrong(id) { if (!state.activeProfile) return; const s = state.wrongQuestions || loadWrongSet(state.activeProfile.id); s.add(id); state.wrongQuestions = s; saveWrongSet(state.activeProfile.id, s); }
+function recordCorrect(id) { if (!state.activeProfile) return; const s = state.wrongQuestions || loadWrongSet(state.activeProfile.id); if (s.has(id)) { s.delete(id); state.wrongQuestions = s; saveWrongSet(state.activeProfile.id, s); } }
 function getLevel(xp) { return Math.floor((xp || 0) / 100) + 1; }
 function updateGamiUI() {
   const g = state.gami || { streak: 0, todayXP: 0, dailyGoal: DAILY_GOAL_DEFAULT };
@@ -25997,6 +26056,13 @@ function showProfileStats() {
         </div>
       </div>`;
     })()}
+    ${(() => {
+      const wc = loadWrongSet(p.id).size;
+      const isSelf2 = state.activeProfile && state.activeProfile.id === p.id;
+      return (wc > 0 && isSelf2)
+        ? `<button class="psp-review-btn" onclick="openReview()"><span class="psp-review-ico"><i data-lucide="rotate-ccw"></i></span><span class="psp-review-txt"><b>${wc} Frage${wc === 1 ? '' : 'n'} wiederholen</b><span>Übe gezielt, was du falsch beantwortet hattest</span></span><i data-lucide="chevron-right" class="psp-review-arrow"></i></button>`
+        : '';
+    })()}
     ${adminZone}
     <div class="psp-section-title">Achievements <span class="psp-ach-count">${loadAchievements(p.id).size}/${ACHIEVEMENTS.length}</span></div>
     <div class="psp-ach-grid">${(() => { const set = loadAchievements(p.id); return ACHIEVEMENTS.map(a => { const un = set.has(a.id); return `<div class="psp-ach ${un ? 'unlocked' : 'locked'}" title="${a.desc}"><div class="psp-ach-ico"><i data-lucide="${un ? a.icon : 'lock'}"></i></div><div class="psp-ach-name">${a.name}</div><div class="psp-ach-desc">${a.desc}</div></div>`; }).join(''); })()}</div>
@@ -26251,6 +26317,101 @@ function finishOnboarding() {
 function maybeShowOnboarding() {
   try { if (localStorage.getItem('cp_onboarding_done')) return; } catch {}
   setTimeout(showOnboarding, 650);
+}
+
+// ============================================================
+//              REVIEW MODE (Fehler wiederholen)
+// ============================================================
+function _findQuestion(qid) {
+  for (const lid in QUESTION_POOLS) {
+    const q = QUESTION_POOLS[lid].find(x => x.id === qid);
+    if (q) return q;
+  }
+  return null;
+}
+let _reviewState = null;
+function openReview() {
+  const ids = [...(state.wrongQuestions || [])];
+  const questions = ids.map(_findQuestion).filter(Boolean);
+  if (!questions.length) { showToast('Keine Fehler zum Wiederholen — stark!'); return; }
+  questions.sort(() => Math.random() - 0.5);
+  _reviewState = { questions, idx: 0, done: 0 };
+  let ov = document.getElementById('review-overlay');
+  if (!ov) { ov = document.createElement('div'); ov.id = 'review-overlay'; ov.innerHTML = '<div class="rv-card"></div>'; document.body.appendChild(ov); }
+  ov.classList.add('show');
+  _renderReviewCard();
+}
+function closeReview() {
+  const ov = document.getElementById('review-overlay');
+  if (ov) ov.classList.remove('show');
+  _reviewState = null;
+  const psp = document.getElementById('profile-stats-page');
+  if (psp && psp.classList.contains('show')) showProfileStats();
+}
+function _reviewCard() { return document.getElementById('review-overlay').querySelector('.rv-card'); }
+function _renderReviewCard() {
+  const rs = _reviewState; if (!rs) return;
+  const card = _reviewCard();
+  if (rs.idx >= rs.questions.length) {
+    card.innerHTML =
+      `<button class="ob-close" onclick="closeReview()" aria-label="Schließen"><i data-lucide="x"></i></button>` +
+      `<div class="ob-icon" style="background:var(--green)"><i data-lucide="party-popper"></i></div>` +
+      `<div class="ob-title">Wiederholung geschafft!</div>` +
+      `<div class="ob-text">Du hast ${rs.done} von ${rs.questions.length} Fragen richtig — gemeisterte Fragen sind aus der Liste raus.</div>` +
+      `<div class="ob-actions"><button class="ob-btn ob-next" onclick="closeReview()">Schließen</button></div>`;
+    try { lucide.createIcons({ nodes: [card] }); } catch {}
+    return;
+  }
+  const q = rs.questions[rs.idx];
+  const total = rs.questions.length;
+  let body;
+  if (q.type === 'truefalse') {
+    body = `<div class="rv-q">${q.statement || q.question || ''}</div>` +
+      `<div class="rv-tf"><button class="tf-btn" onclick="_reviewAnswer(this, ${q.correct === true})">Richtig</button>` +
+      `<button class="tf-btn" onclick="_reviewAnswer(this, ${q.correct === false})">Falsch</button></div>`;
+  } else if (q.type === 'fillblank' || q.type === 'outputpredict') {
+    body = `<div class="rv-q">${q.prompt || q.question || ''}</div>` +
+      `<div class="rv-fill"><input type="text" class="fill-input rv-input" placeholder="Antwort" onkeydown="if(event.key==='Enter')_reviewCheckFill(this)">` +
+      `<button class="fill-btn" onclick="_reviewCheckFill(this.previousElementSibling)">Prüfen</button></div>`;
+  } else {
+    body = `<div class="rv-q">${q.question || ''}</div>` +
+      `<div class="rv-opts">${(q.options || []).map(o => `<button class="quiz-option" onclick="_reviewAnswer(this, ${!!o.correct})">${o.t}</button>`).join('')}</div>`;
+  }
+  card.innerHTML =
+    `<button class="ob-close" onclick="closeReview()" aria-label="Schließen"><i data-lucide="x"></i></button>` +
+    `<div class="rv-head"><i data-lucide="rotate-ccw"></i>Fehler wiederholen · ${rs.idx + 1} / ${total}</div>` +
+    body + `<div class="rv-fb" id="rv-fb"></div>`;
+  try { lucide.createIcons({ nodes: [card] }); } catch {}
+}
+function _reviewFeedback(ok, extra) {
+  const rs = _reviewState; const q = rs.questions[rs.idx];
+  const fb = document.getElementById('rv-fb');
+  fb.className = 'rv-fb show ' + (ok ? 'good' : 'bad');
+  fb.innerHTML = (ok ? '<b>Richtig!</b> ' : '<b>Leider falsch.</b> ') + (extra || q.explanation || q.why || '') +
+    `<div class="rv-next"><button class="ob-btn ob-next" onclick="_reviewNext(${ok})">${rs.idx + 1 < rs.questions.length ? 'Weiter' : 'Fertig'}</button></div>`;
+  try { lucide.createIcons({ nodes: [fb] }); } catch {}
+}
+function _reviewAnswer(btn, ok) {
+  _reviewCard().querySelectorAll('.tf-btn,.quiz-option').forEach(b => b.disabled = true);
+  btn.classList.add(ok ? 'correct' : 'wrong');
+  _reviewFeedback(ok);
+}
+function _reviewCheckFill(input) {
+  const rs = _reviewState; const q = rs.questions[rs.idx];
+  const val = (input.value || '').trim().toLowerCase();
+  if (!val) return;
+  const ok = (q.answers || []).some(a => String(a).toLowerCase() === val);
+  input.disabled = true;
+  _reviewCard().querySelectorAll('.fill-btn').forEach(b => b.disabled = true);
+  input.classList.add(ok ? 'ok' : 'bad');
+  _reviewFeedback(ok, ok ? '' : 'Richtig wäre: <strong>' + (q.answers || []).join(' / ') + '</strong>. ');
+}
+function _reviewNext(wasCorrect) {
+  const rs = _reviewState; if (!rs) return;
+  const q = rs.questions[rs.idx];
+  if (wasCorrect) { recordCorrect(q.id); rs.done++; }
+  rs.idx++;
+  _renderReviewCard();
 }
 
 function hideLanding() {
