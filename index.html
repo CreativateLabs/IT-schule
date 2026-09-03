@@ -492,6 +492,42 @@ body {
   .gami-goal, .gami-level { display: none; }
 }
 
+/* ---- Celebration toast (level-up / achievement) ---- */
+#celebrate-toast {
+  position: fixed; top: 78px; left: 50%; transform: translateX(-50%) translateY(-18px);
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface); border: 2px solid var(--border2);
+  border-radius: 16px; padding: 12px 20px 12px 12px;
+  box-shadow: 0 10px 0 var(--border2), 0 18px 40px rgba(30,27,75,0.18);
+  z-index: 10000; opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+#celebrate-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.celebrate-ico { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: #fff; flex-shrink: 0; }
+.celebrate-ico [data-lucide] { width: 22px; height: 22px; }
+.celebrate-txt { display: flex; flex-direction: column; font-family: var(--display); }
+.celebrate-txt b { font-size: 14px; color: var(--text); }
+.celebrate-txt { font-size: 12px; color: var(--text2); }
+
+/* ---- Achievements grid (profile stats) ---- */
+.psp-ach-count {
+  font-family: var(--display); font-size: 12px; font-weight: 600; color: #fff;
+  background: var(--accent); padding: 2px 10px; border-radius: 999px; margin-left: 8px;
+}
+.psp-ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.psp-ach {
+  background: var(--surface); border: 2px solid var(--border); border-radius: 16px;
+  padding: 16px 12px; text-align: center; transition: transform 0.12s;
+}
+.psp-ach.unlocked { border-color: var(--border2); box-shadow: 0 4px 0 var(--border2); }
+.psp-ach.locked { opacity: 0.55; }
+.psp-ach-ico { display: grid; place-items: center; width: 46px; height: 46px; margin: 0 auto 10px; border-radius: 50%; }
+.psp-ach.unlocked .psp-ach-ico { background: var(--orange); color: #fff; }
+.psp-ach.locked .psp-ach-ico { background: var(--surface3); color: var(--text3); }
+.psp-ach-ico [data-lucide] { width: 22px; height: 22px; }
+.psp-ach-name { font-family: var(--display); font-weight: 600; font-size: 13px; color: var(--text); margin-bottom: 3px; }
+.psp-ach-desc { font-size: 11px; color: var(--text3); line-height: 1.35; }
+
 .content-area {
   flex: 1;
   overflow-y: auto;
@@ -19669,6 +19705,7 @@ function loadActiveState() {
   state.completed = data.completed;
   state.xp = data.xp;
   state.gami = loadGami(profile.id);
+  state.achievements = loadAchievements(profile.id);
   state.difficulty = profile.difficulty || 'moderate';
   // Load earned quiz IDs (no double-award guard)
   try {
@@ -24911,11 +24948,63 @@ function updateGamiUI() {
   const gg = document.getElementById('gami-goal'); if (gg) gg.classList.toggle('reached', (g.todayXP || 0) >= goal);
 }
 
+// ---- Achievements ----
+function _phaseComplete(s, phaseId) {
+  const ph = PHASES.find(p => p.id === phaseId);
+  return !!ph && ph.lessons.length > 0 && ph.lessons.every(l => s.completed.has(l.id));
+}
+const ACHIEVEMENTS = [
+  { id: 'first_lesson', icon: 'footprints',    name: 'Erste Schritte',       desc: 'Erste Lektion abgeschlossen', check: s => s.completed.size >= 1 },
+  { id: 'ten_lessons',  icon: 'book-open',      name: 'Fleißig',              desc: '10 Lektionen abgeschlossen',  check: s => s.completed.size >= 10 },
+  { id: 'xp_100',       icon: 'zap',            name: 'Hundert',              desc: '100 XP gesammelt',            check: s => s.xp >= 100 },
+  { id: 'xp_500',       icon: 'flame',          name: 'Auf Betriebstemperatur', desc: '500 XP gesammelt',          check: s => s.xp >= 500 },
+  { id: 'level_5',      icon: 'star',           name: 'Level 5',              desc: 'Level 5 erreicht',            check: s => getLevel(s.xp) >= 5 },
+  { id: 'streak_3',     icon: 'calendar-check', name: 'Dranbleiber',          desc: '3 Tage in Folge gelernt',     check: s => (s.gami && s.gami.streak || 0) >= 3 },
+  { id: 'streak_7',     icon: 'flame',          name: 'Wochen-Streak',        desc: '7 Tage in Folge gelernt',     check: s => (s.gami && s.gami.streak || 0) >= 7 },
+  { id: 'phase1',       icon: 'cpu',            name: 'Fundament gemeistert', desc: 'Phase 1 abgeschlossen',       check: s => _phaseComplete(s, 'p1') },
+];
+function loadAchievements(id) { try { return new Set(JSON.parse(localStorage.getItem(`cp_p_${id}_ach`) || '[]')); } catch { return new Set(); } }
+function saveAchievements(id, set) { try { localStorage.setItem(`cp_p_${id}_ach`, JSON.stringify([...set])); } catch {} }
+function checkAchievements() {
+  if (!state.activeProfile) return;
+  const id = state.activeProfile.id;
+  const unlocked = state.achievements || loadAchievements(id);
+  const newly = [];
+  for (const a of ACHIEVEMENTS) { if (!unlocked.has(a.id) && a.check(state)) { unlocked.add(a.id); newly.push(a); } }
+  if (newly.length) {
+    saveAchievements(id, unlocked);
+    state.achievements = unlocked;
+    // Stagger multiple unlocks so each celebration is visible
+    newly.forEach((a, i) => setTimeout(() => celebrate('achievement', a.name, a.icon), i * 900));
+  }
+}
+
+// ---- Celebration toast (level-up / achievement) ----
+function celebrate(kind, msg, icon) {
+  let el = document.getElementById('celebrate-toast');
+  if (!el) { el = document.createElement('div'); el.id = 'celebrate-toast'; document.body.appendChild(el); }
+  const color = kind === 'level' ? 'var(--accent)' : kind === 'achievement' ? 'var(--orange)' : 'var(--green)';
+  const head = kind === 'level' ? 'Level Up!' : kind === 'achievement' ? 'Achievement freigeschaltet' : 'Geschafft!';
+  el.innerHTML = `<span class="celebrate-ico" style="background:${color}"><i data-lucide="${icon || 'party-popper'}"></i></span>` +
+                 `<span class="celebrate-txt"><b>${head}</b>${msg}</span>`;
+  try { lucide.createIcons({ nodes: [el] }); } catch {}
+  // Drive the entrance with inline styles (robust across engines); CSS provides the easing.
+  el.style.opacity = '0'; el.style.transform = 'translateX(-50%) translateY(-18px)';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.style.opacity = '1'; el.style.transform = 'translateX(-50%) translateY(0)';
+  }));
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(-50%) translateY(-18px)'; }, 3200);
+}
+
 function addXP(amount) {
+  const prevLevel = getLevel(state.xp);
   state.xp += amount;
   persistState();
   awardGami(amount);
   updateProgress();
+  if (getLevel(state.xp) > prevLevel) celebrate('level', 'Du bist jetzt Level ' + getLevel(state.xp), 'star');
+  checkAchievements();
   const el = document.getElementById('xp-display');
   el.classList.remove('xp-flash');
   void el.offsetWidth;
@@ -25645,6 +25734,8 @@ function showProfileStats() {
       </div>
     </div>
     ${adminZone}
+    <div class="psp-section-title">Achievements <span class="psp-ach-count">${loadAchievements(p.id).size}/${ACHIEVEMENTS.length}</span></div>
+    <div class="psp-ach-grid">${(() => { const set = loadAchievements(p.id); return ACHIEVEMENTS.map(a => { const un = set.has(a.id); return `<div class="psp-ach ${un ? 'unlocked' : 'locked'}" title="${a.desc}"><div class="psp-ach-ico"><i data-lucide="${un ? a.icon : 'lock'}"></i></div><div class="psp-ach-name">${a.name}</div><div class="psp-ach-desc">${a.desc}</div></div>`; }).join(''); })()}</div>
     <div class="psp-section-title">Fortschritt pro Phase</div>
     <div class="psp-phases">${phaseBars}</div>
   `;
