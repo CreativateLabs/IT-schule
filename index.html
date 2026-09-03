@@ -1949,18 +1949,18 @@ body {
 
 .landing-hero-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
   align-items: center;
   width: 100%;
-  max-width: 1240px;
+  max-width: none;
   margin: 0 auto;
-  padding: 96px 40px 88px;
+  padding: 92px 64px 84px;
   position: relative; z-index: 1;
 }
 /* Center the terminal within its own column (was glued to the right edge) */
 .landing-hero-right { display: flex; justify-content: center; align-items: center; }
-.landing-hero-right > * { width: 100%; max-width: 440px; }
+.landing-hero-right > * { width: 100%; max-width: 500px; }
 
 .landing-hero-tag {
   display: inline-flex; align-items: center; gap: 6px;
@@ -2116,14 +2116,14 @@ body {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
 }
 .landing-stat:nth-child(1)::before { background: var(--accent); }
-.landing-stat:nth-child(2)::before { background: var(--teal); }
-.landing-stat:nth-child(3)::before { background: var(--green); }
+.landing-stat:nth-child(2)::before { background: var(--orange); }
+.landing-stat:nth-child(3)::before { background: var(--accent); }
 .landing-stat-val {
-  font-family: var(--mono); font-size: 20px; font-weight: 700; line-height: 1;
+  font-family: var(--display); font-size: 22px; font-weight: 700; line-height: 1;
 }
 .landing-stat:nth-child(1) .landing-stat-val { color: var(--accent); }
-.landing-stat:nth-child(2) .landing-stat-val { color: var(--teal); }
-.landing-stat:nth-child(3) .landing-stat-val { color: var(--green); }
+.landing-stat:nth-child(2) .landing-stat-val { color: var(--orange); }
+.landing-stat:nth-child(3) .landing-stat-val { color: var(--accent); }
 .landing-stat-label { font-size: 10.5px; color: var(--text3); margin-top: 5px; }
 
 /* Section headers */
@@ -2556,16 +2556,12 @@ body {
 /* ===================== HERO LIVE TERMINAL ===================== */
 .hero-live-term {
   background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 16px; overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(99,102,241,0.12);
+  border: 2px solid var(--border2);
+  border-radius: 18px; overflow: hidden;
+  box-shadow: 0 8px 0 var(--border2);
   font-family: var(--mono); font-size: 13px; position: relative;
 }
-.hero-live-term::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, transparent 55%);
-  pointer-events: none; z-index: 1;
-}
+.hero-live-term::before { display: none; }
 .hcw-bar {
   display: flex; align-items: center; gap: 8px;
   padding: 14px 20px 10px 22px;
@@ -3033,12 +3029,12 @@ body {
           <div class="feature-text">Von Binärzahlen bis Ethical Hacking — ein durchdachter Pfad vom absoluten Anfänger zum Profi.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-ico" style="background:var(--green)"><i data-lucide="circle-check-big"></i></div>
+          <div class="feature-ico" style="background:var(--accent)"><i data-lucide="circle-check-big"></i></div>
           <div class="feature-title">Interaktive Quizzes</div>
           <div class="feature-text">Multiple-Choice, Wahr/Falsch, Lückentext und echte Coding-Übungen — mit sofortigem Feedback.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-ico" style="background:var(--teal)"><i data-lucide="save"></i></div>
+          <div class="feature-ico" style="background:var(--orange)"><i data-lucide="save"></i></div>
           <div class="feature-title">Fortschritt gespeichert</div>
           <div class="feature-text">Mehrere Profile pro Browser, jederzeit als Datei exportierbar. Dein Weg bleibt erhalten.</div>
         </div>
@@ -26707,9 +26703,9 @@ function initPhasesCollage() {
   // Build one set of cards into a track div, then duplicate for seamless loop
   function buildCards(track, isClone) {
     const stats = [
-      { color:'#00bfae', val:'68',   id: isClone ? null : 'stat-lessons', count:68,  label:'Lektionen',     bg:'68' },
-      { color:'#0ea5e9', val:'6',    id: isClone ? null : 'stat-topics',  count:6,   label:'Themengebiete', bg:'6'  },
-      { color:'#10b981', val:'100%', id: isClone ? null : 'stat-free',    count:null, label:'Kostenlos',    bg:'%'  },
+      { color:'#6366f1', val:'68',   id: isClone ? null : 'stat-lessons', count:68,  label:'Lektionen',     bg:'68' },
+      { color:'#f97316', val:'6',    id: isClone ? null : 'stat-topics',  count:6,   label:'Themengebiete', bg:'6'  },
+      { color:'#6366f1', val:'100%', id: isClone ? null : 'stat-free',    count:null, label:'Kostenlos',    bg:'%'  },
     ];
 
     stats.forEach(s => {
@@ -26725,12 +26721,12 @@ function initPhasesCollage() {
     });
 
     const phases = [
-      { num:'01', color:'#00d4c8', name:'Fundament',           lessons:8 },
-      { num:'02', color:'#3ecf7a', name:'Python',              lessons:10 },
-      { num:'03', color:'#f7c96a', name:'Web & HTML/CSS',      lessons:10 },
-      { num:'04', color:'#00bfae', name:'Backend & APIs',      lessons:8 },
-      { num:'05', color:'#f76a6a', name:'Hacking &\nSecurity', lessons:16 },
-      { num:'06', color:'#0ea5e9', name:'Profi-Level',         lessons:15 },
+      { num:'01', color:'#6366f1', name:'Fundament',           lessons:8 },
+      { num:'02', color:'#f97316', name:'Python',              lessons:10 },
+      { num:'03', color:'#6366f1', name:'Web & HTML/CSS',      lessons:10 },
+      { num:'04', color:'#f97316', name:'Backend & APIs',      lessons:8 },
+      { num:'05', color:'#6366f1', name:'Hacking &\nSecurity', lessons:16 },
+      { num:'06', color:'#f97316', name:'Profi-Level',         lessons:15 },
     ];
 
     phases.forEach((p, i) => {
@@ -27147,7 +27143,7 @@ function wipeTransition(cb) {
 (function initPhaseCarousel() {
   const PHASES_DATA = [
     {
-      num: '01', color: '#00d4c8',
+      num: '01', color: '#6366f1',
       title: 'Fundament',
       desc: 'Verstehe, wie ein Computer auf unterster Ebene denkt — bevor du eine einzige Zeile Code schreibst.',
       count: 8,
@@ -27164,7 +27160,7 @@ function wipeTransition(cb) {
       skills: ['Terminal','Bash','Linux','Netzwerk','Algorithmen','Hardware'],
     },
     {
-      num: '02', color: '#3ecf7a',
+      num: '02', color: '#f97316',
       title: 'Python',
       desc: 'Lerne die meistgenutzte Programmiersprache — von der ersten Variable bis zu eigenen Programmen.',
       count: 5,
@@ -27179,7 +27175,7 @@ function wipeTransition(cb) {
       skills: ['Python 3','pip','OOP','Algorithmen','Debugging','Scripts'],
     },
     {
-      num: '03', color: '#f7c96a',
+      num: '03', color: '#6366f1',
       title: 'Web & HTML/CSS',
       desc: 'Baue echte Webseiten von Grund auf — Struktur, Styling und dein erstes JavaScript.',
       count: 5,
@@ -27194,7 +27190,7 @@ function wipeTransition(cb) {
       skills: ['HTML5','CSS3','JavaScript','Flexbox','Grid','DOM'],
     },
     {
-      num: '04', color: '#00bfae',
+      num: '04', color: '#f97316',
       title: 'Backend & APIs',
       desc: 'Was steckt hinter jeder App? Server, Datenbanken und die Kommunikation über REST APIs.',
       count: 4,
@@ -27209,7 +27205,7 @@ function wipeTransition(cb) {
       skills: ['FastAPI','REST','SQL','JWT','PostgreSQL','Cloud'],
     },
     {
-      num: '05', color: '#f76a6a',
+      num: '05', color: '#6366f1',
       title: 'Hacking & Security',
       desc: 'Lerne, wie Angriffe funktionieren — um Systeme besser schützen zu können. Nur zu Bildungszwecken.',
       count: 8,
@@ -27224,7 +27220,7 @@ function wipeTransition(cb) {
       skills: ['Burp Suite','Wireshark','nmap','OWASP','Kali','CTF'],
     },
     {
-      num: '06', color: '#0ea5e9',
+      num: '06', color: '#f97316',
       title: 'Profi-Level',
       desc: 'Schreibe Code wie ein Profi — sauber, testbar und versioniert. Bereit für echte Projekte.',
       count: 3,
