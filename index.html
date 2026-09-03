@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>PyCoBase – PythonCodeBase</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -2774,6 +2771,22 @@ body {
 }
 /* XP counter glow */
 .landing-stat-val.counting { color: var(--accent2); }
+
+/* a11y: visible keyboard focus ring (mouse clicks stay ring-free via :focus-visible) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* a11y: respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3222,6 +3235,7 @@ function t(key, ...args) {
 function applyLang() {
   const lang = LANG.get();
   const en = lang === 'en';
+  document.documentElement.lang = lang; // a11y: screen readers use correct pronunciation
   // Simple text elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = t(el.dataset.i18n);
@@ -3247,7 +3261,13 @@ function applyLang() {
     ? 'PyCoBase is your structured learning path for programming, web development and cybersecurity — with interactive lessons, quizzes and coding exercises.'
     : 'PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.';
   // Re-render app/landing
-  if (document.getElementById('app').classList.contains('show')) { render(); buildLeaderboard(); }
+  if (document.getElementById('app').classList.contains('show')) {
+    // Don't rebuild the lesson while a quiz attempt is running — a full render()
+    // would re-pick pool questions and wipe the current attempt (answers, XP).
+    const inActiveAttempt = state.quizAnswered && state.quizAnswered.size > 0 && !state.lessonPassed;
+    if (!inActiveAttempt) render();
+    buildLeaderboard();
+  }
   if (document.getElementById('landing').classList.contains('show')) buildLandingLoginPanel();
 }
 
@@ -19571,7 +19591,10 @@ function deleteProfile(profileId) {
   localStorage.removeItem(STORAGE.profileKey(profileId, 'done'));
   localStorage.removeItem(STORAGE.profileKey(profileId, 'xp'));
   if (localStorage.getItem(STORAGE.active) === profileId) {
-    if (profiles.length > 0) setActiveProfile(profiles[0].id);
+    // Never fall back into the admin profile — that would grant admin access
+    // without a password. Pick the next non-admin profile, else clear (-> Landing).
+    const next = profiles.find(p => !p.isAdmin);
+    if (next) setActiveProfile(next.id);
     else localStorage.removeItem(STORAGE.active);
   }
 }
@@ -19799,13 +19822,13 @@ function renderBonus(lessonId) {
   if (!pool) return '';
   const bonus = pool.find(q => q.optional);
   if (!bonus) return '';
-  // Override XP to 20 for bonus
-  bonus.xp = 20;
+  // Override XP to 20 for bonus — clone so the shared pool object stays untouched
+  const bonusQ = { ...bonus, xp: 20 };
   return `<div class="content-card animate-in" style="animation-delay:0.05s;background:var(--amber-bg);border-color:var(--amber)">
     <div class="card-label" style="color:var(--amber)"><i data-lucide="star"></i>&nbsp;Profi-Herausforderung (optional)</div>
     <div class="explanation" style="color:var(--text2)">Diese Frage ist optional — sie zählt <strong>nicht</strong> zur Bewertung. Richtige Antwort: <strong>+20 XP Bonus</strong>.</div>
   </div>
-  ${renderOneQuestion(bonus, true)}`;
+  ${renderOneQuestion(bonusQ, true)}`;
 }
 
 // Answer a True/False question
@@ -24835,7 +24858,10 @@ function initStepLocks() {
 }
 
 function isStepEarned(block) {
-  // A quiz block is earned when its quiz ID is in quizAnswered
+  // Pool quiz card (MC / True-False / fill-in / output-predict all carry data-qid)
+  const card = block.querySelector('.quiz-card[data-qid]');
+  if (card) return state.quizAnswered.has(card.dataset.qid);
+  // A legacy inline quiz block is earned when its quiz ID is in quizAnswered
   const quizOpts = block.querySelector('[data-quiz]');
   if (quizOpts) return state.quizAnswered.has(quizOpts.dataset.quiz);
   // An exercise block is earned when its ex_ ID is in quizAnswered
@@ -25758,9 +25784,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
   if (username.toLowerCase() === 'admin1') {
     const pwHash = await hashPassword(password);
     if (!isAdminHash(pwHash)) {
-      const got = (pwHash || 'null').slice(0, 8);
-      const exp = ADMIN_PW_HASH.slice(0, 8);
-      errEl.innerHTML = `Falsches Passwort.<br><small style="font-size:10px;font-family:var(--mono);opacity:.7">got:${got}… exp:${exp}…</small>`;
+      errEl.textContent = 'Falscher Benutzername oder Passwort.';
       btn.disabled = false;
       return;
     }
@@ -25817,7 +25841,8 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     const existing = loadProfileData(profile.id);
     saveProfileData(profile.id, {
       completed: existing.completed,
-      xp: me.xp
+      // Keep the higher of local vs. server XP so offline progress isn't lost
+      xp: Math.max(parseInt(existing.xp, 10) || 0, parseInt(me.xp, 10) || 0)
     });
     setActiveProfile(profile.id);
     loadActiveState();
@@ -26021,6 +26046,7 @@ async function buildLeaderboard() {
             <div class="lb-xp">${u.xp}&thinsp;XP</div>
           </div>`).join('');
       lb.innerHTML = `<div class="lb-header"><i data-lucide="trophy"></i>${t('leaderboard')}</div>${rows}`;
+      lucide.createIcons({ nodes: [lb] });
       return;
     } catch(e) {}
   }
