@@ -308,6 +308,12 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 8px 0;
+  position: relative;
+}
+/* Continuous vertical path line through all phase + lesson nodes */
+.nav::before {
+  content: ''; position: absolute; left: 33px; top: 20px; bottom: 20px;
+  width: 2px; background: var(--border2); border-radius: 2px; z-index: 0;
 }
 
 .nav::-webkit-scrollbar { width: 4px; }
@@ -331,6 +337,8 @@ body {
   font-family: var(--sans);
   border-left: 2px solid transparent;
   margin-left: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .phase-btn:hover { background: var(--surface2); color: var(--text); border-left-color: var(--border2); }
@@ -385,11 +393,6 @@ body {
 .phase-lessons { font-size: 11px; color: var(--text3); margin-top: 1px; }
 
 .lesson-list { overflow: hidden; position: relative; padding: 2px 0 6px; }
-/* Vertical path line connecting the lesson nodes */
-.lesson-list::before {
-  content: ''; position: absolute; left: 32px; top: 0; bottom: 10px;
-  width: 2px; background: var(--border2); border-radius: 2px;
-}
 
 .lesson-item {
   padding: 8px 18px 8px 26px;
@@ -401,6 +404,7 @@ body {
   gap: 12px;
   transition: color 0.15s, background 0.15s;
   position: relative;
+  z-index: 1;
 }
 
 .lesson-item:hover { color: var(--text2); background: var(--surface2); }
