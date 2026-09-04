@@ -318,11 +318,12 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 8px 0;
-  position: relative;
 }
+/* Inner track holds full scroll height so the path line spans everything */
+.nav-track { position: relative; }
 /* Continuous vertical path line through all phase + lesson nodes */
-.nav::before {
-  content: ''; position: absolute; left: 33px; top: 20px; bottom: 20px;
+.nav-track::before {
+  content: ''; position: absolute; left: 33px; top: 14px; bottom: 14px;
   width: 2px; background: var(--border2); border-radius: 2px; z-index: 0;
 }
 
@@ -25785,7 +25786,7 @@ function navigate(dir) {
 function buildNav() {
   const nav = document.getElementById('nav');
   const en = LANG.get() === 'en';
-  nav.innerHTML = PHASES.map((phase, pi) => {
+  nav.innerHTML = '<div class="nav-track">' + PHASES.map((phase, pi) => {
     const isActivePhase = pi === state.currentPhase;
     const doneLessons = phase.lessons.filter(l => state.completed.has(l.id)).length;
     const allDone = doneLessons === phase.lessons.length && doneLessons > 0;
@@ -25812,7 +25813,7 @@ function buildNav() {
         }).join('')}
       </div>
     </div>`;
-  }).join('');
+  }).join('') + '</div>';
 
   nav.querySelectorAll('.phase-btn[data-phase]').forEach(btn => {
     btn.addEventListener('click', () => goToPhase(parseInt(btn.dataset.phase, 10)));
