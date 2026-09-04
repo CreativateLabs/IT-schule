@@ -660,28 +660,37 @@ body {
 .lesson-header {
   position: relative;
   overflow: hidden;
-  padding: 34px 36px 30px;
-  margin-bottom: 0;
-  background: var(--surface);
-  border-bottom: 2px solid var(--border);
+  margin: 28px 36px 4px;
+  padding: 32px 34px;
+  border-radius: 22px;
+  background: var(--accent);
+  box-shadow: 0 6px 0 var(--accent-ink);
 }
 
-/* Subtle decorative circle — top-right (light, not a blue block) */
+/* Decorative circle — top-right (on the indigo tile) */
 .lesson-header::before {
   content: '';
   position: absolute;
-  top: -60px; right: -50px;
+  top: -70px; right: -50px;
   width: 220px; height: 220px;
   border-radius: 50%;
-  background: var(--accent-glow);
+  background: rgba(255,255,255,0.12);
   pointer-events: none;
 }
-.lesson-header::after { display: none; }
+.lesson-header::after {
+  content: '';
+  position: absolute;
+  bottom: -90px; left: 30px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
 
 .lesson-tag {
   font-size: 10px;
   font-family: var(--mono);
-  color: var(--orange);
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-weight: 700;
@@ -689,10 +698,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--orange-bg);
+  background: rgba(255,255,255,0.18);
   padding: 5px 13px;
   border-radius: 999px;
-  border: 1.5px solid rgba(249,115,22,0.25);
+  border: 1.5px solid rgba(255,255,255,0.3);
   position: relative;
   z-index: 1;
 }
@@ -701,7 +710,7 @@ body {
   font-family: var(--display);
   font-size: 32px;
   font-weight: 700;
-  color: var(--text);
+  color: #fff;
   line-height: 1.1;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
@@ -711,7 +720,7 @@ body {
 
 .lesson-desc {
   font-size: 15px;
-  color: var(--text2);
+  color: rgba(255,255,255,0.9);
   line-height: 1.7;
   max-width: 640px;
   position: relative;
@@ -1885,7 +1894,8 @@ body {
 
   /* Hero header: taller on mobile for drama */
   .lesson-header {
-    padding: 36px 20px 72px;
+    margin: 16px 16px 4px;
+    padding: 26px 22px;
   }
   .lesson-title { font-size: 24px; }
 
@@ -3639,17 +3649,32 @@ const PHASES = [
           </div>
           <div class="content-card animate-in" style="animation-delay:0.05s">
             <div class="card-label">Dein Lernweg</div>
-            <div class="phases-overview" id="phases-overview-grid">
-              ${PHASES.filter(p => p.id !== 'p0').map((p,i) => {
-                const done = p.lessons.filter(l => state.completed.has(l.id)).length;
-                const pct = p.lessons.length ? Math.round(done/p.lessons.length*100) : 0;
-                return `<div class="phase-overview-card" onclick="goToPhase(${i+1})">
-                  <div class="pov-num">Phase ${i+1}</div>
-                  <div class="pov-title">${p.title}</div>
-                  <div class="pov-sub">${p.sub}</div>
-                  <div class="pov-bar"><div class="pov-fill" style="width:${pct}%"></div></div>
-                </div>`;
-              }).join('')}
+            <div class="path-map">
+              ${(() => {
+                const phases = PHASES.filter(p => p.id !== 'p0');
+                const pos = ['c','r','c','l','c','r','l'];
+                const icons = ['cpu','code-2','layout-template','server','shield-check','graduation-cap','rocket'];
+                let currentAssigned = false;
+                return phases.map((p,i) => {
+                  const done = p.lessons.filter(l => state.completed.has(l.id)).length;
+                  const total = p.lessons.length;
+                  const pct = total ? Math.round(done/total*100) : 0;
+                  const complete = total > 0 && done === total;
+                  let cls = 'upcoming';
+                  if (complete) cls = 'done';
+                  else if (!currentAssigned) { cls = 'active'; currentAssigned = true; }
+                  const icon = complete ? 'check' : (icons[i] || 'circle');
+                  return `<div class="path-node-wrap pos-${pos[i % pos.length]}">
+                    <button class="path-node ${cls}" onclick="goToPhase(${i+1})" title="${p.title}" aria-label="Phase ${i+1}: ${p.title}">
+                      <span class="path-node-ring" style="--pct:${pct}"><span class="path-node-inner"><i data-lucide="${icon}"></i></span></span>
+                    </button>
+                    <div class="path-node-label">
+                      <div class="pnl-phase">Phase ${i+1} · ${done}/${total}</div>
+                      <div class="pnl-title">${p.title}</div>
+                    </div>
+                  </div>`;
+                }).join('');
+              })()}
             </div>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.1s">
@@ -19983,6 +20008,14 @@ function loadActiveState() {
     const sk = localStorage.getItem(`cp_p_${profile.id}_shown`);
     state.shownForLesson = JSON.parse(sk || '{}');
   } catch { state.shownForLesson = {}; }
+  // Restore last position (for "angemeldet bleiben" resume), clamped to valid range
+  try {
+    const pos = JSON.parse(localStorage.getItem(`cp_p_${profile.id}_pos`) || 'null');
+    if (pos && typeof pos.p === 'number' && PHASES[pos.p]) {
+      state.currentPhase = pos.p;
+      state.currentLesson = Math.min(Math.max(0, pos.l || 0), PHASES[pos.p].lessons.length - 1);
+    }
+  } catch {}
   return true;
 }
 
@@ -19995,6 +20028,7 @@ function persistState() {
   const id = state.activeProfile.id;
   localStorage.setItem(`cp_p_${id}_earned`, JSON.stringify([...state.earnedQuizIds]));
   localStorage.setItem(`cp_p_${id}_shown`, JSON.stringify(state.shownForLesson));
+  try { localStorage.setItem(`cp_p_${id}_pos`, JSON.stringify({ p: state.currentPhase || 0, l: state.currentLesson || 0 })); } catch {}
   if (API.isLoggedIn()) {
     API.updateProgress(state.xp, state.currentLesson).catch(() => {});
   }
@@ -27730,6 +27764,17 @@ function init() {
   splitHeroLines();
   initBgMatrix();
   initPhasesCollage();
+  // "Angemeldet bleiben": aktives Nicht-Admin-Profil direkt fortsetzen
+  const _activeId = localStorage.getItem(STORAGE.active);
+  const _activeProf = _activeId ? loadProfiles().find(p => p.id === _activeId) : null;
+  if (_activeProf && !_activeProf.isAdmin && window.location.hash !== '#admin') {
+    setActiveProfile(_activeProf.id);
+    loadActiveState();
+    document.getElementById('landing').classList.remove('show');
+    document.getElementById('app').classList.add('show');
+    render();
+    return;
+  }
   runIntroLoader();
   showLanding();
   setTimeout(initScrollReveal, 100);
