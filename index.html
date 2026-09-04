@@ -25723,26 +25723,27 @@ function buildNav() {
           <div class="phase-lessons">${t('lessons_count', doneLessons, phase.lessons.length)}</div>
         </div>
       </button>
-      ${isActivePhase ? `<div class="lesson-list">
+      ${phaseLocked ? '' : `<div class="lesson-list">
         ${phase.lessons.map((l, li) => {
-          const isActive = li === state.currentLesson;
+          const isActive = pi === state.currentPhase && li === state.currentLesson;
           const isDone = state.completed.has(l.id);
           const isAccessible = isDone || isLessonUnlocked(pi, li);
           const lessonTitle = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
-          return `<div class="lesson-item ${isActive ? 'active' : ''} ${isDone ? 'done' : ''} ${!isAccessible ? 'locked' : ''}" data-lesson="${li}" ${!isAccessible ? 'data-locked="true"' : ''}>
+          return `<div class="lesson-item ${isActive ? 'active' : ''} ${isDone ? 'done' : ''} ${!isAccessible ? 'locked' : ''}" data-phase="${pi}" data-lesson="${li}" ${!isAccessible ? 'data-locked="true"' : ''}>
             <div class="lesson-dot"></div>${lessonTitle}
           </div>`;
         }).join('')}
-      </div>` : ''}
+      </div>`}
     </div>`;
   }).join('');
 
-  nav.querySelectorAll('[data-phase]').forEach(btn => {
+  nav.querySelectorAll('.phase-btn[data-phase]').forEach(btn => {
     btn.addEventListener('click', () => goToPhase(parseInt(btn.dataset.phase, 10)));
   });
-  nav.querySelectorAll('[data-lesson]').forEach(item => {
+  nav.querySelectorAll('.lesson-item[data-lesson]').forEach(item => {
     item.addEventListener('click', () => {
       if (item.dataset.locked) return; // blocked — lesson not yet unlocked
+      state.currentPhase = parseInt(item.dataset.phase, 10);
       state.currentLesson = parseInt(item.dataset.lesson, 10);
       state.quizAnswered.clear(); state.quizAttempts.clear();
       render();
