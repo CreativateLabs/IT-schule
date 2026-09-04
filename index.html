@@ -25800,7 +25800,7 @@ function buildNav() {
           <div class="phase-lessons">${t('lessons_count', doneLessons, phase.lessons.length)}</div>
         </div>
       </button>
-      ${phaseLocked ? '' : `<div class="lesson-list">
+      <div class="lesson-list">
         ${phase.lessons.map((l, li) => {
           const isActive = pi === state.currentPhase && li === state.currentLesson;
           const isDone = state.completed.has(l.id);
@@ -25810,7 +25810,7 @@ function buildNav() {
             <div class="lesson-dot"></div>${lessonTitle}
           </div>`;
         }).join('')}
-      </div>`}
+      </div>
     </div>`;
   }).join('');
 
