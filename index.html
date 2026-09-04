@@ -2464,23 +2464,26 @@ body {
 }
 
 /* ---- Phase tiles (landing) ---- */
-.phase-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.phase-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; align-items: start; }
 .phase-tile {
   text-align: left; background: var(--surface); border: 2px solid var(--border);
-  border-radius: var(--radius-lg); padding: 22px; cursor: pointer;
+  border-radius: var(--radius-lg); padding: 22px;
   box-shadow: 0 4px 0 var(--border2);
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.15s;
   display: flex; flex-direction: column; gap: 8px;
 }
-.phase-tile:hover { transform: translateY(-3px); box-shadow: 0 7px 0 var(--border2); }
-.phase-tile:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--border2); }
+.phase-tile:hover { transform: translateY(-3px); box-shadow: 0 7px 0 var(--border2); border-color: var(--border2); }
 .phase-tile-top { display: flex; align-items: center; justify-content: space-between; }
 .phase-tile-icon { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; color: #fff; }
 .phase-tile-icon [data-lucide] { width: 24px; height: 24px; }
 .phase-tile-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 1px; }
 .phase-tile-title { font-family: var(--display); font-weight: 600; font-size: 18px; color: var(--text); }
-.phase-tile-sub { font-size: 13px; color: var(--text2); line-height: 1.5; flex: 1; }
-.phase-tile-meta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent2); margin-top: 6px; }
+.phase-tile-sub { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.phase-tile-lessons { list-style: none; margin: 10px 0 4px; padding: 12px 0 0; display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--border); }
+.phase-tile-lessons li { font-size: 12.5px; color: var(--text2); line-height: 1.4; padding-left: 18px; position: relative; }
+.phase-tile-lessons li::before { content: ''; position: absolute; left: 2px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.phase-tile:nth-child(2n) .phase-tile-lessons li::before { background: var(--orange); }
+.phase-tile-meta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent2); margin-top: 8px; }
 .phase-tile-meta [data-lucide] { width: 13px; height: 13px; }
 
 /* ---- Phase stats band ---- */
@@ -27345,25 +27348,27 @@ function initBgMatrix() {
 function buildPhaseTiles() {
   const el = document.getElementById('phase-tiles');
   if (!el) return;
-  const phases = [
-    { num: 1, icon: 'cpu',             title: 'Fundament',          sub: 'Wie Computer wirklich funktionieren', lessons: 8 },
-    { num: 2, icon: 'code-2',          title: 'Python',             sub: 'Programmieren lernen von null',       lessons: 10 },
-    { num: 3, icon: 'layout-template', title: 'Web & HTML/CSS',     sub: 'Webseiten bauen & gestalten',         lessons: 10 },
-    { num: 4, icon: 'server',          title: 'Backend & APIs',     sub: 'Server, Datenbanken, REST',           lessons: 8 },
-    { num: 5, icon: 'shield-check',    title: 'Hacking & Security', sub: 'Ethical Hacking & Cybersecurity',      lessons: 16 },
-    { num: 6, icon: 'graduation-cap',  title: 'Profi-Level',        sub: 'Clean Code, Git, Testing, Job',       lessons: 15 },
-  ];
+  const en = LANG.get() === 'en';
+  const icons = ['cpu', 'code-2', 'layout-template', 'server', 'shield-check', 'graduation-cap'];
+  const phases = PHASES.filter(p => p.id !== 'p0');
   el.innerHTML = phases.map((p, i) => {
     const color = i % 2 === 0 ? 'var(--accent)' : 'var(--orange)';
-    return `<button class="phase-tile" onclick="document.getElementById('landing').scrollTo({top:0,behavior:'smooth'})" aria-label="Phase ${p.num}: ${p.title}">
+    const title = en ? (p.title_en || p.title) : p.title;
+    const sub = en ? (p.sub_en || p.sub) : p.sub;
+    const lessons = p.lessons.map(l => {
+      const lt = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
+      return `<li>${lt}</li>`;
+    }).join('');
+    return `<div class="phase-tile">
       <div class="phase-tile-top">
-        <span class="phase-tile-icon" style="background:${color}"><i data-lucide="${p.icon}"></i></span>
-        <span class="phase-tile-num">Phase ${String(p.num).padStart(2, '0')}</span>
+        <span class="phase-tile-icon" style="background:${color}"><i data-lucide="${icons[i] || 'circle'}"></i></span>
+        <span class="phase-tile-num">Phase ${String(i + 1).padStart(2, '0')}</span>
       </div>
-      <div class="phase-tile-title">${p.title}</div>
-      <div class="phase-tile-sub">${p.sub}</div>
-      <div class="phase-tile-meta"><i data-lucide="book-open"></i> ${p.lessons} Lektionen</div>
-    </button>`;
+      <div class="phase-tile-title">${title}</div>
+      <div class="phase-tile-sub">${sub}</div>
+      <ul class="phase-tile-lessons">${lessons}</ul>
+      <div class="phase-tile-meta"><i data-lucide="book-open"></i> ${p.lessons.length} ${en ? 'lessons' : 'Lektionen'}</div>
+    </div>`;
   }).join('');
   try { lucide.createIcons({ nodes: [el] }); } catch {}
 }
