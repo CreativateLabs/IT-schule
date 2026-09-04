@@ -2528,6 +2528,42 @@ body {
 .feature-title { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--text); margin-bottom: 8px; }
 .feature-text { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
 
+/* ---- Gamification showcase (bold indigo section) ---- */
+.landing-gamify { margin: 56px 0; }
+.lg-inner {
+  position: relative; overflow: hidden;
+  background: var(--accent); border-radius: 32px; padding: 52px 44px;
+  box-shadow: 0 8px 0 var(--accent-ink);
+}
+.lg-inner::before {
+  content: ''; position: absolute; top: -90px; right: -60px; width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 70%); pointer-events: none;
+}
+.lg-inner::after {
+  content: ''; position: absolute; bottom: -110px; left: -50px; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.35), transparent 70%); filter: blur(10px); pointer-events: none;
+}
+.lg-inner > * { position: relative; z-index: 1; }
+.landing-gamify .landing-section-num { color: #fde68a; }
+.landing-gamify .landing-section-title { color: #fff; margin-bottom: 14px; }
+.lg-sub { color: rgba(255,255,255,0.85); font-size: 15px; max-width: 580px; margin: 0 0 32px; line-height: 1.6; }
+.gamify-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gsc { background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 22px; box-shadow: 0 4px 0 rgba(0,0,0,0.15); }
+.gsc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.gsc-ico { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.22); color: #fff; display: grid; place-items: center; box-shadow: 0 3px 0 rgba(0,0,0,0.18); }
+.gsc-ico [data-lucide] { width: 21px; height: 21px; }
+.gsc-tag { font-family: var(--mono); font-size: 10.5px; font-weight: 700; color: rgba(255,255,255,0.72); text-transform: uppercase; letter-spacing: 1px; }
+.gsc-big { font-family: var(--display); font-weight: 700; font-size: 36px; color: #fff; line-height: 1; margin-bottom: 14px; }
+.gsc-big span { font-size: 16px; opacity: 0.7; font-weight: 600; }
+.gsc-bar { height: 10px; background: rgba(255,255,255,0.22); border-radius: 999px; margin-bottom: 14px; overflow: hidden; }
+.gsc-bar-fill { height: 100%; background: #fff; border-radius: 999px; }
+.gsc-desc { font-size: 13px; color: rgba(255,255,255,0.82); line-height: 1.55; }
+.gsc-ach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.gsc-ach-grid span { aspect-ratio: 1; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.45); }
+.gsc-ach-grid span.on { background: var(--orange); color: #fff; box-shadow: 0 3px 0 var(--orange-ink); }
+.gsc-ach-grid [data-lucide] { width: 18px; height: 18px; }
+@media (max-width: 760px) { .gamify-cards { grid-template-columns: 1fr; } }
+
 /* ---- How it works (steps) — bold dark panel ---- */
 .landing-steps {
   position: relative; overflow: hidden;
@@ -3388,6 +3424,40 @@ body {
           <div class="feature-ico" style="background:var(--orange)"><i data-lucide="gift"></i></div>
           <div class="feature-title">100 % kostenlos</div>
           <div class="feature-text">Open Source, keine Paywall, kein Account nötig. Einfach im Browser loslegen und lernen.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gamification showcase -->
+    <section class="landing-gamify reveal">
+      <div class="lg-inner">
+        <div class="landing-section-num">Gamifiziert</div>
+        <div class="landing-section-title">Lernen, das sich anfühlt wie ein Spiel</div>
+        <div class="lg-sub">XP, Level, Streaks und Achievements — jeder Fortschritt wird sichtbar und belohnt. Genau das hält dich dran, Tag für Tag.</div>
+        <div class="gamify-cards">
+          <div class="gsc">
+            <div class="gsc-top"><span class="gsc-ico"><i data-lucide="star"></i></span><span class="gsc-tag">Level 7</span></div>
+            <div class="gsc-big">1.240 <span>XP</span></div>
+            <div class="gsc-bar"><div class="gsc-bar-fill" style="width:64%"></div></div>
+            <div class="gsc-desc">Jede richtige Antwort bringt XP — steig im Level auf und knack die nächste Stufe.</div>
+          </div>
+          <div class="gsc">
+            <div class="gsc-top"><span class="gsc-ico" style="background:var(--orange)"><i data-lucide="flame"></i></span><span class="gsc-tag">Streak</span></div>
+            <div class="gsc-big">14 <span>Tage</span></div>
+            <div class="gsc-desc">Erreiche dein tägliches Ziel und lass die Flamme nicht ausgehen. Dranbleiben zahlt sich aus.</div>
+          </div>
+          <div class="gsc">
+            <div class="gsc-top"><span class="gsc-ico" style="background:var(--green)"><i data-lucide="trophy"></i></span><span class="gsc-tag">Achievements</span></div>
+            <div class="gsc-ach-grid">
+              <span class="on"><i data-lucide="footprints"></i></span>
+              <span class="on"><i data-lucide="zap"></i></span>
+              <span class="on"><i data-lucide="flame"></i></span>
+              <span><i data-lucide="lock"></i></span>
+              <span><i data-lucide="lock"></i></span>
+              <span><i data-lucide="lock"></i></span>
+            </div>
+            <div class="gsc-desc">Schalte Meilensteine frei — jeder mit seinem eigenen Feier-Moment.</div>
+          </div>
         </div>
       </div>
     </section>
