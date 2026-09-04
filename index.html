@@ -2345,6 +2345,40 @@ body {
   background: currentColor; flex-shrink: 0; opacity: 0.4; margin-top: 5px;
 }
 
+/* ---- Phase tiles (landing) ---- */
+.phase-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.phase-tile {
+  text-align: left; background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px; cursor: pointer;
+  box-shadow: 0 4px 0 var(--border2);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.15s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.phase-tile:hover { transform: translateY(-3px); box-shadow: 0 7px 0 var(--border2); }
+.phase-tile:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--border2); }
+.phase-tile-top { display: flex; align-items: center; justify-content: space-between; }
+.phase-tile-icon { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; color: #fff; }
+.phase-tile-icon [data-lucide] { width: 24px; height: 24px; }
+.phase-tile-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 1px; }
+.phase-tile-title { font-family: var(--display); font-weight: 600; font-size: 18px; color: var(--text); }
+.phase-tile-sub { font-size: 13px; color: var(--text2); line-height: 1.5; flex: 1; }
+.phase-tile-meta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent2); margin-top: 6px; }
+.phase-tile-meta [data-lucide] { width: 13px; height: 13px; }
+
+/* ---- Phase stats band ---- */
+.phase-stats-band {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-lg);
+  padding: 22px 24px; box-shadow: 0 4px 0 var(--border2); flex-wrap: wrap; margin-bottom: 28px;
+}
+.psb-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 18px; }
+.psb-val { font-family: var(--display); font-weight: 700; font-size: 28px; color: var(--accent); line-height: 1; }
+.psb-item:nth-of-type(3) .psb-val { color: var(--orange); }
+.psb-label { font-size: 12px; color: var(--text3); margin-top: 5px; }
+.psb-sep { width: 2px; height: 34px; background: var(--border); border-radius: 2px; }
+@media (max-width: 860px) { .phase-tiles { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .phase-tiles { grid-template-columns: 1fr; } .psb-sep { display: none; } .phase-stats-band { gap: 16px; } }
+
 /* ---- Features grid ---- */
 .landing-features { padding: 56px 0 8px; }
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -3179,23 +3213,17 @@ body {
 
     <!-- Was du lernst -->
     <section class="landing-phases reveal" id="landing-phases-section">
+      <div class="landing-section-num">Dein Lernweg</div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
-
-      <!-- Unified scrolling strip: stats + phase cards -->
-      <div class="phases-collage-row" id="phases-collage-row"></div>
-
-      <div class="phase-carousel-outer">
-        <div class="phase-carousel-topbar">
-          <div class="pcc-left">
-            <button class="pcc-btn" id="phase-prev" disabled><i data-lucide="chevron-left"></i></button>
-            <button class="pcc-btn" id="phase-next"><i data-lucide="chevron-right"></i></button>
-            <span class="pcc-counter" id="phase-counter">01 / 06</span>
-          </div>
-          <div class="pcc-dots" id="phase-dots"></div>
-        </div>
-        <div class="phase-carousel-viewport">
-          <div class="phase-carousel-track" id="phase-track"></div>
-        </div>
+      <div class="phase-tiles" id="phase-tiles"></div>
+      <div class="phase-stats-band">
+        <div class="psb-item"><span class="psb-val">6</span><span class="psb-label">Phasen</span></div>
+        <div class="psb-sep"></div>
+        <div class="psb-item"><span class="psb-val">68</span><span class="psb-label">Lektionen</span></div>
+        <div class="psb-sep"></div>
+        <div class="psb-item"><span class="psb-val">100%</span><span class="psb-label">Kostenlos</span></div>
+        <div class="psb-sep"></div>
+        <div class="psb-item"><span class="psb-val">0€</span><span class="psb-label">Kein Account nötig</span></div>
       </div>
     </section>
 
@@ -27052,6 +27080,32 @@ function initBgMatrix() {
 }
 
 /* ===================== PHASES MINI CARD COLLAGE ===================== */
+function buildPhaseTiles() {
+  const el = document.getElementById('phase-tiles');
+  if (!el) return;
+  const phases = [
+    { num: 1, icon: 'cpu',             title: 'Fundament',          sub: 'Wie Computer wirklich funktionieren', lessons: 8 },
+    { num: 2, icon: 'code-2',          title: 'Python',             sub: 'Programmieren lernen von null',       lessons: 10 },
+    { num: 3, icon: 'layout-template', title: 'Web & HTML/CSS',     sub: 'Webseiten bauen & gestalten',         lessons: 10 },
+    { num: 4, icon: 'server',          title: 'Backend & APIs',     sub: 'Server, Datenbanken, REST',           lessons: 8 },
+    { num: 5, icon: 'shield-check',    title: 'Hacking & Security', sub: 'Ethical Hacking & Cybersecurity',      lessons: 16 },
+    { num: 6, icon: 'graduation-cap',  title: 'Profi-Level',        sub: 'Clean Code, Git, Testing, Job',       lessons: 15 },
+  ];
+  el.innerHTML = phases.map((p, i) => {
+    const color = i % 2 === 0 ? 'var(--accent)' : 'var(--orange)';
+    return `<button class="phase-tile" onclick="document.getElementById('landing').scrollTo({top:0,behavior:'smooth'})" aria-label="Phase ${p.num}: ${p.title}">
+      <div class="phase-tile-top">
+        <span class="phase-tile-icon" style="background:${color}"><i data-lucide="${p.icon}"></i></span>
+        <span class="phase-tile-num">Phase ${String(p.num).padStart(2, '0')}</span>
+      </div>
+      <div class="phase-tile-title">${p.title}</div>
+      <div class="phase-tile-sub">${p.sub}</div>
+      <div class="phase-tile-meta"><i data-lucide="book-open"></i> ${p.lessons} Lektionen</div>
+    </button>`;
+  }).join('');
+  try { lucide.createIcons({ nodes: [el] }); } catch {}
+}
+
 function initPhasesCollage() {
   const row = document.getElementById('phases-collage-row');
   if (!row) return;
@@ -27763,7 +27817,7 @@ function init() {
   initDoorPanels();
   splitHeroLines();
   initBgMatrix();
-  initPhasesCollage();
+  buildPhaseTiles();
   // "Angemeldet bleiben": aktives Nicht-Admin-Profil direkt fortsetzen
   const _activeId = localStorage.getItem(STORAGE.active);
   const _activeProf = _activeId ? loadProfiles().find(p => p.id === _activeId) : null;
