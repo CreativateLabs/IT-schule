@@ -538,8 +538,23 @@ body {
   color: #fff; background: var(--accent); padding: 3px 10px; border-radius: 999px; font-size: 12px;
 }
 .gami-level [data-lucide] { width: 13px; height: 13px; }
+/* Lernweg button (topbar) */
+.lernweg-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--display); font-weight: 600; font-size: 13px;
+  color: #fff; background: var(--accent); border: none;
+  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  box-shadow: 0 3px 0 var(--accent-ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s;
+}
+.lernweg-btn [data-lucide] { width: 15px; height: 15px; }
+.lernweg-btn:hover { background: var(--accent2); }
+.lernweg-btn:active { transform: translateY(3px); box-shadow: 0 0 0 var(--accent-ink); }
+
 @media (max-width: 700px) {
   .gami-goal, .gami-level { display: none; }
+  .lernweg-btn span { display: none; }
+  .lernweg-btn { padding: 7px 10px; }
 }
 
 /* ---- Celebration toast (level-up / achievement) ---- */
@@ -597,6 +612,47 @@ body {
 .psp-goal-opt:hover { border-color: var(--accent); }
 .psp-goal-opt.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 @media (max-width: 560px) { .psp-gami { grid-template-columns: 1fr; } }
+
+/* ---- Lernweg full-screen map ---- */
+#lernweg-view { position: fixed; inset: 0; z-index: 600; background: var(--bg); display: none; flex-direction: column; }
+#lernweg-view.show { display: flex; }
+.lw-header { display: flex; align-items: center; gap: 20px; padding: 18px 28px; border-bottom: 2px solid var(--border); background: var(--surface); }
+.lw-title-wrap { flex: 1; min-width: 0; }
+.lw-title { font-family: var(--display); font-weight: 700; font-size: 24px; color: var(--text); letter-spacing: -0.3px; }
+.lw-headbar { height: 8px; background: var(--surface3); border-radius: 999px; margin: 8px 0 4px; max-width: 320px; overflow: hidden; }
+.lw-headbar-fill { height: 100%; background: var(--green); border-radius: 999px; transition: width 0.6s cubic-bezier(0.16,1,0.3,1); }
+.lw-sub { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+.lw-close { width: 44px; height: 44px; border-radius: 14px; border: 2px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; display: grid; place-items: center; box-shadow: 0 4px 0 var(--border2); flex-shrink: 0; transition: transform 0.1s, box-shadow 0.1s; }
+.lw-close:hover { color: var(--text); }
+.lw-close:active { transform: translateY(4px); box-shadow: 0 0 0 var(--border2); }
+.lw-scroll { flex: 1; overflow-y: auto; padding: 24px 20px 90px; }
+.lw-phase { max-width: 440px; margin: 0 auto; }
+.lw-phase.locked { opacity: 0.5; }
+.lw-phase-head { display: flex; align-items: center; gap: 14px; margin: 26px 0 6px; padding: 14px 18px; background: var(--surface); border: 2px solid var(--border); border-radius: 18px; box-shadow: 0 4px 0 var(--border2); }
+.lw-phase-ico { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+.lw-phase-ico [data-lucide] { width: 22px; height: 22px; }
+.lw-phase-name { font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--text); line-height: 1.2; }
+.lw-phase-sub { font-size: 12px; color: var(--text3); }
+.lw-nodes { display: flex; flex-direction: column; gap: 20px; padding: 14px 0; }
+.lw-node-wrap { display: flex; flex-direction: column; align-items: center; gap: 7px; position: relative; }
+.lw-node-wrap.pos-l { align-self: flex-start; margin-left: 44px; }
+.lw-node-wrap.pos-c { align-self: center; }
+.lw-node-wrap.pos-r { align-self: flex-end; margin-right: 44px; }
+.lw-node { width: 66px; height: 66px; border-radius: 50%; border: none; background: none; cursor: pointer; padding: 0; }
+.lw-node-inner { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 5px 0 var(--border2); transition: transform 0.1s ease, box-shadow 0.1s ease; }
+.lw-node [data-lucide] { width: 26px; height: 26px; stroke-width: 2.25; }
+.lw-node.done .lw-node-inner { background: var(--green); color: #fff; box-shadow: 0 5px 0 var(--green-ink); }
+.lw-node.current .lw-node-inner { background: var(--accent); color: #fff; box-shadow: 0 5px 0 var(--accent-ink); }
+.lw-node.available .lw-node-inner { background: var(--surface); color: var(--accent); box-shadow: 0 5px 0 var(--border2); outline: 3px solid var(--accent); outline-offset: -3px; }
+.lw-node.upcoming .lw-node-inner { background: var(--surface3); color: var(--text3); }
+.lw-node:not(:disabled):hover .lw-node-inner { transform: translateY(-2px); }
+.lw-node:not(:disabled):active .lw-node-inner { transform: translateY(5px); box-shadow: 0 0 0 var(--border2); }
+.lw-node:disabled { cursor: not-allowed; }
+.lw-node.current { animation: lwPulse 1.8s ease-in-out infinite; }
+@keyframes lwPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.lw-node-label { font-size: 11.5px; color: var(--text2); text-align: center; max-width: 140px; line-height: 1.3; font-weight: 500; }
+.lw-here { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-family: var(--display); font-weight: 700; font-size: 9px; letter-spacing: 0.5px; padding: 2px 9px; border-radius: 999px; z-index: 2; white-space: nowrap; box-shadow: 0 2px 0 var(--accent-ink); }
+@media (prefers-reduced-motion: reduce) { .lw-node.current { animation: none; } }
 
 /* ---- Onboarding tour ---- */
 #onboarding-overlay {
@@ -3267,7 +3323,7 @@ body {
         </div>
         <div class="feature-card">
           <div class="feature-ico" style="background:var(--orange)"><i data-lucide="layers"></i></div>
-          <div class="feature-title">68 Lektionen, 6 Phasen</div>
+          <div class="feature-title">67 Lektionen, 6 Phasen</div>
           <div class="feature-text">Von Binärzahlen bis Ethical Hacking — ein durchdachter Pfad vom absoluten Anfänger zum Profi.</div>
         </div>
         <div class="feature-card">
@@ -3301,7 +3357,7 @@ body {
       <div class="phase-stats-band">
         <div class="psb-item"><span class="psb-val">6</span><span class="psb-label">Phasen</span></div>
         <div class="psb-sep"></div>
-        <div class="psb-item"><span class="psb-val">68</span><span class="psb-label">Lektionen</span></div>
+        <div class="psb-item"><span class="psb-val">67</span><span class="psb-label">Lektionen</span></div>
         <div class="psb-sep"></div>
         <div class="psb-item"><span class="psb-val">100%</span><span class="psb-label">Kostenlos</span></div>
         <div class="psb-sep"></div>
@@ -3506,6 +3562,7 @@ body {
     <div class="topbar-controls">
       <button class="ctrl-btn" id="lang-btn-app" onclick="toggleLang()" title="Switch language">DE</button>
       <button class="ctrl-btn" id="theme-btn-app" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <button class="lernweg-btn" onclick="showLernweg()" title="Lernweg" aria-label="Lernweg-Übersicht öffnen"><i data-lucide="map"></i><span data-i18n="nav_path">Lernweg</span></button>
       <button class="ctrl-btn" id="help-btn-app" onclick="showOnboarding()" title="Tour / Hilfe" aria-label="Tour anzeigen"><i data-lucide="help-circle"></i></button>
       <div class="gami-item gami-streak" id="gami-streak" title="Streak — Tage in Folge"><i data-lucide="flame"></i><span id="streak-count">0</span></div>
       <div class="gami-item gami-goal" id="gami-goal" title="Tagesziel">
@@ -26466,7 +26523,7 @@ async function buildLandingLeaderboard() {
 // ============================================================
 const ONBOARDING_STEPS = [
   { icon: 'rocket', color: '--accent', title: 'Willkommen bei PyCoBase!', text: 'Dein interaktiver Weg vom absoluten Anfänger zum Code-Profi — kostenlos, direkt im Browser. Wir zeigen dir in 30 Sekunden, wie alles funktioniert.' },
-  { icon: 'map', color: '--accent', title: 'Dein Lernpfad', text: 'Links siehst du deinen Pfad: <strong>6 Phasen</strong> von den Grundlagen bis zur Security mit <strong>68 Lektionen</strong>. Du schaltest Schritt für Schritt frei — erledigte Knoten werden grün.' },
+  { icon: 'map', color: '--accent', title: 'Dein Lernpfad', text: 'Links siehst du deinen Pfad: <strong>6 Phasen</strong> von den Grundlagen bis zur Security mit <strong>67 Lektionen</strong>. Du schaltest Schritt für Schritt frei — erledigte Knoten werden grün.' },
   { icon: 'circle-check-big', color: '--accent', title: 'Lernen & Quizzen', text: 'Jede Lektion hat kurze Erklärungen, interaktive <strong>Quizzes</strong> (Multiple-Choice, Wahr/Falsch, Lückentext) und <strong>Coding-Übungen</strong>. Richtige Antworten schalten den nächsten Schritt frei.' },
   { icon: 'flame', color: '--orange', title: 'XP, Streak & Level', text: 'Für jede richtige Antwort gibt es <strong>XP</strong>. Halte deine <strong>Streak</strong> mit dem täglichen Ziel, steig im <strong>Level</strong> auf und schalte <strong>Achievements</strong> frei — oben rechts siehst du alles live.' },
   { icon: 'trophy', color: '--orange', title: "Los geht's!", text: 'Alles klar? Dann starte mit deiner ersten Lektion. Diese Tour kannst du jederzeit über das <strong>?</strong>-Symbol oben rechts wieder öffnen.' },
@@ -26491,6 +26548,77 @@ function _obRender(i) {
   try { lucide.createIcons({ nodes: [ov] }); } catch {}
 }
 function _obGo(i) { _obRender(i); }
+
+// ============================================================
+//              LERNWEG — Vollbild-Map aller Lektionen
+// ============================================================
+function showLernweg() {
+  let v = document.getElementById('lernweg-view');
+  if (!v) { v = document.createElement('div'); v.id = 'lernweg-view'; document.body.appendChild(v); }
+  const en = LANG.get() === 'en';
+  const phases = PHASES.filter(p => p.id !== 'p0');
+  const totalLessons = phases.reduce((s, p) => s + p.lessons.length, 0);
+  const doneTotal = phases.reduce((s, p) => s + p.lessons.filter(l => state.completed.has(l.id)).length, 0);
+  const pctTotal = totalLessons ? Math.round(doneTotal / totalLessons * 100) : 0;
+  const phaseIcons = ['cpu', 'code-2', 'layout-template', 'server', 'shield-check', 'graduation-cap', 'rocket'];
+  const pos = ['c', 'r', 'l', 'c', 'r', 'l', 'c'];
+  let currentAssigned = false;
+  const phaseHTML = phases.map((p, pIdx) => {
+    const realPi = PHASES.indexOf(p);
+    const done = p.lessons.filter(l => state.completed.has(l.id)).length;
+    const phaseUnlocked = isPhaseUnlocked(realPi);
+    const color = pIdx % 2 === 0 ? 'var(--accent)' : 'var(--orange)';
+    const nodes = p.lessons.map((l, li) => {
+      const isDone = state.completed.has(l.id);
+      const isAccessible = isDone || isLessonUnlocked(realPi, li);
+      let cls = 'upcoming';
+      if (isDone) cls = 'done';
+      else if (isAccessible && !currentAssigned) { cls = 'current'; currentAssigned = true; }
+      else if (isAccessible) cls = 'available';
+      const locked = !isAccessible;
+      const title = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
+      const icon = isDone ? 'check' : locked ? 'lock' : (cls === 'current' ? 'play' : 'circle');
+      return `<div class="lw-node-wrap pos-${pos[li % pos.length]}">
+        ${cls === 'current' ? '<span class="lw-here">HIER</span>' : ''}
+        <button class="lw-node ${cls}" ${locked ? 'disabled' : `onclick="_lernwegGoTo(${realPi},${li})"`} title="${title}" aria-label="${title}">
+          <span class="lw-node-inner"><i data-lucide="${icon}"></i></span>
+        </button>
+        <div class="lw-node-label">${title}</div>
+      </div>`;
+    }).join('');
+    return `<div class="lw-phase ${phaseUnlocked ? '' : 'locked'}">
+      <div class="lw-phase-head">
+        <span class="lw-phase-ico" style="background:${color}"><i data-lucide="${phaseUnlocked ? (phaseIcons[pIdx] || 'circle') : 'lock'}"></i></span>
+        <div class="lw-phase-meta">
+          <div class="lw-phase-name">Phase ${pIdx + 1} · ${en ? (p.title_en || p.title) : p.title}</div>
+          <div class="lw-phase-sub">${done} / ${p.lessons.length} ${en ? 'lessons' : 'Lektionen'}</div>
+        </div>
+      </div>
+      <div class="lw-nodes">${nodes}</div>
+    </div>`;
+  }).join('');
+  v.innerHTML =
+    `<div class="lw-header">
+      <div class="lw-title-wrap"><div class="lw-title">${en ? 'Your learning path' : 'Dein Lernweg'}</div>
+        <div class="lw-headbar"><div class="lw-headbar-fill" style="width:${pctTotal}%"></div></div>
+        <div class="lw-sub">${doneTotal} / ${totalLessons} ${en ? 'lessons' : 'Lektionen'} · ${pctTotal}%</div>
+      </div>
+      <button class="lw-close" onclick="hideLernweg()" aria-label="Schließen"><i data-lucide="x"></i></button>
+    </div>
+    <div class="lw-scroll">${phaseHTML}</div>`;
+  v.classList.add('show');
+  try { lucide.createIcons({ nodes: [v] }); } catch {}
+  const cur = v.querySelector('.lw-node.current');
+  if (cur) setTimeout(() => cur.scrollIntoView({ block: 'center', behavior: 'smooth' }), 60);
+}
+function hideLernweg() { const v = document.getElementById('lernweg-view'); if (v) v.classList.remove('show'); }
+function _lernwegGoTo(pi, li) {
+  hideLernweg();
+  state.currentPhase = pi; state.currentLesson = li;
+  state.quizAnswered.clear(); state.quizAttempts.clear();
+  render();
+}
+
 function showOnboarding() {
   let ov = document.getElementById('onboarding-overlay');
   if (!ov) { ov = document.createElement('div'); ov.id = 'onboarding-overlay'; ov.innerHTML = '<div class="ob-card"></div>'; document.body.appendChild(ov); }
