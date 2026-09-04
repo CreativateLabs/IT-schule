@@ -3051,8 +3051,8 @@ body {
 
 /* ===================== SCROLL REVEAL ===================== */
 .reveal {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  opacity: 0; transform: translateY(48px) scale(0.975);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal.visible { opacity: 1; transform: none; }
 .reveal-d1 { transition-delay: 0.08s; }
@@ -3060,6 +3060,31 @@ body {
 .reveal-d3 { transition-delay: 0.28s; }
 .reveal-d4 { transition-delay: 0.38s; }
 .reveal-d5 { transition-delay: 0.48s; }
+
+/* Staggered cascade: landing grid cards fly in one after another when their section reveals */
+.feature-card, .phase-tile, .step-card {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible .feature-card, .reveal.visible .phase-tile, .reveal.visible .step-card { opacity: 1; transform: none; }
+.reveal.visible .feature-card:nth-child(1), .reveal.visible .phase-tile:nth-child(1), .reveal.visible .step-card:nth-child(1) { transition-delay: 0.06s; }
+.reveal.visible .feature-card:nth-child(2), .reveal.visible .phase-tile:nth-child(2), .reveal.visible .step-card:nth-child(3) { transition-delay: 0.14s; }
+.reveal.visible .feature-card:nth-child(3), .reveal.visible .phase-tile:nth-child(3), .reveal.visible .step-card:nth-child(5) { transition-delay: 0.22s; }
+.reveal.visible .feature-card:nth-child(4), .reveal.visible .phase-tile:nth-child(4) { transition-delay: 0.30s; }
+.reveal.visible .feature-card:nth-child(5), .reveal.visible .phase-tile:nth-child(5) { transition-delay: 0.38s; }
+.reveal.visible .feature-card:nth-child(6), .reveal.visible .phase-tile:nth-child(6) { transition-delay: 0.46s; }
+
+/* Mouse-following ambient glow (landing) */
+#mouse-glow {
+  position: fixed; top: 0; left: 0; width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.28) 0%, rgba(129,140,248,0.14) 32%, rgba(249,115,22,0.08) 55%, transparent 72%);
+  pointer-events: none; z-index: 0; margin: -280px 0 0 -280px; will-change: transform; opacity: 0;
+  filter: blur(30px);
+  transition: opacity 0.6s ease;
+}
+:root:not([data-theme="light"]) #mouse-glow { background: radial-gradient(circle, rgba(129,140,248,0.34) 0%, rgba(129,140,248,0.16) 34%, rgba(251,146,60,0.10) 56%, transparent 72%); }
+#mouse-glow.on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { #mouse-glow { display: none; } }
 
 /* ===================== EDITORIAL TWEAKS ===================== */
 .landing-section-num {
@@ -3117,6 +3142,7 @@ body {
 
 <!-- LANDING PAGE -->
 <div id="landing">
+  <div id="mouse-glow"></div>
   <nav class="landing-nav">
     <div class="landing-nav-inner">
       <div class="landing-nav-logo">
@@ -27821,6 +27847,21 @@ function wipeTransition(cb) {
 })();
 
 /* ===================== SCROLL REVEAL ===================== */
+function initMouseGlow() {
+  const glow = document.getElementById('mouse-glow');
+  if (!glow || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, on = false;
+  window.addEventListener('mousemove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    if (!on) { on = true; glow.classList.add('on'); }
+  }, { passive: true });
+  (function loop() {
+    cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+    glow.style.transform = `translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px)`;
+    requestAnimationFrame(loop);
+  })();
+}
+
 function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -27908,6 +27949,7 @@ function init() {
   }
   runIntroLoader();
   showLanding();
+  initMouseGlow();
   setTimeout(initScrollReveal, 100);
   setTimeout(initStatsCounter, 100);
   if (window.location.hash === '#admin') _adminUrlLogin();
