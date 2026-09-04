@@ -219,20 +219,30 @@ body {
 
 .profile-menu {
   position: absolute;
-  top: 100%;
-  left: 12px;
-  right: 12px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
+  top: calc(100% + 6px);
+  left: 8px;
+  right: 8px;
+  background: var(--surface);
+  border: 2px solid var(--border2);
+  border-radius: 18px;
   padding: 6px;
   z-index: 50;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
+  box-shadow: 0 12px 32px rgba(30,27,75,0.22);
   display: none;
-  backdrop-filter: blur(8px);
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
 }
 
 .profile-menu.show { display: block; }
+
+/* Profile menu header (current user) */
+.pm-header { display: flex; align-items: center; gap: 11px; padding: 10px 10px 12px; }
+.pm-avatar { width: 42px; height: 42px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 19px; flex-shrink: 0; }
+.pm-userinfo { min-width: 0; }
+.pm-name { font-family: var(--display); font-weight: 600; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.pm-admin { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; background: var(--orange); padding: 1px 6px; border-radius: 999px; }
+.pm-meta { font-size: 12px; color: var(--text3); font-family: var(--mono); margin-top: 1px; }
+.pm-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text3); padding: 6px 12px 3px; }
 
 .profile-menu-item {
   display: flex;
@@ -3660,6 +3670,7 @@ const I18N = {
     login_pick_title:'Profil wählen', login_pick_sub:'Wähle dein Profil um fortzufahren',
     login_pw_sub:'Passwort eingeben', login_back:'Zurück', login_submit:'Anmelden',
     login_wrong_pw:'Falsches Passwort.',
+    nav_path:'Lernweg',
     menu_landing:'Zur Startseite', menu_new:'Neues Profil', menu_export:'Fortschritt exportieren',
     menu_import:'Fortschritt importieren', menu_delete:'Profil löschen', menu_logout:'Abmelden',
     menu_lb_on:'In Rangliste anzeigen', menu_lb_off:'Aus Rangliste entfernen',
@@ -3712,6 +3723,7 @@ const I18N = {
     login_pick_title:'Select Profile', login_pick_sub:'Choose your profile to continue',
     login_pw_sub:'Enter password', login_back:'Back', login_submit:'Sign in',
     login_wrong_pw:'Incorrect password.',
+    nav_path:'Path',
     menu_landing:'Go to Home', menu_new:'New Profile', menu_export:'Export Progress',
     menu_import:'Import Progress', menu_delete:'Delete Profile', menu_logout:'Sign out',
     menu_lb_on:'Show on Leaderboard', menu_lb_off:'Remove from Leaderboard',
@@ -26007,31 +26019,39 @@ function buildProfileMenu() {
   // When logged in via server, only show own profile — never expose other profiles
   const visibleProfiles = serverLoggedIn ? profiles.filter(p => p.id === activeId) : profiles;
 
-  menu.innerHTML = visibleProfiles.map(p => {
-    const data = loadProfileData(p.id);
-    return `<button class="profile-menu-item ${p.id === activeId ? 'current' : ''}" data-switch="${p.id}">
-      <i data-lucide="${p.id === activeId ? 'check' : 'user'}"></i>
-      <span>${escapeHtml(p.name)} · ${data.xp} XP</span>
-    </button>`;
-  }).join('') + `
+  const en = LANG.get() === 'en';
+  menu.innerHTML = `
+    <div class="pm-header">
+      <div class="pm-avatar">${escapeHtml((activePro?.name || '?').charAt(0).toUpperCase())}</div>
+      <div class="pm-userinfo">
+        <div class="pm-name">${escapeHtml(activePro?.name || '—')}${activePro?.isAdmin ? ' <span class="pm-admin">Admin</span>' : ''}</div>
+        <div class="pm-meta">Level ${getLevel(state.xp)} · ${state.xp} XP</div>
+      </div>
+    </div>
+    ${visibleProfiles.length > 1 ? `<div class="pm-label">${en ? 'Switch profile' : 'Profil wechseln'}</div>` + visibleProfiles.map(p => {
+      const data = loadProfileData(p.id);
+      return `<button class="profile-menu-item ${p.id === activeId ? 'current' : ''}" data-switch="${p.id}"><i data-lucide="${p.id === activeId ? 'check' : 'user'}"></i><span>${escapeHtml(p.name)} · ${data.xp} XP</span></button>`;
+    }).join('') + `<div class="profile-menu-divider"></div>` : ''}
+    <button class="profile-menu-item" data-action="stats"><i data-lucide="user"></i>${en ? 'My profile' : 'Mein Profil'}</button>
+    <button class="profile-menu-item" data-action="open_lernweg"><i data-lucide="map"></i>${en ? 'Learning path' : 'Lernweg'}</button>
+    <button class="profile-menu-item" data-action="lb_toggle"><i data-lucide="${isOptIn ? 'eye-off' : 'trophy'}"></i>${isOptIn ? t('menu_lb_off') : t('menu_lb_on')}</button>
     <div class="profile-menu-divider"></div>
-    <button class="profile-menu-item" data-action="stats"><i data-lucide="bar-chart-2"></i>Mein Profil</button>
+    <div class="pm-label">${en ? 'Data' : 'Daten'}</div>
+    <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>${t('menu_export')}</button>
+    <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
+    ${serverLoggedIn ? '' : `<button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>${t('menu_new')}</button>`}
+    ${activePro && activePro.isAdmin ? `
+    <div class="profile-menu-divider"></div>
+    <div class="pm-label">Admin</div>
+    <button class="profile-menu-item" data-action="unlock_all" style="color:var(--green-ink)"><i data-lucide="unlock"></i>Alles freischalten</button>
+    <button class="profile-menu-item" data-action="reset_all" style="color:var(--amber)"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</button>
+    ` : ''}
+    <div class="profile-menu-divider"></div>
     <button class="profile-menu-item" data-action="landing"><i data-lucide="home"></i>${t('menu_landing')}</button>
     ${serverLoggedIn
       ? `<button class="profile-menu-item profile-menu-danger" data-action="logout"><i data-lucide="log-out"></i>${t('menu_logout')}</button>`
-      : `<button class="profile-menu-item" data-action="new"><i data-lucide="user-plus"></i>${t('menu_new')}</button>`
+      : `<button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>`
     }
-    <button class="profile-menu-item" data-action="export"><i data-lucide="download"></i>${t('menu_export')}</button>
-    <button class="profile-menu-item" data-action="import"><i data-lucide="upload"></i>${t('menu_import')}</button>
-    <div class="profile-menu-divider"></div>
-    <button class="profile-menu-item" data-action="lb_toggle"><i data-lucide="${isOptIn ? 'eye-off' : 'trophy'}"></i>${isOptIn ? t('menu_lb_off') : t('menu_lb_on')}</button>
-    ${activePro && activePro.isAdmin ? `
-    <div class="profile-menu-divider"></div>
-    <button class="profile-menu-item" data-action="unlock_all" style="color:#22c55e"><i data-lucide="unlock"></i>Alles freischalten</button>
-    <button class="profile-menu-item" data-action="reset_all" style="color:#f59e0b"><i data-lucide="rotate-ccw"></i>Fortschritt zurücksetzen</button>
-    ` : ''}
-    <div class="profile-menu-divider"></div>
-    <button class="profile-menu-item profile-menu-danger" data-action="delete"><i data-lucide="trash-2"></i>${t('menu_delete')}</button>
   `;
   menu.querySelectorAll('[data-switch]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation();
@@ -26104,6 +26124,7 @@ function handleProfileAction(action) {
   else if (action === 'delete') showDeleteConfirm();
   else if (action === 'lb_toggle') toggleLeaderboardOptIn();
   else if (action === 'stats') showProfileStats();
+  else if (action === 'open_lernweg') showLernweg();
   else if (action === 'unlock_all') adminUnlockAll();
   else if (action === 'reset_all') adminResetProgress();
 }
