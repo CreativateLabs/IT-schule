@@ -4087,6 +4087,7 @@ So: 0x2F = 47</div>
               • Die <strong>64</strong> ist das <code>@</code>-Zeichen — sie liegt direkt vor A(65). Deshalb: "fast A, aber nicht ganz".
             </div>
           </div>
+          ${callout('key', 'Merke', 'Groß zu klein ist immer <code>+32</code>: <code>A=65 → a=97</code>. Wer das kann, rechnet ASCII im Kopf um.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">ASCII in Python ausprobieren</div>
             <div class="code-block">
@@ -4122,6 +4123,7 @@ So: 0x2F = 47</div>
   😀        F0 9F 98 80                  4 Bytes</div>
             </div>
           </div>
+          ${callout('fact', 'Wusstest du?', 'Ein Emoji wie <code>😀</code> braucht in UTF-8 ganze <strong>4 Byte</strong> — ein einfaches <code>A</code> nur <strong>1 Byte</strong>, exakt wie im alten ASCII.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Warum wird aus "ä" manchmal "Ã¤"?</div>
             <div class="explanation">
@@ -4144,6 +4146,7 @@ So: 0x2F = 47</div>
               <strong>Merke:</strong> kaputte Umlaute wie <code>Ã¤</code>, <code>Ã¶</code>, <code>Ã¼</code> sind <em>kein Server-Fehler, kein Virus, kein Font-Problem</em>. Es ist immer: "Datei in einer Kodierung gespeichert, aber in einer anderen gelesen." Fehlende Fonts zeigen dagegen leere Rechtecke (▯) oder Fragezeichen.
             </div>
           </div>
+          ${callout('warn', 'Häufiger Fehler', 'Kaputte Umlaute wie <code>Ã¤</code> sind kein Virus — meist fehlt nur das <code>&lt;meta charset="UTF-8"&gt;</code> im HTML-head oder <code>encoding="utf-8"</code> beim Datei-Öffnen.')}
           ${renderQuestions('l1_3', 6)}
           ${renderBonus('l1_3')}
         `,
@@ -4287,6 +4290,7 @@ So: 0x2F = 47</div>
               Das <code>$</code> am Ende bedeutet: "das Terminal wartet auf deinen Befehl". Alles <em>nach</em> dem <code>$</code> tippst du selbst.
             </div>
           </div>
+          ${callout('key', 'Merke', 'Jeder Befehl folgt dem Muster <code>Befehl Option Argument</code> — z.B. <code>ls -la Downloads</code>. Kurze Optionen lassen sich bündeln: <code>-la</code> = <code>-l -a</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Navigation — wo bin ich, wo gehe ich hin?</div>
             <div class="code-block">
@@ -4344,6 +4348,7 @@ So: 0x2F = 47</div>
               <strong>Achtung <code>rm</code>:</strong> es gibt keinen Papierkorb. Einmal gelöscht = weg. Besonders <code>rm -rf /</code> oder <code>rm -rf ~</code> niemals blind ausführen — das löscht dein halbes System.
             </div>
           </div>
+          ${callout('warn', 'Vorsicht', '<code>rm</code> kennt keinen Papierkorb — gelöscht ist gelöscht. <code>rm -rf</code> auf dem falschen Pfad kann dein ganzes System löschen. Immer zweimal hinschauen.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Text, Pipes & Umleitungen</div>
             <div class="explanation">
@@ -4367,6 +4372,7 @@ So: 0x2F = 47</div>
 <span class="fn">ls</span> | <span class="fn">wc</span> -l                            <span class="cm"># Dateien zählen (wc = word count)</span></div>
             </div>
           </div>
+          ${callout('tip', 'Profi-Tipp', 'Die Pipe <code>|</code> reicht die Ausgabe eines Befehls an den nächsten weiter. So baust du dir aus kleinen Bausteinen mächtige Ketten: <code>cat log.txt | grep "fehler" | wc -l</code> zählt alle Fehlerzeilen.')}
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Nützliche Kniffe die dein Leben retten</div>
             <div class="explanation">
@@ -4544,6 +4550,7 @@ So: 0x2F = 47</div>
               <strong>Merke:</strong> <code>.</code> = "hier", <code>..</code> = "eins höher", <code>~</code> = dein Home-Ordner.
             </div>
           </div>
+          ${callout('key', 'Merke', 'Ein absoluter Pfad beginnt beim Root (<code>/</code> oder <code>C:\\</code>) und gilt überall gleich. Ein relativer Pfad zählt vom aktuellen Ordner: <code>.</code> = hier, <code>..</code> = eins höher.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Typische Ordnerstruktur eines Web-Projekts</div>
             <div class="code-block">
@@ -4561,6 +4568,7 @@ So: 0x2F = 47</div>
     └── anleitung.md</div>
             </div>
           </div>
+          ${callout('warn', 'Häufiger Fehler', 'In Web-Projekten nie absolute Pfade wie <code>/Users/anna/logo.png</code> verlinken — die funktionieren nur auf deinem Rechner. Nutze relative Pfade wie <code>./assets/logo.png</code>.')}
           ${renderQuestions('l1_5', 6)}
           ${renderBonus('l1_5')}
         `,
@@ -4652,6 +4660,7 @@ So: 0x2F = 47</div>
 <span class="fn">ping</span>     github.com           <span class="cm"># IP + Antwortzeit</span></div>
             </div>
           </div>
+          ${callout('fact', 'Wusstest du?', 'DNS-Antworten werden zwischengespeichert (gecacht) — auf deinem Rechner, im Router und beim Resolver. Deshalb lädt eine Domain beim zweiten Besuch spürbar schneller.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Ports — eine Adresse, viele Türen</div>
             <div class="explanation">
@@ -4750,6 +4759,7 @@ Cache-Control: max-age=300
               • <code>503 Service Unavailable</code> — Server überlastet oder in Wartung
             </div>
           </div>
+          ${callout('key', 'Merke', 'Die erste Ziffer des Statuscodes verrät die Schuldfrage: <code>4xx</code> = <strong>du</strong> (der Client) hast einen Fehler gemacht, <code>5xx</code> = der <strong>Server</strong> hat ein Problem.')}
           <div class="content-card animate-in" style="animation-delay:0.28s">
             <div class="card-label">HTTPS, TLS & Verschlüsselung</div>
             <div class="explanation">
@@ -4762,6 +4772,7 @@ Cache-Control: max-age=300
               Ein <strong>Zertifikat</strong> (von einer Certificate Authority wie Let's Encrypt) beweist, dass die Webseite wirklich der Domain gehört. Dein Browser zeigt dann das Schloss-Symbol. Heute hat <em>jede</em> seriöse Webseite HTTPS — und es ist <strong>kostenlos</strong> dank Let's Encrypt.
             </div>
           </div>
+          ${callout('tip', 'Profi-Tipp', 'Ein HTTPS-Zertifikat kostet heute nichts: <strong>Let\'s Encrypt</strong> stellt sie kostenlos aus. Es gibt also keinen Grund mehr, eine Seite ohne das Schloss-Symbol zu betreiben.')}
           <div class="content-card animate-in" style="animation-delay:0.31s">
             <div class="card-label">Das OSI-Schichtenmodell (vereinfacht)</div>
             <div class="explanation">
@@ -4937,6 +4948,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure
               • <strong>Iteration</strong> — Schritte wiederholen (solange … tue …)
             </div>
           </div>
+          ${callout('key', 'Merke', 'Jeder Algorithmus besteht aus nur drei Bausteinen: <strong>Sequenz</strong> (nacheinander), <strong>Selektion</strong> (wenn … dann) und <strong>Iteration</strong> (wiederholen). Mehr braucht es nicht.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Boolesche Logik — Wahr oder Falsch</div>
             <div class="explanation">
@@ -4951,6 +4963,7 @@ Set-Cookie: session=abc123; HttpOnly; Secure
               Beispiel aus dem echten Code: <code>if age >= 18 AND has_ticket:</code> — beide müssen erfüllt sein.
             </div>
           </div>
+          ${callout('fact', 'Wusstest du?', 'Die boolesche Logik ist nach dem Mathematiker <strong>George Boole</strong> benannt — er beschrieb sie schon 1854, fast 100 Jahre bevor der erste Computer damit rechnete.')}
           ${quiz('q_logic1', 'Was ergibt: true AND false?', [
             {t:'true', correct:false, why:'AND ist nur true wenn BEIDE Seiten true sind. false macht die ganze Aussage false.'},
             {t:'false', correct:true, why:'Richtig! AND = beide müssen wahr sein. Eine Seite ist false → Ergebnis ist false.'},
@@ -4977,6 +4990,7 @@ END</pre>
               Kein Python, kein JavaScript — trotzdem versteht jeder Entwickler sofort was passiert. Das ist der Punkt.
             </div>
           </div>
+          ${callout('tip', 'Profi-Tipp', 'Skizziere schwierige Logik erst in Pseudocode, bevor du echten Code tippst. Du denkst dann über das <em>Problem</em> nach statt über Syntax — und findest Fehler, bevor sie im Code stecken.')}
           ${quiz('q_logic2', 'Welcher Grundbaustein beschreibt eine wiederholte Ausführung?', [
             {t:'Sequenz', correct:false, why:'Sequenz = Anweisungen nacheinander, einmal.'},
             {t:'Selektion', correct:false, why:'Selektion = Verzweigung / Entscheidung (if/else).'},
@@ -5044,6 +5058,7 @@ END</pre>
               Für Entwickler wichtig: Ein einzelner Thread (Prozess) kann nur einen Kern nutzen. Willst du alle Kerne auslasten, brauchst du Parallelverarbeitung oder mehrere Threads.
             </div>
           </div>
+          ${callout('key', 'Merke', 'Zwei Zahlen bestimmen die CPU-Leistung: <strong>Kerne</strong> = wie viele Aufgaben gleichzeitig, <strong>GHz</strong> = wie schnell ein einzelner Kern arbeitet.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">RAM — der Arbeitspeicher</div>
             <div class="explanation">
@@ -5055,6 +5070,7 @@ END</pre>
               Als Entwickler: Wenn dein Programm immer mehr RAM frisst und nie freigibt → <strong>Memory Leak</strong>. Ein häufiger Bug.
             </div>
           </div>
+          ${callout('warn', 'Häufiger Fehler', 'Wird der RAM knapp, lagert das System auf die Festplatte aus (<strong>Swap</strong>) — und alles wird zäh. Ein Programm, das immer mehr RAM belegt und nie freigibt, hat ein <strong>Memory Leak</strong>.')}
           ${quiz('q_hw1', 'Was ist der Hauptunterschied zwischen RAM und Festplatte?', [
             {t:'RAM ist dauerhafter Speicher, Festplatte ist flüchtig', correct:false, why:'Genau umgekehrt: RAM ist flüchtig (weg beim Ausschalten), Festplatte ist dauerhaft.'},
             {t:'RAM ist schneller und flüchtig, Festplatte ist langsamer und dauerhaft', correct:true, why:'Richtig! RAM: ~ns Zugriffszeit, Daten weg beim Ausschalten. SSD: ~µs, Daten bleiben.'},
@@ -5072,6 +5088,7 @@ END</pre>
               <strong>Für Entwickler:</strong> Normale Software läuft auf der CPU. Wenn du KI/ML, Bildverarbeitung oder 3D machst, wirst du früher oder später mit der GPU arbeiten — z.B. via CUDA (NVIDIA) oder WebGL im Browser.
             </div>
           </div>
+          ${callout('fact', 'Wusstest du?', 'Genau die Tausenden Parallel-Kerne, die eine GPU für Spiele-Grafik hat, machen sie zum Motor der KI: moderne Sprachmodelle werden auf riesigen GPU-Clustern trainiert.')}
           ${quiz('q_hw2', 'Wofür ist eine GPU besonders geeignet?', [
             {t:'Komplexe, sequenzielle Berechnungen', correct:false, why:'Das ist die Stärke der CPU mit wenigen leistungsstarken Kernen.'},
             {t:'Massiv parallele Berechnungen mit vielen gleichartigen Operationen', correct:true, why:'Genau! Tausende einfache Kerne → perfekt für Grafik, KI-Training, Physik-Simulationen.'},
@@ -5138,6 +5155,7 @@ END</pre>
               Die drei großen OS: <strong>Windows</strong> (dominiert Desktop), <strong>macOS</strong> (Apple), <strong>Linux</strong> (dominiert Server, Android-Basis).
             </div>
           </div>
+          ${callout('key', 'Merke', 'Das Betriebssystem ist der Vermittler zwischen Hardware und deinen Programmen. Kein Programm greift direkt auf CPU, RAM oder Festplatte zu — alles läuft über das OS.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Prozesse & Threads</div>
             <div class="explanation">
@@ -5151,6 +5169,7 @@ END</pre>
               • Zwei Threads ändern gleichzeitig dieselbe Variable? → <strong>Race Condition</strong> — ein gemeiner Bug
             </div>
           </div>
+          ${callout('fact', 'Wusstest du?', 'Auch wenn Windows die Desktops dominiert: die allermeisten Server im Internet laufen unter <strong>Linux</strong> — und Android baut ebenfalls auf einem Linux-Kernel auf.')}
           ${quiz('q_os1', 'Was ist die Hauptaufgabe eines Betriebssystems?', [
             {t:'Websites anzeigen', correct:false, why:'Das ist die Aufgabe eines Browsers, nicht des OS.'},
             {t:'Hardware und Anwendungen verwalten und koordinieren', correct:true, why:'Genau! Das OS ist die Schicht zwischen Hardware und Software — Speicher, CPU-Zeit, Dateien, Sicherheit.'},
@@ -5167,6 +5186,7 @@ END</pre>
               Das ist auch Sicherheit: Ein fehlerhaftes Programm im User-Space kann nicht einfach den Kernel zerstören.
             </div>
           </div>
+          ${callout('tip', 'Profi-Tipp', 'Willst du sehen, welche Prozesse gerade laufen und wie viel CPU/RAM sie fressen? Nutze <code>top</code> oder <code>htop</code> im Terminal (Windows: Task-Manager) — dein wichtigstes Werkzeug beim Aufspüren von Ressourcen-Fressern.')}
           ${quiz('q_os2', 'Was ist ein "Race Condition" Bug?', [
             {t:'Ein Programm das zu schnell läuft und crasht', correct:false, why:'Nicht die Geschwindigkeit ist das Problem, sondern der gleichzeitige Zugriff.'},
             {t:'Zwei Threads ändern gleichzeitig dieselbe Variable ohne Synchronisation', correct:true, why:'Genau! Das Ergebnis ist zufällig/unkontrollierbar — je nachdem welcher Thread "gewinnt". Schwer zu reproduzieren, schwer zu debuggen.'},
