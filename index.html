@@ -581,7 +581,12 @@ body {
 @media (max-width: 700px) {
   .gami-goal, .gami-level { display: none; }
   .lernweg-btn span { display: none; }
-  .lernweg-btn { padding: 7px 10px; }
+  /* Bigger touch targets on mobile (WCAG ~44px) */
+  .lernweg-btn { padding: 11px; }
+  .ctrl-btn, .hamburger-btn { width: 42px; height: 42px; }
+  .ctrl-btn [data-lucide], .hamburger-btn [data-lucide] { width: 20px; height: 20px; }
+  .lesson-item { padding: 12px 18px 12px 26px; }
+  .profile-menu-item { padding: 12px; }
 }
 
 /* ---- Celebration toast (level-up / achievement) ---- */
@@ -2010,6 +2015,10 @@ body {
   .topbar { padding: 0 14px; }
   .breadcrumb { display: none; }
   .main { height: 100dvh; }
+  /* Larger touch targets (WCAG ~44px) */
+  .ctrl-btn, .hamburger-btn { width: 42px; height: 42px; }
+  .ctrl-btn [data-lucide], .hamburger-btn [data-lucide] { width: 20px; height: 20px; }
+  .lernweg-btn { padding: 12px; min-width: 42px; justify-content: center; }
 
   /* Hero header: taller on mobile for drama */
   .lesson-header {
