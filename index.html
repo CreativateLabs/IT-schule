@@ -493,6 +493,22 @@ body {
 }
 .xp-badge [data-lucide] { width: 12px; height: 12px; }
 
+/* ---- Home 'open learning path' card ---- */
+.home-path-card { display: flex; gap: 20px; align-items: center; }
+.hpc-ico { width: 64px; height: 64px; border-radius: 18px; background: var(--accent); color: #fff; display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 4px 0 var(--accent-ink); }
+.hpc-ico [data-lucide] { width: 30px; height: 30px; }
+.hpc-body { flex: 1; min-width: 0; }
+.home-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-weight: 600; font-size: 14px; color: #fff;
+  background: var(--accent); border: none; padding: 12px 22px; border-radius: 14px; cursor: pointer;
+  box-shadow: 0 4px 0 var(--accent-ink); transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s;
+}
+.home-cta-btn [data-lucide] { width: 16px; height: 16px; }
+.home-cta-btn:hover { background: var(--accent2); }
+.home-cta-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--accent-ink); }
+@media (max-width: 560px) { .home-path-card { flex-direction: column; align-items: flex-start; } }
+
 /* ---- Callouts / info blocks (lesson content) ---- */
 .callout {
   display: flex; gap: 14px;
@@ -2482,7 +2498,20 @@ body {
 @media (max-width: 560px) { .phase-tiles { grid-template-columns: 1fr; } .psb-sep { display: none; } .phase-stats-band { gap: 16px; } }
 
 /* ---- Features grid ---- */
-.landing-features { padding: 56px 0 8px; }
+.landing-features {
+  position: relative; overflow: hidden;
+  background: var(--surface2); border: 2px solid var(--border);
+  border-radius: 32px; padding: 52px 40px 46px; margin: 48px 0;
+}
+.landing-features::before {
+  content: ''; position: absolute; top: -70px; left: -50px; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.20), transparent 70%); filter: blur(24px); pointer-events: none;
+}
+.landing-features::after {
+  content: ''; position: absolute; bottom: -80px; right: -40px; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.16), transparent 70%); filter: blur(24px); pointer-events: none;
+}
+.landing-features > * { position: relative; z-index: 1; }
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .feature-card {
   background: var(--surface); border: 2px solid var(--border);
@@ -3077,9 +3106,9 @@ body {
   background: var(--orange);
 }
 .landing-section-title {
-  font-family: var(--display); font-size: clamp(24px, 3.5vw, 36px);
+  font-family: var(--display); font-size: clamp(30px, 4.2vw, 46px);
   font-weight: 700; color: var(--text); margin-bottom: 36px;
-  letter-spacing: -0.5px; line-height: 1.1;
+  letter-spacing: -0.5px; line-height: 1.08;
 }
 
 /* Phases section: colored left border on section */
@@ -3826,34 +3855,12 @@ const PHASES = [
             <h1 class="lesson-title">Willkommen bei PyCoBase</h1>
             <p class="lesson-desc">Du startest heute eine Reise die dich von null zu einem vollständigen Entwickler führt. Kein Geld nötig, nur Zeit und Durchhaltevermögen. Hier ist was dich erwartet.</p>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Dein Lernweg</div>
-            <div class="path-map">
-              ${(() => {
-                const phases = PHASES.filter(p => p.id !== 'p0');
-                const pos = ['c','r','c','l','c','r','l'];
-                const icons = ['cpu','code-2','layout-template','server','shield-check','graduation-cap','rocket'];
-                let currentAssigned = false;
-                return phases.map((p,i) => {
-                  const done = p.lessons.filter(l => state.completed.has(l.id)).length;
-                  const total = p.lessons.length;
-                  const pct = total ? Math.round(done/total*100) : 0;
-                  const complete = total > 0 && done === total;
-                  let cls = 'upcoming';
-                  if (complete) cls = 'done';
-                  else if (!currentAssigned) { cls = 'active'; currentAssigned = true; }
-                  const icon = complete ? 'check' : (icons[i] || 'circle');
-                  return `<div class="path-node-wrap pos-${pos[i % pos.length]}">
-                    <button class="path-node ${cls}" onclick="goToPhase(${i+1})" title="${p.title}" aria-label="Phase ${i+1}: ${p.title}">
-                      <span class="path-node-ring" style="--pct:${pct}"><span class="path-node-inner"><i data-lucide="${icon}"></i></span></span>
-                    </button>
-                    <div class="path-node-label">
-                      <div class="pnl-phase">Phase ${i+1} · ${done}/${total}</div>
-                      <div class="pnl-title">${p.title}</div>
-                    </div>
-                  </div>`;
-                }).join('');
-              })()}
+          <div class="content-card home-path-card animate-in" style="animation-delay:0.05s">
+            <div class="hpc-ico"><i data-lucide="map"></i></div>
+            <div class="hpc-body">
+              <div class="card-label" style="margin-bottom:6px">Dein Lernweg</div>
+              <div class="explanation" style="margin-bottom:16px">6 Phasen mit 67 Lektionen führen dich Schritt für Schritt vom absoluten Anfänger zum Profi. Öffne deinen Lernweg, um alle Etappen zu sehen und direkt loszulegen.</div>
+              <button class="home-cta-btn" onclick="showLernweg()"><i data-lucide="map"></i>Lernweg öffnen</button>
             </div>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.1s">
@@ -3872,34 +3879,12 @@ const PHASES = [
             <h1 class="lesson-title">Welcome to PyCoBase</h1>
             <p class="lesson-desc">Today you start a journey that takes you from zero to a full developer. No money needed — just time and persistence. Here's what to expect.</p>
           </div>
-          <div class="content-card animate-in" style="animation-delay:0.05s">
-            <div class="card-label">Your learning path</div>
-            <div class="path-map" id="phases-path-map">
-              ${(() => {
-                const phases = PHASES.filter(p => p.id !== 'p0');
-                const pos = ['c','r','c','l','c','r','l'];
-                const icons = ['cpu','code-2','layout-template','server','shield-check','graduation-cap','rocket'];
-                let currentAssigned = false;
-                return phases.map((p,i) => {
-                  const done = p.lessons.filter(l => state.completed.has(l.id)).length;
-                  const total = p.lessons.length;
-                  const pct = total ? Math.round(done/total*100) : 0;
-                  const complete = total > 0 && done === total;
-                  let cls = 'upcoming';
-                  if (complete) cls = 'done';
-                  else if (!currentAssigned) { cls = 'active'; currentAssigned = true; }
-                  const icon = complete ? 'check' : (icons[i] || 'circle');
-                  return `<div class="path-node-wrap pos-${pos[i % pos.length]}">
-                    <button class="path-node ${cls}" onclick="goToPhase(${i+1})" title="${p.title_en || p.title}" aria-label="Phase ${i+1}: ${p.title_en || p.title}">
-                      <span class="path-node-ring" style="--pct:${pct}"><span class="path-node-inner"><i data-lucide="${icon}"></i></span></span>
-                    </button>
-                    <div class="path-node-label">
-                      <div class="pnl-phase">Phase ${i+1} · ${done}/${total}</div>
-                      <div class="pnl-title">${p.title_en || p.title}</div>
-                    </div>
-                  </div>`;
-                }).join('');
-              })()}
+          <div class="content-card home-path-card animate-in" style="animation-delay:0.05s">
+            <div class="hpc-ico"><i data-lucide="map"></i></div>
+            <div class="hpc-body">
+              <div class="card-label" style="margin-bottom:6px">Your learning path</div>
+              <div class="explanation" style="margin-bottom:16px">6 phases with 67 lessons take you step by step from absolute beginner to pro. Open your learning path to see every stage and dive right in.</div>
+              <button class="home-cta-btn" onclick="showLernweg()"><i data-lucide="map"></i>Open learning path</button>
             </div>
           </div>
           <div class="content-card animate-in" style="animation-delay:0.1s">
