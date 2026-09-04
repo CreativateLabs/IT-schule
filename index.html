@@ -2564,6 +2564,25 @@ body {
 .gsc-ach-grid [data-lucide] { width: 18px; height: 18px; }
 @media (max-width: 760px) { .gamify-cards { grid-template-columns: 1fr; } }
 
+/* ---- Landing league / leaderboard preview ---- */
+.landing-league { padding: 8px 0; }
+.league-card { max-width: 460px; margin: 0 auto; background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-lg); box-shadow: 0 4px 0 var(--border2); padding: 10px; }
+.landing-league .lb-item { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; }
+.landing-league .lb-item + .lb-item { border-top: 1px solid var(--border); }
+.landing-league .lb-rank { width: 30px; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--text3); text-align: center; display: grid; place-items: center; flex-shrink: 0; }
+.landing-league .lb-rank.gold { color: #f5b301; } .landing-league .lb-rank.silver { color: #9aa7b8; } .landing-league .lb-rank.bronze { color: #cd7f32; }
+.landing-league .lb-avatar { width: 34px; height: 34px; border-radius: 10px; background: var(--surface3); display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--text2); flex-shrink: 0; }
+.landing-league .lb-name { flex: 1; font-weight: 600; font-size: 14px; color: var(--text); }
+.landing-league .lb-xp { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent2); white-space: nowrap; }
+.lb-you { cursor: pointer; background: var(--accent-glow); border: 2px dashed rgba(99,102,241,0.4) !important; margin-top: 4px; transition: transform 0.12s; }
+.lb-you:hover { transform: translateY(-2px); }
+.lb-you .lb-avatar { background: var(--accent); color: #fff; }
+.lb-you .lb-name { color: var(--accent2); }
+.lb-you .lb-xp { color: var(--orange); }
+.lb-you .lb-rank [data-lucide] { width: 15px; height: 15px; }
+.league-note { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; color: var(--text3); padding: 12px 8px 6px; }
+.league-note [data-lucide] { width: 13px; height: 13px; }
+
 /* ---- How it works (steps) — bold dark panel ---- */
 .landing-steps {
   position: relative; overflow: hidden;
@@ -3561,11 +3580,16 @@ body {
     </section>
 
     <!-- Leaderboard auf Landing Page -->
-    <section class="landing-profiles reveal" id="landing-leaderboard-section" style="margin-top:0">
-      <div class="landing-section-num">03 — Rangliste</div>
-      <div class="landing-section-title" id="landing-lb-title">Top-Lernende</div>
-      <div id="landing-lb-content" style="max-width:480px;margin:0 auto;padding:0 16px">
-        <div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Rangliste wird geladen…</div>
+    <section class="landing-league reveal" id="landing-leaderboard-section">
+      <div class="landing-section-num">Rangliste</div>
+      <div class="landing-section-title">Miss dich mit anderen</div>
+      <div class="league-card">
+        <div class="lb-item"><div class="lb-rank gold">#1</div><div class="lb-avatar">L</div><div class="lb-name">Leon</div><div class="lb-xp">3.480&thinsp;XP</div></div>
+        <div class="lb-item"><div class="lb-rank silver">#2</div><div class="lb-avatar">M</div><div class="lb-name">Mia</div><div class="lb-xp">2.140&thinsp;XP</div></div>
+        <div class="lb-item"><div class="lb-rank bronze">#3</div><div class="lb-avatar">A</div><div class="lb-name">Ada</div><div class="lb-xp">1.760&thinsp;XP</div></div>
+        <div class="lb-item"><div class="lb-rank">#4</div><div class="lb-avatar">J</div><div class="lb-name">Jonas</div><div class="lb-xp">1.290&thinsp;XP</div></div>
+        <div class="lb-item lb-you" onclick="document.getElementById('landing').scrollTo({top:0,behavior:'smooth'})"><div class="lb-rank"><i data-lucide="user"></i></div><div class="lb-avatar">?</div><div class="lb-name">Dein Platz</div><div class="lb-xp">Jetzt starten →</div></div>
+        <div class="league-note"><i data-lucide="info"></i> Beispiel-Ansicht — deine Rangliste startet, sobald du loslegst.</div>
       </div>
     </section>
 
