@@ -20729,67 +20729,73 @@ function renderOneQuestion(q, isBonus) {
 function _quizHead(text, xp) {
   return `<div class="quiz-head"><div class="card-label">${text}</div><span class="quiz-xp"><i data-lucide="hexagon"></i>+${xp} XP</span></div>`;
 }
+// --- Quiz language helpers: use *_en fields when EN active, else German fallback ---
+function _qEN() { try { return LANG.get() === 'en'; } catch (e) { return false; } }
+function _qPick(de, en) { return (_qEN() && en != null && en !== '') ? en : de; }
+function _bonusLabel() { return _qEN() ? 'Pro bonus · +20 XP (optional)' : 'Profi-Bonus · +20 XP (optional)'; }
 function renderMCQ(q, isBonus) {
-  QUIZ_DATA[q.id] = { question: q.question, options: q.options, xp: q.xp || 10, optional: !!isBonus, poolQuestion: true };
-  const opts = q.options.map((o, i) =>
+  const question = _qPick(q.question, q.question_en);
+  const options = q.options.map(o => ({ t: _qPick(o.t, o.t_en), correct: o.correct, why: _qPick(o.why, o.why_en) }));
+  QUIZ_DATA[q.id] = { question, options, xp: q.xp || 10, optional: !!isBonus, poolQuestion: true };
+  const opts = options.map((o, i) =>
     `<button class="quiz-option" data-quiz="${q.id}" data-idx="${i}">${o.t}</button>`
   ).join('');
   const label = isBonus
-    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
+    ? `<div class="profi-label"><i data-lucide="star"></i>${_bonusLabel()}</div>`
     : _quizHead('Quiz', q.xp || 10);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
-    <div class="quiz-question">${q.question}</div>
+    <div class="quiz-question">${question}</div>
     <div class="quiz-options" id="opts-${q.id}">${opts}</div>
     <div class="quiz-feedback" id="fb-${q.id}"></div>
   </div>`;
 }
 
 function renderTFQ(q, isBonus) {
-  QUIZ_DATA[q.id] = { type: 'truefalse', correct: q.correct, why: q.explanation, xp: q.xp || 8, optional: !!isBonus, poolQuestion: true };
+  QUIZ_DATA[q.id] = { type: 'truefalse', correct: q.correct, why: _qPick(q.explanation, q.explanation_en), xp: q.xp || 8, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
-    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : _quizHead('Richtig oder Falsch?', q.xp || 8);
+    ? `<div class="profi-label"><i data-lucide="star"></i>${_bonusLabel()}</div>`
+    : _quizHead(_qEN() ? 'True or false?' : 'Richtig oder Falsch?', q.xp || 8);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
-    <div class="quiz-question">${q.statement}</div>
+    <div class="quiz-question">${_qPick(q.statement, q.statement_en)}</div>
     <div class="tf-options" id="opts-${q.id}">
-      <button class="tf-btn" data-tf="${q.id}" data-val="true">Richtig</button>
-      <button class="tf-btn" data-tf="${q.id}" data-val="false">Falsch</button>
+      <button class="tf-btn" data-tf="${q.id}" data-val="true">${_qEN() ? 'True' : 'Richtig'}</button>
+      <button class="tf-btn" data-tf="${q.id}" data-val="false">${_qEN() ? 'False' : 'Falsch'}</button>
     </div>
     <div class="quiz-feedback" id="fb-${q.id}"></div>
   </div>`;
 }
 
 function renderFillQ(q, isBonus) {
-  QUIZ_DATA[q.id] = { type: 'fillblank', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
+  QUIZ_DATA[q.id] = { type: 'fillblank', answers: (_qEN() && q.answers_en) ? q.answers_en : q.answers, why: _qPick(q.explanation, q.explanation_en), xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
-    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : _quizHead('Lückentext', q.xp || 12);
+    ? `<div class="profi-label"><i data-lucide="star"></i>${_bonusLabel()}</div>`
+    : _quizHead(_qEN() ? 'Fill in the blank' : 'Lückentext', q.xp || 12);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
-    <div class="quiz-question">${q.prompt}</div>
+    <div class="quiz-question">${_qPick(q.prompt, q.prompt_en)}</div>
     ${q.code ? `<div class="code-block" style="margin-bottom:12px"><div class="code-pre">${q.code}</div></div>` : ''}
     <div class="fill-area">
-      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="${q.placeholder || 'Antwort eingeben...'}" autocomplete="off" spellcheck="false">
-      <button class="fill-btn" data-fill="${q.id}">Prüfen</button>
+      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="${_qPick(q.placeholder, q.placeholder_en) || (_qEN() ? 'Type your answer...' : 'Antwort eingeben...')}" autocomplete="off" spellcheck="false">
+      <button class="fill-btn" data-fill="${q.id}">${_qEN() ? 'Check' : 'Prüfen'}</button>
     </div>
     <div class="quiz-feedback" id="fb-${q.id}"></div>
   </div>`;
 }
 
 function renderOutputQ(q, isBonus) {
-  QUIZ_DATA[q.id] = { type: 'outputpredict', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
+  QUIZ_DATA[q.id] = { type: 'outputpredict', answers: (_qEN() && q.answers_en) ? q.answers_en : q.answers, why: _qPick(q.explanation, q.explanation_en), xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
-    ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : _quizHead('Was ist der Output?', q.xp || 12);
+    ? `<div class="profi-label"><i data-lucide="star"></i>${_bonusLabel()}</div>`
+    : _quizHead(_qEN() ? "What's the output?" : 'Was ist der Output?', q.xp || 12);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
-    <div class="quiz-question">${q.question}</div>
+    <div class="quiz-question">${_qPick(q.question, q.question_en)}</div>
     <div class="code-block output-predict-code" style="margin-bottom:12px"><div class="code-pre">${q.code}</div></div>
     <div class="fill-area">
-      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="Output eingeben..." autocomplete="off" spellcheck="false">
-      <button class="fill-btn" data-fill="${q.id}">Prüfen</button>
+      <input class="fill-input" id="fill-${q.id}" type="text" placeholder="${_qEN() ? 'Type the output...' : 'Output eingeben...'}" autocomplete="off" spellcheck="false">
+      <button class="fill-btn" data-fill="${q.id}">${_qEN() ? 'Check' : 'Prüfen'}</button>
     </div>
     <div class="quiz-feedback" id="fb-${q.id}"></div>
   </div>`;
@@ -20815,9 +20821,10 @@ function renderBonus(lessonId) {
   if (!bonus) return '';
   // Override XP to 20 for bonus — clone so the shared pool object stays untouched
   const bonusQ = { ...bonus, xp: 20 };
+  const en = _qEN();
   return `<div class="content-card animate-in" style="animation-delay:0.05s;background:var(--amber-bg);border-color:var(--amber)">
-    <div class="card-label" style="color:var(--amber)"><i data-lucide="star"></i>&nbsp;Profi-Herausforderung (optional)</div>
-    <div class="explanation" style="color:var(--text2)">Diese Frage ist optional — sie zählt <strong>nicht</strong> zur Bewertung. Richtige Antwort: <strong>+20 XP Bonus</strong>.</div>
+    <div class="card-label" style="color:var(--amber)"><i data-lucide="star"></i>&nbsp;${en ? 'Pro challenge (optional)' : 'Profi-Herausforderung (optional)'}</div>
+    <div class="explanation" style="color:var(--text2)">${en ? 'This question is optional — it does <strong>not</strong> count toward your score. Correct answer: <strong>+20 XP bonus</strong>.' : 'Diese Frage ist optional — sie zählt <strong>nicht</strong> zur Bewertung. Richtige Antwort: <strong>+20 XP Bonus</strong>.'}</div>
   </div>
   ${renderOneQuestion(bonusQ, true)}`;
 }
@@ -25948,8 +25955,9 @@ function quickCheck(question, options, correctIdx, simpleExplain) {
   const id = 'qc' + (_qcCounter++);
   window._QC[id] = { correct: correctIdx, explain: simpleExplain };
   const opts = options.map((o, i) => `<button class="qc-opt" onclick="answerQuickCheck('${id}', ${i}, this)">${o}</button>`).join('');
+  const en = (function(){ try { return LANG.get() === 'en'; } catch (e) { return false; } })();
   return `<div class="quick-check" id="${id}">
-    <div class="qc-head"><i data-lucide="hand-metal"></i>Kurz-Check · verstanden?</div>
+    <div class="qc-head"><i data-lucide="hand-metal"></i>${en ? 'Quick check · got it?' : 'Kurz-Check · verstanden?'}</div>
     <div class="qc-q">${question}</div>
     <div class="qc-opts">${opts}</div>
     <div class="qc-fb" id="${id}-fb"></div>
@@ -25962,15 +25970,16 @@ function answerQuickCheck(id, i, btn) {
   const fb = document.getElementById(id + '-fb');
   const opts = [...wrap.querySelectorAll('.qc-opt')];
   opts.forEach(b => b.disabled = true);
+  const en = (function(){ try { return LANG.get() === 'en'; } catch (e) { return false; } })();
   if (i === data.correct) {
     btn.classList.add('correct');
     fb.className = 'qc-fb good';
-    fb.innerHTML = `<i data-lucide="party-popper"></i><span>Stark — du hast's verstanden!</span>`;
+    fb.innerHTML = `<i data-lucide="party-popper"></i><span>${en ? "Nice — you got it!" : "Stark — du hast's verstanden!"}</span>`;
   } else {
     btn.classList.add('wrong');
     if (opts[data.correct]) opts[data.correct].classList.add('correct');
     fb.className = 'qc-fb bad';
-    fb.innerHTML = `<i data-lucide="lightbulb"></i><span><strong>Fast!</strong> Einfacher gesagt: ${data.explain}</span>`;
+    fb.innerHTML = `<i data-lucide="lightbulb"></i><span><strong>${en ? 'Almost!' : 'Fast!'}</strong> ${en ? 'Put simply:' : 'Einfacher gesagt:'} ${data.explain}</span>`;
   }
   try { lucide.createIcons({ nodes: [wrap] }); } catch {}
 }
