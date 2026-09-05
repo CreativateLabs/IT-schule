@@ -989,6 +989,17 @@ body {
   margin-bottom: 18px;
 }
 
+.quiz-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+.quiz-head .card-label { margin-bottom: 0; }
+.quiz-xp {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--amber); background: var(--amber-bg);
+  border: 1.5px solid rgba(245,158,11,0.28);
+  padding: 4px 11px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+}
+.quiz-xp [data-lucide] { width: 12px; height: 12px; }
+
 .quiz-question {
   font-family: var(--display);
   font-size: 16px;
@@ -20431,6 +20442,10 @@ function renderOneQuestion(q, isBonus) {
   return '';
 }
 
+// Quiz card header: label badge + visible XP reward
+function _quizHead(text, xp) {
+  return `<div class="quiz-head"><div class="card-label">${text}</div><span class="quiz-xp"><i data-lucide="hexagon"></i>+${xp} XP</span></div>`;
+}
 function renderMCQ(q, isBonus) {
   QUIZ_DATA[q.id] = { question: q.question, options: q.options, xp: q.xp || 10, optional: !!isBonus, poolQuestion: true };
   const opts = q.options.map((o, i) =>
@@ -20438,7 +20453,7 @@ function renderMCQ(q, isBonus) {
   ).join('');
   const label = isBonus
     ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : `<div class="card-label">Quiz</div>`;
+    : _quizHead('Quiz', q.xp || 10);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
     <div class="quiz-question">${q.question}</div>
@@ -20451,7 +20466,7 @@ function renderTFQ(q, isBonus) {
   QUIZ_DATA[q.id] = { type: 'truefalse', correct: q.correct, why: q.explanation, xp: q.xp || 8, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
     ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : `<div class="card-label">Richtig oder Falsch?</div>`;
+    : _quizHead('Richtig oder Falsch?', q.xp || 8);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
     <div class="quiz-question">${q.statement}</div>
@@ -20467,7 +20482,7 @@ function renderFillQ(q, isBonus) {
   QUIZ_DATA[q.id] = { type: 'fillblank', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
     ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : `<div class="card-label">Lückentext</div>`;
+    : _quizHead('Lückentext', q.xp || 12);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
     <div class="quiz-question">${q.prompt}</div>
@@ -20484,7 +20499,7 @@ function renderOutputQ(q, isBonus) {
   QUIZ_DATA[q.id] = { type: 'outputpredict', answers: q.answers, why: q.explanation, xp: q.xp || 12, optional: !!isBonus, poolQuestion: true };
   const label = isBonus
     ? `<div class="profi-label"><i data-lucide="star"></i>Profi-Bonus · +20 XP (optional)</div>`
-    : `<div class="card-label">Was ist der Output?</div>`;
+    : _quizHead('Was ist der Output?', q.xp || 12);
   return `<div class="quiz-card animate-in${isBonus ? ' profi-card' : ''}" data-qid="${q.id}" data-qtype="${isBonus ? 'optional' : 'required'}">
     ${label}
     <div class="quiz-question">${q.question}</div>
