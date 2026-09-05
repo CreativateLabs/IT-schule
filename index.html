@@ -3222,36 +3222,41 @@ body {
 /* Phases section: colored left border on section */
 #landing-phases-section {
   position: relative; overflow: hidden;
-  background: var(--accent);
+  background: var(--surface2);
+  border: 2px solid var(--border);
   border-radius: 32px; padding: 52px 44px 46px; margin: 48px 0;
-  box-shadow: 0 8px 0 var(--accent-ink);
+  box-shadow: 0 8px 0 var(--border2);
 }
 #landing-phases-section::before {
   content: ''; position: absolute; top: -90px; right: -60px; width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 70%); pointer-events: none;
+  background: radial-gradient(circle, rgba(99,102,241,0.14), transparent 70%); pointer-events: none;
 }
 #landing-phases-section::after {
   content: ''; position: absolute; bottom: -110px; left: -50px; width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(249,115,22,0.30), transparent 70%); filter: blur(12px); pointer-events: none;
+  background: radial-gradient(circle, rgba(249,115,22,0.16), transparent 70%); filter: blur(12px); pointer-events: none;
 }
 #landing-phases-section > * { position: relative; z-index: 1; }
-#landing-phases-section .landing-section-num { color: #fde68a; }
-#landing-phases-section .landing-section-title { color: #fff; }
-/* Glassy phase cards on the indigo panel */
+#landing-phases-section .landing-section-num { color: var(--accent2); }
+#landing-phases-section .landing-section-title { color: var(--text); }
+/* White game cards on the light panel — colored per-phase sockel + badge */
 #landing-phases-section .phase-tile {
-  background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.18);
-  box-shadow: 0 4px 0 rgba(0,0,0,0.16);
+  background: var(--surface);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--tile-color, var(--border2)) 30%, var(--border2));
 }
-#landing-phases-section .phase-tile:hover { box-shadow: 0 7px 0 rgba(0,0,0,0.16); border-color: rgba(255,255,255,0.32); }
-#landing-phases-section .phase-tile-icon { background: rgba(255,255,255,0.2) !important; color: #fff; box-shadow: 0 3px 0 rgba(0,0,0,0.18); }
-#landing-phases-section .phase-tile-num { color: rgba(255,255,255,0.6); }
-#landing-phases-section .phase-tile-title { color: #fff; }
-#landing-phases-section .phase-tile-sub { color: rgba(255,255,255,0.72); }
-#landing-phases-section .phase-tile-lessons { border-top-color: rgba(255,255,255,0.16); }
-#landing-phases-section .phase-tile-lessons li { color: rgba(255,255,255,0.82); }
+#landing-phases-section .phase-tile:hover {
+  box-shadow: 0 8px 0 color-mix(in srgb, var(--tile-color, var(--border2)) 42%, var(--border2));
+  border-color: color-mix(in srgb, var(--tile-color, var(--border2)) 45%, var(--border));
+}
+#landing-phases-section .phase-tile-icon { box-shadow: 0 3px 0 color-mix(in srgb, var(--tile-color, #000) 60%, #000); }
+#landing-phases-section .phase-tile-num {
+  color: var(--tile-color);
+  background: color-mix(in srgb, var(--tile-color) 12%, transparent);
+  padding: 3px 9px; border-radius: 999px;
+}
 #landing-phases-section .phase-tile-lessons li::before,
-#landing-phases-section .phase-tile:nth-child(2n) .phase-tile-lessons li::before { background: #fde68a; }
-#landing-phases-section .phase-tile-meta { color: #fde68a; }
+#landing-phases-section .phase-tile:nth-child(2n) .phase-tile-lessons li::before { background: var(--tile-color); }
+#landing-phases-section .phase-tile-meta { color: var(--tile-color); }
+#landing-phases-section .phase-stats-band { background: var(--surface); }
 
 /* Phase slide stronger color accent */
 .phase-slide {
@@ -27789,7 +27794,7 @@ function buildPhaseTiles() {
       const lt = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
       return `<li>${lt}</li>`;
     }).join('');
-    return `<div class="phase-tile">
+    return `<div class="phase-tile" style="--tile-color:${color}">
       <div class="phase-tile-top">
         <span class="phase-tile-icon" style="background:${color}"><i data-lucide="${icons[i] || 'circle'}"></i></span>
         <span class="phase-tile-num">Phase ${String(i + 1).padStart(2, '0')}</span>
