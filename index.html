@@ -19040,6 +19040,8 @@ MEHRWERTSTEUER = <span class="num">0.19</span>
               • Kommentare erklären WARUM, nicht WAS (der Code erklärt das Was)
             </div>
           </div>
+          ${quickCheck('Warum ersetzt man <code>0.19</code> durch eine Konstante wie <code>MEHRWERTSTEUER</code>?', ['Damit klar ist was die Zahl bedeutet und sie nur an einer Stelle geändert wird', 'Damit der Code schneller läuft', 'Weil Kommazahlen sonst verboten sind'], 0, 'Eine nackte <code>0.19</code> mitten im Code sagt niemandem, was sie meint. Ein Name wie <code>MEHRWERTSTEUER</code> erklärt sich selbst — und wenn sich der Steuersatz ändert, musst du ihn nur an einer einzigen Stelle anpassen.')}
+          ${callout('key', 'Code wird öfter gelesen als geschrieben', 'Sprechende Namen sind kein Luxus. Dein Zukunfts-Ich (und dein Team) versteht <code>berechne_preis_mit_steuer</code> sofort — <code>f(x, y)</code> muss man erst entschlüsseln.')}
           ${renderQuestions('l6_1', 6)}
           ${renderBonus('l6_1')}
         `,
@@ -19121,6 +19123,7 @@ VAT_RATE = <span class="num">0.19</span>
 <span class="cm"># → auf GitHub einen Pull Request öffnen</span></div>
             </div>
           </div>
+          ${quickCheck('Wozu erstellst du mit <code>git checkout -b feature/dark-mode</code> einen Branch?', ['Um an einem Feature zu arbeiten, ohne den stabilen main-Stand zu stören', 'Um alle alten Commits zu löschen', 'Um Git schneller zu machen'], 0, 'Ein Branch ist wie eine eigene Kopie zum Basteln. Du entwickelst dein Feature in Ruhe, und erst wenn es fertig ist, führst du es über einen Pull Request wieder mit <code>main</code> zusammen. So bleibt der Hauptstand immer lauffähig.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Gute Commit-Messages</div>
             <div class="explanation">
@@ -19140,6 +19143,7 @@ VAT_RATE = <span class="num">0.19</span>
 <span class="st">"docs: README mit Setup-Anleitung erweitert"</span></div>
             </div>
           </div>
+          ${callout('tip', 'Eine gute Commit-Message beantwortet WAS und WARUM', 'Stell dir vor, jemand liest in einem Jahr die Historie. <code>fix(cart): Rabatt wurde doppelt abgezogen</code> erzählt sofort die Geschichte — <code>fix</code> tut das nicht.')}
           ${renderQuestions('l6_2', 6)}
           ${renderBonus('l6_2')}
         `,
@@ -19218,6 +19222,7 @@ VAT_RATE = <span class="num">0.19</span>
               <strong>End-to-End Tests</strong> (wenige, langsam) — testen die ganze App wie ein Nutzer
             </div>
           </div>
+          ${quickCheck('Warum gibt es in der Test-Pyramide VIELE Unit Tests, aber nur WENIGE End-to-End Tests?', ['Unit Tests sind klein und schnell, E2E-Tests langsam und aufwändig', 'End-to-End Tests sind unwichtig', 'Unit Tests findet man leichter im Internet'], 0, 'Ein Unit Test prüft eine einzelne Funktion in Millisekunden — davon kannst du hunderte laufen lassen. Ein E2E-Test startet die ganze App und klickt sie durch: gründlich, aber langsam. Deshalb: viele kleine, wenige große.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Unit Tests mit pytest (Python)</div>
             <div class="code-block">
@@ -19248,6 +19253,7 @@ VAT_RATE = <span class="num">0.19</span>
 <span class="cm"># Ausführen: pytest</span></div>
             </div>
           </div>
+          ${callout('fact', 'Tests prüfen auch, was schiefgehen SOLL', 'Guter Test-Code prüft nicht nur den Normalfall. <code>test_teile_durch_null_wirft_fehler</code> stellt sicher, dass dein Code bei ungültiger Eingabe sauber einen Fehler wirft — statt still ein falsches Ergebnis zu liefern.')}
           ${renderQuestions('l6_3', 6)}
           ${renderBonus('l6_3')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
@@ -19328,6 +19334,7 @@ VAT_RATE = <span class="num">0.19</span>
               <strong>Graph</strong> — Netzwerke, soziale Verbindungen, Routenplanung
             </div>
           </div>
+          ${quickCheck('Du willst Nutzer blitzschnell per Benutzername finden. Welche Datenstruktur passt?', ['Hash Map / Dict', 'Stack', 'Graph'], 0, 'Eine Hash Map findet einen Wert per Schlüssel in konstanter Zeit — O(1) —, egal ob 10 oder 10 Millionen Einträge drin sind. Ein Stack oder Graph müsste dagegen erst durchsucht werden.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Big-O Notation verstehen</div>
             <div class="code-block">
@@ -19361,6 +19368,8 @@ VAT_RATE = <span class="num">0.19</span>
     <span class="kw">return</span> -<span class="num">1</span></div>
             </div>
           </div>
+          ${quickCheck('Welche Zeitkomplexität hat die <code>binary_search</code>?', ['O(log n)', 'O(n)', 'O(n²)'], 0, 'Bei jedem Schritt halbiert Binary Search den Suchbereich. Aus 1000 Elementen werden 500, dann 250, dann 125 ... Der Aufwand wächst deshalb nur logarithmisch — extrem schnell, aber nur bei SORTIERTEN Daten.')}
+          ${callout('warn', 'O(n²) wird bei großen Daten zur Falle', 'Bei 100 Elementen macht ein quadratischer Algorithmus 10.000 Schritte, bei 10.000 Elementen schon 100 Millionen. Was mit Testdaten flott läuft, kann in der Produktion einfrieren.')}
           ${renderQuestions('l6_4', 6)}
           ${renderBonus('l6_4')}
           ${exercise('ex_l6_4_1', 'Eigene Datenstruktur', 'Implementiere einen Stack in Python als Klasse mit den Methoden push(val), pop(), peek() und is_empty(). Nutze eine Python-Liste intern. Danach: Implementiere eine Queue mit Collections.deque. Schreibe für beide eine kurze Demo die zeigt wann sie nützlich sind (Stack: Undo-System simulieren mit 5 Aktionen; Queue: Aufgaben-Warteschlange).', 'Tipp: Stack.pop() ohne Argumente entfernt das letzte Element. deque.popleft() entfernt das erste — das ist O(1) statt O(n) bei einer normalen Liste.', 'deque')}
@@ -19428,6 +19437,7 @@ VAT_RATE = <span class="num">0.19</span>
               <strong>Behavioral</strong> — wie Objekte kommunizieren (Observer, Strategy, Command)
             </div>
           </div>
+          ${quickCheck('Was garantiert das Singleton-Pattern?', ['Es existiert immer nur EINE Instanz der Klasse', 'Die Klasse läuft doppelt so schnell', 'Objekte werden automatisch gelöscht'], 0, 'Singleton sorgt dafür, dass es von einer Sache nur ein einziges Exemplar gibt — z.B. EINE zentrale Konfiguration für die ganze App. Egal wie oft du <code>Config()</code> aufrufst, du bekommst immer dasselbe Objekt zurück.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Singleton & Observer in Python</div>
             <div class="code-block">
@@ -19459,6 +19469,7 @@ bus.<span class="fn">on</span>(<span class="st">'login'</span>, <span class="kw"
 bus.<span class="fn">emit</span>(<span class="st">'login'</span>, <span class="st">'Alice'</span>)</div>
             </div>
           </div>
+          ${callout('tip', 'Observer entkoppelt Sender und Empfänger', 'Der <code>EventBus</code> weiß gar nicht, wer alles auf <code>login</code> lauscht. Du kannst jederzeit neue Reaktionen (Willkommensgruß, Log-Eintrag, E-Mail) hinzufügen, ohne den Sende-Code anzufassen.')}
           ${renderQuestions('l6_5', 6)}
           ${renderBonus('l6_5')}
           ${exercise('ex_l6_5_1', 'Strategy Pattern', 'Implementiere das Strategy-Pattern für Zahlungsmethoden: Erstelle eine abstrakte Basisklasse PaymentStrategy mit einer pay(amount)-Methode. Implementiere drei Strategien: CreditCard, PayPal und Bitcoin. Erstelle eine ShoppingCart-Klasse die eine Strategie bekommt und checkout() aufruft. Wechsle die Zahlungsstrategie zur Laufzeit ohne ShoppingCart zu ändern.', 'Tipp: In Python kannst du statt abstrakter Klassen auch einfach Duck Typing nutzen — jede Klasse die pay() hat funktioniert als Strategie.', 'strategy')}
@@ -19533,6 +19544,7 @@ POST /api/getUser              <span class="cm"># FALSCH</span>
 GET  /api/deleteUser?id=42     <span class="cm"># FALSCH</span></div>
             </div>
           </div>
+          ${quickCheck('Welche HTTP-Methode nutzt du, um einen bestehenden User zu löschen?', ['DELETE /api/v1/users/42', 'GET /api/deleteUser?id=42', 'POST /api/removeUser'], 0, 'Bei REST steckt die Aktion in der HTTP-Methode, nicht im URL-Namen. Die Ressource ist der User <code>/users/42</code>, und <code>DELETE</code> sagt: entferne ihn. Ein Verb wie <code>deleteUser</code> in der URL ist gerade NICHT REST-konform.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Konsistente Fehlerantworten</div>
             <div class="code-block">
@@ -19554,6 +19566,8 @@ GET  /api/deleteUser?id=42     <span class="cm"># FALSCH</span></div>
 <span class="cm">// 429 Too Many Requests, 500 Internal Server Error</span></div>
             </div>
           </div>
+          ${quickCheck('Ein Client fragt einen User ab, den es nicht gibt. Welcher Status-Code passt?', ['404 Not Found', '200 OK', '500 Internal Server Error'], 0, 'Die Anfrage war in Ordnung, nur die Ressource existiert nicht — das ist genau <code>404 Not Found</code>. <code>500</code> würde bedeuten, dass DEIN Server einen Fehler hat, und <code>200</code> würde fälschlich Erfolg signalisieren.')}
+          ${callout('key', 'Status-Codes sind die Sprache deiner API', 'Der Zahlenbereich verrät sofort, wer schuld ist: 2xx = alles gut, 4xx = der Client hat einen Fehler gemacht (falsche Eingabe, fehlende Rechte), 5xx = der Server ist schuld.')}
           ${renderQuestions('l6_6', 6)}
           ${renderBonus('l6_6')}
           ${exercise('ex_l6_6_1', 'OpenAPI Dokumentation', 'Erstelle eine vollständige Flask-REST-API für ein Blog-System. Anforderungen: GET /posts (Liste, mit ?page=1&limit=10 Pagination), GET /posts/{id}, POST /posts (mit Validierung: title min 3 Zeichen, body min 10 Zeichen), DELETE /posts/{id}. Alle Fehler sollen das oben gezeigte Format haben. Bonus: Füge Flask-RESTX oder flasgger hinzu um automatische Swagger-Dokumentation zu generieren.', 'Tipp: pip install flask-restx. Nutze @api.doc() Dekoratoren für die Dokumentation. Swagger UI ist dann automatisch unter /doc/ verfügbar.', 'pagination')}
@@ -19602,6 +19616,7 @@ GET  /api/deleteUser?id=42     <span class="cm"># WRONG</span></div>
               Typische Pipeline-Schritte: <em>Lint → Test → Build → Security-Scan → Deploy</em>
             </div>
           </div>
+          ${quickCheck('Was passiert bei Continuous Integration automatisch nach jedem Push?', ['Der Code wird gebaut und die Tests laufen automatisch', 'Der Server wird neu gestartet', 'Alle Branches werden gelöscht'], 0, 'Continuous Integration heißt: Sobald du Code hochlädst, übernimmt ein Roboter (die Pipeline) das Bauen und Testen. So merkst du sofort, wenn etwas kaputt ist — nicht erst Wochen später.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">GitHub Actions Workflow</div>
             <div class="code-block">
@@ -19642,6 +19657,8 @@ jobs:
           curl -X POST $&&& secrets.RENDER_DEPLOY_HOOK }}</div>
             </div>
           </div>
+          ${quickCheck('Der <code>deploy</code>-Job hat <code>needs: test</code>. Was bedeutet das?', ['Deployed wird nur, wenn der test-Job vorher erfolgreich war', 'Der Test-Job wird übersprungen', 'Beide Jobs laufen gleichzeitig'], 0, '<code>needs: test</code> ist eine Bedingung: Erst wenn die Tests grün sind, startet das Deployment. So kann kaputter Code gar nicht erst in die Produktion gelangen.')}
+          ${callout('warn', 'Secrets gehören NIE in den Code', 'API-Keys und Passwörter dürfen niemals im YAML oder Repository stehen. GitHub Actions liest sie über <code>secrets.*</code> aus den verschlüsselten Repository-Secrets — sichtbar nur zur Laufzeit, nie im Klartext.')}
           ${renderQuestions('l6_7', 6)}
           ${renderBonus('l6_7')}
           ${exercise('ex_l6_7_1', 'Eigene CI-Pipeline', 'Erstelle für dein Python-Projekt eine GitHub Actions Pipeline die: (1) Bei jedem Push auf main und bei Pull Requests startet. (2) flake8 als Linter ausführt. (3) pytest mit Coverage-Report ausführt. (4) Den Build als fehlgeschlagen markiert wenn Coverage unter 70% fällt (pytest --cov --cov-fail-under=70). (5) Eine Badge in der README.md anzeigt die den aktuellen Build-Status zeigt. Bonus: Füge einen Job hinzu der automatisch auf Railway deployed wenn alle Tests grün sind.', 'Tipp: Secrets (wie API-Keys für Deployment) niemals in YAML schreiben — nutze GitHub Repository Settings → Secrets and Variables → Actions.', 'workflow')}
@@ -19711,6 +19728,7 @@ jobs:
               <strong>docker-compose</strong> — mehrere Container zusammen orchestrieren
             </div>
           </div>
+          ${quickCheck('Wie verhält sich ein Image zu einem Container?', ['Das Image ist der Bauplan, der Container die laufende Instanz davon', 'Beide sind exakt dasselbe', 'Ein Container erzeugt ein Image'], 0, 'Denk an Klasse und Objekt: Das Image ist die unveränderliche Vorlage, und ein Container ist eine daraus gestartete, laufende Kopie. Aus einem Image kannst du beliebig viele Container starten.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Dockerfile für eine Flask-App</div>
             <div class="code-block">
@@ -19752,6 +19770,7 @@ volumes:
   pgdata:</div>
             </div>
           </div>
+          ${callout('tip', 'Warum requirements.txt zuerst kopiert wird', 'Docker speichert jeden Schritt als Layer im Cache. Kopierst du erst die requirements.txt und installierst dann, muss <code>pip install</code> nur neu laufen, wenn sich die Abhängigkeiten ändern — nicht bei jeder kleinen Code-Änderung. Das spart bei jedem Build viel Zeit.')}
           ${renderQuestions('l6_8', 6)}
           ${renderBonus('l6_8')}
           ${exercise('ex_l6_8_1', 'App dockerisieren', 'Dockerisiere deine Flask-Anwendung: (1) Erstelle ein Dockerfile mit multistage build (build stage und runtime stage). (2) Stelle sicher dass die App nicht als root läuft. (3) Erstelle eine .dockerignore Datei (schließe .git, __pycache__, .env aus). (4) Schreibe eine docker-compose.yml die deine App + eine PostgreSQL-Datenbank startet. (5) Teste mit docker-compose up --build. Bonus: Füge einen Health-Check in das Dockerfile ein der alle 30s GET /health prüft.', 'Tipp: HEALTHCHECK --interval=30s CMD curl -f http://localhost:5000/health || exit 1. Multistage: erste Stage hat build-tools, zweite Stage kopiert nur den fertigen Code.', 'healthcheck')}
@@ -19810,6 +19829,7 @@ CMD [<span class="st">"gunicorn"</span>, <span class="st">"--bind"</span>, <span
               <strong>CDN</strong> (Content Delivery Network) — statische Assets aus dem nächsten Rechenzentrum ausliefern
             </div>
           </div>
+          ${quickCheck('Du willst nur deinen Code hochladen und dich NICHT um Server kümmern. Welches Modell?', ['PaaS (z.B. Railway)', 'IaaS (z.B. EC2)', 'SaaS (z.B. Gmail)'], 0, 'Bei PaaS (Platform as a Service) lieferst du nur deinen Code — die Plattform übernimmt Betriebssystem, Updates und Skalierung. Bei IaaS mietest du dagegen nur die nackte Maschine und musst alles selbst einrichten.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">AWS Lambda — Serverless Funktion</div>
             <div class="code-block">
@@ -19836,6 +19856,7 @@ CMD [<span class="st">"gunicorn"</span>, <span class="st">"--bind"</span>, <span
 # - Schwieriger zu debuggen lokal</span></div>
             </div>
           </div>
+          ${callout('fact', 'Serverless zahlst du pro Aufruf, nicht pro Stunde', 'Bei AWS Lambda läuft dein Code nur, wenn er gebraucht wird — und du zahlst millisekundengenau dafür. Der Preis: Der erste Aufruf nach einer Pause ist durch den Cold Start etwas langsamer.')}
           ${renderQuestions('l6_9', 6)}
           ${renderBonus('l6_9')}
           ${exercise('ex_l6_9_1', 'Cloud Deployment', 'Deploye deine Flask-App in der Cloud: Option A (kostenlos): Nutze Railway.app oder Render.com — verbinde dein GitHub-Repo, konfiguriere Umgebungsvariablen, deploye. Option B (AWS Free Tier): Erstelle eine AWS-Konto, deploye eine Lambda-Funktion mit API Gateway die JSON zurückgibt. Option C (Vollständig): Deploye auf Railway mit einer PostgreSQL-Datenbank, konfiguriere Environment Variables sicher, und setze einen Custom Domain auf. Dokumentiere alle Schritte in einer DEPLOYMENT.md.', 'Tipp: Railway bietet 500 Stunden/Monat kostenlos. Umgebungsvariablen (DATABASE_URL, SECRET_KEY) nie in den Code schreiben — immer über die Platform-UI setzen.', 'railway')}
@@ -19878,6 +19899,7 @@ CMD [<span class="st">"gunicorn"</span>, <span class="st">"--bind"</span>, <span
               <strong>Wann Microservices?</strong> Erst wenn der Monolith wirklich zu groß/langsam wird. Netflix, Uber, Amazon haben alle als Monolith begonnen. Vorzeitig auf Microservices zu wechseln ist ein häufiger Fehler.
             </div>
           </div>
+          ${quickCheck('Solltest du ein neues Projekt am besten sofort als Microservices bauen?', ['Nein — starte mit einem Monolithen und teile erst auf, wenn es nötig wird', 'Ja, immer sofort Microservices', 'Ja, weil Monolithen nicht skalieren können'], 0, 'Microservices bringen viel Zusatz-Aufwand (Netzwerk, Deployment, Überwachung von vielen Teilen). Am Anfang ist ein einfacher Monolith schneller und günstiger. Selbst Netflix und Amazon haben so begonnen und erst später aufgeteilt.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Schlüsselprinzipien für skalierbare Systeme</div>
             <div class="code-block">
@@ -19903,6 +19925,8 @@ CDN
   Bilder und statische Dateien vom nächsten Knoten (~20ms statt ~200ms)</div>
             </div>
           </div>
+          ${quickCheck('Warum nutzt man einen Cache wie Redis für häufig angefragte Daten?', ['Weil Daten aus dem RAM viel schneller kommen als aus der Datenbank', 'Weil Redis die Datenbank ersetzt', 'Weil Caching die Daten dauerhaft sichert'], 0, 'Ein Cache hält oft gebrauchte Daten im schnellen Arbeitsspeicher (RAM). Statt für jede Anfrage die Datenbank zu belästigen (~50ms), liest du aus Redis (~0.5ms) — bis zu 100x schneller und entlastet die DB.')}
+          ${callout('key', 'Skalieren heißt meist: mehr Maschinen, nicht größere', 'Horizontale Skalierung (mehr Server hinter einem Load Balancer) trägt weiter als vertikale (ein immer stärkerer Server). Deshalb sind Load Balancing, Caching und Message Queues die Standard-Werkzeuge großer Systeme.')}
           ${renderQuestions('l6_10', 6)}
           ${renderBonus('l6_10')}
           ${exercise('ex_l6_10_1', 'System Design Übung', 'Entwerfe auf Papier oder in einer Markdown-Datei die Architektur für einen URL-Shortener (wie bit.ly). Anforderungen: 100 Millionen URLs, 1 Milliarde Klicks/Tag, unter 50ms Redirect-Zeit. Beantworte: (1) Wie erzeugst du kurze eindeutige IDs? (2) Welche Datenbank nutzt du und warum? (3) Wo setzt du Caching ein? (4) Wie skalierst du wenn der Traffic um das 10x steigt? (5) Zeichne ein einfaches Architektur-Diagramm. Nutze draw.io oder einfach ASCII-Art.', 'Tipp: URL-Shortener sind ein klassisches System-Design-Interview-Problem. Gute Antwort: Hash der URL (z.B. erste 7 Chars von Base62(MD5)), Redis für Cache der häufigsten URLs, Read Replicas für die DB.', 'shortener')}
@@ -19953,6 +19977,7 @@ CDN — serve static files from nearest node</div>
               <strong>Traces</strong> — Verfolgung eines Requests durch mehrere Services (Distributed Tracing)
             </div>
           </div>
+          ${quickCheck('Du willst wissen, wie sich die Fehlerrate über den Tag entwickelt. Welche Säule liefert das?', ['Metrics', 'Logs', 'Traces'], 0, 'Metrics sind Zahlen über die Zeit — genau richtig für Verläufe wie Fehlerrate oder Response-Zeit. Logs erzählen einzelne Ereignisse, und Traces zeigen den Weg eines einzelnen Requests durch die Services.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Strukturiertes Logging mit Python</div>
             <div class="code-block">
@@ -19986,6 +20011,7 @@ logger.<span class="fn">error</span>(<span class="st">"Payment failed"</span>, e
 <span class="cm"># Danach: alle unbehandelten Exceptions landen in Sentry</span></div>
             </div>
           </div>
+          ${callout('tip', 'Strukturierte Logs statt print()', 'Ein JSON-Log wie <code>{"level":"error","user_id":42,...}</code> lässt sich maschinell filtern und durchsuchen. Ein einfaches <code>print()</code> ist schön für dich lokal, aber in Production kaum auswertbar.')}
           ${renderQuestions('l6_11', 6)}
           ${renderBonus('l6_11')}
           ${exercise('ex_l6_11_1', 'Monitoring einrichten', 'Richte für deine Flask-App Monitoring ein: (1) Installiere sentry-sdk und konfiguriere Sentry (kostenloser Account auf sentry.io) — alle unbehandelten Exceptions sollen in Sentry landen. (2) Füge strukturiertes JSON-Logging hinzu wie oben gezeigt. (3) Erstelle einen /health-Endpunkt der DB-Verbindung, freien Speicher und Uptime zurückgibt. (4) Optional: Installiere prometheus-flask-exporter und schaue dir die Metriken unter /metrics an. Bonus: Setze einen Uptime-Monitor auf UptimeRobot.com (kostenlos) der alle 5 Minuten /health prüft und per E-Mail alarmiert.', 'Tipp: import sentry_sdk; sentry_sdk.init(dsn="DEIN_DSN", traces_sample_rate=1.0) — das ist alles was du brauchst. Den DSN findest du in deinem Sentry-Projekt unter Settings → Client Keys.', 'sentry')}
@@ -20044,6 +20070,7 @@ for x in range(1000): r.append(x**2)
 <span class="cm"># Comprehension ist typisch ~30% schneller</span></div>
             </div>
           </div>
+          ${quickCheck('Was solltest du laut Knuth tun, BEVOR du Code optimierst?', ['Messen (profilen), wo die Zeit wirklich verbraucht wird', 'Einfach die längste Funktion umschreiben', 'Alles in C neu schreiben'], 0, 'Ohne Messung optimiert man oft die falsche Stelle. Ein Profiler wie cProfile zeigt dir schwarz auf weiß, welche Funktion der echte Flaschenhals ist — dort lohnt sich die Arbeit, nirgends sonst.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">N+1 Problem — der häufigste Backend-Killer</div>
             <div class="code-block">
@@ -20064,6 +20091,8 @@ result = db.<span class="fn">query</span>(<span class="st">'''
 users = User.<span class="fn">query</span>.<span class="fn">options</span>(<span class="fn">joinedload</span>(User.posts)).<span class="fn">all</span>()</div>
             </div>
           </div>
+          ${quickCheck('Warum ist das N+1-Problem so gefährlich?', ['Für 100 Datensätze feuert es 101 einzelne DB-Anfragen statt einer', 'Es löscht versehentlich Daten', 'Es verbraucht zu viel Festplatte'], 0, 'Statt die Daten in EINER Abfrage per JOIN zu holen, macht der Code eine Anfrage pro Datensatz. Bei 100 Usern sind das 101 Roundtrips zur Datenbank — jeder kostet Zeit, und in Production summiert sich das dramatisch.')}
+          ${callout('warn', 'Erst messen, dann optimieren', 'Optimiere nie auf Verdacht. Der häufigste Fehler ist, Zeit in Micro-Optimierungen zu stecken, während der echte Flaschenhals (oft eine N+1-Query oder ein fehlender Index) unangetastet bleibt.')}
           ${renderQuestions('l6_12', 6)}
           ${renderBonus('l6_12')}
           ${exercise('ex_l6_12_1', 'Performance-Analyse', 'Führe eine vollständige Performance-Analyse durch: (1) Erstelle eine Python-Funktion die absichtlich langsam ist (z.B. Fibonacci-Zahlen ohne Memoization bis n=35). (2) Profil sie mit cProfile — dokumentiere die Ausgabe. (3) Optimiere sie mit functools.lru_cache und messe erneut. (4) Identifiziere das N+1 Problem in einer SQLAlchemy-Abfrage (oder simuliere es) und löse es mit joinedload. (5) Schreibe für jede Optimierung: Vorher-Nachher-Messung, % Verbesserung.', 'Tipp: @functools.lru_cache(maxsize=None) reicht für Fibonacci. Verbesserung von Sekunden auf Millisekunden ist normal. Bei Fibonacci(35): ohne Cache ~3s, mit Cache <1ms.', 'lru_cache')}
@@ -20137,6 +20166,7 @@ jobs:
           severity: CRITICAL</div>
             </div>
           </div>
+          ${quickCheck('Was bedeutet der DevSecOps-Grundsatz "Shift left"?', ['Sicherheitsprobleme so früh wie möglich finden — schon beim Commit', 'Den Code nach links einrücken', 'Security erst nach dem Release prüfen'], 0, 'Je später ein Sicherheitsproblem entdeckt wird, desto teurer ist die Behebung. "Shift left" heißt: die Prüfungen nach vorne schieben — direkt in Commit und Pipeline — statt erst in einem Audit am Ende.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Secrets Management — was niemals in Git darf</div>
             <div class="explanation">
@@ -20146,6 +20176,7 @@ jobs:
               <strong>git-secret / git-crypt:</strong> wenn Secrets versioniert werden müssen (z.B. Konfigdateien) — verschlüsselt speichern
             </div>
           </div>
+          ${callout('warn', 'Ein einmal committetes Secret gilt als verbrannt', 'Selbst wenn du einen API-Key später wieder aus dem Code löschst — er bleibt in der Git-Historie und kann ausgelesen werden. Der einzige sichere Weg ist: Key sofort widerrufen (rotieren) und neu erstellen.')}
           ${renderQuestions('l6_13', 6)}
           ${renderBonus('l6_13')}
           ${exercise('ex_l6_13_1', 'Security-Pipeline aufbauen', 'Füge Security-Checks zu deiner CI-Pipeline hinzu: (1) Installiere pre-commit und konfiguriere Hooks für bandit (SAST) und detect-secrets. (2) Lasse safety check in deiner GitHub Actions Pipeline laufen. (3) Erstelle eine .gitignore die .env, *.key, *.pem, secrets.json ausschließt. (4) Konfiguriere HTTPS für deine deployed App (Railway macht das automatisch). (5) Führe einen Dependency Audit durch: pip audit oder safety check und liste gefundene Vulnerabilities auf. Bonus: Schreibe eine SECURITY.md die erklärt wie Sicherheitslücken gemeldet werden sollen.', 'Tipp: pre-commit install richtet die Hooks ein. pre-commit run --all-files prüft alle Dateien einmalig. Bei einem neuen Team-Mitglied einfach pre-commit install ausführen.', 'audit')}
@@ -20203,6 +20234,7 @@ git commit -m <span class="st">"refactor(db): extract repository pattern from co
 # Types: feat | fix | docs | style | refactor | test | chore</span></div>
             </div>
           </div>
+          ${quickCheck('Was ist im GitHub Flow die Rolle des <code>main</code>-Branches?', ['Er soll immer deploybar (lauffähig) sein', 'Er ist nur für Experimente da', 'Auf ihm arbeitet man direkt an neuen Features'], 0, 'Im GitHub Flow gilt: <code>main</code> ist heilig und immer auslieferbar. Neue Features entstehen auf eigenen Branches und kommen erst nach Review per Merge in <code>main</code> — so bleibt der Hauptstand stabil.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Gutes Code-Review-Feedback geben</div>
             <div class="explanation">
@@ -20213,6 +20245,8 @@ git commit -m <span class="st">"refactor(db): extract repository pattern from co
               Nie persönlich werden: "dieser Code ist" nicht "du bist". Vorschläge anbieten, nicht nur Probleme nennen.
             </div>
           </div>
+          ${quickCheck('Im Review findest du eine mögliche SQL-Injection. Wie kennzeichnest du das?', ['Als Blocker — muss vor dem Merge behoben werden', 'Als nit — nur eine Kleinigkeit', 'Als Praise — gut gemacht'], 0, 'Ein Sicherheitsloch wie SQL-Injection darf nicht in die Produktion. Das ist ein Blocker: Der Merge wartet, bis es behoben ist. Ein "nit" wäre nur eine Kosmetik-Anmerkung, die man auch ignorieren könnte.')}
+          ${callout('tip', 'Gutes Review-Feedback ist konkret und freundlich', 'Kritisiere den Code, nicht die Person: "diese Funktion macht zu viel" statt "du programmierst schlecht". Und lobe auch das Gute — ein Review ist ein Gespräch, kein Tribunal.')}
           ${renderQuestions('l6_14', 6)}
           ${renderBonus('l6_14')}
           ${exercise('ex_l6_14_1', 'PR-Prozess simulieren', 'Führe einen vollständigen PR-Workflow mit einem Freund oder alleine durch: (1) Erstelle einen Feature-Branch (feature/add-search) in einem deiner Projekte. (2) Implementiere eine einfache Suchfunktion und committe mit Conventional Commits. (3) Erstelle einen Pull Request mit: Description (Was? Warum? Wie testen?), Screenshots wenn UI-Änderungen, Checklist (Tests geschrieben? Docs aktualisiert?). (4) Review deinen eigenen Code nach 24h mit frischen Augen — finde mindestens 2 Dinge die du verbessern würdest. (5) Merge mit "Squash and Merge" für eine saubere History.', 'Tipp: GitHub PR-Templates in .github/PULL_REQUEST_TEMPLATE.md automatisieren das Format. Füge eine Checklist ein: [ ] Tests passed [ ] Docs updated [ ] No hardcoded secrets.', 'squash')}
@@ -20258,6 +20292,7 @@ git commit -m <span class="st">"refactor(db): extract repository pattern from co
               <strong>Portfolio-Projekte:</strong> Löse echte Probleme. Klon-Apps (Twitter-Klon) sind weniger beeindruckend als eigene Ideen.
             </div>
           </div>
+          ${quickCheck('Was beeindruckt ein Unternehmen laut dieser Lektion mehr?', ['Drei echte Projekte auf GitHub', 'Zehn abgeschlossene Online-Kurse', 'Möglichst viele Zertifikate'], 0, 'Zertifikate zeigen, dass du zugehört hast — echte Projekte zeigen, dass du bauen kannst. Ein Unternehmen kann in deinem Code direkt sehen, wie du denkst und arbeitest. Deshalb: Portfolio schlägt Zertifikate.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Interview-Vorbereitung</div>
             <div class="code-block">
@@ -20288,6 +20323,7 @@ RESSOURCEN:
 - interviewing.io (anonyme Mock-Interviews)</div>
             </div>
           </div>
+          ${callout('key', 'Im Coding-Interview zählt der Denkprozess', 'Reviewer wollen sehen, WIE du an ein Problem herangehst — deshalb: laut denken, Annahmen klären, den Weg erklären. Eine halbfertige Lösung mit klarer Gedankenführung ist oft mehr wert als eine stumme perfekte Lösung.')}
           ${renderQuestions('l6_15', 6)}
           ${renderBonus('l6_15')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
