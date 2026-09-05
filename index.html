@@ -2514,7 +2514,7 @@ body {
 }
 
 /* ---- Phase tiles (landing) ---- */
-.phase-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; align-items: start; }
+.phase-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; align-items: stretch; }
 .phase-tile {
   text-align: left; background: var(--surface); border: 2px solid var(--border);
   border-radius: var(--radius-lg); padding: 22px;
@@ -2533,8 +2533,23 @@ body {
 .phase-tile-lessons li { font-size: 12.5px; color: var(--text2); line-height: 1.4; padding-left: 18px; position: relative; }
 .phase-tile-lessons li::before { content: ''; position: absolute; left: 2px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .phase-tile:nth-child(2n) .phase-tile-lessons li::before { background: var(--orange); }
-.phase-tile-meta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent2); margin-top: 8px; }
+.phase-tile-meta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent2); }
 .phase-tile-meta [data-lucide] { width: 13px; height: 13px; }
+/* Foot pinned to bottom so tiles look equal-height */
+.phase-tile-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 8px; }
+.phase-tile-more {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--tile-color, var(--accent2));
+  background: color-mix(in srgb, var(--tile-color, var(--accent)) 10%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--tile-color, var(--accent)) 22%, transparent);
+  padding: 5px 12px; border-radius: 999px; cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.phase-tile-more:hover { background: color-mix(in srgb, var(--tile-color, var(--accent)) 18%, transparent); }
+.phase-tile-more:active { transform: translateY(1px); }
+.phase-tile-more [data-lucide] { width: 14px; height: 14px; transition: transform 0.2s ease; }
+.phase-tile.expanded .phase-tile-more [data-lucide] { transform: rotate(180deg); }
 
 /* ---- Phase stats band ---- */
 .phase-stats-band {
@@ -4157,6 +4172,7 @@ Also: 0x2F = 47</div>
               Deshalb ist <code>0xFF</code> so wichtig: es ist der größte Wert den 1 Byte (8 Bit) speichern kann.
             </div>
           </div>
+          ${quickCheck('Was ist <code>0x1A</code> in Dezimal?', ['26', '110', '16'], 0, 'Rechne Stelle mal Wert: die <code>1</code> steht auf der 16er-Stelle (1×16), das <code>A</code> ist 10 auf der 1er-Stelle. 16 + 10 = <strong>26</strong>.')}
           <div class="content-card animate-in" style="animation-delay:0.14s">
             <div class="card-label">Der Trick: Hex ↔ Binär in 4er-Gruppen</div>
             <div class="explanation">
@@ -4187,6 +4203,7 @@ Also: 0x2F = 47</div>
               Umgekehrt: <code>0x3A</code> → 3 ist <code>0011</code>, A ist <code>1010</code> → zusammen <strong>00111010</strong>. Keine Mathematik nötig.
             </div>
           </div>
+          ${quickCheck('Wie viele Binär-Stellen (Bits) entsprechen genau einer Hex-Ziffer?', ['2', '4', '8'], 1, 'Eine Hex-Ziffer geht von 0 bis F (0–15). Genau <strong>4 Bits</strong> können 16 Werte darstellen (0000 bis 1111) — deshalb passt eine Hex-Ziffer immer auf 4 Bits.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Wo du Hex im Alltag siehst</div>
             <div class="explanation">
@@ -27790,10 +27807,17 @@ function buildPhaseTiles() {
     const color = i % 2 === 0 ? 'var(--accent)' : 'var(--orange)';
     const title = en ? (p.title_en || p.title) : p.title;
     const sub = en ? (p.sub_en || p.sub) : p.sub;
-    const lessons = p.lessons.map(l => {
+    const VISIBLE = 3;
+    const lessons = p.lessons.map((l, li) => {
       const lt = en ? (LESSON_TITLES_EN[l.id] || l.title) : l.title;
-      return `<li>${lt}</li>`;
+      return `<li${li >= VISIBLE ? ' class="ptl-extra" hidden' : ''}>${lt}</li>`;
     }).join('');
+    const extra = p.lessons.length - VISIBLE;
+    const moreTxt = en ? ('+' + extra + ' more') : ('+' + extra + ' mehr');
+    const lessTxt = en ? 'show less' : 'weniger';
+    const moreBtn = extra > 0
+      ? `<button class="phase-tile-more" onclick="togglePhaseTile(this)" data-more="${moreTxt}" data-less="${lessTxt}"><span class="ptm-label">${moreTxt}</span><i data-lucide="chevron-down"></i></button>`
+      : '';
     return `<div class="phase-tile" style="--tile-color:${color}">
       <div class="phase-tile-top">
         <span class="phase-tile-icon" style="background:${color}"><i data-lucide="${icons[i] || 'circle'}"></i></span>
@@ -27802,10 +27826,22 @@ function buildPhaseTiles() {
       <div class="phase-tile-title">${title}</div>
       <div class="phase-tile-sub">${sub}</div>
       <ul class="phase-tile-lessons">${lessons}</ul>
-      <div class="phase-tile-meta"><i data-lucide="book-open"></i> ${p.lessons.length} ${en ? 'lessons' : 'Lektionen'}</div>
+      <div class="phase-tile-foot">
+        ${moreBtn}
+        <div class="phase-tile-meta"><i data-lucide="book-open"></i> ${p.lessons.length} ${en ? 'lessons' : 'Lektionen'}</div>
+      </div>
     </div>`;
   }).join('');
   try { lucide.createIcons({ nodes: [el] }); } catch {}
+}
+
+function togglePhaseTile(btn) {
+  const tile = btn.closest('.phase-tile');
+  if (!tile) return;
+  const expanded = tile.classList.toggle('expanded');
+  tile.querySelectorAll('.ptl-extra').forEach(li => { li.hidden = !expanded; });
+  const label = btn.querySelector('.ptm-label');
+  if (label) label.textContent = expanded ? (btn.dataset.less || 'weniger') : (btn.dataset.more || 'mehr');
 }
 
 function initPhasesCollage() {
