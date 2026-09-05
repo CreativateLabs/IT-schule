@@ -8304,6 +8304,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
               <code>&lt;p&gt;&lt;strong&gt;Hi&lt;/p&gt;&lt;/strong&gt;</code> ✗ (Reihenfolge falsch)
             </div>
           </div>
+          ${quickCheck('Welches Tag ist self-closing, braucht also KEINEN schließenden Teil?', ['&lt;img&gt;', '&lt;p&gt;', '&lt;div&gt;'], 0, 'Self-Closing Tags haben keinen Inhalt zum Umschließen — ein Bild steht einfach da. <code>&lt;img&gt;</code> ist so eins. <code>&lt;p&gt;</code> und <code>&lt;div&gt;</code> umschließen dagegen Inhalt und brauchen deshalb ein Schließ-Tag.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Grundstruktur einer HTML-Datei</div>
             <div class="code-block">
@@ -8413,6 +8414,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">&lt;p&gt;</span>Ich liebe <span class="kw">&lt;span</span> <span class="fn">class</span>=<span class="st">"highlight"</span><span class="kw">&gt;</span>Python<span class="kw">&lt;/span&gt;</span>!<span class="kw">&lt;/p&gt;</span></div>
             </div>
           </div>
+          ${quickCheck('Welches Element ist ein Block — nimmt die volle Breite und beginnt eine neue Zeile?', ['&lt;div&gt;', '&lt;span&gt;'], 0, '<code>&lt;div&gt;</code> ist ein Block: er schnappt sich die ganze Zeile, wie ein eigener Absatz. <code>&lt;span&gt;</code> ist inline und bleibt mitten im Text, so schmal wie sein Inhalt.')}
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Semantisches HTML — Bedeutung statt nur Aussehen</div>
             <div class="explanation">
@@ -8490,6 +8492,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
               <code>data-*="..."</code> — eigene Daten am Element speichern (z.B. <code>data-user-id="42"</code>) — JavaScript kann sie lesen
             </div>
           </div>
+          ${callout('key', 'Struktur, Aussehen, Verhalten — sauber getrennt', 'HTML beschreibt nur die <strong>Struktur</strong> (was ist auf der Seite). Das Aussehen kommt später über CSS, das Verhalten über JavaScript. Nimm deshalb <strong>semantische</strong> Tags (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>) statt überall <code>&lt;div&gt;</code> — Google und Screenreader verstehen deine Seite dann viel besser.')}
           ${renderQuestions('l3_1', 6)}
           ${renderBonus('l3_1')}
           <div class="boss-card animate-in" style="animation-delay:0.32s">
@@ -8830,6 +8833,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="fn">li:nth-child(odd)</span> { background: <span class="st">#f5f5f5</span>; }</div>
             </div>
           </div>
+          ${quickCheck('Womit beginnt ein <strong>Klassen</strong>-Selektor wie für <code>class="card"</code>?', ['.card', '#card', '*card'], 0, 'Ein Punkt steht für eine Klasse: <code>.card</code> trifft alle Elemente mit <code>class="card"</code>. Das Raute-Zeichen <code>#</code> ist dagegen für die eine, eindeutige <code>id</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Spezifität — wer gewinnt bei Konflikten?</div>
             <div class="explanation">
@@ -8899,6 +8903,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 }</div>
             </div>
           </div>
+          ${quickCheck('Welcher Abstand liegt <strong>innerhalb</strong> der Box, zwischen Rahmen und Inhalt?', ['padding', 'margin', 'border'], 0, '<code>padding</code> ist der Innenabstand — Polsterung zwischen Inhalt und Rahmen, wie Watte in einem Paket. <code>margin</code> ist dagegen der Abstand nach außen zu anderen Boxen.')}
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Farben — alle Wege</div>
             <div class="code-block">
@@ -9034,6 +9039,7 @@ top: <span class="num">0</span>; left: <span class="num">0</span>;          <spa
 z-index: <span class="num">100</span>;             <span class="cm">/* Stapel-Reihenfolge (höher = vorn) */</span></div>
             </div>
           </div>
+          ${callout('tip', 'display: none vs. visibility: hidden', '<code>display: none</code> blendet ein Element komplett aus — es verschwindet, als wäre es nie da gewesen, und lässt <strong>keinen</strong> Platz übrig. <code>visibility: hidden</code> macht es nur unsichtbar, der <strong>Platz bleibt aber leer</strong> stehen. Verwechsle die beiden nicht.')}
           <div class="content-card animate-in" style="animation-delay:0.34s">
             <div class="card-label">Übergänge & Transformationen</div>
             <div class="code-block">
@@ -9523,6 +9529,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 }</div>
             </div>
           </div>
+          ${quickCheck('Welche Eigenschaft ordnet Flex-Items entlang der <strong>Hauptachse</strong> (bei <code>row</code> also horizontal) an?', ['justify-content', 'align-items', 'flex-wrap'], 0, '<code>justify-content</code> arbeitet auf der Hauptachse — bei einer Zeile also links/mitte/rechts. <code>align-items</code> kümmert sich um die andere Richtung, die Querachse (oben/mitte/unten).')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Flexbox — Item-Eigenschaften</div>
             <div class="code-block">
@@ -9616,6 +9623,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
               <strong>Was ist <code>1fr</code>?</strong> "fr" = "fraction" = ein Anteil am freien Platz. Bei <code>1fr 2fr</code> bekommt die zweite Spalte doppelt so viel Platz. Wie Flexbox-flex.
             </div>
           </div>
+          ${quickCheck('Du willst 3 gleich breite Spalten, die zusammen die volle Breite füllen. Was passt?', ['grid-template-columns: 1fr 1fr 1fr', 'grid-template-columns: 3px', 'grid-template-columns: 100%'], 0, 'Jedes <code>1fr</code> ist ein gleicher Anteil am freien Platz. Drei <code>1fr</code> teilen die Breite in drei gleiche Stücke — perfekt für drei gleich breite Spalten.')}
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Grid — Auto-Layout für Galerien</div>
             <div class="explanation">
@@ -9640,6 +9648,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
    ALLES OHNE @media — Grid macht es automatisch */</span></div>
             </div>
           </div>
+          ${callout('fact', 'Flexbox = 1D, Grid = 2D', 'Merke dir die Faustregel: Musst du Dinge nur in <strong>eine</strong> Richtung anordnen (eine Reihe oder eine Spalte)? Nimm <strong>Flexbox</strong>. Brauchst du Zeilen <em>und</em> Spalten gleichzeitig, ein echtes Raster? Nimm <strong>Grid</strong>. Und du darfst beides mischen — Grid für die Seite, Flexbox in den einzelnen Karten.')}
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Grid — Items über mehrere Zellen ziehen</div>
             <div class="code-block">
@@ -10009,6 +10018,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
               <code>initial-scale=1.0</code> → kein automatischer Zoom
             </div>
           </div>
+          ${quickCheck('Wozu dient der Viewport-Meta-Tag im <code>&lt;head&gt;</code>?', ['Das Handy nutzt seine echte Bildschirmbreite statt herauszuzoomen', 'Er lädt die CSS-Datei schneller', 'Er versteckt die Seite auf dem Desktop'], 0, 'Ohne diese Zeile tut das Handy so, als wäre der Bildschirm 980px breit, und zoomt alles winzig raus. Mit ihr nutzt es die echte Breite (z.B. 375px) — und alles bleibt lesbar.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Mobile First — die richtige Denkweise</div>
             <div class="explanation">
@@ -10022,6 +10032,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
               • Performance besser auf Handys (weniger CSS zu parsen)
             </div>
           </div>
+          ${callout('tip', 'Mobile First heißt: klein zuerst', 'Schreibe deine Standard-Styles fürs Handy und erweitere dann mit <code>@media (min-width: ...)</code> nach oben für größere Bildschirme. So denkst du zuerst über das einfachste Layout nach und dein Code bleibt schlank — statt umgekehrt ein volles Desktop-Layout mühsam kleinzuschrumpfen.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Media Queries — Regeln für Bildschirmgrößen</div>
             <div class="code-block">
@@ -10057,6 +10068,7 @@ transform: <span class="fn">translate</span>(<span class="num">10px</span>, <spa
 <span class="kw">@media</span> (min-width: <span class="num">600px</span>) and (max-width: <span class="num">1024px</span>) { ... }</div>
             </div>
           </div>
+          ${quickCheck('Bei Mobile First: mit welcher Bedingung erweiterst du das Layout für <strong>größere</strong> Bildschirme?', ['@media (min-width: 768px)', '@media (max-width: 768px)'], 0, '<code>min-width</code> heißt "ab dieser Breite und breiter". Da dein Standard fürs Handy gilt, greifst du mit <code>min-width</code> die größeren Bildschirme ab. <code>max-width</code> würde dagegen "bis zu dieser Breite" bedeuten.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Übliche Breakpoints</div>
             <div class="explanation">
@@ -10439,6 +10451,7 @@ font-size: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span cl
 <span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">addiere</span>(<span class="num">3</span>, <span class="num">4</span>));       <span class="cm">// 7</span></div>
             </div>
           </div>
+          ${quickCheck('Welches Schlüsselwort nimmst du für einen Wert, der sich <strong>nicht</strong> mehr ändern soll?', ['const', 'let', 'var'], 0, '<code>const</code> steht für "konstant" — einmal gesetzt, bleibt der Wert fest. Wenn du den Wert später überschreiben willst, nimmst du stattdessen <code>let</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">DOM — HTML mit JavaScript steuern</div>
             <div class="code-block">
@@ -10458,6 +10471,7 @@ knopf.<span class="fn">addEventListener</span>(<span class="st">"click"</span>, 
 });</div>
             </div>
           </div>
+          ${callout('key', 'JavaScript im Browser — immer drei Schritte', '1) <strong>Finden</strong>: Element mit <code>querySelector</code> holen. 2) <strong>Ändern</strong>: Inhalt über <code>textContent</code> oder Aussehen über <code>.style</code> setzen. 3) <strong>Reagieren</strong>: mit <code>addEventListener</code> auf Klicks & Co. lauschen. Fast jede Interaktion folgt diesem Muster.')}
           ${renderQuestions('l3_5', 6)}
           ${renderBonus('l3_5')}
           <div class="boss-card animate-in" style="animation-delay:0.15s">
@@ -10553,6 +10567,7 @@ title.<span class="fn">classList</span>.<span class="fn">toggle</span>(<span cla
 title.<span class="fn">classList</span>.<span class="fn">contains</span>(<span class="st">'active'</span>)  <span class="cm">// true/false</span></pre>
             </div>
           </div>
+          ${quickCheck('Was macht <code>element.classList.toggle("active")</code>?', ['Fügt die Klasse hinzu, wenn sie fehlt — sonst entfernt sie sie', 'Fügt die Klasse immer hinzu', 'Löscht das Element'], 0, 'Toggle heißt "umschalten", wie ein Lichtschalter: ist die Klasse da, wird sie entfernt; fehlt sie, wird sie hinzugefügt. Praktisch für An/Aus-Zustände wie ein geöffnetes Menü.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Elemente erstellen & einfügen</div>
             <div class="explanation">
@@ -10583,6 +10598,8 @@ img.<span class="fn">setAttribute</span>(<span class="st">'alt'</span>, <span cl
 <span class="kw">const</span> <span class="fn">src</span> = img.<span class="fn">getAttribute</span>(<span class="st">'src'</span>);</pre>
             </div>
           </div>
+          ${quickCheck('Du hast mit <code>createElement</code> ein neues <code>&lt;li&gt;</code> gebaut. Womit hängst du es ans Ende einer Liste?', ['list.appendChild(li)', 'list.createElement(li)', 'li.remove()'], 0, 'Erstellen und Einfügen sind zwei Schritte. <code>createElement</code> baut das Element nur im Speicher — erst <code>appendChild</code> hängt es sichtbar ans Ende des Eltern-Elements.')}
+          ${callout('warn', 'Vorsicht mit innerHTML bei fremden Daten', '<code>innerHTML</code> wertet HTML aus. Steckst du damit Text ein, den ein Nutzer eingegeben hat, kann eingeschleuster Code ausgeführt werden (XSS). Für reinen Text nimm deshalb lieber <code>textContent</code> — das zeigt alles als Text an und führt nichts aus.')}
           ${renderQuestions('l3_6', 6)}
           ${renderBonus('l3_6')}
           ${exercise('ex_l3_6_1', 'Dynamische To-Do-Liste', 'Erstelle eine HTML-Seite mit einem Input-Feld, einem Button und einer leeren Liste (<ul id="todo-list">). Mit JavaScript: Wenn der Button geklickt wird, füge den Text aus dem Input als neues <li> in die Liste ein. Das <li> soll beim Klick darauf durchgestrichen werden (classList.toggle). Der Input soll danach geleert werden.', 'Tipp: Nutze querySelector("#todo-list") und createElement("li"). Für den Toggle: li.addEventListener("click", ...) mit classList.toggle("done")', 'querySelector')}
@@ -10671,6 +10688,7 @@ btn.<span class="fn">addEventListener</span>(<span class="st">'click'</span>, ha
 btn.<span class="fn">removeEventListener</span>(<span class="st">'click'</span>, handler);</pre>
             </div>
           </div>
+          ${quickCheck('Warum ist <code>addEventListener</code> besser als <code>onclick="..."</code> direkt im HTML?', ['Du kannst mehrere Handler fürs selbe Event registrieren und wieder entfernen', 'Es lädt die Seite schneller', 'Es funktioniert nur im Dark Mode'], 0, 'Mit <code>onclick</code> im HTML geht nur ein einziger Handler. <code>addEventListener</code> lässt dich mehrere anhängen, sie mit <code>removeEventListener</code> wieder lösen und das Event-Objekt nutzen.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Formulare & event.preventDefault</div>
             <div class="explanation">
@@ -10710,6 +10728,8 @@ emailInput.<span class="fn">addEventListener</span>(<span class="st">'input'</sp
 });</pre>
             </div>
           </div>
+          ${quickCheck('Was bewirkt <code>event.preventDefault()</code> im <code>submit</code>-Handler eines Formulars?', ['Die Seite lädt beim Absenden nicht neu', 'Das Formular wird gelöscht', 'Der Nutzer kann nichts mehr tippen'], 0, 'Normalerweise lädt ein Formular beim Absenden die ganze Seite neu. <code>preventDefault()</code> stoppt genau dieses Standard-Verhalten, damit du die Daten in Ruhe mit JavaScript verarbeiten kannst.')}
+          ${callout('tip', 'Formularfelder auf einen Schlag auslesen', 'Statt jedes Feld einzeln anzusprechen, gibt dir <code>new FormData(form)</code> alle Werte gebündelt. Mit <code>data.get("name")</code> holst du dann ein einzelnes Feld heraus — der Name stammt aus dem <code>name</code>-Attribut des Inputs.')}
           ${renderQuestions('l3_7', 6)}
           ${renderBonus('l3_7')}
           ${exercise('ex_l3_7_1', 'Kontaktformular mit Validierung', 'Erstelle ein Formular mit Name, E-Mail und Nachricht. Implementiere JavaScript-Validierung: Name muss mindestens 3 Zeichen haben, E-Mail muss @ enthalten, Nachricht mindestens 10 Zeichen. Zeige Fehlermeldungen neben den Feldern an. Bei Erfolg: zeige eine Erfolgsmeldung und leere das Formular.', 'Tipp: Nutze addEventListener auf dem form-Element für "submit" und prüfe jedes Feld. Füge CSS-Klasse "error" zu ungültigen Feldern hinzu.', 'addEventListener')}
@@ -10782,6 +10802,7 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
   });</pre>
             </div>
           </div>
+          ${quickCheck('Was ist ein <strong>Promise</strong> in JavaScript?', ['Ein Versprechen auf ein späteres Ergebnis — oder einen Fehler', 'Ein fertig geladenes Bild', 'Ein CSS-Selektor'], 0, 'Ein Promise ist wie eine Bestellnummer: Du bekommst das Ergebnis nicht sofort, sondern das Versprechen, dass es später kommt. Klappt es, greift <code>.then()</code>, geht etwas schief, greift <code>.catch()</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">async/await — lesbarerer Code</div>
             <div class="explanation">
@@ -10823,6 +10844,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 ]);</pre>
             </div>
           </div>
+          ${quickCheck('Wo darf das Schlüsselwort <code>await</code> stehen?', ['Nur innerhalb einer <code>async</code>-Funktion', 'Überall im Code', 'Nur im HTML-head'], 0, '<code>await</code> ist an <code>async</code> gebunden: Es wartet auf ein Promise und darf deshalb nur in einer Funktion stehen, die mit <code>async</code> markiert ist. Sonst gibt es einen Fehler.')}
+          ${callout('tip', 'Mehrere Ladevorgänge parallel mit Promise.all', 'Wenn du zwei Dinge lädst, die nichts voneinander wissen, warte nicht nacheinander. <code>Promise.all([...])</code> startet alle gleichzeitig und ist fertig, sobald das langsamste durch ist — spürbar schneller als ein <code>await</code> nach dem anderen.')}
           ${renderQuestions('l3_8', 6)}
           ${renderBonus('l3_8')}
           ${exercise('ex_l3_8_1', 'GitHub-Profil-Karte', 'Baue eine Webseite mit einem Input-Feld für einen GitHub-Benutzernamen und einem Button. Bei Klick: lade die Daten von https://api.github.com/users/USERNAME und zeige Name, Bio, Avatar und Follower-Zahl als Karte an. Nutze async/await und behandle Fehler (User nicht gefunden, Netzwerkfehler). Zeige einen Ladezustand (z.B. "Lade...") während der Request läuft.', 'Tipp: const res = await fetch(...); if (!res.ok) throw new Error(...); const data = await res.json()', 'fetch')}
@@ -10910,6 +10933,7 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 <span class="cm">/* NICHT: width, height, top, left — löst Reflow aus  */</span></pre>
             </div>
           </div>
+          ${quickCheck('Wann läuft eine CSS-<code>transition</code> ab?', ['Sobald sich ein CSS-Wert ändert, z.B. bei <code>:hover</code>', 'Nur einmal direkt beim Laden', 'Nur wenn man JavaScript aufruft'], 0, 'Eine <code>transition</code> ist ein sanfter Übergang: Ändert sich ein Wert — etwa die Farbe beim Drüberfahren mit der Maus — gleitet CSS weich vom alten zum neuen Wert, statt hart umzuspringen.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">@keyframes animation</div>
             <div class="explanation">
@@ -10950,6 +10974,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 .<span class="fn">item</span>:nth-child(3) { animation-delay: 0.2s; }</pre>
             </div>
           </div>
+          ${quickCheck('Was bewirkt das Schlüsselwort <code>infinite</code> in <code>animation: pulse 2s ease-in-out infinite</code>?', ['Die Animation wiederholt sich endlos', 'Sie läuft genau einmal', 'Sie startet erst nach 2 Minuten'], 0, '<code>infinite</code> heißt "unendlich oft". Die Animation spielt immer wieder von vorne — gut für dauerhafte Effekte wie einen pulsierenden Punkt. Ohne das Wort läuft sie nur ein einziges Mal.')}
+          ${callout('key', 'Für flüssige 60fps nur transform und opacity animieren', 'Diese beiden Eigenschaften kann der Browser auf der Grafikkarte (GPU) berechnen — butterweich. <code>width</code>, <code>height</code>, <code>top</code> oder <code>left</code> zwingen ihn dagegen, das Layout neu zu berechnen (Reflow) und es beginnt zu ruckeln. Verschieben also lieber mit <code>transform: translate(...)</code> statt mit <code>top/left</code>.')}
           ${renderQuestions('l3_9', 6)}
           ${renderBonus('l3_9')}
           ${exercise('ex_l3_9_1', 'Animiertes Card-Deck', 'Erstelle eine HTML-Seite mit 5 Karten (divs mit Text). Implementiere: (1) Eine @keyframes Animation die die Karten beim Laden von unten einsliden lässt (gestaffelt, je 0.1s Verzögerung). (2) Eine :hover Transition die die Karte leicht skaliert und einen Schatten zeigt. (3) Einen Button der alle Karten gleichzeitig "flippt" (180deg rotateY).', 'Tipp: Für den Flip-Effekt: perspective auf dem Container, rotateY(180deg) auf der Karte, backface-visibility: hidden für Vor- und Rückseite.', 'animation')}
@@ -11040,6 +11066,7 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 &lt;<span class="kw">img</span> <span class="fn">src</span>=<span class="st">"deko.svg"</span> <span class="fn">alt</span>=<span class="st">""</span> <span class="fn">role</span>=<span class="st">"presentation"</span>&gt; <span class="cm">&lt;!-- rein dekorativ --&gt;</span></pre>
             </div>
           </div>
+          ${quickCheck('Warum nimmst du für eine anklickbare Aktion besser <code>&lt;button&gt;</code> statt <code>&lt;div onclick&gt;</code>?', ['Ein Button ist per Tastatur bedienbar und wird vom Screenreader als Schaltfläche angesagt', 'Ein Button lädt schneller', 'Ein div kann keine Klicks empfangen'], 0, 'Ein <code>&lt;button&gt;</code> bringt von Haus aus alles mit: Man erreicht ihn mit der Tab-Taste, kann ihn mit Enter auslösen, und ein Screenreader sagt "Schaltfläche". Ein <code>&lt;div&gt;</code> müsstest du das alles mühsam nachrüsten.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Core Web Vitals & Lazy Loading</div>
             <div class="explanation">
@@ -11070,6 +11097,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
 <span class="cm">/* *:focus-visible { outline: 2px solid #00bfae; outline-offset: 2px; } */</span></pre>
             </div>
           </div>
+          ${quickCheck('Was bewirkt <code>loading="lazy"</code> an einem <code>&lt;img&gt;</code>?', ['Das Bild wird erst geladen, wenn es beim Scrollen in Sicht kommt', 'Das Bild wird absichtlich unscharf', 'Alle Bilder laden sofort beim Öffnen'], 0, 'Lazy heißt "faul": Das Bild wird nicht gleich mitgeladen, sondern erst, wenn der Nutzer so weit scrollt, dass es sichtbar wird. Das spart Daten und macht die Seite anfangs schneller.')}
+          ${callout('warn', 'Den Fokus-Rahmen niemals ersatzlos entfernen', 'Der Rahmen um ein fokussiertes Element (<code>:focus</code>) zeigt Tastatur-Nutzern, wo sie gerade sind. Löschst du ihn mit <code>outline: none</code>, tappen sie im Dunkeln. Wenn er dir optisch nicht gefällt, ersetze ihn durch einen eigenen — z.B. über <code>:focus-visible</code> — statt ihn wegzunehmen.')}
           ${renderQuestions('l3_10', 6)}
           ${renderBonus('l3_10')}
           ${exercise('ex_l3_10_1', 'Accessibility Audit', 'Nimm deine bisherige Webseite (oder erstelle eine einfache) und führe einen Accessibility-Audit durch: (1) Prüfe alle Bilder auf alt-Attribute. (2) Ersetze alle <div onclick="..."> durch echte <button>-Elemente. (3) Stelle sicher dass alle Formularfelder <label>-Tags haben. (4) Teste die Seite nur mit Tastatur (Tab, Enter, Leertaste). (5) Prüfe den Farbkontrast — min. 4.5:1 für Text (nutze browser.devtools oder webaim.org/resources/contrastchecker).', 'Tipp: Chrome DevTools → Lighthouse → Accessibility-Audit gibt dir einen Score und konkrete Verbesserungsvorschläge.', 'alt')}
