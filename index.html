@@ -878,24 +878,30 @@ body {
 }
 
 .card-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  font-family: var(--mono);
-  margin-bottom: 14px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent2);
+  font-family: var(--mono);
+  background: var(--accent-glow);
+  border: 1.5px solid rgba(99,102,241,0.22);
+  padding: 5px 13px 5px 10px;
+  border-radius: 999px;
+  margin-bottom: 16px;
 }
 
 .card-label::before {
   content: '';
   display: block;
-  width: 3px;
-  height: 12px;
-  border-radius: 2px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--accent);
+  flex-shrink: 0;
 }
 
 .explanation {
@@ -3181,9 +3187,19 @@ body {
 
 /* Phases section: colored left border on section */
 #landing-phases-section {
-  border-left: none;
-  padding-left: 0; margin-left: 0;
+  position: relative; overflow: hidden;
+  background: var(--surface2); border: 2px solid var(--border);
+  border-radius: 32px; padding: 52px 40px 46px; margin: 48px 0;
 }
+#landing-phases-section::before {
+  content: ''; position: absolute; top: -70px; right: -50px; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%); filter: blur(24px); pointer-events: none;
+}
+#landing-phases-section::after {
+  content: ''; position: absolute; bottom: -90px; left: -40px; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.14), transparent 70%); filter: blur(24px); pointer-events: none;
+}
+#landing-phases-section > * { position: relative; z-index: 1; }
 
 /* Phase slide stronger color accent */
 .phase-slide {
