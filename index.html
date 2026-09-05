@@ -13544,6 +13544,8 @@ docker logs &lt;container-id&gt;</pre>
             </div>
           </div>
 
+          ${quickCheck('Ein Angreifer ändert heimlich den Überweisungsbetrag unterwegs. Welche CIA-Säule ist verletzt?', ['Integrity (Integrität)', 'Availability (Verfügbarkeit)', 'Confidentiality (Vertraulichkeit)'], 0, 'Integrität heißt: Daten dürfen unterwegs nicht unbemerkt verändert werden. Wird der Betrag manipuliert, ist genau diese Säule gebrochen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Hacker-Typen — wer ist wer?</div>
             <div class="explanation">
@@ -13580,6 +13582,8 @@ docker logs &lt;container-id&gt;</pre>
             </div>
           </div>
 
+          ${quickCheck('Ein Grey-Hat-Hacker findet ohne Erlaubnis eine Lücke und meldet sie gut gemeint. Ist das in Deutschland strafbar?', ['Ja — auch bei guter Absicht', 'Nein, weil er ja hilft'], 0, 'Schon der unbefugte Zugriff ist nach §202a StGB strafbar — egal wie gut die Absicht war. Legal ist nur Hacken mit Erlaubnis oder auf eigenen Systemen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Die Cyber Kill Chain — wie ein Angriff abläuft</div>
             <div class="explanation">
@@ -13613,6 +13617,8 @@ docker logs &lt;container-id&gt;</pre>
               <strong>Verteidigung:</strong> je früher du den Angreifer stoppst, desto besser. Schritt 1 (Reconnaissance) verhindern ist kaum möglich — aber Schritt 3 (Phishing-Schulungen) und Schritt 5 (Backdoor-Erkennung) ist machbar.
             </div>
           </div>
+
+          ${callout('key', 'Kill Chain = 7 Chancen zum Stoppen', 'Jeder der sieben Schritte ist eine Gelegenheit zur Verteidigung. Du musst den Angriff nicht schon bei Schritt 1 stoppen — auch eine gute Phishing-Schulung (Schritt 3) oder Backdoor-Erkennung (Schritt 5) unterbricht die Kette.')}
 
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">OWASP Top 10 — die 10 häufigsten Web-Schwachstellen (2021)</div>
@@ -14328,6 +14334,8 @@ User.query.<span class="fn">filter_by</span>(name=name).first()
             </div>
           </div>
 
+          ${quickCheck('Wie verhinderst du SQL-Injection zuverlässig?', ['Parameterisierte Queries (Platzhalter ?)', 'Eingaben nur kürzen', 'Fehlermeldungen ausblenden'], 0, 'Bei parameterisierten Queries bekommt die Datenbank Befehl und Daten getrennt — eingegebener Text kann nie als SQL-Befehl ausgeführt werden.')}
+
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Fallbeispiel: TalkTalk-Hack (2015) — 4 Mio Kunden</div>
             <div class="explanation">
@@ -14426,6 +14434,8 @@ divEl.textContent = userInput;
             </div>
           </div>
 
+          ${quickCheck('Du willst Nutzer-Text sicher im Browser anzeigen. Was nutzt du?', ['element.textContent', 'element.innerHTML'], 0, 'textContent schreibt den Text als reinen Text — eingeschleuste Tags wie &lt;script&gt; werden angezeigt, nicht ausgeführt. innerHTML würde sie als HTML interpretieren.')}
+
           <div class="content-card animate-in" style="animation-delay:0.28s">
             <div class="card-label">Content Security Policy (CSP) — die zweite Verteidigungslinie</div>
             <div class="explanation">
@@ -14509,6 +14519,8 @@ divEl.textContent = userInput;
               <strong>Faustregel:</strong> nutze ein modernes Framework + setze SameSite=Lax/Strict. Damit bist du gegen 99% aller CSRF-Angriffe geschützt.
             </div>
           </div>
+
+          ${callout('tip', 'CSRF: SameSite ist deine Basis', 'Setze Session-Cookies auf SameSite=Lax oder Strict und nutze die eingebauten CSRF-Token deines Frameworks. Beides zusammen stoppt praktisch alle CSRF-Angriffe — ganz ohne eigenen Spezial-Code.')}
 
           <div class="content-card animate-in" style="animation-delay:0.37s">
             <div class="card-label">Command Injection — Code statt Daten</div>
@@ -15051,6 +15063,8 @@ subprocess.<span class="fn">run</span>([<span class="st">"convert"</span>, filen
             </div>
           </div>
 
+          ${quickCheck('Warum kann man ein gehashtes Passwort nicht "entschlüsseln"?', ['Ein Hash ist eine Einweg-Funktion', 'Weil der Hash zu kurz ist', 'Weil der Server den Key versteckt'], 0, 'Hashen geht nur in eine Richtung — aus dem Passwort wird ein fester Wert, aber es gibt keinen Rechenweg zurück. Beim Login wird nur neu gehasht und verglichen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Warum MD5 und SHA-1 für Passwörter tot sind</div>
             <div class="explanation">
@@ -15099,6 +15113,8 @@ subprocess.<span class="fn">run</span>([<span class="st">"convert"</span>, filen
             </div>
           </div>
 
+          ${quickCheck('Wozu dient ein Salt beim Passwort-Hashing?', ['Jeder Hash wird einzigartig — Rainbow Tables werden nutzlos', 'Er hält das Passwort geheim', 'Er macht den Hash kürzer'], 0, 'Der Salt ist ein zufälliger Zusatz pro User. Dadurch ergeben gleiche Passwörter verschiedene Hashes, und vorberechnete Tabellen bringen dem Angreifer nichts.')}
+
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Pepper — der zweite, geheime Salt</div>
             <div class="explanation">
@@ -15118,6 +15134,8 @@ PEPPER = os.<span class="fn">environ</span>[<span class="st">"PEPPER"</span>].en
     <span class="kw">return</span> bcrypt.<span class="fn">checkpw</span>(passwort.encode() + PEPPER, hash)</div>
             </div>
           </div>
+
+          ${callout('key', 'Passwort-Hashes müssen langsam sein', 'Für Datei-Prüfsummen ist ein schneller Hash gut, für Passwörter ist er gefährlich: bcrypt, scrypt und argon2 sind absichtlich langsam, damit ein Angreifer pro Sekunde nur wenige statt Milliarden Rateversuche schafft.')}
 
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Die richtige Wahl — bcrypt, scrypt, argon2</div>
@@ -15737,6 +15755,8 @@ hashed = <span class="fn">register</span>(<span class="st">"myPassword123"</span
             </div>
           </div>
 
+          ${quickCheck('Ein Anrufer gibt sich am Telefon als "Microsoft-Support" aus. Wie heißt diese Phishing-Art?', ['Vishing (Voice-Phishing)', 'Smishing (SMS)', 'Quishing (QR-Code)'], 0, 'Vishing ist Phishing per Anruf — Voice heißt Stimme, also Telefon. Kein echter Support ruft ungefragt an und will Fernzugriff auf deinen PC.')}
+
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Fallbeispiel: Twitter 2020 — Bitcoin-Betrug in 15 Minuten</div>
             <div class="explanation">
@@ -15828,6 +15848,8 @@ Das PayPal Sicherheitsteam</div>
             </div>
           </div>
 
+          ${callout('warn', 'Prüfe die echte Absender-Adresse, nicht den Namen', 'Der Anzeigename einer Mail ist frei wählbar — "Amazon" kann von einer beliebigen Fremdadresse kommen. Entscheidend ist die tatsächliche Adresse dahinter und die echte Ziel-Domain eines Links (per Hover prüfen). Im Zweifel die Domain selbst im Browser eintippen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Weitere Social-Engineering-Techniken</div>
             <div class="explanation">
@@ -15866,6 +15888,8 @@ Das PayPal Sicherheitsteam</div>
               5. <strong>Melden:</strong> Phishing bei <code>phishing@bsi.bund.de</code>, echte Betrugsfälle bei der Polizei
             </div>
           </div>
+
+          ${quickCheck('Deine "Bank" ruft an und will eine dringende Bestätigung. Was ist am sichersten?', ['Auflegen und selbst die Nummer von der Kartenrückseite anrufen', 'Die Person am Telefon kurz verifizieren lassen'], 0, 'Über einen zweiten, selbst gewählten Kanal zurückrufen. Wer anruft, kann sich als jeder ausgeben — nur ein von dir selbst gewählter Kontaktweg ist vertrauenswürdig.')}
 
           <div class="content-card animate-in" style="animation-delay:0.28s">
             <div class="card-label">Verteidigung für Firmen / als Entwickler</div>
@@ -16188,6 +16212,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Welche Verschlüsselung nutzt zwei verschiedene Schlüssel (öffentlich + privat)?', ['Asymmetrische (z.B. RSA/ECC)', 'Symmetrische (z.B. AES)'], 0, 'Asymmetrisch heißt: ein öffentlicher Schlüssel zum Verschlüsseln, ein privater zum Entschlüsseln. Symmetrisch nutzt für beides denselben einen Schlüssel.')}
+
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">TLS-Handshake — so entsteht eine HTTPS-Verbindung</div>
             <div class="explanation">
@@ -16276,6 +16302,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Was schützt zuverlässig gegen Mitlesen bei einem MITM-Angriff?', ['HTTPS/TLS', 'Ein kürzeres Passwort', 'Ein privater Browser-Tab'], 0, 'Bei HTTPS kann der Angreifer den Verkehr zwar mitschneiden, aber nicht entschlüsseln — und ohne gültiges Zertifikat für die echte Domain warnt der Browser sofort.')}
+
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Öffentliche WLANs — wie gefährlich ist das wirklich?</div>
             <div class="explanation">
@@ -16324,6 +16352,8 @@ The PayPal Security Team</div>
               <strong>Wichtiger Mythos:</strong> "Ein VPN macht mich anonym." <em>Nein.</em> Ein VPN verschiebt nur das Vertrauen: statt deinem ISP vertraust du dem VPN-Anbieter. Wenn der Logs führt, ist die Anonymität weg. Tor ist echte Anonymität, aber langsam und für Alltag unpraktisch.
             </div>
           </div>
+
+          ${callout('warn', 'Ein VPN macht dich nicht anonym', 'Ein VPN verschiebt nur dein Vertrauen — vom Internetanbieter zum VPN-Anbieter. Führt dieser Logs, ist die Anonymität dahin. Für echte Anonymität braucht es Tor (dafür langsam und alltagsuntauglich).')}
 
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Hashes vs. MACs vs. Signaturen — die 3 Integrations-Werkzeuge</div>
@@ -16703,6 +16733,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Was unterscheidet einen Wurm von einem klassischen Virus?', ['Ein Wurm verbreitet sich selbstständig übers Netzwerk — ohne Wirtsprogramm', 'Ein Wurm ist immer harmlos', 'Ein Wurm braucht zwingend einen USB-Stick'], 0, 'Ein Virus hängt sich an ein anderes Programm und braucht, dass man es startet. Ein Wurm kopiert sich von allein über das Netzwerk weiter — wie WannaCry.')}
+
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Wie Malware auf deinen Rechner kommt</div>
             <div class="explanation">
@@ -16759,6 +16791,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${callout('warn', 'Lösegeld zahlen? Die klare Empfehlung ist Nein', 'BSI und FBI raten ab: es gibt keine Garantie für den Schlüssel, gezahltes Geld finanziert die nächsten Angriffe und markiert dich als zahlungsbereites Ziel. Der beste Schutz sind getestete Offline-Backups nach der 3-2-1-Regel.')}
+
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Wie moderne Erkennung funktioniert</div>
             <div class="explanation">
@@ -16790,6 +16824,8 @@ The PayPal Security Team</div>
                 verdächtige IP, Datei-Hash, Domain, Registry-Key</div>
             </div>
           </div>
+
+          ${quickCheck('Warum erkennt reine Signatur-Erkennung neue Malware oft nicht?', ['Sie kennt nur bereits bekannte Muster', 'Sie ist zu langsam', 'Sie braucht Internet'], 0, 'Signaturen sind Steckbriefe bekannter Schädlinge. Ganz neue oder leicht veränderte (polymorphe) Malware steht noch nicht im Fahndungsbuch — dafür braucht es Verhaltens- und KI-Analyse.')}
 
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Verdächtige Datei prüfen — VirusTotal & Sandboxes</div>
@@ -17139,6 +17175,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Bei welcher Aufklärung merkt das Ziel nichts, weil nur öffentliche Quellen genutzt werden?', ['Passive Reconnaissance', 'Aktive Reconnaissance'], 0, 'Passiv heißt: du schaust nur in öffentliche Quellen wie Google oder DNS und fasst das Zielsystem nie an. Aktiv (z.B. ein Portscan) sendet Pakete direkt hin und taucht in dessen Logs auf.')}
+
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Google Dorks — suchen wie ein Profi</div>
             <div class="explanation">
@@ -17262,6 +17300,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Welche versteckte Info steckt oft in einem unbearbeiteten Handy-Foto?', ['GPS-Standort (EXIF-Daten)', 'Das WLAN-Passwort', 'Deine IP-Adresse'], 0, 'Fotos speichern EXIF-Metadaten — darunter oft die genauen GPS-Koordinaten des Aufnahmeorts. Vor dem Teilen lassen sie sich mit Tools wie exiftool entfernen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Dark Web & Leak-Datenbanken</div>
             <div class="explanation">
@@ -17273,6 +17313,8 @@ The PayPal Security Team</div>
               <strong>Was man NIE machen darf:</strong> Leaks anderer nutzen um in ihre Accounts einzudringen. Selbst wenn die Daten "öffentlich" sind — das Einloggen ohne Erlaubnis bleibt §202a StGB.
             </div>
           </div>
+
+          ${callout('warn', 'Öffentlich gefundene Leak-Daten nicht missbrauchen', 'Auch wenn Daten aus Leaks frei kursieren: sich damit in fremde Accounts einzuloggen bleibt nach §202a StGB strafbar. OSINT über dich selbst ist immer erlaubt — über andere ist es eine rechtliche und ethische Abwägung.')}
 
           <div class="content-card animate-in" style="animation-delay:0.28s">
             <div class="card-label">Deine digitale Angriffsfläche reduzieren</div>
@@ -17586,6 +17628,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Was ist direkt nach der Entdeckung eines Hacks der kritischste Fehler?', ['Sofort alles aufräumen, bevor Beweise gesichert sind', 'Das IR-Team informieren', 'Die Uhrzeit dokumentieren'], 0, 'Wer zu früh aufräumt, löscht die Spuren, wie die Angreifer reinkamen — und sie kommen über denselben Weg zurück. Erst Beweise sichern, dann bereinigen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Die ersten 30 Minuten — was du NICHT machen darfst</div>
             <div class="explanation">
@@ -17656,6 +17700,8 @@ The PayPal Security Team</div>
             </div>
           </div>
 
+          ${quickCheck('Warum sollte man einen betroffenen Rechner NICHT einfach ausschalten?', ['Der RAM-Inhalt (z.B. Fileless-Malware) geht dabei verloren', 'Er lässt sich nicht mehr einschalten', 'Das Netzwerk bleibt sonst infiziert'], 0, 'Vieles lebt nur im Arbeitsspeicher — laufende Prozesse, Netzverbindungen, manche Malware. Beim Ausschalten ist der RAM weg. Besser: vom Netz trennen statt ausschalten.')}
+
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Forensik-Disziplinen</div>
             <div class="code-block">
@@ -17704,6 +17750,8 @@ The PayPal Security Team</div>
               <strong>Lehre:</strong> Backups müssen <em>offline</em> sein. IR muss geübt sein. Supply-Chain ist ein echter Angriffsvektor.
             </div>
           </div>
+
+          ${callout('key', 'Backups müssen offline sein', 'NotPetya und WannaCry lehren dasselbe: Alles, was ständig mit dem Netzwerk verbunden ist, kann von Ransomware mitverschlüsselt werden. Nur eine getrennte, offline gehaltene Kopie überlebt einen solchen Angriff zuverlässig.')}
 
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Das MITRE ATT&CK Framework</div>
@@ -18053,6 +18101,8 @@ The PayPal Security Team</div>
 <span class="cm">-- → wenn 5 Sekunden Delay → Query True</span></pre>
             </div>
           </div>
+          ${quickCheck('Bei Time-based Blind SQLi schließt der Angreifer aus etwas Bestimmtem auf die Antwort — woraus?', ['Der Antwortzeit des Servers (z.B. 5 Sekunden Verzögerung)', 'Der Farbe der Webseite', 'Dem Passwort im Klartext'], 0, 'Auch wenn die Seite keine Daten zeigt, verrät die Reaktionszeit alles: Baut der Angreifer ein SLEEP(5) ein und der Server hängt 5 Sekunden, war die Bedingung wahr.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Defense: Prepared Statements & ORMs</div>
             <div class="explanation">
@@ -18082,6 +18132,8 @@ db.session.<span class="fn">execute</span>(
 <span class="cm"># NUR auf eigene oder authorisierte Systeme!</span></pre>
             </div>
           </div>
+          ${callout('warn', 'Filtern reicht nicht — Prepared Statements nutzen', 'Eingaben per Blacklist zu filtern oder Anführungszeichen zu escapen ist zu fehleranfällig — Angreifer finden fast immer eine Umgehung. Nur Prepared Statements (oder ein ORM, das sie nutzt) trennen Befehl und Daten zuverlässig.')}
+
           ${renderQuestions('l5_9', 6)}
           ${renderBonus('l5_9')}
           ${exercise('ex_l5_9_1', 'SQLi-Labor', 'Richte DVWA (Damn Vulnerable Web Application) lokal mit Docker auf: docker run -d -p 80:80 vulnerables/web-dvwa. Navigiere zu SQL Injection (Difficulty: Low). Führe durch: (1) Einfache SQLi um alle User anzuzeigen, (2) UNION-Attack um Passwörter zu extrahieren, (3) Blind Boolean SQLi. Dokumentiere jeden Schritt. Dann setze Difficulty auf High und analysiere warum die Angriffe nicht mehr funktionieren.', 'Tipp: Starte mit input: 1 OR 1=1 und beobachte die Ausgabe. Für UNION: finde erst die Spaltenanzahl mit ORDER BY.', 'UNION')}
@@ -18164,6 +18216,8 @@ cursor.<span class="fn">execute</span>(<span class="st">"SELECT * FROM users WHE
 <span class="cm">&lt;!-- URL: https://site.com/#&lt;img onerror=alert(1) src=x&gt; --&gt;</span></pre>
             </div>
           </div>
+          ${quickCheck('Welche XSS-Art trifft ALLE Besucher einer Seite, weil der Schadcode gespeichert wird?', ['Stored XSS', 'Reflected XSS', 'DOM-based XSS'], 0, 'Bei Stored XSS liegt der eingeschleuste Code dauerhaft auf dem Server (z.B. in einem Kommentar) und wird jedem Besucher automatisch mitgeliefert — deshalb die gefährlichste Variante.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Defense: CSP, encode/escape & HTTPOnly</div>
             <div class="explanation">
@@ -18198,6 +18252,8 @@ resp.<span class="fn">set_cookie</span>(<span class="st">'session'</span>, token
 )</pre>
             </div>
           </div>
+          ${callout('key', 'HttpOnly schützt das Session-Cookie', 'Ein als HttpOnly gesetztes Cookie kann JavaScript nicht auslesen. Selbst wenn eine XSS-Lücke durchrutscht, kommt der Angreifer so nicht ans Session-Token — zusammen mit einer strikten CSP ist das Defense in Depth.')}
+
           ${renderQuestions('l5_10', 6)}
           ${renderBonus('l5_10')}
           ${exercise('ex_l5_10_1', 'XSS-Abwehr in der Praxis', 'Erstelle eine einfache Kommentarfunktion mit Flask: POST /comment speichert Kommentare, GET / zeigt sie an. Erste Version: ABSICHTLICH verletzlich (innerHTML). Zweite Version: sicher mit (1) html.escape() in Python, (2) textContent in JS, (3) CSP-Header der inline-Scripts verbietet. Teste beide Versionen mit dem Payload: <img src=x onerror="document.title=\'HACKED\'">. Zeige dass Version 2 den Angriff neutralisiert.', 'Tipp: Teste mit dem Payload im Kommentarfeld. Bei Version 1 soll der Titel zu "HACKED" werden, bei Version 2 soll das Literal angezeigt werden.', 'script')}
@@ -18276,6 +18332,8 @@ resp.<span class="fn">set_cookie</span>(<span class="st">'session'</span>, token
 &lt;/form&gt;</pre>
             </div>
           </div>
+          ${quickCheck('Warum stoppt ein CSRF-Token den Angriff?', ['Die fremde Seite kennt den zufälligen Token nicht', 'Es verschlüsselt das Cookie', 'Es macht die Session kürzer'], 0, 'Der Server erwartet bei jedem Formular einen zufälligen, geheimen Token. Eine fremde Angreifer-Seite kann ihn nicht erraten — ohne gültigen Token wird die Anfrage abgelehnt.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Session Fixation & Hijacking</div>
             <div class="explanation">
@@ -18310,6 +18368,8 @@ app.config[<span class="st">'SESSION_COOKIE_SECURE'</span>] = <span class="kw">T
 app.config[<span class="st">'SESSION_COOKIE_HTTPONLY'</span>] = <span class="kw">True</span></pre>
             </div>
           </div>
+          ${callout('tip', 'SameSite=Lax stoppt CSRF fast automatisch', 'Moderne Browser schicken ein Cookie mit SameSite=Lax nicht mehr bei Cross-Site-POSTs mit. Zusammen mit einem CSRF-Token und einer frischen Session nach jedem Login sind CSRF und Session-Fixation weitgehend entschärft.')}
+
           ${renderQuestions('l5_11', 6)}
           ${renderBonus('l5_11')}
           ${exercise('ex_l5_11_1', 'CSRF-Schutz implementieren', 'Füge CSRF-Schutz zu einer Flask-App hinzu: (1) Implementiere generate_csrf_token() und validate_csrf() wie oben gezeigt. (2) Füge ein verstecktes CSRF-Token-Feld zu allen Formularen hinzu. (3) Prüfe den Token bei jedem POST-Request. (4) Demonstriere dass eine externe HTML-Seite ohne den Token einen 403-Fehler bekommt. Bonus: Nutze flask-wtf das CSRF automatisch handhabt.', 'Tipp: from flask_wtf.csrf import CSRFProtect; csrf = CSRFProtect(app) macht alles automatisch.', 'token')}
@@ -18389,6 +18449,8 @@ echo -n "password" | md5sum
 <span class="cm"># Dieser MD5-Hash ist sofort auf Google findbar!</span></pre>
             </div>
           </div>
+          ${quickCheck('Warum ist bcrypt sicherer gegen Brute Force als MD5?', ['bcrypt ist absichtlich langsam — pro Sekunde nur wenige Hashes', 'bcrypt erzeugt kürzere Hashes', 'bcrypt braucht kein Salt'], 0, 'MD5 rechnet Milliarden Hashes pro Sekunde, bcrypt nur wenige Hundert. Dadurch wird jeder Rateversuch millionenfach teurer — Brute Force lohnt sich nicht mehr.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Defense: Salt & bcrypt</div>
             <div class="explanation">
@@ -18425,6 +18487,8 @@ echo -n "password" | md5sum
     )</pre>
             </div>
           </div>
+          ${callout('fact', 'Länge schlägt Komplexität', 'Eine lange Passphrase aus mehreren Wörtern ist gegen Brute Force stärker als ein kurzes Passwort mit vielen Sonderzeichen — und leichter zu merken. Deshalb empfiehlt NIST heute mindestens 12, besser 16+ Zeichen.')}
+
           ${renderQuestions('l5_12', 6)}
           ${renderBonus('l5_12')}
           ${exercise('ex_l5_12_1', 'Passwort-Stärke-Checker & sicheres Hashing', 'Erstelle ein Python-Programm das: (1) Ein Passwort von der Kommandozeile einliest, (2) es auf Stärke prüft (min. 12 Zeichen, Groß/Kleinbuchstaben, Zahlen, Sonderzeichen), (3) es mit bcrypt hasht und den Hash speichert, (4) beim nächsten Aufruf das eingegebene Passwort gegen den gespeicherten Hash prüft. Bonus: Zeige geschätzte Crack-Zeit bei schwachen Passwörtern.', 'Tipp: pip install bcrypt. Nutze bcrypt.gensalt(rounds=12) und bcrypt.hashpw(). Rounds=12 bedeutet 2^12 = 4096 Iterationen.', 'hash')}
@@ -18507,6 +18571,8 @@ tshark -r capture.pcap -Y "http.request"
 tcpdump -i eth0 -n -w capture.pcap 'port 80 or port 443'</pre>
             </div>
           </div>
+          ${quickCheck('Welche Adressen gehören zu Layer 2 (Ethernet)?', ['MAC-Adressen', 'IP-Adressen', 'Port-Nummern'], 0, 'Layer 2 (Ethernet) nutzt MAC-Adressen — die Hardware-Adressen der Netzwerkkarten. IP-Adressen sind Layer 3, Ports gehören zu Layer 4 (TCP).')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">ARP-Spoofing & Man-in-the-Middle</div>
             <div class="explanation">
@@ -18532,6 +18598,8 @@ ip link show
 ifconfig</pre>
             </div>
           </div>
+          ${callout('key', 'ARP kennt keine Authentifizierung', 'Weil ARP gefälschte Antworten nicht erkennt, kann ein Angreifer im lokalen Netz den Verkehr über sich umleiten. Dagegen hilft HTTPS/TLS (der Inhalt bleibt verschlüsselt) — und die Zertifikatswarnung des Browsers ernst zu nehmen.')}
+
           ${renderQuestions('l5_13', 6)}
           ${renderBonus('l5_13')}
           ${exercise('ex_l5_13_1', 'Netzwerk-Analyse mit Wireshark', 'Installiere Wireshark und führe durch: (1) Capture 60 Sekunden HTTP-Traffic auf Loopback (starte eine lokale Flask-App). (2) Filtere auf HTTP-POST-Requests und analysiere den Body. (3) Filtere auf DNS-Anfragen und sieh welche Domains aufgelöst werden. (4) Analysiere den TCP-Handshake (SYN/SYN-ACK/ACK) einer Verbindung. (5) Vergleiche verschlüsselten HTTPS-Traffic mit unverschlüsseltem HTTP — was siehst du?', 'Tipp: Starte mit einem einfachen Filter "tcp.port == 5000" für deine Flask-App. Der Loopback-Adapter heißt "lo" oder "Loopback".', 'filter')}
@@ -18619,6 +18687,8 @@ ps aux | grep root
 <span class="cm"># ./linpeas.sh</span></pre>
             </div>
           </div>
+          ${quickCheck('Was ist an einem SUID-Binary sicherheitsrelevant?', ['Es läuft mit den Rechten des Besitzers (oft root)', 'Es ist immer schreibgeschützt', 'Es kann nur vom Admin gestartet werden'], 0, 'Ein SUID-Programm führt mit den Rechten seines Besitzers aus — gehört es root, laufen seine Aktionen als root. Ist es unsicher gebaut, lässt sich das zum Rechte-Aufstieg missbrauchen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Windows PrivEsc</div>
             <div class="explanation">
@@ -18643,6 +18713,8 @@ reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallEle
 reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</pre>
             </div>
           </div>
+          ${callout('tip', 'Least Privilege stoppt Privilege Escalation', 'Die meisten dieser Techniken scheitern, wenn Dienste und Accounts nur die minimal nötigen Rechte haben: keine unnötigen SUID-Binaries, saubere sudo-Regeln, keine world-writable Skripte in root-Cronjobs. Genau das prüfst du beim Härten eines Systems.')}
+
           ${renderQuestions('l5_14', 6)}
           ${renderBonus('l5_14')}
           ${exercise('ex_l5_14_1', 'Linux PrivEsc auf einer CTF-Maschine', 'Registriere dich bei TryHackMe (tryhackme.com) und schließe den Raum "Linux PrivEsc" oder "Common Linux Privesc" ab. Dokumentiere: (1) Welche SUID-Binaries du gefunden hast, (2) Welchen sudo-Eintrag du exploitet hast, (3) Ob Cronjobs vorhanden waren, (4) Wie du letztendlich root geworden bist. Alternativ: Starte eine eigene VM und konfiguriere absichtlich unsichere Einstellungen.', 'Tipp: find / -perm -4000 2>/dev/null ist der erste Befehl auf jeder Maschine. gtfobins.github.io zeigt wie man SUID-Binaries für Shell-Escapes nutzt.', 'sudo')}
@@ -18726,6 +18798,8 @@ ltrace ./binary_file
 strace ./binary_file 2>&1 | grep -E "open|read|write"</pre>
             </div>
           </div>
+          ${quickCheck('Wozu dient der Befehl strings bei einem Binary?', ['Lesbare Texte (z.B. Meldungen, Hinweise) extrahieren', 'Das Programm ausführen', 'Die Datei verschlüsseln'], 0, 'strings zieht alle lesbaren Zeichenketten aus einer kompilierten Datei — oft ein schneller erster Hinweis, etwa auf Meldungen oder versehentlich enthaltene Passwörter.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Assembly-Grundlagen & Ghidra</div>
             <div class="explanation">
@@ -18754,6 +18828,8 @@ strace ./binary_file 2>&1 | grep -E "open|read|write"</pre>
 <span class="cm">; Alternativen: IDA Free, Radare2, Binary Ninja</span></pre>
             </div>
           </div>
+          ${callout('fact', 'Ghidra kommt von der NSA', 'Ghidra ist ein kostenloser, quelloffener Decompiler der US-Behörde NSA. Er verwandelt Maschinencode zurück in lesbaren C-ähnlichen Pseudocode — deshalb ist er in Malware-Analyse und CTFs so beliebt.')}
+
           ${renderQuestions('l5_15', 6)}
           ${renderBonus('l5_15')}
           ${exercise('ex_l5_15_1', 'Crackme-Challenge', 'Lade ein einfaches Crackme-Binary von crackmes.one (suche nach "easy" und "Linux") herunter. Führe durch: (1) file und strings — was verrät das Binary? (2) ltrace um Library-Calls zu sehen. (3) Öffne in Ghidra und suche die main-Funktion. (4) Finde das korrekte Passwort ohne den Quellcode. Dokumentiere deinen Denkprozess.', 'Tipp: Suche in strings nach Ausgaben wie "Correct!" oder "Wrong password" — dann rückwärts in Ghidra schauen welcher Code zu dieser Ausgabe führt.', 'strings')}
@@ -18837,6 +18913,8 @@ strace ./binary_file    <span class="cm"># system calls</span></pre>
 <span class="cm"># John the Ripper, Hashcat — Password Cracking</span></pre>
             </div>
           </div>
+          ${quickCheck('In welcher CTF-Kategorie geht es um Buffer Overflows und Binary Exploitation?', ['pwn', 'crypto', 'osint'], 0, 'pwn steht für Binary Exploitation — Speicherfehler wie Buffer Overflows ausnutzen. crypto dreht sich um Verschlüsselung, osint um Recherche in öffentlichen Quellen.')}
+
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Bug Bounty & Responsible Disclosure</div>
             <div class="explanation">
@@ -18864,6 +18942,8 @@ strace ./binary_file    <span class="cm"># system calls</span></pre>
 <span class="cm"># 4. Wenn kein Fix: CVE beantragen und veröffentlichen</span></pre>
             </div>
           </div>
+          ${callout('key', 'Responsible Disclosure: erst melden, dann veröffentlichen', 'Der legale Weg: Lücke privat an den Hersteller melden (mit Proof of Concept), eine faire Frist geben (oft 90 Tage) und erst danach veröffentlichen. Ohne Erlaubnis oder Bug-Bounty-Scope bleibt das Ausnutzen einer Lücke strafbar.')}
+
           ${renderQuestions('l5_16', 6)}
           ${renderBonus('l5_16')}
           ${exercise('ex_l5_16_1', 'Dein erster CTF', 'Registriere dich auf picoctf.org oder tryhackme.com und löse 5 Challenges aus verschiedenen Kategorien (mindestens: 1x web, 1x crypto oder forensics, 1x misc). Erstelle ein GitHub-Repository "ctf-writeups" und schreibe für jede Challenge ein Write-up: Was war die Challenge? Welchen Ansatz hast du verwendet? Was hast du dabei gelernt? Veröffentliche das Repository — das ist dein erstes Security-Portfolio-Stück.', 'Tipp: picoCTF Challenges sind persistent und immer verfügbar. Beginne mit "General Skills" wenn du noch nie CTF gemacht hast. CyberChef (cyberchef.io) hilft bei Encoding-Challenges.', 'report')}
