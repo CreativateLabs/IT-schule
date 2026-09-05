@@ -529,6 +529,29 @@ body {
 .callout-fact { border-left-color: var(--orange); } .callout-fact .callout-ico { background: var(--orange); } .callout-fact .callout-title { color: var(--orange-ink); }
 .callout-example { border-left-color: var(--text3); } .callout-example .callout-ico { background: var(--text3); } .callout-example .callout-title { color: var(--text2); }
 
+/* ---- Quick understanding check (mini-task between info) ---- */
+.quick-check { background: var(--accent-glow); border: 2px solid rgba(99,102,241,0.25); border-radius: 16px; padding: 18px 20px; margin: 18px 0; }
+.qc-head { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent2); margin-bottom: 12px; }
+.qc-head [data-lucide] { width: 14px; height: 14px; }
+.qc-q { font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--text); margin-bottom: 14px; line-height: 1.4; }
+.qc-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.qc-opt {
+  font-family: var(--sans); font-weight: 600; font-size: 13px; padding: 10px 16px; border-radius: 11px;
+  border: 2px solid var(--border2); background: var(--surface); color: var(--text); cursor: pointer;
+  box-shadow: 0 3px 0 var(--border2); transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.15s, background 0.15s;
+}
+.qc-opt:hover:not(:disabled) { border-color: var(--accent); box-shadow: 0 3px 0 var(--accent); }
+.qc-opt:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 0 0 var(--border2); }
+.qc-opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green-ink); box-shadow: 0 3px 0 var(--green); }
+.qc-opt.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); box-shadow: 0 3px 0 var(--red); }
+.qc-opt:disabled { cursor: default; }
+.qc-fb { margin-top: 14px; font-size: 13.5px; line-height: 1.55; display: none; align-items: flex-start; gap: 8px; }
+.qc-fb.good, .qc-fb.bad { display: flex; }
+.qc-fb.good { color: var(--green-ink); font-weight: 600; }
+.qc-fb.bad { color: var(--text2); background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 13px 15px; }
+.qc-fb.bad strong { color: var(--text); }
+.qc-fb [data-lucide] { width: 17px; height: 17px; flex-shrink: 0; margin-top: 1px; }
+
 /* ---- Floating "+XP" reward ---- */
 .xp-float {
   position: fixed; transform: translateX(-50%);
@@ -4064,6 +4087,7 @@ const PHASES = [
             </div>
           </div>
           ${callout('key', 'Merke', 'Jede Binärstelle verdoppelt den Wert — von rechts nach links: <code>1, 2, 4, 8, 16, 32 …</code> Steht dort eine <code>1</code>, zählst du den Wert dazu.')}
+          ${quickCheck('Was ist <code>0010</code> in Dezimal?', ['1', '2', '4'], 1, 'Zähl die Stellenwerte, wo eine <strong>1</strong> steht — hier nur die dritte Stelle von rechts: das ist die <code>2</code>.')}
           ${callout('fact', 'Wusstest du?', 'Die Farbe <code>#FF5733</code> auf Webseiten ist Hexadezimal! Je zwei Stellen stehen für Rot, Grün und Blau (0–255). <code>FF</code> = 255 = volles Rot.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Hexadezimal — kompakter als Binär</div>
@@ -25656,6 +25680,40 @@ function celebrate(kind, msg, icon) {
 function callout(type, title, text) {
   const icons = { key: 'lightbulb', tip: 'sparkles', warn: 'triangle-alert', fact: 'zap', example: 'code-2' };
   return `<div class="callout callout-${type}"><div class="callout-ico"><i data-lucide="${icons[type] || 'info'}"></i></div><div class="callout-body"><div class="callout-title">${title}</div><div class="callout-text">${text}</div></div></div>`;
+}
+
+// Quick understanding check — lightweight, non-gating. Wrong answer shows a simpler explanation.
+window._QC = window._QC || {};
+let _qcCounter = 0;
+function quickCheck(question, options, correctIdx, simpleExplain) {
+  const id = 'qc' + (_qcCounter++);
+  window._QC[id] = { correct: correctIdx, explain: simpleExplain };
+  const opts = options.map((o, i) => `<button class="qc-opt" onclick="answerQuickCheck('${id}', ${i}, this)">${o}</button>`).join('');
+  return `<div class="quick-check" id="${id}">
+    <div class="qc-head"><i data-lucide="hand-metal"></i>Kurz-Check · verstanden?</div>
+    <div class="qc-q">${question}</div>
+    <div class="qc-opts">${opts}</div>
+    <div class="qc-fb" id="${id}-fb"></div>
+  </div>`;
+}
+function answerQuickCheck(id, i, btn) {
+  const data = window._QC[id];
+  if (!data || btn.disabled) return;
+  const wrap = document.getElementById(id);
+  const fb = document.getElementById(id + '-fb');
+  const opts = [...wrap.querySelectorAll('.qc-opt')];
+  opts.forEach(b => b.disabled = true);
+  if (i === data.correct) {
+    btn.classList.add('correct');
+    fb.className = 'qc-fb good';
+    fb.innerHTML = `<i data-lucide="party-popper"></i><span>Stark — du hast's verstanden!</span>`;
+  } else {
+    btn.classList.add('wrong');
+    if (opts[data.correct]) opts[data.correct].classList.add('correct');
+    fb.className = 'qc-fb bad';
+    fb.innerHTML = `<i data-lucide="lightbulb"></i><span><strong>Fast!</strong> Einfacher gesagt: ${data.explain}</span>`;
+  }
+  try { lucide.createIcons({ nodes: [wrap] }); } catch {}
 }
 // Floating "+N XP" reward near the XP badge
 function _floatXP(amount) {
