@@ -5612,6 +5612,7 @@ hat_rabatt = <span class="kw">False</span>
 ergebnis = <span class="kw">None</span>          <span class="cm"># bewusst leer</span></div>
             </div>
           </div>
+          ${quickCheck('Welchen Datentyp hat der Wert <code>19.99</code>?', ['int', 'float'], 1, 'Eine Zahl mit Punkt (Nachkommastelle) ist ein <strong>float</strong>. Ganze Zahlen ohne Punkt wie <code>25</code> sind <strong>int</strong>.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Typen umwandeln (Casting)</div>
             <div class="explanation">
@@ -5638,6 +5639,7 @@ naechstes_jahr = alter + <span class="num">1</span>     <span class="cm"># TypeE
 naechstes_jahr = <span class="fn">int</span>(alter) + <span class="num">1</span>   <span class="cm"># OK</span></div>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>int(3.9)</code>?', ['3', '4'], 0, '<code>int()</code> schneidet die Nachkommastellen einfach ab — es rundet nicht. Von <code>3.9</code> bleibt also <code>3</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Mathematische Operatoren</div>
             <div class="code-block">
@@ -5721,6 +5723,7 @@ zahlen.reverse()                <span class="cm"># umkehren</span>
 <span class="num">3</span> <span class="kw">in</span> zahlen                 <span class="cm"># → True (Element drin?)</span></div>
             </div>
           </div>
+          ${callout('key', 'Index beginnt bei 0', 'Das erste Element einer Liste hat Index <code>0</code>, das zweite Index <code>1</code>. <code>farben[0]</code> ist also das <strong>erste</strong> Element — nicht das zweite.')}
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Tupel — wie Listen, aber unveränderlich</div>
             <div class="explanation">
@@ -6020,6 +6023,7 @@ alter < <span class="num">12</span> <span class="kw">or</span> alter >= <span cl
 # Bei Unklarheit Klammern setzen — immer.</span></div>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>alter >= 18 and hat_ticket</code>, wenn <code>alter = 25</code> und <code>hat_ticket = False</code>?', ['True', 'False'], 1, 'Bei <strong>and</strong> müssen <em>beide</em> Seiten wahr sein. Eine falsche Seite reicht, damit das Ganze <code>False</code> wird.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Truthy & Falsy — was zählt als "wahr"?</div>
             <div class="explanation">
@@ -6078,6 +6082,7 @@ alter < <span class="num">12</span> <span class="kw">or</span> alter >= <span cl
 nachricht = <span class="st">"erwachsen"</span> <span class="kw">if</span> alter >= <span class="num">18</span> <span class="kw">else</span> <span class="st">"minderjährig"</span></div>
             </div>
           </div>
+          ${callout('warn', 'Einrückung ist Pflicht', 'In Python markiert die Einrückung (4 Leerzeichen), welcher Code zum <code>if</code> gehört. Fehlt sie oder ist uneinheitlich, gibt es einen <code>IndentationError</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">for-Schleifen — über etwas iterieren</div>
             <div class="code-block">
@@ -6110,6 +6115,7 @@ person = {<span class="st">"name"</span>: <span class="st">"Anna"</span>, <span 
     <span class="fn">print</span>(i)</div>
             </div>
           </div>
+          ${quickCheck('Welche Zahlen erzeugt <code>range(2, 8)</code>?', ['2, 3, 4, 5, 6, 7, 8', '2, 3, 4, 5, 6, 7'], 1, '<code>range()</code> zählt bis <em>kurz vor</em> die zweite Zahl — die <code>8</code> selbst ist nicht mehr dabei. Also 2 bis 7.')}
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">enumerate & zip — die Profi-Tools für for</div>
             <div class="code-block">
@@ -6510,6 +6516,7 @@ x = <span class="fn">drucke</span>(<span class="st">"hi"</span>)
 q, r = <span class="fn">teile</span>(<span class="num">17</span>, <span class="num">5</span>)        <span class="cm"># q=3, r=2</span></div>
             </div>
           </div>
+          ${quickCheck('Was gibt eine Funktion zurück, die <em>kein</em> <code>return</code> hat?', ['None', 'einen leeren String', '0'], 0, 'Ohne <code>return</code> liefert eine Funktion automatisch <code>None</code> — also „kein Wert“. <code>print()</code> zeigt nur etwas an, gibt aber nichts zurück.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Parameter — Standardwerte & Keyword-Argumente</div>
             <div class="code-block">
@@ -6537,6 +6544,7 @@ q, r = <span class="fn">teile</span>(<span class="num">17</span>, <span class="n
 #     if items is None: items = []</span></div>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>potenz(4)</code> bei <code>def potenz(basis, exponent=2)</code>?', ['16', '8'], 0, 'Weil <code>exponent</code> den Standardwert <code>2</code> hat, rechnet Python <code>4 ** 2</code> = 16.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">*args & **kwargs — beliebig viele Argumente</div>
             <div class="explanation">
@@ -6594,6 +6602,7 @@ zaehler = <span class="num">0</span>
 zaehler = <span class="fn">erhoehe_sauber</span>(zaehler)</div>
             </div>
           </div>
+          ${callout('key', 'Lokal bleibt lokal', 'Variablen, die <em>in</em> einer Funktion entstehen, existieren nur dort. Von außen sind sie unsichtbar — der Zugriff darauf gibt einen <code>NameError</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Docstrings — was macht diese Funktion?</div>
             <div class="explanation">
@@ -6912,6 +6921,7 @@ text.upper()               <span class="cm"># → "HALLO" (aber text bleibt "hal
 text = text.upper()        <span class="cm"># jetzt ist text "HALLO"</span></div>
             </div>
           </div>
+          ${callout('warn', 'Methoden ändern den Original-String nicht', '<code>text.upper()</code> gibt einen <em>neuen</em> String zurück, lässt <code>text</code> aber unverändert. Nur mit <code>text = text.upper()</code> speicherst du das Ergebnis.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">Indexing & Slicing — Stücke aus Strings</div>
             <div class="explanation">
@@ -6945,6 +6955,7 @@ text[<span class="num">100</span>]             <span class="cm"># IndexError</sp
 text[:<span class="num">100</span>]            <span class="cm"># OK — gibt einfach den ganzen String</span></div>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>text[::-1]</code>?', ['den String rückwärts', 'nur das letzte Zeichen'], 0, 'Der Schritt <code>-1</code> läuft von hinten nach vorne durch den String — er kommt also komplett umgedreht heraus.')}
           <div class="content-card animate-in" style="animation-delay:0.13s">
             <div class="card-label">Suchen & Prüfen</div>
             <div class="code-block">
@@ -7029,6 +7040,7 @@ zeile = <span class="st">"Anna,28,Berlin"</span>
 name, alter, stadt = zeile.split(<span class="st">","</span>)</div>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>"a,b,c".split(",")</code>?', ["['a', 'b', 'c']", "'abc'"], 0, '<code>split(",")</code> zerlegt den Text an jedem Komma in eine <em>Liste</em> von Teilstücken.')}
           ${renderQuestions('l2_4', 6)}
           ${renderBonus('l2_4')}
           ${exercise('ex_str', 'String bearbeiten', 'Speichere "  Python lernen  " in einer Variable "s", entferne die Leerzeichen mit strip() und gib das Ergebnis in Großbuchstaben aus.', 's.strip().upper()', 'strip')}
@@ -7271,6 +7283,7 @@ liste[<span class="num">10</span>]                   <span class="cm"># → Inde
 <span class="fn">print</span>(unbekannte_variable)  <span class="cm"># → NameError</span></div>
             </div>
           </div>
+          ${quickCheck('Welcher Fehler entsteht bei <code>10 / 0</code>?', ['ZeroDivisionError', 'ValueError'], 0, 'Durch 0 zu teilen ist mathematisch unmöglich — Python meldet das als <code>ZeroDivisionError</code>.')}
           <div class="content-card animate-in" style="animation-delay:0.11s">
             <div class="card-label">try / except — der Grundbau</div>
             <div class="code-block">
@@ -7316,6 +7329,7 @@ liste[<span class="num">10</span>]                   <span class="cm"># → Inde
               <strong>Wichtig:</strong> Reihenfolge zählt — Python prüft die except-Blöcke von oben nach unten und nimmt den <em>ersten</em> der passt. Spezifische Fehler immer <strong>vor</strong> <code>Exception</code> stellen.
             </div>
           </div>
+          ${callout('tip', 'Spezifisch vor allgemein', 'Python nimmt den <em>ersten</em> passenden except-Block. Stell konkrete Fehler wie <code>ValueError</code> immer vor das allgemeine <code>except Exception</code> — sonst fängt dieses schon alles ab.')}
           <div class="content-card animate-in" style="animation-delay:0.17s">
             <div class="card-label">else & finally — Vollständige Struktur</div>
             <div class="code-block">
@@ -7341,6 +7355,7 @@ liste[<span class="num">10</span>]                   <span class="cm"># → Inde
 <span class="cm"># Reihenfolge:  try → (except wenn Fehler / else wenn nicht) → finally</span></div>
             </div>
           </div>
+          ${quickCheck('Wann läuft der <code>finally</code>-Block?', ['immer — egal ob ein Fehler auftrat', 'nur wenn ein Fehler auftrat'], 0, '<code>finally</code> läuft in jedem Fall — mit oder ohne Fehler. Ideal zum Aufräumen, z.B. eine Datei schließen.')}
           <div class="content-card animate-in" style="animation-delay:0.2s">
             <div class="card-label">with-Statement — automatisches Aufräumen</div>
             <div class="explanation">
@@ -7658,6 +7673,8 @@ names.append(<span class="st">"Clara"</span>)
 <span class="kw">print</span>(user.get(<span class="st">"email"</span>, <span class="st">"N/A"</span>))  <span class="cm"># N/A — sicher!</span></pre>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>{"apple", "banana", "apple"}</code>?', ['{"apple", "banana"}', '{"apple", "banana", "apple"}'], 0, 'Ein Set speichert jeden Wert nur <em>einmal</em> — das doppelte "apple" fällt automatisch weg.')}
+          ${callout('tip', 'Sicher zugreifen mit .get()', '<code>user["email"]</code> stürzt mit einem <code>KeyError</code> ab, wenn der Schlüssel fehlt. <code>user.get("email", "N/A")</code> gibt stattdessen ruhig einen Ersatzwert zurück.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Comprehensions — kompakt & pythonisch</div>
             <div class="explanation">
@@ -7688,6 +7705,7 @@ names.append(<span class="st">"Clara"</span>)
 <span class="kw">print</span>(a - b)  <span class="cm"># {1}  — Differenz</span></pre>
             </div>
           </div>
+          ${quickCheck('Was ergibt <code>[x**2 for x in range(4)]</code>?', ['[0, 1, 4, 9]', '[1, 4, 9, 16]'], 0, '<code>range(4)</code> liefert 0, 1, 2, 3. Jede Zahl wird quadriert: 0, 1, 4, 9.')}
           ${renderQuestions('l2_6', 6)}
           ${renderBonus('l2_6')}
           ${exercise('ex_l2_6_1', 'Comprehension-Challenge', 'Erstelle eine Liste aller Zahlen von 1 bis 50, die durch 3 teilbar sind, mit einer List Comprehension in einer Zeile. Dann erstelle ein Dictionary, das jede dieser Zahlen auf ihr Quadrat abbildet.', 'Tipp: Benutze for x in range(1, 51) und if x % 3 == 0', 'for')}
@@ -7782,6 +7800,8 @@ rex.<span class="fn">show_tricks</span>()  <span class="cm"># Rex kann: Sitz</sp
 <span class="kw">print</span>(rex)         <span class="cm"># Dog(name='Rex', breed='Labrador')</span></pre>
             </div>
           </div>
+          ${quickCheck('Wann wird <code>__init__</code> aufgerufen?', ['automatisch beim Erstellen einer Instanz', 'erst wenn man es selbst aufruft'], 0, '<code>__init__</code> ist der Konstruktor — Python startet ihn von selbst, sobald du ein neues Objekt aus der Klasse baust.')}
+          ${callout('key', 'Was ist self?', '<code>self</code> ist das Objekt selbst. Über <code>self.name</code> speichert und liest jede Instanz ihre eigenen Werte — so hat jeder Hund seinen eigenen Namen.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Vererbung & super()</div>
             <div class="explanation">
@@ -7809,6 +7829,7 @@ rex.<span class="fn">show_tricks</span>()  <span class="cm"># Rex kann: Sitz</sp
 <span class="kw">print</span>(<span class="fn">isinstance</span>(kitty, Animal))  <span class="cm"># True</span></pre>
             </div>
           </div>
+          ${quickCheck('Was macht <code>super().__init__(name)</code> in einer Unterklasse?', ['ruft den Konstruktor der Elternklasse auf', 'erstellt eine ganz neue Klasse'], 0, '<code>super()</code> greift auf die Elternklasse zu — so übernimmt die Unterklasse deren Aufbau, ohne den Code noch einmal zu schreiben.')}
           ${renderQuestions('l2_7', 6)}
           ${renderBonus('l2_7')}
           ${exercise('ex_l2_7_1', 'Meine erste Klasse', 'Erstelle eine Klasse BankAccount mit __init__(owner, balance=0), einer Methode deposit(amount) zum Einzahlen, withdraw(amount) zum Abheben (prüfe ob genug Geld da ist) und __repr__ der das Konto beschreibt. Erstelle dann eine Instanz und teste alle Methoden.', 'Tipp: Prüfe if amount <= self.balance in withdraw()', 'class')}
@@ -7904,6 +7925,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(sys.argv)     <span class="cm"># Kommandozeilen-Argumente</span></pre>
             </div>
           </div>
+          ${quickCheck('Wie greifst du nach <code>import math</code> auf die Wurzel-Funktion zu?', ['math.sqrt(16)', 'sqrt(16)'], 0, 'Bei <code>import math</code> bleibt der Modulname davor — du schreibst <code>math.sqrt()</code>. Nur bei <code>from math import sqrt</code> ginge <code>sqrt()</code> allein.')}
+          ${callout('fact', 'Ein App-Store für Code', 'Auf PyPI liegen über 400.000 fertige Pakete. Mit <code>pip install name</code> holst du sie dir — von HTTP-Anfragen (requests) bis Datenanalyse (pandas).')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Eigene Module & pip</div>
             <div class="explanation">
@@ -7933,6 +7956,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(r.status_code)  <span class="cm"># 200</span></pre>
             </div>
           </div>
+          ${quickCheck('Was macht <code>from utils import greet</code>?', ['holt nur die Funktion greet aus dem Modul utils', 'importiert das komplette Modul utils'], 0, 'Mit <code>from … import</code> holst du gezielt einzelne Teile — hier nur <code>greet</code>, das du danach direkt mit <code>greet()</code> aufrufst.')}
           ${renderQuestions('l2_8', 6)}
           ${renderBonus('l2_8')}
           ${exercise('ex_l2_8_1', 'Modul-Werkzeugkasten', 'Schreibe ein Programm das: (1) mit datetime das heutige Datum und die Uhrzeit ausgibt, (2) mit math den Umfang und die Fläche eines Kreises mit Radius 7 berechnet, (3) mit os alle Dateien im aktuellen Verzeichnis auflistet. Nutze from … import für alle drei.', 'Tipp: Umfang = 2 * math.pi * r, Fläche = math.pi * r**2', 'import')}
@@ -8014,6 +8038,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
     f.<span class="fn">write</span>(<span class="st">"Zeile 3\n"</span>)</pre>
             </div>
           </div>
+          ${quickCheck('Was passiert im Modus <code>"w"</code>, wenn die Datei schon Inhalt hat?', ['der alte Inhalt wird überschrieben', 'der neue Text wird hinten angehängt'], 0, '<code>"w"</code> beginnt die Datei komplett neu — der alte Inhalt ist weg. Zum Anhängen nimmst du <code>"a"</code>.')}
+          ${callout('tip', 'with schließt automatisch', 'Mit <code>with open(...) as f:</code> musst du dich nie ums Schließen kümmern — Python schließt die Datei am Blockende von selbst, sogar wenn ein Fehler auftritt.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">JSON — strukturierte Daten speichern</div>
             <div class="explanation">
@@ -8041,6 +8067,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="kw">print</span>(config[<span class="st">"hobbies"</span>])  <span class="cm"># ['coding', 'chess']</span></pre>
             </div>
           </div>
+          ${quickCheck('Was macht <code>json.dumps(data)</code>?', ['wandelt ein Python-Dict in einen JSON-String um', 'liest eine JSON-Datei ein'], 0, '<code>dumps</code> = „dump to string“: aus dem Dict wird ein Text. Der Rückweg (Text → Dict) heißt <code>loads</code>.')}
           ${renderQuestions('l2_9', 6)}
           ${renderBonus('l2_9')}
           ${exercise('ex_l2_9_1', 'Notiz-App', 'Erstelle ein einfaches Notiz-System: Eine Funktion save_note(text) die eine Notiz (als JSON-Objekt mit timestamp und text) an eine Datei "notes.json" anhängt. Eine Funktion load_notes() die alle gespeicherten Notizen lädt und zurückgibt. Nutze das json-Modul und datetime für den Zeitstempel.', 'Tipp: Lade zuerst die bestehenden Notizen, füge die neue hinzu, speichere dann alles neu.', 'open')}
@@ -8123,6 +8150,8 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="fn">evens</span> = [x <span class="kw">for</span> x <span class="kw">in</span> nums <span class="kw">if</span> x % <span class="num">2</span> == <span class="num">0</span>]</pre>
             </div>
           </div>
+          ${quickCheck('Was behält <code>filter(lambda x: x % 2 == 0, nums)</code>?', ['nur die geraden Zahlen', 'nur die ungeraden Zahlen'], 0, '<code>filter</code> behält nur die Elemente, bei denen die Funktion <code>True</code> liefert. <code>x % 2 == 0</code> ist bei geraden Zahlen wahr.')}
+          ${callout('tip', 'Comprehension statt map/filter', 'In Python liest sich <code>[x*2 for x in nums]</code> meist klarer als <code>map(lambda x: x*2, nums)</code>. Für einfache Fälle greif zur Comprehension.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Dekoratoren — Funktionen aufwerten</div>
             <div class="explanation">
@@ -8155,6 +8184,7 @@ files = os.listdir(<span class="st">"."</span>)       <span class="cm"># Dateien
 <span class="cm"># def home(): ...</span></pre>
             </div>
           </div>
+          ${quickCheck('Wofür steht <code>@timer</code> über einer Funktion?', ['Kurzform für func = timer(func)', 'es ruft die Funktion sofort auf'], 0, 'Das <code>@</code> ist nur eine kürzere Schreibweise — es steckt die Funktion in den Dekorator und ersetzt sie durch die aufgewertete Version.')}
           ${renderQuestions('l2_10', 6)}
           ${renderBonus('l2_10')}
           ${exercise('ex_l2_10_1', 'Eigener Dekorator', 'Erstelle einen Dekorator @retry(times=3) der eine Funktion bis zu 3 Mal wiederholt wenn sie eine Exception wirft. Teste ihn mit einer Funktion die zufällig fehlschlägt (import random; if random.random() < 0.7: raise ValueError("Fehler")). Gib bei jedem Versuch aus "Versuch X von 3".', 'Tipp: Der Dekorator muss selbst eine Funktion sein die times als Parameter nimmt und dann den eigentlichen Dekorator zurückgibt.', 'lambda')}
