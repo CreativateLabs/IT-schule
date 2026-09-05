@@ -11180,6 +11180,8 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
                                           └──────────────┘</div>
             </div>
           </div>
+          ${callout('key', 'Das Grundprinzip', 'Frontend = was der Nutzer im Browser sieht. Backend = die Logik auf dem Server, die niemand sieht. API = die Brücke aus URLs, über die beide Daten austauschen.')}
+          ${quickCheck('Wo läuft der <strong>Backend</strong>-Code?', ['Auf einem Server', 'Im Browser des Nutzers', 'In der Handy-Kamera'], 0, 'Das Backend läuft auf einem fremden Computer (Server), der immer an ist. Nur das Frontend läuft direkt beim Nutzer im Browser.')}
           <div class="content-card animate-in" style="animation-delay:0.07s">
             <div class="card-label">Konkretes Beispiel: Instagram-Login</div>
             <div class="explanation">
@@ -11252,6 +11254,7 @@ form.<span class="fn">addEventListener</span>(<span class="st">'submit'</span>, 
               <strong>Häufige Fehler:</strong> Komma nach dem letzten Element ist NICHT erlaubt. Kommentare auch nicht. Fast alle Sprachen haben eingebaute Tools: in Python <code>json.loads()</code>, in JS <code>JSON.parse()</code>.
             </div>
           </div>
+          ${quickCheck('Wie schreibt man in JSON den Wahrheitswert „wahr"?', ['true', 'True', '"true"'], 0, 'In JSON schreibt man <code>true</code> und <code>false</code> immer klein und ohne Anführungszeichen. <code>True</code> mit großem T gibt es nur in Python.')}
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Backend-Sprachen & Frameworks</div>
             <div class="explanation">
@@ -11518,6 +11521,7 @@ $ python server.py
               In der Praxis nutzt man meistens PATCH — weil man selten alle Felder schicken will.
             </div>
           </div>
+          ${quickCheck('Welches HTTP-Verb nutzt du, um Daten nur <em>abzurufen</em> (ohne etwas zu ändern)?', ['GET', 'POST', 'DELETE'], 0, '<code>GET</code> holt Daten und verändert nie etwas. <code>POST</code> erstellt Neues, <code>DELETE</code> löscht.')}
           <div class="content-card animate-in" style="animation-delay:0.1s">
             <div class="card-label">URL-Konventionen für REST</div>
             <div class="code-block">
@@ -11609,6 +11613,7 @@ $ python server.py
   <span class="num">503</span> Unavailable     <span class="cm"># Server überlastet/Wartung</span></div>
             </div>
           </div>
+          ${quickCheck('Ein API-Aufruf liefert Status <code>404</code> zurück. Was bedeutet das?', ['Die Ressource existiert nicht', 'Alles hat geklappt', 'Der Server ist abgestürzt'], 0, '<code>404 Not Found</code> heißt: das Gesuchte gibt es nicht. <code>200</code> = alles ok, <code>500</code> = Server-Fehler.')}
           <div class="content-card animate-in" style="animation-delay:0.19s">
             <div class="card-label">Header — Metadaten der Anfrage</div>
             <div class="explanation">
@@ -11713,6 +11718,7 @@ app = <span class="fn">Flask</span>(__name__)
               <strong>Das typische Symptom:</strong> deine fetch()-Anfrage funktioniert in Postman — aber im Browser kommt eine Fehlermeldung wie <em>"blocked by CORS policy"</em>. Lösung: CORS auf dem Server konfigurieren.
             </div>
           </div>
+          ${callout('warn', 'Die CORS-Falle', 'Wenn ein <code>fetch()</code> im Browser scheitert, aber in Postman klappt, liegt es fast immer an CORS. Die Lösung sitzt nicht im Frontend, sondern im Backend — dort muss der Header <code>Access-Control-Allow-Origin</code> gesetzt werden.')}
           <div class="content-card animate-in" style="animation-delay:0.31s">
             <div class="card-label">APIs testen — Postman, curl, HTTPie</div>
             <div class="explanation">
@@ -11955,6 +11961,7 @@ GET /api/posts?page=2&limit=20   → posts 21–40</div>
 <span class="cm">-- DELETE FROM users;   ← LÖSCHT ALLES! Nicht ohne WHERE!</span></div>
             </div>
           </div>
+          ${callout('warn', 'Nie UPDATE/DELETE ohne WHERE', 'Ein <code>DELETE FROM users;</code> ohne <code>WHERE</code> löscht die komplette Tabelle. Genauso ändert <code>UPDATE</code> ohne <code>WHERE</code> jede einzelne Zeile. Erst mit einem <code>SELECT</code> prüfen, welche Zeilen betroffen sind.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">SELECT vertieft — WHERE, ORDER, LIMIT</div>
             <div class="code-block">
@@ -12015,6 +12022,7 @@ GET /api/posts?page=2&limit=20   → posts 21–40</div>
 <span class="kw">HAVING</span> anzahl > <span class="num">10</span>;</div>
             </div>
           </div>
+          ${quickCheck('Welcher SQL-Befehl <em>liest</em> Daten aus einer Tabelle?', ['SELECT', 'INSERT', 'UPDATE'], 0, '<code>SELECT</code> holt/liest Daten. <code>INSERT</code> fügt neue Zeilen hinzu, <code>UPDATE</code> ändert bestehende.')}
           <div class="content-card animate-in" style="animation-delay:0.22s">
             <div class="card-label">Beziehungen — Foreign Keys</div>
             <div class="explanation">
@@ -12085,6 +12093,7 @@ GET /api/posts?page=2&limit=20   → posts 21–40</div>
               • <code>FULL OUTER JOIN</code> — alle aus beiden (sehr selten)
             </div>
           </div>
+          ${quickCheck('Ein <code>LEFT JOIN</code> von <code>users</code> mit <code>posts</code> liefert...', ['alle User — auch die ohne Post', 'nur User mit mindestens einem Post', 'nur Posts ohne User'], 0, 'Beim <code>LEFT JOIN</code> kommen ALLE Zeilen der linken Tabelle (users) mit — fehlt rechts ein Treffer, steht dort NULL. <code>INNER JOIN</code> zeigt nur die mit Treffer in beiden Tabellen.')}
           <div class="content-card animate-in" style="animation-delay:0.28s">
             <div class="card-label">Indexe — Geschwindigkeit für große Tabellen</div>
             <div class="explanation">
@@ -12506,6 +12515,7 @@ con.<span class="fn">close</span>()</div>
               <strong>Reihenfolge:</strong> immer erst Authentifizierung, dann Autorisierung. Du musst wissen WER zugreift, bevor du entscheiden kannst WAS er darf.
             </div>
           </div>
+          ${quickCheck('Ob Anna einen fremden Post <em>löschen darf</em>, ist eine Frage der...', ['Autorisierung', 'Authentifizierung', 'Verschlüsselung'], 0, 'Autorisierung klärt, WAS jemand darf. Authentifizierung klärt nur, WER jemand ist (der Login davor).')}
           <div class="content-card animate-in" style="animation-delay:0.07s">
             <div class="card-label">Wie identifiziert sich ein Nutzer?</div>
             <div class="explanation">
@@ -12562,6 +12572,7 @@ con.<span class="fn">close</span>()</div>
               <strong>Wichtig zu verstehen:</strong> Header und Payload sind <em>nicht verschlüsselt</em> — jeder kann sie lesen. Sie sind nur Base64-kodiert. Was sie schützt ist die <strong>Signatur</strong>: ohne den geheimen Key auf dem Server kann niemand ein gültiges Token fälschen. Aber: schreib NIEMALS Passwörter oder Geheimnisse in den Payload!
             </div>
           </div>
+          ${callout('warn', 'JWT-Payload ist nicht geheim', 'Header und Payload eines JWT sind nur Base64-kodiert, nicht verschlüsselt — jeder kann sie auf jwt.io lesen. Schreibe also niemals Passwörter oder Geheimnisse hinein. Sicher ist nur: ohne den geheimen Key auf dem Server kann niemand ein gültiges Token fälschen.')}
           <div class="content-card animate-in" style="animation-delay:0.16s">
             <div class="card-label">Der komplette JWT-Flow</div>
             <div class="code-block">
@@ -12659,6 +12670,7 @@ eingabe = <span class="st">b"meinPasswort123"</span>
 #   - rounds=12 ist heute (2026) ein guter Wert</span></div>
             </div>
           </div>
+          ${quickCheck('Wie sollte ein Passwort in der Datenbank liegen?', ['Als bcrypt-Hash', 'Im Klartext', 'Base64-kodiert'], 0, 'Man speichert nur einen langsamen Hash (bcrypt/argon2). So sind die Passwörter selbst bei einem Datenbank-Leak nicht direkt lesbar. Base64 ist keine Verschlüsselung, sondern nur eine Umschreibung.')}
           <div class="content-card animate-in" style="animation-delay:0.25s">
             <div class="card-label">Wo Tokens speichern — die Browser-Frage</div>
             <div class="explanation">
@@ -13005,6 +13017,7 @@ entered = <span class="st">b"myPassword123"</span>
 <span class="kw">CREATE INDEX</span> idx_posts_user_id <span class="kw">ON</span> posts(user_id);</pre>
             </div>
           </div>
+          ${quickCheck('Die 1. Normalform (1NF) verlangt: eine Zelle enthält...', ['nur einen einzelnen Wert (keine Liste)', 'immer eine Zahl', 'mindestens zwei Werte'], 0, '1NF heißt: pro Zelle nur EIN Wert. Statt „rot,grün,blau" in eine Spalte zu quetschen, macht man eine eigene Zeile pro Wert.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">JOINs — Tabellen verbinden</div>
             <div class="explanation">
@@ -13037,6 +13050,8 @@ entered = <span class="st">b"myPassword123"</span>
 );</pre>
             </div>
           </div>
+          ${quickCheck('Ein Post kann viele Tags haben und ein Tag viele Posts. Diese n:m-Beziehung braucht...', ['eine Zwischentabelle (post_tags)', 'gar nichts Zusätzliches', 'zwei Datenbanken'], 0, 'Bei „viele zu viele" legt man eine Hilfstabelle an, die je ein <code>post_id</code> mit einem <code>tag_id</code> verbindet. Jede Kombination wird so zu einer eigenen Zeile.')}
+          ${callout('key', 'Wozu Normalisierung?', 'Jede Information wird nur an EINER Stelle gespeichert. Ändert sich z.B. der Name eines Users, passt du ihn nur einmal an — nicht in tausend Posts. Das verhindert widersprüchliche (inkonsistente) Daten.')}
           ${renderQuestions('l4_5', 6)}
           ${renderBonus('l4_5')}
           ${exercise('ex_l4_5_1', 'Blog-Datenbankschema', 'Entwirf ein normalisiertes Datenbankschema für einen Blog mit: users, posts, comments, tags, post_tags (Many-to-Many). Schreibe SQL für alle CREATE TABLE Statements mit korrekten Primär- und Fremdschlüsseln. Dann schreibe eine Query die alle Posts mit Autor-Name, Kommentar-Anzahl und Tags listet — sortiert nach Erstellungsdatum.', 'Tipp: Many-to-Many (Post ↔ Tag) braucht eine Hilfstabelle post_tags(post_id, tag_id). Nutze JOIN und GROUP BY.', 'JOIN')}
@@ -13134,6 +13149,7 @@ entered = <span class="st">b"myPassword123"</span>
     app.<span class="fn">run</span>(debug=<span class="kw">True</span>)</pre>
             </div>
           </div>
+          ${quickCheck('Was macht eine <strong>Route</strong> in Flask?', ['Sie verbindet eine URL mit einer Funktion', 'Sie speichert Daten in der Datenbank', 'Sie verschlüsselt Passwörter'], 0, 'Eine Route sagt: „Wenn jemand diese URL aufruft, führe diese Funktion aus." <code>@app.route(\'/users\')</code> verbindet z.B. <code>/users</code> mit deiner Python-Funktion.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Middleware & Static Files</div>
             <div class="explanation">
@@ -13169,6 +13185,8 @@ entered = <span class="st">b"myPassword123"</span>
 <span class="cm"># http://localhost:5000/static/style.css</span></pre>
             </div>
           </div>
+          ${quickCheck('Wann läuft Code in <code>@app.before_request</code>?', ['Vor jeder eingehenden Anfrage', 'Nur einmal beim Serverstart', 'Nur wenn ein Fehler auftritt'], 0, 'Middleware mit <code>before_request</code> läuft bei JEDER Anfrage automatisch davor — praktisch für Logging oder Login-Checks.')}
+          ${callout('tip', 'URL-Parameter typisieren', 'Mit <code>&lt;int:user_id&gt;</code> in der Route sagst du Flask: nimm nur Zahlen und übergib sie als Integer. So kommt der Wert schon passend typisiert in deiner Funktion an.')}
           ${renderQuestions('l4_6', 6)}
           ${renderBonus('l4_6')}
           ${exercise('ex_l4_6_1', 'Mini REST API', 'Baue eine Flask API für eine einfache Bücherliste: GET /books gibt alle Bücher zurück, POST /books erstellt ein Buch (erwartet JSON mit title und author), GET /books/<id> gibt ein Buch zurück, DELETE /books/<id> löscht ein Buch. Speichere Bücher in einer Python-Liste (kein DB nötig). Gib immer JSON zurück. Teste mit curl oder dem Browser.', 'Tipp: Nutze eine globale Liste BOOKS = [] und vergib automatisch IDs. from flask import Flask, request, jsonify, abort', 'route')}
@@ -13256,6 +13274,7 @@ entered = <span class="st">b"myPassword123"</span>
 <span class="fn">user</span> = User.<span class="fn">query</span>.<span class="fn">filter_by</span>(username=username).<span class="fn">first</span>()</pre>
             </div>
           </div>
+          ${quickCheck('Wie verhinderst du SQL-Injection zuverlässig?', ['Prepared Statements mit Platzhaltern (?)', 'User-Input per f-string in die Query einbauen', 'die Query einfach kürzer machen'], 0, 'Prepared Statements trennen SQL-Befehl und Daten: der eingegebene Wert wird nie als Befehl ausgeführt. Erst das Zusammenbauen per f-string öffnet die Lücke.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">Umgebungsvariablen & Input-Validierung</div>
             <div class="explanation">
@@ -13287,6 +13306,8 @@ load_dotenv()  <span class="cm"># lädt .env Datei</span>
 <span class="fn">CORS</span>(app, origins=[<span class="st">"https://meinedomain.de"</span>])</pre>
             </div>
           </div>
+          ${quickCheck('Wohin gehören API-Keys und Datenbank-Passwörter?', ['In eine .env-Datei außerhalb des Codes', 'Direkt in den Quellcode', 'In die README auf GitHub'], 0, 'Geheimnisse legt man in eine <code>.env</code>-Datei, die per <code>.gitignore</code> aus Git ausgeschlossen wird. So landen sie nie im öffentlichen Code.')}
+          ${callout('warn', 'Input immer serverseitig prüfen', 'Prüfungen im Frontend sind nur Komfort — ein Angreifer schickt Anfragen direkt an deine API, am Browser vorbei. Jede Eingabe muss deshalb zusätzlich auf dem Server validiert werden.')}
           ${renderQuestions('l4_7', 6)}
           ${renderBonus('l4_7')}
           ${exercise('ex_l4_7_1', 'Sicheres Login-System', 'Baue ein sicheres Login mit Flask: (1) Alle Passwörter mit bcrypt hashen (pip install bcrypt). (2) Login-Versuche auf 5/Minute begrenzen (Rate Limiting mit flask-limiter). (3) Alle Geheimnisse in .env auslagern. (4) Input-Validierung für Email und Passwort. (5) Security-Header via after_request hinzufügen (X-Content-Type-Options, X-Frame-Options, Strict-Transport-Security).', 'Tipp: import bcrypt; bcrypt.hashpw(password.encode(), bcrypt.gensalt()) zum Hashen, bcrypt.checkpw() zum Prüfen.', 'sanitize')}
@@ -13373,6 +13394,7 @@ load_dotenv()
 <span class="kw">CMD</span> [<span class="st">"uvicorn"</span>, <span class="st">"main:app"</span>, <span class="st">"--host"</span>, <span class="st">"0.0.0.0"</span>, <span class="st">"--port"</span>, <span class="st">"8000"</span>]</pre>
             </div>
           </div>
+          ${quickCheck('Was unterscheidet einen <strong>Container</strong> von einer VM?', ['Er teilt den Host-Kernel und ist viel leichter', 'Er bringt ein komplettes eigenes Betriebssystem mit', 'Er braucht gar keine CPU'], 0, 'Ein Container isoliert nur Prozesse und nutzt den Kernel des Hosts mit — deshalb startet er in Sekunden. Eine VM virtualisiert dagegen eine ganze Maschine samt eigenem Betriebssystem.')}
           <div class="content-card animate-in" style="animation-delay:0.08s">
             <div class="card-label">docker build/run & Umgebungsvariablen</div>
             <div class="explanation">
@@ -13402,6 +13424,8 @@ docker logs &lt;container-id&gt;
 docker exec -it &lt;container-id&gt; /bin/bash</pre>
             </div>
           </div>
+          ${quickCheck('Womit erstellst du aus einem Dockerfile ein <em>Image</em>?', ['docker build', 'docker run', 'docker logs'], 0, '<code>docker build</code> baut aus dem Dockerfile das Image. <code>docker run</code> startet daraus dann einen laufenden Container.')}
+          ${callout('key', 'Warum überhaupt Docker?', 'Der Container packt deine App mit allen Abhängigkeiten in ein festes Paket. So läuft sie auf deinem Laptop, beim Kollegen und auf dem Server exakt gleich — „works on my machine" ist damit erledigt.')}
           ${renderQuestions('l4_8', 6)}
           ${renderBonus('l4_8')}
           ${exercise('ex_l4_8_1', 'Dockerize deine Flask API', 'Nimm die Flask API aus Lektion 4.6 und erstelle ein Dockerfile. Baue das Image, starte den Container mit einem Port-Mapping und teste dass die API unter http://localhost:8000 erreichbar ist. Füge eine .dockerignore Datei hinzu (schließt __pycache__, .env, .git aus). Bonus: Erstelle eine docker-compose.yml die die Flask API und eine Postgres-Datenbank zusammen startet.', 'Tipp: FROM python:3.12-slim als Basis. Vergiss nicht WORKDIR zu setzen und CMD zu definieren.', 'FROM')}
