@@ -19822,6 +19822,27 @@ GET  /api/deleteUser?id=42     <span class="cm"># WRONG</span></div>
             </div>
           </div>
           ${quickCheck('Which HTTP method do you use to delete an existing user?', ['DELETE /api/v1/users/42', 'GET /api/deleteUser?id=42', 'POST /api/removeUser'], 0, 'In REST the action is in the HTTP method, not in the URL name. The resource is the user <code>/users/42</code>, and <code>DELETE</code> says: remove it. A verb like <code>deleteUser</code> in the URL is exactly NOT REST-compliant.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Consistent Error Responses</div>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-lang">json</span><button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i>copy</button></div>
+              <div class="code-pre">{
+  <span class="st">"error"</span>: {
+    <span class="st">"code"</span>: <span class="st">"USER_NOT_FOUND"</span>,
+    <span class="st">"message"</span>: <span class="st">"No user found with ID 42"</span>,
+    <span class="st">"details"</span>: { <span class="st">"id"</span>: <span class="num">42</span> },
+    <span class="st">"timestamp"</span>: <span class="st">"2025-01-15T14:30:00Z"</span>,
+    <span class="st">"trace_id"</span>: <span class="st">"abc-123-xyz"</span>
+  }
+}
+
+<span class="cm">// HTTP Status Codes — the most important ones:</span>
+<span class="cm">// 200 OK, 201 Created, 204 No Content</span>
+<span class="cm">// 400 Bad Request, 401 Unauthorized, 403 Forbidden</span>
+<span class="cm">// 404 Not Found, 409 Conflict, 422 Validation Error</span>
+<span class="cm">// 429 Too Many Requests, 500 Internal Server Error</span></div>
+            </div>
+          </div>
           ${quickCheck('A client requests a user that does not exist. Which status code fits?', ['404 Not Found', '200 OK', '500 Internal Server Error'], 0, 'The request was fine, only the resource does not exist — that is exactly <code>404 Not Found</code>. <code>500</code> would mean YOUR server has an error, and <code>200</code> would falsely signal success.')}
           ${callout('key', 'Status codes are the language of your API', 'The number range immediately reveals who is to blame: 2xx = all good, 4xx = the client made a mistake (wrong input, missing rights), 5xx = the server is at fault.')}
           ${renderQuestions('l6_6', 6)}
@@ -20920,7 +20941,8 @@ function getPassThreshold() {
 
 function getDifficultyLabel() {
   const d = state.difficulty || 'moderate';
-  return d === 'easy' ? 'Leicht' : d === 'hard' ? 'Schwer' : 'Moderat';
+  const en = _qEN();
+  return d === 'easy' ? (en ? 'Easy' : 'Leicht') : d === 'hard' ? (en ? 'Hard' : 'Schwer') : (en ? 'Moderate' : 'Moderat');
 }
 
 // Pick N questions from pool for a lesson — avoids recently shown ones
@@ -21169,14 +21191,15 @@ function showFailSummary(xp, maxXP, threshold) {
   body.querySelector('.lesson-result')?.remove();
   const div = document.createElement('div');
   div.className = 'lesson-result fail animate-in';
+  const en = _qEN();
   div.innerHTML = `
-    <div class="result-title"><i data-lucide="x-circle"></i>Nicht bestanden</div>
+    <div class="result-title"><i data-lucide="x-circle"></i>${en ? 'Not passed' : 'Nicht bestanden'}</div>
     <div class="result-stats">
-      Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%).<br>
-      Mindestens <strong>${needed} XP (${Math.round(threshold*100)}%)</strong> nötig für <em>${getDifficultyLabel()}</em>-Modus.
+      ${en ? `You scored <strong>${xp} of ${maxXP} XP</strong> (${pct}%).` : `Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%).`}<br>
+      ${en ? `At least <strong>${needed} XP (${Math.round(threshold*100)}%)</strong> needed for <em>${getDifficultyLabel()}</em> mode.` : `Mindestens <strong>${needed} XP (${Math.round(threshold*100)}%)</strong> nötig für <em>${getDifficultyLabel()}</em>-Modus.`}
     </div>
     <div class="result-bar-wrap"><div class="result-bar-fill" style="width:${pct}%"></div></div>
-    <button class="retry-btn" onclick="retryLesson()"><i data-lucide="refresh-cw"></i>Neue Aufgaben – nochmal versuchen</button>
+    <button class="retry-btn" onclick="retryLesson()"><i data-lucide="refresh-cw"></i>${en ? 'New questions – try again' : 'Neue Aufgaben – nochmal versuchen'}</button>
   `;
   body.appendChild(div);
   lucide.createIcons({ nodes: [div] });
@@ -21190,9 +21213,10 @@ function showPassSummary(xp, maxXP) {
   body.querySelector('.lesson-result')?.remove();
   const div = document.createElement('div');
   div.className = 'lesson-result pass animate-in';
+  const en = _qEN();
   div.innerHTML = `
-    <div class="result-title"><i data-lucide="check-circle"></i>Bestanden!</div>
-    <div class="result-stats">Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%). Weiter geht's!</div>
+    <div class="result-title"><i data-lucide="check-circle"></i>${en ? 'Passed!' : 'Bestanden!'}</div>
+    <div class="result-stats">${en ? `You scored <strong>${xp} of ${maxXP} XP</strong> (${pct}%). Keep going!` : `Du hast <strong>${xp} von ${maxXP} XP</strong> erreicht (${pct}%). Weiter geht's!`}</div>
     <div class="result-bar-wrap"><div class="result-bar-fill" style="width:${pct}%"></div></div>
   `;
   body.appendChild(div);
@@ -26245,10 +26269,10 @@ function awardGami(amount) {
 
 // Level titles (shown in profile + header tooltip)
 const LEVEL_TITLES = [
-  { min: 25, name: 'Meister' }, { min: 17, name: 'Experte' }, { min: 12, name: 'Profi' },
-  { min: 8, name: 'Entwickler' }, { min: 5, name: 'Lehrling' }, { min: 3, name: 'Einsteiger' }, { min: 0, name: 'Neuling' },
+  { min: 25, name: 'Meister', name_en: 'Master' }, { min: 17, name: 'Experte', name_en: 'Expert' }, { min: 12, name: 'Profi', name_en: 'Pro' },
+  { min: 8, name: 'Entwickler', name_en: 'Developer' }, { min: 5, name: 'Lehrling', name_en: 'Apprentice' }, { min: 3, name: 'Einsteiger', name_en: 'Beginner' }, { min: 0, name: 'Neuling', name_en: 'Novice' },
 ];
-function getLevelTitle(level) { return (LEVEL_TITLES.find(t => level >= t.min) || LEVEL_TITLES[LEVEL_TITLES.length - 1]).name; }
+function getLevelTitle(level) { const t = (LEVEL_TITLES.find(t => level >= t.min) || LEVEL_TITLES[LEVEL_TITLES.length - 1]); return (_qEN() && t.name_en) ? t.name_en : t.name; }
 
 // ---- Wrong-answer tracking (for the review / practice-mistakes mode) ----
 function loadWrongSet(pid) { try { return new Set(JSON.parse(localStorage.getItem(`cp_p_${pid}_wrong`) || '[]')); } catch { return new Set(); } }
@@ -26285,15 +26309,17 @@ function _phaseComplete(s, phaseId) {
   return !!ph && ph.lessons.length > 0 && ph.lessons.every(l => s.completed.has(l.id));
 }
 const ACHIEVEMENTS = [
-  { id: 'first_lesson', icon: 'footprints',    name: 'Erste Schritte',       desc: 'Erste Lektion abgeschlossen', check: s => s.completed.size >= 1 },
-  { id: 'ten_lessons',  icon: 'book-open',      name: 'Fleißig',              desc: '10 Lektionen abgeschlossen',  check: s => s.completed.size >= 10 },
-  { id: 'xp_100',       icon: 'zap',            name: 'Hundert',              desc: '100 XP gesammelt',            check: s => s.xp >= 100 },
-  { id: 'xp_500',       icon: 'flame',          name: 'Auf Betriebstemperatur', desc: '500 XP gesammelt',          check: s => s.xp >= 500 },
-  { id: 'level_5',      icon: 'star',           name: 'Level 5',              desc: 'Level 5 erreicht',            check: s => getLevel(s.xp) >= 5 },
-  { id: 'streak_3',     icon: 'calendar-check', name: 'Dranbleiber',          desc: '3 Tage in Folge gelernt',     check: s => (s.gami && s.gami.streak || 0) >= 3 },
-  { id: 'streak_7',     icon: 'flame',          name: 'Wochen-Streak',        desc: '7 Tage in Folge gelernt',     check: s => (s.gami && s.gami.streak || 0) >= 7 },
-  { id: 'phase1',       icon: 'cpu',            name: 'Fundament gemeistert', desc: 'Phase 1 abgeschlossen',       check: s => _phaseComplete(s, 'p1') },
+  { id: 'first_lesson', icon: 'footprints',    name: 'Erste Schritte',       name_en: 'First Steps',         desc: 'Erste Lektion abgeschlossen', desc_en: 'Completed your first lesson',  check: s => s.completed.size >= 1 },
+  { id: 'ten_lessons',  icon: 'book-open',      name: 'Fleißig',              name_en: 'Diligent',            desc: '10 Lektionen abgeschlossen',  desc_en: 'Completed 10 lessons',         check: s => s.completed.size >= 10 },
+  { id: 'xp_100',       icon: 'zap',            name: 'Hundert',              name_en: 'Century',             desc: '100 XP gesammelt',            desc_en: 'Collected 100 XP',             check: s => s.xp >= 100 },
+  { id: 'xp_500',       icon: 'flame',          name: 'Auf Betriebstemperatur', name_en: 'Warmed Up',         desc: '500 XP gesammelt',            desc_en: 'Collected 500 XP',             check: s => s.xp >= 500 },
+  { id: 'level_5',      icon: 'star',           name: 'Level 5',              name_en: 'Level 5',             desc: 'Level 5 erreicht',            desc_en: 'Reached level 5',              check: s => getLevel(s.xp) >= 5 },
+  { id: 'streak_3',     icon: 'calendar-check', name: 'Dranbleiber',          name_en: 'Consistent',          desc: '3 Tage in Folge gelernt',     desc_en: 'Learned 3 days in a row',      check: s => (s.gami && s.gami.streak || 0) >= 3 },
+  { id: 'streak_7',     icon: 'flame',          name: 'Wochen-Streak',        name_en: 'Week Streak',         desc: '7 Tage in Folge gelernt',     desc_en: 'Learned 7 days in a row',      check: s => (s.gami && s.gami.streak || 0) >= 7 },
+  { id: 'phase1',       icon: 'cpu',            name: 'Fundament gemeistert', name_en: 'Foundation Mastered', desc: 'Phase 1 abgeschlossen',       desc_en: 'Completed phase 1',            check: s => _phaseComplete(s, 'p1') },
 ];
+function _achName(a) { return (_qEN() && a.name_en) ? a.name_en : a.name; }
+function _achDesc(a) { return (_qEN() && a.desc_en) ? a.desc_en : a.desc; }
 function loadAchievements(id) { try { return new Set(JSON.parse(localStorage.getItem(`cp_p_${id}_ach`) || '[]')); } catch { return new Set(); } }
 function saveAchievements(id, set) { try { localStorage.setItem(`cp_p_${id}_ach`, JSON.stringify([...set])); } catch {} }
 function checkAchievements() {
@@ -26306,7 +26332,7 @@ function checkAchievements() {
     saveAchievements(id, unlocked);
     state.achievements = unlocked;
     // Stagger multiple unlocks so each celebration is visible
-    newly.forEach((a, i) => setTimeout(() => celebrate('achievement', a.name, a.icon), i * 900));
+    newly.forEach((a, i) => setTimeout(() => celebrate('achievement', _achName(a), a.icon), i * 900));
   }
 }
 
@@ -26315,7 +26341,8 @@ function celebrate(kind, msg, icon) {
   let el = document.getElementById('celebrate-toast');
   if (!el) { el = document.createElement('div'); el.id = 'celebrate-toast'; document.body.appendChild(el); }
   const color = kind === 'level' ? 'var(--accent)' : (kind === 'achievement' || kind === 'streak') ? 'var(--orange)' : 'var(--green)';
-  const head = kind === 'level' ? 'Level Up!' : kind === 'achievement' ? 'Achievement freigeschaltet' : kind === 'streak' ? 'Streak-Meilenstein!' : kind === 'lesson' ? 'Lektion geschafft!' : 'Geschafft!';
+  const _en = _qEN();
+  const head = kind === 'level' ? 'Level Up!' : kind === 'achievement' ? (_en ? 'Achievement unlocked' : 'Achievement freigeschaltet') : kind === 'streak' ? (_en ? 'Streak milestone!' : 'Streak-Meilenstein!') : kind === 'lesson' ? (_en ? 'Lesson complete!' : 'Lektion geschafft!') : (_en ? 'Done!' : 'Geschafft!');
   el.innerHTML = `<span class="celebrate-ico" style="background:${color}"><i data-lucide="${icon || 'party-popper'}"></i></span>` +
                  `<span class="celebrate-txt"><b>${head}</b>${msg}</span>`;
   try { lucide.createIcons({ nodes: [el] }); } catch {}
@@ -26391,7 +26418,7 @@ function addXP(amount) {
   updateProgress();
   _floatXP(amount);
   if (getLevel(state.xp) > prevLevel) celebrate('level', 'Level ' + getLevel(state.xp) + ' · ' + getLevelTitle(getLevel(state.xp)), 'star');
-  if (state._newStreakMilestone) { const m = state._newStreakMilestone; state._newStreakMilestone = null; setTimeout(() => celebrate('streak', m + ' Tage in Folge!', 'flame'), 500); }
+  if (state._newStreakMilestone) { const m = state._newStreakMilestone; state._newStreakMilestone = null; setTimeout(() => celebrate('streak', _qEN() ? (m + '-day streak!') : (m + ' Tage in Folge!'), 'flame'), 500); }
   checkAchievements();
   const el = document.getElementById('xp-display');
   el.classList.remove('xp-flash');
@@ -26581,7 +26608,7 @@ function checkLessonComplete() {
     persistState();
     document.getElementById('done-badge')?.classList.add('show');
     checkAchievements();
-    setTimeout(() => celebrate('lesson', (lesson.title || 'Lektion') + ' abgeschlossen', 'party-popper'), 350);
+    setTimeout(() => { const _en = _qEN(); const _t = (_en ? (lesson.title_en || lesson.title) : lesson.title); celebrate('lesson', _en ? ((_t || 'Lesson') + ' completed') : ((_t || 'Lektion') + ' abgeschlossen'), 'party-popper'); }, 350);
   }
   updateNav();
 }
@@ -27166,7 +27193,7 @@ function showProfileStats() {
     })()}
     ${adminZone}
     <div class="psp-section-title">Achievements <span class="psp-ach-count">${loadAchievements(p.id).size}/${ACHIEVEMENTS.length}</span></div>
-    <div class="psp-ach-grid">${(() => { const set = loadAchievements(p.id); return ACHIEVEMENTS.map(a => { const un = set.has(a.id); return `<div class="psp-ach ${un ? 'unlocked' : 'locked'}" title="${a.desc}"><div class="psp-ach-ico"><i data-lucide="${un ? a.icon : 'lock'}"></i></div><div class="psp-ach-name">${a.name}</div><div class="psp-ach-desc">${a.desc}</div></div>`; }).join(''); })()}</div>
+    <div class="psp-ach-grid">${(() => { const set = loadAchievements(p.id); return ACHIEVEMENTS.map(a => { const un = set.has(a.id); return `<div class="psp-ach ${un ? 'unlocked' : 'locked'}" title="${_achDesc(a)}"><div class="psp-ach-ico"><i data-lucide="${un ? a.icon : 'lock'}"></i></div><div class="psp-ach-name">${_achName(a)}</div><div class="psp-ach-desc">${_achDesc(a)}</div></div>`; }).join(''); })()}</div>
     <div class="psp-section-title">Fortschritt pro Phase</div>
     <div class="psp-phases">${phaseBars}</div>
   `;
