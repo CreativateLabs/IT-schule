@@ -2570,6 +2570,7 @@ body {
   position: relative; overflow: hidden;
   background: var(--surface2); border: 2px solid var(--border);
   border-radius: 32px; padding: 52px 40px 46px; margin: 48px 0;
+  box-shadow: 0 8px 0 var(--border2);
 }
 .landing-features::before {
   content: ''; position: absolute; top: -70px; left: -50px; width: 260px; height: 260px; border-radius: 50%;
@@ -2650,27 +2651,26 @@ body {
 /* ---- How it works (steps) — bold dark panel ---- */
 .landing-steps {
   position: relative; overflow: hidden;
-  background: #17162a; border-radius: 32px;
+  background: var(--accent); border-radius: 32px;
   padding: 52px 44px; margin: 56px 0;
-  box-shadow: 0 8px 0 #0e0d1c;
+  box-shadow: 0 8px 0 var(--accent-ink);
 }
-/* decorative floating blobs */
+/* decorative floating blobs — match the indigo gamify/CTA tiles */
 .landing-steps::before {
-  content: ''; position: absolute; top: -80px; right: -60px; width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(99,102,241,0.45), transparent 70%); filter: blur(20px); pointer-events: none;
+  content: ''; position: absolute; top: -90px; right: -60px; width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 70%); pointer-events: none;
 }
 .landing-steps::after {
-  content: ''; position: absolute; bottom: -100px; left: -40px; width: 280px; height: 280px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(249,115,22,0.30), transparent 70%); filter: blur(20px); pointer-events: none;
+  content: ''; position: absolute; bottom: -110px; left: -50px; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.35), transparent 70%); filter: blur(10px); pointer-events: none;
 }
 .landing-steps > * { position: relative; z-index: 1; }
 .landing-steps .landing-section-title { color: #fff; }
-.landing-steps .landing-section-num { color: #fb923c; }
+.landing-steps .landing-section-num { color: #fde68a; }
 .steps-row { display: flex; align-items: stretch; gap: 8px; }
 .step-card {
-  flex: 1; background: rgba(255,255,255,0.055); border: 2px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-lg); padding: 26px 22px; box-shadow: 0 4px 0 rgba(0,0,0,0.35);
-  backdrop-filter: blur(4px);
+  flex: 1; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius-lg); padding: 26px 22px; box-shadow: 0 4px 0 rgba(0,0,0,0.15);
 }
 .landing-steps .feature-title { color: #fff; }
 .landing-steps .feature-text { color: rgba(255,255,255,0.72); }
@@ -3443,7 +3443,16 @@ body {
           <!-- Login -->
           <div class="nav-auth-form" id="nav-form-login">
             <input type="text" class="landing-name-input" id="nav-login-username-input" placeholder="Benutzername" maxlength="30" autocomplete="username">
-            <input type="password" class="landing-name-input" id="nav-login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password">
+            <div style="position:relative;display:flex;align-items:center;">
+              <input type="password" class="landing-name-input" id="nav-login-password-input" placeholder="Passwort" maxlength="60" autocomplete="current-password" style="width:100%;padding-right:2.6rem;">
+              <button type="button" id="nav-login-pw-toggle" onclick="togglePw('nav-login-password-input', this)" title="Passwort anzeigen" style="position:absolute;right:0.7rem;background:none;border:none;cursor:pointer;color:var(--text2);padding:0;display:flex;">
+                <i data-lucide="eye" style="width:18px;height:18px;"></i>
+              </button>
+            </div>
+            <label class="auth-remember" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);cursor:pointer;user-select:none;margin:1px 0;">
+              <input type="checkbox" id="nav-login-remember" checked style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;">
+              <span data-i18n="stay_logged_in">Angemeldet bleiben</span>
+            </label>
             <div class="landing-input-error" id="nav-login-error"></div>
             <button class="landing-start-btn" id="nav-login-btn" onclick="navLogin()">
               <i data-lucide="log-in"></i><span>Einloggen</span>
@@ -3646,6 +3655,10 @@ body {
                 <i data-lucide="eye" style="width:18px;height:18px;"></i>
               </button>
             </div>
+            <label class="auth-remember" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);cursor:pointer;user-select:none;">
+              <input type="checkbox" id="login-remember" checked style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;">
+              <span data-i18n="stay_logged_in">Angemeldet bleiben</span>
+            </label>
             <div class="landing-input-error" id="landing-login-error"></div>
             <button class="landing-start-btn" id="landing-login-btn" onclick="landingLogin()">
               <i data-lucide="log-in"></i><span>Einloggen</span>
@@ -3914,6 +3927,7 @@ const I18N = {
     name_placeholder:'Username', pw_placeholder:'Passwort', pw2_placeholder:'Passwort wiederholen',
     landing_start_btn:'Loslegen',
     landing_privacy:'Daten sicher auf unserem Server gespeichert · verschlüsselt übertragen',
+    stay_logged_in:'Angemeldet bleiben',
   },
   en: {
     signin:'Sign in', overview:'Overview', overall_progress:'Overall Progress',
@@ -3967,6 +3981,7 @@ const I18N = {
     name_placeholder:'Username', pw_placeholder:'Password', pw2_placeholder:'Confirm password',
     landing_start_btn:'Get started',
     landing_privacy:'Data stored securely on our server · encrypted in transit',
+    stay_logged_in:'Stay signed in',
   }
 };
 
@@ -20749,14 +20764,29 @@ function migrateLegacyData() {
   }
 }
 
+// Read the active profile id — a non-remembered session (sessionStorage) wins over the
+// remembered one (localStorage), so "Stay signed in = off" logs out on browser close.
+function _readActiveId() {
+  try { const s = sessionStorage.getItem(STORAGE.active); if (s) return s; } catch (e) {}
+  try { return localStorage.getItem(STORAGE.active); } catch (e) { return null; }
+}
+
 function getActiveProfile() {
-  const activeId = localStorage.getItem(STORAGE.active);
+  const activeId = _readActiveId();
   const profiles = loadProfiles();
   return profiles.find(p => p.id === activeId) || null;
 }
 
-function setActiveProfile(profileId) {
-  localStorage.setItem(STORAGE.active, profileId);
+// remember (default true): persist in localStorage across browser sessions.
+// remember === false: keep only in sessionStorage for this tab/session.
+function setActiveProfile(profileId, remember) {
+  if (remember === false) {
+    try { sessionStorage.setItem(STORAGE.active, profileId); } catch (e) {}
+    try { localStorage.removeItem(STORAGE.active); } catch (e) {}
+  } else {
+    try { localStorage.setItem(STORAGE.active, profileId); } catch (e) {}
+    try { sessionStorage.removeItem(STORAGE.active); } catch (e) {}
+  }
 }
 
 // Hardcoded admin seed — only ONE admin profile is allowed, created automatically on init.
@@ -20816,12 +20846,12 @@ function deleteProfile(profileId) {
   saveProfiles(profiles);
   localStorage.removeItem(STORAGE.profileKey(profileId, 'done'));
   localStorage.removeItem(STORAGE.profileKey(profileId, 'xp'));
-  if (localStorage.getItem(STORAGE.active) === profileId) {
+  if (_readActiveId() === profileId) {
     // Never fall back into the admin profile — that would grant admin access
     // without a password. Pick the next non-admin profile, else clear (-> Landing).
     const next = profiles.find(p => !p.isAdmin);
     if (next) setActiveProfile(next.id);
-    else localStorage.removeItem(STORAGE.active);
+    else { try { localStorage.removeItem(STORAGE.active); } catch(e){} try { sessionStorage.removeItem(STORAGE.active); } catch(e){} }
   }
 }
 
@@ -26979,7 +27009,7 @@ function doSwitchProfile(profileId) {
 function handleProfileAction(action) {
   document.getElementById('profile-menu').classList.remove('show');
   if (action === 'landing') { persistState(); wipeTransition(() => showLanding()); }
-  else if (action === 'logout') { persistState(); API.logout(); wipeTransition(() => showLanding()); }
+  else if (action === 'logout') { persistState(); API.logout(); try { localStorage.removeItem(STORAGE.active); } catch(e){} try { sessionStorage.removeItem(STORAGE.active); } catch(e){} state.activeProfile = null; wipeTransition(() => showLanding()); }
   else if (action === 'new') showNewProfileModal();
   else if (action === 'export') exportProgress();
   else if (action === 'import') document.getElementById('import-input').click();
@@ -27626,9 +27656,10 @@ function buildLandingLoginPanel() {
 }
 
 // Core login logic — shared by both nav dropdown and landing panel forms
-async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
+async function _doLoginCore(usernameEl, passwordEl, errEl, btn, remember) {
   const username = usernameEl.value.trim();
   const password = passwordEl.value;
+  const _remember = remember !== false; // default: stay signed in
 
   if (!username) { errEl.textContent = 'Bitte Benutzername eingeben.'; usernameEl.focus(); return; }
   if (!password) { errEl.textContent = 'Bitte Passwort eingeben.'; passwordEl.focus(); return; }
@@ -27655,7 +27686,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     };
     btn.disabled = false;
     persistState();
-    setActiveProfile(adminProfile.id);
+    setActiveProfile(adminProfile.id, _remember);
     loadActiveState();
     state.currentPhase = 0; state.currentLesson = 0;
     state.quizAnswered.clear(); state.quizAttempts.clear();
@@ -27675,7 +27706,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
     }
     btn.disabled = false;
     persistState();
-    setActiveProfile(localAdmin.id);
+    setActiveProfile(localAdmin.id, _remember);
     loadActiveState();
     state.currentPhase = 0; state.currentLesson = 0;
     state.quizAnswered.clear(); state.quizAttempts.clear();
@@ -27703,7 +27734,7 @@ async function _doLoginCore(usernameEl, passwordEl, errEl, btn) {
       // Keep the higher of local vs. server XP so offline progress isn't lost
       xp: Math.max(parseInt(existing.xp, 10) || 0, parseInt(me.xp, 10) || 0)
     });
-    setActiveProfile(profile.id);
+    setActiveProfile(profile.id, _remember);
     loadActiveState();
     // Clamp server lesson index safely — server doesn't know phase structure
     const serverLesson = Math.max(0, parseInt(me.current_lesson || 0, 10));
@@ -27727,9 +27758,9 @@ function closeNavAuth() {
   if (panel) panel.classList.remove('open');
 }
 
-function toggleLoginPw() {
-  const inp = document.getElementById('login-password-input');
-  const btn = document.getElementById('login-pw-toggle');
+// Generic password show/hide toggle — pass the input id and the clicked button.
+function togglePw(inputId, btn) {
+  const inp = document.getElementById(inputId);
   if (!inp) return;
   const show = inp.type === 'password';
   inp.type = show ? 'text' : 'password';
@@ -27737,27 +27768,34 @@ function toggleLoginPw() {
     btn.innerHTML = show
       ? '<i data-lucide="eye-off" style="width:18px;height:18px;"></i>'
       : '<i data-lucide="eye" style="width:18px;height:18px;"></i>';
-    lucide.createIcons({ nodes: [btn] });
+    btn.title = show ? (_qEN() ? 'Hide password' : 'Passwort verbergen') : (_qEN() ? 'Show password' : 'Passwort anzeigen');
+    try { lucide.createIcons({ nodes: [btn] }); } catch {}
   }
 }
+// Back-compat wrapper for the landing panel login toggle
+function toggleLoginPw() { togglePw('login-password-input', document.getElementById('login-pw-toggle')); }
 
 // Landing panel login form (main page, always visible)
 async function landingLogin() {
+  const rem = document.getElementById('login-remember');
   await _doLoginCore(
     document.getElementById('login-username-input'),
     document.getElementById('login-password-input'),
     document.getElementById('landing-login-error'),
-    document.getElementById('landing-login-btn')
+    document.getElementById('landing-login-btn'),
+    rem ? rem.checked : true
   );
 }
 
 // Nav dropdown login form (top nav bar)
 async function navLogin() {
+  const rem = document.getElementById('nav-login-remember');
   await _doLoginCore(
     document.getElementById('nav-login-username-input'),
     document.getElementById('nav-login-password-input'),
     document.getElementById('nav-login-error'),
-    document.getElementById('nav-login-btn')
+    document.getElementById('nav-login-btn'),
+    rem ? rem.checked : true
   );
 }
 
@@ -28993,11 +29031,12 @@ function init() {
   splitHeroLines();
   initBgMatrix();
   buildPhaseTiles();
-  // "Angemeldet bleiben": aktives Nicht-Admin-Profil direkt fortsetzen
-  const _activeId = localStorage.getItem(STORAGE.active);
+  // "Angemeldet bleiben": aktives Nicht-Admin-Profil direkt fortsetzen.
+  // _readActiveId() liest sessionStorage (nicht gemerkt) vor localStorage (gemerkt);
+  // NICHT erneut setActiveProfile aufrufen, sonst wandert ein Session-Profil dauerhaft in localStorage.
+  const _activeId = _readActiveId();
   const _activeProf = _activeId ? loadProfiles().find(p => p.id === _activeId) : null;
   if (_activeProf && !_activeProf.isAdmin && window.location.hash !== '#admin') {
-    setActiveProfile(_activeProf.id);
     loadActiveState();
     document.getElementById('landing').classList.remove('show');
     document.getElementById('app').classList.add('show');
