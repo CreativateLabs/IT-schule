@@ -671,6 +671,35 @@ body {
 /* ---- Lernweg full-screen map ---- */
 #lernweg-view { position: fixed; inset: 0; z-index: 600; background: var(--bg); display: none; flex-direction: column; }
 #lernweg-view.show { display: flex; }
+
+/* ---- Course select (platform entry) ---- */
+#course-view { position: fixed; inset: 0; z-index: 640; background: var(--bg); display: none; flex-direction: column; overflow-y: auto; }
+#course-view.show { display: flex; }
+.cv-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 14px; border: 2px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; display: grid; place-items: center; box-shadow: 0 4px 0 var(--border2); z-index: 2; }
+.cv-close:active { transform: translateY(4px); box-shadow: 0 0 0 var(--border2); }
+.cv-header { text-align: center; padding: 52px 24px 8px; }
+.cv-eyebrow { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent2); }
+.cv-title { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4vw, 40px); color: var(--text); margin: 10px 0 6px; letter-spacing: -0.5px; }
+.cv-sub { font-size: 15px; color: var(--text2); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.cv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 960px; width: 100%; margin: 32px auto; padding: 0 24px 80px; }
+.cv-card { text-align: left; background: var(--surface); border: 2px solid var(--border); border-radius: 24px; padding: 26px; box-shadow: 0 6px 0 var(--border2); display: flex; flex-direction: column; gap: 14px; transition: transform .12s ease, box-shadow .12s ease, border-color .15s; }
+.cv-card.available { cursor: pointer; }
+.cv-card.available:hover { transform: translateY(-4px); box-shadow: 0 10px 0 var(--border2); border-color: var(--border2); }
+.cv-card.soon { opacity: .6; }
+.cv-card-top { display: flex; align-items: center; justify-content: space-between; }
+.cv-ico { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.14); }
+.cv-ico [data-lucide] { width: 28px; height: 28px; }
+.cv-badge { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: var(--accent-glow); color: var(--accent2); white-space: nowrap; }
+.cv-badge.soon { background: var(--surface3); color: var(--text3); }
+.cv-card-title { font-family: var(--display); font-weight: 700; font-size: 21px; color: var(--text); }
+.cv-card-sub { font-size: 14px; color: var(--text2); line-height: 1.55; flex: 1; }
+.cv-meta { display: flex; align-items: center; gap: 16px; font-size: 12.5px; color: var(--text3); font-family: var(--mono); }
+.cv-meta [data-lucide] { width: 14px; height: 14px; vertical-align: -2px; }
+.cv-prog { height: 8px; background: var(--surface3); border-radius: 999px; overflow: hidden; }
+.cv-prog-fill { height: 100%; background: var(--green); border-radius: 999px; }
+.cv-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--display); font-weight: 700; font-size: 15px; padding: 12px; border-radius: 14px; border: none; background: var(--accent); color: #fff; cursor: pointer; box-shadow: 0 4px 0 var(--accent-ink); transition: transform .1s, box-shadow .1s; }
+.cv-cta:active { transform: translateY(4px); box-shadow: 0 0 0 var(--accent-ink); }
+.cv-cta.soon { background: var(--surface3); color: var(--text3); box-shadow: 0 4px 0 var(--border2); cursor: not-allowed; }
 .lw-header { display: flex; align-items: center; gap: 20px; padding: 18px 28px; border-bottom: 2px solid var(--border); background: var(--surface); }
 .lw-title-wrap { flex: 1; min-width: 0; }
 .lw-title { font-family: var(--display); font-weight: 700; font-size: 24px; color: var(--text); letter-spacing: -0.3px; }
@@ -3809,6 +3838,7 @@ body {
     <div class="topbar-controls">
       <button class="ctrl-btn" id="lang-btn-app" onclick="toggleLang()" title="Switch language">DE</button>
       <button class="ctrl-btn" id="theme-btn-app" onclick="toggleTheme()" title="Toggle dark mode"><i data-lucide="moon"></i></button>
+      <button class="lernweg-btn" onclick="showCourseSelect(true)" title="Kurse" aria-label="Kurse öffnen"><i data-lucide="layout-grid"></i><span data-i18n="nav_courses">Kurse</span></button>
       <button class="lernweg-btn" onclick="showLernweg()" title="Lernweg" aria-label="Lernweg-Übersicht öffnen"><i data-lucide="map"></i><span data-i18n="nav_path">Lernweg</span></button>
       <button class="ctrl-btn" id="help-btn-app" onclick="showOnboarding()" title="Tour / Hilfe" aria-label="Tour anzeigen"><i data-lucide="help-circle"></i></button>
       <div class="gami-item gami-streak" id="gami-streak" title="Streak — Tage in Folge"><i data-lucide="flame"></i><span id="streak-count">0</span></div>
@@ -3928,6 +3958,7 @@ const I18N = {
     landing_start_btn:'Loslegen',
     landing_privacy:'Daten sicher auf unserem Server gespeichert · verschlüsselt übertragen',
     stay_logged_in:'Angemeldet bleiben',
+    nav_courses:'Kurse',
   },
   en: {
     signin:'Sign in', overview:'Overview', overall_progress:'Overall Progress',
@@ -3982,6 +4013,7 @@ const I18N = {
     landing_start_btn:'Get started',
     landing_privacy:'Data stored securely on our server · encrypted in transit',
     stay_logged_in:'Stay signed in',
+    nav_courses:'Courses',
   }
 };
 
@@ -4052,7 +4084,7 @@ function closeSidebar() {
 // ============================================================
 //                        DATA: PHASES
 // ============================================================
-const PHASES = [
+let PHASES = [
   // ── Phase 0: Start ──────────────────────────────────────────
   {
     id: 'p0', title: 'Start', title_en: 'Start', sub: 'Willkommen bei PyCoBase', sub_en: 'Welcome to PyCoBase',
@@ -20651,6 +20683,68 @@ RESSOURCEN:
   }
 ];
 
+// The phases above are the "Learn to Code" course. Keep a reference to them.
+const CODE_COURSE_PHASES = PHASES;
+
+// ============================================================
+//              COURSES — top level above phases
+// ============================================================
+// A course bundles its own phases. `PHASES` always points at the ACTIVE
+// course's phases, so all existing phase/lesson code keeps working unchanged.
+// New courses MUST use globally-unique lesson ids and question-pool ids
+// (e.g. prefix "ai_"), so per-profile progress (completed/earned/shown/wrong)
+// never collides across courses. Only the resume position is stored per course.
+const COURSES = [
+  {
+    id: 'code',
+    title: 'Programmieren lernen',
+    title_en: 'Learn to Code',
+    sub: 'Von null zu Python, Web & Security — interaktiv und gamifiziert.',
+    sub_en: 'From zero to Python, web & security — interactive and gamified.',
+    icon: 'code-2',
+    level: 'Einsteiger → Fortgeschritten',
+    level_en: 'Beginner → Advanced',
+    accent: 'var(--accent)',
+    phases: CODE_COURSE_PHASES,
+    available: true,
+  },
+  {
+    id: 'ai_arch',
+    title: 'KI & Architektur (CTO-Track)',
+    title_en: 'AI & Architecture (CTO Track)',
+    sub: 'Moderne Software- & KI-Architektur: von Grundprinzipien über Agenten (MCP/A2A) bis Cloud, Security & Führung.',
+    sub_en: 'Modern software & AI architecture: from principles through agents (MCP/A2A) to cloud, security & leadership.',
+    icon: 'brain-circuit',
+    level: 'Fortgeschritten → Profi',
+    level_en: 'Advanced → Pro',
+    accent: 'var(--orange)',
+    phases: [],
+    available: false,
+    soonNote: '29 Kapitel · in Arbeit',
+    soonNote_en: '29 chapters · in progress',
+  },
+];
+
+let activeCourseId = 'code';
+function getActiveCourse() { return COURSES.find(c => c.id === activeCourseId) || COURSES[0]; }
+function courseTitle(c) { return (typeof LANG !== 'undefined' && LANG.get && LANG.get() === 'en') ? (c.title_en || c.title) : c.title; }
+function courseSub(c) { return (typeof LANG !== 'undefined' && LANG.get && LANG.get() === 'en') ? (c.sub_en || c.sub) : c.sub; }
+function courseLevel(c) { return (typeof LANG !== 'undefined' && LANG.get && LANG.get() === 'en') ? (c.level_en || c.level) : c.level; }
+
+// Total lesson count of a course (excluding the p0 "Start" intro phase).
+function courseLessonCount(c) {
+  return (c.phases || []).filter(p => p.id !== 'p0').reduce((n, p) => n + p.lessons.length, 0);
+}
+
+// Switch the active course: repoint PHASES, remember per-course resume position.
+function setActiveCourse(id) {
+  const c = COURSES.find(x => x.id === id);
+  if (!c || !c.phases) return false;
+  activeCourseId = id;
+  PHASES = c.phases;
+  return true;
+}
+
 // ============================================================
 //              API CLIENT
 // ============================================================
@@ -20895,7 +20989,7 @@ function loadActiveState() {
   } catch { state.shownForLesson = {}; }
   // Restore last position (for "angemeldet bleiben" resume), clamped to valid range
   try {
-    const pos = JSON.parse(localStorage.getItem(`cp_p_${profile.id}_pos`) || 'null');
+    const pos = JSON.parse(localStorage.getItem(`cp_p_${profile.id}_pos_${activeCourseId}`) || localStorage.getItem(`cp_p_${profile.id}_pos`) || 'null');
     if (pos && typeof pos.p === 'number' && PHASES[pos.p]) {
       state.currentPhase = pos.p;
       state.currentLesson = Math.min(Math.max(0, pos.l || 0), PHASES[pos.p].lessons.length - 1);
@@ -20913,7 +21007,7 @@ function persistState() {
   const id = state.activeProfile.id;
   localStorage.setItem(`cp_p_${id}_earned`, JSON.stringify([...state.earnedQuizIds]));
   localStorage.setItem(`cp_p_${id}_shown`, JSON.stringify(state.shownForLesson));
-  try { localStorage.setItem(`cp_p_${id}_pos`, JSON.stringify({ p: state.currentPhase || 0, l: state.currentLesson || 0 })); } catch {}
+  try { localStorage.setItem(`cp_p_${id}_pos_${activeCourseId}`, JSON.stringify({ p: state.currentPhase || 0, l: state.currentLesson || 0 })); } catch {}
   if (API.isLoggedIn()) {
     API.updateProgress(state.xp, state.currentLesson).catch(() => {});
   }
@@ -27465,6 +27559,56 @@ function _obGo(i) { _obRender(i); }
 // ============================================================
 //              LERNWEG — Vollbild-Map aller Lektionen
 // ============================================================
+// ---- Course selection (platform entry above the phases) ----
+function showCourseSelect(fromApp) {
+  let v = document.getElementById('course-view');
+  if (!v) { v = document.createElement('div'); v.id = 'course-view'; document.body.appendChild(v); }
+  const en = LANG.get() === 'en';
+  const cards = COURSES.map(c => {
+    const total = courseLessonCount(c);
+    const done = (c.phases || []).filter(p => p.id !== 'p0')
+      .reduce((n, p) => n + p.lessons.filter(l => state.completed && state.completed.has(l.id)).length, 0);
+    const pct = total ? Math.round(done / total * 100) : 0;
+    const avail = !!c.available;
+    const started = done > 0;
+    const cta = avail ? (started ? (en ? 'Continue' : 'Fortsetzen') : (en ? 'Start' : 'Starten')) : (en ? 'Coming soon' : 'Bald verfügbar');
+    return `<div class="cv-card ${avail ? 'available' : 'soon'}" ${avail ? `onclick="openCourse('${c.id}')"` : ''}>
+      <div class="cv-card-top">
+        <span class="cv-ico" style="background:${c.accent || 'var(--accent)'}"><i data-lucide="${c.icon || 'book-open'}"></i></span>
+        <span class="cv-badge ${avail ? '' : 'soon'}">${avail ? (courseLevel(c) || '') : (en ? 'Soon' : 'Bald')}</span>
+      </div>
+      <div class="cv-card-title">${courseTitle(c)}</div>
+      <div class="cv-card-sub">${courseSub(c) || ''}</div>
+      <div class="cv-meta">${avail
+        ? `<span><i data-lucide="book-open"></i> ${total} ${en ? 'lessons' : 'Lektionen'}</span>${started ? `<span><i data-lucide="trophy"></i> ${pct}%</span>` : ''}`
+        : `<span><i data-lucide="clock"></i> ${(en ? (c.soonNote_en || c.soonNote) : c.soonNote) || (en ? 'Coming soon' : 'Bald verfügbar')}</span>`}</div>
+      ${started ? `<div class="cv-prog"><div class="cv-prog-fill" style="width:${pct}%"></div></div>` : ''}
+      <button class="cv-cta ${avail ? '' : 'soon'}" ${avail ? '' : 'disabled'}>${cta}${avail ? ` <i data-lucide='arrow-right'></i>` : ''}</button>
+    </div>`;
+  }).join('');
+  v.innerHTML =
+    `${fromApp ? `<button class="cv-close" onclick="hideCourseSelect()" aria-label="${en ? 'Close' : 'Schließen'}"><i data-lucide="x"></i></button>` : ''}
+    <div class="cv-header">
+      <div class="cv-eyebrow">${en ? 'Learning platform' : 'Lernplattform'}</div>
+      <div class="cv-title">${en ? 'Choose your course' : 'Wähle deinen Kurs'}</div>
+      <div class="cv-sub">${en ? 'Pick a track to start learning. More courses are on the way.' : 'Wähle einen Track zum Loslegen. Weitere Kurse sind in Arbeit.'}</div>
+    </div>
+    <div class="cv-grid">${cards}</div>`;
+  v.classList.add('show');
+  try { lucide.createIcons({ nodes: [v] }); } catch {}
+}
+function hideCourseSelect() { const v = document.getElementById('course-view'); if (v) v.classList.remove('show'); }
+function openCourse(id) {
+  if (!setActiveCourse(id)) return;
+  if (state.activeProfile) loadActiveState(); else { state.currentPhase = 0; state.currentLesson = 0; }
+  hideCourseSelect();
+  const l = document.getElementById('landing'); if (l) l.classList.remove('show');
+  const a = document.getElementById('app'); if (a) a.classList.add('show');
+  if (typeof buildNav === 'function') buildNav();
+  render();
+  if (typeof maybeShowOnboarding === 'function') maybeShowOnboarding();
+}
+
 function showLernweg() {
   let v = document.getElementById('lernweg-view');
   if (!v) { v = document.createElement('div'); v.id = 'lernweg-view'; document.body.appendChild(v); }
@@ -27647,7 +27791,7 @@ function hideLanding() {
   wipeTransition(() => {
     document.getElementById('landing').classList.remove('show');
     document.getElementById('app').classList.add('show');
-    maybeShowOnboarding();
+    showCourseSelect();
   });
 }
 
@@ -29037,6 +29181,8 @@ function init() {
   const _activeId = _readActiveId();
   const _activeProf = _activeId ? loadProfiles().find(p => p.id === _activeId) : null;
   if (_activeProf && !_activeProf.isAdmin && window.location.hash !== '#admin') {
+    // Returning user resumes directly in their active course; the "Kurse"
+    // button (and a fresh login) opens the course picker.
     loadActiveState();
     document.getElementById('landing').classList.remove('show');
     document.getElementById('app').classList.add('show');
