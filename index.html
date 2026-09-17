@@ -2622,6 +2622,10 @@ body {
 .feature-title { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--text); margin-bottom: 8px; }
 .feature-text { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
 
+/* ---- Landing courses (platform overview, same style as other panels) ---- */
+.landing-courses { position: relative; overflow: hidden; background: var(--surface2); border: 2px solid var(--border); border-radius: 32px; padding: 52px 40px 46px; margin: 48px 0; box-shadow: 0 8px 0 var(--border2); }
+.landing-courses .cv-grid { margin: 26px auto 0; padding: 0; max-width: none; }
+
 /* ---- Gamification showcase (bold indigo section) ---- */
 .landing-gamify { margin: 56px 0; }
 .lg-inner {
@@ -3515,17 +3519,17 @@ body {
         <div class="landing-hero-left">
           <div class="landing-hero-tag"><i data-lucide="sparkles"></i><span data-i18n="hero_tag">Kostenlos &amp; Open Source</span></div>
           <h1 class="landing-hero-title" id="hero-title">
-            <span class="hero-split-line" id="hero-line-1">Python lernen.</span>
+            <span class="hero-split-line" id="hero-line-1">Programmieren &amp; KI.</span>
             <span class="hero-split-line accent-line" id="hero-line-2">Deine Zukunft.</span>
             <span class="hero-split-line accent-line" id="hero-line-3">Dein Code.</span>
           </h1>
-          <p class="landing-hero-desc" id="hero-desc">PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.</p>
+          <p class="landing-hero-desc" id="hero-desc">PyCoBase ist deine Lernplattform für Programmierung, KI und mehr — mehrere Kurse mit interaktiven Lektionen, Quizzes und Übungen. Von den Grundlagen bis zur KI-Architektur.</p>
           <div class="landing-hero-btns">
             <button class="landing-cta-btn" onclick="toggleNavAuth(event)">
               <i data-lucide="rocket"></i><span data-i18n="cta_start">Jetzt starten</span>
             </button>
-            <button class="landing-outline-btn" onclick="document.getElementById('landing-phases-section').scrollIntoView({behavior:'smooth'})">
-              <i data-lucide="book-open"></i><span data-i18n="cta_view">Lernpfad ansehen</span>
+            <button class="landing-outline-btn" onclick="document.getElementById('landing-courses-section').scrollIntoView({behavior:'smooth'})">
+              <i data-lucide="layout-grid"></i><span data-i18n="cta_view">Kurse ansehen</span>
             </button>
           </div>
         </div>
@@ -3616,9 +3620,12 @@ body {
       </div>
     </section>
 
-    <!-- Was du lernst -->
+    <!-- Kurse (Plattform-Übersicht, datengetrieben aus COURSES) -->
+    <section class="landing-courses reveal" id="landing-courses-section"></section>
+
+    <!-- Was du lernst (Kurs 1 · Detail) -->
     <section class="landing-phases reveal" id="landing-phases-section">
-      <div class="landing-section-num">Dein Lernweg</div>
+      <div class="landing-section-num" id="landing-phases-eyebrow">Kurs 1 · Programmieren lernen</div>
       <div class="landing-section-title" data-i18n="section_title">6 Phasen — von den Grundlagen bis zur Security</div>
       <div class="phase-tiles" id="phase-tiles"></div>
       <div class="phase-stats-band">
@@ -3948,7 +3955,7 @@ const I18N = {
     lb_empty:'Noch keine Einträge. Aktiviere die Rangliste in deinem Profil-Menü.',
     lb_private:'(privat)',
     hero_tag:'Kostenlos & Open Source',
-    cta_start:'Jetzt starten', cta_view:'Lernpfad ansehen',
+    cta_start:'Jetzt starten', cta_view:'Kurse ansehen',
     stat_lessons:'Lektionen', stat_topics:'Themengebiete', stat_free:'Kostenlos',
     section_tag:'Lernpfad',
     section_title:'6 Phasen — von den Grundlagen bis zur Security',
@@ -4003,7 +4010,7 @@ const I18N = {
     lb_empty:'No entries yet. Enable leaderboard in your profile menu.',
     lb_private:'(private)',
     hero_tag:'Free & Open Source',
-    cta_start:'Start now', cta_view:'View curriculum',
+    cta_start:'Start now', cta_view:'Browse courses',
     stat_lessons:'Lessons', stat_topics:'Topics', stat_free:'Free',
     section_tag:'Curriculum',
     section_title:'6 Phases — from foundations to security',
@@ -4044,13 +4051,17 @@ function applyLang() {
   // Complex: hero title
   const heroTitle = document.getElementById('hero-title');
   if (heroTitle) heroTitle.innerHTML = en
-    ? 'Learn Python.<br><span class="accent-line">Your Future. Your Code.</span>'
-    : 'Python lernen.<br><span class="accent-line">Deine Zukunft. Dein Code.</span>';
+    ? 'Coding &amp; AI.<br><span class="accent-line">Your future. Your code.</span>'
+    : 'Programmieren &amp; KI.<br><span class="accent-line">Deine Zukunft. Dein Code.</span>';
   // Complex: hero desc
   const heroDesc = document.getElementById('hero-desc');
   if (heroDesc) heroDesc.textContent = en
-    ? 'PyCoBase is your structured learning path for programming, web development and cybersecurity — with interactive lessons, quizzes and coding exercises.'
-    : 'PyCoBase ist dein strukturierter Lernpfad für Programmierung, Webentwicklung und Cybersecurity — mit interaktiven Lektionen, Quizzes und Coding-Übungen.';
+    ? 'PyCoBase is your learning platform for coding, AI and more — multiple courses with interactive lessons, quizzes and exercises. From the basics to AI architecture.'
+    : 'PyCoBase ist deine Lernplattform für Programmierung, KI und mehr — mehrere Kurse mit interaktiven Lektionen, Quizzes und Übungen. Von den Grundlagen bis zur KI-Architektur.';
+  // Course-1 detail eyebrow + platform course cards
+  const phEyebrow = document.getElementById('landing-phases-eyebrow');
+  if (phEyebrow) phEyebrow.textContent = en ? 'Course 1 · Learn to Code' : 'Kurs 1 · Programmieren lernen';
+  if (typeof buildLandingCourses === 'function') buildLandingCourses();
   // Re-render app/landing
   if (document.getElementById('app').classList.contains('show')) {
     // Don't rebuild the lesson while a quiz attempt is running — a full render()
@@ -27497,6 +27508,7 @@ function showLanding() {
   document.getElementById('landing').classList.add('show');
   document.getElementById('app').classList.remove('show');
   applyLang();
+  buildLandingCourses();
   lucide.createIcons();
   buildLandingLeaderboard();
   // Re-observe any not-yet-visible reveal elements
@@ -27559,6 +27571,36 @@ function _obGo(i) { _obRender(i); }
 // ============================================================
 //              LERNWEG — Vollbild-Map aller Lektionen
 // ============================================================
+// ---- Landing courses overview (data-driven from COURSES) ----
+function _landingCourseCard(c, en) {
+  const total = courseLessonCount(c);
+  const avail = !!c.available;
+  const cta = avail ? (en ? 'Start' : 'Starten') : (en ? 'Coming soon' : 'Bald verfügbar');
+  const meta = avail
+    ? `<span><i data-lucide="book-open"></i> ${total} ${en ? 'lessons' : 'Lektionen'}</span>`
+    : `<span><i data-lucide="clock"></i> ${(en ? (c.soonNote_en || c.soonNote) : c.soonNote) || (en ? 'Coming soon' : 'Bald verfügbar')}</span>`;
+  return `<div class="cv-card ${avail ? 'available' : 'soon'}" ${avail ? 'onclick="toggleNavAuth(event)"' : ''}>
+    <div class="cv-card-top">
+      <span class="cv-ico" style="background:${c.accent || 'var(--accent)'}"><i data-lucide="${c.icon || 'book-open'}"></i></span>
+      <span class="cv-badge ${avail ? '' : 'soon'}">${avail ? (courseLevel(c) || '') : (en ? 'Soon' : 'Bald')}</span>
+    </div>
+    <div class="cv-card-title">${courseTitle(c)}</div>
+    <div class="cv-card-sub">${courseSub(c) || ''}</div>
+    <div class="cv-meta">${meta}</div>
+    <button class="cv-cta ${avail ? '' : 'soon'}" ${avail ? '' : 'disabled'}>${cta}${avail ? ` <i data-lucide='arrow-right'></i>` : ''}</button>
+  </div>`;
+}
+function buildLandingCourses() {
+  const el = document.getElementById('landing-courses-section');
+  if (!el) return;
+  const en = (typeof LANG !== 'undefined' && LANG.get && LANG.get() === 'en');
+  el.innerHTML =
+    `<div class="landing-section-num">${en ? 'The platform' : 'Die Plattform'}</div>
+     <div class="landing-section-title">${en ? 'Our courses' : 'Unsere Kurse'}</div>
+     <div class="cv-grid">${COURSES.map(c => _landingCourseCard(c, en)).join('')}</div>`;
+  try { lucide.createIcons({ nodes: [el] }); } catch {}
+}
+
 // ---- Course selection (platform entry above the phases) ----
 function showCourseSelect(fromApp) {
   let v = document.getElementById('course-view');
@@ -29175,6 +29217,7 @@ function init() {
   splitHeroLines();
   initBgMatrix();
   buildPhaseTiles();
+  buildLandingCourses();
   // "Angemeldet bleiben": aktives Nicht-Admin-Profil direkt fortsetzen.
   // _readActiveId() liest sessionStorage (nicht gemerkt) vor localStorage (gemerkt);
   // NICHT erneut setActiveProfile aufrufen, sonst wandert ein Session-Profil dauerhaft in localStorage.
