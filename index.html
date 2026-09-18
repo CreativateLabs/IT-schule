@@ -20724,6 +20724,37 @@ const AI_AGENTS_PHASES = [
             </div>
           </div>
           ${callout('warn', 'Halluzination', 'Bei Wissenslücken erfindet ein LLM selbstbewusst falsche Fakten — eine erfundene Nummer, ein falsches Datum. Das ist kein Bug, sondern Folge des Funktionsprinzips. Man bekämpft es, indem man dem Modell die richtigen Fakten mitgibt (RAG).')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Token — die Mengeneinheit</div>
+            <div class="explanation">
+              Ein Modell liest und schreibt nicht in Wörtern, sondern in <code>Token</code> — kleinen Text-Bruchstücken. Ein häufiges Wort ist oft genau ein Token, ein selteneres oder langes Wort wird in mehrere Stücke zerlegt. Als Faustregel gilt: <strong>rund 100 Token entsprechen etwa 60–80 deutschen Wörtern</strong>.<br><br>
+              Wichtig für die Kosten: <strong>Eingabe und Ausgabe werden getrennt gezählt und bezahlt</strong>. Ein langer Prompt mit vielen mitgeschickten Dokumenten kostet also schon, bevor auch nur ein Wort Antwort entstanden ist.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Beispiel</span></div>
+                <div class="code-pre">Wort                -> Token
+"Haus"              -> 1 Token
+"Unwahrscheinlich"  -> 2-3 Token (in Stuecke zerlegt)
+~100 Token          ~ 60-80 deutsche Woerter</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('Warum kann ein langer Prompt mit vielen Dokumenten schon Geld kosten, bevor eine Antwort da ist?', ['Weil das Modell erst lange nachdenken muss', 'Weil bereits die Eingabe-Token gezählt und bezahlt werden', 'Weil lange Prompts das Modell verlangsamen'], 1, 'Ein- und Ausgabe werden getrennt abgerechnet. Alles, was du hineinschickst, zählt schon als Eingabe-Token — unabhängig von der Antwort.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Das Kontextfenster</div>
+            <div class="explanation">
+              Das <code>Kontextfenster</code> ist der maximale Arbeitsspeicher pro Aufruf, gemessen in Token. In dieses Fenster muss <strong>alles</strong> passen: die Anweisung, alle mitgeschickten Dokumente <em>und</em> die Antwort, die das Modell noch schreiben will.<br><br>
+              Ist das Fenster zu klein für die Summe, wird abgeschnitten — meist verschwindet der Anfang oder ein Teil der mitgegebenen Belege. Das Modell „sieht" diesen Teil der Aufgabe dann gar nicht und antwortet trotzdem, als hätte es alles gelesen. Deshalb: nur die wirklich relevanten Stellen mitschicken, nicht die gesamte Wissensbasis.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Warum es halluziniert</div>
+            <div class="explanation">
+              Ein LLM sagt immer das <em>wahrscheinlichste</em> nächste Token voraus — auch dann, wenn es die Antwort gar nicht kennt. Es gibt keinen inneren Schalter „das weiß ich nicht". Bei einer Wissenslücke entsteht deshalb eine plausibel klingende, aber erfundene Aussage. Das ist <strong>kein Fehler im Programm</strong>, sondern die direkte Folge des Funktionsprinzips.<br><br>
+              Der wirksame Hebel ist nicht „strenger fragen", sondern <strong>dem Modell die richtigen Fakten als Kontext mitzugeben</strong> und es anzuweisen, nur daraus zu antworten. Genau das leistet RAG.
+            </div>
+          </div>
+          ${quickCheck('Ein Modell erfindet bei einer Wissenslücke eine plausible, aber falsche Antwort. Was ist die beste Erklärung?', ['Ein Bug, der mit dem nächsten Update behoben wird', 'Es sagt immer das wahrscheinlichste nächste Token voraus — auch ohne echtes Wissen', 'Das Modell wurde nur mit falschen Daten trainiert'], 1, 'Halluzination ist kein Defekt, sondern folgt direkt daraus, dass das Modell Wahrscheinlichkeiten vervollständigt, statt Fakten nachzuschlagen.')}
+          ${callout('key', 'Merke', 'Ein LLM ist ein extrem guter Mustervervollständiger — kein Faktenspeicher und keine Datenbank. Sicheres Wissen muss von außen dazukommen.')}
           ${renderQuestions('ai_l1_1', 6)}
           ${renderBonus('ai_l1_1')}
         `,
@@ -20741,6 +20772,37 @@ const AI_AGENTS_PHASES = [
             </div>
           </div>
           ${callout('warn', 'Hallucination', 'When it hits a knowledge gap, an LLM confidently invents false facts — a made-up number, a wrong date. This is not a bug but a consequence of how it works. You fight it by giving the model the right facts (RAG).')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Token — the unit of size</div>
+            <div class="explanation">
+              A model does not read or write in words but in <code>tokens</code> — small chunks of text. A common word is often exactly one token; a rarer or long word is split into several pieces. As a rule of thumb: <strong>around 100 tokens equal roughly 60–80 English words</strong>.<br><br>
+              Important for cost: <strong>input and output are counted and billed separately</strong>. A long prompt with many attached documents already costs something before a single word of the answer exists.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Example</span></div>
+                <div class="code-pre">Word              -> Token
+"house"           -> 1 token
+"improbability"   -> 2-3 tokens (split into pieces)
+~100 tokens       ~ 60-80 English words</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('Why can a long prompt with many documents cost money before any answer exists?', ['Because the model has to think for a long time first', 'Because the input tokens are already counted and billed', 'Because long prompts slow the model down'], 1, 'Input and output are billed separately. Everything you send in already counts as input tokens — regardless of the answer.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">The context window</div>
+            <div class="explanation">
+              The <code>context window</code> is the maximum working memory per call, measured in tokens. <strong>Everything</strong> has to fit inside it: the instruction, all attached documents <em>and</em> the answer the model still wants to write.<br><br>
+              If the window is too small for the sum, it gets cut off — usually the beginning or part of the supplied evidence disappears. The model then does not "see" that part of the task at all and still answers as if it had read everything. So: send only the truly relevant passages, not the entire knowledge base.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Why it hallucinates</div>
+            <div class="explanation">
+              An LLM always predicts the <em>most probable</em> next token — even when it does not know the answer. There is no internal switch for "I do not know". At a knowledge gap it therefore produces a plausible-sounding but invented statement. This is <strong>not a fault in the program</strong> but the direct consequence of how it works.<br><br>
+              The effective lever is not "ask more strictly" but <strong>giving the model the right facts as context</strong> and instructing it to answer only from them. That is exactly what RAG does.
+            </div>
+          </div>
+          ${quickCheck('At a knowledge gap a model invents a plausible but wrong answer. What is the best explanation?', ['A bug that will be fixed in the next update', 'It always predicts the most probable next token — even without real knowledge', 'The model was trained only on wrong data'], 1, 'Hallucination is not a defect; it follows directly from the model completing probabilities instead of looking up facts.')}
+          ${callout('key', 'Remember', 'An LLM is an extremely good pattern-completer — not a fact store and not a database. Reliable knowledge has to come from outside.')}
           ${renderQuestions('ai_l1_1', 6)}
           ${renderBonus('ai_l1_1')}
         `
@@ -20760,6 +20822,40 @@ const AI_AGENTS_PHASES = [
               Kernbegriffe: Ein <code>Embedding</code> übersetzt einen Text in eine Zahlenreihe, die seine Bedeutung kodiert — ähnliche Bedeutung, ähnliche Zahlen. Die <code>Vektorsuche</code> findet darüber inhaltlich passende Stücke. <strong>Grounding</strong> ist die Regel: Das Modell darf nur behaupten, was in den Belegen steht — sonst „nicht belegt".
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Embedding & Vektorsuche</div>
+            <div class="explanation">
+              Ein <code>Embedding</code> übersetzt einen Text in eine lange Zahlenreihe (einen Vektor), die seine <strong>Bedeutung</strong> kodiert: Zwei Texte mit ähnlicher Bedeutung ergeben ähnliche Zahlen — auch wenn sie ganz andere Wörter benutzen. Die <code>Vektorsuche</code> nutzt das, um zu einer Frage die inhaltlich nächsten Stücke zu finden.<br><br>
+              Die Schwäche: Bei <strong>exakten Begriffen</strong> — Produktcodes, Namen, Aktenzeichen, Fehlermeldungen — ist reine Bedeutungssuche unzuverlässig. Deshalb kombiniert man in der Praxis beides zur <strong>hybriden Suche</strong>: Vektorsuche (Bedeutung) plus klassische Stichwortsuche (exakte Treffer).
+            </div>
+          </div>
+          ${quickCheck('Warum reicht reine Vektorsuche bei der Suche nach dem Aktenzeichen <code>RG-2024-0815</code> oft nicht?', ['Weil Vektoren zu langsam sind', 'Weil Bedeutungssuche exakte Codes und Namen schlecht trifft — dafür braucht es Stichwortsuche', 'Weil Aktenzeichen keine Bedeutung haben'], 1, 'Embeddings kodieren Bedeutung, nicht Zeichenketten. Für exakte Codes ergänzt man die Vektorsuche um eine klassische Stichwortsuche — das ist die hybride Suche.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Die RAG-Pipeline — zwei Phasen</div>
+            <div class="explanation">
+              RAG läuft in zwei getrennten Phasen. Die <strong>Aufbereitung</strong> passiert einmalig (und erneut bei Änderungen an den Daten). Die <strong>Abfrage</strong> passiert bei jeder einzelnen Frage.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Ablauf</span></div>
+                <div class="code-pre">Aufbereitung (einmalig / bei Aenderung):
+  Ingest -> Chunking -> Embeddings -> Vektor-DB + Volltext-Index
+
+Abfrage (pro Frage):
+  Hybride Suche -> Re-Ranking (beste 3-5 nach oben)
+    -> LLM formuliert, streng auf Belege gestuetzt
+    -> geerdete Antwort + Quellen</div>
+              </div>
+              Das <strong>Re-Ranking</strong> ist der Feinschliff: Aus vielen groben Treffern werden die besten 3–5 nach oben sortiert und nur diese dem Modell vorgelegt. So bleibt das Kontextfenster schlank und die Antwort präzise.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Chunking & Metadaten</div>
+            <div class="explanation">
+              Dokumente werden vor dem Einbetten in <strong>Chunks</strong> zerlegt — nach fester Länge mit <strong>Überlappung</strong>, nach Struktur (Absätze, Überschriften) oder semantisch (nach Sinnabschnitten). Die Überlappung ist wichtig: Sie verhindert, dass ein Gedanke genau an der Schnittkante zwischen zwei Chunks zerrissen und dadurch unauffindbar wird.<br><br>
+              An jeden Chunk gehören <code>Metadaten</code>: Quelle, Titel, Datum, Abschnitt. Sie dienen zwei Zwecken — <strong>Filtern</strong> vor der Suche (z. B. nur aktuelle Dokumente) und <strong>Quellenangaben</strong> in der Antwort.
+            </div>
+          </div>
+          ${quickCheck('Wozu dient die Überlappung beim Chunking?', ['Sie spart Speicherplatz', 'Sie verhindert, dass ein Gedanke an der Schnittkante zweier Chunks verloren geht', 'Sie beschleunigt die Vektorsuche'], 1, 'Ohne Überlappung kann ein zusammenhängender Gedanke genau zwischen zwei Chunks zerschnitten werden. Die Überlappung sorgt dafür, dass er in mindestens einem Chunk vollständig bleibt.')}
+          ${callout('fact', 'Grounding', 'Grounding ist die Regel, dass das Modell nur behaupten darf, was in den Belegen steht — und sonst „nicht belegt" sagt. Erzwungen wird das per System-Prompt, und die Antwort zitiert ihre Quellen als <code>[Doc N]</code>. So wird sie überprüfbar.')}
           ${callout('key', 'Merke', 'Ein LLM ist ein Sprachmodell, kein Wissensmodell. Wissen kommt aus der geerdeten Wissensbasis; das Modell formuliert nur. Kein RAG ohne Quellenangabe und ohne „sonst nicht belegt"-Regel.')}
           ${renderQuestions('ai_l1_2', 6)}
           ${renderBonus('ai_l1_2')}
@@ -20777,6 +20873,40 @@ const AI_AGENTS_PHASES = [
               Key terms: an <code>embedding</code> translates text into a list of numbers that encodes its meaning — similar meaning, similar numbers. <code>Vector search</code> uses this to find relevant chunks. <strong>Grounding</strong> is the rule: the model may only claim what the passages contain — otherwise "not supported".
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Embedding & vector search</div>
+            <div class="explanation">
+              An <code>embedding</code> translates text into a long list of numbers (a vector) that encodes its <strong>meaning</strong>: two texts with similar meaning produce similar numbers — even when they use completely different words. <code>Vector search</code> uses this to find the passages closest in meaning to a question.<br><br>
+              The weakness: for <strong>exact terms</strong> — product codes, names, case numbers, error messages — pure meaning search is unreliable. That is why in practice both are combined into a <strong>hybrid search</strong>: vector search (meaning) plus classic keyword search (exact matches).
+            </div>
+          </div>
+          ${quickCheck('Why is pure vector search often not enough when searching for the case number <code>RG-2024-0815</code>?', ['Because vectors are too slow', 'Because meaning search matches exact codes and names poorly — that needs keyword search', 'Because case numbers have no meaning'], 1, 'Embeddings encode meaning, not character strings. For exact codes you add a classic keyword search to the vector search — that is the hybrid search.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">The RAG pipeline — two phases</div>
+            <div class="explanation">
+              RAG runs in two separate phases. <strong>Preparation</strong> happens once (and again whenever the data changes). <strong>Querying</strong> happens for every single question.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Flow</span></div>
+                <div class="code-pre">Preparation (once / on change):
+  Ingest -> Chunking -> Embeddings -> Vector DB + full-text index
+
+Query (per question):
+  Hybrid search -> Re-ranking (best 3-5 to the top)
+    -> LLM phrases, strictly grounded in the evidence
+    -> grounded answer + sources</div>
+              </div>
+              <strong>Re-ranking</strong> is the fine-tuning step: from many rough hits the best 3–5 are sorted to the top and only these are handed to the model. That keeps the context window lean and the answer precise.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Chunking & metadata</div>
+            <div class="explanation">
+              Before embedding, documents are split into <strong>chunks</strong> — by fixed length with <strong>overlap</strong>, by structure (paragraphs, headings) or semantically (by units of meaning). The overlap matters: it prevents a thought from being torn apart exactly at the cut between two chunks and thereby becoming unfindable.<br><br>
+              Every chunk should carry <code>metadata</code>: source, title, date, section. These serve two purposes — <strong>filtering</strong> before the search (e.g. only recent documents) and <strong>source citations</strong> in the answer.
+            </div>
+          </div>
+          ${quickCheck('What is the overlap in chunking for?', ['It saves storage space', 'It prevents a thought from being lost at the cut between two chunks', 'It speeds up vector search'], 1, 'Without overlap a connected thought can be cut exactly between two chunks. The overlap keeps it complete in at least one chunk.')}
+          ${callout('fact', 'Grounding', 'Grounding is the rule that the model may only claim what the evidence contains — and otherwise says "not supported". It is enforced via the system prompt, and the answer cites its sources as <code>[Doc N]</code>. That makes it verifiable.')}
           ${callout('key', 'Remember', 'An LLM is a language model, not a knowledge model. Knowledge comes from the grounded knowledge base; the model only phrases. No RAG without source citation and without the "otherwise not supported" rule.')}
           ${renderQuestions('ai_l1_2', 6)}
           ${renderBonus('ai_l1_2')}
@@ -26685,6 +26815,46 @@ QUESTION_POOLS['l6_15'] = [
     {t:'Work-Life-Balance ist ein Luxus für Entwickler ohne Karriereambitionen',t_en:'Work-life balance is a luxury for developers without career ambitions',correct:false,why:'Falsch und gefährlich! Nachhaltige Karriere braucht Erholung. Viele der produktivsten Entwickler arbeiten strikt 40h und liefern mehr als Burn-Out-Kandidaten mit 70h-Wochen.',why_en:'False and dangerous! A sustainable career needs recovery. Many of the most productive developers work a strict 40h and deliver more than burnout candidates working 70h weeks.'},
     {t:'Burnout ist unvermeidlich und gehört zur Tech-Karriere dazu',t_en:'Burnout is inevitable and simply part of a tech career',correct:false,why:'Burnout ist nicht unvermeidlich. Organisations-Kultur, klare Prioritäten, realistische Erwartungen und Grenzen setzen können Burnout effektiv verhindern.',why_en:'Burnout is not inevitable. Organizational culture, clear priorities, realistic expectations and setting boundaries can effectively prevent it.'},
   ]},
+];
+
+QUESTION_POOLS['ai_l1_1'] = [
+  {id:'p_ai_l1_1_mc1',type:'mc',xp:10,question:'Was macht ein LLM im Kern bei jedem Schritt?',question_en:'What does an LLM do at its core on every step?',options:[
+    {t:'Es sagt das wahrscheinlichste nächste Token voraus',t_en:'It predicts the most probable next token',correct:true,why:'Genau. Ein LLM vervollständigt Muster: Es berechnet aus dem bisherigen Text Wahrscheinlichkeiten und wählt das nächste Text-Bruchstück (Token).',why_en:'Exactly. An LLM completes patterns: from the text so far it computes probabilities and picks the next chunk of text (token).'},
+    {t:'Es schlägt die Antwort in einer internen Datenbank nach',t_en:'It looks up the answer in an internal database',correct:false,why:'Ein LLM ist keine Datenbank. Es speichert keine Fakten zum Nachschlagen, sondern hat statistische Muster gelernt.',why_en:'An LLM is not a database. It does not store facts for lookup; it has learned statistical patterns.'},
+    {t:'Es prüft jede Aussage auf Wahrheit, bevor es sie ausgibt',t_en:'It checks every statement for truth before outputting it',correct:false,why:'Es gibt keine eingebaute Wahrheitsprüfung. Das Modell erzeugt plausiblen Text — richtig oder falsch entscheidet sich nicht durch eine interne Prüfung.',why_en:'There is no built-in truth check. The model produces plausible text — correct or wrong is not decided by an internal check.'}
+  ]},
+  {id:'p_ai_l1_1_mc2',type:'mc',xp:10,question:'Wie werden die Kosten eines Aufrufs typischerweise abgerechnet?',question_en:'How is the cost of a call typically billed?',options:[
+    {t:'Eingabe- und Ausgabe-Token werden getrennt gezählt und bezahlt',t_en:'Input and output tokens are counted and billed separately',correct:true,why:'Richtig. Schon der hineingeschickte Prompt samt Dokumenten zählt als Eingabe — unabhängig von der später erzeugten Antwort.',why_en:'Correct. The prompt you send in, including documents, already counts as input — independent of the answer produced later.'},
+    {t:'Pro Aufruf gibt es einen festen Preis, egal wie lang',t_en:'There is a fixed price per call, no matter the length',correct:false,why:'Nein, es wird nach Menge in Token abgerechnet, nicht pauschal pro Aufruf.',why_en:'No, it is billed by amount in tokens, not as a flat rate per call.'},
+    {t:'Nur die Ausgabe kostet etwas, die Eingabe ist gratis',t_en:'Only the output costs something, the input is free',correct:false,why:'Auch die Eingabe kostet. Ein langer Prompt mit vielen Dokumenten verursacht bereits Eingabekosten.',why_en:'The input costs too. A long prompt with many documents already causes input costs.'}
+  ]},
+  {id:'p_ai_l1_1_tf1',type:'truefalse',xp:8,statement:'Halluzinationen sind ein behebbarer Programmierfehler im Modell.',statement_en:'Hallucinations are a fixable programming bug in the model.',correct:false,explanation:'Falsch. Halluzination folgt direkt aus dem Prinzip: Das Modell vervollständigt das wahrscheinlichste nächste Token — auch bei Wissenslücken. Gegenmittel ist, die richtigen Fakten mitzugeben (RAG).',explanation_en:'False. Hallucination follows directly from the principle: the model completes the most probable next token — even at knowledge gaps. The remedy is to supply the right facts (RAG).'},
+  {id:'p_ai_l1_1_tf2',type:'truefalse',xp:8,statement:'In das Kontextfenster müssen Anweisung, mitgeschickte Dokumente und die Antwort gemeinsam passen.',statement_en:'The instruction, the attached documents and the answer all have to fit into the context window together.',correct:true,explanation:'Richtig. Das Kontextfenster ist der Arbeitsspeicher pro Aufruf in Token. Passt die Summe nicht hinein, wird abgeschnitten.',explanation_en:'Correct. The context window is the per-call working memory in tokens. If the sum does not fit, it gets cut off.'},
+  {id:'p_ai_l1_1_fb1',type:'fillblank',xp:12,prompt:'Ein kleines Text-Bruchstück, das zugleich die Abrechnungseinheit eines LLM ist, heißt ___ .',prompt_en:'A small chunk of text that is also the billing unit of an LLM is called a ___ .',answers:['Token','token'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Ein Token ist ein kleines Text-Bruchstück (oft ein Wortteil) und die Mengen- und Abrechnungseinheit. Rund 100 Token entsprechen etwa 60–80 deutschen Wörtern.',explanation_en:'A token is a small chunk of text (often a word part) and the unit of size and billing. Around 100 tokens equal roughly 60–80 words.'},
+  {id:'p_ai_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Welcher Merksatz beschreibt ein LLM am besten?',question_en:'Which motto describes an LLM best?',options:[
+    {t:'Ein extrem guter Mustervervollständiger, kein Faktenspeicher',t_en:'An extremely good pattern-completer, not a fact store',correct:true,why:'Genau das ist der Kern: Das Modell vervollständigt Sprache anhand gelernter Muster. Sicheres Wissen muss von außen kommen.',why_en:'That is exactly the core: the model completes language from learned patterns. Reliable knowledge has to come from outside.'},
+    {t:'Eine durchsuchbare Enzyklopädie mit geprüften Fakten',t_en:'A searchable encyclopedia with verified facts',correct:false,why:'Nein. Ein LLM speichert keine geprüften Fakten und schlägt nichts nach — es erzeugt wahrscheinlichen Text.',why_en:'No. An LLM does not store verified facts and looks nothing up — it produces probable text.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l1_2'] = [
+  {id:'p_ai_l1_2_mc1',type:'mc',xp:10,question:'Was ist ein Embedding?',question_en:'What is an embedding?',options:[
+    {t:'Eine Zahlenreihe (Vektor), die die Bedeutung eines Textes kodiert',t_en:'A list of numbers (a vector) that encodes the meaning of a text',correct:true,why:'Richtig. Ähnliche Bedeutung ergibt ähnliche Zahlen — so lassen sich inhaltlich nahe Texte über die Vektorsuche finden.',why_en:'Correct. Similar meaning yields similar numbers — so texts close in meaning can be found via vector search.'},
+    {t:'Eine komprimierte Kopie des Originaltextes',t_en:'A compressed copy of the original text',correct:false,why:'Nein. Ein Embedding ist keine Kompression zum Zurückverwandeln, sondern eine Bedeutungs-Repräsentation als Vektor.',why_en:'No. An embedding is not a compression to reverse, but a meaning representation as a vector.'},
+    {t:'Ein Schlüsselwort-Index über alle Dokumente',t_en:'A keyword index over all documents',correct:false,why:'Das beschreibt eher den Volltext-Index für die Stichwortsuche. Ein Embedding kodiert Bedeutung als Zahlen.',why_en:'That rather describes the full-text index for keyword search. An embedding encodes meaning as numbers.'}
+  ]},
+  {id:'p_ai_l1_2_mc2',type:'mc',xp:10,question:'Warum kombiniert man Vektorsuche mit klassischer Stichwortsuche (hybride Suche)?',question_en:'Why combine vector search with classic keyword search (hybrid search)?',options:[
+    {t:'Weil reine Vektorsuche exakte Begriffe wie Codes und Namen schlecht trifft',t_en:'Because pure vector search matches exact terms like codes and names poorly',correct:true,why:'Genau. Bedeutungssuche ist stark bei Sinn, aber schwach bei exakten Zeichenketten — die Stichwortsuche fängt genau das ab.',why_en:'Exactly. Meaning search is strong on sense but weak on exact strings — keyword search catches precisely that.'},
+    {t:'Weil Vektorsuche ohne Stichwörter technisch nicht funktioniert',t_en:'Because vector search does not work technically without keywords',correct:false,why:'Vektorsuche funktioniert für sich. Man ergänzt Stichwortsuche, um exakte Treffer sicherzustellen, nicht aus technischer Notwendigkeit.',why_en:'Vector search works on its own. Keyword search is added to ensure exact matches, not out of technical necessity.'},
+    {t:'Weil hybride Suche das Kontextfenster vergrößert',t_en:'Because hybrid search enlarges the context window',correct:false,why:'Die Suchmethode ändert das Kontextfenster nicht. Hybride Suche verbessert nur, welche Stellen gefunden werden.',why_en:'The search method does not change the context window. Hybrid search only improves which passages are found.'}
+  ]},
+  {id:'p_ai_l1_2_tf1',type:'truefalse',xp:8,statement:'Grounding bedeutet, dass das Modell nur behaupten darf, was in den Belegen steht, und sonst „nicht belegt" sagt.',statement_en:'Grounding means the model may only claim what the evidence contains, and otherwise says "not supported".',correct:true,explanation:'Richtig. Grounding wird per System-Prompt erzwungen; die Antwort zitiert ihre Quellen (z. B. als [Doc N]) und bleibt so überprüfbar.',explanation_en:'Correct. Grounding is enforced via the system prompt; the answer cites its sources (e.g. as [Doc N]) and stays verifiable.'},
+  {id:'p_ai_l1_2_tf2',type:'truefalse',xp:8,statement:'Die Überlappung beim Chunking verhindert, dass ein Gedanke genau an der Schnittkante zweier Chunks verloren geht.',statement_en:'The overlap in chunking prevents a thought from being lost exactly at the cut between two chunks.',correct:true,explanation:'Richtig. Ohne Überlappung kann ein zusammenhängender Gedanke zerschnitten und unauffindbar werden; die Überlappung hält ihn in mindestens einem Chunk vollständig.',explanation_en:'Correct. Without overlap a connected thought can be cut and become unfindable; the overlap keeps it complete in at least one chunk.'},
+  {id:'p_ai_l1_2_fb1',type:'fillblank',xp:12,prompt:'Der Schritt, der aus vielen groben Treffern die besten 3–5 nach oben sortiert, heißt ___ .',prompt_en:'The step that sorts the best 3–5 out of many rough hits to the top is called ___ .',answers:['Re-Ranking','Reranking','re-ranking','reranking','Re-ranking'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Re-Ranking ordnet die Suchtreffer nach Relevanz neu und legt nur die besten wenigen dem Modell vor — das hält das Kontextfenster schlank und die Antwort präzise.',explanation_en:'Re-ranking reorders the search hits by relevance and hands only the best few to the model — keeping the context window lean and the answer precise.'},
+  {id:'p_ai_l1_2_bonus',type:'mc',xp:20,optional:true,question:'In welcher Reihenfolge läuft die Abfrage-Phase von RAG ab?',question_en:'In what order does the query phase of RAG run?',options:[
+    {t:'Hybride Suche → Re-Ranking → LLM formuliert geerdet mit Quellen',t_en:'Hybrid search → re-ranking → LLM phrases grounded, with sources',correct:true,why:'Genau. Erst suchen, dann die besten Belege nach oben sortieren, dann streng auf diese Belege gestützt formulieren und Quellen ausweisen.',why_en:'Exactly. First search, then sort the best evidence to the top, then phrase strictly grounded in that evidence and cite sources.'},
+    {t:'LLM formuliert zuerst → danach wird passende Suche nachgereicht',t_en:'The LLM phrases first → then a matching search is added afterwards',correct:false,why:'Nein. Bei RAG wird vor dem Formulieren gesucht, damit die Antwort auf echten Belegen steht — nicht umgekehrt.',why_en:'No. In RAG the search happens before phrasing, so the answer rests on real evidence — not the other way round.'}
+  ]}
 ];
 
 
