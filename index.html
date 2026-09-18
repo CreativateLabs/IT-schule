@@ -20935,6 +20935,37 @@ Query (per question):
             </div>
           </div>
           ${callout('fact', 'Der Unterschied zum Chat', 'Eine Chat-Antwort ist einmalig. Ein Agent kann Werkzeuge benutzen, Zwischenergebnisse prüfen und einen mehrstufigen Auftrag selbstständig abarbeiten.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Werkzeuge — die Hand des Agenten</div>
+            <div class="explanation">
+              Ein <code>Werkzeug</code> ist eine Funktion, die der Agent aufrufen darf: eine Datenbankabfrage, ein API-Call, eine Suche oder ein Rechenschritt. Das Modell bekommt zu jedem Werkzeug eine <strong>Beschreibung</strong> — Name, Zweck, erwartete Parameter — und entscheidet im <strong>Reason</strong>-Schritt, welches Werkzeug es mit welchen Werten aufruft.<br><br>
+              Das Modell führt das Werkzeug nicht selbst aus. Es gibt nur den Wunsch aus (rufe <code>suche_kunde</code> mit dieser Nummer auf); die umgebende Software führt den Aufruf aus und legt das Ergebnis als <strong>Observation</strong> zurück ins Fenster. So bleibt die Kontrolle über die eigentliche Ausführung außerhalb des Modells.
+            </div>
+          </div>
+          ${quickCheck('Wer führt einen Werkzeug-Aufruf tatsächlich aus?', ['Das LLM selbst rechnet das Ergebnis intern aus', 'Die umgebende Software führt den Aufruf aus und gibt das Ergebnis zurück', 'Das Werkzeug ruft sich selbst rekursiv auf'], 1, 'Das Modell wählt nur Werkzeug und Parameter. Ausgeführt wird der Aufruf außerhalb des Modells — das Ergebnis kommt als Observation zurück.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Ein Durchlauf, Schritt für Schritt</div>
+            <div class="explanation">
+              Der Kreislauf wiederholt sich, bis das Ziel erreicht ist. Jeder Durchlauf besteht aus denselben drei Schritten — nur mit wachsendem Wissen aus den bisherigen Beobachtungen.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Beispiel-Loop</span></div>
+                <div class="code-pre">Ziel:    "Wie viele offene Rechnungen hat Kunde 4711?"
+Reason:  Ich brauche die Kundendaten -> Werkzeug "db_query"
+Act:     db_query("offene Rechnungen WHERE kunde = 4711")
+Observe: 3 Treffer zurueckgegeben
+Reason:  Frage beantwortbar -> keine weiteren Schritte
+Antwort: "Kunde 4711 hat 3 offene Rechnungen."</div>
+              </div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Wann die Schleife endet</div>
+            <div class="explanation">
+              Eine Schleife braucht ein Ende. Der Agent stoppt, wenn er das <strong>Ziel erreicht</strong> hat und keine weiteren Werkzeuge mehr braucht — oder wenn eine <strong>Abbruchbedingung</strong> greift: eine Obergrenze für Durchläufe, ein aufgebrauchtes Budget oder ein Fehler, der nicht behoben werden kann.<br><br>
+              Ohne solche Grenzen könnte ein Agent endlos weiterlaufen, etwa wenn ein Werkzeug immer wieder ein unbrauchbares Ergebnis liefert. Deshalb gehört zu jedem Agenten von Anfang an eine klare Antwort auf die Frage: <em>Woran erkennt er, dass er fertig ist?</em>
+            </div>
+          </div>
+          ${quickCheck('Warum braucht ein Agenten-Loop eine feste Obergrenze für Durchläufe?', ['Damit die Antwort schöner formuliert wird', 'Damit er nicht endlos weiterläuft, wenn kein Schritt zum Ziel führt', 'Damit das Modell mehr Token verbrauchen darf'], 1, 'Eine Schleife ohne Abbruchbedingung kann ewig laufen. Die Obergrenze garantiert, dass der Agent in jedem Fall anhält.')}
           ${renderQuestions('ai_l2_1', 6)}
           ${renderBonus('ai_l2_1')}
         `,
@@ -20952,6 +20983,37 @@ Query (per question):
             </div>
           </div>
           ${callout('fact', 'The difference from chat', 'A chat reply is one-shot. An agent can use tools, check intermediate results and work through a multi-step task on its own.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Tools — the hand of the agent</div>
+            <div class="explanation">
+              A <code>tool</code> is a function the agent may call: a database query, an API call, a search or a calculation step. The model receives a <strong>description</strong> of each tool — name, purpose, expected parameters — and decides in the <strong>Reason</strong> step which tool to call with which values.<br><br>
+              The model does not run the tool itself. It only emits the request (call <code>find_customer</code> with this number); the surrounding software performs the call and puts the result back into the window as an <strong>observation</strong>. Control over the actual execution stays outside the model.
+            </div>
+          </div>
+          ${quickCheck('Who actually executes a tool call?', ['The LLM computes the result internally by itself', 'The surrounding software runs the call and returns the result', 'The tool calls itself recursively'], 1, 'The model only chooses the tool and parameters. The call is executed outside the model — the result comes back as an observation.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">One pass, step by step</div>
+            <div class="explanation">
+              The loop repeats until the goal is reached. Each pass consists of the same three steps — only with growing knowledge from the observations so far.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Example loop</span></div>
+                <div class="code-pre">Goal:    "How many open invoices does customer 4711 have?"
+Reason:  I need the customer data -> tool "db_query"
+Act:     db_query("open invoices WHERE customer = 4711")
+Observe: 3 rows returned
+Reason:  Question answerable -> no further steps
+Answer:  "Customer 4711 has 3 open invoices."</div>
+              </div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">When the loop ends</div>
+            <div class="explanation">
+              A loop needs an end. The agent stops when it has <strong>reached the goal</strong> and needs no more tools — or when a <strong>stop condition</strong> triggers: a cap on iterations, an exhausted budget, or an error that cannot be fixed.<br><br>
+              Without such limits an agent could run forever, for example when a tool keeps returning a useless result. So every agent needs, from the start, a clear answer to the question: <em>how does it know it is done?</em>
+            </div>
+          </div>
+          ${quickCheck('Why does an agent loop need a fixed cap on iterations?', ['So the answer is phrased more nicely', 'So it does not run forever when no step leads to the goal', 'So the model may spend more tokens'], 1, 'A loop without a stop condition can run forever. The cap guarantees the agent halts in every case.')}
           ${renderQuestions('ai_l2_1', 6)}
           ${renderBonus('ai_l2_1')}
         `
@@ -20972,6 +21034,38 @@ Query (per question):
             </div>
           </div>
           ${callout('warn', 'Prompt-Injection', 'Verarbeitet ein Agent Fremdtexte (Webseiten, E-Mails), kann darin eine versteckte Anweisung stecken. Abwehr: Fremdinhalte immer als Daten behandeln, nie als Befehl — und Werkzeugrechte minimal halten.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Warum Arbeitsteilung?</div>
+            <div class="explanation">
+              Ein einzelner Alleskönner-Agent, der recherchiert, prüft, rechnet und schreibt, wird schnell <strong>unübersichtlich und fehleranfällig</strong>: viele Werkzeuge, ein vager Auftrag, kein klarer Erfolgsbegriff. Fehler lassen sich kaum noch einem einzelnen Schritt zuordnen.<br><br>
+              Zerlegt der Orchestrator die Aufgabe dagegen an spezialisierte Sub-Agenten — Rechercheur, Prüfer, Verfasser —, wird das System <strong>beherrschbarer, testbarer und billiger</strong>. Jeder Sub-Agent hat einen engen Auftrag und lässt sich einzeln prüfen; für einfache Teilschritte reichen oft kleinere, günstigere Modelle.
+            </div>
+          </div>
+          ${quickCheck('Was ist ein Vorteil, eine große Aufgabe auf spezialisierte Sub-Agenten aufzuteilen?', ['Das System braucht dann gar keine Grenzen mehr', 'Jeder Teil ist einzeln testbar, beherrschbarer und oft mit kleineren Modellen billiger', 'Ein einzelner Agent ist immer genauer als mehrere'], 1, 'Enge Aufträge lassen sich einzeln prüfen und mit kleineren Modellen günstiger betreiben — das macht das Ganze zuverlässiger.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Vier Fehlermodi und ihre Guardrails</div>
+            <div class="explanation">
+              Agenten haben typische Fehlermodi. Zu jedem gehört eine konkrete Schutzmaßnahme — eine <code>Guardrail</code>.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Fehlermodus -> Guardrail</span></div>
+                <div class="code-pre">Endlosschleife       -> harte Obergrenze fuer Durchlaeufe
+Kostenexplosion      -> Token-/Kostenbudget mit Stopp
+Prompt-Injection     -> Fremdinhalt als Daten, Rechte minimal
+Stille Falschantwort -> Grounding + Quellen, Pruefer, Freigabe</div>
+              </div>
+              Die <strong>stille Falschantwort</strong> ist die tückischste: Der Agent liefert überzeugend, aber falsch. Gegenmittel sind Grounding mit Quellen, ein prüfender Sub-Agent und eine menschliche Freigabe.
+            </div>
+          </div>
+          ${quickCheck('Welche Guardrail passt gegen eine drohende Kostenexplosion?', ['Ein Token- bzw. Kostenbudget, das den Agenten bei Erreichen stoppt', 'Eine schönere Formulierung im System-Prompt', 'Mehr Sub-Agenten hinzufügen'], 0, 'Gegen ausufernde Kosten hilft ein hartes Budget: Ist es aufgebraucht, stoppt der Agent — unabhängig davon, ob er fertig ist.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Human-in-the-loop</div>
+            <div class="explanation">
+              Manche Handlungen sind <strong>nicht umkehrbar</strong>: eine E-Mail senden, eine Zahlung auslösen, Daten löschen. Vor jeder solchen folgenreichen Aktion braucht ein produktiver Agent eine <strong>menschliche Freigabe</strong> — das ist das <code>Human-in-the-loop</code>-Prinzip.<br><br>
+              Daraus ergeben sich <strong>drei feste Grenzen</strong>, die jeder produktive Agent haben sollte: eine <strong>Schleifen-Obergrenze</strong>, ein <strong>Kostenbudget mit Stopp</strong> und eine <strong>Human-in-the-loop-Freigabe</strong> vor nicht umkehrbaren Schritten.
+            </div>
+          </div>
+          ${quickCheck('Wann sollte ein Agent eine menschliche Freigabe einholen?', ['Nach jeder einzelnen Beobachtung', 'Vor jeder folgenreichen, nicht umkehrbaren Handlung wie Senden, Zahlen oder Löschen', 'Nur wenn das Budget aufgebraucht ist'], 1, 'Human-in-the-loop schützt genau vor irreversiblen Schritten: Bevor etwas passiert, das man nicht zurücknehmen kann, entscheidet ein Mensch.')}
+          ${callout('key', 'Merke', 'Jeder produktive Agent braucht drei feste Grenzen: eine Schleifen-Obergrenze, ein Kostenbudget mit Stopp und eine Human-in-the-loop-Freigabe vor nicht umkehrbaren Handlungen.')}
           ${renderQuestions('ai_l2_2', 6)}
           ${renderBonus('ai_l2_2')}
         `,
@@ -20989,6 +21083,38 @@ Query (per question):
             </div>
           </div>
           ${callout('warn', 'Prompt injection', 'When an agent processes foreign text (websites, emails), a hidden instruction may be embedded in it. Defense: always treat foreign content as data, never as a command — and keep tool permissions minimal.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Why divide the work?</div>
+            <div class="explanation">
+              A single all-rounder agent that researches, checks, calculates and writes quickly becomes <strong>unmanageable and error-prone</strong>: many tools, a vague assignment, no clear success criterion. Errors can barely be traced to a single step.<br><br>
+              If the orchestrator instead splits the task across specialized sub-agents — researcher, validator, writer —, the system becomes <strong>more manageable, more testable and cheaper</strong>. Each sub-agent has a narrow assignment and can be checked on its own; for simple subtasks smaller, cheaper models are often enough.
+            </div>
+          </div>
+          ${quickCheck('What is an advantage of splitting a large task across specialized sub-agents?', ['The system then needs no limits at all any more', 'Each part is testable on its own, more manageable and often cheaper with smaller models', 'A single agent is always more accurate than several'], 1, 'Narrow assignments can be checked individually and run more cheaply on smaller models — which makes the whole more reliable.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Four failure modes and their guardrails</div>
+            <div class="explanation">
+              Agents have typical failure modes. Each comes with a concrete safeguard — a <code>guardrail</code>.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Failure mode -> guardrail</span></div>
+                <div class="code-pre">Infinite loop       -> hard cap on iterations
+Cost explosion      -> token/cost budget with a stop
+Prompt injection    -> foreign content as data, rights minimal
+Silent wrong answer -> grounding + sources, validator, approval</div>
+              </div>
+              The <strong>silent wrong answer</strong> is the most treacherous: the agent delivers convincingly but wrongly. Remedies are grounding with sources, a validating sub-agent and a human approval.
+            </div>
+          </div>
+          ${quickCheck('Which guardrail fits against a looming cost explosion?', ['A token or cost budget that stops the agent when reached', 'A nicer wording in the system prompt', 'Adding more sub-agents'], 0, 'Against runaway cost a hard budget helps: once it is used up, the agent stops — whether or not it is finished.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Human-in-the-loop</div>
+            <div class="explanation">
+              Some actions are <strong>irreversible</strong>: sending an email, triggering a payment, deleting data. Before any such consequential action a production agent needs a <strong>human approval</strong> — that is the <code>human-in-the-loop</code> principle.<br><br>
+              From this follow <strong>three hard limits</strong> that every production agent should have: a <strong>loop cap</strong>, a <strong>cost budget with a stop</strong> and a <strong>human-in-the-loop approval</strong> before irreversible steps.
+            </div>
+          </div>
+          ${quickCheck('When should an agent obtain a human approval?', ['After every single observation', 'Before any consequential, irreversible action such as sending, paying or deleting', 'Only when the budget is used up'], 1, 'Human-in-the-loop protects exactly against irreversible steps: before something happens that cannot be undone, a human decides.')}
+          ${callout('key', 'Remember', 'Every production agent needs three hard limits: a loop cap, a cost budget with a stop and a human-in-the-loop approval before irreversible actions.')}
           ${renderQuestions('ai_l2_2', 6)}
           ${renderBonus('ai_l2_2')}
         `
@@ -26854,6 +26980,46 @@ QUESTION_POOLS['ai_l1_2'] = [
   {id:'p_ai_l1_2_bonus',type:'mc',xp:20,optional:true,question:'In welcher Reihenfolge läuft die Abfrage-Phase von RAG ab?',question_en:'In what order does the query phase of RAG run?',options:[
     {t:'Hybride Suche → Re-Ranking → LLM formuliert geerdet mit Quellen',t_en:'Hybrid search → re-ranking → LLM phrases grounded, with sources',correct:true,why:'Genau. Erst suchen, dann die besten Belege nach oben sortieren, dann streng auf diese Belege gestützt formulieren und Quellen ausweisen.',why_en:'Exactly. First search, then sort the best evidence to the top, then phrase strictly grounded in that evidence and cite sources.'},
     {t:'LLM formuliert zuerst → danach wird passende Suche nachgereicht',t_en:'The LLM phrases first → then a matching search is added afterwards',correct:false,why:'Nein. Bei RAG wird vor dem Formulieren gesucht, damit die Antwort auf echten Belegen steht — nicht umgekehrt.',why_en:'No. In RAG the search happens before phrasing, so the answer rests on real evidence — not the other way round.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l2_1'] = [
+  {id:'p_ai_l2_1_mc1',type:'mc',xp:10,question:'Aus welchen drei Schritten besteht der Agenten-Loop?',question_en:'Which three steps make up the agent loop?',options:[
+    {t:'Reason, Act, Observe',t_en:'Reason, Act, Observe',correct:true,why:'Genau. Der Agent überlegt den nächsten Schritt (Reason), ruft ein Werkzeug auf (Act) und liest das Ergebnis (Observe) — und schleift zurück.',why_en:'Exactly. The agent reasons about the next step, calls a tool (Act) and reads the result (Observe) — then loops back.'},
+    {t:'Fragen, Trainieren, Speichern',t_en:'Ask, Train, Store',correct:false,why:'Nein. Ein Agent trainiert zur Laufzeit nichts; er durchläuft Reason, Act und Observe.',why_en:'No. An agent does not train at run time; it runs through Reason, Act and Observe.'},
+    {t:'Suchen, Einbetten, Re-Ranking',t_en:'Search, Embed, Re-rank',correct:false,why:'Das sind Schritte aus der RAG-Pipeline, nicht aus dem Agenten-Loop.',why_en:'Those are steps from the RAG pipeline, not from the agent loop.'}
+  ]},
+  {id:'p_ai_l2_1_mc2',type:'mc',xp:10,question:'Was ist ein Werkzeug im Sinne eines Agenten?',question_en:'What is a tool in the sense of an agent?',options:[
+    {t:'Eine Funktion, die der Agent aufrufen darf, etwa eine DB-Abfrage oder ein API-Call',t_en:'A function the agent may call, such as a DB query or an API call',correct:true,why:'Richtig. Das Modell bekommt Beschreibungen der Werkzeuge und wählt im Reason-Schritt eines mit passenden Parametern aus.',why_en:'Correct. The model receives descriptions of the tools and picks one with fitting parameters in the Reason step.'},
+    {t:'Ein zweites LLM, das die Antwort noch einmal umformuliert',t_en:'A second LLM that rephrases the answer once more',correct:false,why:'Nein. Ein Werkzeug ist eine aufrufbare Funktion, kein Umformulierer.',why_en:'No. A tool is a callable function, not a rephraser.'},
+    {t:'Ein festes Textbaustein-Archiv im Prompt',t_en:'A fixed archive of text snippets in the prompt',correct:false,why:'Nein. Werkzeuge sind Funktionen mit echter Wirkung, keine vorformulierten Textbausteine.',why_en:'No. Tools are functions with real effect, not pre-written text snippets.'}
+  ]},
+  {id:'p_ai_l2_1_tf1',type:'truefalse',xp:8,statement:'Das LLM führt einen Werkzeug-Aufruf selbst aus und berechnet das Ergebnis intern.',statement_en:'The LLM executes a tool call itself and computes the result internally.',correct:false,explanation:'Falsch. Das Modell wählt nur Werkzeug und Parameter; die umgebende Software führt den Aufruf aus und gibt das Ergebnis als Observation zurück.',explanation_en:'False. The model only chooses tool and parameters; the surrounding software runs the call and returns the result as an observation.'},
+  {id:'p_ai_l2_1_tf2',type:'truefalse',xp:8,statement:'Anders als eine einmalige Chat-Antwort kann ein Agent Zwischenergebnisse prüfen und mehrstufig arbeiten.',statement_en:'Unlike a one-shot chat reply, an agent can check intermediate results and work in multiple steps.',correct:true,explanation:'Richtig. Genau die Schleife aus Reason, Act und Observe erlaubt es, Ergebnisse zu prüfen und den nächsten Schritt darauf aufzubauen.',explanation_en:'Correct. Exactly the loop of Reason, Act and Observe lets it check results and build the next step on them.'},
+  {id:'p_ai_l2_1_fb1',type:'fillblank',xp:12,prompt:'Der Schritt, in dem der Agent das Ergebnis eines Werkzeug-Aufrufs liest, heißt ___ .',prompt_en:'The step in which the agent reads the result of a tool call is called ___ .',answers:['Observe','observe','Observation','observation'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Im Observe-Schritt liest der Agent das Ergebnis (die Observation) und entscheidet im nächsten Reason, wie es weitergeht.',explanation_en:'In the Observe step the agent reads the result (the observation) and decides in the next Reason how to continue.'},
+  {id:'p_ai_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Woran erkennt ein gut gebauter Agent, dass er die Schleife beenden soll?',question_en:'How does a well-built agent recognize it should end the loop?',options:[
+    {t:'Wenn das Ziel erreicht ist oder eine Abbruchbedingung wie eine Durchlauf-Obergrenze greift',t_en:'When the goal is reached or a stop condition such as an iteration cap triggers',correct:true,why:'Genau. Ohne klares Ende oder harte Grenze könnte ein Agent endlos weiterlaufen.',why_en:'Exactly. Without a clear end or a hard limit an agent could run forever.'},
+    {t:'Sobald das erste Werkzeug einmal aufgerufen wurde',t_en:'As soon as the first tool has been called once',correct:false,why:'Nein. Ein einzelner Aufruf reicht selten; der Agent schleift weiter, bis das Ziel oder eine Grenze erreicht ist.',why_en:'No. A single call is rarely enough; the agent keeps looping until the goal or a limit is reached.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l2_2'] = [
+  {id:'p_ai_l2_2_mc1',type:'mc',xp:10,question:'Was ist die Aufgabe eines Orchestrators?',question_en:'What is the job of an orchestrator?',options:[
+    {t:'Eine große Aufgabe in Teilaufgaben zerlegen und an spezialisierte Sub-Agenten verteilen',t_en:'Break a large task into subtasks and distribute them to specialized sub-agents',correct:true,why:'Richtig. So bekommt jeder Sub-Agent einen engen Auftrag mit klarem Erfolgsbegriff — das System wird beherrschbarer und testbarer.',why_en:'Correct. Each sub-agent then gets a narrow assignment with a clear success criterion — the system becomes more manageable and testable.'},
+    {t:'Alle Werkzeuge in einem einzigen Alleskönner-Agenten bündeln',t_en:'Bundle all tools into a single all-rounder agent',correct:false,why:'Das ist das Gegenteil. Ein Alleskönner wird unübersichtlich und fehleranfällig; der Orchestrator teilt die Arbeit auf.',why_en:'That is the opposite. An all-rounder becomes unmanageable and error-prone; the orchestrator divides the work.'},
+    {t:'Das Kontextfenster des Modells vergrößern',t_en:'Enlarge the model context window',correct:false,why:'Nein. Ein Orchestrator koordiniert Sub-Agenten; er verändert nicht die technische Fenstergröße.',why_en:'No. An orchestrator coordinates sub-agents; it does not change the technical window size.'}
+  ]},
+  {id:'p_ai_l2_2_mc2',type:'mc',xp:10,question:'Welche Guardrail wehrt eine Prompt-Injection am ehesten ab?',question_en:'Which guardrail best defends against a prompt injection?',options:[
+    {t:'Fremdinhalt als Daten behandeln und die Werkzeugrechte minimal halten',t_en:'Treat foreign content as data and keep tool permissions minimal',correct:true,why:'Genau. Wird eingelesener Text nie als Befehl ausgeführt und darf der Agent ohnehin nur wenig, läuft eine versteckte Anweisung ins Leere.',why_en:'Exactly. If ingested text is never executed as a command and the agent may do little anyway, a hidden instruction runs into nothing.'},
+    {t:'Das Kostenbudget erhöhen',t_en:'Raise the cost budget',correct:false,why:'Nein. Ein größeres Budget hat mit eingeschleusten Anweisungen nichts zu tun.',why_en:'No. A bigger budget has nothing to do with injected instructions.'},
+    {t:'Die Schleifen-Obergrenze abschalten',t_en:'Turn off the loop cap',correct:false,why:'Im Gegenteil — Grenzen abzuschalten macht den Agenten gefährlicher, nicht sicherer.',why_en:'On the contrary — removing limits makes the agent more dangerous, not safer.'}
+  ]},
+  {id:'p_ai_l2_2_tf1',type:'truefalse',xp:8,statement:'Gegen eine Endlosschleife hilft eine harte Obergrenze für die Zahl der Durchläufe.',statement_en:'Against an infinite loop a hard cap on the number of iterations helps.',correct:true,explanation:'Richtig. Die Durchlauf-Obergrenze garantiert, dass der Agent in jedem Fall anhält — auch wenn kein Schritt zum Ziel führt.',explanation_en:'Correct. The iteration cap guarantees the agent halts in every case — even when no step leads to the goal.'},
+  {id:'p_ai_l2_2_tf2',type:'truefalse',xp:8,statement:'Vor einer nicht umkehrbaren Handlung wie dem Senden einer E-Mail sollte eine menschliche Freigabe stehen.',statement_en:'Before an irreversible action such as sending an email there should be a human approval.',correct:true,explanation:'Richtig. Das ist das Human-in-the-loop-Prinzip: Vor folgenreichen, nicht umkehrbaren Schritten entscheidet ein Mensch.',explanation_en:'Correct. That is the human-in-the-loop principle: before consequential, irreversible steps a human decides.'},
+  {id:'p_ai_l2_2_fb1',type:'fillblank',xp:12,prompt:'Die tückischste Fehlerart, bei der ein Agent überzeugend, aber falsch antwortet, heißt stille ___ .',prompt_en:'The most treacherous failure, where an agent answers convincingly but wrongly, is called a silent wrong ___ .',answers:['Falschantwort','falschantwort','Antwort','answer','Answer'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Die stille Falschantwort wird durch Grounding mit Quellen, einen prüfenden Sub-Agenten und eine menschliche Freigabe bekämpft.',explanation_en:'The silent wrong answer is countered by grounding with sources, a validating sub-agent and a human approval.'},
+  {id:'p_ai_l2_2_bonus',type:'mc',xp:20,optional:true,question:'Welche drei festen Grenzen sollte jeder produktive Agent haben?',question_en:'Which three hard limits should every production agent have?',options:[
+    {t:'Schleifen-Obergrenze, Kostenbudget mit Stopp und Human-in-the-loop-Freigabe',t_en:'A loop cap, a cost budget with a stop and a human-in-the-loop approval',correct:true,why:'Genau diese drei Grenzen fangen Endlosschleife, Kostenexplosion und folgenreiche irreversible Aktionen ab.',why_en:'Exactly these three limits catch infinite loops, cost explosions and consequential irreversible actions.'},
+    {t:'Mehr Sub-Agenten, größeres Modell und längerer Prompt',t_en:'More sub-agents, a bigger model and a longer prompt',correct:false,why:'Nein. Das sind keine Sicherheitsgrenzen; sie beheben weder Endlosschleifen noch Kostenrisiken oder irreversible Handlungen.',why_en:'No. Those are not safety limits; they fix neither infinite loops nor cost risks nor irreversible actions.'}
   ]}
 ];
 
