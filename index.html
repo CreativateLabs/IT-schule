@@ -20698,6 +20698,426 @@ RESSOURCEN:
 const CODE_COURSE_PHASES = PHASES;
 
 // ============================================================
+//   COURSE: KI & Agenten (AI & Agents) — unique ids "ai_*"
+// ============================================================
+// Newly authored, generic content (no confidential client references).
+// Lessons start with a real intro card; full content + quiz pools are filled per phase.
+const AI_AGENTS_PHASES = [
+  {
+    id: 'p_ai1', title: 'KI-Grundlagen & RAG', title_en: 'AI Basics & RAG',
+    sub: 'Wie ein LLM wirklich arbeitet — und wie RAG belegbare Antworten liefert.',
+    sub_en: 'How an LLM really works — and how RAG delivers grounded answers.',
+    lessons: [
+      {
+        id: 'ai_l1_1', title: 'Was ist ein LLM?',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">Was ist ein LLM?</h1>
+            <p class="lesson-desc">Ein Large Language Model ist ein extrem guter Mustervervollständiger — kein Faktenspeicher. Wer das versteht, trifft bei KI-Anwendungen die richtigen Entscheidungen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Das Grundprinzip</div>
+            <div class="explanation">
+              Ein <strong>LLM</strong> hat aus riesigen Textmengen statistische Muster gelernt und sagt, gegeben eine Eingabe, jeweils das <strong>nächste Text-Bruchstück</strong> voraus. Es „versteht" nicht im menschlichen Sinn — es rechnet Wahrscheinlichkeiten aus.<br><br>
+              Wichtige Begriffe: Ein <code>Token</code> ist ein kleines Text-Bruchstück (oft ein Wortteil) — die Abrechnungs- und Mengeneinheit. Das <code>Kontextfenster</code> ist der maximale Arbeitsspeicher pro Aufruf, in Token gemessen. Passt Anfrage + Dokumente + Antwort nicht hinein, wird abgeschnitten.
+            </div>
+          </div>
+          ${callout('warn', 'Halluzination', 'Bei Wissenslücken erfindet ein LLM selbstbewusst falsche Fakten — eine erfundene Nummer, ein falsches Datum. Das ist kein Bug, sondern Folge des Funktionsprinzips. Man bekämpft es, indem man dem Modell die richtigen Fakten mitgibt (RAG).')}
+          ${renderQuestions('ai_l1_1', 6)}
+          ${renderBonus('ai_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">What is an LLM?</h1>
+            <p class="lesson-desc">A large language model is an extremely good pattern-completer — not a fact store. Understanding this leads to the right decisions when building AI applications.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The core principle</div>
+            <div class="explanation">
+              An <strong>LLM</strong> learned statistical patterns from huge amounts of text and, given an input, predicts the <strong>next chunk of text</strong>. It does not "understand" in a human sense — it computes probabilities.<br><br>
+              Key terms: a <code>token</code> is a small chunk of text (often a word part) — the unit of billing and size. The <code>context window</code> is the maximum working memory per call, measured in tokens. If prompt + documents + answer don't fit, they get cut off.
+            </div>
+          </div>
+          ${callout('warn', 'Hallucination', 'When it hits a knowledge gap, an LLM confidently invents false facts — a made-up number, a wrong date. This is not a bug but a consequence of how it works. You fight it by giving the model the right facts (RAG).')}
+          ${renderQuestions('ai_l1_1', 6)}
+          ${renderBonus('ai_l1_1')}
+        `
+      },
+      {
+        id: 'ai_l1_2', title: 'RAG — Antworten mit Belegen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 2</div>
+            <h1 class="lesson-title">RAG — Antworten mit Belegen</h1>
+            <p class="lesson-desc">RAG verbindet die Sprachfähigkeit des LLM mit geprüften Fakten — und kann Quellen ausweisen. So wird aus einem plausiblen Formulierer ein auditierbares Werkzeug.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die RAG-Idee</div>
+            <div class="explanation">
+              <strong>RAG</strong> (Retrieval-Augmented Generation) heißt: Bevor das Modell antwortet, suchen wir passende Belegstellen aus einer eigenen Wissensbasis und legen sie dem Modell als Kontext vor. Das Modell formuliert dann <em>auf Basis dieser Belege</em>.<br><br>
+              Kernbegriffe: Ein <code>Embedding</code> übersetzt einen Text in eine Zahlenreihe, die seine Bedeutung kodiert — ähnliche Bedeutung, ähnliche Zahlen. Die <code>Vektorsuche</code> findet darüber inhaltlich passende Stücke. <strong>Grounding</strong> ist die Regel: Das Modell darf nur behaupten, was in den Belegen steht — sonst „nicht belegt".
+            </div>
+          </div>
+          ${callout('key', 'Merke', 'Ein LLM ist ein Sprachmodell, kein Wissensmodell. Wissen kommt aus der geerdeten Wissensbasis; das Modell formuliert nur. Kein RAG ohne Quellenangabe und ohne „sonst nicht belegt"-Regel.')}
+          ${renderQuestions('ai_l1_2', 6)}
+          ${renderBonus('ai_l1_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 2</div>
+            <h1 class="lesson-title">RAG — Grounded Answers</h1>
+            <p class="lesson-desc">RAG combines the LLM's language ability with verified facts — and can cite sources. It turns a plausible phraser into an auditable tool.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The RAG idea</div>
+            <div class="explanation">
+              <strong>RAG</strong> (Retrieval-Augmented Generation) means: before the model answers, we search a knowledge base for relevant passages and hand them to the model as context. The model then phrases its answer <em>based on those passages</em>.<br><br>
+              Key terms: an <code>embedding</code> translates text into a list of numbers that encodes its meaning — similar meaning, similar numbers. <code>Vector search</code> uses this to find relevant chunks. <strong>Grounding</strong> is the rule: the model may only claim what the passages contain — otherwise "not supported".
+            </div>
+          </div>
+          ${callout('key', 'Remember', 'An LLM is a language model, not a knowledge model. Knowledge comes from the grounded knowledge base; the model only phrases. No RAG without source citation and without the "otherwise not supported" rule.')}
+          ${renderQuestions('ai_l1_2', 6)}
+          ${renderBonus('ai_l1_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ai2', title: 'Agenten', title_en: 'Agents',
+    sub: 'Vom einzelnen Modell zum handelnden Agenten — Loop, Werkzeuge, Guardrails.',
+    sub_en: 'From a single model to an acting agent — loop, tools, guardrails.',
+    lessons: [
+      {
+        id: 'ai_l2_1', title: 'Der Agenten-Loop',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">Der Agenten-Loop</h1>
+            <p class="lesson-desc">Ein Agent ist im Kern ein LLM in einer Schleife. Statt einmal zu antworten, überlegt es, handelt und beobachtet — bis die Aufgabe erledigt ist.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Reason – Act – Observe</div>
+            <div class="explanation">
+              Ein <strong>Agent</strong> durchläuft einen Kreislauf: <strong>Reason</strong> (was ist der nächste Schritt?), <strong>Act</strong> (ein Werkzeug aufrufen) und <strong>Observe</strong> (das Ergebnis lesen) — und schleift damit zurück, bis das Ziel erreicht ist.<br><br>
+              Der Hebel ist die <strong>Werkzeugnutzung</strong>: Ein Werkzeug ist eine Funktion, die der Agent aufrufen darf — eine Datenbankabfrage, ein API-Call. Dadurch kann er echte, aktuelle Daten holen und wirklich etwas bewirken — nicht nur Text erzeugen.
+            </div>
+          </div>
+          ${callout('fact', 'Der Unterschied zum Chat', 'Eine Chat-Antwort ist einmalig. Ein Agent kann Werkzeuge benutzen, Zwischenergebnisse prüfen und einen mehrstufigen Auftrag selbstständig abarbeiten.')}
+          ${renderQuestions('ai_l2_1', 6)}
+          ${renderBonus('ai_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">The Agent Loop</h1>
+            <p class="lesson-desc">An agent is essentially an LLM in a loop. Instead of answering once, it reasons, acts and observes — until the task is done.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Reason – Act – Observe</div>
+            <div class="explanation">
+              An <strong>agent</strong> runs a loop: <strong>Reason</strong> (what is the next step?), <strong>Act</strong> (call a tool) and <strong>Observe</strong> (read the result) — then loops back until the goal is reached.<br><br>
+              The lever is <strong>tool use</strong>: a tool is a function the agent may call — a database query, an API call. This lets it fetch real, current data and actually make things happen — not just produce text.
+            </div>
+          </div>
+          ${callout('fact', 'The difference from chat', 'A chat reply is one-shot. An agent can use tools, check intermediate results and work through a multi-step task on its own.')}
+          ${renderQuestions('ai_l2_1', 6)}
+          ${renderBonus('ai_l2_1')}
+        `
+      },
+      {
+        id: 'ai_l2_2', title: 'Orchestrator & Guardrails',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 2</div>
+            <h1 class="lesson-title">Orchestrator & Guardrails</h1>
+            <p class="lesson-desc">Ein Agent, der alles können soll, wird schnell unbeherrschbar. Arbeitsteilung und harte Grenzen machen das System zuverlässig.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Orchestrator & Sub-Agenten</div>
+            <div class="explanation">
+              Ein <strong>Orchestrator</strong> zerlegt eine große Aufgabe in Teilaufgaben und verteilt sie an spezialisierte <strong>Sub-Agenten</strong> — einer recherchiert, einer prüft, einer formuliert. Jeder hat einen engen Auftrag, wenige Werkzeuge und einen klaren Erfolgsbegriff.<br><br>
+              Weil Agenten mächtig und riskant sind, braucht jeder produktive Agent <strong>drei feste Grenzen</strong>: eine Obergrenze für Schleifendurchläufe, ein Kosten-/Token-Budget mit Stopp, und eine <strong>Human-in-the-loop</strong>-Freigabe vor jeder nicht umkehrbaren Handlung.
+            </div>
+          </div>
+          ${callout('warn', 'Prompt-Injection', 'Verarbeitet ein Agent Fremdtexte (Webseiten, E-Mails), kann darin eine versteckte Anweisung stecken. Abwehr: Fremdinhalte immer als Daten behandeln, nie als Befehl — und Werkzeugrechte minimal halten.')}
+          ${renderQuestions('ai_l2_2', 6)}
+          ${renderBonus('ai_l2_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 2</div>
+            <h1 class="lesson-title">Orchestrator & Guardrails</h1>
+            <p class="lesson-desc">An agent meant to do everything quickly becomes unmanageable. Division of labor and hard limits make the system reliable.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Orchestrator & sub-agents</div>
+            <div class="explanation">
+              An <strong>orchestrator</strong> breaks a large task into subtasks and distributes them to specialized <strong>sub-agents</strong> — one researches, one validates, one writes. Each has a narrow assignment, few tools and a clear success criterion.<br><br>
+              Because agents are powerful and risky, every production agent needs <strong>three hard limits</strong>: a cap on loop iterations, a cost/token budget with a stop, and a <strong>human-in-the-loop</strong> approval before any irreversible action.
+            </div>
+          </div>
+          ${callout('warn', 'Prompt injection', 'When an agent processes foreign text (websites, emails), a hidden instruction may be embedded in it. Defense: always treat foreign content as data, never as a command — and keep tool permissions minimal.')}
+          ${renderQuestions('ai_l2_2', 6)}
+          ${renderBonus('ai_l2_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ai3', title: 'MCP — Werkzeuge anbinden', title_en: 'MCP — Connecting Tools',
+    sub: 'Der offene Standard, wie ein Agent an Werkzeuge und Daten kommt.',
+    sub_en: 'The open standard for how an agent connects to tools and data.',
+    lessons: [
+      {
+        id: 'ai_l3_1', title: 'MCP-Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">MCP-Grundlagen</h1>
+            <p class="lesson-desc">Model Context Protocol ist „USB-C für KI-Anwendungen": eine einheitliche Buchse, über die jeder Agent mit jedem Werkzeug sprechen kann.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Client & Server</div>
+            <div class="explanation">
+              <strong>MCP</strong> löst ein Kombinatorik-Problem: Ohne Standard braucht jeder Agent für jedes Werkzeug eine eigene Integration (M×N). Mit MCP spricht jeder Agent MCP (Client-Teil) und jedes Werkzeug spricht MCP (Server-Teil) — beliebige Kombinationen ohne Einzelverdrahtung (M+N).<br><br>
+              Ein MCP-Server bietet drei <strong>Primitive</strong>: <code>Tools</code> (ausführbare Funktionen — das Wichtigste), <code>Resources</code> (lesbare Daten/Dokumente) und <code>Prompts</code> (vordefinierte Vorlagen).
+            </div>
+          </div>
+          ${callout('key', 'Der eigentliche Hebel', 'MCP standardisiert nicht, WAS ein Agent kann, sondern WIE er an neue Fähigkeiten kommt. Fähigkeiten werden dadurch zu austauschbaren Bausteinen statt fest verdrahteter Sonderlösungen.')}
+          ${renderQuestions('ai_l3_1', 6)}
+          ${renderBonus('ai_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">MCP Basics</h1>
+            <p class="lesson-desc">The Model Context Protocol is "USB-C for AI applications": one universal socket through which any agent can talk to any tool.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Client & server</div>
+            <div class="explanation">
+              <strong>MCP</strong> solves a combinatorics problem: without a standard, every agent needs a custom integration for every tool (M×N). With MCP, every agent speaks MCP (the client part) and every tool speaks MCP (the server part) — any combination works without individual wiring (M+N).<br><br>
+              An MCP server offers three <strong>primitives</strong>: <code>Tools</code> (executable functions — the most important), <code>Resources</code> (readable data/documents) and <code>Prompts</code> (predefined templates).
+            </div>
+          </div>
+          ${callout('key', 'The real lever', 'MCP does not standardize WHAT an agent can do, but HOW it gains new capabilities. Capabilities become swappable building blocks instead of hard-wired one-offs.')}
+          ${renderQuestions('ai_l3_1', 6)}
+          ${renderBonus('ai_l3_1')}
+        `
+      },
+      {
+        id: 'ai_l3_2', title: 'MCP: Praxis & Sicherheit',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 2</div>
+            <h1 class="lesson-title">MCP: Praxis & Sicherheit</h1>
+            <p class="lesson-desc">Ein MCP-Server verbindet ein Sprachmodell mit echten Systemen — und ist damit Angriffsfläche. Er muss wie eine öffentliche Schnittstelle behandelt werden.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Sicherheit ist nicht optional</div>
+            <div class="explanation">
+              Kernprinzipien: <strong>Least-Privilege je Tool</strong> (jedes Werkzeug bekommt nur die minimal nötigen Rechte), <strong>Eingabevalidierung</strong> (Argumente des Modells sind unvertrauenswürdig — prüfen, gegen Parameter binden), und <strong>keine Secrets im Tool-Output</strong>.<br><br>
+              Der gefährlichste Vektor ist <strong>Prompt-Injection über Tool-Ergebnisse</strong>: Gibt ein Tool fremde Inhalte zurück, können darin Anweisungen stecken. Fremde Inhalte sind immer Daten, niemals Anweisungen.
+            </div>
+          </div>
+          ${callout('tip', 'Werkzeug bauen', 'Mit der Python-Bibliothek FastMCP wird aus einer Funktion mit Typ-Annotationen und Docstring automatisch ein fertiges Tool-Schema — genau diese Beschreibung liest das Modell, um zu entscheiden, wann es das Werkzeug aufruft.')}
+          ${renderQuestions('ai_l3_2', 6)}
+          ${renderBonus('ai_l3_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 2</div>
+            <h1 class="lesson-title">MCP: Practice & Security</h1>
+            <p class="lesson-desc">An MCP server connects a language model to real systems — making it an attack surface. It must be treated like a public interface.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Security is not optional</div>
+            <div class="explanation">
+              Core principles: <strong>least privilege per tool</strong> (each tool gets only the minimal rights needed), <strong>input validation</strong> (the model's arguments are untrusted — validate, bind to parameters), and <strong>no secrets in tool output</strong>.<br><br>
+              The most dangerous vector is <strong>prompt injection via tool results</strong>: when a tool returns foreign content, instructions may be hidden inside it. Foreign content is always data, never instructions.
+            </div>
+          </div>
+          ${callout('tip', 'Building a tool', 'With the Python library FastMCP, a function with type annotations and a docstring automatically becomes a ready tool schema — that exact description is what the model reads to decide when to call the tool.')}
+          ${renderQuestions('ai_l3_2', 6)}
+          ${renderBonus('ai_l3_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ai4', title: 'A2A — Agenten vernetzen', title_en: 'A2A — Connecting Agents',
+    sub: 'Wie eigenständige Agenten über Team- und Firmengrenzen zusammenarbeiten.',
+    sub_en: 'How autonomous agents collaborate across team and company boundaries.',
+    lessons: [
+      {
+        id: 'ai_l4_1', title: 'A2A-Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">A2A-Grundlagen</h1>
+            <p class="lesson-desc">MCP verbindet einen Agenten mit seinen Werkzeugen. A2A verbindet einen Agenten mit anderen Agenten — für langlaufende, delegierte Aufgaben.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die Bausteine von A2A</div>
+            <div class="explanation">
+              <strong>A2A</strong> (Agent-to-Agent) beschreibt die Beziehung Agent ↔ Agent. Kernbausteine: Die <strong>Agent Card</strong> ist ein maschinenlesbares Steckbrief-Dokument (wer, was, wo, wie authentifizieren) — Grundlage für <strong>Capability Discovery</strong>. Ein <strong>Task</strong> bündelt einen delegierten Auftrag mit ID und Status (eingereicht → in Arbeit → fertig).<br><br>
+              Ergebnisse sind <strong>Artefakte</strong> (benannte, typisierte Ausgabeobjekte wie ein PDF oder Datensatz). Für lange Tasks schiebt der Agent <strong>Streaming</strong>-Zwischenmeldungen zurück, statt dass der Auftraggeber blind wartet.
+            </div>
+          </div>
+          ${callout('key', 'MCP vs. A2A', 'MCP verbindet einen Agenten mit seinen Werkzeugen. A2A verbindet einen Agenten mit anderen Agenten. Beide schließen sich nicht aus — ein gut gebauter Orchestrator nutzt beide gleichzeitig.')}
+          ${renderQuestions('ai_l4_1', 6)}
+          ${renderBonus('ai_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">A2A Basics</h1>
+            <p class="lesson-desc">MCP connects an agent to its tools. A2A connects an agent to other agents — for long-running, delegated tasks.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The building blocks of A2A</div>
+            <div class="explanation">
+              <strong>A2A</strong> (agent-to-agent) describes the agent ↔ agent relationship. Core building blocks: the <strong>Agent Card</strong> is a machine-readable profile document (who, what, where, how to authenticate) — the basis for <strong>capability discovery</strong>. A <strong>Task</strong> bundles a delegated assignment with an id and a status (submitted → working → completed).<br><br>
+              Results are <strong>artifacts</strong> (named, typed output objects like a PDF or dataset). For long tasks the agent pushes <strong>streaming</strong> updates back, instead of the requester waiting blindly.
+            </div>
+          </div>
+          ${callout('key', 'MCP vs. A2A', 'MCP connects an agent to its tools. A2A connects an agent to other agents. The two are not mutually exclusive — a well-built orchestrator uses both at once.')}
+          ${renderQuestions('ai_l4_1', 6)}
+          ${renderBonus('ai_l4_1')}
+        `
+      },
+      {
+        id: 'ai_l4_2', title: 'Sicherheit an der Agentengrenze',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 2</div>
+            <h1 class="lesson-title">Sicherheit an der Agentengrenze</h1>
+            <p class="lesson-desc">Ein delegierter Auftrag ist die Übergabe von Handlungsmacht an eine fremde, autonome Instanz. Wer wem was anvertraut, muss explizit, prüfbar und minimal sein.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Vertrauen zwischen Agenten</div>
+            <div class="explanation">
+              Zentrale Mechanismen: <strong>mTLS</strong> (beide Seiten weisen sich per Zertifikat aus), <strong>OAuth2/Scopes je Fähigkeit</strong> (ein Token trägt nur die minimal nötigen Rechte), und <strong>On-Behalf-Of</strong> (der Agent handelt im Namen des Nutzers und sieht nur, was dieser selbst dürfte).<br><br>
+              Klassischer Fallstrick: das <strong>Confused-Deputy</strong>-Problem — ein Agent mit hohen Rechten führt arglos eine Aktion aus, zu der der Auftraggeber gar nicht berechtigt war. Gegenmittel: Rechte an die Auftraggeber-Identität binden, nicht an den ausführenden Agenten.
+            </div>
+          </div>
+          ${callout('tip', 'Wann NICHT A2A', 'Wähle das kleinste Protokoll, das das Problem löst: Funktionsaufruf, wenn alles im selben Prozess läuft; MCP, wenn ein Agent ein Werkzeug braucht; A2A erst, wenn eigenständige Agenten über Grenzen hinweg wirklich zusammenarbeiten müssen.')}
+          ${renderQuestions('ai_l4_2', 6)}
+          ${renderBonus('ai_l4_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 2</div>
+            <h1 class="lesson-title">Security at the Agent Boundary</h1>
+            <p class="lesson-desc">A delegated task is the handover of agency to a foreign, autonomous instance. Who entrusts what to whom must be explicit, verifiable and minimal.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Trust between agents</div>
+            <div class="explanation">
+              Core mechanisms: <strong>mTLS</strong> (both sides prove themselves via certificate), <strong>OAuth2/scopes per capability</strong> (a token carries only the minimal rights needed), and <strong>on-behalf-of</strong> (the agent acts in the user's name and sees only what the user is allowed to).<br><br>
+              A classic pitfall: the <strong>confused-deputy</strong> problem — an agent with high privileges innocently performs an action the requester was never entitled to. Countermeasure: bind rights to the requester's identity, not to the executing agent.
+            </div>
+          </div>
+          ${callout('tip', 'When NOT to use A2A', 'Choose the smallest protocol that solves the problem: a function call when everything runs in the same process; MCP when an agent needs a tool; A2A only when autonomous agents across boundaries genuinely need to collaborate.')}
+          ${renderQuestions('ai_l4_2', 6)}
+          ${renderBonus('ai_l4_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ai5', title: 'Wissensgraphen', title_en: 'Knowledge Graphs',
+    sub: 'Beziehungsgetriebene Fragen beantworten — Ontologien, Graphen und GraphRAG.',
+    sub_en: 'Answering relationship-driven questions — ontologies, graphs and GraphRAG.',
+    lessons: [
+      {
+        id: 'ai_l5_1', title: 'Ontologien & Knowledge Graphs',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 1</div>
+            <h1 class="lesson-title">Ontologien & Knowledge Graphs</h1>
+            <p class="lesson-desc">Viele wichtige Fragen sind nicht „Was steht in Dokument X?", sondern „Wie hängt A mit B zusammen?". Das ist die Domäne von Wissensgraphen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Ontologie vs. Knowledge Graph</div>
+            <div class="explanation">
+              Eine <strong>Ontologie</strong> ist das <em>Schema</em> — sie legt fest, welche Arten von Dingen es gibt und welche Beziehungen erlaubt sind (der Bauplan). Ein <strong>Knowledge Graph</strong> ist die <em>Füllung</em> dieses Schemas mit konkreten Fakten (das gebaute Haus mit echten Bewohnern).<br><br>
+              Zwei Technologiewelten: <strong>Property Graphs</strong> (z. B. Neo4j/Cypher) hängen Eigenschaften direkt an Knoten und Kanten — schnell und intuitiv. <strong>RDF/Triple-Stores</strong> (SPARQL) zerlegen alles in Dreier-Aussagen — stärker in formaler Logik und Standard-Austausch.
+            </div>
+          </div>
+          ${callout('key', 'GraphRAG', 'Vektorsuche findet, was ähnlich klingt; der Graph weiß, was tatsächlich zusammenhängt. GraphRAG gibt dem Modell strukturierten Graph-Kontext statt nur Textschnipsel — für nachvollziehbare, beziehungssichere Antworten.')}
+          ${renderQuestions('ai_l5_1', 6)}
+          ${renderBonus('ai_l5_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 1</div>
+            <h1 class="lesson-title">Ontologies & Knowledge Graphs</h1>
+            <p class="lesson-desc">Many important questions are not "What's in document X?" but "How does A relate to B?". That is the domain of knowledge graphs.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Ontology vs. knowledge graph</div>
+            <div class="explanation">
+              An <strong>ontology</strong> is the <em>schema</em> — it defines which kinds of things exist and which relationships are allowed (the blueprint). A <strong>knowledge graph</strong> is the <em>filling</em> of that schema with concrete facts (the built house with real inhabitants).<br><br>
+              Two technology worlds: <strong>property graphs</strong> (e.g. Neo4j/Cypher) attach properties directly to nodes and edges — fast and intuitive. <strong>RDF/triple stores</strong> (SPARQL) break everything into three-part statements — stronger in formal logic and standardized exchange.
+            </div>
+          </div>
+          ${callout('key', 'GraphRAG', 'Vector search finds what sounds similar; the graph knows what is actually connected. GraphRAG gives the model structured graph context instead of just text snippets — for traceable, relationship-safe answers.')}
+          ${renderQuestions('ai_l5_1', 6)}
+          ${renderBonus('ai_l5_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ai6', title: 'MLOps / LLMOps', title_en: 'MLOps / LLMOps',
+    sub: 'KI-Systeme zuverlässig betreiben — Eval-in-CI, Registry und Modell-Migration.',
+    sub_en: 'Running AI systems reliably — eval-in-CI, registry and model migration.',
+    lessons: [
+      {
+        id: 'ai_l6_1', title: 'LLMOps — Modelle im Betrieb',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 1</div>
+            <h1 class="lesson-title">LLMOps — Modelle im Betrieb</h1>
+            <p class="lesson-desc">LLMOps hält KI-Systeme zuverlässig am Laufen. Anders als klassisches MLOps ändert man das Verhalten fast nie über Gewichte, sondern über Prompts, Tools und Retrieval.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist das Artefakt?</div>
+            <div class="explanation">
+              Bei LLMOps bestimmt nicht eine trainierte Gewichtsdatei das Ergebnis, sondern das Zusammenspiel aus <strong>System-Prompt, Tools/MCP, abgerufenen Dokumenten und der Modellversion</strong>. Genau diese vier Dinge muss man versionieren, testen und überwachen.<br><br>
+              Kern-Bausteine: <strong>Versionierung</strong> (Prompts &amp; Tool-Definitionen liegen versioniert im Repo), <strong>Eval-in-CI</strong> (bei jeder Änderung läuft eine Testbatterie fester Fälle — unterschreitet ein Score die Schwelle, wird der Merge blockiert) und eine <strong>Model/Prompt-Registry</strong> für sauberes Rollback.
+            </div>
+          </div>
+          ${callout('key', 'Ohne Messung keine Kontrolle', 'Wenn du nicht messen kannst, ob eine neue Prompt- oder Modellversion besser ist, hast du keine Kontrolle über dein Produkt — nur Glück oder Pech. Kein Prompt-, Tool- oder Modellwechsel geht ohne bestandenes Eval-Gate live.')}
+          ${renderQuestions('ai_l6_1', 6)}
+          ${renderBonus('ai_l6_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lesson 1</div>
+            <h1 class="lesson-title">LLMOps — Models in Production</h1>
+            <p class="lesson-desc">LLMOps keeps AI systems running reliably. Unlike classic MLOps, you almost never change behavior via weights, but via prompts, tools and retrieval.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What is the artifact?</div>
+            <div class="explanation">
+              In LLMOps the result is not determined by a trained weights file, but by the interplay of the <strong>system prompt, tools/MCP, retrieved documents and the model version</strong>. These four things are exactly what you must version, test and monitor.<br><br>
+              Core building blocks: <strong>versioning</strong> (prompts &amp; tool definitions live versioned in the repo), <strong>eval-in-CI</strong> (every change runs a battery of fixed test cases — if a score falls below the threshold, the merge is blocked) and a <strong>model/prompt registry</strong> for clean rollback.
+            </div>
+          </div>
+          ${callout('key', 'No measurement, no control', 'If you cannot measure whether a new prompt or model version is better, you have no control over your product — only luck. No prompt, tool or model change goes live without passing the eval gate.')}
+          ${renderQuestions('ai_l6_1', 6)}
+          ${renderBonus('ai_l6_1')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -20729,10 +21149,8 @@ const COURSES = [
     level: 'Fortgeschritten',
     level_en: 'Advanced',
     accent: 'var(--orange)',
-    phases: [],
-    available: false,
-    soonNote: '6 Kapitel · in Arbeit',
-    soonNote_en: '6 chapters · in progress',
+    phases: AI_AGENTS_PHASES,
+    available: true,
   },
   {
     id: 'architecture',
