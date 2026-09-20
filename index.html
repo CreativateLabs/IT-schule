@@ -21556,6 +21556,36 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'GraphRAG', 'Vektorsuche findet, was ähnlich klingt; der Graph weiß, was tatsächlich zusammenhängt. GraphRAG gibt dem Modell strukturierten Graph-Kontext statt nur Textschnipsel — für nachvollziehbare, beziehungssichere Antworten.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Zwei Welten: Property Graph vs. RDF/Triple-Store</div>
+            <div class="explanation">
+              Ein <strong>Property Graph</strong> (z. B. Neo4j mit der Abfragesprache Cypher, oder Cosmos DB mit Gremlin) hängt Eigenschaften direkt an Knoten und Kanten. Er ist entwicklerfreundlich und stark bei Pfad- und Nachbarschaftssuche — ideal, um schnell zu fragen „welcher Weg führt von A nach B?". Dafür hat er weniger formale Semantik.<br><br>
+              Ein <strong>RDF/Triple-Store</strong> speichert alles als <strong>Tripel</strong> (Subjekt · Prädikat · Objekt) und wird über <code>SPARQL</code> abgefragt; <code>OWL</code> beschreibt die Regeln. Diese Welt ist stark in formaler Logik, automatischer Inferenz und standardisiertem Austausch — dafür ist die Lernkurve steiler.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Cypher · Pfad-Abfrage</span></div>
+                <div class="code-pre">MATCH (a:Person)-[:ARBEITET_BEI]-&gt;(f:Firma)
+MATCH (f)-[:LIEFERT_AN]-&gt;(k:Kunde)
+RETURN a.name, k.name</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('Du brauchst automatische Inferenz und formale Logik über einen Standard. Welche Welt passt eher?', ['Property Graph (Cypher), wegen der einfachen Pfadsuche', 'RDF/Triple-Store (SPARQL/OWL), wegen der starken formalen Semantik', 'Beide sind dafür gleich schlecht geeignet'], 1, 'Property Graphs glänzen bei schneller Pfad- und Nachbarschaftssuche. Formale Logik, Inferenz und Standard-Austausch sind die Stärke der RDF/Triple-Store-Welt.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Inferenz — Fakten ableiten, die nirgends gespeichert sind</div>
+            <div class="explanation">
+              <strong>Inferenz</strong> heißt: aus vorhandenen Fakten und den Regeln der Ontologie automatisch neue Fakten ableiten, die nirgends direkt gespeichert wurden. Steht im Graph „A ist Teil von B" und „B ist Teil von C", kann das System „A ist Teil von C" folgern — ohne dass jemand diese Kante eingetragen hat.<br><br>
+              Das macht den Graph mächtiger als eine reine Faktensammlung: Ein Pfad aus aneinandergereihten Kanten beantwortet Mehrschritt-Fragen („Wie hängt A mit C zusammen?"), und Inferenz füllt Lücken, die im Text nie ausgesprochen wurden.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">GraphRAG in vier Schritten</div>
+            <div class="explanation">
+              <strong>GraphRAG</strong> gibt dem Modell strukturierten Graph-Kontext statt loser Textschnipsel. Der Ablauf:<br><br>
+              <strong>1 · Extraktion</strong> — aus Texten Entitäten und Beziehungen als Tripel herauslesen. <strong>2 · Graph-Aufbau</strong> — die Tripel gegen die Ontologie prüfen und per <strong>Entity Resolution</strong> Dubletten zusammenführen (derselbe reale Gegenstand = ein Knoten). <strong>3 · Retrieval</strong> — passende Knoten finden und ihre Nachbarschaft samt Pfaden entlanglaufen. <strong>4 · Generierung</strong> — die Antwort aus Graph-Pfaden plus Originaltext bilden, inklusive nachvollziehbarem Quellenpfad.
+            </div>
+          </div>
+          ${callout('warn', 'Entity Resolution ist kritisch', 'Ein falsch verschmolzener Knoten führt zu lautlos falschen Antworten: Zwei verschiedene reale Dinge, die versehentlich als ein Knoten gelten, verketten Fakten, die nie zusammengehörten. Sauberes Zusammenführen von Dubletten entscheidet über die Qualität des ganzen Graphen.')}
+          ${quickCheck('Warum ist Entity Resolution beim Graph-Aufbau so heikel?', ['Sie macht die Abfragen nur langsamer, sonst nichts', 'Ein falsch verschmolzener Knoten verkettet Fakten, die nicht zusammengehören — und erzeugt lautlos falsche Antworten', 'Sie ist nur bei RDF nötig, bei Property Graphs nie'], 1, 'Entity Resolution führt Dubletten desselben realen Dings zu einem Knoten zusammen. Verschmilzt man versehentlich zwei verschiedene Dinge, entstehen falsche Verbindungen — und der Graph antwortet still falsch.')}
           ${renderQuestions('ai_l5_1', 6)}
           ${renderBonus('ai_l5_1')}
         `,
@@ -21573,6 +21603,36 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'GraphRAG', 'Vector search finds what sounds similar; the graph knows what is actually connected. GraphRAG gives the model structured graph context instead of just text snippets — for traceable, relationship-safe answers.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Two worlds: property graph vs. RDF/triple store</div>
+            <div class="explanation">
+              A <strong>property graph</strong> (e.g. Neo4j with the query language Cypher, or Cosmos DB with Gremlin) attaches properties directly to nodes and edges. It is developer-friendly and strong at path and neighbourhood search — ideal for quickly asking "which route leads from A to B?". In return it has less formal semantics.<br><br>
+              An <strong>RDF/triple store</strong> keeps everything as <strong>triples</strong> (subject · predicate · object) and is queried via <code>SPARQL</code>; <code>OWL</code> describes the rules. This world is strong in formal logic, automatic inference and standardised exchange — but the learning curve is steeper.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Cypher · path query</span></div>
+                <div class="code-pre">MATCH (a:Person)-[:WORKS_AT]-&gt;(f:Company)
+MATCH (f)-[:SUPPLIES]-&gt;(c:Customer)
+RETURN a.name, c.name</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('You need automatic inference and formal logic over a standard. Which world fits better?', ['Property graph (Cypher), because of the simple path search', 'RDF/triple store (SPARQL/OWL), because of the strong formal semantics', 'Both are equally poor for this'], 1, 'Property graphs shine at fast path and neighbourhood search. Formal logic, inference and standardised exchange are the strength of the RDF/triple-store world.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Inference — deriving facts stored nowhere</div>
+            <div class="explanation">
+              <strong>Inference</strong> means: automatically deriving new facts from existing ones and the rules of the ontology, facts that were never stored directly. If the graph holds "A is part of B" and "B is part of C", the system can conclude "A is part of C" — without anyone entering that edge.<br><br>
+              This makes the graph more powerful than a plain fact collection: a path of chained edges answers multi-step questions ("how does A relate to C?"), and inference fills gaps that the text never spelled out.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">GraphRAG in four steps</div>
+            <div class="explanation">
+              <strong>GraphRAG</strong> gives the model structured graph context instead of loose text snippets. The flow:<br><br>
+              <strong>1 · Extraction</strong> — read entities and relationships out of texts as triples. <strong>2 · Graph build</strong> — check the triples against the ontology and merge duplicates via <strong>entity resolution</strong> (the same real object = one node). <strong>3 · Retrieval</strong> — find matching nodes and walk their neighbourhood and paths. <strong>4 · Generation</strong> — form the answer from graph paths plus original text, including a traceable source path.
+            </div>
+          </div>
+          ${callout('warn', 'Entity resolution is critical', 'A wrongly merged node leads to silently wrong answers: two different real things mistakenly treated as one node chain facts that never belonged together. Clean merging of duplicates decides the quality of the whole graph.')}
+          ${quickCheck('Why is entity resolution during graph build so delicate?', ['It only makes queries slower, nothing else', 'A wrongly merged node chains facts that do not belong together — and produces silently wrong answers', 'It is only needed for RDF, never for property graphs'], 1, 'Entity resolution merges duplicates of the same real thing into one node. Merge two different things by mistake and false connections appear — the graph then answers wrong, quietly.')}
           ${renderQuestions('ai_l5_1', 6)}
           ${renderBonus('ai_l5_1')}
         `
@@ -21600,6 +21660,39 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'Ohne Messung keine Kontrolle', 'Wenn du nicht messen kannst, ob eine neue Prompt- oder Modellversion besser ist, hast du keine Kontrolle über dein Produkt — nur Glück oder Pech. Kein Prompt-, Tool- oder Modellwechsel geht ohne bestandenes Eval-Gate live.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die sechs Bausteine im Überblick</div>
+            <div class="explanation">
+              LLMOps ruht auf sechs Bausteinen. <strong>1 · Versionierung</strong>: Prompts, Tool-Definitionen und Retrieval-Konfiguration liegen im Repo, jede Änderung ist ein Commit. <strong>2 · Eval-in-CI</strong>: bei jedem Merge läuft eine Testbatterie fester Fälle; unterschreitet ein Score die Schwelle, wird der Merge blockiert — ein Unit-Test für Antwortqualität.<br><br>
+              <strong>3 · Monitoring &amp; Drift</strong>: Qualität, Latenz, Kosten und Ablehnungsraten laufend messen. <strong>4 · Guardrail-Ops</strong>: Eingabe-Filter, Ausgabe-Validierung und PII-Schutz wie eigenen Code betreiben. <strong>5 · Feedback-Schleife</strong>: Nutzer-Bewertungen und markierte Fehlerfälle werden zu neuen Eval-Fällen. <strong>6 · Registry</strong>: festhalten, welche Prompt- und Modellversion mit welchem Eval-Ergebnis wo im Einsatz ist — für sauberes Rollback und Audit.
+            </div>
+          </div>
+          ${quickCheck('Wozu dient Eval-in-CI?', ['Es trainiert bei jedem Merge das Modell neu', 'Bei jedem Merge läuft eine Testbatterie; fällt ein Score unter die Schwelle, wird der Merge blockiert', 'Es ersetzt die Versionierung der Prompts'], 1, 'Eval-in-CI ist der Unit-Test für Antwortqualität: feste Testfälle laufen bei jedem Merge, und ein zu niedriger Score blockiert das Zusammenführen — bevor schlechtere Qualität live geht.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Monitoring, Drift &amp; die Feedback-Schleife</div>
+            <div class="explanation">
+              <strong>Drift</strong> heißt: Eingaben und Ergebnisse verschieben sich schleichend — Nutzer stellen andere Fragen, die Antwortqualität sinkt langsam, ohne dass sich am Code etwas geändert hätte. Deshalb misst Monitoring nicht nur, ob das System läuft, sondern <em>wie gut</em>: Qualität, Latenz, Kosten und Ablehnungsraten über die Zeit.<br><br>
+              Die <strong>Feedback-Schleife</strong> schließt den Kreis: aus Nutzer-Bewertungen und markierten Fehlerfällen werden neue Eval-Fälle. So wächst die Testbatterie genau dort, wo das System in der echten Welt gepatzt hat — und derselbe Fehler wird beim nächsten Mal automatisch abgefangen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Modell-Migration per Eval-Knopfdruck</div>
+            <div class="explanation">
+              Ein neues Modell erscheint — wechseln oder nicht? Mit sauberem LLMOps ist das ein Knopfdruck: die Modell-ID in der Konfiguration tauschen, dieselben Testfälle gegen altes und neues Modell laufen lassen und die Scores vergleichen. Migriert wird nur, wenn Qualität, Kosten und Latenz gleich gut oder besser sind.<br><br>
+              Sind richtige Antworten zu vielfältig für starre Textvergleiche, hilft <strong>LLM-as-Judge</strong>: ein Modell bewertet die Ausgaben eines anderen anhand fester Kriterien.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">eval-config.yaml</span></div>
+                <div class="code-pre">gate:
+  faithfulness_min: 0.85
+candidates:
+  baseline: modell-v1
+  migration: modell-v2
+cases: 120</div>
+              </div>
+            </div>
+          </div>
+          ${callout('tip', 'LLM-as-Judge', 'Wenn es viele gleich gute Formulierungen für eine richtige Antwort gibt, versagt der starre Textvergleich. Dann bewertet ein Modell die Ausgaben eines anderen anhand klarer Kriterien — nützlich, aber selbst wieder ein Bauteil, das man versionieren und stichprobenartig gegen menschliche Urteile prüfen sollte.')}
+          ${quickCheck('Wann sollte man laut Eval-Vergleich auf ein neues Modell migrieren?', ['Immer sofort, sobald ein neueres Modell erscheint', 'Nur wenn dieselben Testfälle zeigen, dass Qualität, Kosten und Latenz gleich gut oder besser sind', 'Nie — ein laufendes Modell tauscht man grundsätzlich nicht'], 1, 'Migration ist eine Messung, keine Mode: dieselben Eval-Fälle gegen alt und neu laufen lassen und nur wechseln, wenn das neue Modell mindestens gleichzieht bei Qualität, Kosten und Latenz.')}
           ${renderQuestions('ai_l6_1', 6)}
           ${renderBonus('ai_l6_1')}
         `,
@@ -21617,6 +21710,39 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'No measurement, no control', 'If you cannot measure whether a new prompt or model version is better, you have no control over your product — only luck. No prompt, tool or model change goes live without passing the eval gate.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The six building blocks at a glance</div>
+            <div class="explanation">
+              LLMOps rests on six building blocks. <strong>1 · Versioning</strong>: prompts, tool definitions and retrieval config live in the repo, every change is a commit. <strong>2 · Eval-in-CI</strong>: every merge runs a battery of fixed test cases; if a score falls below the threshold, the merge is blocked — a unit test for answer quality.<br><br>
+              <strong>3 · Monitoring &amp; drift</strong>: continuously measure quality, latency, cost and refusal rates. <strong>4 · Guardrail ops</strong>: run input filters, output validation and PII protection like your own code. <strong>5 · Feedback loop</strong>: user ratings and flagged failure cases become new eval cases. <strong>6 · Registry</strong>: record which prompt and model version with which eval result is in use where — for clean rollback and audit.
+            </div>
+          </div>
+          ${quickCheck('What is eval-in-CI for?', ['It retrains the model on every merge', 'Every merge runs a battery of test cases; if a score falls below the threshold, the merge is blocked', 'It replaces versioning of the prompts'], 1, 'Eval-in-CI is the unit test for answer quality: fixed test cases run on every merge, and a score that is too low blocks the merge — before worse quality goes live.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Monitoring, drift &amp; the feedback loop</div>
+            <div class="explanation">
+              <strong>Drift</strong> means: inputs and results shift gradually — users ask different questions, answer quality slowly drops, without any change in the code. That is why monitoring measures not just whether the system runs, but <em>how well</em>: quality, latency, cost and refusal rates over time.<br><br>
+              The <strong>feedback loop</strong> closes the circle: user ratings and flagged failure cases turn into new eval cases. The test battery grows exactly where the system stumbled in the real world — and the same mistake is caught automatically next time.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Model migration at the push of an eval button</div>
+            <div class="explanation">
+              A new model appears — switch or not? With clean LLMOps it is one button press: swap the model id in the config, run the same test cases against the old and the new model, and compare the scores. You migrate only when quality, cost and latency are equal or better.<br><br>
+              When correct answers are too varied for rigid text comparison, <strong>LLM-as-judge</strong> helps: one model rates the outputs of another against fixed criteria.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">eval-config.yaml</span></div>
+                <div class="code-pre">gate:
+  faithfulness_min: 0.85
+candidates:
+  baseline: model-v1
+  migration: model-v2
+cases: 120</div>
+              </div>
+            </div>
+          </div>
+          ${callout('tip', 'LLM-as-judge', 'When many equally good phrasings exist for one correct answer, rigid text comparison fails. Then one model rates the outputs of another against clear criteria — useful, but itself a component you should version and spot-check against human judgement.')}
+          ${quickCheck('When should you migrate to a new model according to the eval comparison?', ['Always immediately, as soon as a newer model appears', 'Only when the same test cases show that quality, cost and latency are equal or better', 'Never — a running model is never swapped on principle'], 1, 'Migration is a measurement, not a fashion: run the same eval cases against old and new, and switch only when the new model at least matches on quality, cost and latency.')}
           ${renderQuestions('ai_l6_1', 6)}
           ${renderBonus('ai_l6_1')}
         `
@@ -27352,6 +27478,46 @@ QUESTION_POOLS['ai_l4_2'] = [
   {id:'p_ai_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Wann ist A2A NICHT das richtige Werkzeug?',question_en:'When is A2A NOT the right tool?',options:[
     {t:'Wenn alles im selben Prozess läuft (Funktionsaufruf) oder ein Agent nur ein stummes Werkzeug braucht (MCP)',t_en:'When everything runs in the same process (function call) or an agent just needs a silent tool (MCP)',correct:true,why:'Genau. Das kleinste Protokoll wählen, das das Problem löst. A2A erst, wenn eigenständige Agenten über Grenzen zusammenarbeiten müssen.',why_en:'Exactly. Pick the smallest protocol that solves the problem. A2A only when autonomous agents across boundaries must collaborate.'},
     {t:'Immer wenn zwei Systeme über das Netzwerk sprechen — dann ist REST verboten',t_en:'Whenever two systems talk over the network — then REST is forbidden',correct:false,why:'Nein. Eine reine Datenabfrage bleibt gut bei REST oder GraphQL; A2A ist nicht der Standard fürs Netzwerk.',why_en:'No. A pure data query stays fine with REST or GraphQL; A2A is not the default for networking.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l5_1'] = [
+  {id:'p_ai_l5_1_mc1',type:'mc',xp:10,question:'Was ist der Unterschied zwischen Ontologie und Knowledge Graph?',question_en:'What is the difference between an ontology and a knowledge graph?',options:[
+    {t:'Die Ontologie ist das Schema (welche Klassen und Beziehungen erlaubt sind), der Knowledge Graph ist die Füllung mit konkreten Fakten',t_en:'The ontology is the schema (which classes and relationships are allowed), the knowledge graph is the filling with concrete facts',correct:true,why:'Richtig. Ontologie = Bauplan, Knowledge Graph = das gebaute, mit Fakten gefüllte Haus.',why_en:'Correct. Ontology = blueprint, knowledge graph = the built house filled with facts.'},
+    {t:'Die Ontologie speichert die Fakten, der Knowledge Graph beschreibt nur die Regeln',t_en:'The ontology stores the facts, the knowledge graph only describes the rules',correct:false,why:'Nein, das ist vertauscht: Das Schema sind die Regeln, der Graph die Fakten.',why_en:'No, that is swapped: the schema is the rules, the graph is the facts.'},
+    {t:'Beide sind exakt dasselbe, nur unterschiedlich benannt',t_en:'Both are exactly the same, just named differently',correct:false,why:'Nein. Schema (Bauplan) und Füllung (Fakten) sind zwei verschiedene Ebenen.',why_en:'No. Schema (blueprint) and filling (facts) are two different levels.'}
+  ]},
+  {id:'p_ai_l5_1_mc2',type:'mc',xp:10,question:'Welche Aussage passt am besten zu einem Property Graph (z. B. Neo4j/Cypher)?',question_en:'Which statement fits a property graph (e.g. Neo4j/Cypher) best?',options:[
+    {t:'Eigenschaften hängen direkt an Knoten und Kanten; stark und entwicklerfreundlich bei Pfad- und Nachbarschaftssuche',t_en:'Properties attach directly to nodes and edges; strong and developer-friendly at path and neighbourhood search',correct:true,why:'Genau. Dafür hat der Property Graph weniger formale Semantik als die RDF-Welt.',why_en:'Exactly. In return the property graph has less formal semantics than the RDF world.'},
+    {t:'Alles wird als Subjekt-Prädikat-Objekt-Tripel gespeichert und über SPARQL abgefragt',t_en:'Everything is stored as subject-predicate-object triples and queried via SPARQL',correct:false,why:'Nein, das beschreibt den RDF/Triple-Store, nicht den Property Graph.',why_en:'No, that describes the RDF/triple store, not the property graph.'},
+    {t:'Er kann grundsätzlich keine Beziehungen abbilden',t_en:'It fundamentally cannot represent relationships',correct:false,why:'Nein. Beziehungen sind gerade seine Kernstärke — als Kanten zwischen Knoten.',why_en:'No. Relationships are exactly its core strength — as edges between nodes.'}
+  ]},
+  {id:'p_ai_l5_1_tf1',type:'truefalse',xp:8,statement:'GraphRAG gibt dem Modell strukturierten Graph-Kontext (Knoten, Nachbarschaft, Pfade) statt nur loser Textschnipsel.',statement_en:'GraphRAG gives the model structured graph context (nodes, neighbourhood, paths) instead of just loose text snippets.',correct:true,explanation:'Richtig. Genau dieser strukturierte Kontext macht Antworten nachvollziehbarer und beziehungssicherer.',explanation_en:'Correct. Exactly this structured context makes answers more traceable and relationship-safe.'},
+  {id:'p_ai_l5_1_tf2',type:'truefalse',xp:8,statement:'Entity Resolution ist unwichtig — ob zwei Knoten denselben realen Gegenstand meinen, spielt für die Antwortqualität keine Rolle.',statement_en:'Entity resolution is unimportant — whether two nodes mean the same real object does not matter for answer quality.',correct:false,explanation:'Falsch. Ein falsch verschmolzener Knoten verkettet Fakten, die nicht zusammengehören, und erzeugt lautlos falsche Antworten.',explanation_en:'False. A wrongly merged node chains facts that do not belong together and produces silently wrong answers.'},
+  {id:'p_ai_l5_1_fb1',type:'fillblank',xp:12,prompt:'Automatisches Ableiten neuer, nicht direkt gespeicherter Fakten aus vorhandenen Fakten und Regeln nennt man ___ .',prompt_en:'Automatically deriving new, not-directly-stored facts from existing facts and rules is called ___ .',answers:['Inferenz','inferenz','Inference','inference'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Inferenz füllt Lücken: Aus „A Teil von B" und „B Teil von C" folgt „A Teil von C", ohne dass die Kante gespeichert war.',explanation_en:'Inference fills gaps: from A-part-of-B and B-part-of-C follows A-part-of-C, without that edge being stored.'},
+  {id:'p_ai_l5_1_bonus',type:'mc',xp:20,optional:true,question:'Warum reicht reine Vektorsuche für beziehungsgetriebene Fragen oft nicht?',question_en:'Why is pure vector search often not enough for relationship-driven questions?',options:[
+    {t:'Vektorsuche findet, was ähnlich klingt; der Graph weiß, was über Pfade tatsächlich zusammenhängt',t_en:'Vector search finds what sounds similar; the graph knows what is actually connected via paths',correct:true,why:'Genau. Mehrschritt-Fragen brauchen echte Verbindungen (Kanten/Pfade), nicht bloß Textähnlichkeit.',why_en:'Exactly. Multi-step questions need real connections (edges/paths), not just text similarity.'},
+    {t:'Weil Vektorsuche grundsätzlich langsamer ist als jede Graph-Abfrage',t_en:'Because vector search is fundamentally slower than any graph query',correct:false,why:'Nein. Es geht nicht um Tempo, sondern darum, dass Ähnlichkeit keine echten Beziehungen abbildet.',why_en:'No. It is not about speed, but that similarity does not capture real relationships.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l6_1'] = [
+  {id:'p_ai_l6_1_mc1',type:'mc',xp:10,question:'Was ist bei LLMOps das eigentliche zu pflegende Artefakt?',question_en:'In LLMOps, what is the actual artifact to maintain?',options:[
+    {t:'Das Zusammenspiel aus System-Prompt, Tools/MCP, abgerufenen Dokumenten und gewählter Modellversion',t_en:'The interplay of system prompt, tools/MCP, retrieved documents and the chosen model version',correct:true,why:'Richtig. Diese vier Dinge werden versioniert, getestet und überwacht — nicht eine trainierte Gewichtsdatei.',why_en:'Correct. These four things are versioned, tested and monitored — not a trained weights file.'},
+    {t:'Ausschließlich die neu trainierten Modellgewichte',t_en:'Solely the newly trained model weights',correct:false,why:'Nein, das ist die klassische MLOps-Sicht. Bei LLMOps ändert man Verhalten fast nie über Gewichte.',why_en:'No, that is the classic MLOps view. In LLMOps you almost never change behavior via weights.'},
+    {t:'Die Hardware, auf der das Modell läuft',t_en:'The hardware the model runs on',correct:false,why:'Nein. Das Verhalten steuern Prompt, Tools, Retrieval und Modellversion, nicht die Hardware.',why_en:'No. Behavior is steered by prompt, tools, retrieval and model version, not the hardware.'}
+  ]},
+  {id:'p_ai_l6_1_mc2',type:'mc',xp:10,question:'Was leistet Eval-in-CI?',question_en:'What does eval-in-CI provide?',options:[
+    {t:'Bei jedem Merge läuft eine Testbatterie fester Fälle; fällt ein Score unter die Schwelle, wird der Merge blockiert',t_en:'Every merge runs a battery of fixed cases; if a score falls below the threshold, the merge is blocked',correct:true,why:'Genau — ein Unit-Test für Antwortqualität. Schlechtere Qualität wird gestoppt, bevor sie live geht.',why_en:'Exactly — a unit test for answer quality. Worse quality is stopped before it goes live.'},
+    {t:'Es trainiert das Modell bei jedem Commit vollständig neu',t_en:'It fully retrains the model on every commit',correct:false,why:'Nein. Eval-in-CI misst Qualität, es trainiert nichts neu.',why_en:'No. Eval-in-CI measures quality, it does not retrain anything.'},
+    {t:'Es ersetzt Monitoring im laufenden Betrieb',t_en:'It replaces monitoring in production',correct:false,why:'Nein. Eval-in-CI prüft vor dem Merge; Monitoring beobachtet danach den Live-Betrieb.',why_en:'No. Eval-in-CI checks before the merge; monitoring watches production afterwards.'}
+  ]},
+  {id:'p_ai_l6_1_tf1',type:'truefalse',xp:8,statement:'Drift bedeutet, dass sich Eingaben und Ergebnisse schleichend verschieben, ohne dass sich der Code geändert hat.',statement_en:'Drift means that inputs and results shift gradually, without any change in the code.',correct:true,explanation:'Richtig. Genau deshalb misst Monitoring laufend Qualität, Latenz, Kosten und Ablehnungsraten.',explanation_en:'Correct. That is exactly why monitoring continuously measures quality, latency, cost and refusal rates.'},
+  {id:'p_ai_l6_1_tf2',type:'truefalse',xp:8,statement:'Ein neues Modell sollte man sofort produktiv nehmen, sobald es erscheint — ganz ohne Eval-Vergleich.',statement_en:'A new model should go into production immediately once it appears — without any eval comparison.',correct:false,explanation:'Falsch. Erst dieselben Testfälle gegen alt und neu laufen lassen; migrieren nur bei gleich guter oder besserer Qualität, Kosten und Latenz.',explanation_en:'False. First run the same test cases against old and new; migrate only when quality, cost and latency are equal or better.'},
+  {id:'p_ai_l6_1_fb1',type:'fillblank',xp:12,prompt:'Sind richtige Antworten zu vielfältig für starre Textvergleiche, lässt man ein Modell die Ausgaben eines anderen bewerten: LLM-as-___ .',prompt_en:'When correct answers are too varied for rigid text comparison, one model rates the outputs of another: LLM-as-___ .',answers:['Judge','judge','Richter','richter'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'LLM-as-Judge bewertet Ausgaben anhand fester Kriterien — nützlich, aber selbst ein Bauteil, das man versionieren und stichprobenartig prüfen sollte.',explanation_en:'LLM-as-judge rates outputs against fixed criteria — useful, but itself a component you should version and spot-check.'},
+  {id:'p_ai_l6_1_bonus',type:'mc',xp:20,optional:true,question:'Wozu dient eine Model/Prompt-Registry?',question_en:'What is a model/prompt registry for?',options:[
+    {t:'Sie hält fest, welche Prompt- und Modellversion mit welchem Eval-Ergebnis wo im Einsatz ist — für sauberes Rollback und Audit',t_en:'It records which prompt and model version with which eval result is in use where — for clean rollback and audit',correct:true,why:'Genau. Ohne diese Zuordnung ist ein gezieltes Zurückrollen auf eine bekannte gute Version kaum möglich.',why_en:'Exactly. Without this mapping, a targeted rollback to a known good version is hardly possible.'},
+    {t:'Sie speichert die Trainingsdaten des Basismodells',t_en:'It stores the training data of the base model',correct:false,why:'Nein. Die Registry verwaltet Versionen und Eval-Ergebnisse im Betrieb, nicht die Trainingsdaten.',why_en:'No. The registry manages versions and eval results in operation, not the training data.'}
   ]}
 ];
 
