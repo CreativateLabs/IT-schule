@@ -21353,6 +21353,43 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'MCP vs. A2A', 'MCP verbindet einen Agenten mit seinen Werkzeugen. A2A verbindet einen Agenten mit anderen Agenten. Beide schließen sich nicht aus — ein gut gebauter Orchestrator nutzt beide gleichzeitig.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Zwei Arten von Verbindung</div>
+            <div class="explanation">
+              <strong>MCP</strong> verbindet Agent ↔ Werkzeug: ein kurzer, meist synchroner Aufruf — frag ein Werkzeug, bekomme sofort eine Antwort zurück. <strong>A2A</strong> verbindet Agent ↔ Agent: eine delegierte Aufgabe an einen zweiten, eigenständigen Agenten — oft über Team-, Firmen- oder Framework-Grenzen hinweg, häufig langlaufend und mit Zwischenständen.<br><br>
+              Merksatz: MCP verbindet einen Agenten und seine Werkzeuge, A2A verbindet Agenten. In der Praxis oft gleichzeitig — ein Orchestrator nutzt lokale Werkzeuge über MCP und delegiert Fachaufgaben über A2A.
+            </div>
+          </div>
+          ${quickCheck('Was verbindet A2A — im Unterschied zu MCP?', ['Agent und Werkzeug — ein kurzer, synchroner Aufruf', 'Agent und Agent — eine delegierte, oft langlaufende Aufgabe', 'Modell und Trainingsdaten'], 1, 'MCP ist der kurze Werkzeug-Aufruf. A2A ist die delegierte Aufgabe an einen anderen eigenständigen Agenten — oft langlaufend und über Grenzen hinweg.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Agent Card &amp; Capability Discovery</div>
+            <div class="explanation">
+              Bevor ein Agent eine Aufgabe delegiert, muss er wissen, wer was kann. Die <strong>Agent Card</strong> ist ein maschinenlesbares Steckbrief-Dokument — meist JSON unter einem festen Pfad wie <code>/.well-known/agent.json</code>. Sie nennt Name, Fähigkeiten (<code>skills</code>), verlangte Authentifizierung und die Endpoint-URL.<br><br>
+              <strong>Capability Discovery</strong> heißt: die Karte abrufen und prüfen, bevor man delegiert — passt die Fähigkeit, ist die Authentifizierung erfüllbar, ist der Endpoint vertrauenswürdig?
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">JSON · Agent Card</span></div>
+                <div class="code-pre">{
+  "name": "rechnungs-pruefer",
+  "endpoint": "https://agent.example.org/a2a",
+  "auth": "oauth2",
+  "skills": ["rechnung.pruefen", "summe.berechnen"]
+}</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('Wozu dient die Agent Card?', ['Sie speichert die Gesprächsverläufe aller Tasks', 'Als maschinenlesbarer Steckbrief für Capability Discovery — was kann der Agent, wie authentifizieren, wo erreichbar', 'Sie ersetzt die Authentifizierung vollständig'], 1, 'Die Agent Card ist der Steckbrief: Name, Fähigkeiten, Authentifizierung, Endpoint. Der Client ruft sie ab und prüft sie, bevor er delegiert.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Task, Message, Artifact &amp; Streaming</div>
+            <div class="explanation">
+              Eine delegierte Arbeitseinheit ist ein <strong>Task</strong>: mit ID und Status-Lebenszyklus. Der Auftraggeber kann den Stand abfragen, statt blockierend zu warten. Eine <strong>Message</strong> ist eine einzelne Nachricht im Dialog zu einem Task; ein <strong>Artifact</strong> ist ein benanntes, typisiertes Ergebnisobjekt (PDF, Tabelle, JSON) — ein sauberes Übergabeformat.<br><br>
+              Bei langen Tasks liefert <strong>Streaming</strong> (SSE) laufende Zwischenmeldungen; alternativ meldet ein <strong>Webhook-Push</strong> das Ergebnis zurück.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Task · Status-Lebenszyklus</span></div>
+                <div class="code-pre">submitted --&gt; working --&gt; input-required --&gt; completed
+                             \\--&gt; failed / canceled</div>
+              </div>
+            </div>
+          </div>
           ${renderQuestions('ai_l4_1', 6)}
           ${renderBonus('ai_l4_1')}
         `,
@@ -21370,6 +21407,43 @@ def open_invoices(customer_id: int) -&gt; int:
             </div>
           </div>
           ${callout('key', 'MCP vs. A2A', 'MCP connects an agent to its tools. A2A connects an agent to other agents. The two are not mutually exclusive — a well-built orchestrator uses both at once.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Two kinds of connection</div>
+            <div class="explanation">
+              <strong>MCP</strong> connects agent ↔ tool: a short, usually synchronous call — ask a tool, get an answer right back. <strong>A2A</strong> connects agent ↔ agent: a delegated task handed to a second, autonomous agent — often across team, company or framework boundaries, frequently long-running and with intermediate states.<br><br>
+              Remember: MCP connects an agent and its tools, A2A connects agents. In practice often both at once — an orchestrator uses local tools via MCP and delegates domain tasks via A2A.
+            </div>
+          </div>
+          ${quickCheck('What does A2A connect — unlike MCP?', ['Agent and tool — a short, synchronous call', 'Agent and agent — a delegated, often long-running task', 'Model and training data'], 1, 'MCP is the short tool call. A2A is the delegated task handed to another autonomous agent — often long-running and across boundaries.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Agent Card &amp; capability discovery</div>
+            <div class="explanation">
+              Before an agent delegates a task, it needs to know who can do what. The <strong>Agent Card</strong> is a machine-readable profile document — usually JSON at a fixed path like <code>/.well-known/agent.json</code>. It states the name, capabilities (<code>skills</code>), the required authentication and the endpoint URL.<br><br>
+              <strong>Capability discovery</strong> means: fetch and check the card before delegating — does the skill fit, is the authentication feasible, is the endpoint trustworthy?
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">JSON · Agent Card</span></div>
+                <div class="code-pre">{
+  "name": "invoice-checker",
+  "endpoint": "https://agent.example.org/a2a",
+  "auth": "oauth2",
+  "skills": ["invoice.check", "total.compute"]
+}</div>
+              </div>
+            </div>
+          </div>
+          ${quickCheck('What is the Agent Card for?', ['It stores the conversation history of all tasks', 'A machine-readable profile for capability discovery — what the agent can do, how to authenticate, where to reach it', 'It fully replaces authentication'], 1, 'The Agent Card is the profile: name, capabilities, authentication, endpoint. The client fetches and checks it before delegating.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Task, message, artifact &amp; streaming</div>
+            <div class="explanation">
+              A delegated unit of work is a <strong>task</strong>: with an id and a status lifecycle. The requester can poll the state instead of blocking. A <strong>message</strong> is a single message in the dialogue about a task; an <strong>artifact</strong> is a named, typed result object (PDF, table, JSON) — a clean handover format.<br><br>
+              For long tasks, <strong>streaming</strong> (SSE) delivers ongoing intermediate updates; alternatively a <strong>webhook push</strong> reports the result back.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Task · status lifecycle</span></div>
+                <div class="code-pre">submitted --&gt; working --&gt; input-required --&gt; completed
+                             \\--&gt; failed / canceled</div>
+              </div>
+            </div>
+          </div>
           ${renderQuestions('ai_l4_1', 6)}
           ${renderBonus('ai_l4_1')}
         `
@@ -21389,7 +21463,31 @@ def open_invoices(customer_id: int) -&gt; int:
               Klassischer Fallstrick: das <strong>Confused-Deputy</strong>-Problem — ein Agent mit hohen Rechten führt arglos eine Aktion aus, zu der der Auftraggeber gar nicht berechtigt war. Gegenmittel: Rechte an die Auftraggeber-Identität binden, nicht an den ausführenden Agenten.
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Identität &amp; minimale Rechte</div>
+            <div class="explanation">
+              Damit ein delegierter Auftrag prüfbar bleibt, sichern mehrere Schichten die Grenze. <strong>mTLS</strong>: beide Seiten weisen sich per Zertifikat aus. Eine <strong>signierte Agent Card</strong> verhindert, dass jemand eine gefälschte Karte unterschiebt. <strong>OAuth2/OIDC mit Scopes je Fähigkeit</strong> vergibt nur die nötigen Rechte — <code>read</code> statt <code>write</code>, wenn nur gelesen wird.<br><br>
+              <strong>On-Behalf-Of</strong> reicht die Nutzeridentität kontrolliert durch die Kette: Der Agent sieht und darf nur, was der Nutzer selbst dürfte. Dazu <strong>Datenminimierung je Task</strong> — pro Auftrag nur die Felder mitgeben, die er wirklich braucht.
+            </div>
+          </div>
+          ${quickCheck('Was bewirkt On-Behalf-Of an der Agentengrenze?', ['Der Agent bekommt dauerhaft Administratorrechte', 'Die Nutzeridentität wird kontrolliert durchgereicht — der Agent darf nur, was der Nutzer selbst dürfte', 'Die Authentifizierung wird übersprungen, weil ein Nutzer beteiligt ist'], 1, 'On-Behalf-Of bindet das Handeln des Agenten an die Identität des Nutzers. Er darf nie mehr, als der Nutzer selbst dürfte.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Confused-Deputy &amp; Fremd-Output</div>
+            <div class="explanation">
+              Zwei Fallen lauern an der Grenze. Erstens: <strong>Fremd-Output ist immer Daten, nie Befehl</strong>. Was ein fremder Agent zurückliefert, kann versteckte Anweisungen enthalten (Prompt-Injection über die Agentengrenze) — es wird validiert, nicht ausgeführt. Zweitens das <strong>Confused-Deputy</strong>-Problem: Ein Agent mit hohen Rechten führt arglos eine Aktion aus, zu der der Auftraggeber gar nicht berechtigt war.<br><br>
+              Gegenmittel: Rechte an die <strong>Auftraggeber-Identität</strong> binden, nicht an den ausführenden Agenten. Dazu <strong>Rate-Limits und Kosten-Guards pro Auftraggeber</strong> und ein <strong>durchgängiger Audit-Trail</strong> über Agentengrenzen hinweg. Grundhaltung: interne und fremde Agenten unterschiedlich behandeln — fremde strenger.
+            </div>
+          </div>
+          ${quickCheck('Was beschreibt das Confused-Deputy-Problem?', ['Ein Agent vergisst seine eigene Identität', 'Ein Agent mit hohen Rechten führt arglos eine Aktion aus, zu der der Auftraggeber nicht berechtigt war', 'Zwei Agenten benutzen versehentlich dasselbe Zertifikat'], 1, 'Beim Confused-Deputy nutzt ein Angreifer die hohen Rechte eines gutgläubigen Agenten. Deshalb: Rechte an die Auftraggeber-Identität binden.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Das kleinste Protokoll wählen</div>
+            <div class="explanation">
+              A2A ist nicht immer die Antwort. Faustregel: das kleinste Protokoll wählen, das das Problem löst. Läuft alles im <strong>selben Prozess</strong>, genügt ein Funktionsaufruf. Braucht ein Agent nur ein <strong>stummes Werkzeug</strong> oder einen kurzen Aufruf, ist MCP richtig. Eine reine <strong>Datenabfrage</strong> bleibt bei REST oder GraphQL.<br><br>
+              A2A lohnt erst, wenn eigenständige Agenten über Grenzen hinweg wirklich zusammenarbeiten — und nie ohne belastbare Authentifizierung, Scopes und Audit.
+            </div>
+          </div>
           ${callout('tip', 'Wann NICHT A2A', 'Wähle das kleinste Protokoll, das das Problem löst: Funktionsaufruf, wenn alles im selben Prozess läuft; MCP, wenn ein Agent ein Werkzeug braucht; A2A erst, wenn eigenständige Agenten über Grenzen hinweg wirklich zusammenarbeiten müssen.')}
+          ${callout('warn', 'Die Leitplanke', 'Behandle die Ausgabe fremder Agenten wie nutzergenerierten Internet-Input: immer validieren, nie als Befehl. Und binde jede Aktion an die Identität und die Rechte des Auftraggebers — nicht an den ausführenden Agenten.')}
           ${renderQuestions('ai_l4_2', 6)}
           ${renderBonus('ai_l4_2')}
         `,
@@ -21406,7 +21504,31 @@ def open_invoices(customer_id: int) -&gt; int:
               A classic pitfall: the <strong>confused-deputy</strong> problem — an agent with high privileges innocently performs an action the requester was never entitled to. Countermeasure: bind rights to the requester's identity, not to the executing agent.
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Identity &amp; minimal rights</div>
+            <div class="explanation">
+              To keep a delegated task verifiable, several layers guard the boundary. <strong>mTLS</strong>: both sides prove themselves via certificate. A <strong>signed Agent Card</strong> stops anyone from slipping in a forged card. <strong>OAuth2/OIDC with scopes per capability</strong> grants only the rights needed — <code>read</code> instead of <code>write</code> when only reading.<br><br>
+              <strong>On-behalf-of</strong> passes the user identity through the chain in a controlled way: the agent sees and may do only what the user is allowed to. Plus <strong>data minimisation per task</strong> — give each task only the fields it truly needs.
+            </div>
+          </div>
+          ${quickCheck('What does on-behalf-of achieve at the agent boundary?', ['The agent gets permanent administrator rights', 'The user identity is passed through in a controlled way — the agent may do only what the user is allowed to', 'Authentication is skipped because a user is involved'], 1, 'On-behalf-of binds the agent actions to the user identity. It may never do more than the user is allowed to.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Confused deputy &amp; foreign output</div>
+            <div class="explanation">
+              Two traps wait at the boundary. First: <strong>foreign output is always data, never a command</strong>. What a foreign agent returns may contain hidden instructions (prompt injection across the agent boundary) — it is validated, not executed. Second, the <strong>confused-deputy</strong> problem: an agent with high privileges innocently performs an action the requester was never entitled to.<br><br>
+              Countermeasures: bind rights to the <strong>requester identity</strong>, not to the executing agent. Add <strong>rate limits and cost guards per requester</strong> and a <strong>continuous audit trail</strong> across agent boundaries. Basic stance: treat internal and foreign agents differently — foreign ones more strictly.
+            </div>
+          </div>
+          ${quickCheck('What does the confused-deputy problem describe?', ['An agent forgets its own identity', 'An agent with high privileges innocently performs an action the requester was not entitled to', 'Two agents accidentally use the same certificate'], 1, 'In a confused-deputy attack, someone exploits the high privileges of a trusting agent. So: bind rights to the requester identity.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Choose the smallest protocol</div>
+            <div class="explanation">
+              A2A is not always the answer. Rule of thumb: pick the smallest protocol that solves the problem. If everything runs in the <strong>same process</strong>, a function call is enough. If an agent just needs a <strong>silent tool</strong> or a short call, MCP is right. A pure <strong>data query</strong> stays with REST or GraphQL.<br><br>
+              A2A pays off only when autonomous agents across boundaries genuinely need to collaborate — and never without solid authentication, scopes and audit.
+            </div>
+          </div>
           ${callout('tip', 'When NOT to use A2A', 'Choose the smallest protocol that solves the problem: a function call when everything runs in the same process; MCP when an agent needs a tool; A2A only when autonomous agents across boundaries genuinely need to collaborate.')}
+          ${callout('warn', 'The guardrail', 'Treat the output of foreign agents like user-generated internet input: always validate, never treat it as a command. And bind every action to the identity and rights of the requester — not to the executing agent.')}
           ${renderQuestions('ai_l4_2', 6)}
           ${renderBonus('ai_l4_2')}
         `
@@ -27190,6 +27312,46 @@ QUESTION_POOLS['ai_l3_2'] = [
   {id:'p_ai_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Was gehört NICHT in den Output eines Tools?',question_en:'What does NOT belong in the output of a tool?',options:[
     {t:'Secrets wie Passwörter oder API-Schlüssel — nur fachlich nötige Felder zurückgeben',t_en:'Secrets such as passwords or API keys — return only the fields actually needed',correct:true,why:'Genau. Gelangt ein Secret in den Output, landet es im Modellkontext und kann abfließen. Nur die fachlich nötigen Felder zurückgeben.',why_en:'Exactly. If a secret reaches the output, it lands in the model context and can leak. Return only the fields actually needed.'},
     {t:'Das fachliche Ergebnis, das die Aufgabe beantwortet',t_en:'The domain result that answers the task',correct:false,why:'Nein. Genau dieses Ergebnis ist der Zweck des Tools — es muss zurückkommen.',why_en:'No. That result is exactly the purpose of the tool — it has to come back.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l4_1'] = [
+  {id:'p_ai_l4_1_mc1',type:'mc',xp:10,question:'Was verbindet A2A — im Unterschied zu MCP?',question_en:'What does A2A connect — unlike MCP?',options:[
+    {t:'Agent und Agent — eine delegierte, oft langlaufende Aufgabe über Grenzen hinweg',t_en:'Agent and agent — a delegated, often long-running task across boundaries',correct:true,why:'Richtig. A2A regelt die Beziehung Agent zu Agent: ein zweiter, eigenständiger Agent übernimmt eine delegierte Aufgabe.',why_en:'Correct. A2A governs the agent-to-agent relationship: a second, autonomous agent takes on a delegated task.'},
+    {t:'Agent und Werkzeug — ein kurzer, synchroner Aufruf',t_en:'Agent and tool — a short, synchronous call',correct:false,why:'Nein, das ist MCP. MCP verbindet einen Agenten mit seinen Werkzeugen.',why_en:'No, that is MCP. MCP connects an agent to its tools.'},
+    {t:'Modell und Trainingsdaten',t_en:'Model and training data',correct:false,why:'Nein. Weder A2A noch MCP haben mit Training zu tun; beide sind Laufzeit-Protokolle.',why_en:'No. Neither A2A nor MCP has anything to do with training; both are runtime protocols.'}
+  ]},
+  {id:'p_ai_l4_1_mc2',type:'mc',xp:10,question:'Wozu dient eine Agent Card?',question_en:'What is an Agent Card for?',options:[
+    {t:'Als maschinenlesbarer Steckbrief für Capability Discovery — Name, Fähigkeiten, Authentifizierung, Endpoint',t_en:'As a machine-readable profile for capability discovery — name, capabilities, authentication, endpoint',correct:true,why:'Genau. Der Client ruft die Karte ab und prüft sie, bevor er delegiert.',why_en:'Exactly. The client fetches and checks the card before delegating.'},
+    {t:'Sie speichert alle bisherigen Gesprächsverläufe des Agenten',t_en:'It stores all of the agent past conversations',correct:false,why:'Nein. Verläufe gehören zu Tasks und Messages, nicht zur Karte. Die Karte ist ein statischer Steckbrief.',why_en:'No. History belongs to tasks and messages, not to the card. The card is a static profile.'},
+    {t:'Sie ersetzt die Authentifizierung, sodass keine Tokens nötig sind',t_en:'It replaces authentication, so no tokens are needed',correct:false,why:'Nein. Die Karte nennt nur, WIE authentifiziert wird — sie ersetzt die Authentifizierung nicht.',why_en:'No. The card only states HOW to authenticate — it does not replace authentication.'}
+  ]},
+  {id:'p_ai_l4_1_tf1',type:'truefalse',xp:8,statement:'MCP und A2A schließen sich gegenseitig aus — man kann in einem System immer nur eines von beiden nutzen.',statement_en:'MCP and A2A are mutually exclusive — a system can only ever use one of the two.',correct:false,explanation:'Falsch. Beide werden oft gleichzeitig genutzt: Ein Orchestrator nutzt lokale Werkzeuge über MCP und delegiert Fachaufgaben über A2A.',explanation_en:'False. Both are often used together: an orchestrator uses local tools via MCP and delegates domain tasks via A2A.'},
+  {id:'p_ai_l4_1_tf2',type:'truefalse',xp:8,statement:'Ein Task hat eine ID und einen Status-Lebenszyklus, sodass der Auftraggeber den Stand abfragen kann, statt blockierend zu warten.',statement_en:'A task has an id and a status lifecycle, so the requester can poll the state instead of blocking.',correct:true,explanation:'Richtig. Genau dafür gibt es den Status (submitted, working, completed …) und optional Streaming — besonders bei langlaufenden Aufgaben.',explanation_en:'Correct. That is exactly what the status is for (submitted, working, completed …) plus optional streaming — especially for long-running tasks.'},
+  {id:'p_ai_l4_1_fb1',type:'fillblank',xp:12,prompt:'Ein benanntes, typisiertes Ergebnisobjekt eines Tasks (PDF, Tabelle, JSON) heißt ___.',prompt_en:'A named, typed result object of a task (PDF, table, JSON) is called an ___.',answers:['Artifact','artifact','Artefakt','artefakt'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Das Artifact ist das saubere Übergabeformat des Ergebnisses — im Unterschied zur einzelnen Message im Dialog.',explanation_en:'The artifact is the clean handover format of the result — as opposed to a single message in the dialogue.'},
+  {id:'p_ai_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Aussage fasst MCP und A2A korrekt zusammen?',question_en:'Which statement summarises MCP and A2A correctly?',options:[
+    {t:'MCP verbindet einen Agenten mit Werkzeugen, A2A verbindet Agenten miteinander',t_en:'MCP connects an agent with tools, A2A connects agents with each other',correct:true,why:'Genau der Merksatz. Kurzer Werkzeug-Aufruf gegen delegierte Aufgabe an einen anderen Agenten.',why_en:'Exactly the takeaway. A short tool call versus a delegated task to another agent.'},
+    {t:'MCP verbindet Agenten miteinander, A2A verbindet einen Agenten mit Werkzeugen',t_en:'MCP connects agents with each other, A2A connects an agent with tools',correct:false,why:'Vertauscht. Es ist genau andersherum.',why_en:'Swapped. It is exactly the other way around.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l4_2'] = [
+  {id:'p_ai_l4_2_mc1',type:'mc',xp:10,question:'Was bewirkt On-Behalf-Of an der Agentengrenze?',question_en:'What does on-behalf-of achieve at the agent boundary?',options:[
+    {t:'Die Nutzeridentität wird kontrolliert durchgereicht — der Agent darf nur, was der Nutzer selbst dürfte',t_en:'The user identity is passed through in a controlled way — the agent may do only what the user is allowed to',correct:true,why:'Richtig. Das Handeln des Agenten bleibt an die Rechte des Nutzers gebunden.',why_en:'Correct. The agent actions stay bound to the rights of the user.'},
+    {t:'Der Agent erhält dauerhaft Administratorrechte',t_en:'The agent gets permanent administrator rights',correct:false,why:'Nein. On-Behalf-Of minimiert Rechte, es erweitert sie nicht.',why_en:'No. On-behalf-of minimises rights, it does not expand them.'},
+    {t:'Die Authentifizierung wird übersprungen, weil ein Nutzer beteiligt ist',t_en:'Authentication is skipped because a user is involved',correct:false,why:'Nein. Die Identität wird gerade durchgereicht und geprüft, nicht übersprungen.',why_en:'No. The identity is passed through and checked, not skipped.'}
+  ]},
+  {id:'p_ai_l4_2_mc2',type:'mc',xp:10,question:'Was beschreibt das Confused-Deputy-Problem?',question_en:'What does the confused-deputy problem describe?',options:[
+    {t:'Ein Agent mit hohen Rechten führt arglos eine Aktion aus, zu der der Auftraggeber nicht berechtigt war',t_en:'An agent with high privileges innocently performs an action the requester was not entitled to',correct:true,why:'Genau. Gegenmittel: Rechte an die Auftraggeber-Identität binden, nicht an den ausführenden Agenten.',why_en:'Exactly. Countermeasure: bind rights to the requester identity, not to the executing agent.'},
+    {t:'Ein Agent vergisst mitten im Task seine eigene Identität',t_en:'An agent forgets its own identity in the middle of a task',correct:false,why:'Nein. Beim Confused-Deputy geht es um missbrauchte Rechte, nicht um vergessene Identität.',why_en:'No. Confused deputy is about misused rights, not a forgotten identity.'},
+    {t:'Zwei Agenten benutzen versehentlich dasselbe Zertifikat',t_en:'Two agents accidentally use the same certificate',correct:false,why:'Nein. Das wäre ein Zertifikatsfehler, nicht das Confused-Deputy-Muster.',why_en:'No. That would be a certificate error, not the confused-deputy pattern.'}
+  ]},
+  {id:'p_ai_l4_2_tf1',type:'truefalse',xp:8,statement:'Der Output eines fremden Agenten darf direkt als Anweisung ausgeführt werden, weil er von einem Agenten stammt.',statement_en:'The output of a foreign agent may be executed directly as an instruction because it comes from an agent.',correct:false,explanation:'Falsch. Fremd-Output ist immer Daten, nie Befehl — er wird validiert. Sonst droht Prompt-Injection über die Agentengrenze.',explanation_en:'False. Foreign output is always data, never a command — it is validated. Otherwise prompt injection across the agent boundary threatens.'},
+  {id:'p_ai_l4_2_tf2',type:'truefalse',xp:8,statement:'Rechte sollten an die Identität des Auftraggebers gebunden werden, nicht an den ausführenden Agenten.',statement_en:'Rights should be bound to the identity of the requester, not to the executing agent.',correct:true,explanation:'Richtig. Genau das verhindert das Confused-Deputy-Problem: Ein Agent kann keine Aktion durchführen, zu der der Auftraggeber nicht berechtigt ist.',explanation_en:'Correct. That is exactly what prevents the confused-deputy problem: an agent cannot perform an action the requester is not entitled to.'},
+  {id:'p_ai_l4_2_fb1',type:'fillblank',xp:12,prompt:'Die Ausgabe eines fremden Agenten wird immer als ___ behandelt, nie als Befehl.',prompt_en:'The output of a foreign agent is always treated as ___ , never as a command.',answers:['Daten','daten','Data','data'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Fremd-Output wie nutzergenerierten Internet-Input behandeln: immer validieren, nie ungeprüft ausführen.',explanation_en:'Treat foreign output like user-generated internet input: always validate, never run it unchecked.'},
+  {id:'p_ai_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Wann ist A2A NICHT das richtige Werkzeug?',question_en:'When is A2A NOT the right tool?',options:[
+    {t:'Wenn alles im selben Prozess läuft (Funktionsaufruf) oder ein Agent nur ein stummes Werkzeug braucht (MCP)',t_en:'When everything runs in the same process (function call) or an agent just needs a silent tool (MCP)',correct:true,why:'Genau. Das kleinste Protokoll wählen, das das Problem löst. A2A erst, wenn eigenständige Agenten über Grenzen zusammenarbeiten müssen.',why_en:'Exactly. Pick the smallest protocol that solves the problem. A2A only when autonomous agents across boundaries must collaborate.'},
+    {t:'Immer wenn zwei Systeme über das Netzwerk sprechen — dann ist REST verboten',t_en:'Whenever two systems talk over the network — then REST is forbidden',correct:false,why:'Nein. Eine reine Datenabfrage bleibt gut bei REST oder GraphQL; A2A ist nicht der Standard fürs Netzwerk.',why_en:'No. A pure data query stays fine with REST or GraphQL; A2A is not the default for networking.'}
   ]}
 ];
 
