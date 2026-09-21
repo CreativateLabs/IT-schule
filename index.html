@@ -21776,6 +21776,47 @@ const ARCH_PHASES = [
             </div>
           </div>
           ${callout('key', 'Leitsatz', 'Entscheide schnell, was du billig rückgängig machen kannst — und langsam, was dich für Jahre bindet. Die halbe Kunst der Architektur ist, die zweite Kategorie so klein wie möglich zu halten.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Drei Fragen, drei Rollen</div>
+            <div class="explanation">
+              Derselbe Sachverhalt sieht aus jeder Rolle anders aus — der Unterschied steckt in der <strong>Frage</strong>, nicht im Werkzeug:<br><br>
+              <strong>Entwickler:</strong> „Wie baue ich das richtig?" — Qualität der Umsetzung.<br>
+              <strong>Architekt:</strong> „Was genau sollen wir bauen, und warum gerade so?" — Rahmen und Begründung.<br>
+              <strong>CTO:</strong> „Ist das die richtige Wette fürs Unternehmen?" — Kosten, Risiko, Strategie.<br><br>
+              „Es kommt darauf an" ist deshalb keine Ausrede, sondern die Aufforderung, die entscheidenden Größen zu benennen: Nutzerzahl, Tempo, welche Daten wohin fließen, Teamgröße, Regulierung. Erst wenn diese <strong>Constraints</strong> auf dem Tisch liegen, ist eine Lösung überhaupt bewertbar.
+            </div>
+          </div>
+          ${quickCheck('Welche Frage kennzeichnet die Architekten-Rolle am besten?', ['Wie baue ich das technisch sauber?', 'Was sollen wir bauen — und warum gerade so?', 'Welches Framework ist am schnellsten?'], 1, 'Der Architekt rahmt das Problem ein: erst klären, <strong>was</strong> und <strong>warum</strong>, bevor das <strong>Wie</strong> überhaupt sinnvoll wird.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Type-1 in Type-2 verwandeln</div>
+            <div class="explanation">
+              <code>Type-1</code>-Entscheidungen sind kaum umkehrbar: Cloud vs. On-Prem, das zentrale Datenmodell, die Wahl von Sprache und Laufzeit. Sie brauchen mehrere Augen, Zeit und ein schriftliches <code>ADR</code>. <code>Type-2</code>-Entscheidungen sind leicht umkehrbar: eine Bibliothek, ein internes API-Format hinter einem Adapter, ein Feature-Flag — schnell und delegierbar.<br><br>
+              Die eigentliche Kunst: eine <strong>Type-1-Entscheidung durch Design zu einer Type-2-Entscheidung machen</strong>. Legt man z. B. die Datenbank hinter einen klaren Zugriffskontrakt, wird ein späterer Wechsel des Speichers plötzlich umkehrbar — aus der Einbahnstraße wird eine Drehtür.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Reversibilität einordnen</span></div>
+              <div class="code-pre">Type-1  (kaum umkehrbar)   -&gt; langsam, schriftlich, ADR
+  Cloud vs. On-Prem
+  zentrales Datenmodell
+  Sprach- und Laufzeitwahl
+
+Type-2  (leicht umkehrbar) -&gt; schnell, delegierbar
+  Bibliothek austauschen
+  API-Format hinter Adapter
+  Feature-Flag
+
+Trick: Type-1 hinter einen Kontrakt legen -&gt; wird Type-2</div>
+            </div>
+          </div>
+          ${callout('fact', 'Bezos-Regel', 'Jeff Bezos unterscheidet Typ-1- und Typ-2-Entscheidungen. Der teure Fehler ist, umkehrbare Entscheidungen so schwerfällig zu treffen wie unumkehrbare — dann erstickt die Organisation an ihrer eigenen Vorsicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Conways Gesetz: Kommunikation ist Architektur</div>
+            <div class="explanation">
+              <strong>Conways Gesetz</strong> besagt: Systeme spiegeln die Kommunikationsstruktur der Organisation, die sie baut. Drei getrennte Teams bauen fast zwangsläufig drei getrennte Bausteine mit einer Naht dazwischen.<br><br>
+              Daraus folgt eine unbequeme Wahrheit: Wer die Teams und ihre Schnittstellen ordnet, betreibt bereits Architekturarbeit. Das eigentliche Arbeitsergebnis eines Architekten ist deshalb oft kein Code, sondern ein <strong>Diagramm, ein ADR oder eine Empfehlung</strong> im Lenkungskreis. Und eine reife Haltung heißt: Wissenslücken offen benennen und durch das <strong>billigste Experiment</strong> — einen kleinen Prototyp — auflösen, statt sie zu überdecken.
+            </div>
+          </div>
+          ${quickCheck('Was sagt Conways Gesetz sinngemäß?', ['Schnellere Hardware ergibt bessere Architektur', 'Systeme spiegeln die Kommunikationsstruktur der Organisation', 'Jede Entscheidung sollte unumkehrbar sein'], 1, 'Die Struktur der Teams und ihrer Absprachen prägt die Struktur des Systems — deshalb ist die Organisation von Kommunikation selbst Architekturarbeit.')}
           ${renderQuestions('arch_l1_1', 6)}
           ${renderBonus('arch_l1_1')}
         `,
@@ -21793,6 +21834,47 @@ const ARCH_PHASES = [
             </div>
           </div>
           ${callout('key', 'Guiding principle', 'Decide quickly what you can cheaply undo — and slowly what binds you for years. Half the art of architecture is keeping the second category as small as possible.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Three questions, three roles</div>
+            <div class="explanation">
+              The same situation looks different from each role — the difference is in the <strong>question</strong>, not the tool:<br><br>
+              <strong>Developer:</strong> "How do I build this right?" — quality of execution.<br>
+              <strong>Architect:</strong> "What exactly should we build, and why this way?" — frame and rationale.<br>
+              <strong>CTO:</strong> "Is this the right bet for the company?" — cost, risk, strategy.<br><br>
+              "It depends" is therefore not an excuse but an invitation to name the decisive quantities: number of users, speed, which data flows where, team size, regulation. Only once these <strong>constraints</strong> are on the table can a solution be judged at all.
+            </div>
+          </div>
+          ${quickCheck('Which question best marks the architect role?', ['How do I build this cleanly in code?', 'What should we build — and why this way?', 'Which framework is the fastest?'], 1, 'The architect frames the problem: first settle <strong>what</strong> and <strong>why</strong>, before the <strong>how</strong> even makes sense.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Turning type-1 into type-2</div>
+            <div class="explanation">
+              <code>Type-1</code> decisions are hard to reverse: cloud vs. on-prem, the central data model, the choice of language and runtime. They need several eyes, time and a written <code>ADR</code>. <code>Type-2</code> decisions are easily reversible: a library, an internal API format behind an adapter, a feature flag — fast and delegable.<br><br>
+              The real craft: <strong>turning a type-1 decision into a type-2 decision by design</strong>. Put the database behind a clear access contract, for instance, and a later change of storage suddenly becomes reversible — the one-way street turns into a revolving door.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Classifying reversibility</span></div>
+              <div class="code-pre">Type-1  (hard to reverse)   -&gt; slow, in writing, ADR
+  cloud vs. on-prem
+  central data model
+  language and runtime choice
+
+Type-2  (easy to reverse)   -&gt; fast, delegable
+  swap a library
+  API format behind adapter
+  feature flag
+
+Trick: put type-1 behind a contract -&gt; it becomes type-2</div>
+            </div>
+          </div>
+          ${callout('fact', 'The Bezos rule', 'Jeff Bezos distinguishes type-1 and type-2 decisions. The costly mistake is making reversible decisions as ponderously as irreversible ones — then the organisation suffocates on its own caution.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Conway law: communication is architecture</div>
+            <div class="explanation">
+              <strong>Conway law</strong> states: systems mirror the communication structure of the organisation that builds them. Three separate teams almost inevitably build three separate blocks with a seam between them.<br><br>
+              From this follows an uncomfortable truth: whoever orders the teams and their interfaces is already doing architecture work. The real deliverable of an architect is therefore often not code but a <strong>diagram, an ADR or a recommendation</strong> in the steering committee. And a mature mindset means naming knowledge gaps openly and resolving them with the <strong>cheapest experiment</strong> — a small prototype — instead of papering over them.
+            </div>
+          </div>
+          ${quickCheck('What does the Conway law say, in essence?', ['Faster hardware yields better architecture', 'Systems mirror the communication structure of the organisation', 'Every decision should be irreversible'], 1, 'The structure of teams and their coordination shapes the structure of the system — which is why organising communication is itself architecture work.')}
           ${renderQuestions('arch_l1_1', 6)}
           ${renderBonus('arch_l1_1')}
         `
@@ -21813,6 +21895,48 @@ const ARCH_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Weitere Leitplanken', 'Idempotenz (dieselbe Operation mehrfach = einmal), Beobachtbarkeit (Logs/Metriken/Traces), Security-by-Design (Sicherheit von Anfang an) und YAGNI (nichts auf Vorrat bauen) runden das Fundament ab.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Contract-first &amp; Ports und Adapter</div>
+            <div class="explanation">
+              <strong>Contract-first</strong> heißt: zuerst den Kontrakt — die Schnittstelle — festlegen, dann die Umsetzung. Die Implementierung wird damit frei austauschbar, solange sie den Kontrakt erfüllt.<br><br>
+              <strong>Ports &amp; Adapters</strong> (Hexagonale Architektur) treibt das konsequent durch: Der fachliche Kern kennt nur abstrakte <em>Ports</em> (Kontrakte). Die Außenwelt — Datenbank, Web-API, E-Mail, LLM — hängt über austauschbare <em>Adapter</em> daran. So bleibt der Kern testbar und unabhängig davon, ob dahinter Postgres oder SQLite steckt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Ports &amp; Adapters (Skizze)</span></div>
+              <div class="code-pre">        [ Web-Adapter ]      [ E-Mail-Adapter ]
+               |                    |
+            (Port)                (Port)
+               v                    v
+        +----------------------------------+
+        |         Fachlicher Kern          |
+        |   kennt nur Ports, keine Technik |
+        +----------------------------------+
+               ^                    ^
+            (Port)                (Port)
+               |                    |
+        [ Postgres-Adapter ]   [ LLM-Adapter ]
+
+Kern testbar: Adapter im Test durch Attrappen ersetzen</div>
+            </div>
+          </div>
+          ${quickCheck('Was kennt der fachliche Kern in einer Ports-&amp;-Adapters-Architektur?', ['Die konkrete Datenbank direkt', 'Nur abstrakte Ports (Kontrakte)', 'Alle Adapter im Detail'], 1, 'Der Kern spricht ausschließlich über <strong>Ports</strong>. Ob dahinter Postgres, SQLite oder eine Attrappe steckt, ist ihm egal — genau das macht ihn testbar.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Idempotenz, Beobachtbarkeit, Security-by-Design</div>
+            <div class="explanation">
+              <strong>Idempotenz</strong>: Dieselbe Operation mehrfach ausgeführt wirkt wie einmal. Unverzichtbar im Netz — geht eine Antwort verloren und der Aufruf wird wiederholt (Webhook, Retry), darf keine doppelte Buchung entstehen.<br><br>
+              <strong>Beobachtbarkeit</strong> (Observability): von außen erkennen, was innen passiert — über Logs, Metriken und Traces. Ohne sie ist ein Fehler im Betrieb reine Ratearbeit.<br><br>
+              <strong>Security-by-Design</strong>: Sicherheit von Anfang an mitdenken — Datensparsamkeit, geringste Rechte, Verschlüsselung sensibler Werte. Nachträglich aufgesetzte Sicherheit bleibt fast immer löchrig.
+            </div>
+          </div>
+          ${quickCheck('Warum ist Idempotenz bei Webhooks wichtig?', ['Damit Antworten schneller ankommen', 'Damit ein wiederholter Aufruf nicht doppelt wirkt', 'Damit der Code kürzer wird'], 1, 'Im Netz gehen Antworten verloren und Aufrufe werden wiederholt. Idempotent heißt: der zweite, gleiche Aufruf ändert nichts mehr — keine doppelte Buchung.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">YAGNI — das Gegengewicht</div>
+            <div class="explanation">
+              All diese Prinzipien verführen dazu, <em>zu viel</em> zu bauen. <strong>YAGNI</strong> („You Aren't Gonna Need It") ist das Gegengewicht: nichts auf Vorrat bauen, keine Struktur für Fälle, die vielleicht nie eintreten.<br><br>
+              Die Kunst ist die Dosis: <strong>genau so viel Struktur, wie die Constraints verlangen</strong> — nicht mehr. Lose Kopplung dort, wo sich wirklich etwas ändern wird; ein einfacher direkter Weg dort, wo Stabilität herrscht. Prinzipien sind Werkzeuge, keine Pflicht.
+            </div>
+          </div>
+          ${callout('warn', 'Über-Architektur', 'Jede Abstraktion kostet — Verständlichkeit, Zeit, Wege im Code. Führe eine Schnittstelle erst ein, wenn ein Constraint sie rechtfertigt, nicht weil sie sich sauber anfühlt.')}
           ${renderQuestions('arch_l1_2', 6)}
           ${renderBonus('arch_l1_2')}
         `,
@@ -21830,6 +21954,48 @@ const ARCH_PHASES = [
             </div>
           </div>
           ${callout('tip', 'More guardrails', 'Idempotency (the same operation many times = once), observability (logs/metrics/traces), security-by-design (security from the start) and YAGNI (build nothing on spec) round out the foundation.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Contract-first &amp; ports and adapters</div>
+            <div class="explanation">
+              <strong>Contract-first</strong> means: define the contract — the interface — before the implementation. The implementation then becomes freely swappable, as long as it fulfils the contract.<br><br>
+              <strong>Ports &amp; adapters</strong> (hexagonal architecture) pushes this through consistently: the functional core knows only abstract <em>ports</em> (contracts). The outside world — database, web API, email, LLM — attaches via swappable <em>adapters</em>. That keeps the core testable and independent of whether Postgres or SQLite sits behind it.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Ports &amp; adapters (sketch)</span></div>
+              <div class="code-pre">        [ web adapter ]       [ email adapter ]
+               |                    |
+            (port)                (port)
+               v                    v
+        +----------------------------------+
+        |         Functional core          |
+        |   knows only ports, no tech      |
+        +----------------------------------+
+               ^                    ^
+            (port)                (port)
+               |                    |
+        [ Postgres adapter ]   [ LLM adapter ]
+
+Core testable: replace adapters with fakes in tests</div>
+            </div>
+          </div>
+          ${quickCheck('What does the functional core know in a ports-&amp;-adapters architecture?', ['The concrete database directly', 'Only abstract ports (contracts)', 'Every adapter in detail'], 1, 'The core talks solely through <strong>ports</strong>. Whether Postgres, SQLite or a fake sits behind it does not matter — that is exactly what makes it testable.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Idempotency, observability, security-by-design</div>
+            <div class="explanation">
+              <strong>Idempotency</strong>: the same operation run several times acts like once. Indispensable on the network — if a response is lost and the call is repeated (webhook, retry), no double booking may result.<br><br>
+              <strong>Observability</strong>: recognising from the outside what happens inside — via logs, metrics and traces. Without it, a production error is pure guesswork.<br><br>
+              <strong>Security-by-design</strong>: think about security from the start — data minimisation, least privilege, encryption of sensitive values. Security bolted on afterwards almost always stays leaky.
+            </div>
+          </div>
+          ${quickCheck('Why does idempotency matter for webhooks?', ['So responses arrive faster', 'So a repeated call does not take effect twice', 'So the code gets shorter'], 1, 'On the network, responses get lost and calls are repeated. Idempotent means the second, identical call changes nothing more — no double booking.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">YAGNI — the counterweight</div>
+            <div class="explanation">
+              All these principles tempt you to build <em>too much</em>. <strong>YAGNI</strong> ("You Aren't Gonna Need It") is the counterweight: build nothing on spec, no structure for cases that may never arrive.<br><br>
+              The craft is the dose: <strong>exactly as much structure as the constraints demand</strong> — no more. Loose coupling where something really will change; a simple direct path where things are stable. Principles are tools, not obligations.
+            </div>
+          </div>
+          ${callout('warn', 'Over-engineering', 'Every abstraction has a cost — clarity, time, extra hops in the code. Introduce an interface only when a constraint justifies it, not because it feels clean.')}
           ${renderQuestions('arch_l1_2', 6)}
           ${renderBonus('arch_l1_2')}
         `
@@ -27853,6 +28019,46 @@ QUESTION_POOLS['ai_l6_1'] = [
   {id:'p_ai_l6_1_bonus',type:'mc',xp:20,optional:true,question:'Wozu dient eine Model/Prompt-Registry?',question_en:'What is a model/prompt registry for?',options:[
     {t:'Sie hält fest, welche Prompt- und Modellversion mit welchem Eval-Ergebnis wo im Einsatz ist — für sauberes Rollback und Audit',t_en:'It records which prompt and model version with which eval result is in use where — for clean rollback and audit',correct:true,why:'Genau. Ohne diese Zuordnung ist ein gezieltes Zurückrollen auf eine bekannte gute Version kaum möglich.',why_en:'Exactly. Without this mapping, a targeted rollback to a known good version is hardly possible.'},
     {t:'Sie speichert die Trainingsdaten des Basismodells',t_en:'It stores the training data of the base model',correct:false,why:'Nein. Die Registry verwaltet Versionen und Eval-Ergebnisse im Betrieb, nicht die Trainingsdaten.',why_en:'No. The registry manages versions and eval results in operation, not the training data.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l1_1'] = [
+  {id:'p_arch_l1_1_mc1',type:'mc',xp:10,question:'Welche Frage kennzeichnet die Rolle des Architekten am ehesten?',question_en:'Which question most characterises the architect role?',options:[
+    {t:'Was genau sollen wir bauen, und warum gerade so?',t_en:'What exactly should we build, and why this way?',correct:true,why:'Richtig. Der Architekt rahmt das Problem ein, bevor er es löst — er klärt Ziel und Begründung.',why_en:'Correct. The architect frames the problem before solving it — clarifying goal and rationale.'},
+    {t:'Wie baue ich diese Funktion technisch sauber?',t_en:'How do I build this feature cleanly in code?',correct:false,why:'Das ist die Entwicklerfrage — Qualität der Umsetzung, nicht Rahmen und Begründung.',why_en:'That is the developer question — quality of execution, not frame and rationale.'},
+    {t:'Ist das die richtige Wette fürs Unternehmen?',t_en:'Is this the right bet for the company?',correct:false,why:'Das ist eher die CTO-Frage nach Kosten, Risiko und Strategie.',why_en:'That is more the CTO question about cost, risk and strategy.'}
+  ]},
+  {id:'p_arch_l1_1_mc2',type:'mc',xp:10,question:'Was ist ein typisches Merkmal einer <code>Type-1</code>-Entscheidung?',question_en:'What is a typical mark of a <code>type-1</code> decision?',options:[
+    {t:'Sie ist kaum umkehrbar und sollte bewusst langsam und schriftlich getroffen werden',t_en:'It is hard to reverse and should be made deliberately slowly and in writing',correct:true,why:'Genau. Cloud vs. On-Prem oder das zentrale Datenmodell binden für Jahre — dafür gibt es das ADR.',why_en:'Exactly. Cloud vs. on-prem or the central data model bind you for years — that is what the ADR is for.'},
+    {t:'Sie ist leicht umkehrbar und gut delegierbar',t_en:'It is easily reversible and easy to delegate',correct:false,why:'Das beschreibt eine Type-2-Entscheidung — die Drehtür, nicht die Einbahnstraße.',why_en:'That describes a type-2 decision — the revolving door, not the one-way street.'},
+    {t:'Sie betrifft immer nur eine einzelne Bibliothek',t_en:'It always concerns just a single library',correct:false,why:'Eine austauschbare Bibliothek ist gerade das Paradebeispiel für Type-2.',why_en:'A swappable library is precisely the prime example of type-2.'}
+  ]},
+  {id:'p_arch_l1_1_tf1',type:'truefalse',xp:8,statement:'Constraints first bedeutet, zuerst die Randbedingungen wie Nutzerzahl, Tempo und Regulierung offenzulegen und erst dann die Lösung zu entwerfen.',statement_en:'Constraints first means first exposing the boundary conditions like user count, speed and regulation, and only then designing the solution.',correct:true,explanation:'Richtig. Ohne benannte Constraints ist keine Lösung bewertbar — sie ist bloße Meinung.',explanation_en:'Correct. Without named constraints no solution can be judged — it is mere opinion.'},
+  {id:'p_arch_l1_1_tf2',type:'truefalse',xp:8,statement:'Der Satz es kommt darauf an ist eine Ausrede, um keine Entscheidung treffen zu müssen.',statement_en:'The phrase it depends is an excuse to avoid making a decision.',correct:false,explanation:'Falsch. Er ist die Aufforderung, die entscheidenden Größen zu benennen — der Anfang einer sauberen Antwort, nicht ihr Ausweichen.',explanation_en:'False. It is the invitation to name the decisive quantities — the start of a sound answer, not a dodge.'},
+  {id:'p_arch_l1_1_fb1',type:'fillblank',xp:12,prompt:'Eine einzelne wichtige, kaum umkehrbare Entscheidung hält man knapp, datiert und begründet fest in einem ___ (drei Buchstaben).',prompt_en:'A single important, hard-to-reverse decision is recorded briefly, dated and justified in an ___ (three letters).',answers:['ADR','adr'],placeholder:'Kürzel…',placeholder_en:'Acronym…',explanation:'Das ADR (Architecture Decision Record) beantwortet später die Frage warum damals so — samt verworfener Alternativen.',explanation_en:'The ADR (Architecture Decision Record) later answers the question why it was done that way — including rejected alternatives.'},
+  {id:'p_arch_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Was besagt das Gesetz von Conway sinngemäß?',question_en:'What does the law of Conway state, in essence?',options:[
+    {t:'Systeme spiegeln die Kommunikationsstruktur der Organisation, die sie baut',t_en:'Systems mirror the communication structure of the organisation that builds them',correct:true,why:'Genau. Deshalb ist das Ordnen von Teams und Schnittstellen selbst Architekturarbeit.',why_en:'Exactly. That is why ordering teams and interfaces is itself architecture work.'},
+    {t:'Mehr Entwickler führen immer zu schnellerer Auslieferung',t_en:'More developers always lead to faster delivery',correct:false,why:'Nein, das widerspricht sogar der Erfahrung — mehr Kommunikationswege bremsen oft.',why_en:'No, that even contradicts experience — more communication paths often slow things down.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l1_2'] = [
+  {id:'p_arch_l1_2_mc1',type:'mc',xp:10,question:'Was bewirken lose Kopplung und hohe Kohäsion zusammen?',question_en:'What do loose coupling and high cohesion together achieve?',options:[
+    {t:'Das System bleibt änderbar — ein Baustein lässt sich anfassen, ohne die anderen mitzureißen',t_en:'The system stays changeable — one block can be touched without dragging the others along',correct:true,why:'Genau. Wenig Wissen voneinander plus fachliche Nähe des Zusammengehörigen hält Änderungen lokal.',why_en:'Exactly. Little mutual knowledge plus functional closeness of what belongs together keeps changes local.'},
+    {t:'Das System läuft garantiert schneller',t_en:'The system is guaranteed to run faster',correct:false,why:'Nein. Es geht um Änderbarkeit und Klarheit, nicht primär um Laufzeit-Tempo.',why_en:'No. It is about changeability and clarity, not primarily about runtime speed.'},
+    {t:'Man braucht keine Schnittstellen mehr',t_en:'You no longer need any interfaces',correct:false,why:'Im Gegenteil — klare Schnittstellen sind genau das Mittel, das lose Kopplung erst möglich macht.',why_en:'On the contrary — clear interfaces are exactly the means that make loose coupling possible.'}
+  ]},
+  {id:'p_arch_l1_2_mc2',type:'mc',xp:10,question:'Woran hängt der fachliche Kern in der Hexagonalen Architektur?',question_en:'What does the functional core depend on in hexagonal architecture?',options:[
+    {t:'Nur an abstrakten Ports; die Außenwelt kommt über austauschbare Adapter dazu',t_en:'Only on abstract ports; the outside world attaches via swappable adapters',correct:true,why:'Richtig. So bleibt der Kern testbar und unabhängig davon, ob Postgres oder SQLite dahintersteht.',why_en:'Correct. That keeps the core testable and independent of whether Postgres or SQLite sits behind it.'},
+    {t:'Direkt an der konkreten Datenbank und der Web-Bibliothek',t_en:'Directly on the concrete database and the web library',correct:false,why:'Nein, das wäre feste Kopplung an Technik — genau das vermeidet Ports und Adapters.',why_en:'No, that would be tight coupling to technology — exactly what ports and adapters avoids.'},
+    {t:'An der Hardware des Servers',t_en:'On the server hardware',correct:false,why:'Nein. Der Kern kennt nur Kontrakte, keine Infrastruktur.',why_en:'No. The core knows only contracts, not infrastructure.'}
+  ]},
+  {id:'p_arch_l1_2_tf1',type:'truefalse',xp:8,statement:'Idempotenz bedeutet, dass dieselbe Operation mehrfach ausgeführt genauso wirkt wie einmal ausgeführt.',statement_en:'Idempotency means the same operation executed several times has the same effect as executing it once.',correct:true,explanation:'Richtig. Deshalb ist sie im Netz unverzichtbar — ein wiederholter Webhook darf keine doppelte Buchung auslösen.',explanation_en:'Correct. That is why it is indispensable on the network — a repeated webhook must not trigger a double booking.'},
+  {id:'p_arch_l1_2_tf2',type:'truefalse',xp:8,statement:'YAGNI empfiehlt, möglichst viel Struktur und Abstraktion auf Vorrat zu bauen, damit man später gerüstet ist.',statement_en:'YAGNI recommends building as much structure and abstraction on spec as possible, so you are prepared later.',correct:false,explanation:'Falsch. YAGNI ist das Gegenteil: nichts auf Vorrat bauen — nur so viel Struktur, wie die Constraints verlangen.',explanation_en:'False. YAGNI is the opposite: build nothing on spec — only as much structure as the constraints demand.'},
+  {id:'p_arch_l1_2_fb1',type:'fillblank',xp:12,prompt:'Von außen über Logs, Metriken und Traces erkennen, was innen passiert, nennt man ___ (englischer Fachbegriff).',prompt_en:'Recognising from the outside what happens inside via logs, metrics and traces is called ___ .',answers:['Observability','observability','Beobachtbarkeit','beobachtbarkeit'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Observability (Beobachtbarkeit) macht den Betrieb sichtbar — ohne sie ist Fehlersuche im Live-System reine Ratearbeit.',explanation_en:'Observability makes production visible — without it, debugging a live system is pure guesswork.'},
+  {id:'p_arch_l1_2_bonus',type:'mc',xp:20,optional:true,question:'Was meint Security-by-Design?',question_en:'What does security-by-design mean?',options:[
+    {t:'Sicherheit von Anfang an mitdenken — Datensparsamkeit, geringste Rechte, Verschlüsselung sensibler Werte',t_en:'Thinking about security from the start — data minimisation, least privilege, encryption of sensitive values',correct:true,why:'Genau. Nachträglich aufgesetzte Sicherheit bleibt fast immer löchrig.',why_en:'Exactly. Security bolted on afterwards almost always stays leaky.'},
+    {t:'Sicherheit ganz am Ende testen und dann Lücken schließen',t_en:'Testing security only at the very end and then closing gaps',correct:false,why:'Nein, das ist der teure Umkehrschluss, den Security-by-Design gerade vermeiden will.',why_en:'No, that is the costly opposite that security-by-design aims to avoid.'}
   ]}
 ];
 
