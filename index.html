@@ -21752,6 +21752,343 @@ cases: 120</div>
 ];
 
 // ============================================================
+//   COURSE: Software-Architektur — unique ids "arch_*"
+// ============================================================
+const ARCH_PHASES = [
+  {
+    id: 'p_arch1', title: 'Haltung & Grundlagen', title_en: 'Mindset & Foundations',
+    sub: 'Wie ein Architekt denkt — und die Prinzipien, auf denen gute Architektur ruht.',
+    sub_en: 'How an architect thinks — and the principles good architecture rests on.',
+    lessons: [
+      {
+        id: 'arch_l1_1', title: 'Vom Entwickler zum Architekten',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">Vom Entwickler zum Architekten</h1>
+            <p class="lesson-desc">Der Übergang ist kein Sprung in eine höhere technische Liga, sondern ein Wechsel der Fragestellung. Gute Architekten lösen nicht mehr nur Probleme — sie rahmen sie ein.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Constraints first</div>
+            <div class="explanation">
+              Der Entwickler fragt „Wie baue ich das richtig?", der Architekt fragt „Was genau sollen wir bauen, und warum gerade so?". Die wichtigste Haltung: <strong>Constraints first</strong> — zuerst die Randbedingungen (Nutzerzahl, Tempo, Datenschutz, Teamgröße), dann die Lösung. Fast jede sinnvolle Antwort beginnt mit „es kommt darauf an".<br><br>
+              Ein zentrales Denkwerkzeug ist die <strong>Reversibilität</strong>: <code>Type-1</code>-Entscheidungen sind Einbahnstraßen (kaum umkehrbar) — bewusst langsam und schriftlich (ADR). <code>Type-2</code>-Entscheidungen sind Drehtüren (leicht umkehrbar) — schnell und delegierbar.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz', 'Entscheide schnell, was du billig rückgängig machen kannst — und langsam, was dich für Jahre bindet. Die halbe Kunst der Architektur ist, die zweite Kategorie so klein wie möglich zu halten.')}
+          ${renderQuestions('arch_l1_1', 6)}
+          ${renderBonus('arch_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">From Developer to Architect</h1>
+            <p class="lesson-desc">The transition is not a jump to a higher technical league but a shift in the question. Good architects no longer just solve problems — they frame them.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Constraints first</div>
+            <div class="explanation">
+              The developer asks "How do I build this right?", the architect asks "What exactly should we build, and why this way?". The key mindset: <strong>constraints first</strong> — first the boundary conditions (number of users, speed, privacy, team size), then the solution. Almost every sensible answer starts with "it depends".<br><br>
+              A central thinking tool is <strong>reversibility</strong>: <code>type-1</code> decisions are one-way streets (hard to reverse) — made deliberately slowly and in writing (ADR). <code>type-2</code> decisions are revolving doors (easily reversible) — fast and delegable.
+            </div>
+          </div>
+          ${callout('key', 'Guiding principle', 'Decide quickly what you can cheaply undo — and slowly what binds you for years. Half the art of architecture is keeping the second category as small as possible.')}
+          ${renderQuestions('arch_l1_1', 6)}
+          ${renderBonus('arch_l1_1')}
+        `
+      },
+      {
+        id: 'arch_l1_2', title: 'Architektur-Grundprinzipien',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 2</div>
+            <h1 class="lesson-title">Architektur-Grundprinzipien</h1>
+            <p class="lesson-desc">Gute Architektur beruht auf wenigen, immer wiederkehrenden Prinzipien. Sie sind keine Dogmen, sondern Werkzeuge, die man nach Constraints gewichtet.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Lose Kopplung & hohe Kohäsion</div>
+            <div class="explanation">
+              <strong>Lose Kopplung</strong>: Bausteine wissen möglichst wenig voneinander und reden über klare Schnittstellen — ändert sich einer, müssen die anderen nicht mit. <strong>Hohe Kohäsion</strong>: Was fachlich zusammengehört, liegt auch technisch beieinander.<br><br>
+              Daraus folgt <strong>Contract-first</strong> (zuerst die Schnittstelle festlegen, dann die Umsetzung) und <strong>Ports &amp; Adapters</strong> (Hexagonale Architektur): Der fachliche Kern kennt nur abstrakte „Ports"; die Außenwelt (DB, Web, LLM) hängt über austauschbare Adapter dran.
+            </div>
+          </div>
+          ${callout('tip', 'Weitere Leitplanken', 'Idempotenz (dieselbe Operation mehrfach = einmal), Beobachtbarkeit (Logs/Metriken/Traces), Security-by-Design (Sicherheit von Anfang an) und YAGNI (nichts auf Vorrat bauen) runden das Fundament ab.')}
+          ${renderQuestions('arch_l1_2', 6)}
+          ${renderBonus('arch_l1_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 2</div>
+            <h1 class="lesson-title">Architecture Principles</h1>
+            <p class="lesson-desc">Good architecture rests on a few recurring principles. They are not dogmas but tools, weighted according to constraints.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Loose coupling & high cohesion</div>
+            <div class="explanation">
+              <strong>Loose coupling</strong>: building blocks know as little about each other as possible and talk through clear interfaces — if one changes, the others need not. <strong>High cohesion</strong>: what belongs together functionally also sits together technically.<br><br>
+              From this follow <strong>contract-first</strong> (define the interface before the implementation) and <strong>ports &amp; adapters</strong> (hexagonal architecture): the functional core knows only abstract "ports"; the outside world (DB, web, LLM) attaches via swappable adapters.
+            </div>
+          </div>
+          ${callout('tip', 'More guardrails', 'Idempotency (the same operation many times = once), observability (logs/metrics/traces), security-by-design (security from the start) and YAGNI (build nothing on spec) round out the foundation.')}
+          ${renderQuestions('arch_l1_2', 6)}
+          ${renderBonus('arch_l1_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_arch2', title: 'Architektur sichtbar machen', title_en: 'Making Architecture Visible',
+    sub: 'Architektur wirkt erst, wenn andere sie verstehen, prüfen und mittragen können.',
+    sub_en: 'Architecture only works once others can understand, review and support it.',
+    lessons: [
+      {
+        id: 'arch_l2_1', title: 'C4, ADR & RFC',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">C4, ADR & RFC</h1>
+            <p class="lesson-desc">Drei komplementäre Formate machen Architektur kommunizierbar: C4 für Diagramme, ADR für einzelne Entscheidungen, RFC für Vorschläge vor der Umsetzung.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die drei Formate</div>
+            <div class="explanation">
+              <strong>C4</strong> beschreibt Software in vier Zoomstufen (Context, Container, Component, Code) — ein Diagramm zeigt genau <em>eine</em> Ebene. <strong>ADR</strong> (Architecture Decision Record) hält eine einzelne wichtige Entscheidung fest — knapp, datiert, mit Begründung und verworfenen Alternativen; beantwortet später „Warum damals so?".<br><br>
+              <strong>RFC</strong> (Request for Comments) kommt <em>vor</em> der Entscheidung: ein Vorschlag, der zur Diskussion gestellt wird. Aus einem RFC entstehen oft mehrere ADRs. So greifen die Formate ineinander: RFC klärt, ADR hält fest, C4 zeigt das Ergebnis.
+            </div>
+          </div>
+          ${callout('key', 'Merke', 'Ein Diagramm = eine Abstraktionsebene. Wer Context, Container und Component in ein Bild presst, informiert niemanden — er verwirrt alle gleichzeitig.')}
+          ${renderQuestions('arch_l2_1', 6)}
+          ${renderBonus('arch_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">C4, ADR & RFC</h1>
+            <p class="lesson-desc">Three complementary formats make architecture communicable: C4 for diagrams, ADR for individual decisions, RFC for proposals before implementation.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The three formats</div>
+            <div class="explanation">
+              <strong>C4</strong> describes software in four zoom levels (context, container, component, code) — one diagram shows exactly <em>one</em> level. <strong>ADR</strong> (Architecture Decision Record) captures a single important decision — brief, dated, with rationale and rejected alternatives; later answers "why did we do it that way?".<br><br>
+              <strong>RFC</strong> (Request for Comments) comes <em>before</em> the decision: a proposal put up for discussion. An RFC often spawns several ADRs. So the formats interlock: RFC clarifies, ADR records, C4 shows the result.
+            </div>
+          </div>
+          ${callout('key', 'Remember', 'One diagram = one level of abstraction. Whoever presses context, container and component into one picture informs no one — they confuse everyone at once.')}
+          ${renderQuestions('arch_l2_1', 6)}
+          ${renderBonus('arch_l2_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_arch3', title: 'Stile & Resilienz', title_en: 'Styles & Resilience',
+    sub: 'Wie ein System in Teile zerlegt wird — und wie es Teilausfälle übersteht.',
+    sub_en: 'How a system is split into parts — and how it survives partial failures.',
+    lessons: [
+      {
+        id: 'arch_l3_1', title: 'Architektur-Stile im Vergleich',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">Architektur-Stile im Vergleich</h1>
+            <p class="lesson-desc">Ein Architektur-Stil legt fest, wie ein System in Teile zerlegt wird. Die Wahl ist keine Geschmacksfrage, sondern eine Wette auf die Zukunft.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Sechs Stile, kein Gut-Schlecht</div>
+            <div class="explanation">
+              <strong>Monolith</strong>: eine einzige Anwendung — einfach, aber wächst unübersichtlich. <strong>Modularer Monolith</strong>: eine Auslieferungseinheit, innen saubere Module — der sinnvolle Default für die meisten Neubauten. <strong>Microservices</strong>: viele eigenständig deploybare Dienste — Team-Autonomie, aber hoher Betriebsaufwand. <strong>Event-Driven</strong>, <strong>Serverless</strong> und <strong>Agentic</strong> lösen weitere spezielle Zwänge.<br><br>
+              Der Preis jeder verteilten Architektur ist die <strong>Distributed-Systems-Steuer</strong>: Netzwerkfehler, Teilausfälle, kein gemeinsames Transaktions-Klammer, verteiltes Monitoring.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz', 'Beginne mit dem modularen Monolithen. Er gibt dir die Ordnung von Microservices ohne deren Betriebssteuer — und lässt dich einzelne Module genau dann herauslösen, wenn ein echter Grund auftritt, nicht vorher.')}
+          ${renderQuestions('arch_l3_1', 6)}
+          ${renderBonus('arch_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">Architecture Styles Compared</h1>
+            <p class="lesson-desc">An architecture style defines how a system is split into parts. The choice is not a matter of taste but a bet on the future.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Six styles, no good-vs-bad</div>
+            <div class="explanation">
+              <strong>Monolith</strong>: a single application — simple, but grows unwieldy. <strong>Modular monolith</strong>: one deployment unit, clean modules inside — the sensible default for most new builds. <strong>Microservices</strong>: many independently deployable services — team autonomy, but high operational cost. <strong>Event-driven</strong>, <strong>serverless</strong> and <strong>agentic</strong> solve further specific pressures.<br><br>
+              The price of any distributed architecture is the <strong>distributed-systems tax</strong>: network failures, partial outages, no shared transaction bracket, distributed monitoring.
+            </div>
+          </div>
+          ${callout('key', 'Guiding principle', 'Start with the modular monolith. It gives you the order of microservices without their operational tax — and lets you extract individual modules exactly when a real reason arises, not before.')}
+          ${renderQuestions('arch_l3_1', 6)}
+          ${renderBonus('arch_l3_1')}
+        `
+      },
+      {
+        id: 'arch_l3_2', title: 'Resilienz- & Integrations-Patterns',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 2</div>
+            <h1 class="lesson-title">Resilienz- & Integrations-Patterns</h1>
+            <p class="lesson-desc">Sobald Teile über ein Netzwerk reden, sind Ausfälle der Normalfall — nur selten. „Design for Failure" baut dieses Wissen in die Architektur ein.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die erprobten Muster</div>
+            <div class="explanation">
+              Einzelaufrufe robust machen: <strong>Timeout</strong> (nie unbegrenzt warten), <strong>Retry mit Backoff</strong> + Jitter (nur bei idempotenten Aufrufen), <strong>Idempotency-Key</strong> (zweiter Aufruf wirkt nicht erneut).<br><br>
+              Ausbreitung verhindern: <strong>Circuit Breaker</strong> (bei Fehlerhäufung sofort abweisen, kontrolliert zurücktasten) und <strong>Bulkhead</strong> (Ressourcen je Abhängigkeit abschotten). Konsistenz ohne globale Transaktion: <strong>Saga</strong> (Kette lokaler Schritte + kompensierende Gegenaktionen) und <strong>Outbox</strong> (Ereignis in derselben DB-Transaktion). Das <strong>CAP-Theorem</strong> zwingt zur bewussten Wahl zwischen Verfügbarkeit und Konsistenz bei Netz-Partitionen.
+            </div>
+          </div>
+          ${callout('warn', 'Leitplanke', 'Retry ohne Idempotenz ist ein Bug, kein Feature. Ein wiederholter „Geld abbuchen"-Aufruf ohne Idempotency-Key bucht doppelt ab. Prüfe vor jedem Retry: Ist diese Operation gefahrlos wiederholbar?')}
+          ${renderQuestions('arch_l3_2', 6)}
+          ${renderBonus('arch_l3_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 2</div>
+            <h1 class="lesson-title">Resilience & Integration Patterns</h1>
+            <p class="lesson-desc">Once parts talk over a network, failures are the normal case — just rare. "Design for failure" builds that knowledge into the architecture.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The proven patterns</div>
+            <div class="explanation">
+              Make single calls robust: <strong>timeout</strong> (never wait forever), <strong>retry with backoff</strong> + jitter (only for idempotent calls), <strong>idempotency key</strong> (a second call has no additional effect).<br><br>
+              Prevent spread: <strong>circuit breaker</strong> (on a burst of errors, reject immediately and probe back carefully) and <strong>bulkhead</strong> (isolate resources per dependency). Consistency without a global transaction: <strong>saga</strong> (a chain of local steps + compensating actions) and <strong>outbox</strong> (event in the same DB transaction). The <strong>CAP theorem</strong> forces a deliberate choice between availability and consistency during network partitions.
+            </div>
+          </div>
+          ${callout('warn', 'Guardrail', 'Retry without idempotency is a bug, not a feature. A repeated "charge money" call without an idempotency key charges twice. Before every retry ask: is this operation safely repeatable?')}
+          ${renderQuestions('arch_l3_2', 6)}
+          ${renderBonus('arch_l3_2')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_arch4', title: 'API-Design', title_en: 'API Design',
+    sub: 'Der Vertrag, über den Software-Teile reden — heute nutzbar, morgen erweiterbar.',
+    sub_en: 'The contract software parts talk through — usable today, extensible tomorrow.',
+    lessons: [
+      {
+        id: 'arch_l4_1', title: 'APIs, die andere lieben',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">APIs, die andere lieben</h1>
+            <p class="lesson-desc">Eine API ist der Vertrag, über den zwei Software-Teile reden — und das Langlebigste an einem System. Interne Umbauten merkt niemand, eine schlecht geschnittene API ärgert jahrelang.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Stile & Handwerksregeln</div>
+            <div class="explanation">
+              <strong>REST</strong> ist der Standard für ressourcenorientierte Web-APIs (schlicht, cachebar). <strong>GraphQL</strong> lässt den Client genau die Felder anfragen. <strong>gRPC</strong> ist schnell/binär für Dienst-zu-Dienst. <strong>Events</strong> passen für lose Kopplung.<br><br>
+              Handwerksregeln guter REST-APIs: Verben stecken in der HTTP-Methode (nicht in der URL), <strong>Versionierung</strong> von Anfang an (z. B. <code>/v1</code>), <strong>Paginierung</strong> als Pflicht bei Listen (Cursor statt „alle"), ein einheitliches <strong>Fehlerformat</strong> mit korrektem HTTP-Statuscode, und Auth über Bearer-Token (nie Schlüssel in der URL).
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz', 'Eine API-Änderung ist entweder abwärtskompatibel oder eine neue Version. Ein drittes gibt es nicht. Felder hinzufügen ist erlaubt; Felder entfernen oder ihre Bedeutung ändern bricht Nutzer — und rechtfertigt eine /v2.')}
+          ${renderQuestions('arch_l4_1', 6)}
+          ${renderBonus('arch_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">APIs Others Love</h1>
+            <p class="lesson-desc">An API is the contract two software parts talk through — and the most long-lived thing in a system. Internal rebuilds go unnoticed; a badly designed API annoys for years.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Styles & craft rules</div>
+            <div class="explanation">
+              <strong>REST</strong> is the standard for resource-oriented web APIs (simple, cacheable). <strong>GraphQL</strong> lets the client request exactly the fields it needs. <strong>gRPC</strong> is fast/binary for service-to-service. <strong>Events</strong> fit loose coupling.<br><br>
+              Craft rules of good REST APIs: verbs live in the HTTP method (not the URL), <strong>versioning</strong> from the start (e.g. <code>/v1</code>), <strong>pagination</strong> mandatory for lists (cursor instead of "all"), a uniform <strong>error format</strong> with the correct HTTP status code, and auth via bearer token (never keys in the URL).
+            </div>
+          </div>
+          ${callout('key', 'Guiding principle', 'An API change is either backward-compatible or a new version. There is no third option. Adding fields is allowed; removing fields or changing their meaning breaks users — and justifies a /v2.')}
+          ${renderQuestions('arch_l4_1', 6)}
+          ${renderBonus('arch_l4_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_arch5', title: 'Enterprise & Migration', title_en: 'Enterprise & Migration',
+    sub: 'Alte, zentrale Systeme sicher anbinden — und Schritt für Schritt modernisieren.',
+    sub_en: 'Safely connecting old, central systems — and modernizing step by step.',
+    lessons: [
+      {
+        id: 'arch_l5_1', title: 'Enterprise-Integration & Legacy',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 1</div>
+            <h1 class="lesson-title">Enterprise-Integration & Legacy</h1>
+            <p class="lesson-desc">In gewachsenen Unternehmen liegt der wertvollste Datenschatz in alten, zentralen Systemen. Die Kardinalregel jeder Integration: niemals invasiv.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Niemals invasiv</div>
+            <div class="explanation">
+              Ein <strong>Legacy-System</strong> (z. B. ein ERP) trägt jahrzehntelang verfeinerte Fach- und Gesetzesregeln. Du schreibst nicht direkt in fremde Datenbanktabellen und baust es nicht um — du sprichst es <strong>ausschließlich über seine vorgesehenen Schnittstellen</strong> an und packst eine Schutzschicht dazwischen.<br><br>
+              Diese Schutzschicht ist der <strong>Anti-Corruption-Layer</strong>: Er übersetzt die kryptischen Fremd-Begriffe in die klaren Begriffe deiner eigenen Domäne, sodass Eigenheiten des Altsystems nicht in deine Anwendung durchschlagen. Die <strong>fachliche Werkzeug-Fassade</strong> setzt das um: ein Aufruf in deinen Begriffen, dahinter Adapter je Zielsystem.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz', 'Integriere fremde Systeme immer über eine fachliche Fassade in deinen Begriffen, nie durch direkte Aufrufe ihrer Eigenheiten quer durch deinen Code. Ein Fremdsystem, das an hundert Stellen durchscheint, wirst du nie wieder los.')}
+          ${renderQuestions('arch_l5_1', 6)}
+          ${renderBonus('arch_l5_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 1</div>
+            <h1 class="lesson-title">Enterprise Integration & Legacy</h1>
+            <p class="lesson-desc">In established companies the most valuable data lives in old, central systems. The cardinal rule of any integration: never invasive.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Never invasive</div>
+            <div class="explanation">
+              A <strong>legacy system</strong> (e.g. an ERP) carries decades of refined business and legal rules. You do not write directly into foreign database tables and you do not rebuild it — you talk to it <strong>exclusively through its intended interfaces</strong> and put a protective layer in between.<br><br>
+              That protective layer is the <strong>anti-corruption layer</strong>: it translates the cryptic foreign terms into the clear terms of your own domain, so the legacy system's quirks don't leak into your application. The <strong>business tool facade</strong> implements this: one call in your terms, adapters per target system behind it.
+            </div>
+          </div>
+          ${callout('key', 'Guiding principle', 'Always integrate foreign systems through a business facade in your own terms, never through direct calls to their quirks scattered across your code. A foreign system that shows through in a hundred places is one you will never get rid of.')}
+          ${renderQuestions('arch_l5_1', 6)}
+          ${renderBonus('arch_l5_1')}
+        `
+      },
+      {
+        id: 'arch_l5_2', title: 'Migration & Modernisierung',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 2</div>
+            <h1 class="lesson-title">Migration & Modernisierung</h1>
+            <p class="lesson-desc">Der gefährlichste Plan ist der „Big Bang". Moderne Migration folgt einem anderen Prinzip: kleine, jederzeit umkehrbare Schritte bei laufendem System.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Strangler Fig</div>
+            <div class="explanation">
+              Der <strong>Big Bang</strong> (alles auf einmal umschalten) scheitert fast immer — das Neue kann selten sofort alles, und ein Rückweg fehlt. Das Leitmuster heißt <strong>Strangler Fig</strong>: Du setzt eine <strong>Fassade</strong> (Routing-Punkt) vor das Alte und baust eine einzelne Fähigkeit neu; nur diese eine Anfrage-Art geht zum Neuen, alles andere weiter zum Alten. Funktion für Funktion wandert hinüber, bis das Alte leer ist.<br><br>
+              Für die Daten während der Übergangszeit hilft <strong>CDC</strong> (Change Data Capture): ein Werkzeug liest Änderungen aus dem Transaktionslog und spielt sie in die neue DB ein — verlässlicher als fehleranfälliges Dual-Write.
+            </div>
+          </div>
+          ${callout('warn', 'Leitplanke', 'Schalte ein Altsystem erst ab, wenn die neue Funktion nachweislich über einen vollen Geschäftszyklus stabil lief. Bis dahin bleibt das Alte als Rückfallebene. Ein abgeschaltetes Altsystem ist der einzige wirklich irreversible Schritt.')}
+          ${renderQuestions('arch_l5_2', 6)}
+          ${renderBonus('arch_l5_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 2</div>
+            <h1 class="lesson-title">Migration & Modernization</h1>
+            <p class="lesson-desc">The most dangerous plan is the "big bang". Modern migration follows a different principle: small, always-reversible steps with the system running.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Strangler fig</div>
+            <div class="explanation">
+              The <strong>big bang</strong> (switching everything at once) almost always fails — the new rarely does everything immediately, and there is no way back. The guiding pattern is the <strong>strangler fig</strong>: you place a <strong>facade</strong> (routing point) in front of the old system and rebuild a single capability; only that one request type goes to the new system, everything else still to the old. Function by function migrates over until the old is empty.<br><br>
+              For the data during the transition, <strong>CDC</strong> (change data capture) helps: a tool reads changes from the transaction log and replays them into the new DB — more reliable than error-prone dual-write.
+            </div>
+          </div>
+          ${callout('warn', 'Guardrail', 'Only shut down a legacy system once the new function has demonstrably run stably over a full business cycle. Until then the old stays as a fallback. A shut-down legacy system is the only truly irreversible step.')}
+          ${renderQuestions('arch_l5_2', 6)}
+          ${renderBonus('arch_l5_2')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -21796,10 +22133,8 @@ const COURSES = [
     level: 'Fortgeschritten',
     level_en: 'Advanced',
     accent: 'var(--accent)',
-    phases: [],
-    available: false,
-    soonNote: '8 Kapitel · geplant',
-    soonNote_en: '8 chapters · planned',
+    phases: ARCH_PHASES,
+    available: true,
   },
   {
     id: 'cloud_data',
