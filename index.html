@@ -22023,6 +22023,54 @@ Core testable: replace adapters with fakes in tests</div>
             </div>
           </div>
           ${callout('key', 'Merke', 'Ein Diagramm = eine Abstraktionsebene. Wer Context, Container und Component in ein Bild presst, informiert niemanden — er verwirrt alle gleichzeitig.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">C4: vier Zoomstufen, eine pro Bild</div>
+            <div class="explanation">
+              Simon Browns <strong>C4-Modell</strong> beschreibt Software wie eine Landkarte mit vier Zoomstufen — von grob nach fein:<br><br>
+              <strong>1. Context</strong> — das System als eine Box zwischen seinen Nutzern und Nachbarsystemen. Diese Ebene ist bewusst für nicht-technische Leser gedacht: Wer benutzt das System, mit wem redet es?<br>
+              <strong>2. Container</strong> — die laufenden Einheiten <em>innerhalb</em> des Systems: Web-App, API, Datenbank, Worker. Gemeint sind Ausführungseinheiten, nicht Docker im engeren Sinn.<br>
+              <strong>3. Component</strong> — die inneren Bausteine <em>eines</em> Containers.<br>
+              <strong>4. Code</strong> — Klassen und Module; diese Ebene wird meist generiert und selten von Hand gepflegt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">C4 — von grob nach fein</span></div>
+              <div class="code-pre">Context    -&gt; System als Box + Nutzer + Nachbarsysteme  (nicht-technisch)
+Container  -&gt; Web-App, API, DB, Worker                  (laufende Einheiten)
+Component  -&gt; Bausteine eines Containers
+Code       -&gt; Klassen / Module                           (meist generiert)
+
+Regel: ein Diagramm zeigt genau EINE dieser Ebenen.</div>
+            </div>
+          </div>
+          ${quickCheck('Was ist in C4 ein Container?', ['Ein Docker-Image, nichts anderes', 'Eine laufende Einheit im System — z. B. Web-App, API, Datenbank oder Worker', 'Die einzelne Klasse im Code'], 1, 'Container meint eine ausführbare/laufende Einheit (Web-App, API, DB, Worker) — nicht Docker im engeren Sinn und nicht die Code-Ebene.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">ADR: eine Entscheidung, datiert und begründet</div>
+            <div class="explanation">
+              Ein <strong>Architecture Decision Record</strong> ist das kurze, datierte Protokoll <em>einer</em> Entscheidung. Es hält fest: <strong>Status</strong>, <strong>Kontext</strong>, die <strong>Entscheidung</strong>, die <strong>verworfenen Alternativen</strong> und die <strong>Konsequenzen</strong>. Ein ADR wird nie gelöscht — überholt es sich, schreibt man einen neuen ADR und markiert den alten als <em>ersetzt</em>. So beantwortet die Sammlung später verlässlich die Frage „Warum haben wir das damals so entschieden?".
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ADR 0007 — Beispiel</span></div>
+              <div class="code-pre">Status:        Angenommen (2026-02-14)
+Kontext:       Der Fachkern soll nicht direkt an die Datenbank koppeln.
+Entscheidung:  Datenzugriff nur ueber ein Repository-Interface (Port).
+Alternativen:  ORM-Aufrufe direkt im Kern (verworfen: bindet an Technik).
+Konsequenzen:  Speicher spaeter austauschbar; ein Adapter mehr zu pflegen.</div>
+            </div>
+          </div>
+          ${callout('tip', 'Kleiner Kniff', 'Ein ADR wird nie gelöscht — auch ein „falscher" bleibt stehen und wird per neuem ADR als ersetzt markiert. Die durchnummerierte Reihe ist das Gedächtnis des Projekts: Sie erklärt nicht nur, was gilt, sondern auch, was schon einmal verworfen wurde und warum.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">RFC: diskutieren, bevor entschieden wird</div>
+            <div class="explanation">
+              Ein <strong>Request for Comments</strong> ist umfangreicher als ein ADR und kommt <em>vor</em> der Entscheidung. Er beschreibt das Problem, skizziert mögliche Lösungen und lädt das Team zum Kommentieren ein — das Werkzeug für <code>Type-1</code>-Entscheidungen großer Tragweite. Aus einem angenommenen RFC entstehen anschließend ein oder mehrere ADRs. So greifen die drei Formate ineinander: der RFC <strong>klärt und diskutiert</strong>, der ADR <strong>hält fest</strong>, C4 <strong>zeigt das Ergebnis</strong>.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Format · Zeitpunkt · Zweck · Umfang</span></div>
+              <div class="code-pre">RFC  -&gt; vor der Entscheidung  | Optionen zur Diskussion stellen | umfangreich
+ADR  -&gt; bei der Entscheidung  | Ergebnis + Begruendung festhalten | kurz
+C4   -&gt; nach der Entscheidung | Ergebnis visuell zeigen           | 1 Bild je Ebene</div>
+            </div>
+          </div>
+          ${quickCheck('Wann entsteht ein RFC im Vergleich zu einem ADR?', ['Nach dem ADR, um es zu ersetzen', 'Vor der Entscheidung — er stellt Optionen zur Diskussion, der ADR hält das Ergebnis fest', 'Gleichzeitig, beide sind dasselbe Dokument'], 1, 'Der RFC kommt vor der Entscheidung (Optionen diskutieren); aus dem angenommenen RFC entstehen danach die ADRs, die das Ergebnis festhalten.')}
           ${renderQuestions('arch_l2_1', 6)}
           ${renderBonus('arch_l2_1')}
         `,
@@ -22040,6 +22088,54 @@ Core testable: replace adapters with fakes in tests</div>
             </div>
           </div>
           ${callout('key', 'Remember', 'One diagram = one level of abstraction. Whoever presses context, container and component into one picture informs no one — they confuse everyone at once.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">C4: four zoom levels, one per picture</div>
+            <div class="explanation">
+              Simon Brown C4 model describes software like a map with four zoom levels — coarse to fine:<br><br>
+              <strong>1. Context</strong> — the system as one box between its users and neighbouring systems. This level is deliberately meant for non-technical readers: who uses the system, and what does it talk to?<br>
+              <strong>2. Container</strong> — the running units <em>inside</em> the system: web app, API, database, worker. These are execution units, not Docker in the narrow sense.<br>
+              <strong>3. Component</strong> — the inner building blocks of <em>one</em> container.<br>
+              <strong>4. Code</strong> — classes and modules; this level is usually generated and rarely maintained by hand.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">C4 — coarse to fine</span></div>
+              <div class="code-pre">Context    -&gt; system as a box + users + neighbours     (non-technical)
+Container  -&gt; web app, API, DB, worker                  (running units)
+Component  -&gt; building blocks of one container
+Code       -&gt; classes / modules                          (usually generated)
+
+Rule: one diagram shows exactly ONE of these levels.</div>
+            </div>
+          </div>
+          ${quickCheck('What is a container in C4?', ['A Docker image, nothing else', 'A running unit in the system — e.g. web app, API, database or worker', 'A single class in the code'], 1, 'A container means an executable/running unit (web app, API, DB, worker) — not Docker in the narrow sense and not the code level.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">ADR: one decision, dated and justified</div>
+            <div class="explanation">
+              An <strong>Architecture Decision Record</strong> is the short, dated log of <em>one</em> decision. It captures the <strong>status</strong>, the <strong>context</strong>, the <strong>decision</strong>, the <strong>rejected alternatives</strong> and the <strong>consequences</strong>. An ADR is never deleted — once it is outdated you write a new ADR and mark the old one as <em>superseded</em>. That way the collection later reliably answers the question "why did we decide it that way back then?".
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ADR 0007 — example</span></div>
+              <div class="code-pre">Status:        Accepted (2026-02-14)
+Context:       The domain core must not couple directly to the database.
+Decision:      Data access only through a repository interface (port).
+Alternatives:  ORM calls straight in the core (rejected: binds to tech).
+Consequences:  Storage swappable later; one more adapter to maintain.</div>
+            </div>
+          </div>
+          ${callout('tip', 'A small trick', 'An ADR is never deleted — even a "wrong" one stays and is marked superseded by a new ADR. The numbered series is the memory of the project: it explains not only what holds now, but also what was once rejected and why.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">RFC: discuss before deciding</div>
+            <div class="explanation">
+              A <strong>Request for Comments</strong> is larger than an ADR and comes <em>before</em> the decision. It describes the problem, sketches possible solutions and invites the team to comment — the tool for <code>type-1</code> decisions of great consequence. From an accepted RFC one or more ADRs then emerge. So the three formats interlock: the RFC <strong>clarifies and discusses</strong>, the ADR <strong>records</strong>, C4 <strong>shows the result</strong>.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Format · Timing · Purpose · Size</span></div>
+              <div class="code-pre">RFC  -&gt; before the decision | put options up for discussion | large
+ADR  -&gt; at the decision     | record result + rationale     | short
+C4   -&gt; after the decision  | show the result visually      | 1 picture per level</div>
+            </div>
+          </div>
+          ${quickCheck('When does an RFC appear compared to an ADR?', ['After the ADR, to replace it', 'Before the decision — it puts options up for discussion, the ADR records the result', 'At the same time, both are the same document'], 1, 'The RFC comes before the decision (discussing options); from the accepted RFC the ADRs then emerge, recording the result.')}
           ${renderQuestions('arch_l2_1', 6)}
           ${renderBonus('arch_l2_1')}
         `
@@ -22148,6 +22244,64 @@ Core testable: replace adapters with fakes in tests</div>
             </div>
           </div>
           ${callout('key', 'Leitsatz', 'Eine API-Änderung ist entweder abwärtskompatibel oder eine neue Version. Ein drittes gibt es nicht. Felder hinzufügen ist erlaubt; Felder entfernen oder ihre Bedeutung ändern bricht Nutzer — und rechtfertigt eine /v2.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Vier Stile, vier Zwänge</div>
+            <div class="explanation">
+              Kein Stil ist per se richtig — jeder löst einen anderen Zwang und zahlt dafür an anderer Stelle:<br><br>
+              <strong>REST</strong> — ressourcenorientiert über HTTP-Methoden, einfach, cachebar, universell. Schwach bei Über- und Unterlieferung (der Client bekommt zu viel oder muss mehrfach fragen).<br>
+              <strong>GraphQL</strong> — der Client fragt über einen Endpunkt genau die Felder an, die er braucht. Preis: Caching wird schwer, teure Abfragen sind möglich.<br>
+              <strong>gRPC</strong> — binär, schnell, striktes Schema; ideal Dienst-zu-Dienst, aber nicht browser-nativ.<br>
+              <strong>Events</strong> — ein Sender, viele Empfänger über einen Broker, lose Kopplung. Preis: kein direktes Ergebnis, Reihenfolge und Duplikate muss der Empfänger selbst behandeln.
+            </div>
+          </div>
+          ${quickCheck('Welcher Stil lässt den Client genau die benötigten Felder über einen Endpunkt anfragen?', ['REST', 'GraphQL', 'Events über einen Broker'], 1, 'GraphQL bietet einen Endpunkt, an dem der Client die genaue Feldauswahl beschreibt — der Preis dafür ist schwierigeres Caching und die Gefahr teurer Abfragen.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">REST-Handwerk: Verben, Versionen, Seiten, Fehler</div>
+            <div class="explanation">
+              <strong>Verben in die HTTP-Methode, nicht in die URL:</strong> <code>GET</code> liest, <code>POST</code> erzeugt, <code>PUT</code>/<code>PATCH</code> ändert, <code>DELETE</code> löscht. Die URL benennt die <em>Ressource</em> — <code>/leads/42</code>, niemals <code>/getLead</code>.<br><br>
+              <strong>Versionierung von Anfang an</strong> (<code>/v1</code>); eine spätere <code>/v2</code> stellt man daneben, statt <code>/v1</code> zu brechen. <strong>Paginierung ist Pflicht</strong> bei Listen — ein Cursor statt „gib mir alle". <strong>Fehler</strong> kommen in einem einheitlichen, maschinenlesbaren Format mit korrektem HTTP-Statuscode. <strong>Auth</strong> über Bearer-Token oder OAuth — nie ein Schlüssel in der URL.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Statuscodes richtig wählen</span></div>
+              <div class="code-pre">400  Client-Fehler (kaputte Anfrage)   401  nicht authentifiziert
+403  nicht berechtigt                  404  nicht gefunden
+409  Konflikt                          429  zu viele Anfragen
+5xx  Server-Fehler</div>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Einheitliches Fehlerformat</span></div>
+              <div class="code-pre">HTTP/1.1 404 Not Found
+{
+  "error": {
+    "code": "lead_not_found",
+    "message": "Kein Lead mit id 42 gefunden.",
+    "request_id": "req_9f3a"
+  }
+}</div>
+            </div>
+          </div>
+          ${callout('warn', 'Sicherheitsleitplanke', 'Ein API-Schlüssel oder Token gehört nie in die URL. URLs landen in Server-Logs, Browser-Verläufen und Weiterleitungen — ein Geheimnis dort ist ein Geheimnis, das kopiert wurde. Auth gehört in den Authorization-Header (Bearer-Token) oder in einen OAuth-Fluss.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">OpenAPI: der Vertrag, aus dem Werkzeuge entstehen</div>
+            <div class="explanation">
+              <strong>OpenAPI</strong> ist ein maschinenlesbares Dokument, das eine REST-API exakt beschreibt: Pfade, Parameter, Antworten, Fehler. Aus diesem einen Dokument entstehen automatisch die <strong>Doku</strong>, <strong>Client-Bibliotheken</strong> und <strong>Test-Mocks</strong>. Damit wird der Vertrag zur Quelle der Wahrheit — statt einer Prosa-Beilage, die niemand pflegt und die schon nach der ersten Änderung nicht mehr stimmt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">OpenAPI — Ausschnitt</span></div>
+              <div class="code-pre">paths:
+  /v1/leads/{id}:
+    get:
+      summary: Einen Lead lesen
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        "200": { description: Gefunden }
+        "404": { description: Nicht gefunden }</div>
+            </div>
+          </div>
+          ${quickCheck('Wo gehört ein API-Schlüssel hin?', ['Als Query-Parameter in die URL, z. B. ?key=abc', 'In den Authorization-Header als Bearer-Token', 'In den Pfad, z. B. /abc/leads/42'], 1, 'Schlüssel in der URL landen in Logs und Verläufen. Auth gehört in den Authorization-Header (Bearer-Token) oder einen OAuth-Fluss.')}
           ${renderQuestions('arch_l4_1', 6)}
           ${renderBonus('arch_l4_1')}
         `,
@@ -22165,6 +22319,64 @@ Core testable: replace adapters with fakes in tests</div>
             </div>
           </div>
           ${callout('key', 'Guiding principle', 'An API change is either backward-compatible or a new version. There is no third option. Adding fields is allowed; removing fields or changing their meaning breaks users — and justifies a /v2.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Four styles, four pressures</div>
+            <div class="explanation">
+              No style is right per se — each solves a different pressure and pays for it elsewhere:<br><br>
+              <strong>REST</strong> — resource-oriented over HTTP methods, simple, cacheable, universal. Weak at over- and under-fetching (the client gets too much or has to ask several times).<br>
+              <strong>GraphQL</strong> — through one endpoint the client asks for exactly the fields it needs. Price: caching gets hard, expensive queries are possible.<br>
+              <strong>gRPC</strong> — binary, fast, strict schema; ideal service-to-service, but not browser-native.<br>
+              <strong>Events</strong> — one sender, many receivers over a broker, loose coupling. Price: no direct result, and the receiver must handle ordering and duplicates itself.
+            </div>
+          </div>
+          ${quickCheck('Which style lets the client request exactly the needed fields through one endpoint?', ['REST', 'GraphQL', 'Events over a broker'], 1, 'GraphQL offers one endpoint where the client describes the exact field selection — the price is harder caching and the risk of expensive queries.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">REST craft: verbs, versions, pages, errors</div>
+            <div class="explanation">
+              <strong>Verbs go in the HTTP method, not the URL:</strong> <code>GET</code> reads, <code>POST</code> creates, <code>PUT</code>/<code>PATCH</code> changes, <code>DELETE</code> removes. The URL names the <em>resource</em> — <code>/leads/42</code>, never <code>/getLead</code>.<br><br>
+              <strong>Versioning from the start</strong> (<code>/v1</code>); a later <code>/v2</code> is placed alongside instead of breaking <code>/v1</code>. <strong>Pagination is mandatory</strong> for lists — a cursor instead of "give me all". <strong>Errors</strong> come in a uniform, machine-readable format with the correct HTTP status code. <strong>Auth</strong> via bearer token or OAuth — never a key in the URL.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Choosing status codes well</span></div>
+              <div class="code-pre">400  client error (broken request)     401  not authenticated
+403  not authorised                    404  not found
+409  conflict                          429  too many requests
+5xx  server error</div>
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Uniform error format</span></div>
+              <div class="code-pre">HTTP/1.1 404 Not Found
+{
+  "error": {
+    "code": "lead_not_found",
+    "message": "No lead with id 42 found.",
+    "request_id": "req_9f3a"
+  }
+}</div>
+            </div>
+          </div>
+          ${callout('warn', 'Security guardrail', 'An API key or token never belongs in the URL. URLs end up in server logs, browser histories and redirects — a secret there is a secret that has been copied. Auth belongs in the Authorization header (bearer token) or in an OAuth flow.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">OpenAPI: the contract tools grow from</div>
+            <div class="explanation">
+              <strong>OpenAPI</strong> is a machine-readable document that describes a REST API exactly: paths, parameters, responses, errors. From this one document the <strong>docs</strong>, <strong>client libraries</strong> and <strong>test mocks</strong> are generated automatically. That makes the contract the source of truth — instead of a prose appendix nobody maintains and that stops matching after the first change.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">OpenAPI — excerpt</span></div>
+              <div class="code-pre">paths:
+  /v1/leads/{id}:
+    get:
+      summary: Read one lead
+      parameters:
+        - name: id
+          in: path
+          required: true
+      responses:
+        "200": { description: Found }
+        "404": { description: Not found }</div>
+            </div>
+          </div>
+          ${quickCheck('Where does an API key belong?', ['As a query parameter in the URL, e.g. ?key=abc', 'In the Authorization header as a bearer token', 'In the path, e.g. /abc/leads/42'], 1, 'Keys in the URL end up in logs and histories. Auth belongs in the Authorization header (bearer token) or an OAuth flow.')}
           ${renderQuestions('arch_l4_1', 6)}
           ${renderBonus('arch_l4_1')}
         `
@@ -28059,6 +28271,46 @@ QUESTION_POOLS['arch_l1_2'] = [
   {id:'p_arch_l1_2_bonus',type:'mc',xp:20,optional:true,question:'Was meint Security-by-Design?',question_en:'What does security-by-design mean?',options:[
     {t:'Sicherheit von Anfang an mitdenken — Datensparsamkeit, geringste Rechte, Verschlüsselung sensibler Werte',t_en:'Thinking about security from the start — data minimisation, least privilege, encryption of sensitive values',correct:true,why:'Genau. Nachträglich aufgesetzte Sicherheit bleibt fast immer löchrig.',why_en:'Exactly. Security bolted on afterwards almost always stays leaky.'},
     {t:'Sicherheit ganz am Ende testen und dann Lücken schließen',t_en:'Testing security only at the very end and then closing gaps',correct:false,why:'Nein, das ist der teure Umkehrschluss, den Security-by-Design gerade vermeiden will.',why_en:'No, that is the costly opposite that security-by-design aims to avoid.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l2_1'] = [
+  {id:'p_arch_l2_1_mc1',type:'mc',xp:10,question:'Wie viele Abstraktionsebenen zeigt ein einzelnes C4-Diagramm?',question_en:'How many levels of abstraction does a single C4 diagram show?',options:[
+    {t:'Genau eine — Context, Container, Component oder Code, aber nie gemischt',t_en:'Exactly one — context, container, component or code, but never mixed',correct:true,why:'Richtig. Die Kernregel von C4: ein Diagramm = eine Zoomstufe. Gemischte Ebenen verwirren alle Leser gleichzeitig.',why_en:'Correct. The core rule of C4: one diagram = one zoom level. Mixed levels confuse every reader at once.'},
+    {t:'Alle vier gleichzeitig, damit man das ganze System auf einen Blick sieht',t_en:'All four at once, so the whole system is visible in one glance',correct:false,why:'Nein. Genau das vermeidet C4 — vier Ebenen in einem Bild informiert niemanden.',why_en:'No. That is exactly what C4 avoids — four levels in one picture informs no one.'},
+    {t:'Zwei: immer Context und Code zusammen',t_en:'Two: always context and code together',correct:false,why:'Nein, es gibt keine feste Paarung; jede Ebene bekommt ihr eigenes Diagramm.',why_en:'No, there is no fixed pairing; each level gets its own diagram.'}
+  ]},
+  {id:'p_arch_l2_1_mc2',type:'mc',xp:10,question:'Was ist ein <code>ADR</code>?',question_en:'What is an <code>ADR</code>?',options:[
+    {t:'Das kurze, datierte Protokoll einer Entscheidung — mit Kontext, Entscheidung, Alternativen und Konsequenzen',t_en:'The short, dated log of one decision — with context, decision, alternatives and consequences',correct:true,why:'Genau. Ein ADR beantwortet später die Frage, warum damals so entschieden wurde.',why_en:'Exactly. An ADR later answers the question of why it was decided that way back then.'},
+    {t:'Ein großes Dokument, das vor der Entscheidung Optionen zur Diskussion stellt',t_en:'A large document that puts options up for discussion before the decision',correct:false,why:'Das beschreibt einen RFC, nicht einen ADR. Der RFC kommt vor der Entscheidung.',why_en:'That describes an RFC, not an ADR. The RFC comes before the decision.'},
+    {t:'Ein Diagramm, das die laufenden Container eines Systems zeigt',t_en:'A diagram showing the running containers of a system',correct:false,why:'Das ist die Container-Ebene von C4, kein Entscheidungsprotokoll.',why_en:'That is the container level of C4, not a decision log.'}
+  ]},
+  {id:'p_arch_l2_1_tf1',type:'truefalse',xp:8,statement:'Ein RFC kommt vor der Entscheidung: Er beschreibt das Problem, skizziert Lösungen und lädt das Team zum Kommentieren ein.',statement_en:'An RFC comes before the decision: it describes the problem, sketches solutions and invites the team to comment.',correct:true,explanation:'Richtig. Aus einem angenommenen RFC entstehen anschließend die ADRs, die das Ergebnis festhalten.',explanation_en:'Correct. From an accepted RFC the ADRs then emerge, recording the result.'},
+  {id:'p_arch_l2_1_tf2',type:'truefalse',xp:8,statement:'Ein überholter ADR wird gelöscht, damit die Sammlung nur noch gültige Entscheidungen enthält.',statement_en:'An outdated ADR is deleted so the collection only holds valid decisions.',correct:false,explanation:'Falsch. Ein ADR wird nie gelöscht — er wird durch einen neuen ADR als ersetzt markiert. Gerade die verworfenen Entscheidungen sind das Gedächtnis des Projekts.',explanation_en:'False. An ADR is never deleted — it is marked superseded by a new ADR. The rejected decisions in particular are the memory of the project.'},
+  {id:'p_arch_l2_1_fb1',type:'fillblank',xp:12,prompt:'Das Modell mit vier Zoomstufen (Context, Container, Component, Code) heißt ___ (Kürzel mit Ziffer).',prompt_en:'The model with four zoom levels (context, container, component, code) is called ___ (short name with a digit).',answers:['C4','c4'],placeholder:'Kürzel…',placeholder_en:'Short name…',explanation:'C4 (von Simon Brown) beschreibt Software wie eine Landkarte in vier Zoomstufen — eine pro Diagramm.',explanation_en:'C4 (by Simon Brown) describes software like a map in four zoom levels — one per diagram.'},
+  {id:'p_arch_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Wie greifen RFC, ADR und C4 ineinander?',question_en:'How do RFC, ADR and C4 interlock?',options:[
+    {t:'Der RFC klärt und diskutiert, der ADR hält das Ergebnis fest, C4 zeigt es visuell',t_en:'The RFC clarifies and discusses, the ADR records the result, C4 shows it visually',correct:true,why:'Genau. Drei komplementäre Formate: Vorschlag, Protokoll, Bild — jeder mit eigenem Zeitpunkt und Zweck.',why_en:'Exactly. Three complementary formats: proposal, log, picture — each with its own timing and purpose.'},
+    {t:'Alle drei sind Synonyme für dasselbe Diagramm',t_en:'All three are synonyms for the same diagram',correct:false,why:'Nein. Sie unterscheiden sich in Format, Zeitpunkt und Zweck deutlich.',why_en:'No. They differ clearly in format, timing and purpose.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l4_1'] = [
+  {id:'p_arch_l4_1_mc1',type:'mc',xp:10,question:'Wie lautet die korrekte REST-URL, um den Lead mit der id 42 zu lesen?',question_en:'What is the correct REST URL to read the lead with id 42?',options:[
+    {t:'<code>GET /leads/42</code> — das Verb steckt in der Methode, die URL benennt die Ressource',t_en:'<code>GET /leads/42</code> — the verb is in the method, the URL names the resource',correct:true,why:'Richtig. GET liest, und die URL benennt nur die Ressource — nie eine Aktion.',why_en:'Correct. GET reads, and the URL names only the resource — never an action.'},
+    {t:'<code>GET /getLead?id=42</code>',t_en:'<code>GET /getLead?id=42</code>',correct:false,why:'Nein. Das Verb get gehört in die HTTP-Methode, nicht in die URL.',why_en:'No. The verb get belongs in the HTTP method, not in the URL.'},
+    {t:'<code>POST /leads/42/read</code>',t_en:'<code>POST /leads/42/read</code>',correct:false,why:'Nein. Lesen ist GET; POST erzeugt. Und read ist eine Aktion, keine Ressource.',why_en:'No. Reading is GET; POST creates. And read is an action, not a resource.'}
+  ]},
+  {id:'p_arch_l4_1_mc2',type:'mc',xp:10,question:'Welcher API-Stil ist binär, schnell und schema-streng, aber nicht browser-nativ?',question_en:'Which API style is binary, fast and schema-strict, but not browser-native?',options:[
+    {t:'gRPC — ideal für Dienst-zu-Dienst-Kommunikation',t_en:'gRPC — ideal for service-to-service communication',correct:true,why:'Genau. gRPC nutzt ein binäres Format und ein striktes Schema; im Browser braucht es Zusatzschichten.',why_en:'Exactly. gRPC uses a binary format and a strict schema; in the browser it needs extra layers.'},
+    {t:'REST',t_en:'REST',correct:false,why:'Nein. REST ist text-/HTTP-basiert und im Browser direkt nutzbar.',why_en:'No. REST is text/HTTP-based and directly usable in the browser.'},
+    {t:'GraphQL',t_en:'GraphQL',correct:false,why:'Nein. GraphQL löst die Feldauswahl, ist aber kein binäres Dienst-zu-Dienst-Protokoll.',why_en:'No. GraphQL solves field selection but is not a binary service-to-service protocol.'}
+  ]},
+  {id:'p_arch_l4_1_tf1',type:'truefalse',xp:8,statement:'Eine API-Änderung ist entweder abwärtskompatibel oder eine neue Version — ein drittes gibt es nicht.',statement_en:'An API change is either backward-compatible or a new version — there is no third option.',correct:true,explanation:'Richtig. Felder hinzufügen ist erlaubt; Felder entfernen oder ihre Bedeutung ändern bricht Nutzer und rechtfertigt eine /v2.',explanation_en:'Correct. Adding fields is allowed; removing fields or changing their meaning breaks users and justifies a /v2.'},
+  {id:'p_arch_l4_1_tf2',type:'truefalse',xp:8,statement:'Es ist gute Praxis, den API-Schlüssel als Query-Parameter in die URL zu schreiben.',statement_en:'It is good practice to put the API key as a query parameter in the URL.',correct:false,explanation:'Falsch. URLs landen in Logs, Verläufen und Weiterleitungen. Auth gehört in den Authorization-Header (Bearer-Token) oder einen OAuth-Fluss.',explanation_en:'False. URLs end up in logs, histories and redirects. Auth belongs in the Authorization header (bearer token) or an OAuth flow.'},
+  {id:'p_arch_l4_1_fb1',type:'fillblank',xp:12,prompt:'Das maschinenlesbare Dokument, aus dem Doku, Client-Bibliotheken und Test-Mocks automatisch entstehen, heißt ___ .',prompt_en:'The machine-readable document from which docs, client libraries and test mocks are generated automatically is called ___ .',answers:['OpenAPI','openapi','Open API','open api'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'OpenAPI macht den Vertrag zur Quelle der Wahrheit — statt einer Prosa-Beilage, die nach der ersten Änderung nicht mehr stimmt.',explanation_en:'OpenAPI makes the contract the source of truth — instead of a prose appendix that stops matching after the first change.'},
+  {id:'p_arch_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Welcher HTTP-Statuscode signalisiert am ehesten zu viele Anfragen (Rate-Limit)?',question_en:'Which HTTP status code most likely signals too many requests (rate limit)?',options:[
+    {t:'<code>429</code> Too Many Requests',t_en:'<code>429</code> Too Many Requests',correct:true,why:'Genau. 429 sagt dem Aufrufer, dass er zu schnell fragt und später erneut versuchen soll.',why_en:'Exactly. 429 tells the caller they are asking too fast and should retry later.'},
+    {t:'<code>404</code> Not Found',t_en:'<code>404</code> Not Found',correct:false,why:'Nein. 404 heißt, die Ressource existiert nicht — nichts über die Anfragerate.',why_en:'No. 404 means the resource does not exist — nothing about the request rate.'}
   ]}
 ];
 
