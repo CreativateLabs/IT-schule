@@ -22819,6 +22819,65 @@ const CLOUD_PHASES = [
             </div>
           </div>
           ${callout('key', 'Leitsatz', 'Kaufe Managed-Dienste für Bequemlichkeit, aber baue den Kern auf offenen Standards. Der Aufpreis der Portabilität ist deine Versicherung gegen Preis- und Strategiediktate.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Der gemeinsame Baukasten</div>
+            <div class="explanation">
+              Wer einmal die Namens-Nebel lichtet, sieht: Alle drei Hyperscaler bieten dieselben Bausteine, nur anders getauft. Ein <code>S3</code>-Bucket bei AWS ist konzeptionell ein <code>Blob</code> bei Azure und ein <code>Cloud Storage</code>-Bucket bei GCP. Die vierte Spalte zeigt den <strong>neutralen, selbst betreibbaren</strong> Weg — er läuft auf jeder Wolke und im eigenen Rechenzentrum.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Baustein → AWS / Azure / GCP / neutral</span></div>
+              <div class="code-pre">Baustein         AWS            Azure          GCP            neutral / portabel
+--------------------------------------------------------------------------------
+Compute          EC2            Virtual Mach.  Compute Engine Terraform-Nodes
+Container         EKS            AKS            GKE            Kubernetes
+Serverless        Lambda         Functions      Cloud Funcs    Knative
+Objekt-Storage    S3             Blob           Cloud Storage  S3-API (MinIO/Ceph)
+Relationale DB    RDS/Aurora     Azure SQL      Cloud SQL      PostgreSQL
+Identität         IAM            Entra ID       Cloud IAM      OIDC/SAML (Keycloak)
+Secrets           Secrets Mgr    Key Vault      Secret Manager Vault
+Messaging         SQS/SNS        Service Bus    Pub/Sub        Apache Kafka
+Analytics         Redshift       Synapse/Fabric BigQuery       Delta Lake+Spark+Trino
+LLM-Plattform     Bedrock        AI Foundry     Vertex AI      MCP + eigenes Hosting
+Infra-as-Code     CloudFormation Bicep/ARM      Deployment Mgr Terraform (OpenTofu)
+Observability     CloudWatch     Monitor        Cloud Ops      OpenTelemetry/Grafana</div>
+            </div>
+          </div>
+          ${quickCheck('Du willst später von AWS zu GCP wechseln können. Welcher Baustein hält dich am wenigsten fest?', ['Ein Dienst auf Basis von <code>Kubernetes</code> und <code>Terraform</code>', 'AWS Lambda mit anbieter-eigenem Event-Format', 'Ein proprietärer Managed-Dienst ohne offene Schnittstelle'], 0, 'Offene Standards wie <code>Kubernetes</code> und <code>Terraform</code> laufen überall gleich. Je enger ein Dienst an einem Anbieter-Format klebt, desto teurer wird der Umzug.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Well-Architected: die Prüfliste guter Architektur</div>
+            <div class="explanation">
+              Jeder Anbieter liefert ein <strong>Well-Architected Framework</strong> mit — eine Prüfliste, an der du eine Architektur systematisch abklopfst. Bemerkenswert: Die Säulen sind bei allen drei fast identisch, weil sie nichts über das Produkt aussagen, sondern über gute Ingenieurskunst:<br><br>
+              <strong>Operative Exzellenz</strong> — lässt es sich sauber betreiben und beobachten?<br>
+              <strong>Sicherheit</strong> — sind Daten und Zugriffe geschützt?<br>
+              <strong>Zuverlässigkeit</strong> — hält es Ausfälle aus und erholt sich?<br>
+              <strong>Leistungseffizienz</strong> — passt die Leistung zur Last?<br>
+              <strong>Kostenoptimierung</strong> — zahlst du nur, was du wirklich brauchst?<br>
+              <strong>Nachhaltigkeit</strong> — ist der Ressourcenverbrauch verantwortbar?<br><br>
+              Weil die Säulen anbieterneutral sind, kannst du dieselbe Prüfliste an ein System in jeder Wolke — oder im eigenen Rechenzentrum — anlegen.
+            </div>
+          </div>
+          ${callout('fact', 'Gleiche Säulen, andere Etiketten', 'Die sechs Well-Architected-Säulen sind bei AWS, Azure und GCP praktisch deckungsgleich. Das ist der beste Beweis, dass gute Architektur nicht am Anbieter hängt — die Prüfliste ist portabel, lange bevor es der Code ist.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Portabilität in der Praxis</div>
+            <div class="explanation">
+              Vendor-Neutralität ist kein Verzicht auf die Cloud, sondern eine Bauweise: Der <strong>Kern</strong> läuft auf offenen Standards, die <strong>Bequemlichkeit</strong> kaufst du als Managed-Dienst dazu — hinter einem Adapter, den du zur Not austauschst. Beschreibst du deine Infrastruktur mit <code>Terraform</code> und packst die Anwendung in Container, wird ein Anbieterwechsel zum <strong>Redeploy</strong> statt zum Neubau.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Ein Kern, drei Wolken</span></div>
+              <div class="code-pre"># Nur eine Variable entscheidet, wo es läuft
+module "cluster" {
+  source   = "./modules/k8s"
+  cloud    = var.cloud          # "aws" | "azure" | "gcp" | "onprem"
+  nodes    = 3
+}
+
+# Die Anwendung selbst kennt den Anbieter gar nicht
+kubectl apply -f app.yaml       # gleiches Manifest überall
+
+Lock-in-Test: Wie viele Zeilen ändern sich beim Umzug?  -&gt; im Idealfall eine.</div>
+            </div>
+          </div>
+          ${quickCheck('Was bedeutet „Vendor-Neutralität“ im Kern?', ['Man nutzt gar keine Cloud, nur eigene Server', 'Der Kern läuft auf offenen Standards und ist nicht an einen Anbieter gebunden', 'Man verteilt jede App gleichzeitig auf alle drei Anbieter'], 1, 'Vendor-Neutralität heißt: austauschbar bleiben. Durch offene Standards (Kubernetes, Terraform, PostgreSQL) ist kein einzelner Anbieter mehr unverzichtbar — das ist das Gegenmittel zum Lock-in.')}
           ${renderQuestions('cloud_l1_1', 6)}
           ${renderBonus('cloud_l1_1')}
         `,
@@ -22836,6 +22895,65 @@ const CLOUD_PHASES = [
             </div>
           </div>
           ${callout('key', 'Guiding principle', 'Buy managed services for convenience, but build the core on open standards. The premium of portability is your insurance against pricing and strategy dictates.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The shared toolbox</div>
+            <div class="explanation">
+              Clear away the naming fog and you see it: all three hyperscalers offer the same building blocks, just labelled differently. An <code>S3</code> bucket on AWS is conceptually a <code>Blob</code> on Azure and a <code>Cloud Storage</code> bucket on GCP. The fourth column shows the <strong>neutral, self-operable</strong> path — it runs on any cloud and in your own data center.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Block → AWS / Azure / GCP / neutral</span></div>
+              <div class="code-pre">Block            AWS            Azure          GCP            neutral / portable
+--------------------------------------------------------------------------------
+Compute          EC2            Virtual Mach.  Compute Engine Terraform nodes
+Container         EKS            AKS            GKE            Kubernetes
+Serverless        Lambda         Functions      Cloud Funcs    Knative
+Object storage    S3             Blob           Cloud Storage  S3 API (MinIO/Ceph)
+Relational DB     RDS/Aurora     Azure SQL      Cloud SQL      PostgreSQL
+Identity          IAM            Entra ID       Cloud IAM      OIDC/SAML (Keycloak)
+Secrets           Secrets Mgr    Key Vault      Secret Manager Vault
+Messaging         SQS/SNS        Service Bus    Pub/Sub        Apache Kafka
+Analytics         Redshift       Synapse/Fabric BigQuery       Delta Lake+Spark+Trino
+LLM platform      Bedrock        AI Foundry     Vertex AI      MCP + own hosting
+Infra as code     CloudFormation Bicep/ARM      Deployment Mgr Terraform (OpenTofu)
+Observability     CloudWatch     Monitor        Cloud Ops      OpenTelemetry/Grafana</div>
+            </div>
+          </div>
+          ${quickCheck('You want to be able to move from AWS to GCP later. Which block holds you the least?', ['A service built on <code>Kubernetes</code> and <code>Terraform</code>', 'AWS Lambda with a vendor-specific event format', 'A proprietary managed service with no open interface'], 0, 'Open standards like <code>Kubernetes</code> and <code>Terraform</code> run the same everywhere. The tighter a service sticks to a vendor format, the more expensive the move.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Well-Architected: the checklist of good architecture</div>
+            <div class="explanation">
+              Every provider ships a <strong>Well-Architected Framework</strong> — a checklist you use to systematically inspect an architecture. Notably, the pillars are almost identical across all three, because they say nothing about the product and everything about good engineering:<br><br>
+              <strong>Operational excellence</strong> — can it be run and observed cleanly?<br>
+              <strong>Security</strong> — are data and access protected?<br>
+              <strong>Reliability</strong> — does it survive failures and recover?<br>
+              <strong>Performance efficiency</strong> — does performance match the load?<br>
+              <strong>Cost optimization</strong> — do you pay only for what you really need?<br>
+              <strong>Sustainability</strong> — is the resource use justifiable?<br><br>
+              Because the pillars are vendor-neutral, you can apply the same checklist to a system in any cloud — or in your own data center.
+            </div>
+          </div>
+          ${callout('fact', 'Same pillars, different labels', 'The six Well-Architected pillars are practically the same on AWS, Azure and GCP. That is the best proof that good architecture does not hang on the provider — the checklist is portable long before the code is.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Portability in practice</div>
+            <div class="explanation">
+              Vendor neutrality is not giving up the cloud, it is a way of building: the <strong>core</strong> runs on open standards, and you buy <strong>convenience</strong> on top as a managed service — behind an adapter you can swap out if needed. Describe your infrastructure with <code>Terraform</code> and package the app in containers, and a provider change becomes a <strong>redeploy</strong> rather than a rebuild.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">One core, three clouds</span></div>
+              <div class="code-pre"># Only one variable decides where it runs
+module "cluster" {
+  source   = "./modules/k8s"
+  cloud    = var.cloud          # "aws" | "azure" | "gcp" | "onprem"
+  nodes    = 3
+}
+
+# The app itself does not even know the provider
+kubectl apply -f app.yaml       # same manifest everywhere
+
+Lock-in test: how many lines change on a move?  -&gt; ideally one.</div>
+            </div>
+          </div>
+          ${quickCheck('What does vendor neutrality mean at its core?', ['Using no cloud at all, only your own servers', 'The core runs on open standards and is not tied to one provider', 'Deploying every app to all three providers at once'], 1, 'Vendor neutrality means staying swappable. Through open standards (Kubernetes, Terraform, PostgreSQL) no single provider is indispensable any more — that is the antidote to lock-in.')}
           ${renderQuestions('cloud_l1_1', 6)}
           ${renderBonus('cloud_l1_1')}
         `
@@ -22863,6 +22981,48 @@ const CLOUD_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Bausteine für mehr Kontrolle', 'BYOK (Bring Your Own Key) — du behältst die Verschlüsselungsschlüssel; ohne sie sind herausgegebene Daten wertlos. Confidential Computing — Daten bleiben sogar bei der Verarbeitung verschlüsselt. Portabilität via Kubernetes + IaC macht den Umzug zwischen Stufen zu einem Redeploy statt Neubau.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Vier Dimensionen getrennt prüfen</div>
+            <div class="explanation">
+              „Souverän“ ist kein einzelner Schalter. Wer sauber prüfen will, zerlegt die Frage in vier Dimensionen — jede kann einzeln erfüllt oder verletzt sein:<br><br>
+              <strong>Daten-Standort</strong> — wo liegen die Daten physisch? (Die einfachste, aber auch schwächste Dimension.)<br>
+              <strong>Betriebs-Souveränität</strong> — wer administriert das System, wer hat Support-Zugriff auf die Maschinen?<br>
+              <strong>Technologie-Souveränität</strong> — läuft alles auf austauschbarer, selbst betreibbarer Technik mit offenen Standards?<br>
+              <strong>Modell-Standort</strong> — wo läuft das KI-Modell, und wohin fließen die Prompts? Bei KI ist das besonders sensibel, weil oft ganze Dokumente in den Prompt wandern.<br><br>
+              Der klassische Denkfehler: Man hakt „Daten in Frankfurt“ ab und hält damit alle vier für erledigt. Tatsächlich sagt der Standort nichts über Betrieb, Technik oder das Modell.
+            </div>
+          </div>
+          ${quickCheck('Eine US-Cloud betreibt eine Region in Frankfurt. Warum ist das allein noch keine Souveränität?', ['Weil Frankfurt zu weit von den Nutzern entfernt ist', 'Weil der US CLOUD Act US-Firmen unabhängig vom Speicherort zur Herausgabe verpflichten kann', 'Weil europäische Rechenzentren langsamer sind'], 1, 'Der Standort sagt nur, wo Daten liegen — nicht, wer rechtlich zugreifen darf. Der US CLOUD Act greift auf US-Unternehmen (auch EU-Töchter) zu, egal wo die Daten physisch stehen.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die Stufen im Vergleich</div>
+            <div class="explanation">
+              Souveränität ist eine <strong>Skala mit Stufen</strong>, und jede Stufe kostet etwas: Mehr Kontrolle bedeutet mehr Aufwand und weniger bequeme Dienstauswahl. Die Kunst ist, bewusst die niedrigste Stufe zu wählen, die für die Schutzbedürftigkeit der Daten <strong>gerade ausreicht</strong> — nicht die maximale um jeden Preis.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Stufen der Souveränität</span></div>
+              <div class="code-pre">Stufe              Kontrolle    US CLOUD Act    Aufwand / Kosten
+------------------------------------------------------------------------
+Region (EU)        gering       greift          niedrig
+Sovereign Cloud    mittel-hoch  abgeschottet    mittel (weniger Dienste)
+On-Premises        maximal      kein Zugriff    hoch (Hardware + Personal)
+
+Region      -&gt; nur der Speicherort ist europäisch
+Sovereign   -&gt; EU-Betreiber, technisch/rechtlich abgeschottet
+On-Prem     -&gt; eigenes Rechenzentrum, eigener Betrieb, physische Kontrolle
+Hybrid      -&gt; Mischung: sensible Teile im Haus, Rest in der Cloud</div>
+            </div>
+          </div>
+          ${callout('warn', 'Nicht verwechseln', '„Daten in Frankfurt“ ist nicht dasselbe wie „rechtlich geschützt“. Prüfe alle vier Dimensionen getrennt und dokumentiere ausdrücklich, welche Behörde theoretisch Zugriff erzwingen könnte — sonst wiegst du dich in einer Sicherheit, die nur auf der Landkarte existiert.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Schlüssel behalten & Confidential Computing</div>
+            <div class="explanation">
+              Selbst in einer fremden Cloud kannst du die Kontrolle über den Inhalt behalten:<br><br>
+              <strong>BYOK (Bring Your Own Key)</strong> — du bringst deine eigenen Verschlüsselungsschlüssel mit und behältst sie. Ohne den Schlüssel sind herausgegebene Daten nur nutzloser Chiffretext. Die stärkere Variante <strong>HYOK (Hold Your Own Key)</strong> lässt den Schlüssel das eigene Haus nie verlassen.<br><br>
+              <strong>Confidential Computing</strong> — die Daten bleiben sogar <em>während der Verarbeitung</em> im Arbeitsspeicher verschlüsselt, geschützt durch eine hardwaregestützte Enklave. Selbst der Cloud-Betreiber kann nicht hineinsehen.<br><br>
+              <strong>Portabilität via Kubernetes + IaC</strong> — beschreibst du die gesamte Landschaft als Container plus <code>Terraform</code>, wird ein Umzug vom US-Anbieter in eine Sovereign Cloud oder ins eigene Rack zum Redeploy — kein Neubau.
+            </div>
+          </div>
+          ${quickCheck('Eine Behörde zwingt den Cloud-Anbieter, deine verschlüsselten Daten herauszugeben. Warum rettet dich BYOK?', ['Weil BYOK die Daten automatisch nach Europa verschiebt', 'Weil du den Schlüssel behältst — ohne ihn ist der herausgegebene Datensatz wertloser Chiffretext', 'Weil BYOK die Anfrage der Behörde blockiert'], 1, 'BYOK verhindert die Herausgabe nicht — aber ohne den Schlüssel, den du behältst, ist das Herausgegebene nur unlesbarer Chiffretext. HYOK verschärft das, indem der Schlüssel das Haus nie verlässt.')}
           ${renderQuestions('cloud_l2_1', 6)}
           ${renderBonus('cloud_l2_1')}
         `,
@@ -22880,6 +23040,48 @@ const CLOUD_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Building blocks for more control', 'BYOK (Bring Your Own Key) — you keep the encryption keys; without them, disclosed data is worthless. Confidential computing — data stays encrypted even during processing. Portability via Kubernetes + IaC turns a move between tiers into a redeploy, not a rebuild.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Check four dimensions separately</div>
+            <div class="explanation">
+              "Sovereign" is not a single switch. To check it cleanly, split the question into four dimensions — each can be met or violated on its own:<br><br>
+              <strong>Data location</strong> — where does the data physically sit? (The simplest but also weakest dimension.)<br>
+              <strong>Operational sovereignty</strong> — who administers the system, who has support access to the machines?<br>
+              <strong>Technology sovereignty</strong> — does everything run on swappable, self-operable tech with open standards?<br>
+              <strong>Model location</strong> — where does the AI model run, and where do the prompts flow? With AI this is especially sensitive, because whole documents often go into the prompt.<br><br>
+              The classic mistake: you tick off "data in Frankfurt" and treat all four as done. In truth the location says nothing about operations, technology or the model.
+            </div>
+          </div>
+          ${quickCheck('A US cloud runs a region in Frankfurt. Why is that alone not yet sovereignty?', ['Because Frankfurt is too far from the users', 'Because the US CLOUD Act can compel US firms to disclose data regardless of storage location', 'Because European data centers are slower'], 1, 'The location only says where data sits — not who may legally access it. The US CLOUD Act reaches US companies (including EU subsidiaries) no matter where the data physically stands.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">The tiers compared</div>
+            <div class="explanation">
+              Sovereignty is a <strong>scale with tiers</strong>, and each tier costs something: more control means more effort and a less convenient choice of services. The craft is to deliberately pick the lowest tier that is <strong>just enough</strong> for how much the data needs protecting — not the maximum at any price.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Tiers of sovereignty</span></div>
+              <div class="code-pre">Tier               Control      US CLOUD Act    Effort / Cost
+------------------------------------------------------------------------
+Region (EU)        low          applies         low
+Sovereign Cloud    medium-high  walled off      medium (fewer services)
+On-Premises        maximal      no access       high (hardware + staff)
+
+Region      -&gt; only the storage location is European
+Sovereign   -&gt; EU operator, technically/legally walled off
+On-Prem     -&gt; your own data center, your own operations, physical control
+Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
+            </div>
+          </div>
+          ${callout('warn', 'Do not confuse', '"Data in Frankfurt" is not the same as "legally protected". Check all four dimensions separately and explicitly document which authority could in theory compel access — otherwise you lull yourself into a safety that exists only on the map.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Keeping the keys & confidential computing</div>
+            <div class="explanation">
+              Even in someone else\'s cloud you can keep control over the content:<br><br>
+              <strong>BYOK (Bring Your Own Key)</strong> — you bring your own encryption keys and keep them. Without the key, disclosed data is just useless ciphertext. The stronger variant <strong>HYOK (Hold Your Own Key)</strong> never lets the key leave your own house.<br><br>
+              <strong>Confidential computing</strong> — the data stays encrypted in memory even <em>during processing</em>, protected by a hardware-backed enclave. Not even the cloud operator can look inside.<br><br>
+              <strong>Portability via Kubernetes + IaC</strong> — describe the whole landscape as containers plus <code>Terraform</code>, and a move from a US provider into a sovereign cloud or your own rack becomes a redeploy — not a rebuild.
+            </div>
+          </div>
+          ${quickCheck('An authority forces the cloud provider to hand over your encrypted data. Why does BYOK save you?', ['Because BYOK automatically moves the data to Europe', 'Because you keep the key — without it the disclosed record is worthless ciphertext', 'Because BYOK blocks the authority request'], 1, 'BYOK does not stop the disclosure — but without the key you keep, what is handed over is just unreadable ciphertext. HYOK goes further by never letting the key leave your house.')}
           ${renderQuestions('cloud_l2_1', 6)}
           ${renderBonus('cloud_l2_1')}
         `
@@ -28901,6 +29103,48 @@ QUESTION_POOLS['arch_l5_2'] = [
     {t:'Er enthält einen Moment, an dem es kein Zurück mehr gibt, das Neue aber noch nichts leistet',t_en:'It contains a moment where there is no way back, yet the new system does nothing yet',correct:true,why:'Genau. Fehlt der Rückweg, bevor das Neue trägt, ist es der klassische Big Bang.',why_en:'Exactly. If the way back is gone before the new one carries load, it is the classic big bang.'},
     {t:'Er überträgt die Daten während der Übergangszeit per CDC',t_en:'It transfers the data during the transition via CDC',correct:false,why:'Nein. Das ist ein Zeichen für einen guten Plan, nicht für einen schlechten.',why_en:'No. That is a sign of a good plan, not a bad one.'},
     {t:'Er beginnt damit, eine durchsichtige Fassade einzuziehen',t_en:'It starts by introducing a transparent facade',correct:false,why:'Nein. Die Fassade ist der umkehrbare erste Schritt der Würgefeige — gut so.',why_en:'No. The facade is the reversible first step of the strangler fig — a good thing.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l1_1'] = [
+  {id:'p_cloud_l1_1_mc1',type:'mc',xp:10,question:'Der Objekt-Storage heißt bei AWS <code>S3</code>. Wie heißt derselbe Baustein bei Azure?',question_en:'Object storage is called <code>S3</code> on AWS. What is the same block called on Azure?',options:[
+    {t:'<code>Blob</code> Storage',t_en:'<code>Blob</code> storage',correct:true,why:'Genau. Gleicher Baustein, anderer Name — bei GCP heißt er <code>Cloud Storage</code>.',why_en:'Exactly. Same block, different name — on GCP it is <code>Cloud Storage</code>.'},
+    {t:'<code>Entra ID</code>',t_en:'<code>Entra ID</code>',correct:false,why:'Nein. <code>Entra ID</code> ist der Identitätsdienst von Azure, nicht der Speicher.',why_en:'No. <code>Entra ID</code> is the Azure identity service, not storage.'},
+    {t:'<code>Service Bus</code>',t_en:'<code>Service Bus</code>',correct:false,why:'Nein. <code>Service Bus</code> ist Messaging, entspricht eher <code>SQS/SNS</code> bei AWS.',why_en:'No. <code>Service Bus</code> is messaging, closer to <code>SQS/SNS</code> on AWS.'}
+  ]},
+  {id:'p_cloud_l1_1_mc2',type:'mc',xp:10,question:'Welche Kombination hält dich am ehesten anbieterneutral?',question_en:'Which combination keeps you most vendor-neutral?',options:[
+    {t:'<code>Kubernetes</code> + <code>Terraform</code> + <code>PostgreSQL</code>',t_en:'<code>Kubernetes</code> + <code>Terraform</code> + <code>PostgreSQL</code>',correct:true,why:'Genau. Alle drei sind offene Standards, die auf jeder Wolke und im eigenen Rechenzentrum laufen.',why_en:'Exactly. All three are open standards that run on any cloud and in your own data center.'},
+    {t:'<code>Lambda</code> + <code>DynamoDB</code> + <code>CloudFormation</code>',t_en:'<code>Lambda</code> + <code>DynamoDB</code> + <code>CloudFormation</code>',correct:false,why:'Nein. Das sind AWS-eigene Dienste — genau der Weg in den Lock-in.',why_en:'No. Those are AWS-specific services — exactly the road into lock-in.'},
+    {t:'<code>Entra ID</code> + <code>Synapse</code> + <code>Bicep</code>',t_en:'<code>Entra ID</code> + <code>Synapse</code> + <code>Bicep</code>',correct:false,why:'Nein. Das sind Azure-eigene Dienste und binden dich an einen Anbieter.',why_en:'No. Those are Azure-specific services and tie you to one provider.'}
+  ]},
+  {id:'p_cloud_l1_1_tf1',type:'truefalse',xp:8,statement:'Die Säulen des Well-Architected Framework sind bei AWS, Azure und GCP fast identisch.',statement_en:'The pillars of the Well-Architected Framework are almost identical across AWS, Azure and GCP.',correct:true,explanation:'Richtig. Sicherheit, Zuverlässigkeit, Kostenoptimierung und die übrigen Säulen beschreiben gute Ingenieurskunst, nicht ein Produkt — deshalb sind sie anbieterneutral.',explanation_en:'Correct. Security, reliability, cost optimization and the other pillars describe good engineering, not a product — which is why they are vendor-neutral.'},
+  {id:'p_cloud_l1_1_tf2',type:'truefalse',xp:8,statement:'Vendor-Neutralität bedeutet, dass man gar keine Managed-Dienste nutzen darf.',statement_en:'Vendor neutrality means you are not allowed to use any managed services.',correct:false,explanation:'Falsch. Man kauft Managed-Dienste durchaus für Bequemlichkeit — nur der Kern bleibt auf offenen Standards und hinter Adaptern, damit ein Wechsel möglich bleibt.',explanation_en:'False. You may well buy managed services for convenience — only the core stays on open standards and behind adapters, so a switch stays possible.'},
+  {id:'p_cloud_l1_1_fb1',type:'fillblank',xp:12,prompt:'Das offene Infra-as-Code-Werkzeug, mit dem sich Infrastruktur portabel über alle Wolken beschreiben lässt, heißt ___.',prompt_en:'The open infra-as-code tool that describes infrastructure portably across all clouds is called ___.',answers:['Terraform','terraform','OpenTofu','opentofu','Terraform/OpenTofu'],placeholder:'Werkzeug…',placeholder_en:'Tool…',explanation:'<code>Terraform</code> (bzw. der offene Fork <code>OpenTofu</code>) beschreibt Infrastruktur deklarativ und anbieterneutral — ein Kernbaustein der Portabilität.',explanation_en:'<code>Terraform</code> (or the open fork <code>OpenTofu</code>) describes infrastructure declaratively and vendor-neutrally — a core building block of portability.'},
+  {id:'p_cloud_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist die kluge Arbeitsteilung laut Leitsatz?',question_en:'What is the smart division of labor per the guiding principle?',options:[
+    {t:'Managed-Dienste für Bequemlichkeit kaufen, den Kern aber auf offenen Standards bauen',t_en:'Buy managed services for convenience, but build the core on open standards',correct:true,why:'Genau. So bleibt der Kern portabel, während bequeme Dienste den Alltag erleichtern.',why_en:'Exactly. That keeps the core portable while convenient services ease daily work.'},
+    {t:'Immer den billigsten Anbieter wählen und alles fest auf dessen Dienste bauen',t_en:'Always pick the cheapest provider and build everything firmly on its services',correct:false,why:'Nein. Das maximiert den Lock-in und kostet später Verhandlungsmacht.',why_en:'No. That maximizes lock-in and costs negotiating power later.'},
+    {t:'Grundsätzlich nur im eigenen Rechenzentrum arbeiten',t_en:'Work only in your own data center on principle',correct:false,why:'Nein. Vendor-Neutralität schließt die Cloud nicht aus, sie hält nur die Tür zum Wechsel offen.',why_en:'No. Vendor neutrality does not rule out the cloud, it just keeps the door to switching open.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l2_1'] = [
+  {id:'p_cloud_l2_1_mc1',type:'mc',xp:10,question:'Was bedeutet der US CLOUD Act für die Frankfurt-Region eines US-Anbieters?',question_en:'What does the US CLOUD Act mean for a US provider Frankfurt region?',options:[
+    {t:'US-Behörden können die Herausgabe erzwingen, unabhängig davon, wo die Daten liegen',t_en:'US authorities can compel disclosure regardless of where the data sits',correct:true,why:'Genau. Der Speicherort schützt nicht vor dem Zugriff auf ein US-Unternehmen oder seine EU-Tochter.',why_en:'Exactly. The storage location does not protect against access to a US company or its EU subsidiary.'},
+    {t:'Die Daten sind durch den EU-Standort vollständig rechtlich geschützt',t_en:'The data is fully legally protected by the EU location',correct:false,why:'Nein. Genau dieser Trugschluss ist gemeint: Region ist nicht gleich Souveränität.',why_en:'No. That is exactly the fallacy in question: region does not equal sovereignty.'},
+    {t:'Der Anbieter muss seine Rechenzentren nach Europa verlegen',t_en:'The provider must move its data centers to Europe',correct:false,why:'Nein. Der CLOUD Act zwingt zur Herausgabe, nicht zu einem Umzug der Hardware.',why_en:'No. The CLOUD Act compels disclosure, not a move of the hardware.'}
+  ]},
+  {id:'p_cloud_l2_1_mc2',type:'mc',xp:10,question:'Welche der vier Souveränitäts-Dimensionen ist bei KI besonders sensibel?',question_en:'Which of the four sovereignty dimensions is especially sensitive with AI?',options:[
+    {t:'Der Modell-Standort — wo läuft das Modell und wohin fließen die Prompts?',t_en:'The model location — where does the model run and where do the prompts flow?',correct:true,why:'Genau. In Prompts wandern oft ganze Dokumente, daher ist der Modell-Standort bei KI kritisch.',why_en:'Exactly. Prompts often carry whole documents, so the model location is critical with AI.'},
+    {t:'Die Farbe der Benutzeroberfläche',t_en:'The color of the user interface',correct:false,why:'Nein. Das ist keine Souveränitäts-Dimension.',why_en:'No. That is not a sovereignty dimension.'},
+    {t:'Die Anzahl der CPU-Kerne',t_en:'The number of CPU cores',correct:false,why:'Nein. Die Rechenleistung sagt nichts darüber, wer rechtlich zugreifen kann.',why_en:'No. Compute power says nothing about who can legally access the data.'}
+  ]},
+  {id:'p_cloud_l2_1_tf1',type:'truefalse',xp:8,statement:'Eine Cloud-Region in Frankfurt garantiert für sich genommen rechtliche Souveränität.',statement_en:'A cloud region in Frankfurt by itself guarantees legal sovereignty.',correct:false,explanation:'Falsch. Die Region sagt nur, wo Daten liegen. Betrieb, Technik und der rechtliche Zugriff (z. B. über den US CLOUD Act) sind davon unberührt.',explanation_en:'False. The region only says where data sits. Operations, technology and legal access (e.g. via the US CLOUD Act) are untouched by it.'},
+  {id:'p_cloud_l2_1_tf2',type:'truefalse',xp:8,statement:'Confidential Computing hält Daten sogar während der Verarbeitung im Speicher verschlüsselt.',statement_en:'Confidential computing keeps data encrypted in memory even during processing.',correct:true,explanation:'Richtig. Eine hardwaregestützte Enklave schützt die Daten bei der Verarbeitung — selbst der Cloud-Betreiber sieht nicht hinein.',explanation_en:'Correct. A hardware-backed enclave protects the data during processing — not even the cloud operator can look inside.'},
+  {id:'p_cloud_l2_1_fb1',type:'fillblank',xp:12,prompt:'Behältst du deine eigenen Verschlüsselungsschlüssel selbst, sind herausgegebene Daten wertloser Chiffretext. Dieses Prinzip heißt ___ (Bring Your Own Key).',prompt_en:'If you keep your own encryption keys, disclosed data is worthless ciphertext. This principle is called ___ (Bring Your Own Key).',answers:['BYOK','byok','Bring Your Own Key','bring your own key'],placeholder:'Kürzel…',placeholder_en:'Acronym…',explanation:'<code>BYOK</code> lässt dich die Schlüssel behalten; die noch strengere Variante <code>HYOK</code> lässt den Schlüssel das eigene Haus nie verlassen.',explanation_en:'<code>BYOK</code> lets you keep the keys; the even stricter variant <code>HYOK</code> never lets the key leave your own house.'},
+  {id:'p_cloud_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Leitplanke fasst die Lektion am besten zusammen?',question_en:'Which guardrail best sums up the lesson?',options:[
+    {t:'„Daten in Frankfurt“ nie mit „rechtlich geschützt“ verwechseln und alle vier Dimensionen getrennt prüfen',t_en:'Never confuse "data in Frankfurt" with "legally protected" and check all four dimensions separately',correct:true,why:'Genau. Standort, Betrieb, Technik und Modell-Standort sind einzeln zu bewerten.',why_en:'Exactly. Location, operations, technology and model location must each be judged on their own.'},
+    {t:'Sobald die Daten in der EU liegen, ist keine weitere Prüfung nötig',t_en:'Once the data is in the EU, no further check is needed',correct:false,why:'Nein. Genau dieser Trugschluss ist der Kernfehler der Lektion.',why_en:'No. That fallacy is exactly the core mistake of the lesson.'},
+    {t:'On-Premises ist immer die einzig vertretbare Wahl',t_en:'On-premises is always the only defensible choice',correct:false,why:'Nein. Man wählt die niedrigste Stufe, die für die Schutzbedürftigkeit gerade ausreicht.',why_en:'No. You pick the lowest tier that is just enough for how much protection the data needs.'}
   ]}
 ];
 
