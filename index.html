@@ -22546,6 +22546,62 @@ half-open  -&gt; success: close  |  error: open again</div>
             </div>
           </div>
           ${callout('key', 'Leitsatz', 'Integriere fremde Systeme immer über eine fachliche Fassade in deinen Begriffen, nie durch direkte Aufrufe ihrer Eigenheiten quer durch deinen Code. Ein Fremdsystem, das an hundert Stellen durchscheint, wirst du nie wieder los.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Zugangswege ins Altsystem</div>
+            <div class="explanation">
+              Ein ERP (Enterprise Resource Planning, das Rückgrat für Finanzen, Material, Aufträge und Personal) bietet meist mehrere Türen — und sie sind nicht gleichwertig:<br><br>
+              <strong>Moderne Web-Schnittstelle</strong> (REST-artig): der bevorzugte Weg für neue Integrationen.<br>
+              <strong>Fachlich gekapselte Funktionen</strong> (z. B. „Kunde anlegen"): sie enthalten die eingebauten Geschäftsregeln — der sichere Weg für Schreibvorgänge.<br>
+              <strong>Älteres Aufrufprotokoll</strong>: funktioniert, ist aber umständlicher.<br>
+              <strong>Direkter Tabellenzugriff</strong>: nur lesend, nur im Notfall.<br><br>
+              Die Regel: bevorzugt die moderne Schnittstelle; für geschäftliche Schreibvorgänge die fachlich gekapselten Funktionen; ein direkter Schreibzugriff <strong>niemals</strong> — er umgeht die eingebauten Prüfungen und kann Buchhaltung und Bilanz stillschweigend beschädigen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ERP-Zugangswege · Eignung</span></div>
+              <div class="code-pre">Web-Schnittstelle (REST)   -&gt; neue Integrationen (bevorzugt)
+Gekapselte Funktion        -&gt; Schreiben mit Geschaeftsregeln (sicher)
+Aelteres Aufrufprotokoll   -&gt; Bestandsanbindung
+Direkter Tabellenzugriff   -&gt; nur lesend, nur im Notfall
+Direkter Schreibzugriff    -&gt; niemals</div>
+            </div>
+          </div>
+          ${quickCheck('Warum niemals direkt in die Tabellen des ERP schreiben?', ['Direkter Schreibzugriff ist zu langsam', 'Er umgeht die eingebauten Geschäftsregeln und kann Buchhaltung und Bilanz stillschweigend beschädigen', 'Das ERP erlaubt technisch keinen Tabellenzugriff'], 1, 'Die Prüfungen und Buchungsregeln stecken in den fachlichen Funktionen des ERP. Schreibst du an ihnen vorbei direkt in die Tabellen, entstehen unbemerkt inkonsistente Zahlen — genau dort, wo es am teuersten ist.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Fünf Integrationsmuster</div>
+            <div class="explanation">
+              Nicht jeder Austausch braucht denselben Rhythmus:<br><br>
+              <strong>Synchron</strong> (Request/Response): sofort benötigte Daten. Blockiert und leidet unter der „Distributed-Steuer" jedes Netzaufrufs.<br>
+              <strong>Asynchron / Nachricht</strong>: Auftrag abschicken, Ergebnis später — gut für lange Vorgänge und Lastspitzen.<br>
+              <strong>Batch</strong>: große Mengen zeitgesteuert, meist nachts. Zwischen den Läufen sind die Daten veraltet.<br>
+              <strong>CDC</strong> (Change Data Capture): nur Änderungen fortlaufend abgreifen — fast Echtzeit.<br>
+              <strong>File-Drop</strong>: eine Datei ablegen, die Gegenstelle holt sie — für sehr alte Systeme.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Muster · wann</span></div>
+              <div class="code-pre">Synchron   -&gt; sofort noetige Daten        (blockiert)
+Nachricht  -&gt; lange Vorgaenge, Lastspitzen (entkoppelt)
+Batch      -&gt; grosse Mengen, nachts        (zwischendurch veraltet)
+CDC        -&gt; nur Aenderungen, fast Echtzeit
+File-Drop  -&gt; sehr alte Systeme</div>
+            </div>
+          </div>
+          ${quickCheck('Du willst fortlaufend nur die Änderungen eines Altsystems fast in Echtzeit übernehmen. Welches Muster passt?', ['Batch — einmal nachts alles kopieren', 'CDC — nur die Änderungen fortlaufend abgreifen', 'Synchron — bei jedem Bedarf direkt nachfragen'], 1, 'Batch bringt die Daten nur einmal pro Nacht und lässt sie dazwischen veralten. CDC greift genau die Änderungen ab, sobald sie passieren — das ist der fast-Echtzeit-Weg mit wenig Last.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Eine Fassade, viele Adapter</div>
+            <div class="explanation">
+              Deine Anwendung ruft <strong>einen</strong> fachlichen Aufruf in deinen Begriffen — etwa <code>pushLead()</code>. Dahinter sitzt je Zielsystem ein <strong>Adapter</strong> mit eigener Anmeldung und eigenem Feldschema. Ein neues Zielsystem bedeutet dann einen neuen Adapter — nicht den Umbau deiner Anwendung.<br><br>
+              Über der Fassade helfen zwei Bausteine: <strong>API-Management</strong> (ein Gateway bündelt, sichert, drosselt und protokolliert die Zugriffe) und <strong>iPaaS</strong> (Integration Platform as a Service — eine Cloud-Plattform mit fertigen Konnektoren statt handgeklebtem Code).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Fassade -&gt; Adapter</span></div>
+              <div class="code-pre">pushLead(lead)
+  |
+  +-- Adapter ERP   (eigene Anmeldung, eigenes Feldschema)
+  +-- Adapter CRM   (eigene Anmeldung, eigenes Feldschema)
+  +-- Adapter Neu   -&gt; neuer Adapter, Anwendung bleibt unveraendert</div>
+            </div>
+          </div>
+          ${callout('fact', 'Alt heißt nicht dumm', 'Ein ERP trägt jahrzehntelang verfeinerte Fach- und Gesetzesregeln. Der Anti-Corruption-Layer übersetzt seine kryptischen Begriffe in deine klaren Begriffe, damit seine Eigenheiten nicht in deine Anwendung durchschlagen.')}
           ${renderQuestions('arch_l5_1', 6)}
           ${renderBonus('arch_l5_1')}
         `,
@@ -22563,6 +22619,62 @@ half-open  -&gt; success: close  |  error: open again</div>
             </div>
           </div>
           ${callout('key', 'Guiding principle', 'Always integrate foreign systems through a business facade in your own terms, never through direct calls to their quirks scattered across your code. A foreign system that shows through in a hundred places is one you will never get rid of.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The ways into the legacy system</div>
+            <div class="explanation">
+              An ERP (enterprise resource planning, the backbone for finance, materials, orders and personnel) usually offers several doors — and they are not equal:<br><br>
+              <strong>Modern web interface</strong> (REST-style): the preferred way for new integrations.<br>
+              <strong>Business-encapsulated functions</strong> (e.g. "create customer"): they contain the built-in business rules — the safe way for writes.<br>
+              <strong>Older call protocol</strong>: works, but is more cumbersome.<br>
+              <strong>Direct table access</strong>: read-only, emergencies only.<br><br>
+              The rule: prefer the modern interface; for business writes use the business-encapsulated functions; a direct write <strong>never</strong> — it bypasses the built-in checks and can silently damage accounting and the balance sheet.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ERP access paths · fit</span></div>
+              <div class="code-pre">Web interface (REST)   -&gt; new integrations (preferred)
+Encapsulated function  -&gt; writes with business rules (safe)
+Older call protocol    -&gt; existing connections
+Direct table access    -&gt; read-only, emergencies only
+Direct write access    -&gt; never</div>
+            </div>
+          </div>
+          ${quickCheck('Why never write directly into the ERP tables?', ['Direct write access is too slow', 'It bypasses the built-in business rules and can silently damage accounting and the balance sheet', 'The ERP technically forbids table access'], 1, 'The checks and posting rules live inside the ERP business functions. If you write around them straight into the tables, inconsistent figures appear unnoticed — exactly where it is most expensive.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Five integration patterns</div>
+            <div class="explanation">
+              Not every exchange needs the same rhythm:<br><br>
+              <strong>Synchronous</strong> (request/response): data needed right now. Blocks and pays the "distributed tax" of every network call.<br>
+              <strong>Asynchronous / message</strong>: submit a job, get the result later — good for long operations and load spikes.<br>
+              <strong>Batch</strong>: large volumes on a schedule, usually at night. Between runs the data is stale.<br>
+              <strong>CDC</strong> (change data capture): pick up only the changes continuously — near real time.<br>
+              <strong>File drop</strong>: place a file, the other side picks it up — for very old systems.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Pattern · when</span></div>
+              <div class="code-pre">Synchronous -&gt; data needed now          (blocks)
+Message     -&gt; long operations, spikes   (decoupled)
+Batch       -&gt; large volumes, at night   (stale in between)
+CDC         -&gt; only changes, near real time
+File drop   -&gt; very old systems</div>
+            </div>
+          </div>
+          ${quickCheck('You want to continuously pick up only the changes of a legacy system, near real time. Which pattern fits?', ['Batch — copy everything once at night', 'CDC — pick up only the changes continuously', 'Synchronous — query directly whenever needed'], 1, 'Batch brings the data only once a night and lets it go stale in between. CDC captures exactly the changes as they happen — the near-real-time way with little load.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">One facade, many adapters</div>
+            <div class="explanation">
+              Your application makes <strong>one</strong> business call in your terms — e.g. <code>pushLead()</code>. Behind it sits an <strong>adapter</strong> per target system, each with its own login and field schema. A new target system then means a new adapter — not a rebuild of your application.<br><br>
+              Above the facade, two building blocks help: <strong>API management</strong> (a gateway bundles, secures, throttles and logs the access) and <strong>iPaaS</strong> (integration platform as a service — a cloud platform with ready-made connectors instead of hand-glued code).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Facade -&gt; adapter</span></div>
+              <div class="code-pre">pushLead(lead)
+  |
+  +-- Adapter ERP   (own login, own field schema)
+  +-- Adapter CRM   (own login, own field schema)
+  +-- Adapter New   -&gt; new adapter, application stays unchanged</div>
+            </div>
+          </div>
+          ${callout('fact', 'Old does not mean dumb', 'An ERP carries decades of refined business and legal rules. The anti-corruption layer translates its cryptic terms into your clear terms, so its quirks do not leak into your application.')}
           ${renderQuestions('arch_l5_1', 6)}
           ${renderBonus('arch_l5_1')}
         `
@@ -22583,6 +22695,43 @@ half-open  -&gt; success: close  |  error: open again</div>
             </div>
           </div>
           ${callout('warn', 'Leitplanke', 'Schalte ein Altsystem erst ab, wenn die neue Funktion nachweislich über einen vollen Geschäftszyklus stabil lief. Bis dahin bleibt das Alte als Rückfallebene. Ein abgeschaltetes Altsystem ist der einzige wirklich irreversible Schritt.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Fünf Schritte der Würgefeige</div>
+            <div class="explanation">
+              Die Strangler-Migration läuft in fünf Schritten — und jeder bis auf den letzten ist per Konfiguration sofort zurücknehmbar:<br><br>
+              <strong>1. Fassade einziehen</strong>: ein Routing-Punkt vor das Alte, der noch alles ans Alte leitet — trivial, durchsichtig, umkehrbar.<br>
+              <strong>2. Erste Funktion neu bauen</strong>: eine abgegrenzte Fähigkeit nachbilden; das Neue ist noch nicht geroutet — umkehrbar.<br>
+              <strong>3. Datenabgleich starten</strong>: CDC oder Dual-Write hält beide Stände synchron — umkehrbar.<br>
+              <strong>4. Umleiten schrittweise</strong>: die Fassade schickt diese Anfrage-Art ans Neue, erst 5 %, dann mehr — Routing zurückstellbar.<br>
+              <strong>5. Wiederholen und stilllegen</strong>: Funktion für Funktion, bis das Alte leer ist, dann abschalten — ab hier irreversibel, erst nach Bewährung.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Fünf Schritte · Rückweg</span></div>
+              <div class="code-pre">1 Fassade einziehen       -&gt; leitet alles ans Alte  (umkehrbar)
+2 Funktion neu bauen      -&gt; noch nicht geroutet    (umkehrbar)
+3 Datenabgleich starten   -&gt; CDC / Dual-Write       (umkehrbar)
+4 Umleiten schrittweise   -&gt; 5 % ... mehr           (zuruckstellbar)
+5 Wiederholen, stilllegen -&gt; Alt abschalten         (irreversibel)</div>
+            </div>
+          </div>
+          ${quickCheck('Woran erkennst du, dass ein Migrationsplan der falsche ist?', ['Er migriert Funktion für Funktion statt alles auf einmal', 'Er enthält einen Punkt „ab jetzt kein Zurück und noch läuft nichts"', 'Er zieht zuerst eine Fassade vor das Altsystem'], 1, 'Gute Migration besteht aus Schritten, die einzeln nützlich und einzeln umkehrbar sind. Ein Plan mit einem Moment, an dem der Rückweg schon weg ist, das Neue aber noch nichts leistet, ist der klassische Big Bang — der falsche Plan.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die Daten mitnehmen</div>
+            <div class="explanation">
+              Während der Übergangszeit müssen alter und neuer Datenstand zusammenpassen. Zwei Wege:<br><br>
+              <strong>Dual-Write</strong>: die Anwendung schreibt jede Änderung in beide Datenbanken. Einfach zu verstehen, aber fehleranfällig — ein Schreibvorgang kann in einer der beiden scheitern, und die Stände laufen auseinander. Hier hilft das <strong>Outbox-Muster</strong>, das beide Schritte atomar koppelt.<br><br>
+              <strong>CDC</strong> (Change Data Capture): ein Werkzeug liest die Änderungen aus dem Transaktionslog der alten DB und spielt sie in die neue ein. Die Anwendung merkt nichts und hängt an der echten Quelle — deshalb robuster als Dual-Write.
+            </div>
+          </div>
+          ${quickCheck('Warum gilt CDC als robuster als Dual-Write?', ['CDC ist schneller zu programmieren', 'CDC liest die Änderungen aus dem Transaktionslog der Quelle — ein einzelner Schreibfehler der Anwendung kann die Stände nicht auseinanderlaufen lassen', 'CDC braucht keine zweite Datenbank'], 1, 'Bei Dual-Write schreibt die Anwendung selbst in beide DBs — scheitert einer der zwei Schreibvorgänge, driften die Stände. CDC hängt am Transaktionslog der echten Quelle und überträgt genau das, was dort wirklich committet wurde.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Der rote Faden: Reversibilität</div>
+            <div class="explanation">
+              Der gefährlichste Plan ist der <strong>Big Bang</strong>: das alte System zwei Jahre parallel neu bauen und an einem Wochenende komplett umschalten. Er scheitert fast immer, weil das Neue selten sofort alles kann und ein sicherer Rückweg fehlt.<br><br>
+              Die Würgefeige dreht das um: kleine Schritte, jeder <strong>einzeln nützlich und einzeln umkehrbar</strong>. Genau ein Schritt ist wirklich irreversibel — das Abschalten des Altsystems. Deshalb kommt er zuletzt und erst nach Bewährung über einen vollen Geschäftszyklus (Monatsabschluss, Lastspitze, Sonderfälle).
+            </div>
+          </div>
+          ${callout('key', 'Merksatz', 'Migriere in Schritten, die einzeln nützlich und einzeln umkehrbar sind. Wenn dein Plan einen Punkt „ab jetzt kein Zurück und noch läuft nichts" enthält, ist es der falsche Plan.')}
           ${renderQuestions('arch_l5_2', 6)}
           ${renderBonus('arch_l5_2')}
         `,
@@ -22600,6 +22749,43 @@ half-open  -&gt; success: close  |  error: open again</div>
             </div>
           </div>
           ${callout('warn', 'Guardrail', 'Only shut down a legacy system once the new function has demonstrably run stably over a full business cycle. Until then the old stays as a fallback. A shut-down legacy system is the only truly irreversible step.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Five steps of the strangler fig</div>
+            <div class="explanation">
+              The strangler migration runs in five steps — and every one but the last is instantly reversible by configuration:<br><br>
+              <strong>1. Introduce the facade</strong>: a routing point in front of the old system that still sends everything to the old — trivial, transparent, reversible.<br>
+              <strong>2. Rebuild the first function</strong>: recreate one bounded capability; the new one is not routed yet — reversible.<br>
+              <strong>3. Start data sync</strong>: CDC or dual-write keeps both states in sync — reversible.<br>
+              <strong>4. Redirect gradually</strong>: the facade sends this request type to the new one, first 5 %, then more — routing can be rolled back.<br>
+              <strong>5. Repeat and retire</strong>: function by function, until the old is empty, then switch it off — irreversible from here, only after it has proven itself.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Five steps · way back</span></div>
+              <div class="code-pre">1 Introduce facade   -&gt; sends all to the old   (reversible)
+2 Rebuild function   -&gt; not routed yet         (reversible)
+3 Start data sync    -&gt; CDC / dual-write        (reversible)
+4 Redirect gradually -&gt; 5 % ... more            (roll-back-able)
+5 Repeat, retire     -&gt; switch off the old      (irreversible)</div>
+            </div>
+          </div>
+          ${quickCheck('How do you recognise that a migration plan is the wrong one?', ['It migrates function by function instead of all at once', 'It contains a point of "no way back from here, and nothing runs yet"', 'It first places a facade in front of the legacy system'], 1, 'Good migration consists of steps that are each useful and each reversible. A plan with a moment where the way back is already gone but the new one does nothing yet is the classic big bang — the wrong plan.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Carrying the data along</div>
+            <div class="explanation">
+              During the transition the old and new data states must match. Two ways:<br><br>
+              <strong>Dual-write</strong>: the application writes every change into both databases. Easy to understand, but error-prone — a write can fail in one of the two, and the states drift apart. Here the <strong>outbox pattern</strong> helps, coupling both steps atomically.<br><br>
+              <strong>CDC</strong> (change data capture): a tool reads the changes from the old DB transaction log and replays them into the new one. The application notices nothing and hangs off the real source — hence more robust than dual-write.
+            </div>
+          </div>
+          ${quickCheck('Why is CDC considered more robust than dual-write?', ['CDC is faster to program', 'CDC reads the changes from the source transaction log — a single application write error cannot make the states drift apart', 'CDC needs no second database'], 1, 'With dual-write the application itself writes into both DBs — if one of the two writes fails, the states drift. CDC hangs off the transaction log of the real source and transfers exactly what was actually committed there.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">The common thread: reversibility</div>
+            <div class="explanation">
+              The most dangerous plan is the <strong>big bang</strong>: rebuild the old system in parallel for two years and switch over completely on one weekend. It almost always fails, because the new one rarely does everything at once and a safe way back is missing.<br><br>
+              The strangler fig flips this: small steps, each <strong>useful on its own and reversible on its own</strong>. Exactly one step is truly irreversible — switching off the legacy system. That is why it comes last and only after it has proven itself over a full business cycle (month-end close, load spike, special cases).
+            </div>
+          </div>
+          ${callout('key', 'Key takeaway', 'Migrate in steps that are each useful and each reversible. If your plan contains a point of "no way back from here, and nothing runs yet", it is the wrong plan.')}
           ${renderQuestions('arch_l5_2', 6)}
           ${renderBonus('arch_l5_2')}
         `
@@ -28493,6 +28679,48 @@ QUESTION_POOLS['arch_l3_2'] = [
   {id:'p_arch_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Wozu zwingt das CAP-Theorem bei einer Netz-Partition?',question_en:'What does the CAP theorem force during a network partition?',options:[
     {t:'Zur bewussten Wahl zwischen Verfügbarkeit und Konsistenz',t_en:'A deliberate choice between availability and consistency',correct:true,why:'Genau. Entweder weiter antworten (evtl. veraltete Daten) oder Antwort verweigern (keine falschen Daten) — pro Anwendungsfall entschieden.',why_en:'Exactly. Either keep answering (possibly stale data) or refuse to answer (no wrong data) — decided per use case.'},
     {t:'Beides gleichzeitig voll zu garantieren',t_en:'To fully guarantee both at the same time',correct:false,why:'Nein. Genau das ist bei einer Partition nicht möglich — man muss wählen.',why_en:'No. That is exactly what is impossible during a partition — you must choose.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l5_1'] = [
+  {id:'p_arch_l5_1_mc1',type:'mc',xp:10,question:'Wie schreibst du geschäftliche Daten in ein ERP?',question_en:'How do you write business data into an ERP?',options:[
+    {t:'Über die fachlich gekapselten Funktionen, die die Geschäftsregeln enthalten',t_en:'Through the business-encapsulated functions that contain the business rules',correct:true,why:'Genau. Diese Funktionen tragen die eingebauten Prüfungen und Buchungsregeln — der sichere Weg für Schreibvorgänge.',why_en:'Exactly. These functions carry the built-in checks and posting rules — the safe way for writes.'},
+    {t:'Direkt in die Datenbanktabellen, das ist am schnellsten',t_en:'Directly into the database tables, that is fastest',correct:false,why:'Nein. Direkter Schreibzugriff umgeht die Prüfungen und kann Buchhaltung und Bilanz stillschweigend beschädigen.',why_en:'No. A direct write bypasses the checks and can silently damage accounting and the balance sheet.'},
+    {t:'Gar nicht — ein ERP ist grundsätzlich schreibgeschützt',t_en:'Not at all — an ERP is fundamentally read-only',correct:false,why:'Nein. Ein ERP nimmt sehr wohl Schreibvorgänge an — aber über seine vorgesehenen Funktionen, nicht per Tabellenzugriff.',why_en:'No. An ERP does accept writes — but through its intended functions, not via table access.'}
+  ]},
+  {id:'p_arch_l5_1_mc2',type:'mc',xp:10,question:'Was macht ein Anti-Corruption-Layer?',question_en:'What does an anti-corruption layer do?',options:[
+    {t:'Er übersetzt die kryptischen Fremd-Begriffe in die klaren Begriffe der eigenen Domäne',t_en:'It translates the cryptic foreign terms into the clear terms of your own domain',correct:true,why:'Genau. So schlagen die Eigenheiten des Altsystems nicht in die eigene Anwendung durch.',why_en:'Exactly. That way the quirks of the legacy system do not leak into your own application.'},
+    {t:'Er verschlüsselt die Daten des Altsystems gegen Angriffe',t_en:'It encrypts the legacy data against attackers',correct:false,why:'Nein. Es geht um Übersetzung der Begriffe, nicht um Verschlüsselung.',why_en:'No. It is about translating terms, not about encryption.'},
+    {t:'Er beschleunigt die Datenbank des Altsystems',t_en:'It speeds up the legacy database',correct:false,why:'Nein. Ein ACL ist eine Übersetzungsschicht, kein Performance-Werkzeug.',why_en:'No. An ACL is a translation layer, not a performance tool.'}
+  ]},
+  {id:'p_arch_l5_1_tf1',type:'truefalse',xp:8,statement:'Ein direkter Schreibzugriff in die ERP-Tabellen umgeht die eingebauten Prüfungen und kann Buchhaltung und Bilanz stillschweigend beschädigen.',statement_en:'A direct write into the ERP tables bypasses the built-in checks and can silently damage accounting and the balance sheet.',correct:true,explanation:'Richtig. Die Geschäftsregeln stecken in den fachlichen Funktionen. An ihnen vorbei entstehen unbemerkt inkonsistente Zahlen.',explanation_en:'Correct. The business rules live inside the functional operations. Writing around them creates inconsistent figures unnoticed.'},
+  {id:'p_arch_l5_1_tf2',type:'truefalse',xp:8,statement:'Batch-Integration liefert Änderungen fast in Echtzeit.',statement_en:'Batch integration delivers changes almost in real time.',correct:false,explanation:'Falsch. Batch überträgt große Mengen nur zeitgesteuert, meist nachts — zwischen den Läufen sind die Daten veraltet. Fast-Echtzeit liefert CDC.',explanation_en:'False. Batch transfers large volumes only on a schedule, usually at night — between runs the data is stale. Near real time comes from CDC.'},
+  {id:'p_arch_l5_1_fb1',type:'fillblank',xp:12,prompt:'Die Übersetzungsschicht, die verhindert, dass die Eigenheiten eines Altsystems in die eigene Domäne durchschlagen, heißt ___-Layer.',prompt_en:'The translation layer that keeps the quirks of a legacy system from leaking into your own domain is called the ___ layer.',answers:['Anti-Corruption','anti-corruption','ACL','acl','Anti-Corruption-Layer','anti-corruption layer'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der Anti-Corruption-Layer (ACL) übersetzt fremde Begriffe in die eigenen und kapselt so das Altsystem ab.',explanation_en:'The anti-corruption layer (ACL) translates foreign terms into your own and thereby encapsulates the legacy system.'},
+  {id:'p_arch_l5_1_bonus',type:'mc',xp:20,optional:true,question:'Du willst fortlaufend nur die Änderungen eines Altsystems fast in Echtzeit übernehmen. Welches Integrationsmuster passt am besten?',question_en:'You want to continuously pick up only the changes of a legacy system, near real time. Which integration pattern fits best?',options:[
+    {t:'CDC (Change Data Capture) — nur die Änderungen fortlaufend abgreifen',t_en:'CDC (change data capture) — pick up only the changes continuously',correct:true,why:'Genau. CDC überträgt genau die Änderungen, sobald sie passieren — fast-Echtzeit mit wenig Last.',why_en:'Exactly. CDC transfers just the changes as they happen — near real time with little load.'},
+    {t:'Batch — einmal pro Nacht alles kopieren',t_en:'Batch — copy everything once a night',correct:false,why:'Nein. Batch lässt die Daten zwischen den Läufen veralten, also nicht Echtzeit.',why_en:'No. Batch lets the data go stale between runs, so not real time.'},
+    {t:'File-Drop — eine Datei ablegen und abholen lassen',t_en:'File drop — place a file and have it collected',correct:false,why:'Nein. File-Drop ist ein sehr träger Weg für sehr alte Systeme, nicht fast-Echtzeit.',why_en:'No. File drop is a very sluggish way for very old systems, not near real time.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l5_2'] = [
+  {id:'p_arch_l5_2_mc1',type:'mc',xp:10,question:'Was ist die Kernidee des Strangler-Fig-Musters?',question_en:'What is the core idea of the strangler fig pattern?',options:[
+    {t:'Eine Fassade davorsetzen und Funktion für Funktion vom Alten zum Neuen umleiten, bis das Alte leer ist',t_en:'Put a facade in front and redirect function by function from old to new, until the old is empty',correct:true,why:'Genau. Kleine, umkehrbare Schritte bei laufendem System statt eines riskanten Umschaltens.',why_en:'Exactly. Small, reversible steps with the system running instead of one risky switchover.'},
+    {t:'Das alte System an einem Wochenende komplett durch das neue ersetzen',t_en:'Replace the old system entirely with the new one over a single weekend',correct:false,why:'Nein. Das ist der Big Bang — genau das, was die Würgefeige vermeidet.',why_en:'No. That is the big bang — exactly what the strangler fig avoids.'},
+    {t:'Alte und neue Version dauerhaft parallel betreiben, ohne je umzuschalten',t_en:'Run old and new versions in parallel forever, without ever switching',correct:false,why:'Nein. Ziel ist, das Alte am Ende stillzulegen, nicht ewig parallel zu fahren.',why_en:'No. The goal is to retire the old in the end, not to run in parallel forever.'}
+  ]},
+  {id:'p_arch_l5_2_mc2',type:'mc',xp:10,question:'Warum ist CDC beim Datenabgleich meist robuster als Dual-Write?',question_en:'Why is CDC usually more robust than dual-write for data sync?',options:[
+    {t:'CDC liest die Änderungen aus dem Transaktionslog der Quelle, sodass ein einzelner Schreibfehler die Stände nicht auseinanderlaufen lässt',t_en:'CDC reads the changes from the source transaction log, so a single write error cannot make the states drift apart',correct:true,why:'Genau. CDC hängt an der echten Quelle und überträgt, was dort wirklich committet wurde.',why_en:'Exactly. CDC hangs off the real source and transfers what was actually committed there.'},
+    {t:'CDC schreibt jede Änderung doppelt und prüft beide Kopien sofort',t_en:'CDC writes every change twice and checks both copies immediately',correct:false,why:'Nein. Das doppelte Schreiben ist gerade Dual-Write — der fehleranfällige Weg.',why_en:'No. Writing twice is exactly dual-write — the error-prone way.'},
+    {t:'CDC kommt ohne zweite Datenbank aus',t_en:'CDC works without a second database',correct:false,why:'Nein. Auch bei CDC gibt es eine Ziel-DB; der Vorteil liegt in der Quelle am Transaktionslog.',why_en:'No. CDC also has a target DB; the advantage is reading from the source transaction log.'}
+  ]},
+  {id:'p_arch_l5_2_tf1',type:'truefalse',xp:8,statement:'Bei der Strangler-Migration ist jeder Schritt außer dem Abschalten des Altsystems per Konfiguration umkehrbar.',statement_en:'In a strangler migration every step except switching off the legacy system is reversible by configuration.',correct:true,explanation:'Richtig. Fassade, Neubau, Datenabgleich und schrittweises Umleiten lassen sich zurückstellen. Nur das endgültige Abschalten ist irreversibel.',explanation_en:'Correct. Facade, rebuild, data sync and gradual redirect can all be rolled back. Only the final shutdown is irreversible.'},
+  {id:'p_arch_l5_2_tf2',type:'truefalse',xp:8,statement:'Der Big Bang gilt als der sicherste Migrationsweg.',statement_en:'The big bang is considered the safest migration approach.',correct:false,explanation:'Falsch. Der Big Bang (alles auf einmal umschalten) scheitert fast immer — das Neue kann selten sofort alles, und ein sicherer Rückweg fehlt.',explanation_en:'False. The big bang (switching everything at once) almost always fails — the new rarely does everything immediately, and a safe way back is missing.'},
+  {id:'p_arch_l5_2_fb1',type:'fillblank',xp:12,prompt:'Das Migrationsmuster, das eine Fassade vor das Alte setzt und Funktion für Funktion überführt, bis das Alte stillgelegt werden kann, heißt ___ Fig.',prompt_en:'The migration pattern that places a facade in front of the old system and moves function by function until the old can be retired is called the ___ fig.',answers:['Strangler','strangler','Strangler Fig','strangler fig','Würgefeige','Wuergefeige','wuergefeige'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die Strangler Fig (Würgefeige) wächst um das Alte herum und ersetzt es Schritt für Schritt, jederzeit umkehrbar.',explanation_en:'The strangler fig grows around the old system and replaces it step by step, reversible at any time.'},
+  {id:'p_arch_l5_2_bonus',type:'mc',xp:20,optional:true,question:'Woran erkennst du einen schlechten Migrationsplan?',question_en:'How do you recognise a bad migration plan?',options:[
+    {t:'Er enthält einen Moment, an dem es kein Zurück mehr gibt, das Neue aber noch nichts leistet',t_en:'It contains a moment where there is no way back, yet the new system does nothing yet',correct:true,why:'Genau. Fehlt der Rückweg, bevor das Neue trägt, ist es der klassische Big Bang.',why_en:'Exactly. If the way back is gone before the new one carries load, it is the classic big bang.'},
+    {t:'Er überträgt die Daten während der Übergangszeit per CDC',t_en:'It transfers the data during the transition via CDC',correct:false,why:'Nein. Das ist ein Zeichen für einen guten Plan, nicht für einen schlechten.',why_en:'No. That is a sign of a good plan, not a bad one.'},
+    {t:'Er beginnt damit, eine durchsichtige Fassade einzuziehen',t_en:'It starts by introducing a transparent facade',correct:false,why:'Nein. Die Fassade ist der umkehrbare erste Schritt der Würgefeige — gut so.',why_en:'No. The facade is the reversible first step of the strangler fig — a good thing.'}
   ]}
 ];
 
