@@ -22795,6 +22795,188 @@ File drop   -&gt; very old systems</div>
 ];
 
 // ============================================================
+//   COURSE: Cloud, Daten & Souveränität — unique ids "cloud_*"
+// ============================================================
+const CLOUD_PHASES = [
+  {
+    id: 'p_cloud1', title: 'Cloud im Vergleich', title_en: 'Cloud Compared',
+    sub: 'Die drei Hyperscaler — und wie man sich die Tür zum Wechsel offen hält.',
+    sub_en: 'The three hyperscalers — and how to keep the door to switching open.',
+    lessons: [
+      {
+        id: 'cloud_l1_1', title: 'AWS, Azure & GCP + Vendor-Neutralität',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">AWS, Azure & GCP + Vendor-Neutralität</h1>
+            <p class="lesson-desc">Die drei großen Hyperscaler bieten im Kern dieselben Bausteine. Die wichtigste Architektenfrage ist nicht „welcher ist der beste?", sondern „wie halte ich mir die Tür zum Wechsel offen?".</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Vendor-Neutralität</div>
+            <div class="explanation">
+              AWS, Azure und GCP unterscheiden sich in Namen, Preismodellen und der Nähe zu einem Ökosystem (z. B. Microsoft 365 bei Azure) — im Kern bieten alle Rechenleistung, Speicher, Datenbanken, Identität und KI-Dienste.<br><br>
+              Der Schlüssel heißt <strong>Vendor-Neutralität</strong>: Beschreibst du Infrastruktur mit <code>Terraform</code>, packst Anwendungen in Container auf <code>Kubernetes</code>, nutzt <code>PostgreSQL</code> und offene Formate wie <code>Delta Lake</code>, läuft dein Kern auf jeder Wolke — und im eigenen Rechenzentrum. Du zahlst einen kleinen Aufpreis gegenüber den bequemen Hausdiensten, gewinnst aber Verhandlungsmacht und Souveränität.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz', 'Kaufe Managed-Dienste für Bequemlichkeit, aber baue den Kern auf offenen Standards. Der Aufpreis der Portabilität ist deine Versicherung gegen Preis- und Strategiediktate.')}
+          ${renderQuestions('cloud_l1_1', 6)}
+          ${renderBonus('cloud_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">AWS, Azure & GCP + Vendor Neutrality</h1>
+            <p class="lesson-desc">The three big hyperscalers offer essentially the same building blocks. The key architect question is not "which is best?" but "how do I keep the door to switching open?".</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Vendor neutrality</div>
+            <div class="explanation">
+              AWS, Azure and GCP differ in names, pricing and proximity to an ecosystem (e.g. Microsoft 365 with Azure) — at the core all offer compute, storage, databases, identity and AI services.<br><br>
+              The key is <strong>vendor neutrality</strong>: describe infrastructure with <code>Terraform</code>, package apps in containers on <code>Kubernetes</code>, use <code>PostgreSQL</code> and open formats like <code>Delta Lake</code>, and your core runs on any cloud — and in your own data center. You pay a small premium over the convenient in-house services, but gain negotiating power and sovereignty.
+            </div>
+          </div>
+          ${callout('key', 'Guiding principle', 'Buy managed services for convenience, but build the core on open standards. The premium of portability is your insurance against pricing and strategy dictates.')}
+          ${renderQuestions('cloud_l1_1', 6)}
+          ${renderBonus('cloud_l1_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_cloud2', title: 'Souveränität & On-Prem', title_en: 'Sovereignty & On-Prem',
+    sub: 'Warum „Daten in Frankfurt" nicht „rechtlich geschützt" heißt — und was hilft.',
+    sub_en: 'Why "data in Frankfurt" doesn\'t mean "legally protected" — and what helps.',
+    lessons: [
+      {
+        id: 'cloud_l2_1', title: 'EU-Souveränität, On-Prem & Hybrid',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">EU-Souveränität, On-Prem & Hybrid</h1>
+            <p class="lesson-desc">Viele glauben, eine Cloud-Region in Frankfurt genüge für „europäisch souverän". Das ist ein Trugschluss — eine Region sagt nur, wo Daten liegen, nicht wer rechtlich zugreifen kann.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Souveränität ist eine Skala</div>
+            <div class="explanation">
+              Der <strong>US CLOUD Act</strong> verpflichtet US-Unternehmen (auch europäische Töchter), auf Anordnung Daten herauszugeben — unabhängig davon, wo sie physisch liegen. Region ist also nicht gleich Souveränität.<br><br>
+              Souveränität ist eine <strong>Skala</strong>: von der Region (EU) über die <strong>Sovereign Cloud</strong> (europäischer Betreiber, rechtlich abgeschottet) bis <strong>On-Premises</strong> (eigenes Rechenzentrum, volle Kontrolle). Prüfe vier Dimensionen getrennt: Daten-Standort, Betriebs-Souveränität, Technologie-Souveränität und Modell-Standort (wohin fließen die Prompts?).
+            </div>
+          </div>
+          ${callout('tip', 'Bausteine für mehr Kontrolle', 'BYOK (Bring Your Own Key) — du behältst die Verschlüsselungsschlüssel; ohne sie sind herausgegebene Daten wertlos. Confidential Computing — Daten bleiben sogar bei der Verarbeitung verschlüsselt. Portabilität via Kubernetes + IaC macht den Umzug zwischen Stufen zu einem Redeploy statt Neubau.')}
+          ${renderQuestions('cloud_l2_1', 6)}
+          ${renderBonus('cloud_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">EU Sovereignty, On-Prem & Hybrid</h1>
+            <p class="lesson-desc">Many believe a cloud region in Frankfurt is enough to be "European-sovereign". That's a fallacy — a region only says where data sits, not who can legally access it.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Sovereignty is a scale</div>
+            <div class="explanation">
+              The <strong>US CLOUD Act</strong> obliges US companies (including European subsidiaries) to hand over data on order — regardless of where it physically sits. So region does not equal sovereignty.<br><br>
+              Sovereignty is a <strong>scale</strong>: from the region (EU) through the <strong>sovereign cloud</strong> (European operator, legally walled off) to <strong>on-premises</strong> (your own data center, full control). Check four dimensions separately: data location, operational sovereignty, technology sovereignty and model location (where do the prompts flow?).
+            </div>
+          </div>
+          ${callout('tip', 'Building blocks for more control', 'BYOK (Bring Your Own Key) — you keep the encryption keys; without them, disclosed data is worthless. Confidential computing — data stays encrypted even during processing. Portability via Kubernetes + IaC turns a move between tiers into a redeploy, not a rebuild.')}
+          ${renderQuestions('cloud_l2_1', 6)}
+          ${renderBonus('cloud_l2_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_cloud3', title: 'Networking & Zero-Trust', title_en: 'Networking & Zero-Trust',
+    sub: 'Vom Nutzer im Browser bis zum Dienst im Inneren — und warum man niemandem traut.',
+    sub_en: 'From the user in the browser to the service inside — and why you trust no one.',
+    lessons: [
+      {
+        id: 'cloud_l3_1', title: 'Networking & Zero-Trust',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">Networking & Zero-Trust</h1>
+            <p class="lesson-desc">Zwischen einem Nutzer im Browser und einem Dienst tief in der Infrastruktur liegt eine Kette von Netzwerk-Bausteinen. Und ein Sicherheitsmodell, das niemandem blind vertraut.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Der Weg von außen nach innen</div>
+            <div class="explanation">
+              <code>DNS</code> übersetzt den Namen in eine Adresse, <code>TLS</code> verschlüsselt die Verbindung, ein <strong>Load Balancer</strong> verteilt auf mehrere Server, ein <strong>Reverse-Proxy</strong> leitet ans richtige Ziel, ein <strong>API-Gateway</strong> übernimmt Auth/Rate-Limiting/Routing, ein <code>CDN</code> hält statische Inhalte nah am Nutzer.<br><br>
+              Innen trennt ein <strong>VNet</strong> die Dienste vom öffentlichen Internet; <strong>Private Endpoints</strong> sorgen dafür, dass etwa eine Datenbank gar keine öffentliche Adresse hat.
+            </div>
+          </div>
+          ${callout('key', 'Zero-Trust', 'Das alte „Burg"-Modell (dicke Mauer außen, innen vertraut man) ist gefährlich. Zero-Trust kehrt es um: „Never trust, always verify" — jeder Dienst weist sich aus (mTLS), und Mikrosegmentierung sorgt dafür, dass ein kompromittierter Dienst nicht automatisch alle anderen erreicht.')}
+          ${renderQuestions('cloud_l3_1', 6)}
+          ${renderBonus('cloud_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">Networking & Zero-Trust</h1>
+            <p class="lesson-desc">Between a user in the browser and a service deep in the infrastructure lies a chain of network building blocks. And a security model that trusts no one blindly.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The path from outside in</div>
+            <div class="explanation">
+              <code>DNS</code> translates the name into an address, <code>TLS</code> encrypts the connection, a <strong>load balancer</strong> spreads across several servers, a <strong>reverse proxy</strong> routes to the right target, an <strong>API gateway</strong> handles auth/rate-limiting/routing, a <code>CDN</code> keeps static content near the user.<br><br>
+              Inside, a <strong>VNet</strong> separates services from the public internet; <strong>private endpoints</strong> ensure that, say, a database has no public address at all.
+            </div>
+          </div>
+          ${callout('key', 'Zero-trust', 'The old "castle" model (thick wall outside, trust inside) is dangerous. Zero-trust reverses it: "never trust, always verify" — every service authenticates (mTLS), and microsegmentation ensures a compromised service cannot automatically reach all the others.')}
+          ${renderQuestions('cloud_l3_1', 6)}
+          ${renderBonus('cloud_l3_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_cloud4', title: 'Daten & Governance', title_en: 'Data & Governance',
+    sub: 'Große Datenmengen sinnvoll speichern, veredeln und rechtssicher regieren.',
+    sub_en: 'Storing, refining and governing large data reliably and compliantly.',
+    lessons: [
+      {
+        id: 'cloud_l4_1', title: 'Lakehouse, Medaillon & Governance',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">Lakehouse, Medaillon & Governance</h1>
+            <p class="lesson-desc">Große Datenmengen lohnend zu speichern beginnt beim Format — und endet bei den Regeln, die eine Datenplattform vor dem Chaos bewahren.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Lakehouse & Medaillon</div>
+            <div class="explanation">
+              <code>Parquet</code> speichert Daten spaltenweise (spart Platz, schnelle Abfragen). <strong>Delta Lake</strong> legt eine Transaktions-Schicht darüber — Änderungen atomar, versioniert, rücksetzbar. Zusammen ergeben sie das <strong>Lakehouse</strong>: Flexibilität eines Datensees mit der Verlässlichkeit eines Warehouses. <code>Apache Spark</code> ist die verteilte Verarbeitungsmaschine.<br><br>
+              Die <strong>Medaillon-Architektur</strong> veredelt Rohdaten in drei Stufen: <strong>Bronze</strong> (roh, unverändert), <strong>Silber</strong> (bereinigt, verknüpft), <strong>Gold</strong> (geschäftsfertig, aggregiert) — jede Auswertung bleibt bis zur Quelle nachvollziehbar.
+            </div>
+          </div>
+          ${callout('key', 'Governance', 'Ohne Regeln wird jede Datenplattform zum Sumpf. Governance liefert fünf Bausteine: Katalog (welche Daten wo), Lineage (Herkunftsspur — zugleich DSGVO-/EU-AI-Act-Nachweis), Qualität, PII-Schutz und MDM. Ein Data Mesh ohne föderierte Governance wird nicht dezentral, sondern chaotisch.')}
+          ${renderQuestions('cloud_l4_1', 6)}
+          ${renderBonus('cloud_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">Lakehouse, Medallion & Governance</h1>
+            <p class="lesson-desc">Storing large amounts of data usefully starts with the format — and ends with the rules that keep a data platform out of chaos.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Lakehouse & medallion</div>
+            <div class="explanation">
+              <code>Parquet</code> stores data column-wise (saves space, fast queries). <strong>Delta Lake</strong> adds a transaction layer — changes atomic, versioned, reversible. Together they form the <strong>lakehouse</strong>: the flexibility of a data lake with the reliability of a warehouse. <code>Apache Spark</code> is the distributed processing engine.<br><br>
+              The <strong>medallion architecture</strong> refines raw data in three tiers: <strong>bronze</strong> (raw, unchanged), <strong>silver</strong> (cleaned, joined), <strong>gold</strong> (business-ready, aggregated) — every analysis stays traceable back to the source.
+            </div>
+          </div>
+          ${callout('key', 'Governance', 'Without rules, any data platform becomes a swamp. Governance provides five building blocks: catalog (which data where), lineage (provenance trail — also a GDPR/EU-AI-Act proof), quality, PII protection and MDM. A data mesh without federated governance becomes not decentralized but chaotic.')}
+          ${renderQuestions('cloud_l4_1', 6)}
+          ${renderBonus('cloud_l4_1')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -22852,10 +23034,8 @@ const COURSES = [
     level: 'Fortgeschritten → Profi',
     level_en: 'Advanced → Pro',
     accent: 'var(--accent)',
-    phases: [],
-    available: false,
-    soonNote: '4 Kapitel · geplant',
-    soonNote_en: '4 chapters · planned',
+    phases: CLOUD_PHASES,
+    available: true,
   },
   {
     id: 'security_ops',
