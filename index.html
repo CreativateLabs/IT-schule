@@ -22163,6 +22163,41 @@ C4   -&gt; after the decision  | show the result visually      | 1 picture per l
             </div>
           </div>
           ${callout('key', 'Leitsatz', 'Beginne mit dem modularen Monolithen. Er gibt dir die Ordnung von Microservices ohne deren Betriebssteuer — und lässt dich einzelne Module genau dann herauslösen, wenn ein echter Grund auftritt, nicht vorher.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Vom Monolithen zu den Microservices</div>
+            <div class="explanation">
+              <strong>Monolith</strong>: eine Anwendung, eine Datenbank, echte Transaktionen, kein Netzwerk zwischen den Teilen. Einfach zu bauen, zu testen und zu deployen — wird aber mit der Zeit unübersichtlich, und jede Änderung deployt alles auf einmal. Passt in die frühe Phase und ins kleine Team.<br><br>
+              <strong>Modularer Monolith</strong>: nach außen eine Auslieferungseinheit, innen klar abgegrenzte Module mit definierten Schnittstellen. Man bekommt saubere interne Grenzen und leichte Refaktorierung, und einzelne Module lassen sich später herauslösen. Der Preis: die Grenzen müssen diszipliniert eingehalten werden, und skaliert wird nur als Ganzes. Für die meisten Neubauten ist das der sinnvolle Default.<br><br>
+              <strong>Microservices</strong>: viele eigenständig deploybare Dienste, jeder mit eigener Datenhaltung. Das bringt unabhängiges Deployment, unabhängiges Skalieren und Team-Autonomie — kostet aber die volle <strong>Distributed-Systems-Steuer</strong>, verteilte Daten und hohen Betriebsaufwand. Es lohnt sich erst bei großer Organisation, klaren Domänengrenzen und echtem Skalierungsbedarf.
+            </div>
+          </div>
+          ${quickCheck('Welcher Stil ist der empfohlene Startpunkt für die meisten Neubauten?', ['Microservices — von Anfang an unabhängig skalieren', 'Der modulare Monolith — klare Grenzen ohne Betriebssteuer', 'Serverless — man muss nie einen Server betreiben'], 1, 'Der modulare Monolith gibt dir die interne Ordnung sauber getrennter Module, ohne dass du gleich das Netzwerk zwischen den Teilen und dessen Betriebslast in Kauf nehmen musst.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Drei Stile für besondere Zwänge</div>
+            <div class="explanation">
+              <strong>Event-Driven</strong>: Teile reagieren auf Ereignisse, statt sich direkt aufzurufen. Das ergibt lose Kopplung und puffert Lastspitzen ab — dafür ist der Ablauf schwerer nachzuvollziehen, und man muss Reihenfolge und Duplikate bewusst behandeln.<br><br>
+              <strong>Serverless</strong>: der Cloud-Anbieter startet und skaliert Funktionen und rechnet pro Aufruf ab. Kein Server-Betrieb, skaliert auf null und wieder hoch — aber Kaltstarts, Anbieter-Bindung und schwierige lokale Tests.<br><br>
+              <strong>Agentic</strong>: KI-Agenten übernehmen Teile der Ablaufsteuerung und rufen Werkzeuge auf. Flexibel bei unstrukturierten Abläufen — aber nicht-deterministisch, schwer testbar und nur mit harten Leitplanken und Freigabe-Gates verantwortbar.<br><br>
+              Der gemeinsame Nenner aller verteilten Varianten: Sobald Teile übers Netzwerk statt im selben Prozess reden, zahlt man die <strong>Distributed-Systems-Steuer</strong> — Netzwerkfehler, Teilausfälle, keine gemeinsame Transaktions-Klammer und verteiltes Logging, Tracing und Monitoring.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Sechs Stile auf einen Blick</div>
+            <div class="explanation">
+              Kein Stil ist per se besser — jeder tauscht andere Vorteile gegen andere Kosten. Die letzte Spalte ist die wichtigste: Sie nennt die Situation, in der der Stil trägt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Stil / Vorteil / Kosten / passt, wenn</span></div>
+              <div class="code-pre">Monolith            einfach bauen/testen    wird unuebersichtlich   frueh, kleines Team
+Modularer Monolith  klare Grenzen innen     skaliert nur als Ganzes Default fuer Neubau
+Microservices       unabh. Deploy/Skalieren Distributed-Steuer      grosse Org, Domaenen
+Event-Driven        lose Kopplung, puffert  Ablauf schwer folgbar   Lastspitzen, Entkopp.
+Serverless          kein Betrieb, Auto-Skal Kaltstart, Anbieter-Bind sporadische Last
+Agentic             flexibel, unstrukturiert nicht-deterministisch  unstrukt. Ablaeufe</div>
+            </div>
+          </div>
+          ${callout('tip', 'Leitplanke', 'Zerteile nie entlang technischer Schichten — alle Controller hier, alle Datenzugriffe dort. Zerteile entlang fachlicher Domänen. Nur so bleibt jede Grenze eine echte Grenze und nicht bloß eine Naht quer durch jeden Anwendungsfall.')}
+          ${quickCheck('Entlang welcher Grenzen sollte man ein System zerteilen?', ['Entlang technischer Schichten — Controller, Logik, Datenzugriff getrennt', 'Entlang fachlicher Domänen', 'Entlang der verwendeten Programmiersprachen'], 1, 'Fachliche Domänen halten zusammen, was fachlich zusammengehört. Schnitte entlang technischer Schichten laufen quer durch jeden Vorgang und erzeugen viele Nähte statt klarer Grenzen.')}
           ${renderQuestions('arch_l3_1', 6)}
           ${renderBonus('arch_l3_1')}
         `,
@@ -22180,6 +22215,41 @@ C4   -&gt; after the decision  | show the result visually      | 1 picture per l
             </div>
           </div>
           ${callout('key', 'Guiding principle', 'Start with the modular monolith. It gives you the order of microservices without their operational tax — and lets you extract individual modules exactly when a real reason arises, not before.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">From the monolith to microservices</div>
+            <div class="explanation">
+              <strong>Monolith</strong>: one application, one database, real transactions, no network between the parts. Easy to build, test and deploy — but it grows unwieldy over time, and every change deploys everything at once. It fits the early phase and the small team.<br><br>
+              <strong>Modular monolith</strong>: from the outside one deployment unit, inside clearly bounded modules with defined interfaces. You get clean internal boundaries and easy refactoring, and individual modules can be extracted later. The price: the boundaries must be kept with discipline, and it only scales as a whole. For most new builds this is the sensible default.<br><br>
+              <strong>Microservices</strong>: many independently deployable services, each with its own data. This brings independent deployment, independent scaling and team autonomy — but it costs the full <strong>distributed-systems tax</strong>, distributed data and high operational effort. It only pays off with a large organisation, clear domain boundaries and a real need to scale.
+            </div>
+          </div>
+          ${quickCheck('Which style is the recommended starting point for most new builds?', ['Microservices — scale independently from day one', 'The modular monolith — clear boundaries without the operational tax', 'Serverless — you never have to run a server'], 1, 'The modular monolith gives you the internal order of cleanly separated modules without having to take on the network between the parts and its operational load right away.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Three styles for special pressures</div>
+            <div class="explanation">
+              <strong>Event-driven</strong>: parts react to events instead of calling each other directly. That yields loose coupling and buffers load spikes — but the flow is harder to follow, and you must handle ordering and duplicates deliberately.<br><br>
+              <strong>Serverless</strong>: the cloud provider starts and scales functions and bills per invocation. No server operations, scales to zero and back up — but cold starts, vendor lock-in and difficult local testing.<br><br>
+              <strong>Agentic</strong>: AI agents take over parts of the control flow and call tools. Flexible for unstructured flows — but non-deterministic, hard to test, and only responsible with hard guardrails and approval gates.<br><br>
+              The common denominator of every distributed variant: once parts talk over the network instead of within the same process, you pay the <strong>distributed-systems tax</strong> — network failures, partial outages, no shared transaction bracket, and distributed logging, tracing and monitoring.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Six styles at a glance</div>
+            <div class="explanation">
+              No style is better in itself — each trades different benefits for different costs. The last column is the most important one: it names the situation in which the style holds up.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Style / benefit / cost / fits when</span></div>
+              <div class="code-pre">Monolith            simple to build/test   grows unwieldy         early, small team
+Modular monolith    clear inner boundaries scales only as a whole default for new build
+Microservices       indep. deploy/scaling  distributed-systems tax large org, domains
+Event-driven        loose coupling, buffers flow hard to follow    load spikes, decouple
+Serverless          no ops, auto-scaling   cold start, vendor lock sporadic load
+Agentic             flexible, unstructured non-deterministic       unstructured flows</div>
+            </div>
+          </div>
+          ${callout('tip', 'Guardrail', 'Never split along technical layers — all controllers here, all data access there. Split along business domains. Only then does each boundary stay a real boundary instead of a seam running across every use case.')}
+          ${quickCheck('Along which boundaries should a system be split?', ['Along technical layers — controllers, logic, data access separated', 'Along business domains', 'Along the programming languages used'], 1, 'Business domains keep together what belongs together in the business sense. Cuts along technical layers run across every operation and create many seams instead of clear boundaries.')}
           ${renderQuestions('arch_l3_1', 6)}
           ${renderBonus('arch_l3_1')}
         `
@@ -22200,6 +22270,42 @@ C4   -&gt; after the decision  | show the result visually      | 1 picture per l
             </div>
           </div>
           ${callout('warn', 'Leitplanke', 'Retry ohne Idempotenz ist ein Bug, kein Feature. Ein wiederholter „Geld abbuchen"-Aufruf ohne Idempotency-Key bucht doppelt ab. Prüfe vor jedem Retry: Ist diese Operation gefahrlos wiederholbar?')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Einzelaufrufe robust machen</div>
+            <div class="explanation">
+              <strong>Timeout</strong>: Warte nie unbegrenzt. Ohne Timeout blockiert ein hängender Aufruf einen Thread, dann alle Threads, dann den ganzen Dienst — ein einzelner langsamer Nachbar reißt so das ganze System mit.<br><br>
+              <strong>Retry mit Backoff + Jitter</strong>: Wiederhole mit wachsenden Pausen (1s, 2s, 4s) plus einem Zufallsanteil. Der Zufall verhindert den <em>Thundering Herd</em> — dass alle Clients gleichzeitig erneut anklopfen. Wichtig: nur bei <strong>idempotenten</strong> Aufrufen.<br><br>
+              <strong>Idempotency-Key</strong>: Ein eindeutiger, vom Client vergebener Schlüssel sorgt dafür, dass ein zweiter „Zahlung buchen"-Aufruf mit demselben Schlüssel nicht erneut wirkt. Erst er macht ein Retry gefahrlos.
+            </div>
+          </div>
+          ${quickCheck('Warum darf man einen Aufruf nur mit Timeout absetzen?', ['Ein Timeout macht den Aufruf schneller', 'Ohne Timeout kann ein hängender Aufruf Thread für Thread den ganzen Dienst blockieren', 'Ein Timeout ersetzt den Retry'], 1, 'Ein hängender Aufruf hält seinen Thread fest. Ohne Obergrenze füllen sich so nach und nach alle Threads — bis der ganze Dienst steht. Der Timeout gibt den Thread wieder frei.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Ausbreitung verhindern</div>
+            <div class="explanation">
+              <strong>Circuit Breaker</strong>: ein Schalter mit drei Zuständen. Im Normalfall <em>geschlossen</em> — Aufrufe gehen durch, Fehler werden gezählt. Häufen sich die Fehler, springt er auf <em>offen</em> und weist Aufrufe sofort ab, statt in Timeouts zu verbluten. Nach einer Wartezeit lässt der Zustand <em>halb-offen</em> einen Testaufruf zu: Erfolg schließt den Schalter, ein Fehler öffnet ihn wieder.<br><br>
+              <strong>Bulkhead</strong>: Schotte Ressourcen und Pools je Abhängigkeit ab — wie die Schotten eines Schiffs. So reißt ein überlasteter Bereich nicht alle anderen mit; das Leck bleibt in einer Kammer.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Circuit Breaker · drei Zustände</span></div>
+              <div class="code-pre">geschlossen  -&gt; Aufrufe gehen durch, Fehler werden gezaehlt
+   Fehlerhaeufung ueberschreitet die Schwelle
+offen        -&gt; Aufrufe sofort abgewiesen (kein Warten in Timeouts)
+   nach einer Wartezeit ein einzelner Testaufruf
+halb-offen   -&gt; Erfolg: schliessen  |  Fehler: wieder oeffnen</div>
+            </div>
+          </div>
+          ${quickCheck('Was tut ein Circuit Breaker im Zustand „offen"?', ['Er wiederholt den Aufruf sofort und dauerhaft', 'Er weist Aufrufe sofort ab, statt in Timeouts zu verbluten', 'Er löscht die Fehlerzähler und ignoriert Fehler'], 1, 'Offen heißt: Der Breaker schützt vor dem Verbluten. Statt jeden Aufruf erneut in einen Timeout laufen zu lassen, lehnt er sofort ab und gibt dem kranken Nachbarn Zeit, sich zu erholen.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Konsistenz ohne verteilte Transaktion</div>
+            <div class="explanation">
+              <strong>Saga</strong>: Ein fachlicher Vorgang wird zur Kette lokaler Schritte. Scheitert ein späterer Schritt, machen <strong>kompensierende Gegenaktionen</strong> die früheren rückgängig — ein Storno statt eines Löschens.<br><br>
+              <strong>Outbox-Muster</strong>: Speichern in der DB und Verschicken eines Ereignisses werden atomar gekoppelt. Das Ereignis landet in derselben DB-Transaktion in einer Ausgangs-Tabelle; ein separater Relay-Prozess verschickt es zuverlässig. So gehen keine Ereignisse verloren und keine entstehen doppelt.<br><br>
+              <strong>Anti-Corruption-Layer</strong>: eine Übersetzungsschicht zwischen dem eigenen sauberen Modell und einem fremden oder alten System — damit dessen Eigenheiten nicht ins eigene Modell durchsickern.<br><br>
+              Das <strong>CAP-Theorem</strong> zwingt bei einer Netz-Partition zur bewussten Wahl: <em>Verfügbarkeit</em> (weiter antworten, evtl. mit veralteten Daten) oder <em>Konsistenz</em> (Antwort verweigern, aber keine falschen Daten). Diese Wahl trifft man pro Anwendungsfall.
+            </div>
+          </div>
+          ${callout('fact', 'Kaskade & Brandschutztüren', 'Ein kleiner Ausfall breitet sich aus: Dienst C wird langsam, Threads stauen sich in B, A blockiert — und das ganze System steht. Timeout, Circuit Breaker und Bulkhead sind die Brandschutztüren, die das Feuer in einer Kammer halten.')}
+          ${quickCheck('Wie stellt eine Saga Konsistenz ohne globale Transaktion her?', ['Sie hält eine verteilte Transaktion über alle Dienste offen', 'Sie macht frühere Schritte durch kompensierende Gegenaktionen rückgängig, wenn ein späterer scheitert', 'Sie wiederholt den ganzen Vorgang, bis er komplett gelingt'], 1, 'Eine Saga bricht den Vorgang in lokale Schritte. Statt eines gemeinsamen Rollbacks kehrt jeder Schritt seine eigene Wirkung mit einer Gegenaktion um — etwa ein Storno statt eines Löschens.')}
           ${renderQuestions('arch_l3_2', 6)}
           ${renderBonus('arch_l3_2')}
         `,
@@ -22217,6 +22323,42 @@ C4   -&gt; after the decision  | show the result visually      | 1 picture per l
             </div>
           </div>
           ${callout('warn', 'Guardrail', 'Retry without idempotency is a bug, not a feature. A repeated "charge money" call without an idempotency key charges twice. Before every retry ask: is this operation safely repeatable?')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Making single calls robust</div>
+            <div class="explanation">
+              <strong>Timeout</strong>: never wait forever. Without a timeout, a hung call blocks a thread, then all threads, then the whole service — a single slow neighbour drags the entire system down.<br><br>
+              <strong>Retry with backoff + jitter</strong>: retry with growing pauses (1s, 2s, 4s) plus a random share. The randomness prevents the <em>thundering herd</em> — all clients knocking again at the same moment. Important: only for <strong>idempotent</strong> calls.<br><br>
+              <strong>Idempotency key</strong>: a unique, client-supplied key makes sure a second "book payment" call with the same key has no additional effect. Only that makes a retry safe.
+            </div>
+          </div>
+          ${quickCheck('Why should a call only be made with a timeout?', ['A timeout makes the call faster', 'Without a timeout a hung call can block the whole service, thread by thread', 'A timeout replaces the retry'], 1, 'A hung call holds on to its thread. Without an upper bound all threads fill up one by one — until the whole service stalls. The timeout releases the thread again.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Preventing the spread</div>
+            <div class="explanation">
+              <strong>Circuit breaker</strong>: a switch with three states. Normally <em>closed</em> — calls pass through, errors are counted. If errors pile up, it flips to <em>open</em> and rejects calls immediately instead of bleeding out in timeouts. After a wait, the <em>half-open</em> state allows a single test call: success closes the switch, an error opens it again.<br><br>
+              <strong>Bulkhead</strong>: isolate resources and pools per dependency — like the bulkheads of a ship. That way an overloaded area does not drag all the others down; the leak stays in one compartment.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Circuit breaker · three states</span></div>
+              <div class="code-pre">closed     -&gt; calls pass through, errors are counted
+   error rate crosses the threshold
+open       -&gt; calls rejected immediately (no waiting in timeouts)
+   after a wait, a single test call
+half-open  -&gt; success: close  |  error: open again</div>
+            </div>
+          </div>
+          ${quickCheck('What does a circuit breaker do in the open state?', ['It retries the call immediately and forever', 'It rejects calls immediately instead of bleeding out in timeouts', 'It clears the error counters and ignores errors'], 1, 'Open means the breaker guards against bleeding out. Instead of letting every call run into another timeout, it rejects immediately and gives the sick neighbour time to recover.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Consistency without a distributed transaction</div>
+            <div class="explanation">
+              <strong>Saga</strong>: a business operation becomes a chain of local steps. If a later step fails, <strong>compensating actions</strong> undo the earlier ones — a reversal instead of a delete.<br><br>
+              <strong>Outbox pattern</strong>: saving to the DB and sending an event are coupled atomically. The event lands in an outbox table within the same DB transaction; a separate relay process sends it reliably. That way no events are lost and none are created twice.<br><br>
+              <strong>Anti-corruption layer</strong>: a translation layer between your own clean model and a foreign or legacy system — so its quirks do not seep into your model.<br><br>
+              The <strong>CAP theorem</strong> forces a deliberate choice during a network partition: <em>availability</em> (keep answering, possibly with stale data) or <em>consistency</em> (refuse to answer, but no wrong data). You make that choice per use case.
+            </div>
+          </div>
+          ${callout('fact', 'Cascade & fire doors', 'A small outage spreads: service C slows down, threads pile up in B, A blocks — and the whole system stalls. Timeout, circuit breaker and bulkhead are the fire doors that keep the fire in one compartment.')}
+          ${quickCheck('How does a saga achieve consistency without a global transaction?', ['It keeps a distributed transaction open across all services', 'It undoes earlier steps with compensating actions when a later one fails', 'It repeats the whole operation until it fully succeeds'], 1, 'A saga breaks the operation into local steps. Instead of a shared rollback, each step reverses its own effect with a counter-action — for example a reversal instead of a delete.')}
           ${renderQuestions('arch_l3_2', 6)}
           ${renderBonus('arch_l3_2')}
         `
@@ -28311,6 +28453,46 @@ QUESTION_POOLS['arch_l4_1'] = [
   {id:'p_arch_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Welcher HTTP-Statuscode signalisiert am ehesten zu viele Anfragen (Rate-Limit)?',question_en:'Which HTTP status code most likely signals too many requests (rate limit)?',options:[
     {t:'<code>429</code> Too Many Requests',t_en:'<code>429</code> Too Many Requests',correct:true,why:'Genau. 429 sagt dem Aufrufer, dass er zu schnell fragt und später erneut versuchen soll.',why_en:'Exactly. 429 tells the caller they are asking too fast and should retry later.'},
     {t:'<code>404</code> Not Found',t_en:'<code>404</code> Not Found',correct:false,why:'Nein. 404 heißt, die Ressource existiert nicht — nichts über die Anfragerate.',why_en:'No. 404 means the resource does not exist — nothing about the request rate.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l3_1'] = [
+  {id:'p_arch_l3_1_mc1',type:'mc',xp:10,question:'Welcher Stil ist der empfohlene Startpunkt für die meisten Neubauten?',question_en:'Which style is the recommended starting point for most new builds?',options:[
+    {t:'Der modulare Monolith',t_en:'The modular monolith',correct:true,why:'Richtig. Er bringt klare interne Grenzen ohne die Distributed-Systems-Steuer — und Module lassen sich später herauslösen.',why_en:'Correct. It brings clear internal boundaries without the distributed-systems tax — and modules can be extracted later.'},
+    {t:'Microservices von Anfang an',t_en:'Microservices from the start',correct:false,why:'Nein. Microservices kosten sofort die volle Distributed-Systems-Steuer, ohne dass der Nutzen schon feststeht.',why_en:'No. Microservices cost the full distributed-systems tax immediately, before the benefit is even clear.'},
+    {t:'Serverless für alles',t_en:'Serverless for everything',correct:false,why:'Nein. Serverless löst einen Betriebszwang, ist aber kein Standard-Zerlegungsprinzip für ein ganzes System.',why_en:'No. Serverless solves an operational pressure but is not a default decomposition principle for a whole system.'}
+  ]},
+  {id:'p_arch_l3_1_mc2',type:'mc',xp:10,question:'Was beschreibt die „Distributed-Systems-Steuer" am besten?',question_en:'What best describes the distributed-systems tax?',options:[
+    {t:'Die unvermeidlichen Zusatzkosten, sobald Teile übers Netzwerk statt im selben Prozess reden',t_en:'The unavoidable extra cost once parts talk over the network instead of within the same process',correct:true,why:'Genau: Netzwerkfehler, Teilausfälle, keine gemeinsame Transaktions-Klammer, verteiltes Tracing und Monitoring.',why_en:'Exactly: network failures, partial outages, no shared transaction bracket, distributed tracing and monitoring.'},
+    {t:'Eine Lizenzgebühr des Cloud-Anbieters pro Dienst',t_en:'A per-service licence fee charged by the cloud provider',correct:false,why:'Nein. Gemeint sind technische Kosten der Verteilung, keine Rechnung des Anbieters.',why_en:'No. It means the technical cost of distribution, not a provider invoice.'},
+    {t:'Die Zeit, die ein Monolith zum Deployen braucht',t_en:'The time a monolith needs to deploy',correct:false,why:'Nein. Die Steuer entsteht gerade durch verteilte Teile, nicht im Monolithen.',why_en:'No. The tax arises precisely from distributed parts, not in the monolith.'}
+  ]},
+  {id:'p_arch_l3_1_tf1',type:'truefalse',xp:8,statement:'Microservices sind grundsätzlich besser als ein Monolith.',statement_en:'Microservices are fundamentally better than a monolith.',correct:false,explanation:'Falsch. Es gibt kein Gut-Schlecht-Spektrum — jeder Stil tauscht andere Vorteile gegen andere Kosten. Microservices lohnen sich erst bei großer Organisation, klaren Domänen und echtem Skalierungsbedarf.',explanation_en:'False. There is no good-vs-bad spectrum — each style trades different benefits for different costs. Microservices only pay off with a large organisation, clear domains and a real need to scale.'},
+  {id:'p_arch_l3_1_tf2',type:'truefalse',xp:8,statement:'Ein System zerteilt man entlang fachlicher Domänen, nicht entlang technischer Schichten.',statement_en:'A system is split along business domains, not along technical layers.',correct:true,explanation:'Richtig. Schnitte entlang technischer Schichten laufen quer durch jeden Vorgang. Domänengrenzen halten zusammen, was fachlich zusammengehört.',explanation_en:'Correct. Cuts along technical layers run across every operation. Domain boundaries keep together what belongs together in the business sense.'},
+  {id:'p_arch_l3_1_fb1',type:'fillblank',xp:12,prompt:'Der Stil, bei dem der Cloud-Anbieter Funktionen startet, auf null skaliert und pro Aufruf abrechnet, heißt ___ .',prompt_en:'The style in which the cloud provider starts functions, scales to zero and bills per invocation is called ___ .',answers:['Serverless','serverless','Serverless-Computing'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Serverless nimmt einem den Server-Betrieb ab und skaliert auf null — erkauft mit Kaltstarts, Anbieter-Bindung und schwerer lokaler Testbarkeit.',explanation_en:'Serverless takes server operations off your hands and scales to zero — at the price of cold starts, vendor lock-in and difficult local testing.'},
+  {id:'p_arch_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist die zentrale Schwäche des agentischen Stils?',question_en:'What is the central weakness of the agentic style?',options:[
+    {t:'Er ist nicht-deterministisch und schwer testbar — er braucht harte Leitplanken und Freigabe-Gates',t_en:'It is non-deterministic and hard to test — it needs hard guardrails and approval gates',correct:true,why:'Genau. Flexibilität bei unstrukturierten Abläufen erkauft man mit Nicht-Determinismus und schwerer Testbarkeit.',why_en:'Exactly. Flexibility for unstructured flows is bought with non-determinism and poor testability.'},
+    {t:'Er kann nur in einem Monolithen laufen',t_en:'It can only run inside a monolith',correct:false,why:'Nein. Der agentische Stil ist nicht an eine Auslieferungsform gebunden.',why_en:'No. The agentic style is not tied to one deployment form.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l3_2'] = [
+  {id:'p_arch_l3_2_mc1',type:'mc',xp:10,question:'Was tut ein Circuit Breaker im Zustand „offen"?',question_en:'What does a circuit breaker do in the open state?',options:[
+    {t:'Er weist Aufrufe sofort ab, statt in Timeouts zu verbluten',t_en:'It rejects calls immediately instead of bleeding out in timeouts',correct:true,why:'Genau. Offen schützt vor dem Verbluten und gibt dem kranken Nachbarn Zeit, sich zu erholen.',why_en:'Exactly. Open guards against bleeding out and gives the sick neighbour time to recover.'},
+    {t:'Er wiederholt jeden Aufruf sofort und dauerhaft',t_en:'It retries every call immediately and forever',correct:false,why:'Nein. Genau das würde den Ausfall verstärken; der Breaker weist ab.',why_en:'No. That would amplify the outage; the breaker rejects instead.'},
+    {t:'Er ignoriert Fehler und zählt sie nicht mehr',t_en:'It ignores errors and stops counting them',correct:false,why:'Nein. Nach einer Wartezeit lässt er im Zustand halb-offen einen Testaufruf zu.',why_en:'No. After a wait it allows a test call in the half-open state.'}
+  ]},
+  {id:'p_arch_l3_2_mc2',type:'mc',xp:10,question:'Wie macht eine Saga einen fehlgeschlagenen mehrstufigen Vorgang wieder gut?',question_en:'How does a saga clean up a failed multi-step operation?',options:[
+    {t:'Kompensierende Gegenaktionen machen die früheren Schritte rückgängig',t_en:'Compensating actions undo the earlier steps',correct:true,why:'Genau. Statt eines globalen Rollbacks kehrt jeder Schritt seine eigene Wirkung um — etwa ein Storno statt eines Löschens.',why_en:'Exactly. Instead of a global rollback, each step reverses its own effect — for example a reversal instead of a delete.'},
+    {t:'Sie hält eine verteilte Transaktion über alle Dienste offen',t_en:'It keeps a distributed transaction open across all services',correct:false,why:'Nein. Gerade das vermeidet die Saga — sie arbeitet mit lokalen Schritten.',why_en:'No. That is exactly what the saga avoids — it works with local steps.'},
+    {t:'Sie löscht alle bisher geschriebenen Daten hart',t_en:'It hard-deletes all data written so far',correct:false,why:'Nein. Kompensation heißt fachlich rückgängig machen, nicht hart löschen.',why_en:'No. Compensation means undoing in business terms, not hard deletion.'}
+  ]},
+  {id:'p_arch_l3_2_tf1',type:'truefalse',xp:8,statement:'Ein Netzwerkaufruf ohne Timeout kann einen ganzen Dienst zum Stillstand bringen.',statement_en:'A network call without a timeout can bring a whole service to a standstill.',correct:true,explanation:'Richtig. Ein hängender Aufruf hält seinen Thread. Ohne Obergrenze füllen sich nach und nach alle Threads — bis der Dienst steht.',explanation_en:'Correct. A hung call holds its thread. Without an upper bound all threads fill up one by one — until the service stalls.'},
+  {id:'p_arch_l3_2_tf2',type:'truefalse',xp:8,statement:'Ein Retry ist auch ohne Idempotenz gefahrlos.',statement_en:'A retry is safe even without idempotency.',correct:false,explanation:'Falsch. Ohne Idempotenz kann ein wiederholter Aufruf doppelt wirken — etwa zweimal Geld abbuchen. Retry setzt idempotente Aufrufe oder einen Idempotency-Key voraus.',explanation_en:'False. Without idempotency a repeated call can take effect twice — for example charging money twice. Retry requires idempotent calls or an idempotency key.'},
+  {id:'p_arch_l3_2_fb1',type:'fillblank',xp:12,prompt:'Das Muster, das Speichern in der DB und das Verschicken eines Ereignisses atomar koppelt (Ereignis in derselben Transaktion in eine Ausgangs-Tabelle, separater Relay verschickt), heißt ___-Muster.',prompt_en:'The pattern that atomically couples saving to the DB and sending an event (event into an outbox table in the same transaction, a separate relay sends it) is called the ___ pattern.',answers:['Outbox','outbox','Outbox-Muster','outbox pattern'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das Outbox-Muster verhindert verlorene oder verwaiste Ereignisse: Erst wenn die DB-Transaktion committet, existiert das Ereignis, und der Relay stellt es zuverlässig zu.',explanation_en:'The outbox pattern prevents lost or orphaned events: the event exists only once the DB transaction commits, and the relay delivers it reliably.'},
+  {id:'p_arch_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Wozu zwingt das CAP-Theorem bei einer Netz-Partition?',question_en:'What does the CAP theorem force during a network partition?',options:[
+    {t:'Zur bewussten Wahl zwischen Verfügbarkeit und Konsistenz',t_en:'A deliberate choice between availability and consistency',correct:true,why:'Genau. Entweder weiter antworten (evtl. veraltete Daten) oder Antwort verweigern (keine falschen Daten) — pro Anwendungsfall entschieden.',why_en:'Exactly. Either keep answering (possibly stale data) or refuse to answer (no wrong data) — decided per use case.'},
+    {t:'Beides gleichzeitig voll zu garantieren',t_en:'To fully guarantee both at the same time',correct:false,why:'Nein. Genau das ist bei einer Partition nicht möglich — man muss wählen.',why_en:'No. That is exactly what is impossible during a partition — you must choose.'}
   ]}
 ];
 
