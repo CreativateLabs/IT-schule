@@ -23401,6 +23401,46 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('key', 'Zugriffsmodelle & RAG-Security', 'Wer darf was? RBAC (nach Rolle), ABAC (nach Attributen/Kontext), ReBAC (nach Beziehungen im Graph). Bei RAG gilt Security Trimming: Die Berechtigungsprüfung muss VOR dem Modell greifen — es dürfen nur Dokumente in den Kontext, die der Nutzer ohnehin sehen dürfte. Ein Sprachmodell ist kein Zugriffskontrollsystem.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Drei Modelle der Zugriffskontrolle</div>
+            <div class="explanation">
+              Wer darf was? Die drei Modelle steigern die Ausdruckskraft — und die Komplexität:<br><br>
+              <strong>RBAC</strong> (Role-Based) — Rechte hängen an der <em>Rolle</em>: Admin, Editor, Betrachter. Einfach zu verstehen, aber grob; bei feinen Abstufungen droht eine <strong>Rollen-Explosion</strong> (immer mehr Sonderrollen).<br>
+              <strong>ABAC</strong> (Attribute-Based) — Rechte hängen an <em>Merkmalen</em>: Abteilung, Uhrzeit, Standort, Datenklassifizierung. Feingranular, aber die Policies werden schnell komplex.<br>
+              <strong>ReBAC</strong> (Relationship-Based) — Rechte hängen an <em>Beziehungen</em> im Graph: „Du darfst dieses Dokument sehen, weil du Mitglied des Projekts bist.“ Skaliert für geteilte Ressourcen, braucht aber eine Graph-Engine.<br><br>
+              In der Datenbank ergänzt <strong>Row-Level Security</strong> (RLS) diese Modelle: Die DB filtert <em>jede</em> Abfrage automatisch nach Zugehörigkeit — Multi-Tenant-Isolation greift selbst dann, wenn die App die <code>WHERE</code>-Bedingung vergisst. <strong>Column-Masking</strong> blendet sensible Spalten je nach Betrachter aus. Zentral verwaltet eine <strong>Policy-Engine</strong> (OPA/OpenFGA) die Regeln versioniert an einem Ort.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Row-Level Security: Isolation in der DB</span></div>
+              <div class="code-pre">CREATE POLICY tenant_isolation ON dokumente
+  USING (tenant_id = current_tenant());
+
+-- Die DB filtert JEDE Abfrage automatisch nach tenant_id.
+-- Greift auch, wenn die App die WHERE-Bedingung vergisst.</div>
+            </div>
+          </div>
+          ${quickCheck('Ein Import-Job soll nur neue Datensätze schreiben. Welches Prinzip verlangt, dass er <em>kein</em> Löschrecht bekommt?', ['<strong>Least-Privilege</strong>', '<strong>Encryption at rest</strong>', '<strong>Audit-Log</strong>'], 0, 'Least-Privilege heißt: jeder Dienst bekommt genau die Rechte für seine Aufgabe — nicht mehr. Ein reiner Schreib-Job braucht kein Löschrecht, also bekommt er auch keins. Das begrenzt den Schaden, falls er gekapert wird.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">RAG Security Trimming</div>
+            <div class="explanation">
+              Bei RAG entsteht eine besondere Lücke: Findet die Suche Dokumente, die der Nutzer gar nicht sehen darf, und speist sie ins Modell, kann das Modell deren Inhalt verraten — obwohl das Dokument nie angezeigt wurde.<br><br>
+              Die Regel lautet <strong>Security Trimming</strong>: Die Berechtigungsprüfung (ein <strong>ACL-Filter</strong>) muss greifen, <em>bevor</em> die Dokumente ins Modell gelangen. Nur erlaubte Dokumente dürfen in den Kontext. Genauso gefährlich ist ungeprüfte Eingabe an anderer Stelle — etwa <strong>SSRF</strong> (Server-Side Request Forgery), bei dem ein Angreifer den Server dazu bringt, fremde interne Adressen aufzurufen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Sichere Reihenfolge im RAG-Fluss</span></div>
+              <div class="code-pre">Nutzerfrage
+   |
+Suche (Vektor-/Volltextindex)     -&gt;  Kandidaten-Dokumente
+   |
+ACL-Filter (Berechtigungsprüfung) -&gt;  nur erlaubte Dokumente
+   |
+Sprachmodell (nur erlaubter Kontext) -&gt;  Antwort
+
+Merksatz: Filtere nach Berechtigung, BEVOR Dokumente in den Kontext gelangen.</div>
+            </div>
+          </div>
+          ${quickCheck('An welcher Stelle im RAG-Fluss muss die Berechtigungsprüfung (ACL-Filter) greifen?', ['<strong>Nach</strong> dem Modell, beim Anzeigen der Antwort', '<strong>Vor</strong> dem Modell — nur erlaubte Dokumente in den Kontext', 'Gar nicht — das Modell entscheidet selbst, was es zeigt'], 1, 'Ein Sprachmodell ist kein Zugriffskontrollsystem: Sind unerlaubte Dokumente einmal im Kontext, kann das Modell ihren Inhalt verraten. Deshalb filtert der ACL-Filter VOR dem Modell — nur erlaubte Dokumente gelangen überhaupt hinein.')}
+          ${callout('fact', 'Ein Modell ist kein Zugriffssystem', 'Verlasse dich nie darauf, dass ein Sprachmodell geheime Inhalte „schon nicht verrät“. Sicherheit gehört in eine unabhängige Schicht davor: ACL-Filter vor dem Modell, RLS in der Datenbank, Least-Privilege für jeden Dienst.')}
           ${renderQuestions('sec_l1_1', 6)}
           ${renderBonus('sec_l1_1')}
         `,
@@ -23418,6 +23458,46 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('key', 'Access models & RAG security', 'Who may do what? RBAC (by role), ABAC (by attributes/context), ReBAC (by relationships in a graph). For RAG, security trimming applies: the authorization check must happen BEFORE the model — only documents the user is already allowed to see may enter the context. A language model is not an access control system.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Three models of access control</div>
+            <div class="explanation">
+              Who may do what? The three models increase expressiveness — and complexity:<br><br>
+              <strong>RBAC</strong> (role-based) — rights hang on the <em>role</em>: admin, editor, viewer. Easy to grasp but coarse; fine distinctions risk a <strong>role explosion</strong> (ever more special roles).<br>
+              <strong>ABAC</strong> (attribute-based) — rights hang on <em>attributes</em>: department, time of day, location, data classification. Fine-grained, but the policies quickly grow complex.<br>
+              <strong>ReBAC</strong> (relationship-based) — rights hang on <em>relationships</em> in a graph: "you may see this document because you are a member of the project." It scales for shared resources but needs a graph engine.<br><br>
+              In the database, <strong>row-level security</strong> (RLS) complements these models: the DB filters <em>every</em> query automatically by membership — multi-tenant isolation holds even when the app forgets the <code>WHERE</code> clause. <strong>Column masking</strong> hides sensitive columns per viewer. A <strong>policy engine</strong> (OPA/OpenFGA) manages the rules, versioned, in one central place.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Row-level security: isolation in the DB</span></div>
+              <div class="code-pre">CREATE POLICY tenant_isolation ON documents
+  USING (tenant_id = current_tenant());
+
+-- The DB filters EVERY query automatically by tenant_id.
+-- It holds even when the app forgets the WHERE clause.</div>
+            </div>
+          </div>
+          ${quickCheck('An import job should only write new records. Which principle demands that it gets <em>no</em> delete right?', ['<strong>Least privilege</strong>', '<strong>Encryption at rest</strong>', '<strong>Audit log</strong>'], 0, 'Least privilege means: every service gets exactly the rights for its task — no more. A write-only job needs no delete right, so it gets none. That limits the damage if it is hijacked.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">RAG security trimming</div>
+            <div class="explanation">
+              RAG opens a special gap: if the search finds documents the user is not allowed to see and feeds them into the model, the model can reveal their content — even though the document was never displayed.<br><br>
+              The rule is <strong>security trimming</strong>: the authorization check (an <strong>ACL filter</strong>) must apply <em>before</em> the documents reach the model. Only allowed documents may enter the context. Just as dangerous is unchecked input elsewhere — for example <strong>SSRF</strong> (server-side request forgery), where an attacker gets the server to call foreign internal addresses.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Safe order in the RAG flow</span></div>
+              <div class="code-pre">User question
+   |
+Search (vector/full-text index)   -&gt;  candidate documents
+   |
+ACL filter (authorization check)  -&gt;  only allowed documents
+   |
+Language model (allowed context only) -&gt;  answer
+
+Rule: filter by permission BEFORE documents enter the context.</div>
+            </div>
+          </div>
+          ${quickCheck('At which point in the RAG flow must the authorization check (ACL filter) apply?', ['<strong>After</strong> the model, when showing the answer', '<strong>Before</strong> the model — only allowed documents in the context', 'Not at all — the model decides itself what to show'], 1, 'A language model is not an access control system: once forbidden documents are in the context, the model can reveal their content. So the ACL filter runs BEFORE the model — only allowed documents get in at all.')}
+          ${callout('fact', 'A model is not an access system', 'Never rely on a language model to "just not reveal" secret content. Security belongs in an independent layer in front: ACL filter before the model, RLS in the database, least privilege for every service.')}
           ${renderQuestions('sec_l1_1', 6)}
           ${renderBonus('sec_l1_1')}
         `
@@ -23445,6 +23525,45 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Nachweis & Verantwortung', 'Kunden verlangen Nachweise: ISO 27001 (Informationssicherheits-Management), SOC 2 (US-Markt), BSI C5 (oft Vergabevoraussetzung bei Behörden). Responsible AI geht über Recht hinaus: Fairness (keine systematische Benachteiligung), Erklärbarkeit (Entscheidung nachvollziehbar begründbar) und Human-in-the-loop.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die vier Risikoklassen des EU AI Act</div>
+            <div class="explanation">
+              Der EU AI Act (seit 2024, die weltweit erste umfassende KI-Regulierung) ordnet jedes System <em>risikobasiert</em> ein — je höher das Risiko, desto strenger die Pflichten:<br><br>
+              <strong>Unannehmbar</strong> — Social Scoring, manipulatives Verhalten, biometrische Massenüberwachung: schlicht <em>verboten</em>.<br>
+              <strong>Hoch</strong> — KI in Personalauswahl, Kreditvergabe, Medizin, kritischer Infrastruktur: Risikomanagement, Dokumentation, menschliche Aufsicht, Konformitätsbewertung.<br>
+              <strong>Begrenzt</strong> — Chatbots, generative Systeme, Deepfakes: Transparenzpflicht — Nutzer müssen wissen, dass sie mit KI interagieren.<br>
+              <strong>Minimal</strong> — Spamfilter, KI in Spielen, Empfehlungssysteme: keine besonderen Auflagen.<br><br>
+              Entscheidend: Derselbe technische Kern kann in verschiedenen Klassen landen — in einem Marketing-Chatbot fällt er nur unter die Transparenzpflicht, in der Kreditvergabe wird er hochriskant. Die Einordnung des eigenen Systems ist der erste, entscheidende Schritt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risikoklasse -&gt; Beispiele -&gt; Pflichten</span></div>
+              <div class="code-pre">unannehmbar  Social Scoring, Massenbiometrie   verboten
+hoch         Personalauswahl, Kredit, Medizin  Doku, Aufsicht, Konf.-Bew.
+begrenzt     Chatbots, generative KI, Deepfake  Transparenzpflicht
+minimal      Spamfilter, Spiele, Empfehlungen  keine besonderen Auflagen</div>
+            </div>
+          </div>
+          ${quickCheck('Ein rein werblicher Chatbot beantwortet Produktfragen. In welche AI-Act-Risikoklasse fällt er typischerweise?', ['<strong>Hoch</strong> — strenge Dokumentations- und Aufsichtspflichten', '<strong>Begrenzt</strong> — Transparenzpflicht: der Nutzer muss die KI erkennen', '<strong>Unannehmbar</strong> — verboten'], 1, 'Ein Marketing-Chatbot ist ein generatives System ohne folgenreiche Entscheidung über Menschen — begrenztes Risiko, also Transparenzpflicht. Erst in Feldern wie Kreditvergabe oder Personalauswahl würde derselbe technische Kern hochriskant.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Nachweisbare Sicherheit: Zertifizierungen</div>
+            <div class="explanation">
+              Vertrauen genügt nicht — Kunden und Behörden verlangen belegbare Nachweise. Drei Zertifizierungen sind maßgeblich:<br><br>
+              <strong>ISO 27001</strong> — der internationale Standard für ein Informationssicherheits-Managementsystem (ISMS): nachweisen, dass Sicherheit systematisch organisiert ist.<br>
+              <strong>SOC 2</strong> — vor allem im US-Markt: ein Prüfbericht, der bestätigt, dass Kontrollen zu Sicherheit, Verfügbarkeit und Vertraulichkeit über einen Zeitraum tatsächlich gelebt werden.<br>
+              <strong>BSI C5</strong> — der Kriterienkatalog des deutschen BSI für Cloud-Sicherheit; oft <em>Vergabevoraussetzung</em> bei Behörden und im öffentlichen Sektor.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Responsible AI: drei Prinzipien</div>
+            <div class="explanation">
+              Responsible AI geht über das Recht hinaus — wird aber zunehmend selbst zur Pflicht. Drei Prinzipien tragen sie:<br><br>
+              <strong>Fairness</strong> — das System benachteiligt keine Gruppe systematisch. Es schützt vor verzerrten Ergebnissen, die aus verzerrten Trainingsdaten entstehen.<br>
+              <strong>Erklärbarkeit</strong> (Explainability) — eine Entscheidung ist nachvollziehbar begründbar: nicht „das Modell sagt Nein“, sondern „abgelehnt wegen dieser konkreten Faktoren“. Das ist Voraussetzung für die vom AI Act geforderte Kontrollierbarkeit.<br>
+              <strong>Human-in-the-loop</strong> — bei folgenreichen Entscheidungen prüft und verantwortet am Ende ein Mensch.
+            </div>
+          </div>
+          ${quickCheck('Warum reicht die Aussage „das Modell hat abgelehnt“ bei einer folgenreichen Entscheidung nicht aus?', ['Weil Erklärbarkeit fehlt — die Entscheidung muss mit konkreten Faktoren begründbar sein', 'Weil das Modell immer eine Zahl statt Text ausgeben muss', 'Weil nur die DSGVO, nicht der AI Act, Entscheidungen betrifft'], 0, 'Erklärbarkeit verlangt eine nachvollziehbare Begründung — „abgelehnt wegen dieser konkreten Faktoren“ statt eines undurchsichtigen „Nein“. Genau diese Nachvollziehbarkeit ist Voraussetzung für die vom AI Act geforderte Kontrollierbarkeit und menschliche Aufsicht.')}
+          ${callout('key', 'Zuerst einordnen, dann bauen', 'Ordne jedes KI-System früh einer der vier AI-Act-Risikoklassen zu und halte die Begründung schriftlich fest. Die Klasse entscheidet über alle weiteren Pflichten — und derselbe technische Kern kann je nach Einsatz in einer ganz anderen Klasse landen.')}
           ${renderQuestions('sec_l2_1', 6)}
           ${renderBonus('sec_l2_1')}
         `,
@@ -23462,6 +23581,45 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Proof & responsibility', 'Customers demand proof: ISO 27001 (information security management), SOC 2 (US market), BSI C5 (often a prerequisite for public tenders). Responsible AI goes beyond law: fairness (no systematic disadvantage), explainability (decisions justifiable) and human-in-the-loop.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The four risk classes of the EU AI Act</div>
+            <div class="explanation">
+              The EU AI Act (since 2024, the world's first comprehensive AI regulation) classifies every system by <em>risk</em> — the higher the risk, the stricter the duties:<br><br>
+              <strong>Unacceptable</strong> — social scoring, manipulative behavior, biometric mass surveillance: simply <em>banned</em>.<br>
+              <strong>High</strong> — AI in hiring, credit scoring, medicine, critical infrastructure: risk management, documentation, human oversight, conformity assessment.<br>
+              <strong>Limited</strong> — chatbots, generative systems, deepfakes: transparency duty — users must know they are interacting with AI.<br>
+              <strong>Minimal</strong> — spam filters, AI in games, recommendation systems: no special requirements.<br><br>
+              Crucial: the same technical core can land in different classes — in a marketing chatbot it falls only under the transparency duty, in credit scoring it becomes high risk. Classifying your own system is the first, decisive step.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risk class -&gt; examples -&gt; duties</span></div>
+              <div class="code-pre">unacceptable  social scoring, mass biometrics   banned
+high          hiring, credit, medicine          docs, oversight, conformity
+limited       chatbots, generative AI, deepfake transparency duty
+minimal       spam filters, games, recommenders no special requirements</div>
+            </div>
+          </div>
+          ${quickCheck('A purely promotional chatbot answers product questions. Which AI Act risk class does it typically fall into?', ['<strong>High</strong> — strict documentation and oversight duties', '<strong>Limited</strong> — transparency duty: the user must recognize the AI', '<strong>Unacceptable</strong> — banned'], 1, 'A marketing chatbot is a generative system with no consequential decision about people — limited risk, so a transparency duty. Only in fields like credit scoring or hiring would the same technical core become high risk.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Provable security: certifications</div>
+            <div class="explanation">
+              Trust is not enough — customers and authorities demand documented proof. Three certifications matter most:<br><br>
+              <strong>ISO 27001</strong> — the international standard for an information security management system (ISMS): proof that security is organized systematically.<br>
+              <strong>SOC 2</strong> — mainly in the US market: an audit report confirming that controls for security, availability and confidentiality are actually lived over a period of time.<br>
+              <strong>BSI C5</strong> — the German BSI's criteria catalog for cloud security; often a <em>prerequisite for tenders</em> with authorities and the public sector.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Responsible AI: three principles</div>
+            <div class="explanation">
+              Responsible AI goes beyond the law — yet is increasingly becoming a duty itself. Three principles carry it:<br><br>
+              <strong>Fairness</strong> — the system does not systematically disadvantage any group. It guards against skewed results that arise from skewed training data.<br>
+              <strong>Explainability</strong> — a decision is justifiable in a traceable way: not "the model says no", but "rejected because of these concrete factors". This is a precondition for the controllability the AI Act demands.<br>
+              <strong>Human-in-the-loop</strong> — for consequential decisions, a human reviews and takes final responsibility.
+            </div>
+          </div>
+          ${quickCheck('Why is "the model rejected it" not enough for a consequential decision?', ['Because explainability is missing — the decision must be justifiable with concrete factors', 'Because the model must always output a number instead of text', 'Because only the GDPR, not the AI Act, concerns decisions'], 0, 'Explainability demands a traceable justification — "rejected because of these concrete factors" instead of an opaque "no". Exactly this traceability is the precondition for the controllability and human oversight the AI Act demands.')}
+          ${callout('key', 'Classify first, then build', 'Assign every AI system early to one of the four AI Act risk classes and record the reasoning in writing. The class decides all further duties — and the same technical core can land in a completely different class depending on the use.')}
           ${renderQuestions('sec_l2_1', 6)}
           ${renderBonus('sec_l2_1')}
         `
@@ -23489,6 +23647,58 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('key', 'Das Eval-Set', 'Herz jeder KI-Qualitätssicherung ist das Eval-Set — eine kuratierte Sammlung echter Fälle mit geprüfter Soll-Antwort. Gegen dieses Set läuft jede Änderung, bevor sie live geht. Weil KI nicht-deterministisch ist, testet man geschichtet über viele Fälle mit Schwellenwerten — ein einzelner grüner Testlauf beweist nichts.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Test-Pyramide & CI-Gates</div>
+            <div class="explanation">
+              Die Form der Pyramide ist Absicht: unten <strong>viele</strong> billige Tests, die Fehler früh und schnell fangen; oben <strong>wenige</strong> teure Tests aus Nutzersicht.<br><br>
+              <strong>Unit-Tests</strong> — prüfen einzelne Funktionen isoliert; schnell und zahlreich.<br>
+              <strong>Integrationstests</strong> — prüfen das Zusammenspiel mehrerer Teile; weniger, langsamer.<br>
+              <strong>End-to-End-Tests</strong> — prüfen den ganzen Ablauf aus Nutzersicht; wenige, langsam.<br><br>
+              Verankert wird das in <strong>CI-Gates</strong>: Prüfschranken in der Continuous-Integration-Pipeline, die einen Merge blockieren, solange nicht alle Tests grün sind — fehlerhafter Code gelangt nicht in den Hauptzweig. <strong>Contract-Tests</strong> prüfen zusätzlich, dass zwei Dienste sich ans vereinbarte Schnittstellenformat halten; sie schlagen an, <em>bevor</em> eine Formatänderung den anderen Dienst in Produktion bricht.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Die Test-Pyramide</span></div>
+              <div class="code-pre">        /\        wenige  E2E-Tests      (langsam, Nutzersicht)
+       /  \
+      /----\      einige  Integrationstests
+     /      \
+    /--------\    viele   Unit-Tests      (schnell, isoliert)
+
+CI-Gate: Merge blockiert, solange nicht alle Stufen grün sind.</div>
+            </div>
+          </div>
+          ${quickCheck('Warum stehen in der Test-Pyramide unten die vielen schnellen Unit-Tests und oben nur wenige E2E-Tests?', ['Weil viele billige, schnelle Tests Fehler früh fangen — teure E2E-Tests bleiben selten', 'Weil Unit-Tests unwichtiger sind als E2E-Tests', 'Weil E2E-Tests keine echten Fehler finden können'], 0, 'Die Form ist Absicht: Unit-Tests sind schnell und billig, also nutzt man viele davon und fängt Fehler früh. E2E-Tests sind langsam und teuer, also bleiben sie oben wenige — sie prüfen den ganzen Ablauf aus Nutzersicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">KI in zwei Stufen messen</div>
+            <div class="explanation">
+              KI-Ausgaben sind nicht-deterministisch und selten eindeutig — mit „richtig/falsch“ nicht abtestbar. Deshalb misst man <em>getrennt</em> in zwei Stufen:<br><br>
+              <strong>Retrieval-Qualität</strong> (findet das System die richtigen Dokumente?):<br>
+              <code>Precision@k</code> — Anteil relevanter Treffer unter den ersten k.<br>
+              <code>MRR</code> (Mean Reciprocal Rank) — wie weit oben der erste richtige Treffer steht.<br>
+              <code>nDCG</code> — bewertet Reihenfolge und Relevanz gestaffelt; frühe Treffer zählen mehr.<br><br>
+              <strong>Generierungs-Qualität</strong> (macht das Modell daraus eine gute Antwort?):<br>
+              <code>Faithfulness</code> / Quellentreue — ist die Antwort durch die abgerufenen Quellen gedeckt oder halluziniert? Die Kernmetrik: eine Antwort kann flüssig, relevant und trotzdem frei erfunden sein.<br>
+              <code>Relevancy</code> — beantwortet die Antwort tatsächlich die Frage?<br><br>
+              Das Framework <strong>RAGAS</strong> berechnet diese RAG-Metriken automatisch.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Zwei Stufen, getrennt gemessen</span></div>
+              <div class="code-pre">Retrieval    -&gt;  Precision@k, MRR, nDCG   (richtige Dokumente gefunden?)
+Generierung  -&gt;  Faithfulness, Relevancy  (gute Antwort daraus gemacht?)
+
+Faithfulness trennt belastbare von frei erfundenen Antworten.</div>
+            </div>
+          </div>
+          ${quickCheck('Eine Antwort klingt flüssig und passt zur Frage, ist aber durch keine der abgerufenen Quellen gedeckt. Welche Metrik schlägt an?', ['<code>Faithfulness</code> (Quellentreue) — sie ist niedrig', '<code>Precision@k</code> — sie ist niedrig', '<code>Relevancy</code> — sie ist niedrig'], 0, 'Faithfulness misst, ob die Antwort durch die Quellen gedeckt ist. Eine flüssige, thematisch passende Antwort kann trotzdem frei erfunden sein — dann ist die Relevancy hoch, aber die Faithfulness niedrig. Genau diese Metrik trennt belastbare von halluzinierten Antworten.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Eval-Set & LLM-as-Judge</div>
+            <div class="explanation">
+              Das <strong>Eval-Set</strong> ist eine kuratierte Sammlung echter Fälle mit von Menschen geprüfter Soll-Antwort — es muss aus <em>echten</em> Nutzerfragen stammen. Gegen dieses Set läuft jede Änderung an Prompt, Modell oder Suche, bevor sie live geht: Man sieht sofort, ob eine „Verbesserung“ andere Fälle verschlechtert — eine <strong>Regression</strong>.<br><br>
+              Weil menschliche Bewertung nicht skaliert, hilft <strong>LLM-as-Judge</strong>: Ein zweites Sprachmodell bewertet die Antworten automatisch. Der Judge hat jedoch eigene Vorlieben und muss <em>kalibriert</em> werden — seine Urteile richtet man an einer Stichprobe menschlicher Bewertungen aus und misst die Übereinstimmung.
+            </div>
+          </div>
+          ${quickCheck('Wozu dient ein Eval-Set aus echten Fällen, gegen das jede Änderung läuft, bevor sie live geht?', ['Es macht Tests überflüssig, weil KI ja nicht-deterministisch ist', 'Es zeigt sofort, ob eine „Verbesserung“ andere Fälle verschlechtert (Regression)', 'Es ersetzt die Unit-Tests der klassischen Software'], 1, 'Gegen das Eval-Set läuft jede Änderung an Prompt, Modell oder Suche. So sieht man geschichtet über viele Fälle, ob eine vermeintliche Verbesserung andere Fälle verschlechtert — eine Regression. Ein KI-System ohne Eval-Set aus echten Fällen ist unsteuerbar.')}
+          ${callout('fact', 'Geschichtet testen, nicht starr vergleichen', 'Weil KI-Ausgaben nicht-deterministisch sind, prüft man nicht gegen einen starren Soll-Text, sondern bewertet über viele Fälle mit Schwellenwerten (z. B. Faithfulness im Schnitt > 0,9). Ein einzelner grüner Testlauf beweist nichts.')}
           ${renderQuestions('sec_l3_1', 6)}
           ${renderBonus('sec_l3_1')}
         `,
@@ -23506,6 +23716,58 @@ const SEC_PHASES = [
             </div>
           </div>
           ${callout('key', 'The eval set', 'At the heart of AI quality assurance is the eval set — a curated collection of real cases with vetted target answers. Every change runs against this set before going live. Because AI is non-deterministic, you test in aggregate over many cases with thresholds — a single green test run proves nothing.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The test pyramid & CI gates</div>
+            <div class="explanation">
+              The pyramid's shape is intentional: <strong>many</strong> cheap tests at the bottom that catch bugs early and fast; <strong>few</strong> expensive tests from the user's view on top.<br><br>
+              <strong>Unit tests</strong> — check single functions in isolation; fast and numerous.<br>
+              <strong>Integration tests</strong> — check the interplay of several parts; fewer, slower.<br>
+              <strong>End-to-end tests</strong> — check the whole flow from the user's view; few, slow.<br><br>
+              This is anchored in <strong>CI gates</strong>: checkpoints in the continuous integration pipeline that block a merge until all tests are green — faulty code does not reach the main branch. <strong>Contract tests</strong> additionally check that two services keep to the agreed interface format; they fire <em>before</em> a format change breaks the other service in production.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">The test pyramid</span></div>
+              <div class="code-pre">        /\        few    E2E tests        (slow, user's view)
+       /  \
+      /----\      some   integration tests
+     /      \
+    /--------\    many   unit tests       (fast, isolated)
+
+CI gate: merge blocked until every tier is green.</div>
+            </div>
+          </div>
+          ${quickCheck('Why does the test pyramid put many fast unit tests at the bottom and only few E2E tests on top?', ['Because many cheap, fast tests catch bugs early — expensive E2E tests stay rare', 'Because unit tests are less important than E2E tests', 'Because E2E tests cannot find real bugs'], 0, 'The shape is intentional: unit tests are fast and cheap, so you use many and catch bugs early. E2E tests are slow and expensive, so few stay on top — they check the whole flow from the user\'s view.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Measuring AI in two stages</div>
+            <div class="explanation">
+              AI outputs are non-deterministic and rarely unambiguous — not testable with "right/wrong". So you measure <em>separately</em> in two stages:<br><br>
+              <strong>Retrieval quality</strong> (does the system find the right documents?):<br>
+              <code>Precision@k</code> — share of relevant hits among the first k.<br>
+              <code>MRR</code> (mean reciprocal rank) — how high up the first correct hit sits.<br>
+              <code>nDCG</code> — rates order and relevance in a graded way; early hits count more.<br><br>
+              <strong>Generation quality</strong> (does the model turn that into a good answer?):<br>
+              <code>Faithfulness</code> — is the answer covered by the retrieved sources or hallucinated? The core metric: an answer can be fluent, relevant and still made up.<br>
+              <code>Relevancy</code> — does the answer actually answer the question?<br><br>
+              The framework <strong>RAGAS</strong> computes these RAG metrics automatically.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Two stages, measured separately</span></div>
+              <div class="code-pre">Retrieval   -&gt;  Precision@k, MRR, nDCG   (found the right documents?)
+Generation  -&gt;  faithfulness, relevancy  (made a good answer from them?)
+
+Faithfulness separates well-grounded answers from made-up ones.</div>
+            </div>
+          </div>
+          ${quickCheck('An answer sounds fluent and fits the question, but is covered by none of the retrieved sources. Which metric fires?', ['<code>Faithfulness</code> — it is low', '<code>Precision@k</code> — it is low', '<code>Relevancy</code> — it is low'], 0, 'Faithfulness measures whether the answer is covered by the sources. A fluent, on-topic answer can still be made up — then relevancy is high but faithfulness is low. Exactly this metric separates well-grounded answers from hallucinated ones.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Eval set & LLM-as-judge</div>
+            <div class="explanation">
+              The <strong>eval set</strong> is a curated collection of real cases with human-vetted target answers — it must come from <em>real</em> user questions. Every change to prompt, model or search runs against this set before going live: you see at once whether an "improvement" makes other cases worse — a <strong>regression</strong>.<br><br>
+              Because human review does not scale, <strong>LLM-as-judge</strong> helps: a second language model rates the answers automatically. The judge, however, has its own preferences and must be <em>calibrated</em> — you align its judgments with a sample of human ratings and measure the agreement.
+            </div>
+          </div>
+          ${quickCheck('What is an eval set of real cases — which every change runs against before going live — good for?', ['It makes tests unnecessary, since AI is non-deterministic anyway', 'It shows at once whether an "improvement" makes other cases worse (a regression)', 'It replaces the unit tests of classic software'], 1, 'Every change to prompt, model or search runs against the eval set. So, in aggregate over many cases, you see whether a supposed improvement makes other cases worse — a regression. An AI system without an eval set of real cases is unsteerable.')}
+          ${callout('fact', 'Test in aggregate, not against a rigid text', 'Because AI outputs are non-deterministic, you do not check against a rigid target text but rate over many cases with thresholds (e.g. faithfulness averaging > 0.9). A single green test run proves nothing.')}
           ${renderQuestions('sec_l3_1', 6)}
           ${renderBonus('sec_l3_1')}
         `
@@ -29609,6 +29871,69 @@ QUESTION_POOLS['cloud_l4_1'] = [
     {t:'Zuerst die gemeinsamen Regeln — Katalog, Lineage, PII, Qualität — verbindlich beschließen',t_en:'First bindingly decide the shared rules — catalog, lineage, PII, quality',correct:true,why:'Genau. Erst die föderierte Governance macht die Dezentralisierung tragfähig statt chaotisch.',why_en:'Exactly. Only federated governance makes decentralization viable rather than chaotic.'},
     {t:'Jede Domäne entscheidet völlig frei, ohne gemeinsame Regeln',t_en:'Each domain decides completely freely, without shared rules',correct:false,why:'Nein. Ohne gemeinsame Regeln entstehen widersprüchliche Datenprodukte und Chaos.',why_en:'No. Without shared rules you get contradictory data products and chaos.'},
     {t:'Zuerst alle Daten zentral in ein einziges Team verschieben',t_en:'First move all data centrally into a single team',correct:false,why:'Nein. Das ist der zentrale Ansatz, nicht das Data Mesh — und macht das Team zum Engpass.',why_en:'No. That is the central approach, not the data mesh — and makes the team a bottleneck.'}
+  ]}
+];
+
+QUESTION_POOLS['sec_l1_1'] = [
+  {id:'p_sec_l1_1_mc1',type:'mc',xp:10,question:'Was besagt das Prinzip <strong>Least-Privilege</strong>?',question_en:'What does the principle of <strong>least privilege</strong> state?',options:[
+    {t:'Jeder Nutzer, Dienst oder Prozess erhält nur genau die Rechte, die er für seine Aufgabe braucht',t_en:'Every user, service or process gets exactly the rights it needs for its task, no more',correct:true,why:'Genau. So kann ein gekapertes Konto nur wenig anrichten — der Schaden bleibt begrenzt.',why_en:'Exactly. A hijacked account can then do little harm — the damage stays limited.'},
+    {t:'Alle Nutzer bekommen Admin-Rechte, damit nichts blockiert',t_en:'All users get admin rights so nothing gets blocked',correct:false,why:'Nein. Das ist das Gegenteil: breite Rechte vergrößern den Schaden bei einer Kompromittierung.',why_en:'No. That is the opposite: broad rights enlarge the damage on a compromise.'},
+    {t:'Rechte werden nur einmal beim Anlegen des Kontos vergeben und nie wieder geprüft',t_en:'Rights are granted once at account creation and never checked again',correct:false,why:'Nein. Least-Privilege betrifft den Umfang der Rechte, nicht den Zeitpunkt der Vergabe.',why_en:'No. Least privilege is about the scope of rights, not the moment they are granted.'}
+  ]},
+  {id:'p_sec_l1_1_mc2',type:'mc',xp:10,question:'Welches Zugriffsmodell vergibt Rechte nach <strong>Beziehungen in einem Graph</strong> (etwa „du darfst das Dokument sehen, weil du Mitglied des Projekts bist“)?',question_en:'Which access model grants rights by <strong>relationships in a graph</strong> (e.g. "you may see the document because you are a member of the project")?',options:[
+    {t:'<strong>ReBAC</strong> (Relationship-Based)',t_en:'<strong>ReBAC</strong> (relationship-based)',correct:true,why:'Genau. ReBAC skaliert für geteilte Ressourcen, braucht dafür aber eine Graph-Engine.',why_en:'Exactly. ReBAC scales for shared resources but needs a graph engine.'},
+    {t:'<strong>RBAC</strong> (Role-Based)',t_en:'<strong>RBAC</strong> (role-based)',correct:false,why:'Nein. RBAC vergibt Rechte nach Rolle (Admin/Editor) — einfach, aber grob.',why_en:'No. RBAC grants rights by role (admin/editor) — simple but coarse.'},
+    {t:'<strong>ABAC</strong> (Attribute-Based)',t_en:'<strong>ABAC</strong> (attribute-based)',correct:false,why:'Nein. ABAC vergibt Rechte nach Merkmalen wie Abteilung oder Uhrzeit, nicht nach Beziehungen.',why_en:'No. ABAC grants rights by attributes like department or time, not by relationships.'}
+  ]},
+  {id:'p_sec_l1_1_tf1',type:'truefalse',xp:8,statement:'Bei RAG muss die Berechtigungsprüfung (ACL-Filter) greifen, BEVOR die Dokumente ins Sprachmodell gelangen.',statement_en:'For RAG, the authorization check (ACL filter) must apply BEFORE the documents reach the language model.',correct:true,explanation:'Richtig. Sind unerlaubte Dokumente einmal im Kontext, kann das Modell ihren Inhalt verraten. Ein Sprachmodell ist kein Zugriffskontrollsystem.',explanation_en:'Correct. Once forbidden documents are in the context, the model can reveal their content. A language model is not an access control system.'},
+  {id:'p_sec_l1_1_tf2',type:'truefalse',xp:8,statement:'Encryption in transit (TLS) allein genügt, damit gespeicherte Daten auf der Festplatte geschützt sind.',statement_en:'Encryption in transit (TLS) alone is enough to protect stored data on disk.',correct:false,explanation:'Falsch. In transit schützt nur die Übertragung. Erst zusammen mit Encryption at rest (gespeichert) schließt sich die Lücke.',explanation_en:'False. In transit only protects the transfer. Only together with encryption at rest (stored) is the gap closed.'},
+  {id:'p_sec_l1_1_fb1',type:'fillblank',xp:12,prompt:'Der Tresor-Dienst, in den Passwörter, API-Schlüssel und Zertifikate gehören — statt in den Quellcode oder ins Git — heißt ___.',prompt_en:'The vault service where passwords, API keys and certificates belong — instead of in the source code or in Git — is called a ___.',answers:['Vault','vault','Tresor','Secrets-Vault','Secret Vault'],placeholder:'Tresor-Dienst…',placeholder_en:'Vault service…',explanation:'Ein <strong>Vault</strong> speichert Secrets zentral, protokolliert Zugriffe und rotiert Schlüssel automatisch — Secrets gehören nie in den Code oder ins Git.',explanation_en:'A <strong>vault</strong> stores secrets centrally, logs access and rotates keys automatically — secrets never belong in the code or in Git.'},
+  {id:'p_sec_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Warum ist <strong>Row-Level Security</strong> (RLS) in der Datenbank stärker als eine reine Prüfung in der Anwendung?',question_en:'Why is <strong>row-level security</strong> (RLS) in the database stronger than a check only in the application?',options:[
+    {t:'Die DB filtert jede Abfrage automatisch nach Zugehörigkeit — auch wenn die App die WHERE-Bedingung vergisst',t_en:'The DB filters every query automatically by membership — even if the app forgets the WHERE clause',correct:true,why:'Genau. Die Isolation greift direkt in der Datenbank, unabhängig von Fehlern in der App-Logik.',why_en:'Exactly. The isolation applies directly in the database, independent of bugs in the app logic.'},
+    {t:'Weil RLS die Daten zusätzlich verschlüsselt',t_en:'Because RLS additionally encrypts the data',correct:false,why:'Nein. RLS filtert Zeilen nach Zugehörigkeit; Verschlüsselung ist eine andere Maßnahme.',why_en:'No. RLS filters rows by membership; encryption is a separate measure.'},
+    {t:'Weil RLS die Anwendung überflüssig macht',t_en:'Because RLS makes the application unnecessary',correct:false,why:'Nein. RLS ergänzt die App als zusätzliche Schicht (Defense-in-Depth), ersetzt sie nicht.',why_en:'No. RLS complements the app as an extra layer (defense-in-depth), it does not replace it.'}
+  ]}
+];
+
+QUESTION_POOLS['sec_l2_1'] = [
+  {id:'p_sec_l2_1_mc1',type:'mc',xp:10,question:'In welche Risikoklasse des EU AI Act fällt ein rein werblicher Chatbot, der Produktfragen beantwortet?',question_en:'Which EU AI Act risk class does a purely promotional chatbot answering product questions fall into?',options:[
+    {t:'<strong>Begrenzt</strong> — Transparenzpflicht: der Nutzer muss wissen, dass er mit KI interagiert',t_en:'<strong>Limited</strong> — transparency duty: the user must know they are interacting with AI',correct:true,why:'Genau. Ohne folgenreiche Entscheidung über Menschen bleibt es bei der Transparenzpflicht.',why_en:'Exactly. With no consequential decision about people, only the transparency duty applies.'},
+    {t:'<strong>Hoch</strong> — mit Risikomanagement, Dokumentation und Konformitätsbewertung',t_en:'<strong>High</strong> — with risk management, documentation and conformity assessment',correct:false,why:'Nein. Hochriskant wäre derselbe Kern erst in Feldern wie Kreditvergabe oder Personalauswahl.',why_en:'No. The same core would only be high risk in fields like credit scoring or hiring.'},
+    {t:'<strong>Unannehmbar</strong> — verboten',t_en:'<strong>Unacceptable</strong> — banned',correct:false,why:'Nein. Verboten sind etwa Social Scoring oder biometrische Massenüberwachung, kein Werbe-Chatbot.',why_en:'No. Banned uses are e.g. social scoring or biometric mass surveillance, not a marketing chatbot.'}
+  ]},
+  {id:'p_sec_l2_1_mc2',type:'mc',xp:10,question:'Welches Prinzip von Responsible AI verlangt, dass eine Entscheidung mit konkreten Faktoren begründbar ist statt „das Modell sagt Nein“?',question_en:'Which Responsible AI principle demands that a decision be justifiable with concrete factors rather than "the model says no"?',options:[
+    {t:'<strong>Erklärbarkeit</strong> (Explainability)',t_en:'<strong>Explainability</strong>',correct:true,why:'Genau. Erklärbarkeit ist Voraussetzung für die vom AI Act geforderte Kontrollierbarkeit.',why_en:'Exactly. Explainability is a precondition for the controllability the AI Act demands.'},
+    {t:'<strong>Fairness</strong>',t_en:'<strong>Fairness</strong>',correct:false,why:'Nein. Fairness schützt vor systematischer Benachteiligung einer Gruppe, nicht vor Intransparenz.',why_en:'No. Fairness guards against systematic disadvantage of a group, not against opacity.'},
+    {t:'<strong>Datensparsamkeit</strong>',t_en:'<strong>Data minimization</strong>',correct:false,why:'Nein. Datensparsamkeit stammt aus der DSGVO und betrifft die Menge erhobener Daten.',why_en:'No. Data minimization comes from the GDPR and concerns the amount of data collected.'}
+  ]},
+  {id:'p_sec_l2_1_tf1',type:'truefalse',xp:8,statement:'Sobald ein Cloud- oder KI-Dienstleister personenbezogene Daten im Auftrag verarbeitet, ist ein DPA (Auftragsverarbeitungsvertrag) nötig.',statement_en:'As soon as a cloud or AI provider processes personal data on your behalf, a DPA (data processing agreement) is required.',correct:true,explanation:'Richtig. Der DPA hält Pflichten und Haftung schriftlich fest, sobald ein Dienstleister Daten im Auftrag verarbeitet.',explanation_en:'Correct. The DPA records duties and liability in writing as soon as a provider processes data on your behalf.'},
+  {id:'p_sec_l2_1_tf2',type:'truefalse',xp:8,statement:'Der EU AI Act stuft alle KI-Systeme unabhängig vom Einsatzzweck in dieselbe Risikoklasse ein.',statement_en:'The EU AI Act classifies all AI systems into the same risk class regardless of their use.',correct:false,explanation:'Falsch. Die Einordnung ist risikobasiert und hängt vom Einsatz ab — derselbe technische Kern kann je nach Anwendung in einer anderen Klasse landen.',explanation_en:'False. The classification is risk-based and depends on the use — the same technical core can land in a different class depending on the application.'},
+  {id:'p_sec_l2_1_fb1',type:'fillblank',xp:12,prompt:'Der Kriterienkatalog des deutschen BSI für Cloud-Sicherheit, der oft Vergabevoraussetzung bei Behörden ist, heißt BSI ___.',prompt_en:'The German BSI criteria catalog for cloud security, often a prerequisite for public tenders, is called BSI ___.',answers:['C5','c5'],placeholder:'BSI …',placeholder_en:'BSI …',explanation:'<strong>BSI C5</strong> ist der Cloud-Sicherheits-Katalog des BSI. ISO 27001 (ISMS) und SOC 2 (v. a. US-Markt) sind weitere Nachweise.',explanation_en:'<strong>BSI C5</strong> is the BSI cloud security catalog. ISO 27001 (ISMS) and SOC 2 (mainly US market) are further forms of proof.'},
+  {id:'p_sec_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist der erste, entscheidende Schritt, bevor man ein KI-System nach dem EU AI Act betreibt?',question_en:'What is the first, decisive step before operating an AI system under the EU AI Act?',options:[
+    {t:'Das System früh einer der vier Risikoklassen zuordnen und die Begründung schriftlich festhalten',t_en:'Classify the system early into one of the four risk classes and record the reasoning in writing',correct:true,why:'Genau. Die Klasse entscheidet über alle weiteren Pflichten — sie steht am Anfang.',why_en:'Exactly. The class decides all further duties — it comes first.'},
+    {t:'Zuerst so viele personenbezogene Daten wie möglich sammeln',t_en:'First collect as much personal data as possible',correct:false,why:'Nein. Das widerspricht der Datensparsamkeit der DSGVO.',why_en:'No. That contradicts the data minimization of the GDPR.'},
+    {t:'Auf jede Dokumentation verzichten, solange kein Kunde sie verlangt',t_en:'Skip all documentation until a customer demands it',correct:false,why:'Nein. Gerade Hochrisiko-Systeme verlangen Dokumentation und menschliche Aufsicht von Anfang an.',why_en:'No. High-risk systems in particular require documentation and human oversight from the start.'}
+  ]}
+];
+
+QUESTION_POOLS['sec_l3_1'] = [
+  {id:'p_sec_l3_1_mc1',type:'mc',xp:10,question:'Warum stehen in der Test-Pyramide unten die vielen Unit-Tests und oben nur wenige End-to-End-Tests?',question_en:'Why does the test pyramid have many unit tests at the bottom and only few end-to-end tests on top?',options:[
+    {t:'Viele billige, schnelle Tests fangen Fehler früh; teure, langsame E2E-Tests bleiben wenige',t_en:'Many cheap, fast tests catch bugs early; expensive, slow E2E tests stay few',correct:true,why:'Genau. Die Form ist Absicht: früh und günstig prüfen, wo es geht.',why_en:'Exactly. The shape is intentional: check early and cheaply where possible.'},
+    {t:'Unit-Tests sind weniger wichtig, deshalb macht man mehr davon',t_en:'Unit tests are less important, so you make more of them',correct:false,why:'Nein. Man macht viele Unit-Tests, weil sie schnell und billig sind, nicht weil sie unwichtig wären.',why_en:'No. You make many unit tests because they are fast and cheap, not because they are unimportant.'},
+    {t:'E2E-Tests können keine echten Fehler finden',t_en:'E2E tests cannot find real bugs',correct:false,why:'Nein. E2E-Tests finden echte Fehler aus Nutzersicht — sie sind nur langsam und teuer, daher wenige.',why_en:'No. E2E tests do find real bugs from the user perspective — they are just slow and costly, hence few.'}
+  ]},
+  {id:'p_sec_l3_1_mc2',type:'mc',xp:10,question:'Welche Metrik prüft, ob eine KI-Antwort durch die abgerufenen Quellen gedeckt ist oder halluziniert?',question_en:'Which metric checks whether an AI answer is covered by the retrieved sources or hallucinated?',options:[
+    {t:'<code>Faithfulness</code> (Quellentreue)',t_en:'<code>Faithfulness</code>',correct:true,why:'Genau. Eine Antwort kann flüssig und relevant sein und trotzdem frei erfunden — Faithfulness trennt beides.',why_en:'Exactly. An answer can be fluent and relevant yet made up — faithfulness separates the two.'},
+    {t:'<code>Precision@k</code>',t_en:'<code>Precision@k</code>',correct:false,why:'Nein. Precision@k misst die Retrieval-Qualität (wie viele der ersten k Treffer relevant sind).',why_en:'No. Precision@k measures retrieval quality (how many of the first k hits are relevant).'},
+    {t:'<code>nDCG</code>',t_en:'<code>nDCG</code>',correct:false,why:'Nein. nDCG bewertet die Reihenfolge der gefundenen Dokumente, nicht die Quellentreue der Antwort.',why_en:'No. nDCG rates the ordering of found documents, not the source-groundedness of the answer.'}
+  ]},
+  {id:'p_sec_l3_1_tf1',type:'truefalse',xp:8,statement:'Ein Eval-Set sollte aus echten Nutzerfragen mit von Menschen geprüfter Soll-Antwort bestehen; gegen es läuft jede Änderung, bevor sie live geht.',statement_en:'An eval set should consist of real user questions with human-vetted target answers; every change runs against it before going live.',correct:true,explanation:'Richtig. So erkennt man sofort eine Regression — wenn eine „Verbesserung“ andere Fälle verschlechtert. Ein KI-System ohne Eval-Set ist unsteuerbar.',explanation_en:'Correct. This reveals a regression at once — when an improvement makes other cases worse. An AI system without an eval set is unsteerable.'},
+  {id:'p_sec_l3_1_tf2',type:'truefalse',xp:8,statement:'Weil KI-Ausgaben nicht-deterministisch sind, beweist ein einzelner grüner Testlauf die Qualität zuverlässig.',statement_en:'Because AI outputs are non-deterministic, a single green test run reliably proves quality.',correct:false,explanation:'Falsch. Man testet geschichtet über viele Fälle mit Schwellenwerten (z. B. Faithfulness im Schnitt > 0,9) — ein einzelner Lauf beweist nichts.',explanation_en:'False. You test in aggregate over many cases with thresholds (e.g. faithfulness averaging > 0.9) — a single run proves nothing.'},
+  {id:'p_sec_l3_1_fb1',type:'fillblank',xp:12,prompt:'Die Prüfschranken in der CI-Pipeline, die einen Merge blockieren, solange nicht alle Tests grün sind, heißen CI-___.',prompt_en:'The checkpoints in the CI pipeline that block a merge until all tests are green are called CI ___.',answers:['Gates','gates','Gate','gate'],placeholder:'CI-…',placeholder_en:'CI …',explanation:'<strong>CI-Gates</strong> blockieren den Merge, bis alle Tests grün sind — so gelangt fehlerhafter Code nicht in den Hauptzweig.',explanation_en:'<strong>CI gates</strong> block the merge until all tests are green — so faulty code does not reach the main branch.'},
+  {id:'p_sec_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Worauf muss man beim Einsatz von <strong>LLM-as-Judge</strong> (ein zweites Modell bewertet die Antworten) achten?',question_en:'What must you watch out for when using <strong>LLM-as-judge</strong> (a second model rates the answers)?',options:[
+    {t:'Der Judge hat eigene Vorlieben und muss an einer Stichprobe menschlicher Bewertungen kalibriert werden',t_en:'The judge has its own preferences and must be calibrated against a sample of human ratings',correct:true,why:'Genau. Ohne Kalibrierung und Übereinstimmungsmessung sind die automatischen Urteile nicht belastbar.',why_en:'Exactly. Without calibration and agreement measurement, the automatic judgments are not reliable.'},
+    {t:'Der Judge ersetzt das Eval-Set vollständig',t_en:'The judge fully replaces the eval set',correct:false,why:'Nein. Der Judge skaliert die Bewertung, ersetzt aber nicht die kuratierten echten Fälle des Eval-Sets.',why_en:'No. The judge scales the rating but does not replace the curated real cases of the eval set.'},
+    {t:'Der Judge macht Retrieval-Metriken wie Precision@k überflüssig',t_en:'The judge makes retrieval metrics like Precision@k unnecessary',correct:false,why:'Nein. Retrieval und Generierung misst man getrennt — der Judge betrifft die Generierungs-Bewertung.',why_en:'No. Retrieval and generation are measured separately — the judge concerns the generation rating.'}
   ]}
 ];
 
