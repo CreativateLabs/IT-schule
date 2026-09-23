@@ -23795,6 +23795,62 @@ Faithfulness separates well-grounded answers from made-up ones.</div>
             </div>
           </div>
           ${callout('key', 'SRE: Betrieb als Ingenieursdisziplin', 'Observability (Logs/Metrics/Traces) macht sichtbar, was innen passiert. SLI (Messgröße) + SLO (Zielwert) + Error-Budget (erlaubte Fehlermenge) verwandeln „läuft schon irgendwie" in eine überprüfbare Zusage. Für risikoarme Auslieferung: Blue/Green und Canary (erst wenige Prozent Verkehr auf die neue Version). Geht etwas schief: blameless Postmortem.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Kubernetes-Bausteine</div>
+            <div class="explanation">
+              Man beschreibt in K8s den <em>Soll-Zustand</em>; das System hält ihn selbsttätig aufrecht und ersetzt ausgefallene Teile. Die wichtigsten Bausteine:<br><br>
+              <strong>Pod</strong> — kleinste Einheit; ein oder mehrere Container, die zusammen laufen.<br>
+              <strong>Deployment</strong> — legt fest, wie viele Kopien eines <em>zustandslosen</em> Dienstes laufen, und rollt Updates aus.<br>
+              <strong>Service</strong> — stabile interne Adresse für einen Satz Pods.<br>
+              <strong>Ingress</strong> — regelt den Zugang von außen: welche URL zu welchem Service.<br>
+              <strong>HPA</strong> (Horizontal Pod Autoscaler) — startet mehr Pods bei hoher CPU-/Speicherlast.<br>
+              <strong>KEDA</strong> — skaliert nach externen Signalen, etwa der Länge einer Warteschlange.<br>
+              <strong>StatefulSet</strong> — wie ein Deployment, aber für <em>zustandsbehaftete</em> Dienste mit stabiler Identität (z. B. Datenbanken).<br>
+              <strong>NetworkPolicy</strong> — Firewall-Regel, welcher Pod mit welchem reden darf; Teil von Defense-in-Depth.<br>
+              <strong>Probes</strong> — Health-Checks (liveness/readiness); K8s ersetzt kaputte Pods automatisch.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">K8s-Bausteine auf einen Blick</span></div>
+              <div class="code-pre">Deployment   -&gt;  wie viele Kopien (zustandslos), rollt Updates aus
+Service      -&gt;  stabile interne Adresse fuer einen Satz Pods
+Ingress      -&gt;  Zugang von aussen: welche URL zu welchem Service
+HPA / KEDA   -&gt;  mehr Pods bei Last (CPU/Speicher bzw. Queue-Laenge)
+StatefulSet  -&gt;  zustandsbehaftet, stabile Identitaet (Datenbanken)
+Probes       -&gt;  Health-Check; kaputte Pods werden ersetzt</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Zustandslos bauen & Last abfedern</div>
+            <div class="explanation">
+              Der wichtigste Entwurfsgrundsatz ist, <strong>zustandslos zu bauen</strong>: Ein Dienst hält keine Daten im eigenen Speicher, sondern lagert jeden Zustand in Datenbank, Cache oder Warteschlange aus. Nur so kann K8s beliebig viele identische Kopien starten — jede austauschbar. Was <em>doch</em> Zustand braucht, gehört in <strong>StatefulSets</strong> oder externe Speicher, nicht in den Dienst selbst.<br><br>
+              Lastspitzen federt man gestaffelt ab:<br>
+              <strong>Queue / Warteschlange</strong> — entkoppelt Anfrage und Verarbeitung; der Dienst arbeitet im eigenen Tempo, statt zusammenzubrechen.<br>
+              <strong>Backpressure / Gegendruck</strong> — das Signal „ich bin voll, halt kurz an"; ein überlastetes System bremst das Vorsystem, statt umzukippen.<br>
+              <strong>Caching</strong> — häufige Antworten bereithalten.<br>
+              <strong>Sharding</strong> — Daten auf mehrere Instanzen aufteilen.
+            </div>
+          </div>
+          ${quickCheck('Warum muss ein Dienst zustandslos sein, damit Kubernetes ihn beliebig skalieren kann?', ['Weil nur austauschbare, identische Kopien möglich sind, wenn der Zustand ausgelagert ist (DB/Cache/Queue)', 'Weil zustandslose Dienste gar keine Datenbank brauchen', 'Weil Kubernetes grundsätzlich keine Datenbanken betreiben kann'], 0, 'Hielte jede Kopie eigene Daten im Speicher, wären die Kopien nicht mehr gleich — K8s könnte sie nicht einfach ersetzen oder vervielfachen. Erst wenn der Zustand ausgelagert ist (DB, Cache, Queue), ist jede Kopie austauschbar. Echter Zustand gehört in StatefulSets oder externe Speicher.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">SRE: Observability, SLO & Error-Budget</div>
+            <div class="explanation">
+              <strong>SRE</strong> (Site Reliability Engineering) macht Zuverlässigkeit zur messbaren Ingenieursdisziplin. Fundament ist <strong>Observability</strong> mit drei Säulen: <strong>Logs</strong> (Ereignisprotokolle), <strong>Metrics</strong> (Zahlenreihen über die Zeit) und <strong>Traces</strong> (Verfolgung einer Anfrage quer durch alle Dienste).<br><br>
+              Zuverlässigkeit fasst man in drei gestaffelten Begriffen:<br>
+              <strong>SLI</strong> (Service Level Indicator) — die konkrete Messgröße, z. B. „Anteil Anfragen unter 300 ms".<br>
+              <strong>SLO</strong> (Service Level Objective) — das selbst gesetzte Ziel, z. B. „99,5 % unter 300 ms".<br>
+              <strong>Error-Budget</strong> — die daraus erlaubte Fehlermenge: Bei 99,5 % SLO dürfen 0,5 % danebengehen. Solange das Budget nicht aufgebraucht ist, darf das Team riskante Änderungen wagen; ist es aufgebraucht, hat Stabilität Vorrang.<br><br>
+              Risikoarm ausliefern: <strong>Blue/Green</strong> (zwei komplette Umgebungen, schlagartiger Umschalt mit sofortigem Rückweg) und <strong>Canary</strong> (erst wenige Prozent des Verkehrs auf die neue Version, ausweiten wenn die Metriken gut bleiben — „Kanarienvogel im Bergwerk", bei schlechten Metriken sofort zurückrollen). Geht etwas schief, folgt ein <strong>blameless Postmortem</strong>: schuldfreie Ursachenanalyse, denn nur eine angstfreie Kultur bringt die wahren Ursachen ans Licht. Für KI zählen als SLIs vor allem <strong>Latenz-Perzentile</strong> (p95 — 95 % der Antworten schneller als dieser Wert; Perzentile statt Durchschnitt, weil einzelne sehr langsame Anfragen im Mittelwert untergehen) und die <strong>Kosten pro Anfrage</strong> — das führt direkt ins FinOps.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Canary-Rollout: Verkehr schrittweise umleiten</span></div>
+              <div class="code-pre">Schritt 1:  alt 95%  |  neu  5%   -&gt;  Metriken ok?
+Schritt 2:  alt 75%  |  neu 25%   -&gt;  Metriken ok?
+Schritt 3:  alt  0%  |  neu 100%  -&gt;  Rollout fertig
+Metriken schlecht  -&gt;  sofort zurueck auf alt 100%</div>
+            </div>
+          </div>
+          ${quickCheck('Das SLO liegt bei 99,5 %. Was besagt das Error-Budget von 0,5 %?', ['Es ist die erlaubte Fehlermenge — solange sie nicht aufgebraucht ist, darf das Team riskante Änderungen wagen', 'Es ist die Zeit, die ein Deployment höchstens dauern darf', 'Es ist die Anzahl der erlaubten Server-Neustarts pro Tag'], 0, 'Aus dem Ziel (99,5 % gut) folgt die erlaubte Fehlermenge: 0,5 % dürfen danebengehen. Dieses Budget verwandelt Zuverlässigkeit in eine steuerbare Größe — ist es noch offen, sind riskante Änderungen erlaubt; ist es aufgebraucht, hat Stabilität Vorrang.')}
+          ${callout('fact', 'Man kann nicht betreiben, was man nicht sieht', 'SLIs, SLOs und ein Error-Budget verwandeln „läuft schon irgendwie" in eine überprüfbare Zusage — und Canary-Rollouts machen jede Auslieferung rückholbar, bevor ein Fehler alle Nutzer trifft.')}
           ${renderQuestions('sec_l4_1', 6)}
           ${renderBonus('sec_l4_1')}
         `,
@@ -23812,6 +23868,62 @@ Faithfulness separates well-grounded answers from made-up ones.</div>
             </div>
           </div>
           ${callout('key', 'SRE: operations as an engineering discipline', 'Observability (logs/metrics/traces) shows what happens inside. SLI (metric) + SLO (target) + error budget (allowed error amount) turn "it kind of runs" into a verifiable promise. For low-risk delivery: blue/green and canary (only a few percent of traffic to the new version first). If something breaks: a blameless postmortem.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The Kubernetes building blocks</div>
+            <div class="explanation">
+              In K8s you describe the <em>desired state</em>; the system keeps it up on its own and replaces failed parts. The key blocks:<br><br>
+              <strong>Pod</strong> — smallest unit; one or more containers that run together.<br>
+              <strong>Deployment</strong> — sets how many copies of a <em>stateless</em> service run, and rolls out updates.<br>
+              <strong>Service</strong> — a stable internal address for a set of pods.<br>
+              <strong>Ingress</strong> — governs access from outside: which URL goes to which service.<br>
+              <strong>HPA</strong> (Horizontal Pod Autoscaler) — starts more pods under high CPU/memory load.<br>
+              <strong>KEDA</strong> — scales on external signals, such as the length of a queue.<br>
+              <strong>StatefulSet</strong> — like a Deployment, but for <em>stateful</em> services with a stable identity (e.g. databases).<br>
+              <strong>NetworkPolicy</strong> — a firewall rule for which pod may talk to which; part of defense-in-depth.<br>
+              <strong>Probes</strong> — health checks (liveness/readiness); K8s replaces broken pods automatically.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">K8s blocks at a glance</span></div>
+              <div class="code-pre">Deployment   -&gt;  how many copies (stateless), rolls out updates
+Service      -&gt;  stable internal address for a set of pods
+Ingress      -&gt;  access from outside: which URL to which service
+HPA / KEDA   -&gt;  more pods under load (CPU/memory or queue length)
+StatefulSet  -&gt;  stateful, stable identity (databases)
+Probes       -&gt;  health check; broken pods get replaced</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Building stateless & absorbing load</div>
+            <div class="explanation">
+              The key design principle is to <strong>build stateless</strong>: a service keeps no data in its own memory but offloads every piece of state to a database, cache or queue. Only then can K8s start any number of identical copies — each interchangeable. Whatever <em>does</em> need state belongs in <strong>StatefulSets</strong> or external storage, not in the service itself.<br><br>
+              Load spikes are absorbed in stages:<br>
+              <strong>Queue</strong> — decouples request and processing; the service works at its own pace instead of collapsing.<br>
+              <strong>Backpressure</strong> — the signal "I am full, hold on"; an overloaded system slows the upstream system instead of toppling over.<br>
+              <strong>Caching</strong> — keep frequent answers ready.<br>
+              <strong>Sharding</strong> — split data across several instances.
+            </div>
+          </div>
+          ${quickCheck('Why must a service be stateless for Kubernetes to scale it freely?', ['Because only interchangeable, identical copies are possible once state is offloaded (DB/cache/queue)', 'Because stateless services need no database at all', 'Because Kubernetes cannot run databases at all'], 0, 'If each copy held its own data in memory, the copies would no longer be equal — K8s could not simply replace or multiply them. Only once state is offloaded (DB, cache, queue) is every copy interchangeable. Real state belongs in StatefulSets or external storage.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">SRE: observability, SLO & error budget</div>
+            <div class="explanation">
+              <strong>SRE</strong> (Site Reliability Engineering) makes reliability a measurable engineering discipline. Its foundation is <strong>observability</strong> with three pillars: <strong>logs</strong> (event records), <strong>metrics</strong> (number series over time) and <strong>traces</strong> (following one request across all services).<br><br>
+              Reliability is captured in three graded terms:<br>
+              <strong>SLI</strong> (Service Level Indicator) — the concrete metric, e.g. "share of requests under 300 ms".<br>
+              <strong>SLO</strong> (Service Level Objective) — the self-set target, e.g. "99.5 % under 300 ms".<br>
+              <strong>Error budget</strong> — the allowed error amount that follows: at a 99.5 % SLO, 0.5 % may go wrong. As long as the budget is not used up, the team may risk changes; once it is used up, stability takes priority.<br><br>
+              Deliver with low risk: <strong>blue/green</strong> (two complete environments, an instant switch with an immediate way back) and <strong>canary</strong> (route only a few percent of traffic to the new version first, widen it if the metrics stay good — the "canary in the coal mine", roll back at once on bad metrics). If something breaks, a <strong>blameless postmortem</strong> follows: blame-free root-cause analysis, because only a fear-free culture brings the true causes to light. For AI the key SLIs are <strong>latency percentiles</strong> (p95 — 95 % of answers faster than this value; percentiles instead of the average, because a few very slow requests vanish in the mean) and the <strong>cost per request</strong> — which leads straight into FinOps.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Canary rollout: shift traffic step by step</span></div>
+              <div class="code-pre">Step 1:  old 95%  |  new  5%   -&gt;  metrics ok?
+Step 2:  old 75%  |  new 25%   -&gt;  metrics ok?
+Step 3:  old  0%  |  new 100%  -&gt;  rollout done
+Metrics bad  -&gt;  roll back at once to old 100%</div>
+            </div>
+          </div>
+          ${quickCheck('The SLO is 99.5 %. What does the 0.5 % error budget state?', ['It is the allowed error amount — as long as it is not used up, the team may risk changes', 'It is the maximum time a deployment may take', 'It is the number of allowed server restarts per day'], 0, 'From the target (99.5 % good) follows the allowed error amount: 0.5 % may go wrong. This budget turns reliability into a steerable figure — while it is still open, risky changes are allowed; once used up, stability takes priority.')}
+          ${callout('fact', 'You cannot operate what you cannot see', 'SLIs, SLOs and an error budget turn "it kind of runs" into a verifiable promise — and canary rollouts make every delivery reversible before a fault hits all users.')}
           ${renderQuestions('sec_l4_1', 6)}
           ${renderBonus('sec_l4_1')}
         `
@@ -23839,6 +23951,56 @@ Faithfulness separates well-grounded answers from made-up ones.</div>
             </div>
           </div>
           ${callout('key', 'Unit Economics', 'Alle Größen führen in die Unit Economics (Kosten pro Geschäftsvorgang). Bei KI-Produkten ist das keine Kür, sondern Überlebensfrage: Wer pro Vorgang mehr an API-Kosten zahlt, als er einnimmt, skaliert sich in den Ruin. Kein KI-Feature geht ohne Budget-Guard und bekannte Grenzkosten pro Anfrage live.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Transparenz zuerst & klassische Spar-Hebel</div>
+            <div class="explanation">
+              Steuern kann man nur, was man sieht. Erster Schritt ist <strong>Transparenz</strong>: <strong>Tagging</strong> gibt jeder Cloud-Ressource Etiketten wie Projekt, Team oder Umgebung; darauf baut <strong>Showback</strong> auf — jeder Abteilung ihre tatsächlich verursachten Kosten aufzeigen und so Kostenbewusstsein schaffen.<br><br>
+              Die klassischen Cloud-Hebel:<br>
+              <strong>Right-Sizing</strong> — die Ressourcengröße an den echten Bedarf anpassen. Die häufigste Verschwendung ist der überdimensionierte Server bei 10 % Auslastung; das ist der schnellste Gewinn, ganz ohne Bindung.<br>
+              <strong>Autoscaling</strong> — Kapazität automatisch mit der Last hoch- und runterfahren; man zahlt nur, was gebraucht wird, statt für die Dauerspitze.<br>
+              <strong>Spot-Instanzen</strong> — ungenutzte Anbieterkapazität, stark reduziert (bis ~70 % günstiger), aber jederzeit zurückziehbar; ideal für unterbrechbare Jobs, ungeeignet für kritische Grundlast.<br>
+              <strong>Reserved Instances / Savings Plans</strong> — Preisrabatt gegen ein- bis dreijährige Nutzungsbindung; lohnt nur bei stabiler, vorhersehbarer Grundlast.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Spar-Hebel: schnell vs. gebunden</span></div>
+              <div class="code-pre">Right-Sizing  -&gt;  Groesse an Bedarf    |  schnellster Gewinn, keine Bindung
+Autoscaling   -&gt;  Kapazitaet folgt Last|  zahlt nur Genutztes
+Spot          -&gt;  bis ~70% guenstiger  |  jederzeit weg: nur unterbrechbare Jobs
+Reserved      -&gt;  Rabatt gegen 1-3 J.  |  nur bei stabiler Grundlast</div>
+            </div>
+          </div>
+          ${quickCheck('Ein Dienst braucht rund um die Uhr eine stabile, gut vorhersehbare Grundlast. Welcher Hebel spart hier am meisten?', ['Reserved Instances / Savings Plans — Rabatt gegen längerfristige Bindung', 'Spot-Instanzen — weil sie immer am billigsten sind', 'Right-Sizing allein genügt, weitere Hebel schaden nur'], 0, 'Spot ist jederzeit zurückziehbar und daher für kritische Grundlast ungeeignet. Für eine stabile, vorhersehbare Dauerlast lohnt sich die Bindung: Reserved Instances oder Savings Plans geben dafür den größten Rabatt.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die neue Ökonomie: KI-Token</div>
+            <div class="explanation">
+              Klassische SaaS hat hohe Fixkosten und nahezu <strong>null Grenzkosten</strong> — der tausendste Nutzer kostet fast nichts extra. Tokenbasierte KI kippt das: Jede einzelne Anfrage kostet echtes Geld, weil das Modell pro verarbeitetem <strong>Token</strong> (Text-Baustein) abgerechnet wird. Die Grenzkosten pro Anfrage sind positiv und spürbar — mehr Nutzung heißt unmittelbar mehr Kosten.<br><br>
+              Vier Stellschrauben halten die Token-Kosten im Griff:<br>
+              <strong>Modellwahl</strong> — der größte Hebel: Ein kleines, günstiges Modell erledigt einfache Aufgaben oft ebenso gut wie ein großes teures. Modellgröße zur Aufgabe skalieren.<br>
+              <strong>Caching</strong> — dieselbe teure Anfrage nicht zweimal bezahlen.<br>
+              <strong>Kürzere, präzisere Prompts</strong> — sparen direkt Token.<br>
+              <strong>Budget-Guards</strong> — harte Obergrenzen (Kosten pro Nutzer, Zeitraum oder Anfrage), die automatisch bremsen, bevor eine Kostenexplosion entsteht.
+            </div>
+          </div>
+          ${quickCheck('Worin unterscheidet sich tokenbasierte KI grundlegend von klassischer SaaS?', ['Bei KI kostet jede einzelne Anfrage echtes Geld — die Grenzkosten pro Anfrage sind spürbar positiv', 'Bei KI sind die Grenzkosten wie bei SaaS nahezu null', 'KI hat gar keine Fixkosten, nur die Nutzer zählen'], 0, 'Klassische SaaS hat fast null Grenzkosten — der tausendste Nutzer kostet kaum extra. Bei tokenbasierter KI wird pro verarbeitetem Token abgerechnet, also kostet jede Anfrage echtes Geld: Mehr Nutzung bedeutet unmittelbar mehr Kosten.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Unit Economics & Margen-Floor</div>
+            <div class="explanation">
+              Alle Hebel führen in die <strong>Unit Economics</strong> (Stückkosten) — die Kosten pro einzelnem Geschäftsvorgang. Erst wer weiß, was ein Vorgang wirklich kostet, kann verlässlich Preise setzen und die Marge sichern. Bei KI-Produkten ist das keine Kür, sondern eine Überlebensfrage: Wer pro Vorgang mehr an API-Kosten zahlt, als er einnimmt, skaliert sich in den Ruin.<br><br>
+              Ein <strong>Margen-Floor</strong> — eine selbst gesetzte Mindestmarge pro Vorgang — koppelt den Verkaufspreis an die tatsächlichen Grenzkosten und hält ihn auch dann tragfähig, wenn die Nutzung stark wächst.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Unit Economics je Vorgang</span></div>
+              <div class="code-pre">Preis pro Vorgang        0,10 EUR
+- Token-Kosten (API)     0,04 EUR
+- sonstige Grenzkosten   0,01 EUR
+= Marge pro Vorgang      0,05 EUR   -&gt;  ueber dem Margen-Floor: tragfaehig
+
+Ohne Budget-Guard: eine Lastspitze treibt die Token-Kosten
+ueber den Preis  -&gt;  jeder Vorgang macht Verlust.</div>
+            </div>
+          </div>
+          ${quickCheck('Warum sind Unit Economics bei KI-Produkten eine Überlebensfrage und kein Controlling-Nachgedanke?', ['Weil jede Anfrage echte Grenzkosten hat — wer pro Vorgang mehr zahlt als er einnimmt, skaliert sich in den Ruin', 'Weil KI keine Fixkosten hat und deshalb immer profitabel ist', 'Weil die Stückkosten mit steigender Nutzung von allein sinken'], 0, 'Anders als bei klassischer SaaS mit fast null Grenzkosten kostet bei KI jeder Vorgang echtes Geld. Liegen die Token-Kosten über dem Preis, macht jeder zusätzliche Vorgang Verlust — Wachstum verschlimmert es. Darum gehören bekannte Grenzkosten und ein Budget-Guard in die Architektur.')}
+          ${callout('fact', 'Ein unlimitierter LLM-Endpunkt ist eine offene Kostenwunde', 'Kein KI-Feature geht ohne Budget-Guard und bekannte Grenzkosten pro Anfrage live: Ein Lastspitzen-Tag oder ein missbräuchlicher Nutzer kann sonst die Monatsmarge vernichten. Bei KI sind Unit Economics kein Controlling-Nachgedanke, sondern Architekturvorgabe.')}
           ${renderQuestions('sec_l5_1', 6)}
           ${renderBonus('sec_l5_1')}
         `,
@@ -23856,6 +24018,56 @@ Faithfulness separates well-grounded answers from made-up ones.</div>
             </div>
           </div>
           ${callout('key', 'Unit economics', 'All figures lead into unit economics (cost per business transaction). For AI products this is not optional but a survival question: whoever pays more in API cost per transaction than they earn scales into ruin. No AI feature goes live without a budget guard and known marginal cost per request.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Transparency first & classic saving levers</div>
+            <div class="explanation">
+              You can only steer what you can see. The first step is <strong>transparency</strong>: <strong>tagging</strong> gives every cloud resource labels such as project, team or environment; on top of that comes <strong>showback</strong> — showing each department the costs it actually caused, which builds cost awareness.<br><br>
+              The classic cloud levers:<br>
+              <strong>Right-sizing</strong> — fit the resource size to real need. The most common waste is the oversized server at 10 % utilization; this is the fastest win, with no commitment at all.<br>
+              <strong>Autoscaling</strong> — move capacity up and down automatically with load; you pay only for what is used, not for the constant peak.<br>
+              <strong>Spot instances</strong> — unused provider capacity, heavily discounted (up to ~70 % cheaper), but withdrawable at any time; ideal for interruptible jobs, unsuitable for critical baseload.<br>
+              <strong>Reserved instances / savings plans</strong> — a price discount for a one- to three-year usage commitment; worth it only for stable, predictable baseload.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Saving levers: fast vs. committed</span></div>
+              <div class="code-pre">Right-sizing  -&gt;  size to need     |  fastest win, no commitment
+Autoscaling   -&gt;  capacity follows load |  pays only for what is used
+Spot          -&gt;  up to ~70% cheaper|  gone anytime: interruptible jobs only
+Reserved      -&gt;  discount for 1-3 y|  only for stable baseload</div>
+            </div>
+          </div>
+          ${quickCheck('A service needs a stable, well-predictable baseload around the clock. Which lever saves the most here?', ['Reserved instances / savings plans — a discount for a longer-term commitment', 'Spot instances — because they are always the cheapest', 'Right-sizing alone is enough, other levers only hurt'], 0, 'Spot can be withdrawn at any time and is therefore unsuitable for critical baseload. For a stable, predictable constant load the commitment pays off: reserved instances or savings plans give the largest discount for it.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">The new economy: AI tokens</div>
+            <div class="explanation">
+              Classic SaaS has high fixed costs and near-<strong>zero marginal cost</strong> — the thousandth user costs almost nothing extra. Token-based AI overturns that: every single request costs real money, because the model is billed per processed <strong>token</strong> (text building block). The marginal cost per request is positive and noticeable — more usage means immediately more cost.<br><br>
+              Four levers keep token cost in check:<br>
+              <strong>Model choice</strong> — the biggest lever: a small, cheap model often handles simple tasks just as well as a large expensive one. Scale model size to the task.<br>
+              <strong>Caching</strong> — do not pay for the same expensive request twice.<br>
+              <strong>Shorter, sharper prompts</strong> — save tokens directly.<br>
+              <strong>Budget guards</strong> — hard ceilings (cost per user, period or request) that brake automatically before a cost explosion arises.
+            </div>
+          </div>
+          ${quickCheck('How does token-based AI fundamentally differ from classic SaaS?', ['With AI every single request costs real money — the marginal cost per request is noticeably positive', 'With AI the marginal cost is near zero, just like SaaS', 'AI has no fixed costs at all, only users count'], 0, 'Classic SaaS has near-zero marginal cost — the thousandth user costs barely extra. Token-based AI is billed per processed token, so every request costs real money: more usage means immediately more cost.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Unit economics & margin floor</div>
+            <div class="explanation">
+              All levers lead into <strong>unit economics</strong> — the cost per single business transaction. Only once you know what a transaction really costs can you set prices reliably and secure the margin. For AI products this is not optional but a survival question: whoever pays more in API cost per transaction than they earn scales into ruin.<br><br>
+              A <strong>margin floor</strong> — a self-set minimum margin per transaction — couples the sale price to the actual marginal cost and keeps it viable even when usage grows sharply.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Unit economics per transaction</span></div>
+              <div class="code-pre">Price per transaction     0.10 EUR
+- token cost (API)        0.04 EUR
+- other marginal cost     0.01 EUR
+= margin per transaction  0.05 EUR   -&gt;  above the margin floor: viable
+
+Without a budget guard: a load spike drives token cost
+above the price  -&gt;  every transaction makes a loss.</div>
+            </div>
+          </div>
+          ${quickCheck('Why are unit economics a survival question for AI products, not a controlling afterthought?', ['Because every request has real marginal cost — paying more per transaction than you earn scales into ruin', 'Because AI has no fixed costs and is therefore always profitable', 'Because unit costs fall by themselves as usage rises'], 0, 'Unlike classic SaaS with near-zero marginal cost, with AI every transaction costs real money. If token cost exceeds the price, every extra transaction makes a loss — growth makes it worse. That is why known marginal cost and a budget guard belong in the architecture.')}
+          ${callout('fact', 'An unlimited LLM endpoint is an open cost wound', 'No AI feature goes live without a budget guard and known marginal cost per request: otherwise a load-spike day or an abusive user can wipe out the month\'s margin. With AI, unit economics are not an afterthought but an architecture requirement.')}
           ${renderQuestions('sec_l5_1', 6)}
           ${renderBonus('sec_l5_1')}
         `
@@ -29934,6 +30146,48 @@ QUESTION_POOLS['sec_l3_1'] = [
     {t:'Der Judge hat eigene Vorlieben und muss an einer Stichprobe menschlicher Bewertungen kalibriert werden',t_en:'The judge has its own preferences and must be calibrated against a sample of human ratings',correct:true,why:'Genau. Ohne Kalibrierung und Übereinstimmungsmessung sind die automatischen Urteile nicht belastbar.',why_en:'Exactly. Without calibration and agreement measurement, the automatic judgments are not reliable.'},
     {t:'Der Judge ersetzt das Eval-Set vollständig',t_en:'The judge fully replaces the eval set',correct:false,why:'Nein. Der Judge skaliert die Bewertung, ersetzt aber nicht die kuratierten echten Fälle des Eval-Sets.',why_en:'No. The judge scales the rating but does not replace the curated real cases of the eval set.'},
     {t:'Der Judge macht Retrieval-Metriken wie Precision@k überflüssig',t_en:'The judge makes retrieval metrics like Precision@k unnecessary',correct:false,why:'Nein. Retrieval und Generierung misst man getrennt — der Judge betrifft die Generierungs-Bewertung.',why_en:'No. Retrieval and generation are measured separately — the judge concerns the generation rating.'}
+  ]}
+];
+
+QUESTION_POOLS['sec_l4_1'] = [
+  {id:'p_sec_l4_1_mc1',type:'mc',xp:10,question:'Warum muss ein Dienst <strong>zustandslos</strong> gebaut sein, damit Kubernetes ihn beliebig vervielfachen kann?',question_en:'Why must a service be built <strong>stateless</strong> for Kubernetes to multiply it freely?',options:[
+    {t:'Nur wenn der Zustand ausgelagert ist (DB/Cache/Queue), ist jede Kopie identisch und austauschbar',t_en:'Only if state is offloaded (DB/cache/queue) is every copy identical and interchangeable',correct:true,why:'Genau. Austauschbare Kopien sind die Voraussetzung dafür, dass K8s Pods ersetzen und vervielfachen kann.',why_en:'Exactly. Interchangeable copies are the precondition for K8s to replace and multiply pods.'},
+    {t:'Weil zustandslose Dienste schneller starten und deshalb weniger Strom verbrauchen',t_en:'Because stateless services start faster and therefore use less power',correct:false,why:'Nein. Es geht nicht um Stromverbrauch, sondern darum, dass jede Kopie austauschbar bleibt.',why_en:'No. It is not about power use but about every copy staying interchangeable.'},
+    {t:'Weil Kubernetes grundsätzlich keine Datenbanken ansprechen darf',t_en:'Because Kubernetes is not allowed to talk to databases at all',correct:false,why:'Nein. Zustandsbehaftete Dienste laufen sehr wohl in K8s — als StatefulSet.',why_en:'No. Stateful services do run in K8s — as a StatefulSet.'}
+  ]},
+  {id:'p_sec_l4_1_mc2',type:'mc',xp:10,question:'Was ist ein <strong>Error-Budget</strong>?',question_en:'What is an <strong>error budget</strong>?',options:[
+    {t:'Die aus dem SLO erlaubte Fehlermenge — bei 99,5 % SLO die 0,5 %; solange sie offen ist, sind riskante Änderungen erlaubt',t_en:'The allowed error amount from the SLO — at a 99.5 % SLO the 0.5 %; while it is open, risky changes are allowed',correct:true,why:'Genau. Das Error-Budget verwandelt Zuverlässigkeit in eine steuerbare Größe.',why_en:'Exactly. The error budget turns reliability into a steerable figure.'},
+    {t:'Das Geldbudget, das ein Ausfall das Team kostet',t_en:'The money budget an outage costs the team',correct:false,why:'Nein. Das Error-Budget misst eine erlaubte Fehlermenge, keinen Geldbetrag.',why_en:'No. The error budget measures an allowed error amount, not a sum of money.'},
+    {t:'Die maximale Anzahl an Pods, die gleichzeitig laufen dürfen',t_en:'The maximum number of pods that may run at once',correct:false,why:'Nein. Die Pod-Zahl regeln Deployment und Autoscaler, nicht das Error-Budget.',why_en:'No. The pod count is governed by the deployment and autoscaler, not the error budget.'}
+  ]},
+  {id:'p_sec_l4_1_tf1',type:'truefalse',xp:8,statement:'Ein Canary-Rollout leitet zunächst nur wenige Prozent des Verkehrs auf die neue Version und weitet sie erst aus, wenn die Metriken gut bleiben.',statement_en:'A canary rollout first routes only a few percent of traffic to the new version and widens it only if the metrics stay good.',correct:true,explanation:'Richtig. Bleiben die Metriken schlecht, rollt man sofort zurück — der Schaden bleibt auf wenige Nutzer begrenzt.',explanation_en:'Correct. If the metrics stay bad you roll back at once — the damage stays limited to a few users.'},
+  {id:'p_sec_l4_1_tf2',type:'truefalse',xp:8,statement:'Zustandsbehaftete Dienste wie Datenbanken betreibt man in Kubernetes am besten als gewöhnliches Deployment.',statement_en:'Stateful services such as databases are best run in Kubernetes as an ordinary deployment.',correct:false,explanation:'Falsch. Ein Deployment ist für zustandslose Dienste; zustandsbehaftete Dienste mit stabiler Identität gehören in ein StatefulSet.',explanation_en:'False. A deployment is for stateless services; stateful services with a stable identity belong in a StatefulSet.'},
+  {id:'p_sec_l4_1_fb1',type:'fillblank',xp:12,prompt:'Die drei Säulen der Observability sind Logs, Metrics und ___ (die Verfolgung einer Anfrage quer durch alle Dienste).',prompt_en:'The three pillars of observability are logs, metrics and ___ (following one request across all services).',answers:['Traces','traces','Trace','trace','Tracing','tracing'],placeholder:'Säule…',placeholder_en:'Pillar…',explanation:'<strong>Traces</strong> verfolgen eine einzelne Anfrage quer durch alle beteiligten Dienste und machen so verteilte Abläufe sichtbar.',explanation_en:'<strong>Traces</strong> follow a single request across all involved services and thus make distributed flows visible.'},
+  {id:'p_sec_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Warum wählt man nach einem Vorfall ein <strong>blameless Postmortem</strong>?',question_en:'Why do you choose a <strong>blameless postmortem</strong> after an incident?',options:[
+    {t:'Nur eine schuldfreie, angstfreie Analyse bringt die wahren Ursachen ans Licht',t_en:'Only a blame-free, fear-free analysis brings the true causes to light',correct:true,why:'Genau. Wo Schuld droht, werden Ursachen verschwiegen — die schuldfreie Kultur ist der Kern.',why_en:'Exactly. Where blame looms, causes get hidden — the blame-free culture is the core.'},
+    {t:'Weil so schneller ein Schuldiger benannt und sanktioniert werden kann',t_en:'Because it lets you name and sanction a culprit faster',correct:false,why:'Nein. Das ist das Gegenteil des Ansatzes; Schuldzuweisung verhindert ehrliche Ursachenanalyse.',why_en:'No. That is the opposite of the approach; assigning blame prevents honest root-cause analysis.'},
+    {t:'Weil es die Ursachenanalyse ganz überflüssig macht',t_en:'Because it makes root-cause analysis unnecessary altogether',correct:false,why:'Nein. Das Postmortem ist die Ursachenanalyse — nur eben ohne Schuldzuweisung.',why_en:'No. The postmortem is the root-cause analysis — just without blame.'}
+  ]}
+];
+
+QUESTION_POOLS['sec_l5_1'] = [
+  {id:'p_sec_l5_1_mc1',type:'mc',xp:10,question:'Worin unterscheidet sich die Kostenstruktur tokenbasierter KI von klassischer SaaS?',question_en:'How does the cost structure of token-based AI differ from classic SaaS?',options:[
+    {t:'Bei KI hat jede Anfrage echte, spürbare Grenzkosten; klassische SaaS hat nahezu null Grenzkosten',t_en:'With AI every request has real, noticeable marginal cost; classic SaaS has near-zero marginal cost',correct:true,why:'Genau. Bei KI heißt mehr Nutzung unmittelbar mehr Kosten — der tausendste SaaS-Nutzer kostet dagegen kaum extra.',why_en:'Exactly. With AI more usage means immediately more cost — the thousandth SaaS user barely costs extra.'},
+    {t:'Bei KI sind die Fixkosten null, die Grenzkosten aber hoch',t_en:'With AI fixed costs are zero but marginal costs are high',correct:false,why:'Nein. Der entscheidende Unterschied liegt in den Grenzkosten pro Anfrage, nicht in fehlenden Fixkosten.',why_en:'No. The decisive difference is in the marginal cost per request, not in absent fixed costs.'},
+    {t:'Beide haben identische Grenzkosten pro Nutzer',t_en:'Both have identical marginal costs per user',correct:false,why:'Nein. Genau darin unterscheiden sie sich: SaaS nahezu null, tokenbasierte KI spürbar positiv.',why_en:'No. That is exactly where they differ: SaaS near zero, token-based AI noticeably positive.'}
+  ]},
+  {id:'p_sec_l5_1_mc2',type:'mc',xp:10,question:'Welche Stellschraube ist der <strong>größte Hebel</strong> gegen hohe Token-Kosten?',question_en:'Which lever is the <strong>biggest</strong> against high token cost?',options:[
+    {t:'Die Modellwahl — ein kleines Modell erledigt einfache Aufgaben oft ebenso gut wie ein großes teures',t_en:'Model choice — a small model often handles simple tasks just as well as a large expensive one',correct:true,why:'Genau. Modellgröße zur Aufgabe zu skalieren spart die meisten Token, ohne die Qualität zu opfern.',why_en:'Exactly. Scaling model size to the task saves the most tokens without sacrificing quality.'},
+    {t:'Möglichst lange, ausführliche Prompts',t_en:'Prompts that are as long and detailed as possible',correct:false,why:'Nein. Lange Prompts verbrauchen mehr Token; kürzere, präzisere Prompts sparen direkt.',why_en:'No. Long prompts consume more tokens; shorter, sharper prompts save directly.'},
+    {t:'Reserved Instances über drei Jahre',t_en:'Reserved instances over three years',correct:false,why:'Nein. Das ist ein klassischer Cloud-Hebel für stabile Grundlast, kein Hebel gegen Token-Kosten.',why_en:'No. That is a classic cloud lever for stable baseload, not a lever against token cost.'}
+  ]},
+  {id:'p_sec_l5_1_tf1',type:'truefalse',xp:8,statement:'Spot-Instanzen eignen sich für unterbrechbare Jobs, aber nicht für kritische Grundlast, weil der Anbieter sie jederzeit zurückziehen kann.',statement_en:'Spot instances suit interruptible jobs but not critical baseload, because the provider can withdraw them at any time.',correct:true,explanation:'Richtig. Der Preisvorteil (bis ~70 %) erkauft sich mit der Unterbrechbarkeit — für Grundlast ungeeignet.',explanation_en:'Correct. The price advantage (up to ~70 %) is bought with interruptibility — unsuitable for baseload.'},
+  {id:'p_sec_l5_1_tf2',type:'truefalse',xp:8,statement:'Ein unlimitierter LLM-Endpunkt ohne Budget-Guard ist unbedenklich, solange das eingesetzte Modell klein ist.',statement_en:'An unlimited LLM endpoint without a budget guard is harmless as long as the model in use is small.',correct:false,explanation:'Falsch. Auch ein kleines Modell hat positive Grenzkosten; eine Lastspitze oder ein missbräuchlicher Nutzer kann die Marge dennoch vernichten. Kein KI-Feature ohne Budget-Guard.',explanation_en:'False. Even a small model has positive marginal cost; a load spike or an abusive user can still wipe out the margin. No AI feature without a budget guard.'},
+  {id:'p_sec_l5_1_fb1',type:'fillblank',xp:12,prompt:'Die Kosten pro einzelnem Geschäftsvorgang — bei KI-Produkten eine Überlebensfrage — nennt man ___ (englischer Fachbegriff, zwei Wörter).',prompt_en:'The cost per single business transaction — a survival question for AI products — is called ___ (two-word term).',answers:['Unit Economics','unit economics','Unit-Economics','unit-economics','Stückkosten','Stueckkosten'],placeholder:'Fachbegriff…',placeholder_en:'Term…',explanation:'<strong>Unit Economics</strong> (Stückkosten) zeigen, was ein Vorgang wirklich kostet — erst damit lassen sich Preise setzen und die Marge sichern.',explanation_en:'<strong>Unit economics</strong> show what a transaction really costs — only with them can you set prices and secure the margin.'},
+  {id:'p_sec_l5_1_bonus',type:'mc',xp:20,optional:true,question:'Welcher klassische Spar-Hebel bringt den <strong>schnellsten Gewinn ganz ohne vertragliche Bindung</strong>?',question_en:'Which classic saving lever brings the <strong>fastest win with no contractual commitment</strong>?',options:[
+    {t:'Right-Sizing — die Ressourcengröße an den echten Bedarf anpassen (überdimensionierte Server verkleinern)',t_en:'Right-sizing — fit the resource size to real need (shrink oversized servers)',correct:true,why:'Genau. Der überdimensionierte Server bei 10 % Auslastung ist die häufigste Verschwendung — Verkleinern wirkt sofort und bindet nicht.',why_en:'Exactly. The oversized server at 10 % utilization is the most common waste — shrinking works at once and commits to nothing.'},
+    {t:'Reserved Instances mit dreijähriger Bindung',t_en:'Reserved instances with a three-year commitment',correct:false,why:'Nein. Die geben zwar Rabatt, aber gerade gegen eine langfristige Bindung.',why_en:'No. Those do give a discount, but precisely in exchange for a long-term commitment.'},
+    {t:'Ein größeres Sprachmodell wählen',t_en:'Choosing a larger language model',correct:false,why:'Nein. Ein größeres Modell erhöht die Token-Kosten eher, statt zu sparen.',why_en:'No. A larger model tends to raise token cost rather than save.'}
   ]}
 ];
 
