@@ -23377,6 +23377,232 @@ MDM        -&gt; one truth for customers, products, core objects</div>
 ];
 
 // ============================================================
+//   COURSE: Security & Betrieb — unique ids "sec_*"
+// ============================================================
+const SEC_PHASES = [
+  {
+    id: 'p_sec1', title: 'Security & Zugriffskontrolle', title_en: 'Security & Access Control',
+    sub: 'Sicherheit ist keine Funktion, die man am Ende dazuschaltet, sondern eine Eigenschaft durch alle Schichten.',
+    sub_en: 'Security is not a feature you switch on at the end, but a property through every layer.',
+    lessons: [
+      {
+        id: 'sec_l1_1', title: 'Zugriffskontrolle & Defense-in-Depth',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">Zugriffskontrolle & Defense-in-Depth</h1>
+            <p class="lesson-desc">Sicherheit zieht sich durch alle Schichten. Die Leitidee heißt Defense-in-Depth: nie auf eine einzige Schutzmauer verlassen, sondern mehrere unabhängige Barrieren hintereinander.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die Grundprinzipien</div>
+            <div class="explanation">
+              <strong>Defense-in-Depth</strong> staffelt mehrere unabhängige Barrieren — fällt eine (Passwort erbeutet), hält die nächste. <strong>Least-Privilege</strong>: jeder Nutzer/Dienst bekommt nur die Rechte, die er wirklich braucht — ein gekapertes Konto kann dann nur wenig anrichten.<br><br>
+              Daten schützt man an zwei Stellen: <code>Encryption in transit</code> (auf dem Weg, via TLS) und <code>Encryption at rest</code> (gespeichert). <strong>Secrets</strong> (Passwörter, API-Schlüssel) gehören nie in den Code, sondern in einen <strong>Vault</strong> — der Zugriffe protokolliert und Schlüssel rotiert. Jeder Zugriff hinterlässt eine Spur im <strong>Audit-Log</strong>.
+            </div>
+          </div>
+          ${callout('key', 'Zugriffsmodelle & RAG-Security', 'Wer darf was? RBAC (nach Rolle), ABAC (nach Attributen/Kontext), ReBAC (nach Beziehungen im Graph). Bei RAG gilt Security Trimming: Die Berechtigungsprüfung muss VOR dem Modell greifen — es dürfen nur Dokumente in den Kontext, die der Nutzer ohnehin sehen dürfte. Ein Sprachmodell ist kein Zugriffskontrollsystem.')}
+          ${renderQuestions('sec_l1_1', 6)}
+          ${renderBonus('sec_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">Access Control & Defense-in-Depth</h1>
+            <p class="lesson-desc">Security runs through every layer. The guiding idea is defense-in-depth: never rely on a single wall, but stack several independent barriers.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The core principles</div>
+            <div class="explanation">
+              <strong>Defense-in-depth</strong> stacks several independent barriers — if one fails (a password is stolen), the next holds. <strong>Least privilege</strong>: every user/service gets only the rights it truly needs — a hijacked account can then do little harm.<br><br>
+              Data is protected in two places: <code>encryption in transit</code> (on the way, via TLS) and <code>encryption at rest</code> (stored). <strong>Secrets</strong> (passwords, API keys) never belong in the code, but in a <strong>vault</strong> — which logs access and rotates keys. Every access leaves a trace in the <strong>audit log</strong>.
+            </div>
+          </div>
+          ${callout('key', 'Access models & RAG security', 'Who may do what? RBAC (by role), ABAC (by attributes/context), ReBAC (by relationships in a graph). For RAG, security trimming applies: the authorization check must happen BEFORE the model — only documents the user is already allowed to see may enter the context. A language model is not an access control system.')}
+          ${renderQuestions('sec_l1_1', 6)}
+          ${renderBonus('sec_l1_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_sec2', title: 'Compliance & Responsible AI', title_en: 'Compliance & Responsible AI',
+    sub: 'Wer KI im europäischen Markt einsetzt, bewegt sich in einem Geflecht rechtlicher Anforderungen.',
+    sub_en: 'Deploying AI in the European market means navigating a web of legal requirements.',
+    lessons: [
+      {
+        id: 'sec_l2_1', title: 'DSGVO, EU AI Act & Responsible AI',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">DSGVO, EU AI Act & Responsible AI</h1>
+            <p class="lesson-desc">An erster Stelle steht die DSGVO, seit 2024 ergänzt durch den EU AI Act — die weltweit erste umfassende KI-Regulierung mit risikobasiertem Ansatz.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Der rechtliche Rahmen</div>
+            <div class="explanation">
+              Die <strong>DSGVO</strong> regelt, wie personenbezogene Daten verarbeitet werden dürfen (Rechtsgrundlage, Zweckbindung, Datensparsamkeit). Verarbeitet ein Dienstleister Daten im Auftrag, braucht es einen <strong>DPA</strong> (Auftragsverarbeitungsvertrag).<br><br>
+              Der <strong>EU AI Act</strong> teilt KI-Systeme in vier Risikoklassen: <em>unannehmbar</em> (verboten), <em>hoch</em> (strenge Pflichten: Dokumentation, menschliche Aufsicht, Konformitätsbewertung), <em>begrenzt</em> (Transparenzpflicht) und <em>minimal</em> (keine besonderen Auflagen). Die Einordnung des eigenen Systems ist der erste, entscheidende Schritt.
+            </div>
+          </div>
+          ${callout('tip', 'Nachweis & Verantwortung', 'Kunden verlangen Nachweise: ISO 27001 (Informationssicherheits-Management), SOC 2 (US-Markt), BSI C5 (oft Vergabevoraussetzung bei Behörden). Responsible AI geht über Recht hinaus: Fairness (keine systematische Benachteiligung), Erklärbarkeit (Entscheidung nachvollziehbar begründbar) und Human-in-the-loop.')}
+          ${renderQuestions('sec_l2_1', 6)}
+          ${renderBonus('sec_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">GDPR, EU AI Act & Responsible AI</h1>
+            <p class="lesson-desc">First comes the GDPR, complemented since 2024 by the EU AI Act — the world's first comprehensive AI regulation with a risk-based approach.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The legal framework</div>
+            <div class="explanation">
+              The <strong>GDPR</strong> governs how personal data may be processed (legal basis, purpose limitation, data minimization). If a provider processes data on your behalf, a <strong>DPA</strong> (data processing agreement) is required.<br><br>
+              The <strong>EU AI Act</strong> splits AI systems into four risk classes: <em>unacceptable</em> (banned), <em>high</em> (strict duties: documentation, human oversight, conformity assessment), <em>limited</em> (transparency duty) and <em>minimal</em> (no special requirements). Classifying your own system is the first, decisive step.
+            </div>
+          </div>
+          ${callout('tip', 'Proof & responsibility', 'Customers demand proof: ISO 27001 (information security management), SOC 2 (US market), BSI C5 (often a prerequisite for public tenders). Responsible AI goes beyond law: fairness (no systematic disadvantage), explainability (decisions justifiable) and human-in-the-loop.')}
+          ${renderQuestions('sec_l2_1', 6)}
+          ${renderBonus('sec_l2_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_sec3', title: 'Evaluierung & Qualität', title_en: 'Evaluation & Quality',
+    sub: 'Qualität entsteht nicht durch Hoffnung, sondern durch Messung — bei Software wie bei KI.',
+    sub_en: 'Quality comes not from hope but from measurement — for software and for AI.',
+    lessons: [
+      {
+        id: 'sec_l3_1', title: 'Test-Pyramide & KI-Evaluierung',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">Test-Pyramide & KI-Evaluierung</h1>
+            <p class="lesson-desc">Für klassische Software ist die Test-Pyramide das bewährte Bild. KI-Systeme lassen sich nicht mit „richtig oder falsch" abtesten — sie brauchen eigene Metriken.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Klassisch & KI</div>
+            <div class="explanation">
+              <strong>Test-Pyramide</strong>: unten viele schnelle Unit-Tests, in der Mitte weniger Integrationstests, oben wenige langsame End-to-End-Tests — verankert in <strong>CI-Gates</strong>, die einen Merge blockieren, solange nicht alle Tests grün sind. <strong>Contract-Tests</strong> prüfen, dass zwei Dienste sich ans vereinbarte Schnittstellenformat halten.<br><br>
+              KI misst man zweistufig: <strong>Retrieval-Qualität</strong> (findet das System die richtigen Dokumente? — Precision@k, MRR, nDCG) und <strong>Generierungs-Qualität</strong> (<code>Faithfulness</code>: ist die Antwort durch die Quellen gedeckt oder halluziniert? <code>Relevancy</code>: beantwortet sie die Frage?).
+            </div>
+          </div>
+          ${callout('key', 'Das Eval-Set', 'Herz jeder KI-Qualitätssicherung ist das Eval-Set — eine kuratierte Sammlung echter Fälle mit geprüfter Soll-Antwort. Gegen dieses Set läuft jede Änderung, bevor sie live geht. Weil KI nicht-deterministisch ist, testet man geschichtet über viele Fälle mit Schwellenwerten — ein einzelner grüner Testlauf beweist nichts.')}
+          ${renderQuestions('sec_l3_1', 6)}
+          ${renderBonus('sec_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">Test Pyramid & AI Evaluation</h1>
+            <p class="lesson-desc">For classic software the test pyramid is the proven picture. AI systems can't be tested with "right or wrong" — they need their own metrics.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Classic & AI</div>
+            <div class="explanation">
+              <strong>Test pyramid</strong>: many fast unit tests at the bottom, fewer integration tests in the middle, few slow end-to-end tests on top — anchored in <strong>CI gates</strong> that block a merge until all tests are green. <strong>Contract tests</strong> check that two services keep to the agreed interface format.<br><br>
+              AI is measured in two stages: <strong>retrieval quality</strong> (does the system find the right documents? — Precision@k, MRR, nDCG) and <strong>generation quality</strong> (<code>faithfulness</code>: is the answer covered by the sources or hallucinated? <code>relevancy</code>: does it answer the question?).
+            </div>
+          </div>
+          ${callout('key', 'The eval set', 'At the heart of AI quality assurance is the eval set — a curated collection of real cases with vetted target answers. Every change runs against this set before going live. Because AI is non-deterministic, you test in aggregate over many cases with thresholds — a single green test run proves nothing.')}
+          ${renderQuestions('sec_l3_1', 6)}
+          ${renderBonus('sec_l3_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_sec4', title: 'Skalierung & Betrieb', title_en: 'Scaling & Operations',
+    sub: 'Vom Prototyp zum zuverlässigen Dienst unter Last — Kubernetes, SRE und Error-Budgets.',
+    sub_en: 'From prototype to a reliable service under load — Kubernetes, SRE and error budgets.',
+    lessons: [
+      {
+        id: 'sec_l4_1', title: 'Kubernetes, SRE & Zuverlässigkeit',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">Kubernetes, SRE & Zuverlässigkeit</h1>
+            <p class="lesson-desc">Wird aus einem Prototyp ein Dienst mit echten Nutzern, verschiebt sich die Frage von „funktioniert es?" zu „funktioniert es zuverlässig unter Last?".</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Kubernetes & zustandslos bauen</div>
+            <div class="explanation">
+              <strong>Kubernetes</strong> verteilt, startet und ersetzt Container automatisch: Man beschreibt den Soll-Zustand, K8s hält ihn aufrecht (Pod, Deployment, Service, Ingress, HPA/KEDA zum Autoscaling, Probes für Health-Checks).<br><br>
+              Der wichtigste Grundsatz: <strong>zustandslos bauen</strong> — ein Dienst hält keine Daten im eigenen Speicher, sondern lagert jeden Zustand in DB/Cache/Warteschlange aus. Nur so kann K8s beliebig viele identische Kopien starten. Lastspitzen fängt man mit <strong>Queue</strong> + <strong>Backpressure</strong>, <strong>Caching</strong> und <strong>Sharding</strong> ab.
+            </div>
+          </div>
+          ${callout('key', 'SRE: Betrieb als Ingenieursdisziplin', 'Observability (Logs/Metrics/Traces) macht sichtbar, was innen passiert. SLI (Messgröße) + SLO (Zielwert) + Error-Budget (erlaubte Fehlermenge) verwandeln „läuft schon irgendwie" in eine überprüfbare Zusage. Für risikoarme Auslieferung: Blue/Green und Canary (erst wenige Prozent Verkehr auf die neue Version). Geht etwas schief: blameless Postmortem.')}
+          ${renderQuestions('sec_l4_1', 6)}
+          ${renderBonus('sec_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">Kubernetes, SRE & Reliability</h1>
+            <p class="lesson-desc">When a prototype becomes a service with real users, the question shifts from "does it work?" to "does it work reliably under load?".</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Kubernetes & building stateless</div>
+            <div class="explanation">
+              <strong>Kubernetes</strong> distributes, starts and replaces containers automatically: you describe the desired state, K8s keeps it (pod, deployment, service, ingress, HPA/KEDA for autoscaling, probes for health checks).<br><br>
+              The key principle: <strong>build stateless</strong> — a service keeps no data in its own memory but offloads all state to DB/cache/queue. Only then can K8s start any number of identical copies. Load spikes are absorbed with a <strong>queue</strong> + <strong>backpressure</strong>, <strong>caching</strong> and <strong>sharding</strong>.
+            </div>
+          </div>
+          ${callout('key', 'SRE: operations as an engineering discipline', 'Observability (logs/metrics/traces) shows what happens inside. SLI (metric) + SLO (target) + error budget (allowed error amount) turn "it kind of runs" into a verifiable promise. For low-risk delivery: blue/green and canary (only a few percent of traffic to the new version first). If something breaks: a blameless postmortem.')}
+          ${renderQuestions('sec_l4_1', 6)}
+          ${renderBonus('sec_l4_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_sec5', title: 'Kosten & FinOps', title_en: 'Cost & FinOps',
+    sub: 'Cloud- und KI-Kosten steuern wie jede andere technische Größe — sichtbar und zugeordnet.',
+    sub_en: 'Steering cloud and AI cost like any other technical dimension — visible and attributed.',
+    lessons: [
+      {
+        id: 'sec_l5_1', title: 'FinOps & die KI-Token-Ökonomie',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 1</div>
+            <h1 class="lesson-title">FinOps & die KI-Token-Ökonomie</h1>
+            <p class="lesson-desc">FinOps steuert Cloud- und KI-Kosten wie jede technische Größe: sichtbar, zugeordnet, optimiert. Bei KI liegt darin sowohl das Risiko als auch die Chance.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Klassische Hebel & Token-Ökonomie</div>
+            <div class="explanation">
+              Zuerst Transparenz: <strong>Tagging</strong> (jede Ressource bekommt Etiketten) ermöglicht <strong>Showback</strong> (Kosten je Abteilung aufzeigen). Klassische Hebel: <strong>Right-Sizing</strong> (Größe an echten Bedarf), <strong>Autoscaling</strong>, <strong>Spot-Instanzen</strong> (günstig, unterbrechbar), <strong>Reserved Instances</strong> (Rabatt gegen Bindung, nur bei stabiler Grundlast).<br><br>
+              KI hat eine andere Kostenstruktur: klassische SaaS hat fast <strong>null Grenzkosten</strong>, bei tokenbasierter KI kostet <em>jede Anfrage</em> echtes Geld. Steuerung: Modellwahl (kleines Modell für einfache Aufgaben), Caching, kürzere Prompts, <strong>Budget-Guards</strong>.
+            </div>
+          </div>
+          ${callout('key', 'Unit Economics', 'Alle Größen führen in die Unit Economics (Kosten pro Geschäftsvorgang). Bei KI-Produkten ist das keine Kür, sondern Überlebensfrage: Wer pro Vorgang mehr an API-Kosten zahlt, als er einnimmt, skaliert sich in den Ruin. Kein KI-Feature geht ohne Budget-Guard und bekannte Grenzkosten pro Anfrage live.')}
+          ${renderQuestions('sec_l5_1', 6)}
+          ${renderBonus('sec_l5_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 1</div>
+            <h1 class="lesson-title">FinOps & the AI Token Economy</h1>
+            <p class="lesson-desc">FinOps steers cloud and AI cost like any technical dimension: visible, attributed, optimized. For AI, that holds both the risk and the opportunity.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Classic levers & token economy</div>
+            <div class="explanation">
+              First, transparency: <strong>tagging</strong> (every resource gets labels) enables <strong>showback</strong> (showing each team its costs). Classic levers: <strong>right-sizing</strong> (size to real need), <strong>autoscaling</strong>, <strong>spot instances</strong> (cheap, interruptible), <strong>reserved instances</strong> (discount for commitment, only for stable baseload).<br><br>
+              AI has a different cost structure: classic SaaS has near-<strong>zero marginal cost</strong>, while with token-based AI <em>every request</em> costs real money. Levers: model choice (small model for simple tasks), caching, shorter prompts, <strong>budget guards</strong>.
+            </div>
+          </div>
+          ${callout('key', 'Unit economics', 'All figures lead into unit economics (cost per business transaction). For AI products this is not optional but a survival question: whoever pays more in API cost per transaction than they earn scales into ruin. No AI feature goes live without a budget guard and known marginal cost per request.')}
+          ${renderQuestions('sec_l5_1', 6)}
+          ${renderBonus('sec_l5_1')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -23447,10 +23673,8 @@ const COURSES = [
     level: 'Profi',
     level_en: 'Pro',
     accent: 'var(--orange)',
-    phases: [],
-    available: false,
-    soonNote: '5 Kapitel · geplant',
-    soonNote_en: '5 chapters · planned',
+    phases: SEC_PHASES,
+    available: true,
   },
   {
     id: 'leadership',
