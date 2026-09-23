@@ -23109,6 +23109,52 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
             </div>
           </div>
           ${callout('key', 'Zero-Trust', 'Das alte „Burg"-Modell (dicke Mauer außen, innen vertraut man) ist gefährlich. Zero-Trust kehrt es um: „Never trust, always verify" — jeder Dienst weist sich aus (mTLS), und Mikrosegmentierung sorgt dafür, dass ein kompromittierter Dienst nicht automatisch alle anderen erreicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Bausteine am Rand</div>
+            <div class="explanation">
+              Bevor eine Anfrage überhaupt einen Dienst erreicht, läuft sie durch eine feste Kette — jeder Baustein hat genau eine Aufgabe:<br><br>
+              <strong>DNS</strong> — übersetzt den Namen (etwa eine Domain) in eine Adresse. Das „Telefonbuch“ des Netzes und der erste Schritt jeder Verbindung.<br>
+              <strong>TLS</strong> — verschlüsselt die Leitung (das <code>https</code>), damit unterwegs niemand mitliest oder manipuliert.<br>
+              <strong>Load Balancer</strong> — verteilt eingehende Anfragen auf mehrere gleiche Server; das fängt Last ab und hält den Dienst bei einem Ausfall erreichbar.<br>
+              <strong>Reverse-Proxy</strong> — nimmt Anfragen von außen an und leitet sie ans richtige interne Ziel; die internen Dienste bleiben dabei verborgen.<br>
+              <strong>API-Gateway</strong> — ein spezialisierter Reverse-Proxy mit Auth, Rate-Limiting und Routing pro Schnittstelle: die eine kontrollierte Haupttür.<br>
+              <strong>CDN</strong> — hält statische Inhalte in einem Zwischenspeicher nah am Nutzer und entlastet so den Ursprungsserver.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Der Weg von außen nach innen</span></div>
+              <div class="code-pre">Nutzer (Browser)
+  -&gt; DNS            Name wird zur Adresse
+  -&gt; TLS            Leitung wird verschlüsselt (https)
+  -&gt; CDN            statische Inhalte aus dem Zwischenspeicher
+  -&gt; Load Balancer  verteilt auf mehrere gleiche Server
+  -&gt; API-Gateway    Auth + Rate-Limiting + Routing (die Haupttür)
+  ----------------- ab hier: privates VNet -----------------
+  -&gt; Dienst A     Dienst B
+  -&gt; Datenbank    (nur Private Endpoint, keine öffentliche Adresse)</div>
+            </div>
+          </div>
+          ${quickCheck('Ein Dienst nimmt Anfragen von außen an und leitet sie an das richtige interne Ziel weiter, ohne die internen Dienste offenzulegen. Wie heißt dieser Baustein?', ['Ein <strong>Reverse-Proxy</strong>', 'Ein <code>DNS</code>-Server', 'Ein <code>CDN</code>'], 0, 'Der Reverse-Proxy nimmt Anfragen von außen an und verbirgt die internen Dienste. Ein API-Gateway ist die spezialisierte Variante mit Auth, Rate-Limiting und Routing pro Schnittstelle.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Innen: das private Netz</div>
+            <div class="explanation">
+              Hinter dem Gateway beginnt der geschützte Bereich:<br><br>
+              <strong>VNet (virtuelles Netzwerk)</strong> — ein abgetrennter privater Bereich, der Dienste vom öffentlichen Internet fernhält. Nur wer durch die Haupttür kommt, ist überhaupt hier drin.<br>
+              <strong>Private Endpoint</strong> — ein Zugang zu einem Dienst (etwa einer Datenbank), der nur aus dem privaten Netz erreichbar ist. Der Dienst bekommt gar keine öffentliche Adresse — und was das Internet nicht sieht, kann es auch nicht angreifen.<br><br>
+              Daraus folgt der wichtigste Reflex: Alles, was nicht selbst ins Internet muss, gehört hinter das Gateway ins private Netz.
+            </div>
+          </div>
+          ${callout('tip', 'Der beste Schutz', 'Ein Dienst ohne öffentliche Adresse ist der beste Schutz — man kann nicht angreifen, was man nicht erreicht. Alles, was nicht zwingend das Internet erreichen muss, gehört hinter das Gateway ins private Netz mit Private Endpoints.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Zero-Trust in der Praxis</div>
+            <div class="explanation">
+              Das alte „Burg“-Modell setzt auf eine dicke Mauer außen: Wer einmal drinnen ist, gilt als vertrauenswürdig. Das ist gefährlich — überwindet ein Angreifer die Mauer ein einziges Mal, hat er im Inneren freie Bahn.<br><br>
+              <strong>Zero-Trust</strong> kehrt das um: „Never trust, always verify“. Jeder Dienst weist sich aus und autorisiert jede Anfrage — auch intern. Drei Techniken tragen das:<br><br>
+              <strong>mTLS (gegenseitiges TLS)</strong> — nicht nur der Server weist sich aus, auch der Client. Beide zeigen ein Zertifikat, bevor überhaupt gesprochen wird.<br>
+              <strong>Mikrosegmentierung</strong> — das Netz wird in viele kleine Zonen zerteilt. Ein kompromittierter Dienst erreicht dann nicht automatisch alle anderen.<br>
+              <strong>Rate-Limiting</strong> — die Anzahl der Anfragen pro Zeit wird begrenzt (oft am Gateway) und schützt so vor Überlastung und Missbrauch.
+            </div>
+          </div>
+          ${quickCheck('Was ist der Kern des Zero-Trust-Modells im Vergleich zum alten „Burg“-Modell?', ['Eine noch dickere Mauer nach außen, damit niemand hineinkommt', 'Auch intern vertraut niemand blind — jeder Dienst weist sich aus und autorisiert jede Anfrage', 'Interne Dienste dürfen ganz auf Verschlüsselung verzichten'], 1, 'Zero-Trust heißt „never trust, always verify“: Die Vertrauensgrenze verläuft nicht mehr nur an der Außenmauer. Auch intern muss sich jeder Dienst ausweisen (mTLS), und Mikrosegmentierung begrenzt den Schaden eines Einbruchs.')}
           ${renderQuestions('cloud_l3_1', 6)}
           ${renderBonus('cloud_l3_1')}
         `,
@@ -23126,6 +23172,52 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
             </div>
           </div>
           ${callout('key', 'Zero-trust', 'The old "castle" model (thick wall outside, trust inside) is dangerous. Zero-trust reverses it: "never trust, always verify" — every service authenticates (mTLS), and microsegmentation ensures a compromised service cannot automatically reach all the others.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The building blocks at the edge</div>
+            <div class="explanation">
+              Before a request even reaches a service, it runs through a fixed chain — each block has exactly one job:<br><br>
+              <strong>DNS</strong> — translates the name (say a domain) into an address. The "phone book" of the network and the first step of every connection.<br>
+              <strong>TLS</strong> — encrypts the line (the <code>https</code>), so no one reads along or tampers on the way.<br>
+              <strong>Load balancer</strong> — spreads incoming requests across several identical servers; that absorbs load and keeps the service reachable when one fails.<br>
+              <strong>Reverse proxy</strong> — accepts requests from outside and routes them to the right internal target; the internal services stay hidden.<br>
+              <strong>API gateway</strong> — a specialized reverse proxy with auth, rate-limiting and routing per interface: the one controlled front door.<br>
+              <strong>CDN</strong> — keeps static content in a cache close to the user and so relieves the origin server.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">The path from outside in</span></div>
+              <div class="code-pre">User (browser)
+  -&gt; DNS            name becomes an address
+  -&gt; TLS            line gets encrypted (https)
+  -&gt; CDN            static content from the cache
+  -&gt; Load balancer  spreads across identical servers
+  -&gt; API gateway    auth + rate-limiting + routing (the front door)
+  ----------------- from here: private VNet -----------------
+  -&gt; Service A     Service B
+  -&gt; Database      (private endpoint only, no public address)</div>
+            </div>
+          </div>
+          ${quickCheck('A service accepts requests from outside and routes them to the right internal target without exposing the internal services. What is this block called?', ['A <strong>reverse proxy</strong>', 'A <code>DNS</code> server', 'A <code>CDN</code>'], 0, 'The reverse proxy accepts requests from outside and hides the internal services. An API gateway is the specialized variant with auth, rate-limiting and routing per interface.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Inside: the private network</div>
+            <div class="explanation">
+              Behind the gateway the protected area begins:<br><br>
+              <strong>VNet (virtual network)</strong> — a walled-off private area that keeps services away from the public internet. Only what comes through the front door is even in here.<br>
+              <strong>Private endpoint</strong> — access to a service (say a database) reachable only from the private network. The service gets no public address at all — and what the internet cannot see, it cannot attack.<br><br>
+              From this follows the most important reflex: anything that does not itself need the internet belongs behind the gateway in the private network.
+            </div>
+          </div>
+          ${callout('tip', 'The best protection', 'A service with no public address is the best protection — you cannot attack what you cannot reach. Anything that does not strictly need to reach the internet belongs behind the gateway in the private network with private endpoints.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Zero-trust in practice</div>
+            <div class="explanation">
+              The old "castle" model relies on a thick wall outside: whoever is inside is treated as trustworthy. That is dangerous — if an attacker breaches the wall just once, they have free rein inside.<br><br>
+              <strong>Zero-trust</strong> reverses that: "never trust, always verify". Every service authenticates and authorizes every request — internally too. Three techniques carry it:<br><br>
+              <strong>mTLS (mutual TLS)</strong> — not only the server authenticates, the client does too. Both present a certificate before anything is even said.<br>
+              <strong>Microsegmentation</strong> — the network is split into many small zones. A compromised service then does not automatically reach all the others.<br>
+              <strong>Rate-limiting</strong> — the number of requests per time is capped (often at the gateway) and so protects against overload and abuse.
+            </div>
+          </div>
+          ${quickCheck('What is the core of the zero-trust model compared to the old "castle" model?', ['An even thicker wall to the outside so no one gets in', 'No one is trusted blindly internally either — every service authenticates and authorizes every request', 'Internal services may skip encryption entirely'], 1, 'Zero-trust means "never trust, always verify": the trust boundary no longer runs only at the outer wall. Internally too, every service must authenticate (mTLS), and microsegmentation limits the damage of a breach.')}
           ${renderQuestions('cloud_l3_1', 6)}
           ${renderBonus('cloud_l3_1')}
         `
@@ -23153,6 +23245,59 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
             </div>
           </div>
           ${callout('key', 'Governance', 'Ohne Regeln wird jede Datenplattform zum Sumpf. Governance liefert fünf Bausteine: Katalog (welche Daten wo), Lineage (Herkunftsspur — zugleich DSGVO-/EU-AI-Act-Nachweis), Qualität, PII-Schutz und MDM. Ein Data Mesh ohne föderierte Governance wird nicht dezentral, sondern chaotisch.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Medaillon: Bronze, Silber, Gold</div>
+            <div class="explanation">
+              Die Medaillon-Architektur veredelt Daten in drei Stufen — von roh über sauber bis verwendbar. Der Trick: Keine Stufe wirft die vorige weg, jede baut auf ihr auf. So bleibt jede Kennzahl bis zur Quelle zurückverfolgbar.<br><br>
+              <strong>Bronze</strong> — die Rohdaten, unverändert übernommen. Sie sichern die Nachvollziehbarkeit: Man kann jederzeit zur Quelle zurück.<br>
+              <strong>Silber</strong> — bereinigt, dedupliziert und über verschiedene Quellen hinweg verknüpft. Hier entsteht ein sauberer, verlässlicher Datenbestand.<br>
+              <strong>Gold</strong> — zu Kennzahlen und fertigen Tabellen fürs Geschäft aggregiert. Darauf greifen Berichte und Dashboards zu.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Veredelung in drei Stufen</span></div>
+              <div class="code-pre">Bronze   roh, unverändert      -&gt;  Nachvollziehbarkeit, Rohspur
+  |      (dedupliziert, bereinigt, verknüpft)
+Silber   sauber, verlässlich   -&gt;  ein verlässlicher Bestand
+  |      (aggregiert zu Kennzahlen)
+Gold     geschäftsfertig       -&gt;  Berichte, Dashboards, KPIs
+
+Jede Auswertung bleibt bis zur Bronze-Quelle zurückverfolgbar.</div>
+            </div>
+          </div>
+          ${quickCheck('In welcher Stufe der Medaillon-Architektur liegen die Rohdaten unverändert, damit alles bis zur Quelle nachvollziehbar bleibt?', ['<strong>Bronze</strong>', '<strong>Silber</strong>', '<strong>Gold</strong>'], 0, 'Bronze hält die Rohdaten unverändert — das sichert die Nachvollziehbarkeit. Silber ist bereinigt und verknüpft, Gold zu Kennzahlen fürs Geschäft aggregiert.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Batch vs. Streaming — zentral vs. Data Mesh</div>
+            <div class="explanation">
+              Zwei Grundsatzfragen prägen jede Datenplattform.<br><br>
+              <strong>Wann wird verarbeitet?</strong><br>
+              <strong>Batch</strong> — Daten werden gebündelt verarbeitet, etwa nächtlich. Einfach und günstig, aber mit Verzögerung.<br>
+              <strong>Streaming</strong> — jedes Ereignis wird sofort beim Eintreffen verarbeitet, nahezu in Echtzeit. Mächtiger, aber komplexer. Viele Plattformen kombinieren beides.<br><br>
+              <strong>Wer besitzt die Daten?</strong><br>
+              <strong>Zentral</strong> — ein Team verwaltet die Plattform für alle. Klare Zuständigkeit, aber das Team wird leicht zum Engpass.<br>
+              <strong>Data Mesh</strong> — jede Fachdomäne besitzt ihre eigenen Daten als „Datenprodukt“, dezentral, aber unter gemeinsamer Governance. Skaliert mit der Organisation — verlangt dafür aber eine starke föderierte Governance.
+            </div>
+          </div>
+          ${callout('warn', 'Data Mesh braucht Governance', 'Ein Data Mesh ohne föderierte Governance wird nicht dezentral, sondern chaotisch. Beschließe die gemeinsamen Regeln — Katalog, Lineage, PII-Schutz, Qualität — verbindlich, bevor du die Verantwortung auf einzelne Domänen verteilst.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Governance: die fünf tragenden Bausteine</div>
+            <div class="explanation">
+              Governance ist kein einzelnes Werkzeug, sondern ruht auf fünf Bausteinen — fehlt einer, kippt das Vertrauen in die Daten:<br><br>
+              <strong>Katalog</strong> — ein Verzeichnis, welche Daten es gibt, wo sie liegen und was sie bedeuten. Er macht Daten überhaupt auffindbar.<br>
+              <strong>Lineage / Herkunft</strong> — eine lückenlose Spur, aus welchen Quellen und Schritten ein Wert entstand. Zugleich der Nachweis für DSGVO und EU-AI-Act.<br>
+              <strong>Qualität</strong> — automatische Prüfungen auf Vollständigkeit, Gültigkeit und Aktualität.<br>
+              <strong>PII-Schutz</strong> — personenbezogene Daten erkennen, maskieren und im Zugriff beschränken (DSGVO).<br>
+              <strong>MDM (Stammdaten-Management)</strong> — eine verlässliche Wahrheit für Kernobjekte wie Kunden oder Produkte, damit keine widersprüchlichen Kopien entstehen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Fünf Bausteine der Governance</span></div>
+              <div class="code-pre">Katalog    -&gt; welche Daten gibt es, wo, was bedeuten sie?
+Lineage    -&gt; woraus entstand ein Wert? (DSGVO- + AI-Act-Nachweis)
+Qualität   -&gt; vollständig, gültig, aktuell?
+PII-Schutz -&gt; erkennen, maskieren, Zugriff beschränken
+MDM        -&gt; eine Wahrheit für Kunden, Produkte, Kernobjekte</div>
+            </div>
+          </div>
+          ${quickCheck('Welcher Governance-Baustein liefert die lückenlose Herkunftsspur eines Werts und dient zugleich als Nachweis für DSGVO und EU-AI-Act?', ['<strong>Lineage / Herkunft</strong>', 'Der <strong>Katalog</strong>', 'Das <strong>MDM</strong>'], 0, 'Lineage zeichnet nach, aus welchen Quellen und Schritten ein Wert entstand — genau dieser Nachweis wird für DSGVO und EU-AI-Act verlangt. Der Katalog macht Daten auffindbar, MDM sorgt für eine verlässliche Wahrheit bei Kernobjekten.')}
           ${renderQuestions('cloud_l4_1', 6)}
           ${renderBonus('cloud_l4_1')}
         `,
@@ -23170,6 +23315,59 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
             </div>
           </div>
           ${callout('key', 'Governance', 'Without rules, any data platform becomes a swamp. Governance provides five building blocks: catalog (which data where), lineage (provenance trail — also a GDPR/EU-AI-Act proof), quality, PII protection and MDM. A data mesh without federated governance becomes not decentralized but chaotic.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Medallion: bronze, silver, gold</div>
+            <div class="explanation">
+              The medallion architecture refines data in three tiers — from raw through clean to usable. The trick: no tier throws away the previous one, each builds on it. So every metric stays traceable back to the source.<br><br>
+              <strong>Bronze</strong> — the raw data, taken over unchanged. It secures traceability: you can always go back to the source.<br>
+              <strong>Silver</strong> — cleaned, deduplicated and joined across different sources. This is where a clean, reliable data set emerges.<br>
+              <strong>Gold</strong> — aggregated into metrics and finished tables for the business. This is what reports and dashboards read from.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Refinement in three tiers</span></div>
+              <div class="code-pre">Bronze   raw, unchanged        -&gt;  traceability, raw trail
+  |      (deduplicated, cleaned, joined)
+Silver   clean, reliable       -&gt;  a reliable data set
+  |      (aggregated into metrics)
+Gold     business-ready        -&gt;  reports, dashboards, KPIs
+
+Every analysis stays traceable back to the bronze source.</div>
+            </div>
+          </div>
+          ${quickCheck('In which tier of the medallion architecture does the raw data sit unchanged, so everything stays traceable back to the source?', ['<strong>Bronze</strong>', '<strong>Silver</strong>', '<strong>Gold</strong>'], 0, 'Bronze keeps the raw data unchanged — that secures traceability. Silver is cleaned and joined, gold aggregated into metrics for the business.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Batch vs. streaming — central vs. data mesh</div>
+            <div class="explanation">
+              Two fundamental questions shape every data platform.<br><br>
+              <strong>When is it processed?</strong><br>
+              <strong>Batch</strong> — data is processed in bundles, say nightly. Simple and cheap, but with a delay.<br>
+              <strong>Streaming</strong> — each event is processed the moment it arrives, near real time. More powerful, but more complex. Many platforms combine both.<br><br>
+              <strong>Who owns the data?</strong><br>
+              <strong>Central</strong> — one team runs the platform for everyone. Clear responsibility, but the team easily becomes a bottleneck.<br>
+              <strong>Data mesh</strong> — each business domain owns its own data as a "data product", decentralized but under shared governance. It scales with the organization — but demands strong federated governance in return.
+            </div>
+          </div>
+          ${callout('warn', 'A data mesh needs governance', 'A data mesh without federated governance becomes not decentralized but chaotic. Decide the shared rules — catalog, lineage, PII protection, quality — bindingly before you hand responsibility to individual domains.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Governance: the five load-bearing blocks</div>
+            <div class="explanation">
+              Governance is not a single tool but rests on five blocks — if one is missing, trust in the data collapses:<br><br>
+              <strong>Catalog</strong> — a directory of which data exists, where it sits and what it means. It makes data findable in the first place.<br>
+              <strong>Lineage / provenance</strong> — an unbroken trail of which sources and steps a value came from. Also the proof for GDPR and the EU AI Act.<br>
+              <strong>Quality</strong> — automatic checks for completeness, validity and freshness.<br>
+              <strong>PII protection</strong> — detect, mask and restrict access to personal data (GDPR).<br>
+              <strong>MDM (master data management)</strong> — one reliable truth for core objects like customers or products, so no contradictory copies arise.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Five blocks of governance</span></div>
+              <div class="code-pre">Catalog    -&gt; which data exists, where, what does it mean?
+Lineage    -&gt; what did a value come from? (GDPR + AI-Act proof)
+Quality    -&gt; complete, valid, fresh?
+PII prot.  -&gt; detect, mask, restrict access
+MDM        -&gt; one truth for customers, products, core objects</div>
+            </div>
+          </div>
+          ${quickCheck('Which governance block provides the unbroken provenance trail of a value and also serves as proof for GDPR and the EU AI Act?', ['<strong>Lineage / provenance</strong>', 'The <strong>catalog</strong>', 'The <strong>MDM</strong>'], 0, 'Lineage records which sources and steps a value came from — exactly the proof demanded for GDPR and the EU AI Act. The catalog makes data findable, MDM provides one reliable truth for core objects.')}
           ${renderQuestions('cloud_l4_1', 6)}
           ${renderBonus('cloud_l4_1')}
         `
@@ -29145,6 +29343,48 @@ QUESTION_POOLS['cloud_l2_1'] = [
     {t:'„Daten in Frankfurt“ nie mit „rechtlich geschützt“ verwechseln und alle vier Dimensionen getrennt prüfen',t_en:'Never confuse "data in Frankfurt" with "legally protected" and check all four dimensions separately',correct:true,why:'Genau. Standort, Betrieb, Technik und Modell-Standort sind einzeln zu bewerten.',why_en:'Exactly. Location, operations, technology and model location must each be judged on their own.'},
     {t:'Sobald die Daten in der EU liegen, ist keine weitere Prüfung nötig',t_en:'Once the data is in the EU, no further check is needed',correct:false,why:'Nein. Genau dieser Trugschluss ist der Kernfehler der Lektion.',why_en:'No. That fallacy is exactly the core mistake of the lesson.'},
     {t:'On-Premises ist immer die einzig vertretbare Wahl',t_en:'On-premises is always the only defensible choice',correct:false,why:'Nein. Man wählt die niedrigste Stufe, die für die Schutzbedürftigkeit gerade ausreicht.',why_en:'No. You pick the lowest tier that is just enough for how much protection the data needs.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l3_1'] = [
+  {id:'p_cloud_l3_1_mc1',type:'mc',xp:10,question:'Welcher Baustein nimmt Anfragen von außen an, leitet sie ans richtige interne Ziel und verbirgt dabei die internen Dienste?',question_en:'Which block accepts requests from outside, routes them to the right internal target and hides the internal services?',options:[
+    {t:'Ein <strong>Reverse-Proxy</strong>',t_en:'A <strong>reverse proxy</strong>',correct:true,why:'Genau. Der Reverse-Proxy nimmt Anfragen an und verbirgt die internen Dienste; das API-Gateway ist seine spezialisierte Variante mit Auth und Rate-Limiting.',why_en:'Exactly. The reverse proxy accepts requests and hides the internal services; the API gateway is its specialized variant with auth and rate-limiting.'},
+    {t:'Ein <code>Load Balancer</code>',t_en:'A <code>load balancer</code>',correct:false,why:'Nein. Der Load Balancer verteilt Anfragen auf mehrere gleiche Server, er verbirgt keine internen Ziele.',why_en:'No. The load balancer spreads requests across several identical servers, it does not hide internal targets.'},
+    {t:'Ein <code>CDN</code>',t_en:'A <code>CDN</code>',correct:false,why:'Nein. Das CDN hält statische Inhalte nah am Nutzer, es leitet keine Anfragen an interne Ziele.',why_en:'No. The CDN keeps static content near the user, it does not route requests to internal targets.'}
+  ]},
+  {id:'p_cloud_l3_1_mc2',type:'mc',xp:10,question:'Was ist der Kern von Zero-Trust?',question_en:'What is the core of zero-trust?',options:[
+    {t:'„Never trust, always verify“ — jeder Dienst weist sich aus und autorisiert jede Anfrage, auch intern',t_en:'"Never trust, always verify" — every service authenticates and authorizes every request, internally too',correct:true,why:'Genau. Die Vertrauensgrenze verläuft nicht mehr nur an der Außenmauer; auch intern muss sich jeder Dienst ausweisen.',why_en:'Exactly. The trust boundary no longer runs only at the outer wall; internally too every service must authenticate.'},
+    {t:'Eine besonders dicke Außenmauer, hinter der alles als vertrauenswürdig gilt',t_en:'An especially thick outer wall behind which everything is treated as trustworthy',correct:false,why:'Nein. Das ist das alte „Burg“-Modell, das Zero-Trust gerade ablöst.',why_en:'No. That is the old "castle" model that zero-trust replaces.'},
+    {t:'Der Verzicht auf jede Verschlüsselung im internen Netz',t_en:'Dropping all encryption in the internal network',correct:false,why:'Nein. Zero-Trust verlangt im Gegenteil, dass sich auch intern jeder ausweist (mTLS).',why_en:'No. On the contrary, zero-trust requires that internally too everyone authenticates (mTLS).'}
+  ]},
+  {id:'p_cloud_l3_1_tf1',type:'truefalse',xp:8,statement:'Ein Private Endpoint gibt einem Dienst wie einer Datenbank eine öffentliche Adresse, die aus dem Internet erreichbar ist.',statement_en:'A private endpoint gives a service such as a database a public address reachable from the internet.',correct:false,explanation:'Falsch. Ein Private Endpoint macht einen Dienst nur aus dem privaten Netz erreichbar; der Dienst bekommt gerade keine öffentliche Adresse.',explanation_en:'False. A private endpoint makes a service reachable only from the private network; the service gets no public address at all.'},
+  {id:'p_cloud_l3_1_tf2',type:'truefalse',xp:8,statement:'Bei mTLS weisen sich sowohl Server als auch Client mit einem Zertifikat aus.',statement_en:'With mTLS both the server and the client authenticate with a certificate.',correct:true,explanation:'Richtig. mTLS ist gegenseitiges TLS — nicht nur der Server, auch der Client zeigt sein Zertifikat, bevor gesprochen wird.',explanation_en:'Correct. mTLS is mutual TLS — not only the server, the client too presents its certificate before anything is said.'},
+  {id:'p_cloud_l3_1_fb1',type:'fillblank',xp:12,prompt:'Der Baustein, der den Namen (etwa eine Domain) in eine Adresse übersetzt und der erste Schritt jeder Verbindung ist, heißt ___.',prompt_en:'The block that translates the name (say a domain) into an address and is the first step of every connection is called ___.',answers:['DNS','dns'],placeholder:'Kürzel…',placeholder_en:'Acronym…',explanation:'<code>DNS</code> ist das „Telefonbuch“ des Netzes: Es übersetzt Namen in Adressen, bevor <code>TLS</code> die Leitung verschlüsselt.',explanation_en:'<code>DNS</code> is the "phone book" of the network: it translates names into addresses before <code>TLS</code> encrypts the line.'},
+  {id:'p_cloud_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Welcher Leitsatz fasst den besten Netzwerk-Schutz zusammen?',question_en:'Which principle sums up the best network protection?',options:[
+    {t:'Ein Dienst ohne öffentliche Adresse ist der beste Schutz — was nicht ins Internet muss, gehört hinter das Gateway ins private Netz',t_en:'A service with no public address is the best protection — what does not need the internet belongs behind the gateway in the private network',correct:true,why:'Genau. Man kann nicht angreifen, was man nicht erreicht; darum gehört alles Nicht-Öffentliche ins VNet mit Private Endpoints.',why_en:'Exactly. You cannot attack what you cannot reach; so everything non-public belongs in the VNet with private endpoints.'},
+    {t:'Je mehr Dienste eine öffentliche Adresse haben, desto einfacher der Betrieb',t_en:'The more services have a public address, the easier operations get',correct:false,why:'Nein. Jede öffentliche Adresse vergrößert die Angriffsfläche.',why_en:'No. Every public address enlarges the attack surface.'},
+    {t:'Interne Dienste brauchen keine Autorisierung, solange sie im VNet liegen',t_en:'Internal services need no authorization as long as they sit in the VNet',correct:false,why:'Nein. Genau diese Annahme widerlegt Zero-Trust — auch intern gilt „always verify“.',why_en:'No. That very assumption is what zero-trust refutes — internally too "always verify" applies.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l4_1'] = [
+  {id:'p_cloud_l4_1_mc1',type:'mc',xp:10,question:'Was leistet <code>Delta Lake</code> gegenüber reinem <code>Parquet</code>?',question_en:'What does <code>Delta Lake</code> add over plain <code>Parquet</code>?',options:[
+    {t:'Eine Transaktions-Schicht — Änderungen werden atomar, versioniert und rücksetzbar',t_en:'A transaction layer — changes become atomic, versioned and reversible',correct:true,why:'Genau. Delta Lake legt über die spaltenweise Parquet-Ablage die Verlässlichkeit einer Datenbank.',why_en:'Exactly. Delta Lake puts the reliability of a database on top of the column-wise Parquet storage.'},
+    {t:'Es verschlüsselt die Daten automatisch für die EU',t_en:'It automatically encrypts the data for the EU',correct:false,why:'Nein. Delta Lake regelt Transaktionen und Versionierung, nicht die Verschlüsselung.',why_en:'No. Delta Lake handles transactions and versioning, not encryption.'},
+    {t:'Es ersetzt die Verarbeitungsmaschine <code>Apache Spark</code>',t_en:'It replaces the processing engine <code>Apache Spark</code>',correct:false,why:'Nein. Spark bleibt die verteilte Verarbeitungsmaschine; Delta Lake ist die Format-/Transaktions-Schicht.',why_en:'No. Spark stays the distributed processing engine; Delta Lake is the format/transaction layer.'}
+  ]},
+  {id:'p_cloud_l4_1_mc2',type:'mc',xp:10,question:'Welcher Governance-Baustein liefert die lückenlose Herkunftsspur eines Werts — zugleich Nachweis für DSGVO und EU-AI-Act?',question_en:'Which governance block provides the unbroken provenance trail of a value — also proof for GDPR and the EU AI Act?',options:[
+    {t:'<strong>Lineage / Herkunft</strong>',t_en:'<strong>Lineage / provenance</strong>',correct:true,why:'Genau. Lineage zeigt, aus welchen Quellen und Schritten ein Wert entstand — genau dieser Nachweis wird verlangt.',why_en:'Exactly. Lineage shows which sources and steps a value came from — exactly the proof demanded.'},
+    {t:'Der <strong>Katalog</strong>',t_en:'The <strong>catalog</strong>',correct:false,why:'Nein. Der Katalog macht Daten auffindbar, liefert aber nicht die Herkunftsspur.',why_en:'No. The catalog makes data findable but does not provide the provenance trail.'},
+    {t:'Das <strong>MDM</strong>',t_en:'The <strong>MDM</strong>',correct:false,why:'Nein. MDM sorgt für eine verlässliche Wahrheit bei Kernobjekten, nicht für die Herkunftsspur.',why_en:'No. MDM provides one reliable truth for core objects, not the provenance trail.'}
+  ]},
+  {id:'p_cloud_l4_1_tf1',type:'truefalse',xp:8,statement:'In der Medaillon-Architektur enthält die Bronze-Stufe die Rohdaten unverändert, damit alles bis zur Quelle nachvollziehbar bleibt.',statement_en:'In the medallion architecture the bronze tier holds the raw data unchanged, so everything stays traceable back to the source.',correct:true,explanation:'Richtig. Bronze bewahrt die Rohspur; Silber ist bereinigt und verknüpft, Gold zu Kennzahlen aggregiert.',explanation_en:'Correct. Bronze preserves the raw trail; silver is cleaned and joined, gold aggregated into metrics.'},
+  {id:'p_cloud_l4_1_tf2',type:'truefalse',xp:8,statement:'Ein Data Mesh funktioniert auch ohne föderierte Governance zuverlässig dezentral.',statement_en:'A data mesh works reliably decentralized even without federated governance.',correct:false,explanation:'Falsch. Ohne föderierte Governance (Katalog, Lineage, PII, Qualität) wird ein Data Mesh nicht dezentral, sondern chaotisch.',explanation_en:'False. Without federated governance (catalog, lineage, PII, quality) a data mesh becomes not decentralized but chaotic.'},
+  {id:'p_cloud_l4_1_fb1',type:'fillblank',xp:12,prompt:'Die Verarbeitungsart, die jedes Ereignis sofort beim Eintreffen nahezu in Echtzeit verarbeitet (im Gegensatz zu Batch), heißt ___.',prompt_en:'The processing mode that handles each event the moment it arrives, near real time (as opposed to batch), is called ___.',answers:['Streaming','streaming','Stream','stream'],placeholder:'Verarbeitungsart…',placeholder_en:'Processing mode…',explanation:'<strong>Streaming</strong> verarbeitet Ereignisse sofort und nahezu in Echtzeit; <strong>Batch</strong> bündelt sie und verarbeitet sie mit Verzögerung.',explanation_en:'<strong>Streaming</strong> processes events immediately and near real time; <strong>batch</strong> bundles them and processes them with a delay.'},
+  {id:'p_cloud_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Leitplanke gilt, bevor man Verantwortung im Data Mesh auf Domänen verteilt?',question_en:'Which guardrail applies before handing responsibility in a data mesh to domains?',options:[
+    {t:'Zuerst die gemeinsamen Regeln — Katalog, Lineage, PII, Qualität — verbindlich beschließen',t_en:'First bindingly decide the shared rules — catalog, lineage, PII, quality',correct:true,why:'Genau. Erst die föderierte Governance macht die Dezentralisierung tragfähig statt chaotisch.',why_en:'Exactly. Only federated governance makes decentralization viable rather than chaotic.'},
+    {t:'Jede Domäne entscheidet völlig frei, ohne gemeinsame Regeln',t_en:'Each domain decides completely freely, without shared rules',correct:false,why:'Nein. Ohne gemeinsame Regeln entstehen widersprüchliche Datenprodukte und Chaos.',why_en:'No. Without shared rules you get contradictory data products and chaos.'},
+    {t:'Zuerst alle Daten zentral in ein einziges Team verschieben',t_en:'First move all data centrally into a single team',correct:false,why:'Nein. Das ist der zentrale Ansatz, nicht das Data Mesh — und macht das Team zum Engpass.',why_en:'No. That is the central approach, not the data mesh — and makes the team a bottleneck.'}
   ]}
 ];
 
