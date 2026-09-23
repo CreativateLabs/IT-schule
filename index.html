@@ -24077,6 +24077,188 @@ above the price  -&gt;  every transaction makes a loss.</div>
 ];
 
 // ============================================================
+//   COURSE: Tech-Leadership / CTO — unique ids "lead_*"
+// ============================================================
+const LEAD_PHASES = [
+  {
+    id: 'p_lead1', title: 'Delivery & Führung', title_en: 'Delivery & Leadership',
+    sub: 'Vom Solo-Bau zum geführten Team — dafür sorgen, dass viele unabhängig guten Code liefern.',
+    sub_en: 'From solo build to a led team — enabling many to ship good code independently.',
+    lessons: [
+      {
+        id: 'lead_l1_1', title: 'Golden Path & Team Topologies',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">Golden Path & Team Topologies</h1>
+            <p class="lesson-desc">Führung in der Softwareentwicklung heißt nicht, mehr Code zu schreiben, sondern dafür zu sorgen, dass viele Menschen — und heute auch Agenten — unabhängig voneinander guten Code liefern können.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Golden Path & vertikale Ownership</div>
+            <div class="explanation">
+              Der <strong>Golden Path</strong> ist ein bewusst schmaler, gut ausgetretener Standardweg, wie ein neuer Dienst entsteht, getestet, deployt und überwacht wird. Ein Entwickler, der ihm folgt, muss nicht bei jedem Service über Logging, CI oder Secret-Handling neu nachdenken — das senkt die geistige Last enorm. Der Golden Path ist die technische Form von Führung.<br><br>
+              Der zweite Pfeiler ist <strong>vertikale Ownership</strong>: Ein Team besitzt eine Fähigkeit vollständig — von der Datenbank über die API bis zum Betrieb („you build it, you run it"). Damit vertikale Teams nicht chaotisch aneinander vorbei bauen, gilt <strong>Contract-first</strong>: Der Vertrag ist die Grenze, an der Autonomie endet und Koordination beginnt.
+            </div>
+          </div>
+          ${callout('key', 'Team Topologies & Inverse Conway', 'Conways Gesetz: Ein System bekommt die Struktur der Organisation, die es baut. Die reife Antwort ist das Inverse Conway Manoeuvre: erst die gewünschte Architektur entwerfen, dann die Teams passend schneiden. Team Topologies kennt vier Typen (Stream-aligned, Platform, Enabling, Complicated-subsystem) mit der Regel „X-as-a-Service" statt Dauer-Abstimmung.')}
+          ${renderQuestions('lead_l1_1', 6)}
+          ${renderBonus('lead_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">Golden Path & Team Topologies</h1>
+            <p class="lesson-desc">Leadership in software development means not writing more code, but ensuring many people — and today also agents — can ship good code independently of each other.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Golden path & vertical ownership</div>
+            <div class="explanation">
+              The <strong>golden path</strong> is a deliberately narrow, well-trodden standard way in which a new service is built, tested, deployed and monitored. A developer who follows it need not rethink logging, CI or secret handling for every service — that hugely lowers the cognitive load. The golden path is the technical form of leadership.<br><br>
+              The second pillar is <strong>vertical ownership</strong>: a team fully owns a capability — from the database through the API to operations ("you build it, you run it"). So vertical teams don't build chaotically past each other, <strong>contract-first</strong> applies: the contract is the boundary where autonomy ends and coordination begins.
+            </div>
+          </div>
+          ${callout('key', 'Team Topologies & inverse Conway', "Conway's law: a system takes on the structure of the organization that builds it. The mature answer is the inverse Conway manoeuvre: first design the desired architecture, then cut the teams to match. Team Topologies knows four types (stream-aligned, platform, enabling, complicated-subsystem) with the rule 'X-as-a-service' instead of constant coordination.")}
+          ${renderQuestions('lead_l1_1', 6)}
+          ${renderBonus('lead_l1_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_lead2', title: 'CTO-Denkweise', title_en: 'The CTO Mindset',
+    sub: 'Discovery vor Delivery, das begründete Nein, Schätzen in Spannen und Risk-first.',
+    sub_en: 'Discovery before delivery, the reasoned no, estimating in ranges and risk-first.',
+    lessons: [
+      {
+        id: 'lead_l2_1', title: 'Discovery, das Nein & Risk-first',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">Discovery, das Nein & Risk-first</h1>
+            <p class="lesson-desc">Ein CTO wird selten am Code gemessen, sondern an drei Ergebnissen: dass das Richtige gebaut wird, dass die Organisation es dauerhaft bauen kann, und dass keine vermeidbaren Existenzrisiken eingeht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Discovery & das begründete Nein</div>
+            <div class="explanation">
+              <strong>Discovery</strong> heißt: das Problem verstehen, bevor man eine Lösung liefert. Die teuerste Software ist die, die einwandfrei funktioniert und niemand braucht. Daraus folgt die zweite Kernkompetenz: das begründete <strong>Nein</strong> — es lehnt nicht die Person ab, sondern schützt die Kapazität für das, was zählt, und kommt mit Begründung und Alternative.<br><br>
+              Ein CTO muss dieselbe Sachlage für drei Publika übersetzen: <strong>Technik</strong> (Constraints, Trade-offs), <strong>Business</strong> (Auswirkung auf Kunde/Umsatz) und <strong>Geschäftsführung</strong> (Risiko, Kosten, Optionen in Spannen) — ohne den Kern zu verfälschen.
+            </div>
+          </div>
+          ${callout('tip', 'Risk-first & Zeithorizonte', 'Schätze in Spannen mit Annahme („6 bis 12 Tage, wenn die Fremd-API stabil ist"), nicht als Punkt. Arbeite Risk-first: erst ein kurzer, wegwerfbarer Spike auf das größte Risiko, dann die Umsetzung. Führe ein Risiko-Register. Technische Schuld ist ein legitimes Werkzeug — wenn sie sichtbar geführt und geplant zurückgezahlt wird. Halte drei Zeithorizonte im Blick: heute, dieses Quartal, dieses Jahr.')}
+          ${renderQuestions('lead_l2_1', 6)}
+          ${renderBonus('lead_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">Discovery, the No & Risk-First</h1>
+            <p class="lesson-desc">A CTO is rarely measured by code, but by three outcomes: that the right thing gets built, that the organization can build it sustainably, and that it takes on no avoidable existential risks.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Discovery & the reasoned no</div>
+            <div class="explanation">
+              <strong>Discovery</strong> means understanding the problem before delivering a solution. The most expensive software is the kind that works flawlessly and nobody needs. From this follows the second core skill: the reasoned <strong>no</strong> — it doesn't reject the person but protects capacity for what matters, and comes with a rationale and an alternative.<br><br>
+              A CTO must translate the same facts for three audiences: <strong>engineering</strong> (constraints, trade-offs), <strong>business</strong> (impact on customer/revenue) and <strong>executives</strong> (risk, cost, options in ranges) — without distorting the core.
+            </div>
+          </div>
+          ${callout('tip', 'Risk-first & time horizons', 'Estimate in ranges with an assumption ("6 to 12 days if the third-party API is stable"), not as a point. Work risk-first: a short, throwaway spike on the biggest risk first, then implementation. Keep a risk register. Technical debt is a legitimate tool — if it is tracked visibly and repaid on a plan. Keep three time horizons in view: today, this quarter, this year.')}
+          ${renderQuestions('lead_l2_1', 6)}
+          ${renderBonus('lead_l2_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_lead3', title: 'Interview- & Pitch-Playbook', title_en: 'Interview & Pitch Playbook',
+    sub: 'Ein Interview misst nicht, ob du die Antwort kennst, sondern wie du zu einer kommst.',
+    sub_en: 'An interview measures not whether you know the answer, but how you arrive at one.',
+    lessons: [
+      {
+        id: 'lead_l3_1', title: 'Erzählstruktur & Beleg-Bibliothek',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">Erzählstruktur & Beleg-Bibliothek</h1>
+            <p class="lesson-desc">Ein technisches Interview oder ein Pitch ist selten ein Wissenstest, sondern ein Test der Denk- und Kommunikationsweise. Der häufigste Fehler: sofort mit einer Lösung loszurennen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Struktur & Belege</div>
+            <div class="explanation">
+              Der reife erste Zug ist umgekehrt: den Raum strukturieren, indem man Rückfragen zu den <strong>Constraints</strong> stellt („Wie viele Nutzer?", „Budget und Zeitrahmen?"). Konkrete Erfahrung überzeugt entlang einer festen Dramaturgie: <strong>Kontext → Problem → Rolle → Trade-off → Ergebnis</strong>. Das Herzstück ist der Trade-off — wer nur das Ergebnis nennt, klingt wie ein Ausführender; wer den Trade-off nennt, wie jemand, der Entscheidungen verantwortet.<br><br>
+              Bereite eine <strong>Beleg-Bibliothek</strong> vor: echte Geschichten, je an eine Führungs- oder Architektur-Kompetenz gehängt, sodass du im Moment nur den passenden Beleg ziehst.
+            </div>
+          </div>
+          ${callout('warn', 'Nie bluffen', 'Niemand kennt alles, und Interviewer riechen einen Bluff sofort — er kostet mehr Vertrauen als jede ehrliche Lücke. Der souveräne Umgang: „Damit habe ich nicht direkt gearbeitet. Ich würde es so angehen …" und dann die Denkweise zeigen. Eine ehrlich benannte Lücke plus Denkweise ist immer die stärkere Karte.')}
+          ${renderQuestions('lead_l3_1', 6)}
+          ${renderBonus('lead_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">Narrative Structure & Evidence Library</h1>
+            <p class="lesson-desc">A technical interview or pitch is rarely a knowledge test but a test of how you think and communicate. The most common mistake: rushing straight into a solution.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Structure & evidence</div>
+            <div class="explanation">
+              The mature first move is the reverse: structure the space by asking clarifying questions about the <strong>constraints</strong> ("How many users?", "Budget and timeline?"). Concrete experience convinces along a fixed dramaturgy: <strong>context → problem → role → trade-off → result</strong>. The heart is the trade-off — whoever names only the result sounds like an executor; whoever names the trade-off sounds like someone who owns decisions.<br><br>
+              Prepare an <strong>evidence library</strong>: real stories, each tied to a leadership or architecture skill, so that in the moment you just pull the right piece of evidence.
+            </div>
+          </div>
+          ${callout('warn', 'Never bluff', 'No one knows everything, and interviewers smell a bluff instantly — it costs more trust than any honest gap. The composed move: "I have not worked with that directly. I would approach it like this …" and then show the reasoning. An honestly named gap plus reasoning is always the stronger card.')}
+          ${renderQuestions('lead_l3_1', 6)}
+          ${renderBonus('lead_l3_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_lead4', title: 'Entscheiden & lernen', title_en: 'Deciding & Learning',
+    sub: 'Gute Entscheidungen entstehen aus Wiederholbarkeit — Checklisten, ADRs und ein Lernplan.',
+    sub_en: 'Good decisions come from repeatability — checklists, ADRs and a learning plan.',
+    lessons: [
+      {
+        id: 'lead_l4_1', title: 'Checklisten, ADR & Build-vs-Buy',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">Checklisten, ADR & Build-vs-Buy</h1>
+            <p class="lesson-desc">Gute Entscheidungen entstehen nicht aus Genie, sondern aus Wiederholbarkeit. Eine Checkliste ist kein Misstrauen gegen das eigene Urteil, sondern der Schutz davor, unter Druck einen wichtigen Punkt zu vergessen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Checkliste, ADR & Build-vs-Buy</div>
+            <div class="explanation">
+              Die <strong>Architektur-Checkliste</strong> fragt u. a.: Welches Problem für wen? Welche Constraints sind fix, welche verhandelbar? Zwei bis drei Optionen inkl. „nichts tun"? Trade-off in Spannen? Größtes Risiko vorab per Spike prüfbar? Ist die Entscheidung reversibel? Der wichtigste Beschleuniger: reversible Entscheidungen verdienen keine Wochen Analyse.<br><br>
+              Jede folgenreiche Entscheidung wird als <strong>ADR</strong> festgehalten (kurz, datiert, mit verworfenen Alternativen). Beim <strong>Build-vs-Buy-Check</strong> gilt: Selbstbau lohnt fast nur im Kerngeschäft; bei Standardproblemen ist Kaufen meist billiger — über drei Jahre gerechnet, inkl. Betrieb.
+            </div>
+          </div>
+          ${callout('key', 'Lernen: die Dreierschleife', 'Belastbares Wissen folgt der Schleife Konzept verstehen → in einem kleinen lauffähigen Beispiel praktisch nachbauen → belegen (Repo, Erklärnotiz). Der Beleg deckt auf, ob man es wirklich verstanden hat — man kann nur erklären oder bauen, was man begriffen hat. Kleine lauffähige Beispiele schlagen große Tutorials.')}
+          ${renderQuestions('lead_l4_1', 6)}
+          ${renderBonus('lead_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">Checklists, ADR & Build-vs-Buy</h1>
+            <p class="lesson-desc">Good decisions come not from genius but from repeatability. A checklist is not distrust of your own judgment, but protection against forgetting an important point under pressure.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Checklist, ADR & build-vs-buy</div>
+            <div class="explanation">
+              The <strong>architecture checklist</strong> asks, among others: which problem for whom? Which constraints are fixed, which negotiable? Two or three options including "do nothing"? Trade-off in ranges? Biggest risk testable up front with a spike? Is the decision reversible? The most important accelerator: reversible decisions don't deserve weeks of analysis.<br><br>
+              Every consequential decision is recorded as an <strong>ADR</strong> (brief, dated, with rejected alternatives). For the <strong>build-vs-buy check</strong>: building yourself pays off almost only in the core business; for standard problems buying is usually cheaper — counted over three years, including operations.
+            </div>
+          </div>
+          ${callout('key', 'Learning: the triple loop', 'Durable knowledge follows the loop understand the concept → rebuild it hands-on in a small working example → prove it (repo, explainer note). The proof reveals whether you truly understood it — you can only explain or build what you have grasped. Small working examples beat large tutorials.')}
+          ${renderQuestions('lead_l4_1', 6)}
+          ${renderBonus('lead_l4_1')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -24160,10 +24342,8 @@ const COURSES = [
     level: 'Profi',
     level_en: 'Pro',
     accent: 'var(--accent)',
-    phases: [],
-    available: false,
-    soonNote: '5 Kapitel · geplant',
-    soonNote_en: '5 chapters · planned',
+    phases: LEAD_PHASES,
+    available: true,
   },
 ];
 
