@@ -24101,6 +24101,42 @@ const LEAD_PHASES = [
             </div>
           </div>
           ${callout('key', 'Team Topologies & Inverse Conway', 'Conways Gesetz: Ein System bekommt die Struktur der Organisation, die es baut. Die reife Antwort ist das Inverse Conway Manoeuvre: erst die gewünschte Architektur entwerfen, dann die Teams passend schneiden. Team Topologies kennt vier Typen (Stream-aligned, Platform, Enabling, Complicated-subsystem) mit der Regel „X-as-a-Service" statt Dauer-Abstimmung.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Vom Kopf des Gründers zum System</div>
+            <div class="explanation">
+              Wer als Einzelperson startet, trägt das ganze System im Kopf — Architektur, Deployment, Datenmodell, Kundenwunsch. Das trägt bis zwei, drei Leute; dann wird genau dieser Kopf zum Nadelöhr, durch das jede Entscheidung muss. Die Führungsaufgabe verschiebt sich vom „Ich baue es richtig" zum „Ich mache es anderen leicht, es richtig zu bauen".<br><br>
+              <strong>Conways Gesetz</strong> erklärt, warum Struktur so schwer wiegt: Ein System bekommt am Ende die Form der Organisation, die es baut. Drei Teams, die kaum miteinander reden, produzieren drei schlecht verbundene Module. Das <strong>Inverse Conway Manoeuvre</strong> dreht das bewusst um — erst die gewünschte Architektur entwerfen, dann die Teams passend zuschneiden. So wird die Team-Grenze zum Architektur-Werkzeug.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Team-Topologies-Skizze</span></div>
+              <div class="code-pre">Stream-aligned        -&gt; besitzt einen Wertstrom vertikal (DB..API..UI..Betrieb)
+Platform              -&gt; baut den Golden Path als internen Self-Service
+Enabling              -&gt; coacht andere Teams befristet in einer neuen Faehigkeit
+Complicated-subsystem -&gt; kapselt einen Bereich hoher Spezialtiefe
+
+Regel: dominante Interaktion = X-as-a-Service
+       (ein Team konsumiert die Leistung eines anderen ueber klaren Vertrag,
+        statt sich dauernd abzustimmen)</div>
+            </div>
+          </div>
+          ${quickCheck('Was beschreibt Conways Gesetz?', ['Ein System spiegelt am Ende die Kommunikations-Struktur der Organisation, die es baut', 'Kleinere Teams schreiben grundsätzlich besseren Code', 'Die Architektur hat keinen Einfluss darauf, wie man Teams schneidet'], 0, 'Die Struktur der Organisation prägt die Struktur des Systems. Deshalb entwirft man beim Inverse Conway Manoeuvre erst die Architektur und schneidet dann die Teams passend zu.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Vier Team-Typen & kognitive Last</div>
+            <div class="explanation">
+              Team Topologies unterscheidet vier Typen: <strong>Stream-aligned</strong> liefert kontinuierlich Wert an einem Wertstrom und besitzt ihn vertikal. <strong>Platform</strong> baut den Golden Path als internen Self-Service, damit die Stream-Teams schneller werden. <strong>Enabling</strong> coacht andere Teams zeitlich befristet in einer neuen Fähigkeit. <strong>Complicated-subsystem</strong> kapselt einen Bereich mit so hoher Spezialtiefe, dass er nicht in jedem Team liegen kann.<br><br>
+              Der Hebel dahinter ist die <strong>kognitive Last</strong>: Zu viel unterschiedlicher Stoff erdrückt die Lieferfähigkeit eines Teams. Ein Platform-Team nimmt den Stream-Teams die generische Last (Logging, CI, Secret-Handling) ab — nicht als Bevormundung, sondern damit deren begrenzte Aufmerksamkeit auf den eigenen Wertstrom fällt. Autonomie ohne Entlastung ist nur Überforderung mit anderem Namen.
+            </div>
+          </div>
+          ${callout('fact', 'Ownership statt Übergabekette', 'Vertikale Ownership („you build it, you run it") stellt ein Team vor eine Fähigkeit von der Datenbank bis zum Betrieb. Der horizontale Schnitt — ein Frontend-, ein Backend-, ein DB-Team — erzeugt dagegen bei jeder Funktion eine Kette von Übergaben, in der Verantwortung verloren geht.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Agenten als Teammitglieder unter Guardrails</div>
+            <div class="explanation">
+              KI-Agenten fügen der Organisation einen neuen Mitarbeitertyp hinzu: schnell, unermüdlich — aber ohne Urteilsvermögen über Konsequenzen. Sie gehören in dieselbe Ownership-Struktur wie Menschen und arbeiten innerhalb eines Golden Path. Die Führungsaufgabe ist, die <strong>Guardrails</strong> zu definieren: Was darf der Agent selbstständig, wo braucht er eine menschliche Freigabe, was ist ihm verboten?<br><br>
+              Das gleiche Muster wie bei einem Junior: klarer Auftrag, begrenzter Zugriff, das Ergebnis wird geprüft, bevor es in Produktion geht. Autonomie endet exakt dort, wo eine Aktion irreversibel oder teamübergreifend wird.
+            </div>
+          </div>
+          ${quickCheck('Wo endet die Autonomie eines KI-Agenten (oder eines Juniors) im Golden Path?', ['Sobald eine Aktion irreversibel oder teamübergreifend wird — dort braucht es eine Prüfinstanz', 'Nie — ein Agent arbeitet definitionsgemäß vollständig eigenständig', 'Bei jeder einzelnen Aktion muss ein Mensch vorab zustimmen'], 0, 'Guardrails ziehen die Grenze nicht willkürlich: Innerhalb des Vertrags darf der Akteur selbstständig handeln; sobald etwas nicht mehr rückgängig zu machen ist oder andere Teams betrifft, greift eine menschliche Freigabe.')}
+          ${callout('key', 'Merksatz & Leitplanke', 'Führung skaliert nicht durch mehr Kontrolle, sondern durch bessere Standardwege — der Golden Path ist gebaute Führung. Leitplanke: Jeder autonome Akteur (Mensch oder Agent) arbeitet innerhalb eines Vertrags und einer Prüfinstanz; Autonomie endet exakt dort, wo eine Aktion irreversibel oder teamübergreifend wird.')}
           ${renderQuestions('lead_l1_1', 6)}
           ${renderBonus('lead_l1_1')}
         `,
@@ -24118,6 +24154,42 @@ const LEAD_PHASES = [
             </div>
           </div>
           ${callout('key', 'Team Topologies & inverse Conway', "Conway's law: a system takes on the structure of the organization that builds it. The mature answer is the inverse Conway manoeuvre: first design the desired architecture, then cut the teams to match. Team Topologies knows four types (stream-aligned, platform, enabling, complicated-subsystem) with the rule 'X-as-a-service' instead of constant coordination.")}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">From the founder's head to a system</div>
+            <div class="explanation">
+              Someone starting alone carries the whole system in their head — architecture, deployment, data model, customer need. That holds for two or three people; then that very head becomes the bottleneck every decision has to pass through. The leadership task shifts from "I build it right" to "I make it easy for others to build it right".<br><br>
+              <strong>Conway's law</strong> explains why structure weighs so heavily: a system ends up with the shape of the organization that builds it. Three teams that barely talk to each other produce three poorly connected modules. The <strong>inverse Conway manoeuvre</strong> deliberately reverses this — first design the desired architecture, then cut the teams to match. The team boundary becomes an architecture tool.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Team-topologies sketch</span></div>
+              <div class="code-pre">Stream-aligned        -&gt; owns one value stream vertically (DB..API..UI..ops)
+Platform              -&gt; builds the golden path as internal self-service
+Enabling              -&gt; coaches other teams for a limited time in a new skill
+Complicated-subsystem -&gt; encapsulates an area of high specialist depth
+
+Rule: dominant interaction = X-as-a-service
+      (one team consumes another team\'s output via a clear contract
+       instead of constant coordination)</div>
+            </div>
+          </div>
+          ${quickCheck("What does Conway's law describe?", ['A system ends up mirroring the communication structure of the organization that builds it', 'Smaller teams fundamentally write better code', 'Architecture has no bearing on how you cut teams'], 0, 'The structure of the organization shapes the structure of the system. That is why the inverse Conway manoeuvre designs the architecture first and cuts the teams to match.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Four team types & cognitive load</div>
+            <div class="explanation">
+              Team Topologies distinguishes four types: <strong>stream-aligned</strong> continuously delivers value along one value stream and owns it vertically. <strong>Platform</strong> builds the golden path as internal self-service so the stream teams move faster. <strong>Enabling</strong> coaches other teams for a limited time in a new skill. <strong>Complicated-subsystem</strong> encapsulates an area of such high specialist depth that it cannot sit inside every team.<br><br>
+              The lever behind this is <strong>cognitive load</strong>: too much varied material crushes a team's ability to deliver. A platform team takes the generic load (logging, CI, secret handling) off the stream teams — not as paternalism, but so their limited attention lands on their own value stream. Autonomy without relief is just overload by another name.
+            </div>
+          </div>
+          ${callout('fact', 'Ownership instead of a handover chain', 'Vertical ownership ("you build it, you run it") puts one team in front of a capability from the database to operations. The horizontal cut — a frontend, a backend, a DB team — instead creates a chain of handovers for every feature, in which responsibility gets lost.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Agents as team members under guardrails</div>
+            <div class="explanation">
+              AI agents add a new type of member to the organization: fast, tireless — but without judgment about consequences. They belong in the same ownership structure as humans and work inside a golden path. The leadership task is to define the <strong>guardrails</strong>: what may the agent do on its own, where does it need a human sign-off, what is forbidden to it?<br><br>
+              Same pattern as with a junior: a clear brief, limited access, the result is reviewed before it reaches production. Autonomy ends exactly where an action becomes irreversible or crosses team boundaries.
+            </div>
+          </div>
+          ${quickCheck('Where does the autonomy of an AI agent (or a junior) end within the golden path?', ['As soon as an action becomes irreversible or crosses team boundaries — there it needs a review', 'Never — an agent by definition works fully on its own', 'A human must approve every single action in advance'], 0, 'Guardrails do not draw the line arbitrarily: inside the contract the actor may act on its own; once something can no longer be undone or affects other teams, a human sign-off kicks in.')}
+          ${callout('key', 'Key line & guardrail', 'Leadership does not scale through more control, but through better standard paths — the golden path is leadership made concrete. Guardrail: every autonomous actor (human or agent) works inside a contract and a review authority; autonomy ends exactly where an action becomes irreversible or crosses team boundaries.')}
           ${renderQuestions('lead_l1_1', 6)}
           ${renderBonus('lead_l1_1')}
         `
@@ -24145,6 +24217,39 @@ const LEAD_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Risk-first & Zeithorizonte', 'Schätze in Spannen mit Annahme („6 bis 12 Tage, wenn die Fremd-API stabil ist"), nicht als Punkt. Arbeite Risk-first: erst ein kurzer, wegwerfbarer Spike auf das größte Risiko, dann die Umsetzung. Führe ein Risiko-Register. Technische Schuld ist ein legitimes Werkzeug — wenn sie sichtbar geführt und geplant zurückgezahlt wird. Halte drei Zeithorizonte im Blick: heute, dieses Quartal, dieses Jahr.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Risk-first & das Risiko-Register</div>
+            <div class="explanation">
+              Unsicherheit steckt selten im ganzen Vorhaben, sondern meist in einem konkreten offenen Punkt — einer fremden API, einem Datenformat, einer Performance-Annahme. <strong>Risk-first</strong> heißt: zuerst ein kurzer, wegwerfbarer <strong>Spike</strong> auf genau dieses größte Risiko — ein Experiment, das nur eine einzige Frage beantworten soll. Erst wenn das Risiko geklärt ist, beginnt die eigentliche Umsetzung. So verliert man Tage statt Monate an einer falschen Annahme.<br><br>
+              Das <strong>Risiko-Register</strong> ist eine schlichte, gepflegte Liste offener Risiken — je mit Eintrittswahrscheinlichkeit, Auswirkung und Gegenmaßnahme. Es macht die Frage „Was könnte uns umbringen?" zur nüchternen Routine statt zum Bauchgefühl.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risiko-Register (Auszug)</span></div>
+              <div class="code-pre">Risiko                       | Wahrsch. | Wirkung | Gegenmassnahme
+-----------------------------|----------|---------|---------------------------
+Fremd-API instabil / undok.  |  hoch    |  hoch   | Spike vorab, Fallback planen
+Datenmigration verliert Daten|  mittel  |  hoch   | Dry-run + Backup, Rollback
+Lastspitze bricht Dienst     |  mittel  |  mittel | Lasttest, Auto-Scaling
+Schluessel-Person faellt aus |  niedrig |  hoch   | Wissen dokumentieren, Paare</div>
+            </div>
+          </div>
+          ${quickCheck('Was ist der Sinn eines Risk-first-Spikes?', ['Mit einem kurzen, wegwerfbaren Experiment die größte Unsicherheit klären, bevor die eigentliche Umsetzung beginnt', 'Ein fertiges Feature möglichst schnell in Produktion bringen', 'Die Schätzung als festen Punktwert absichern'], 0, 'Der Spike beantwortet nur eine Frage — das größte Risiko. Klärt man es zuerst, verliert man Tage statt Monate an einer falschen Annahme.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">In drei Sprachen sprechen & in Spannen schätzen</div>
+            <div class="explanation">
+              Ein CTO übersetzt dieselbe Sachlage für drei Publika, ohne den Kern zu verfälschen: <strong>Technik/Team</strong> (konkrete Constraints, Trade-offs, Definition of Done), <strong>Business/Fachbereich</strong> (Auswirkung auf Kunde, Umsatz, Zeitpunkt) und <strong>Geschäftsführung</strong> (Risiko, Kosten, strategische Optionen in Spannen). Wer nur „technisch" spricht, verliert den Vorstand; wer nur „Business" spricht, verliert das Team.<br><br>
+              Das gilt auch fürs <strong>Schätzen</strong>: Eine Punktschätzung („das dauert 8 Tage") behauptet eine Sicherheit, die es nicht gibt, und wird als Versprechen gehört. Eine reife Schätzung nennt eine <strong>Spanne mit Annahme</strong> — „6 bis 12 Tage, wenn die Fremd-API stabil dokumentiert ist, sonst mehr". So wird Unsicherheit zu einer besprechbaren Größe.
+            </div>
+          </div>
+          ${quickCheck('Warum nennt eine reife Schätzung eine Spanne statt eines Punktwerts?', ['Weil eine Punktschätzung eine Sicherheit behauptet, die es nicht gibt, und als festes Versprechen gehört wird', 'Weil Spannen dem Team erlauben, jede Frist beliebig zu überziehen', 'Weil Punktschätzungen mathematisch unmöglich sind'], 0, 'Die Spanne mit Annahme („6 bis 12 Tage, wenn die API stabil ist") macht die Unsicherheit sichtbar und besprechbar, statt sie hinter einer Scheingenauigkeit zu verstecken.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Technische Schuld & drei Zeithorizonte</div>
+            <div class="explanation">
+              <strong>Technische Schuld</strong> funktioniert wie ein Kredit: bewusst aufgenommen, um schneller zu liefern, ist sie ein legitimes Werkzeug. Unbemerkt angehäuft, frisst sie über „Zinsen" die Geschwindigkeit. Der CTO trifft die Entscheidung, wann Schuld aufgenommen und wann zurückgezahlt wird — und macht sie explizit, im Risiko-Register statt im Bauch.<br><br>
+              Dazu gehören drei <strong>Zeithorizonte</strong> gleichzeitig im Blick: heute liefern, dieses Quartal das Fundament nicht ruinieren, dieses Jahr die Optionen offenhalten. Eine Entscheidung, die heute hilft und das Jahr sabotiert, ist keine gute — auch wenn sie sich heute richtig anfühlt.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz & Leitplanke', 'Der wertvollste Beitrag eines CTO entsteht vor der ersten Codezeile — in der Frage, ob und warum überhaupt gebaut wird. Leitplanke: Kommuniziere Schätzungen nie als Punkt, sondern als Spanne mit Annahme.')}
           ${renderQuestions('lead_l2_1', 6)}
           ${renderBonus('lead_l2_1')}
         `,
@@ -24162,6 +24267,39 @@ const LEAD_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Risk-first & time horizons', 'Estimate in ranges with an assumption ("6 to 12 days if the third-party API is stable"), not as a point. Work risk-first: a short, throwaway spike on the biggest risk first, then implementation. Keep a risk register. Technical debt is a legitimate tool — if it is tracked visibly and repaid on a plan. Keep three time horizons in view: today, this quarter, this year.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Risk-first & the risk register</div>
+            <div class="explanation">
+              Uncertainty rarely sits in the whole undertaking, but usually in one concrete open point — a third-party API, a data format, a performance assumption. <strong>Risk-first</strong> means: a short, throwaway <strong>spike</strong> on exactly this biggest risk first — an experiment meant to answer a single question. Only once the risk is cleared does the actual implementation begin. That way you lose days instead of months on a wrong assumption.<br><br>
+              The <strong>risk register</strong> is a plain, maintained list of open risks — each with a probability, an impact and a countermeasure. It turns the question "what could kill us?" into sober routine rather than gut feeling.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risk register (excerpt)</span></div>
+              <div class="code-pre">Risk                         | Prob.  | Impact | Countermeasure
+-----------------------------|--------|--------|----------------------------
+Third-party API unstable/undoc| high   | high   | Spike upfront, plan fallback
+Data migration loses records | medium | high   | Dry-run + backup, rollback
+Load spike breaks the service| medium | medium | Load test, auto-scaling
+Key person unavailable       | low    | high   | Document knowledge, pair up</div>
+            </div>
+          </div>
+          ${quickCheck('What is the point of a risk-first spike?', ['To clear the biggest uncertainty with a short, throwaway experiment before the actual implementation begins', 'To ship a finished feature to production as fast as possible', 'To lock the estimate down as a fixed point value'], 0, 'The spike answers only one question — the biggest risk. Clearing it first means you lose days instead of months on a wrong assumption.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Speaking three languages & estimating in ranges</div>
+            <div class="explanation">
+              A CTO translates the same facts for three audiences without distorting the core: <strong>engineering/team</strong> (concrete constraints, trade-offs, definition of done), <strong>business/domain</strong> (impact on customer, revenue, timing) and <strong>executives</strong> (risk, cost, strategic options in ranges). Speak only "technical" and you lose the board; speak only "business" and you lose the team.<br><br>
+              The same holds for <strong>estimating</strong>: a point estimate ("this takes 8 days") claims a certainty that does not exist and is heard as a promise. A mature estimate names a <strong>range with an assumption</strong> — "6 to 12 days if the third-party API is stably documented, otherwise more". That turns uncertainty into something you can discuss.
+            </div>
+          </div>
+          ${quickCheck('Why does a mature estimate give a range instead of a point value?', ['Because a point estimate claims a certainty that does not exist and is heard as a fixed promise', 'Because ranges let the team overrun any deadline at will', 'Because point estimates are mathematically impossible'], 0, 'The range with an assumption ("6 to 12 days if the API is stable") makes the uncertainty visible and discussable, instead of hiding it behind false precision.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Technical debt & three time horizons</div>
+            <div class="explanation">
+              <strong>Technical debt</strong> works like a loan: taken on deliberately to deliver faster, it is a legitimate tool. Accumulated unnoticed, it eats speed through "interest". The CTO decides when to take on debt and when to repay it — and makes it explicit, in the risk register rather than by gut.<br><br>
+              That comes with three <strong>time horizons</strong> held in view at once: deliver today, do not ruin the foundation this quarter, keep the options open this year. A decision that helps today and sabotages the year is not a good one — even if it feels right today.
+            </div>
+          </div>
+          ${callout('key', 'Guiding line & guardrail', 'A CTO\'s most valuable contribution arises before the first line of code — in the question of whether and why to build at all. Guardrail: never communicate estimates as a point, but as a range with an assumption.')}
           ${renderQuestions('lead_l2_1', 6)}
           ${renderBonus('lead_l2_1')}
         `
@@ -30368,6 +30506,48 @@ QUESTION_POOLS['sec_l5_1'] = [
     {t:'Right-Sizing — die Ressourcengröße an den echten Bedarf anpassen (überdimensionierte Server verkleinern)',t_en:'Right-sizing — fit the resource size to real need (shrink oversized servers)',correct:true,why:'Genau. Der überdimensionierte Server bei 10 % Auslastung ist die häufigste Verschwendung — Verkleinern wirkt sofort und bindet nicht.',why_en:'Exactly. The oversized server at 10 % utilization is the most common waste — shrinking works at once and commits to nothing.'},
     {t:'Reserved Instances mit dreijähriger Bindung',t_en:'Reserved instances with a three-year commitment',correct:false,why:'Nein. Die geben zwar Rabatt, aber gerade gegen eine langfristige Bindung.',why_en:'No. Those do give a discount, but precisely in exchange for a long-term commitment.'},
     {t:'Ein größeres Sprachmodell wählen',t_en:'Choosing a larger language model',correct:false,why:'Nein. Ein größeres Modell erhöht die Token-Kosten eher, statt zu sparen.',why_en:'No. A larger model tends to raise token cost rather than save.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l1_1'] = [
+  {id:'p_lead_l1_1_mc1',type:'mc',xp:10,question:'Wie verschiebt sich die Führungsaufgabe, wenn ein Team über zwei, drei Leute hinauswächst?',question_en:'How does the leadership task shift once a team grows past two or three people?',options:[
+    {t:'Vom „Ich baue es richtig" zum „Ich mache es anderen leicht, es richtig zu bauen"',t_en:'From "I build it right" to "I make it easy for others to build it right"',correct:true,why:'Genau. Der Kopf des Gründers wird sonst zum Nadelöhr — Führung heißt jetzt, gute Standardwege bereitzustellen.',why_en:'Exactly. Otherwise the founder\'s head becomes the bottleneck — leadership now means providing good standard paths.'},
+    {t:'Von der Technik weg hin zu reiner Personalverwaltung',t_en:'Away from engineering toward pure personnel administration',correct:false,why:'Nein. Der Golden Path ist selbst technisch — Führung wird nicht unpolitisch-technikfern, sondern technisch anders.',why_en:'No. The golden path is itself technical — leadership does not become non-technical, it becomes technical in a different way.'},
+    {t:'Zu möglichst enger Einzelkontrolle jeder Codezeile',t_en:'Toward the tightest possible individual control of every line of code',correct:false,why:'Nein. Führung skaliert nicht durch mehr Kontrolle, sondern durch bessere Standardwege.',why_en:'No. Leadership does not scale through more control, but through better standard paths.'}
+  ]},
+  {id:'p_lead_l1_1_mc2',type:'mc',xp:10,question:'Welcher Team-Typ baut den Golden Path als internen Self-Service?',question_en:'Which team type builds the golden path as internal self-service?',options:[
+    {t:'Das Platform-Team',t_en:'The platform team',correct:true,why:'Genau. Platform-Teams nehmen den Stream-Teams die generische Last ab, damit diese schneller liefern.',why_en:'Exactly. Platform teams take the generic load off the stream teams so they deliver faster.'},
+    {t:'Das Enabling-Team',t_en:'The enabling team',correct:false,why:'Nein. Enabling-Teams coachen andere Teams zeitlich befristet in einer neuen Fähigkeit.',why_en:'No. Enabling teams coach other teams for a limited time in a new skill.'},
+    {t:'Das Complicated-subsystem-Team',t_en:'The complicated-subsystem team',correct:false,why:'Nein. Dieses kapselt einen Bereich mit hoher Spezialtiefe, es baut nicht den allgemeinen Golden Path.',why_en:'No. That one encapsulates an area of high specialist depth; it does not build the general golden path.'}
+  ]},
+  {id:'p_lead_l1_1_tf1',type:'truefalse',xp:8,statement:'Conways Gesetz besagt, dass ein System am Ende die Struktur der Organisation bekommt, die es baut.',statement_en:"Conway's law states that a system ends up with the structure of the organization that builds it.",correct:true,explanation:'Richtig. Deshalb entwirft das Inverse Conway Manoeuvre erst die Architektur und schneidet dann die Teams passend zu.',explanation_en:'Correct. That is why the inverse Conway manoeuvre designs the architecture first and cuts the teams to match.'},
+  {id:'p_lead_l1_1_tf2',type:'truefalse',xp:8,statement:'Ein KI-Agent darf definitionsgemäß jede Aktion vollständig eigenständig ausführen, auch irreversible und teamübergreifende.',statement_en:'By definition an AI agent may carry out any action fully on its own, including irreversible and cross-team ones.',correct:false,explanation:'Falsch. Autonomie endet exakt dort, wo eine Aktion irreversibel oder teamübergreifend wird — dort greift eine Prüfinstanz.',explanation_en:'False. Autonomy ends exactly where an action becomes irreversible or crosses team boundaries — there a review authority kicks in.'},
+  {id:'p_lead_l1_1_fb1',type:'fillblank',xp:12,prompt:'Der bewusst schmale, gut ausgetretene Standardweg, wie ein neuer Dienst entsteht, getestet und deployt wird, heißt ___ (englischer Begriff, zwei Wörter).',prompt_en:'The deliberately narrow, well-trodden standard way in which a new service is built, tested and deployed is called the ___ (two-word term).',answers:['Golden Path','golden path','Golden-Path','golden-path','goldener Pfad'],placeholder:'Fachbegriff…',placeholder_en:'Term…',explanation:'Der <strong>Golden Path</strong> senkt die geistige Last und ist die technische Form von Führung.',explanation_en:'The <strong>golden path</strong> lowers cognitive load and is the technical form of leadership.'},
+  {id:'p_lead_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist der Kern des <strong>Inverse Conway Manoeuvre</strong>?',question_en:'What is the core of the <strong>inverse Conway manoeuvre</strong>?',options:[
+    {t:'Erst die gewünschte Architektur entwerfen, dann die Teams passend zuschneiden',t_en:'First design the desired architecture, then cut the teams to match',correct:true,why:'Genau. Die Team-Grenze wird bewusst zum Architektur-Werkzeug, statt sich zufällig durchzusetzen.',why_en:'Exactly. The team boundary deliberately becomes an architecture tool, instead of asserting itself by accident.'},
+    {t:'Die bestehende Teamstruktur unangetastet lassen und die Architektur daran anpassen',t_en:'Leave the existing team structure untouched and adapt the architecture to it',correct:false,why:'Nein. Das ist die passive Wirkung von Conways Gesetz, nicht das bewusste Manöver dagegen.',why_en:'No. That is the passive effect of Conway\'s law, not the deliberate manoeuvre against it.'},
+    {t:'Alle Teams horizontal in Frontend, Backend und DB aufteilen',t_en:'Split all teams horizontally into frontend, backend and DB',correct:false,why:'Nein. Der horizontale Schnitt erzeugt gerade die Übergabeketten, die man vermeiden will.',why_en:'No. The horizontal cut is precisely what creates the handover chains you want to avoid.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l2_1'] = [
+  {id:'p_lead_l2_1_mc1',type:'mc',xp:10,question:'Was beschreibt <strong>Discovery vor Delivery</strong> am besten?',question_en:'What best describes <strong>discovery before delivery</strong>?',options:[
+    {t:'Das tatsächliche Problem verstehen, bevor man eine Lösung liefert',t_en:'Understanding the actual problem before delivering a solution',correct:true,why:'Genau. Die teuerste Software funktioniert einwandfrei und wird von niemandem gebraucht.',why_en:'Exactly. The most expensive software works flawlessly and is needed by nobody.'},
+    {t:'Möglichst schnell ein Feature ausliefern und danach Feedback sammeln',t_en:'Ship a feature as fast as possible and gather feedback afterwards',correct:false,why:'Nein. Discovery klärt den Bedarf vorher — sonst liefert man effizient am Problem vorbei.',why_en:'No. Discovery clarifies the need beforehand — otherwise you efficiently deliver past the problem.'},
+    {t:'Den Wunsch des lautesten Stakeholders zuerst umsetzen',t_en:'Implement the loudest stakeholder\'s wish first',correct:false,why:'Nein. Discovery fragt nach dem echten Nutzerproblem, nicht nach der lautesten Stimme.',why_en:'No. Discovery asks for the real user problem, not for the loudest voice.'}
+  ]},
+  {id:'p_lead_l2_1_mc2',type:'mc',xp:10,question:'Warum kommuniziert ein reifer CTO Schätzungen als <strong>Spanne mit Annahme</strong>?',question_en:'Why does a mature CTO communicate estimates as a <strong>range with an assumption</strong>?',options:[
+    {t:'Weil eine Punktschätzung eine Sicherheit behauptet, die es nicht gibt, und als Versprechen gehört wird',t_en:'Because a point estimate claims a certainty that does not exist and is heard as a promise',correct:true,why:'Genau. Die Spanne mit Annahme macht die Unsicherheit zu einer besprechbaren Größe.',why_en:'Exactly. The range with an assumption turns uncertainty into something you can discuss.'},
+    {t:'Weil Spannen es erlauben, jede Frist beliebig zu überziehen',t_en:'Because ranges allow overrunning any deadline at will',correct:false,why:'Nein. Die Spanne benennt Unsicherheit ehrlich, sie ist kein Freibrief.',why_en:'No. The range names uncertainty honestly; it is not a blank cheque.'},
+    {t:'Weil Punktschätzungen technisch nicht berechenbar sind',t_en:'Because point estimates cannot be computed technically',correct:false,why:'Nein. Berechenbar wären sie schon — das Problem ist die vorgetäuschte Genauigkeit.',why_en:'No. They could be computed — the problem is the feigned precision.'}
+  ]},
+  {id:'p_lead_l2_1_tf1',type:'truefalse',xp:8,statement:'Ein Risk-first-Spike ist ein kurzes, wegwerfbares Experiment, das zuerst das größte technische Risiko klären soll.',statement_en:'A risk-first spike is a short, throwaway experiment meant to clear the biggest technical risk first.',correct:true,explanation:'Richtig. Erst wenn das Risiko geklärt ist, beginnt die eigentliche Umsetzung — so verliert man Tage statt Monate.',explanation_en:'Correct. Only once the risk is cleared does the real implementation begin — that way you lose days instead of months.'},
+  {id:'p_lead_l2_1_tf2',type:'truefalse',xp:8,statement:'Technische Schuld ist immer ein Fehler und darf nie bewusst aufgenommen werden.',statement_en:'Technical debt is always a mistake and must never be taken on deliberately.',correct:false,explanation:'Falsch. Bewusst aufgenommen, um schneller zu liefern, ist sie ein legitimes Werkzeug — gefährlich wird nur die unbemerkt angehäufte, ungeführte Schuld.',explanation_en:'False. Taken on deliberately to deliver faster, it is a legitimate tool — only unnoticed, untracked debt becomes dangerous.'},
+  {id:'p_lead_l2_1_fb1',type:'fillblank',xp:12,prompt:'Die schlichte, gepflegte Liste offener Risiken — je mit Wahrscheinlichkeit, Auswirkung und Gegenmaßnahme — heißt ___ (zwei Wörter).',prompt_en:'The plain, maintained list of open risks — each with probability, impact and countermeasure — is called the ___ (two words).',answers:['Risiko-Register','Risikoregister','Risiko Register','risk register','Risk Register','risikoregister'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>Risiko-Register</strong> macht die Frage „Was könnte uns umbringen?" zur nüchternen Routine.',explanation_en:'The <strong>risk register</strong> turns the question "what could kill us?" into sober routine.'},
+  {id:'p_lead_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Was ist das Kennzeichen eines <strong>begründeten Nein</strong>?',question_en:'What characterizes a <strong>reasoned no</strong>?',options:[
+    {t:'Es lehnt nicht die Person ab, sondern schützt die Kapazität und kommt mit Begründung und Alternative',t_en:'It does not reject the person but protects capacity and comes with a rationale and an alternative',correct:true,why:'Genau. Ein CTO, der jeden Wunsch annimmt, liefert alles halb — das Nein schützt das, was zählt.',why_en:'Exactly. A CTO who accepts every wish delivers everything half-done — the no protects what matters.'},
+    {t:'Es lehnt die Anfrage knapp und ohne Begründung ab',t_en:'It rejects the request curtly and without a rationale',correct:false,why:'Nein. Ein gutes Nein kommt gerade mit Begründung und Alternative, nicht als Blockade.',why_en:'No. A good no comes precisely with a rationale and an alternative, not as a blockade.'},
+    {t:'Es sagt zu allem Ja, um niemanden zu enttäuschen',t_en:'It says yes to everything so as to disappoint nobody',correct:false,why:'Nein. Genau das führt dazu, dass alles nur halb geliefert wird.',why_en:'No. That is exactly what leads to everything being delivered only half-done.'}
   ]}
 ];
 
