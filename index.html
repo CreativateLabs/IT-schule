@@ -24327,6 +24327,38 @@ Key person unavailable       | low    | high   | Document knowledge, pair up</di
             </div>
           </div>
           ${callout('warn', 'Nie bluffen', 'Niemand kennt alles, und Interviewer riechen einen Bluff sofort — er kostet mehr Vertrauen als jede ehrliche Lücke. Der souveräne Umgang: „Damit habe ich nicht direkt gearbeitet. Ich würde es so angehen …" und dann die Denkweise zeigen. Eine ehrlich benannte Lücke plus Denkweise ist immer die stärkere Karte.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die fünfschrittige Erzählstruktur</div>
+            <div class="explanation">
+              Der häufigste Fehler ist, sofort mit der Lösung loszurennen, bevor der Zuhörer den Einsatz überhaupt verstanden hat. Eine feste <strong>Dramaturgie</strong> verhindert genau das: Sie führt jede Antwort in derselben Reihenfolge — Kontext, Problem, Rolle, Trade-off, Ergebnis — und hält dich davon ab, in technische Details abzurutschen, bevor klar ist, worum es überhaupt ging.<br><br>
+              Der reife erste Zug ist ohnehin umgekehrt: erst den Raum strukturieren durch Rückfragen zu den Constraints — „Wie viele Nutzer?", „Wie kritisch ist Konsistenz gegenüber Verfügbarkeit?", „Budget und Zeitrahmen?". Diese Fragen zeigen mehr Seniorität als jede vorschnelle Antwort, weil sie beweisen: Ohne Kontext gibt es keine richtige Architektur.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Erzählstruktur einer Antwort</span></div>
+              <div class="code-pre">1. Kontext    -&gt; wo, welche Rahmenbedingungen (ein Satz)
+2. Problem    -&gt; was war konkret kaputt/gefaehrdet, fuer wen (der Einsatz)
+3. Rolle      -&gt; der eigene Beitrag, ehrlich abgegrenzt vom Team
+4. Trade-off  -&gt; welche Optionen, welche warum verworfen   &lt;- Herzstueck
+5. Ergebnis   -&gt; was kam heraus, gemessen woran, was gelernt</div>
+            </div>
+          </div>
+          ${quickCheck('Welcher Schritt der Erzählstruktur ist das Herzstück — und warum?', ['Der Trade-off: Wer die verworfenen Optionen und ihren Preis nennt, klingt wie jemand, der Entscheidungen verantwortet', 'Das Ergebnis: Nur die gemessene Zahl am Ende zählt wirklich', 'Der Kontext: Je länger die Rahmenbedingungen, desto überzeugender'], 0, 'Wer nur das Ergebnis nennt, klingt wie ein Ausführender. Der Trade-off („wir haben A gegen B getauscht, weil …, der Preis war …") zeigt Verantwortung für die Entscheidung.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Die Beleg-Bibliothek</div>
+            <div class="explanation">
+              Im Gespräch unter Druck nach der passenden Geschichte zu suchen, kostet Sicherheit. Deshalb legt man vorher eine <strong>Beleg-Bibliothek</strong> an: eine kleine Sammlung echter Geschichten, jede an eine andere Führungs- oder Architektur-Kompetenz gehängt und jede mit einem klaren Kern-Trade-off. So musst du im Moment nicht suchen, sondern nur den passenden Beleg ziehen.<br><br>
+              Jede Geschichte durchläuft dieselbe fünfschrittige Struktur. Der Wert der Bibliothek liegt in der Breite: eine Geschichte für eine schwierige Skalierung, eine für einen Konflikt im Team, eine für eine Entscheidung unter Unsicherheit — so bist du für jede Kompetenz-Frage mit einem konkreten Beleg gerüstet.
+            </div>
+          </div>
+          ${quickCheck('Wozu dient eine im Voraus vorbereitete Beleg-Bibliothek?', ['Damit du im Moment nur den passenden echten Beleg ziehst, statt unter Druck nach einer Geschichte zu suchen', 'Damit du auswendig gelernte Standardantworten wörtlich aufsagen kannst', 'Damit du auf jede Frage dieselbe eine Geschichte erzählst'], 0, 'Jede Geschichte hängt an einer anderen Kompetenz und hat einen klaren Kern-Trade-off. Du ziehst im Gespräch nur den passenden Beleg — das gibt Sicherheit ohne Auswendiglernen.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Lücken & die fünf Führungsfragen</div>
+            <div class="explanation">
+              Niemand kennt alles, und Interviewer riechen einen Bluff sofort — ein aufgedeckter Bluff entwertet rückwirkend alles andere. Nie zu bluffen ist deshalb keine Höflichkeit, sondern eine strategische Regel. Der souveräne Umgang mit einer Lücke verwandelt sie in einen Beleg für Urteilsvermögen: „Damit habe ich nicht direkt gearbeitet, ich würde es so angehen …" und dann die Denkweise zeigen.<br><br>
+              Fünf <strong>Führungsfragen</strong> solltest du fertig beantwortet in der Tasche haben: (1) eine technische Entscheidung, die sich später als falsch erwies — und was daraus folgte, (2) wie du einem Stakeholder ein Nein verkauft hast, (3) dein Umgang mit einem Teammitglied, das unter Leistung bleibt, (4) deine Priorisierung zwischen technischer Schuld und neuen Funktionen, (5) wie du ein Team durch eine Krise (Ausfall, knapper Runway, Abgang) geführt hast.
+            </div>
+          </div>
+          ${callout('key', 'Leitsatz & Leitplanke', 'Ein Interview misst nicht, ob du die Antwort kennst, sondern wie du zu einer Antwort kommst, wenn du sie nicht kennst. Leitplanke: Bluffe nie — eine ehrlich benannte Lücke plus gezeigte Denkweise ist immer die stärkere Karte als eine erfundene Antwort, die auffliegen kann.')}
           ${renderQuestions('lead_l3_1', 6)}
           ${renderBonus('lead_l3_1')}
         `,
@@ -24344,6 +24376,38 @@ Key person unavailable       | low    | high   | Document knowledge, pair up</di
             </div>
           </div>
           ${callout('warn', 'Never bluff', 'No one knows everything, and interviewers smell a bluff instantly — it costs more trust than any honest gap. The composed move: "I have not worked with that directly. I would approach it like this …" and then show the reasoning. An honestly named gap plus reasoning is always the stronger card.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The five-step narrative structure</div>
+            <div class="explanation">
+              The most common mistake is rushing straight into the solution before the listener has even understood the stakes. A fixed <strong>dramaturgy</strong> prevents exactly that: it runs every answer in the same order — context, problem, role, trade-off, result — and keeps you from slipping into technical detail before it is clear what was at stake.<br><br>
+              The mature first move is the reverse anyway: structure the space first with clarifying questions about the constraints — "How many users?", "How critical is consistency versus availability?", "Budget and timeline?". These questions show more seniority than any premature answer, because they prove one thing: without context there is no right architecture.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Narrative structure of an answer</span></div>
+              <div class="code-pre">1. Context    -&gt; where, which conditions (one sentence)
+2. Problem    -&gt; what was concretely broken/at risk, for whom (the stakes)
+3. Role       -&gt; your own contribution, honestly set apart from the team
+4. Trade-off  -&gt; which options, which rejected and why   &lt;- the heart
+5. Result     -&gt; what came out, measured how, what was learned</div>
+            </div>
+          </div>
+          ${quickCheck('Which step of the narrative structure is the heart — and why?', ['The trade-off: naming the rejected options and their price makes you sound like someone who owns decisions', 'The result: only the measured number at the end really counts', 'The context: the longer the conditions, the more convincing'], 0, 'Whoever names only the result sounds like an executor. The trade-off ("we swapped A for B because …, the price was …") shows ownership of the decision.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">The evidence library</div>
+            <div class="explanation">
+              Searching for the right story under pressure in the conversation costs composure. So you build an <strong>evidence library</strong> beforehand: a small collection of real stories, each tied to a different leadership or architecture skill and each with a clear core trade-off. That way, in the moment, you do not search — you just pull the right piece of evidence.<br><br>
+              Every story runs through the same five-step structure. The value of the library lies in its breadth: one story for a hard scaling problem, one for a team conflict, one for a decision under uncertainty — so you are equipped with a concrete piece of evidence for every skill question.
+            </div>
+          </div>
+          ${quickCheck('What is a prepared evidence library for?', ['So that in the moment you just pull the right real piece of evidence instead of searching for a story under pressure', 'So that you can recite memorized standard answers word for word', 'So that you tell the same single story for every question'], 0, 'Each story is tied to a different skill and has a clear core trade-off. In the conversation you just pull the right piece — composure without rote memorization.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Gaps & the five leadership questions</div>
+            <div class="explanation">
+              No one knows everything, and interviewers smell a bluff instantly — an exposed bluff retroactively devalues everything else. Never bluffing is therefore not politeness but a strategic rule. Handling a gap with composure turns it into evidence of judgment: "I have not worked with that directly, I would approach it like this …" and then show the reasoning.<br><br>
+              Five <strong>leadership questions</strong> you should have fully answered in your pocket: (1) a technical decision that later proved wrong — and what followed from it, (2) how you sold a stakeholder a no, (3) how you handled a team member who underperforms, (4) how you prioritized between technical debt and new features, (5) how you led a team through a crisis (outage, short runway, a departure).
+            </div>
+          </div>
+          ${callout('key', 'Guiding line & guardrail', 'An interview does not measure whether you know the answer, but how you arrive at an answer when you do not know it. Guardrail: never bluff — an honestly named gap plus shown reasoning is always the stronger card than an invented answer that can be exposed.')}
           ${renderQuestions('lead_l3_1', 6)}
           ${renderBonus('lead_l3_1')}
         `
@@ -24370,7 +24434,52 @@ Key person unavailable       | low    | high   | Document knowledge, pair up</di
               Jede folgenreiche Entscheidung wird als <strong>ADR</strong> festgehalten (kurz, datiert, mit verworfenen Alternativen). Beim <strong>Build-vs-Buy-Check</strong> gilt: Selbstbau lohnt fast nur im Kerngeschäft; bei Standardproblemen ist Kaufen meist billiger — über drei Jahre gerechnet, inkl. Betrieb.
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Architektur-Checkliste (acht Punkte)</div>
+            <div class="explanation">
+              Eine <strong>Checkliste</strong> ist eine feste Abfolge von Prüfpunkten für einen wiederkehrenden Entscheidungstyp — kein Misstrauen gegen das eigene Urteil, sondern der Schutz davor, unter Druck einen wichtigen Punkt zu vergessen. Für eine Architektur-Entscheidung durchläufst du acht Punkte, vom konkreten Problem über die ernsthaft erwogenen Optionen bis zur Frage, wer die Entscheidung trägt.<br><br>
+              Der wichtigste Beschleuniger ist Punkt 6: <strong>Ist die Entscheidung reversibel?</strong> Reversible Entscheidungen verdienen keine Wochen Analyse — man trifft sie, beobachtet und korrigiert. Nur bei schwer umkehrbaren Entscheidungen ist Gründlichkeit die richtige Geschwindigkeit.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Checkliste: Architektur-Entscheidung</span></div>
+              <div class="code-pre">1. Welches Problem, fuer wen konkret?  (unklar -&gt; zurueck zur Discovery)
+2. Welche Constraints sind fix (Recht/Budget/Zeit/Datenhoheit), welche verhandelbar?
+3. Zwei bis drei Optionen ernsthaft, inkl. "nichts tun"
+4. Trade-off jeder Option in Spannen statt Punkten
+5. Groesstes Risiko  -&gt; vorab per Spike pruefbar?
+6. Ist die Entscheidung reversibel?  (ja -&gt; schnell; nein -&gt; gruendlich)
+7. Wie sieht sie in drei Horizonten aus (heute/Quartal/Jahr)?
+8. Wer traegt sie, und wo wird sie als ADR festgehalten?</div>
+            </div>
+          </div>
+          ${quickCheck('Warum ist die Frage „Ist die Entscheidung reversibel?" der wichtigste Beschleuniger?', ['Weil reversible Entscheidungen keine Wochen Analyse verdienen — man trifft, beobachtet, korrigiert; nur schwer Umkehrbares braucht Gründlichkeit', 'Weil reversible Entscheidungen immer die besseren sind', 'Weil man irreversible Entscheidungen am schnellsten treffen sollte'], 0, 'Reversibel heißt: der Fehler ist billig zu korrigieren, also darf man schnell sein. Nur wo eine Entscheidung schwer umkehrbar ist, ist gründliche Langsamkeit die richtige Geschwindigkeit.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Der ADR — das Entscheidungs-Gedächtnis</div>
+            <div class="explanation">
+              Ein <strong>ADR</strong> (Architecture Decision Record) ist eine kurze, datierte Notiz, die eine einzelne Architektur-Entscheidung festhält: warum sie getroffen wurde, welche Alternativen es gab und welche Konsequenzen folgen. Er beantwortet nach sechs Monaten die Frage „Warum haben wir das eigentlich so gemacht?". Ein ADR wird nie gelöscht, sondern nur durch einen neuen abgelöst — so entsteht ein ehrliches Entscheidungs-Gedächtnis.<br><br>
+              Ohne ADR wird eine nicht dokumentierte Entscheidung später als Zufall wahrgenommen und blind umgeworfen. Das Template ist bewusst schlank, damit es auch unter Druck ausgefüllt wird.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ADR-Template</span></div>
+              <div class="code-pre">Titel &amp; Nummer : z. B. ADR-014 Nachrichten-Queue statt Direktaufruf
+Status         : vorgeschlagen | akzeptiert | abgeloest durch ADR-NN
+Kontext        : welches Problem, welche Constraints
+Entscheidung   : aktiv formuliert ("Wir nutzen ...")
+Alternativen   : verworfen und warum
+Konsequenzen   : positive wie negative (inkl. bewusster techn. Schuld)
+Datum &amp; Autor  : wann, von wem</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Build-vs-Buy — bauen oder kaufen</div>
+            <div class="explanation">
+              Vor jedem Selbstbau prüfst du ehrlich, ob Kaufen oder ein fertiges Open-Source-Teil die bessere Wahl ist. Selbstbau ist verlockend und fast immer teurer als gedacht — nicht in der ersten Version, sondern im jahrelangen Unterhalt. Der Kern der Entscheidung ist das <strong>Kerngeschäft</strong>: der Teil, der den eigenen Wettbewerbsvorteil ausmacht. Nur hier lohnt Selbstbau fast immer; bei Standardproblemen selten.<br><br>
+              Für <strong>Bauen</strong> sprechen: Kerngeschäft/Wettbewerbsvorteil, keine reife Lösung am Markt, tragbare Gesamtkosten über drei Jahre plus freie Team-Kapazität, zwingende Datenhoheit (EU/On-Prem). Für <strong>Kaufen</strong> sprechen: ein Standardproblem ohne Differenzierung, eine bewährte gewartete Lösung existiert, Selbstbau bindet knappe Kapazität dauerhaft, der Anbieter erfüllt DSGVO/EU-Anforderungen.
+            </div>
+          </div>
+          ${quickCheck('Wann lohnt sich Selbstbau (Build) am ehesten?', ['Beim Kerngeschäft — dem Teil, der den eigenen Wettbewerbsvorteil ausmacht', 'Immer, weil selbst gebaute Software billiger im Unterhalt ist', 'Bei jedem Standardproblem, für das es schon eine fertige Lösung gibt'], 0, 'Selbstbau lohnt fast nur dort, wo er den Wettbewerbsvorteil ausmacht. Bei Standardproblemen ist Kaufen — über drei Jahre inkl. Betrieb gerechnet — meist billiger.')}
           ${callout('key', 'Lernen: die Dreierschleife', 'Belastbares Wissen folgt der Schleife Konzept verstehen → in einem kleinen lauffähigen Beispiel praktisch nachbauen → belegen (Repo, Erklärnotiz). Der Beleg deckt auf, ob man es wirklich verstanden hat — man kann nur erklären oder bauen, was man begriffen hat. Kleine lauffähige Beispiele schlagen große Tutorials.')}
+          ${callout('key', 'Schlusswort & Leitplanke', 'Reife zeigt sich nicht im Wissen, sondern in der Disziplin, einfache Werkzeuge — Golden Path, ADR, Risiko-Register, Discovery, ehrliche Belege — auch unter Druck konsequent anzuwenden. Leitplanke: Halte jede folgenreiche Entscheidung als ADR fest — eine nicht dokumentierte Entscheidung wird in sechs Monaten als Zufall wahrgenommen und blind umgeworfen.')}
           ${renderQuestions('lead_l4_1', 6)}
           ${renderBonus('lead_l4_1')}
         `,
@@ -24387,7 +24496,52 @@ Key person unavailable       | low    | high   | Document knowledge, pair up</di
               Every consequential decision is recorded as an <strong>ADR</strong> (brief, dated, with rejected alternatives). For the <strong>build-vs-buy check</strong>: building yourself pays off almost only in the core business; for standard problems buying is usually cheaper — counted over three years, including operations.
             </div>
           </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The architecture checklist (eight points)</div>
+            <div class="explanation">
+              A <strong>checklist</strong> is a fixed sequence of check points for a recurring type of decision — not distrust of your own judgment, but protection against forgetting an important point under pressure. For an architecture decision you run through eight points, from the concrete problem through the options seriously considered to the question of who owns the decision.<br><br>
+              The most important accelerator is point 6: <strong>is the decision reversible?</strong> Reversible decisions do not deserve weeks of analysis — you make them, observe and correct. Only for hard-to-reverse decisions is thoroughness the right speed.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Checklist: architecture decision</span></div>
+              <div class="code-pre">1. Which problem, for whom concretely?  (unclear -&gt; back to discovery)
+2. Which constraints are fixed (law/budget/time/data sovereignty), which negotiable?
+3. Two or three options seriously, including "do nothing"
+4. Trade-off of each option in ranges, not points
+5. Biggest risk  -&gt; testable up front with a spike?
+6. Is the decision reversible?  (yes -&gt; decide fast; no -&gt; be thorough)
+7. How does it look across three horizons (today/quarter/year)?
+8. Who owns it, and where is it recorded as an ADR?</div>
+            </div>
+          </div>
+          ${quickCheck('Why is "is the decision reversible?" the most important accelerator?', ['Because reversible decisions do not deserve weeks of analysis — you make, observe, correct; only hard-to-reverse ones need thoroughness', 'Because reversible decisions are always the better ones', 'Because you should make irreversible decisions the fastest'], 0, 'Reversible means the mistake is cheap to correct, so you may move fast. Only where a decision is hard to reverse is thorough slowness the right speed.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">The ADR — the decision memory</div>
+            <div class="explanation">
+              An <strong>ADR</strong> (architecture decision record) is a short, dated note that captures a single architecture decision: why it was made, which alternatives existed and which consequences follow. After six months it answers the question "why did we actually do it this way?". An ADR is never deleted, only superseded by a new one — that creates an honest decision memory.<br><br>
+              Without an ADR, an undocumented decision is later perceived as an accident and blindly overturned. The template is deliberately lean so that it gets filled in even under pressure.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">ADR template</span></div>
+              <div class="code-pre">Title &amp; number : e.g. ADR-014 message queue instead of direct call
+Status         : proposed | accepted | superseded by ADR-NN
+Context        : which problem, which constraints
+Decision       : phrased actively ("We use ...")
+Alternatives   : rejected and why
+Consequences   : positive and negative (incl. deliberate tech debt)
+Date &amp; author  : when, by whom</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Build-vs-buy — build or buy</div>
+            <div class="explanation">
+              Before any in-house build you honestly check whether buying or a ready-made open-source part is the better choice. Building yourself is tempting and almost always more expensive than expected — not in the first version, but in the years of upkeep. The core of the decision is the <strong>core business</strong>: the part that makes up your own competitive advantage. Only here does building yourself almost always pay off; for standard problems rarely.<br><br>
+              Arguments for <strong>building</strong>: core business/competitive advantage, no mature solution on the market, total cost over three years bearable plus free team capacity, mandatory data sovereignty (EU/on-prem). Arguments for <strong>buying</strong>: a standard problem without differentiation, a proven maintained solution exists, building yourself ties up scarce capacity permanently, the vendor meets GDPR/EU requirements.
+            </div>
+          </div>
+          ${quickCheck('When does building yourself (build) pay off most?', ['For the core business — the part that makes up your own competitive advantage', 'Always, because self-built software is cheaper to maintain', 'For every standard problem that already has a ready-made solution'], 0, 'Building yourself pays off almost only where it makes up the competitive advantage. For standard problems, buying — counted over three years including operations — is usually cheaper.')}
           ${callout('key', 'Learning: the triple loop', 'Durable knowledge follows the loop understand the concept → rebuild it hands-on in a small working example → prove it (repo, explainer note). The proof reveals whether you truly understood it — you can only explain or build what you have grasped. Small working examples beat large tutorials.')}
+          ${callout('key', 'Closing thought & guardrail', 'Maturity shows not in knowledge but in the discipline to apply simple tools — golden path, ADR, risk register, discovery, honest evidence — consistently even under pressure. Guardrail: record every consequential decision as an ADR — an undocumented decision is perceived six months later as an accident and blindly overturned.')}
           ${renderQuestions('lead_l4_1', 6)}
           ${renderBonus('lead_l4_1')}
         `
@@ -30548,6 +30702,48 @@ QUESTION_POOLS['lead_l2_1'] = [
     {t:'Es lehnt nicht die Person ab, sondern schützt die Kapazität und kommt mit Begründung und Alternative',t_en:'It does not reject the person but protects capacity and comes with a rationale and an alternative',correct:true,why:'Genau. Ein CTO, der jeden Wunsch annimmt, liefert alles halb — das Nein schützt das, was zählt.',why_en:'Exactly. A CTO who accepts every wish delivers everything half-done — the no protects what matters.'},
     {t:'Es lehnt die Anfrage knapp und ohne Begründung ab',t_en:'It rejects the request curtly and without a rationale',correct:false,why:'Nein. Ein gutes Nein kommt gerade mit Begründung und Alternative, nicht als Blockade.',why_en:'No. A good no comes precisely with a rationale and an alternative, not as a blockade.'},
     {t:'Es sagt zu allem Ja, um niemanden zu enttäuschen',t_en:'It says yes to everything so as to disappoint nobody',correct:false,why:'Nein. Genau das führt dazu, dass alles nur halb geliefert wird.',why_en:'No. That is exactly what leads to everything being delivered only half-done.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l3_1'] = [
+  {id:'p_lead_l3_1_mc1',type:'mc',xp:10,question:'Welcher Teil einer erzählten Erfahrung ist das <strong>Herzstück</strong>, das Verantwortung zeigt?',question_en:'Which part of a told experience is the <strong>heart</strong> that shows ownership?',options:[
+    {t:'Der Trade-off — welche Optionen es gab und welche warum verworfen wurde',t_en:'The trade-off — which options existed and which was rejected and why',correct:true,why:'Genau. Wer nur das Ergebnis nennt, klingt wie ein Ausführender; wer den Trade-off nennt, wie jemand, der Entscheidungen verantwortet.',why_en:'Exactly. Whoever names only the result sounds like an executor; whoever names the trade-off sounds like someone who owns decisions.'},
+    {t:'Das Ergebnis — die gemessene Zahl am Ende',t_en:'The result — the measured number at the end',correct:false,why:'Nein. Das Ergebnis gehört dazu, aber allein klingt es nach Ausführung statt nach Verantwortung.',why_en:'No. The result belongs in it, but on its own it sounds like execution rather than ownership.'},
+    {t:'Der Kontext — je länger, desto überzeugender',t_en:'The context — the longer, the more convincing',correct:false,why:'Nein. Der Kontext ist ein Satz zum Einstieg, nicht das Herzstück.',why_en:'No. The context is one sentence to set the scene, not the heart.'}
+  ]},
+  {id:'p_lead_l3_1_mc2',type:'mc',xp:10,question:'Was ist der <strong>reife erste Zug</strong> in einem technischen Interview oder Pitch?',question_en:'What is the <strong>mature first move</strong> in a technical interview or pitch?',options:[
+    {t:'Rückfragen zu den Constraints stellen, um den Raum zu strukturieren',t_en:'Ask clarifying questions about the constraints to structure the space',correct:true,why:'Genau. Diese Fragen zeigen mehr Seniorität als jede vorschnelle Antwort — ohne Kontext gibt es keine richtige Architektur.',why_en:'Exactly. These questions show more seniority than any premature answer — without context there is no right architecture.'},
+    {t:'Sofort mit einer fertigen Lösung loslegen',t_en:'Start right away with a finished solution',correct:false,why:'Nein. Das ist der häufigste Fehler — man löst, bevor der Einsatz verstanden ist.',why_en:'No. That is the most common mistake — you solve before the stakes are understood.'},
+    {t:'Zuerst alle eigenen Zertifikate und Technologien aufzählen',t_en:'First list all your own certificates and technologies',correct:false,why:'Nein. Ein Interview ist ein Test der Denkweise, kein Wissens-Katalog.',why_en:'No. An interview is a test of how you think, not a catalog of knowledge.'}
+  ]},
+  {id:'p_lead_l3_1_tf1',type:'truefalse',xp:8,statement:'Eine Beleg-Bibliothek ist eine vorbereitete Sammlung echter Geschichten, jede an eine andere Führungs- oder Architektur-Kompetenz gehängt.',statement_en:'An evidence library is a prepared collection of real stories, each tied to a different leadership or architecture skill.',correct:true,explanation:'Richtig. So musst du im Moment nicht suchen, sondern ziehst nur den passenden Beleg mit klarem Kern-Trade-off.',explanation_en:'Correct. That way you do not search in the moment but just pull the right piece of evidence with a clear core trade-off.'},
+  {id:'p_lead_l3_1_tf2',type:'truefalse',xp:8,statement:'Bei einer echten Wissenslücke ist ein souverän vorgetragener Bluff die beste Strategie.',statement_en:'When you have a real knowledge gap, a confidently delivered bluff is the best strategy.',correct:false,explanation:'Falsch. Interviewer riechen einen Bluff sofort, und ein aufgedeckter Bluff entwertet rückwirkend alles andere. Ehrlich benennen und die Denkweise zeigen ist stärker.',explanation_en:'False. Interviewers smell a bluff instantly, and an exposed bluff retroactively devalues everything else. Naming it honestly and showing the reasoning is stronger.'},
+  {id:'p_lead_l3_1_fb1',type:'fillblank',xp:12,prompt:'Die feste Dramaturgie einer erzählten Antwort lautet: Kontext, Problem, Rolle, ___ , Ergebnis (das Herzstück, ein Begriff).',prompt_en:'The fixed dramaturgy of a told answer is: context, problem, role, ___ , result (the heart, one term).',answers:['Trade-off','Tradeoff','trade-off','tradeoff','Trade off','trade off'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Trade-off</strong> ist das Herzstück — er zeigt, dass du die Entscheidung verantwortet hast, nicht nur ausgeführt.',explanation_en:'The <strong>trade-off</strong> is the heart — it shows you owned the decision, not just executed it.'},
+  {id:'p_lead_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Wie geht man souverän mit einer echten Wissenslücke um?',question_en:'How do you handle a real knowledge gap with composure?',options:[
+    {t:'„Damit habe ich nicht direkt gearbeitet, ich würde es so angehen …" und dann die Denkweise zeigen',t_en:'"I have not worked with that directly, I would approach it like this …" and then show the reasoning',correct:true,why:'Genau. So wird die Lücke zu einem Beleg für Urteilsvermögen statt zu einer Schwäche.',why_en:'Exactly. That turns the gap into evidence of judgment rather than a weakness.'},
+    {t:'Souverän so tun, als kenne man das Thema in- und auswendig',t_en:'Confidently pretend to know the topic inside out',correct:false,why:'Nein. Ein aufgedeckter Bluff kostet mehr Vertrauen als jede ehrliche Lücke.',why_en:'No. An exposed bluff costs more trust than any honest gap.'},
+    {t:'Das Thema schnell wechseln, bevor jemand nachfragt',t_en:'Change the topic quickly before anyone asks',correct:false,why:'Nein. Ausweichen wirkt wie ein verdeckter Bluff und schwächt das Gespräch.',why_en:'No. Dodging looks like a hidden bluff and weakens the conversation.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l4_1'] = [
+  {id:'p_lead_l4_1_mc1',type:'mc',xp:10,question:'Was folgt daraus, dass eine Entscheidung <strong>reversibel</strong> ist?',question_en:'What follows from a decision being <strong>reversible</strong>?',options:[
+    {t:'Schnell entscheiden, beobachten und bei Bedarf korrigieren',t_en:'Decide fast, observe and correct if needed',correct:true,why:'Genau. Reversible Entscheidungen verdienen keine Wochen Analyse — der Fehler ist billig zu korrigieren.',why_en:'Exactly. Reversible decisions do not deserve weeks of analysis — the mistake is cheap to correct.'},
+    {t:'Wochenlang gründlich analysieren, bevor man handelt',t_en:'Analyze thoroughly for weeks before acting',correct:false,why:'Nein. Gründlichkeit ist die richtige Geschwindigkeit nur bei schwer umkehrbaren Entscheidungen.',why_en:'No. Thoroughness is the right speed only for hard-to-reverse decisions.'},
+    {t:'Die Entscheidung ganz vermeiden, um kein Risiko einzugehen',t_en:'Avoid the decision entirely to take no risk',correct:false,why:'Nein. Gerade weil sie umkehrbar ist, darf man sie schnell treffen und lernen.',why_en:'No. Precisely because it is reversible, you may make it fast and learn.'}
+  ]},
+  {id:'p_lead_l4_1_mc2',type:'mc',xp:10,question:'Wann lohnt sich <strong>Selbstbau</strong> (Build) am ehesten?',question_en:'When does <strong>building yourself</strong> (build) pay off most?',options:[
+    {t:'Beim Kerngeschäft — dem Teil, der den eigenen Wettbewerbsvorteil ausmacht',t_en:'For the core business — the part that makes up your own competitive advantage',correct:true,why:'Genau. Bei Standardproblemen ist Kaufen — über drei Jahre inkl. Betrieb — meist billiger.',why_en:'Exactly. For standard problems, buying — over three years including operations — is usually cheaper.'},
+    {t:'Bei jedem Standardproblem, für das es schon eine fertige Lösung gibt',t_en:'For every standard problem that already has a ready-made solution',correct:false,why:'Nein. Bei Standardproblemen bindet Selbstbau nur knappe Kapazität ohne Differenzierung.',why_en:'No. For standard problems, building yourself only ties up scarce capacity without differentiation.'},
+    {t:'Immer, weil selbst gebaute Software billiger im Unterhalt ist',t_en:'Always, because self-built software is cheaper to maintain',correct:false,why:'Nein. Selbstbau ist fast immer teurer als gedacht — nicht in Version eins, sondern im jahrelangen Unterhalt.',why_en:'No. Building yourself is almost always more expensive than expected — not in version one, but in years of upkeep.'}
+  ]},
+  {id:'p_lead_l4_1_tf1',type:'truefalse',xp:8,statement:'Ein ADR wird nie gelöscht, sondern nur durch einen neuen ADR abgelöst.',statement_en:'An ADR is never deleted, only superseded by a new ADR.',correct:true,explanation:'Richtig. So entsteht ein ehrliches Entscheidungs-Gedächtnis, das nach Monaten die Frage „Warum haben wir das so gemacht?" beantwortet.',explanation_en:'Correct. That creates an honest decision memory that answers "why did we do it this way?" months later.'},
+  {id:'p_lead_l4_1_tf2',type:'truefalse',xp:8,statement:'Eine Checkliste ist ein Zeichen von Misstrauen gegen das eigene Urteil.',statement_en:'A checklist is a sign of distrust in your own judgment.',correct:false,explanation:'Falsch. Sie ist kein Misstrauen, sondern der Schutz davor, unter Druck einen wichtigen Punkt zu vergessen.',explanation_en:'False. It is not distrust, but protection against forgetting an important point under pressure.'},
+  {id:'p_lead_l4_1_fb1',type:'fillblank',xp:12,prompt:'Eine kurze, datierte Notiz, die eine einzelne Architektur-Entscheidung mit Alternativen und Konsequenzen festhält, heißt ___ (Abkürzung, drei Buchstaben).',prompt_en:'A short, dated note that captures a single architecture decision with alternatives and consequences is called an ___ (abbreviation, three letters).',answers:['ADR','adr','A.D.R.','a.d.r.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Ein <strong>ADR</strong> (Architecture Decision Record) ist das ehrliche Entscheidungs-Gedächtnis eines Teams.',explanation_en:'An <strong>ADR</strong> (architecture decision record) is a team\'s honest decision memory.'},
+  {id:'p_lead_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Wie sieht die <strong>Dreierschleife</strong> belastbaren Lernens aus?',question_en:'What does the <strong>triple loop</strong> of durable learning look like?',options:[
+    {t:'Konzept verstehen → in einem kleinen lauffähigen Beispiel nachbauen → belegen (Repo, Erklärung)',t_en:'Understand the concept → rebuild it in a small working example → prove it (repo, explanation)',correct:true,why:'Genau. Der Beleg deckt auf, ob man es wirklich verstanden hat — man kann nur erklären oder bauen, was man begriffen hat.',why_en:'Exactly. The proof reveals whether you truly understood it — you can only explain or build what you have grasped.'},
+    {t:'Ein großes Tutorial von Anfang bis Ende durcharbeiten',t_en:'Work through one large tutorial from start to finish',correct:false,why:'Nein. Kleine lauffähige Beispiele, die man selbst repariert, brennen sich besser ein als ein großes Tutorial.',why_en:'No. Small working examples you fix yourself stick better than one large tutorial.'},
+    {t:'Nur die Theorie lesen und auf den Ernstfall vertrauen',t_en:'Only read the theory and trust the real case',correct:false,why:'Nein. Ohne praktischen Nachbau und Beleg bleibt unklar, ob man es wirklich verstanden hat.',why_en:'No. Without hands-on rebuilding and proof it stays unclear whether you truly understood it.'}
   ]}
 ];
 
