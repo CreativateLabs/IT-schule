@@ -25093,6 +25093,99 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
           ${renderBonus('ds_l3_1')}
         `
       },
+      {
+        id: 'ds_l3_2', title: 'Feature Engineering & Data Leakage',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 2</div>
+            <h1 class="lesson-title">Feature Engineering &amp; Data Leakage</h1>
+            <p class="lesson-desc">Gute Merkmale entscheiden oft mehr über das Ergebnis als die Wahl des Modells. Und ein tückischer Fehler — Data Leakage — täuscht glänzende Ergebnisse vor, die in der Realität zusammenbrechen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Merkmale bauen &amp; kodieren</div>
+            <div class="explanation">
+              <strong>Feature Engineering</strong> heißt, aus Rohdaten aussagekräftige Merkmale (Features) zu formen. Das entscheidet oft mehr über das Ergebnis als die Wahl des Modells — gute Merkmale schlagen ein ausgefeiltes Verfahren.<br><br>
+              Kategoriale Merkmale muss ein Modell als Zahlen sehen. <strong>One-Hot-Encoding</strong> legt je Kategorie eine eigene 0/1-Spalte an — ideal für nicht-ordinale Kategorien wie Farbe oder Land. <strong>Label-Encoding</strong> vergibt je Kategorie eine Zahl; das passt nur bei einer echten Rangordnung, denn sonst erfindet das Modell eine Reihenfolge, die es gar nicht gibt.
+            </div>
+          </div>
+          ${quickCheck('Du kodierst die nicht-ordinale Spalte „Farbe" (rot, grün, blau) für ein Modell. Welches Verfahren ist sauberer?', ['Label-Encoding (rot=0, grün=1, blau=2)', 'One-Hot-Encoding (je Farbe eine 0/1-Spalte)', 'Die Spalte unverändert als Text lassen'], 1, 'One-Hot-Encoding gibt jeder Farbe eine eigene 0/1-Spalte und unterstellt keine Reihenfolge. Label-Encoding würde blau &gt; grün &gt; rot nahelegen — eine Ordnung, die es bei Farben nicht gibt und die abstandsbasierte Verfahren in die Irre führt.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Skalieren &amp; neue Merkmale ableiten</div>
+            <div class="explanation">
+              <strong>Skalierung/Normalisierung</strong> bringt Merkmale auf vergleichbare Wertebereiche. Verfahren, die mit Abständen oder Gradienten arbeiten — etwa <code>k-NN</code> oder Gradientenverfahren — reagieren sonst überempfindlich auf die Spalte mit den größten Zahlen. Baumverfahren brauchen das dagegen kaum.<br><br>
+              Oft entstehen die stärksten Merkmale durch <strong>Ableiten</strong>: aus einem Datum den Wochentag oder den Monat, aus Länge und Breite die Fläche, aus einem Zeitstempel die Stunde. Solches Domänenwissen steckt Information in eine Form, aus der das Modell leichter lernt.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Data Leakage vermeiden: erst splitten, dann fitten</div>
+            <div class="explanation">
+              Der kritischste Fehler beim Feature Engineering ist <strong>Data Leakage</strong>: Information aus den Testdaten oder aus der Zukunft sickert ins Training und täuscht glänzende Ergebnisse vor, die in der Realität zusammenbrechen. Der häufigste Fall — Skalierung oder Imputation auf dem GANZEN Datensatz VOR dem Train/Test-Split, sodass der Scaler die Testdaten schon gesehen hat.<br><br>
+              Die Regel: Vorverarbeitung <strong>nur auf den Trainingsdaten fitten</strong> und die gelernten Parameter dann auf die Testdaten anwenden. Genau dafür gibt es <strong>Pipelines</strong>. Eine zweite Quelle ist ein Merkmal, das die Zielgröße heimlich verrät und in der echten Vorhersage-Situation noch gar nicht vorliegt — solche Merkmale muss man erkennen und entfernen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Erst splitten, dann fitten</span></div>
+              <div class="code-pre">from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+X_train, X_test = train_test_split(X, test_size=0.2)
+
+scaler = StandardScaler()
+scaler.fit(X_train)             # NUR auf Trainingsdaten
+X_train_s = scaler.transform(X_train)
+X_test_s  = scaler.transform(X_test)   # gleiche Parameter</div>
+            </div>
+          </div>
+          ${quickCheck('Wann entsteht typischerweise Data Leakage?', ['Wenn man den Scaler vor dem Split auf dem ganzen Datensatz fittet', 'Wenn man das Modell nur auf Trainingsdaten trainiert', 'Wenn man kategoriale Merkmale one-hot-kodiert'], 0, 'Wird der Scaler vor dem Split gefittet, sieht er die Testdaten bereits — die Testmenge beeinflusst das Training, und die Ergebnisse wirken besser, als sie wirklich sind.')}
+          ${callout('key', 'Merke', 'Der Scaler darf die Testdaten nie sehen — sonst misst du dich selbst. Fitte die Vorverarbeitung nur auf den Trainingsdaten und wende sie dann auf die Testmenge an.')}
+          ${renderQuestions('ds_l3_2', 6)}
+          ${renderBonus('ds_l3_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 2</div>
+            <h1 class="lesson-title">Feature Engineering &amp; Data Leakage</h1>
+            <p class="lesson-desc">Good features often decide more about the result than the choice of model. And one subtle mistake — data leakage — fakes brilliant scores that collapse in the real world.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Building &amp; encoding features</div>
+            <div class="explanation">
+              <strong>Feature engineering</strong> means shaping meaningful features out of raw data. This often decides more about the result than the choice of model — good features beat a fancy algorithm.<br><br>
+              A model must see categorical features as numbers. <strong>One-hot encoding</strong> creates a separate 0/1 column per category — ideal for non-ordinal categories like color or country. <strong>Label encoding</strong> assigns one number per category; that fits only when there is a real ranking, because otherwise the model invents an order that does not exist.
+            </div>
+          </div>
+          ${quickCheck('You encode the non-ordinal column "color" (red, green, blue) for a model. Which method is cleaner?', ['Label encoding (red=0, green=1, blue=2)', 'One-hot encoding (one 0/1 column per color)', 'Leave the column unchanged as text'], 1, 'One-hot encoding gives each color its own 0/1 column and implies no order. Label encoding would suggest blue &gt; green &gt; red, an order that does not exist for colors and misleads distance-based methods.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Scaling &amp; deriving new features</div>
+            <div class="explanation">
+              <strong>Scaling/normalization</strong> brings features onto comparable value ranges. Methods that work with distances or gradients — such as <code>k-NN</code> or gradient descent — otherwise overreact to the column with the largest numbers. Tree-based methods barely need it.<br><br>
+              Often the strongest features come from <strong>deriving</strong>: the weekday or month from a date, the area from length and width, the hour from a timestamp. Such domain knowledge puts information into a form the model learns from more easily.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Avoiding data leakage: split first, then fit</div>
+            <div class="explanation">
+              The most critical mistake in feature engineering is <strong>data leakage</strong>: information from the test data or from the future seeps into training and fakes brilliant scores that collapse in reality. The most common case — scaling or imputation on the WHOLE dataset BEFORE the train/test split, so the scaler has already seen the test data.<br><br>
+              The rule: fit preprocessing <strong>only on the training data</strong> and then apply the learned parameters to the test data. This is exactly what <strong>pipelines</strong> are for. A second source is a feature that secretly reveals the target and is not even available in the real prediction situation — such features must be detected and removed.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Split first, then fit</span></div>
+              <div class="code-pre">from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+X_train, X_test = train_test_split(X, test_size=0.2)
+
+scaler = StandardScaler()
+scaler.fit(X_train)             # training data ONLY
+X_train_s = scaler.transform(X_train)
+X_test_s  = scaler.transform(X_test)   # same parameters</div>
+            </div>
+          </div>
+          ${quickCheck('When does data leakage typically arise?', ['When you fit the scaler on the whole dataset before the split', 'When you train the model only on training data', 'When you one-hot encode categorical features'], 0, 'If the scaler is fitted before the split, it already sees the test data — the test set influences training and the scores look better than they really are.')}
+          ${callout('key', 'Remember', 'The scaler must never see the test data — otherwise you are measuring against yourself. Fit preprocessing on the training data only, then apply it to the test set.')}
+          ${renderQuestions('ds_l3_2', 6)}
+          ${renderBonus('ds_l3_2')}
+        `
+      },
     ]
   },
   {
@@ -25201,6 +25294,97 @@ Few parts of a whole          -&gt; Pie (sparingly)</div>
           ${callout('fact', 'The order matters', 'First the question, then the chart type, then the polish. Whoever starts with the diagram ends up bending the question to fit it — whoever starts with the question picks the chart that answers it most honestly.')}
           ${renderQuestions('ds_l4_1', 6)}
           ${renderBonus('ds_l4_1')}
+        `
+      },
+      {
+        id: 'ds_l4_2', title: 'Zeitreihen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 2</div>
+            <h1 class="lesson-title">Zeitreihen</h1>
+            <p class="lesson-desc">Eine Zeitreihe sind Daten in zeitlicher Reihenfolge. Ihre besondere Struktur — Trend, Saisonalität und Abhängigkeit von der Vergangenheit — verändert, wie man sie glättet, splittet und in die Zukunft fortschreibt.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was eine Zeitreihe ausmacht</div>
+            <div class="explanation">
+              Eine <strong>Zeitreihe</strong> ist eine Folge von Datenpunkten in zeitlicher Reihenfolge — etwa der Umsatz pro Tag oder die Temperatur pro Stunde. Der Zeitindex ist hier nicht Beiwerk, sondern die zentrale Struktur.<br><br>
+              Man zerlegt eine Zeitreihe gedanklich in drei Bestandteile: den <strong>Trend</strong> (die langfristige Richtung nach oben oder unten), die <strong>Saisonalität</strong> (wiederkehrende Muster wie ein Wochen- oder Jahresrhythmus) und das <strong>Rauschen</strong> (zufällige Schwankungen ohne Muster).
+            </div>
+          </div>
+          ${quickCheck('Der Umsatz eines Cafés ist an jedem Wochenende hoch und werktags niedrig — Woche für Woche. Welche Komponente ist das?', ['Trend', 'Saisonalität', 'Rauschen'], 1, 'Ein Muster, das sich in festem Rhythmus wiederholt — hier wöchentlich — ist Saisonalität. Ein Trend wäre eine langfristige Richtung, Rauschen wären zufällige Schwankungen ohne Muster.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Glätten, aggregieren, differenzieren</div>
+            <div class="explanation">
+              Der <strong>gleitende Durchschnitt</strong> (Moving Average) mittelt über ein Fenster benachbarter Werte und glättet so das Rauschen, damit der Trend sichtbar wird. <strong>Resampling</strong> aggregiert die Reihe auf eine andere Zeitauflösung — etwa von Stunden auf Tage. <strong>Differenzierung</strong> bildet die Differenz aufeinanderfolgender Werte und entfernt so einen Trend.<br><br>
+              Ein weiteres Kennzeichen ist die <strong>Autokorrelation</strong>: Ein Wert hängt von seinen früheren Werten ab. Genau diese Abhängigkeit macht Zeitreihen besonders — und verbietet es, die Punkte als voneinander unabhängig zu behandeln.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Glätten &amp; aggregieren</span></div>
+              <div class="code-pre"># gleitender Durchschnitt ueber 7 Tage
+df["glatt"] = df["umsatz"].rolling(window=7).mean()
+
+# von Stunden auf Tage aggregieren
+tages = df["umsatz"].resample("D").sum()
+
+# Trend durch Differenzierung entfernen
+diff = df["umsatz"].diff()</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Split &amp; Forecasting: die Zeit respektieren</div>
+            <div class="explanation">
+              Beim maschinellen Lernen mit Zeitreihen gilt eine eiserne Regel: Der Train/Test-Split muss die <strong>zeitliche Reihenfolge</strong> wahren. Man trainiert auf der Vergangenheit und testet auf der Zukunft — <strong>niemals</strong> zufällig mischen. Ein zufälliger Split ließe das Modell aus späteren Punkten lernen, um frühere vorherzusagen: Leakage aus der Zukunft, das die Ergebnisse schönt.<br><br>
+              Die Grundidee des <strong>Forecasting</strong> ist genau das: aus dem beobachteten Verlauf die kommenden Werte schätzen. Ehrlich bewertet wird nur auf einem Zeitraum, den das Modell beim Training nicht gesehen hat.
+            </div>
+          </div>
+          ${quickCheck('Warum darf man eine Zeitreihe vor dem Train/Test-Split nicht zufällig mischen?', ['Weil das Mischen die Daten löscht', 'Weil das Modell dann aus der Zukunft lernt, um die Vergangenheit vorherzusagen — Leakage', 'Weil zufälliges Mischen die Saisonalität verstärkt'], 1, 'Ein zufälliger Split ließe das Modell aus späteren Werten lernen, um frühere vorherzusagen — Information aus der Zukunft sickert ins Training. Deshalb splittet man Zeitreihen immer entlang der Zeitachse.')}
+          ${callout('key', 'Merke', 'Bei Zeitreihen niemals zufällig splitten — das Training darf die Zukunft nie sehen. Trainiere auf der Vergangenheit, teste auf der Zukunft.')}
+          ${renderQuestions('ds_l4_2', 6)}
+          ${renderBonus('ds_l4_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 2</div>
+            <h1 class="lesson-title">Time Series</h1>
+            <p class="lesson-desc">A time series is data in time order. Its special structure — trend, seasonality and dependence on the past — changes how you smooth, split and forecast it.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What makes a time series</div>
+            <div class="explanation">
+              A <strong>time series</strong> is a sequence of data points in time order — for example revenue per day or temperature per hour. Here the time index is not a side note but the central structure.<br><br>
+              You mentally split a time series into three parts: the <strong>trend</strong> (the long-term direction up or down), the <strong>seasonality</strong> (recurring patterns like a weekly or yearly rhythm) and the <strong>noise</strong> (random fluctuations without a pattern).
+            </div>
+          </div>
+          ${quickCheck('A cafe has high revenue every weekend and low revenue on weekdays — week after week. Which component is this?', ['Trend', 'Seasonality', 'Noise'], 1, 'A pattern that repeats in a fixed rhythm — here weekly — is seasonality. A trend would be a long-term direction, noise would be random fluctuations without a pattern.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Smooth, aggregate, difference</div>
+            <div class="explanation">
+              The <strong>moving average</strong> averages over a window of neighboring values and thus smooths the noise so the trend becomes visible. <strong>Resampling</strong> aggregates the series to a different time resolution — say from hours to days. <strong>Differencing</strong> takes the difference of consecutive values and thereby removes a trend.<br><br>
+              Another hallmark is <strong>autocorrelation</strong>: a value depends on its earlier values. Exactly this dependence makes time series special — and forbids treating the points as independent of one another.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Smooth &amp; aggregate</span></div>
+              <div class="code-pre"># 7-day moving average
+df["smooth"] = df["revenue"].rolling(window=7).mean()
+
+# aggregate from hours to days
+daily = df["revenue"].resample("D").sum()
+
+# remove the trend by differencing
+diff = df["revenue"].diff()</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Split &amp; forecasting: respect time</div>
+            <div class="explanation">
+              In machine learning with time series one iron rule holds: the train/test split must preserve the <strong>time order</strong>. You train on the past and test on the future — <strong>never</strong> shuffle randomly. A random split would let the model learn from later points to predict earlier ones: leakage from the future that flatters the scores.<br><br>
+              The core idea of <strong>forecasting</strong> is exactly this: estimate the coming values from the observed course. Honest evaluation happens only on a period the model did not see during training.
+            </div>
+          </div>
+          ${quickCheck('Why must you not randomly shuffle a time series before the train/test split?', ['Because shuffling deletes the data', 'Because the model would then learn from the future to predict the past — leakage', 'Because random shuffling strengthens the seasonality'], 1, 'A random split would let the model learn from later values to predict earlier ones — information from the future seeps into training. That is why time series are always split along the time axis.')}
+          ${callout('key', 'Remember', 'Never split a time series randomly — the training must never see the future. Train on the past, test on the future.')}
+          ${renderQuestions('ds_l4_2', 6)}
+          ${renderBonus('ds_l4_2')}
         `
       },
     ]
@@ -25329,6 +25513,93 @@ Recall    = TP / (TP + FN)</div>
           ${callout('tip', 'Against overfitting', 'If a model tends to memorize the training data, there are three proven remedies: collect more data, choose a simpler model, or apply regularization (which penalizes too much complexity). And the effect is always measured only on unseen test data.')}
           ${renderQuestions('ds_l5_1', 6)}
           ${renderBonus('ds_l5_1')}
+        `
+      },
+      {
+        id: 'ds_l5_2', title: 'Bias, Fairness & Datenschutz',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 2</div>
+            <h1 class="lesson-title">Bias, Fairness &amp; Datenschutz</h1>
+            <p class="lesson-desc">Ein Modell lernt die Muster seiner Trainingsdaten — samt ihrer Verzerrungen. Fairness und Datenschutz gehören deshalb zum Handwerk, nicht als nachträglicher Gedanke.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Wie Bias in Modelle kommt</div>
+            <div class="explanation">
+              Ein Modell lernt die Muster seiner Trainingsdaten — und damit auch deren Verzerrungen (<strong>Bias</strong>). Sind die Daten verzerrt, trifft das Modell systematisch unfaire Entscheidungen und benachteiligt eine Gruppe.<br><br>
+              Typische Quellen: eine <strong>unausgewogene Stichprobe</strong> (eine Gruppe ist unterrepräsentiert), <strong>historische Vorurteile</strong>, die bereits in den Daten stecken, und eine <strong>schlecht gewählte Zielgröße</strong> (ein Proxy, der nicht das misst, was man eigentlich meint).
+            </div>
+          </div>
+          ${quickCheck('Ein Einstellungsmodell lernt aus jahrzehntealten Personaldaten, in denen eine Gruppe kaum vertreten war. Was ist die wahrscheinliche Folge?', ['Das Modell wird automatisch fair, weil es aus Daten lernt', 'Das Modell übernimmt die historische Verzerrung und benachteiligt diese Gruppe', 'Bias spielt keine Rolle, solange die Genauigkeit hoch ist'], 1, 'Ein Modell übernimmt die Muster seiner Daten — steckt darin eine historische Verzerrung, gibt es sie weiter. Hohe Genauigkeit auf verzerrten Daten macht die Entscheidung nicht fair.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Fairness messen &amp; erklären</div>
+            <div class="explanation">
+              <strong>Fairness</strong> verlangt, dass ein Modell über Gruppen hinweg vergleichbar gut funktioniert — etwa ähnliche Fehlerraten oder gleiche Chancen. <strong>Fairness-Metriken</strong> machen das messbar, indem sie die Ergebnisse je Gruppe vergleichen.<br><br>
+              <strong>Erklärbarkeit</strong> (nachvollziehen zu können, warum ein Modell so entschieden hat) ist dafür die Voraussetzung: Erst wenn man die Gründe einer Entscheidung sieht, kann man Bias überhaupt erkennen und belegen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Fehlerraten je Gruppe vergleichen</span></div>
+              <div class="code-pre"># Genauigkeit getrennt nach Gruppe pruefen
+for gruppe, teil in daten.groupby("gruppe"):
+    score = accuracy(teil["y_true"], teil["y_pred"])
+    print(gruppe, score)
+
+# grosse Luecken zwischen Gruppen = Warnsignal</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Datenschutz: PII schützen</div>
+            <div class="explanation">
+              Beim Umgang mit personenbezogenen Daten (<strong>PII</strong> — z. B. Name, Adresse, Geburtsdatum) gelten eigene Regeln. Man sollte solche Daten zunächst <strong>erkennen</strong>, dann <strong>minimieren</strong> (nur erheben, was wirklich nötig ist) und schließlich <strong>anonymisieren oder pseudonymisieren</strong>.<br><br>
+              Es gilt die <strong>Zweckbindung</strong>: Daten dürfen nur für den Zweck genutzt werden, für den sie erhoben wurden (ein Grundsatz der DSGVO). Und wo es geht, arbeitet man lieber mit <strong>aggregierten</strong> statt mit einzelnen Datensätzen — Summen und Durchschnitte verraten weniger über Einzelne.
+            </div>
+          </div>
+          ${quickCheck('Was ist der beste erste Schritt, um die Privatsphäre in einem Datensatz zu schützen?', ['So viele personenbezogene Daten wie möglich sammeln, falls man sie braucht', 'Personenbezogene Daten minimieren und anonymisieren/pseudonymisieren', 'Die Daten unverändert für jeden beliebigen Zweck weitergeben'], 1, 'Datenschutz beginnt mit Datenminimierung: nur erheben, was nötig ist, und personenbezogene Daten anonymisieren oder pseudonymisieren. Mehr Daten zu horten erhöht nur das Risiko.')}
+          ${callout('key', 'Merke', 'Ein Modell ist nur so fair wie seine Daten. Bias verschwindet nicht von selbst — man muss ihn messen und gegensteuern.')}
+          ${renderQuestions('ds_l5_2', 6)}
+          ${renderBonus('ds_l5_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 2</div>
+            <h1 class="lesson-title">Bias, Fairness &amp; Privacy</h1>
+            <p class="lesson-desc">A model learns the patterns of its training data — including their biases. Fairness and data protection are therefore part of the craft, not an afterthought.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">How bias enters models</div>
+            <div class="explanation">
+              A model learns the patterns of its training data — and thus their distortions (<strong>bias</strong>) as well. If the data is biased, the model makes systematically unfair decisions and disadvantages a group.<br><br>
+              Typical sources: an <strong>unbalanced sample</strong> (a group is underrepresented), <strong>historical prejudice</strong> already baked into the data, and a <strong>poorly chosen target</strong> (a proxy that does not measure what you actually mean).
+            </div>
+          </div>
+          ${quickCheck('A hiring model learns from decades-old personnel data in which one group was barely represented. What is the likely consequence?', ['The model becomes fair automatically because it learns from data', 'The model inherits the historical bias and disadvantages that group', 'Bias does not matter as long as accuracy is high'], 1, 'A model inherits the patterns of its data — if a historical bias is in there, it passes it on. High accuracy on biased data does not make the decision fair.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Measuring fairness &amp; explaining</div>
+            <div class="explanation">
+              <strong>Fairness</strong> requires a model to work comparably well across groups — for instance similar error rates or equal chances. <strong>Fairness metrics</strong> make this measurable by comparing the results per group.<br><br>
+              <strong>Explainability</strong> (being able to trace why a model decided as it did) is the prerequisite for this: only once you see the reasons behind a decision can you detect and prove bias at all.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Compare error rates per group</span></div>
+              <div class="code-pre"># check accuracy separately per group
+for group, part in data.groupby("group"):
+    score = accuracy(part["y_true"], part["y_pred"])
+    print(group, score)
+
+# large gaps between groups = warning sign</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Privacy: protect PII</div>
+            <div class="explanation">
+              When handling personal data (<strong>PII</strong> — e.g. name, address, date of birth) special rules apply. You should first <strong>detect</strong> such data, then <strong>minimize</strong> it (collect only what is truly needed) and finally <strong>anonymize or pseudonymize</strong> it.<br><br>
+              <strong>Purpose limitation</strong> applies: data may be used only for the purpose it was collected for (a principle of the GDPR). And where possible, work with <strong>aggregated</strong> rather than individual records — sums and averages reveal less about single people.
+            </div>
+          </div>
+          ${quickCheck('What is the best first step to protect privacy in a dataset?', ['Collect as much personal data as possible in case you need it', 'Minimize personal data and anonymize/pseudonymize it', 'Pass the data on unchanged for any purpose'], 1, 'Privacy starts with data minimization: collect only what is needed and anonymize or pseudonymize personal data. Hoarding more data only raises the risk.')}
+          ${callout('key', 'Remember', 'A model is only as fair as its data. Bias does not vanish on its own — you have to measure it and counteract it.')}
+          ${renderQuestions('ds_l5_2', 6)}
+          ${renderBonus('ds_l5_2')}
         `
       },
     ]
@@ -32396,6 +32667,66 @@ QUESTION_POOLS['ai_l6_2'] = [
   {id:'p_ai_l6_2_bonus',type:'mc',xp:20,optional:true,question:'Ein Assistent soll im festen Firmen-Ton antworten UND stets aktuelle Preise nennen. Welche Kombination passt?',question_en:'An assistant should answer in a fixed company tone AND always state current prices. Which combination fits?',options:[
     {t:'Fine-Tuning für den Ton und RAG für die aktuellen Preise',t_en:'Fine-tuning for the tone and RAG for the current prices',correct:true,why:'Genau. Verhalten und Stil prägt Fine-Tuning, sich ändernde Fakten wie Preise liefert RAG zur Laufzeit — oft kombiniert man beides.',why_en:'Exactly. Fine-tuning imprints behavior and style, RAG delivers changing facts like prices at run time — the two are often combined.'},
     {t:'Nur Fine-Tuning, das deckt auch die aktuellen Preise dauerhaft ab',t_en:'Only fine-tuning, that also covers the current prices permanently',correct:false,why:'Nein. In den Gewichten festgeschriebene Preise veralten; wechselnde Fakten gehören in RAG.',why_en:'No. Prices fixed in the weights go stale; changing facts belong in RAG.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l3_2'] = [
+  {id:'p_ds_l3_2_mc1',type:'mc',xp:10,question:'Du willst die nicht-ordinale Spalte „Land" (DE, FR, IT) für ein Modell kodieren. Welches Verfahren ist am saubersten?',question_en:'You want to encode the non-ordinal column "country" (DE, FR, IT) for a model. Which method is cleanest?',options:[
+    {t:'One-Hot-Encoding',t_en:'One-hot encoding',correct:true,why:'Genau. One-Hot legt je Land eine eigene 0/1-Spalte an und unterstellt keine Reihenfolge.',why_en:'Exactly. One-hot creates a separate 0/1 column per country and implies no order.'},
+    {t:'Label-Encoding',t_en:'Label encoding',correct:false,why:'Nein. Label-Encoding vergibt Zahlen und erfindet damit eine Rangordnung, die es bei Ländern nicht gibt.',why_en:'No. Label encoding assigns numbers and thereby invents a ranking that does not exist for countries.'},
+    {t:'Die Spalte als Rohtext ins Modell geben',t_en:'Feed the column into the model as raw text',correct:false,why:'Nein. Viele Modelle brauchen numerische Eingaben; die Kategorien müssen erst kodiert werden.',why_en:'No. Many models need numeric input; the categories must be encoded first.'}
+  ]},
+  {id:'p_ds_l3_2_mc2',type:'mc',xp:10,question:'An welcher Stelle entsteht typischerweise Data Leakage?',question_en:'Where does data leakage typically arise?',options:[
+    {t:'Der Scaler wird auf dem GANZEN Datensatz gefittet, bevor gesplittet wird',t_en:'The scaler is fitted on the WHOLE dataset before splitting',correct:true,why:'Genau. Dann sieht der Scaler die Testdaten schon und die Testmenge beeinflusst das Training.',why_en:'Exactly. The scaler then already sees the test data and the test set influences training.'},
+    {t:'Die Vorverarbeitung wird nur auf den Trainingsdaten gefittet',t_en:'Preprocessing is fitted only on the training data',correct:false,why:'Nein. Genau das ist die korrekte, leakage-freie Vorgehensweise.',why_en:'No. That is exactly the correct, leakage-free procedure.'},
+    {t:'Kategoriale Merkmale werden one-hot-kodiert',t_en:'Categorical features are one-hot encoded',correct:false,why:'Nein. One-Hot-Encoding ist eine harmlose Kodierung und für sich kein Leakage.',why_en:'No. One-hot encoding is a harmless encoding and on its own no leakage.'}
+  ]},
+  {id:'p_ds_l3_2_tf1',type:'truefalse',xp:8,statement:'Feature Engineering entscheidet oft mehr über das Ergebnis als die Wahl des Modells.',statement_en:'Feature engineering often decides more about the result than the choice of model.',correct:true,explanation:'Richtig. Gute, aussagekräftige Merkmale schlagen häufig ein ausgefeiltes Verfahren auf schwachen Merkmalen.',explanation_en:'Correct. Good, meaningful features often beat a fancy algorithm on weak features.'},
+  {id:'p_ds_l3_2_tf2',type:'truefalse',xp:8,statement:'Es ist unproblematisch, den Scaler auf dem gesamten Datensatz zu fitten, bevor man in Train und Test aufteilt.',statement_en:'It is harmless to fit the scaler on the entire dataset before splitting into train and test.',correct:false,explanation:'Falsch. Das ist der klassische Data-Leakage-Fehler: Der Scaler sieht die Testdaten, und die Ergebnisse wirken besser als real.',explanation_en:'False. That is the classic data leakage mistake: the scaler sees the test data and the scores look better than they really are.'},
+  {id:'p_ds_l3_2_fb1',type:'fillblank',xp:12,prompt:'Der Begriff dafür, dass Information aus Testdaten oder aus der Zukunft ins Training sickert, heißt ___.',prompt_en:'The term for information from test data or from the future seeping into training is called ___.',answers:['Data Leakage','Leakage','data leakage','leakage','Datenleck'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<code>Data Leakage</code> täuscht glänzende Ergebnisse vor, die real zusammenbrechen — die Vorverarbeitung darf nur auf Trainingsdaten gefittet werden.',explanation_en:'<code>Data leakage</code> fakes brilliant scores that collapse in reality — preprocessing may only be fitted on training data.'},
+  {id:'p_ds_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Warum ist Skalierung besonders bei Verfahren wie k-NN oder Gradientenverfahren wichtig?',question_en:'Why is scaling especially important for methods like k-NN or gradient descent?',options:[
+    {t:'Weil sie mit Abständen oder Gradienten arbeiten und sonst die Spalte mit den größten Zahlen dominiert',t_en:'Because they work with distances or gradients, and otherwise the column with the largest numbers dominates',correct:true,why:'Genau. Ohne vergleichbare Wertebereiche bestimmt die Spalte mit den größten Zahlen das Ergebnis unverhältnismäßig.',why_en:'Exactly. Without comparable ranges, the column with the largest numbers unduly determines the result.'},
+    {t:'Weil Baumverfahren ohne Skalierung überhaupt nicht funktionieren',t_en:'Because tree-based methods do not work at all without scaling',correct:false,why:'Nein. Gerade Baumverfahren sind gegenüber der Skalierung weitgehend unempfindlich.',why_en:'No. Tree-based methods in particular are largely insensitive to scaling.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l4_2'] = [
+  {id:'p_ds_l4_2_mc1',type:'mc',xp:10,question:'Ein Umsatz zeigt jedes Jahr im Dezember einen Ausschlag nach oben. Welche Komponente einer Zeitreihe ist das?',question_en:'Revenue shows an upward spike every December. Which component of a time series is this?',options:[
+    {t:'Saisonalität',t_en:'Seasonality',correct:true,why:'Genau. Ein Muster, das sich in festem Rhythmus wiederholt (jährlich), ist Saisonalität.',why_en:'Exactly. A pattern that repeats in a fixed rhythm (yearly) is seasonality.'},
+    {t:'Trend',t_en:'Trend',correct:false,why:'Nein. Ein Trend wäre eine langfristige Richtung nach oben oder unten, kein jährlich wiederkehrender Ausschlag.',why_en:'No. A trend would be a long-term direction up or down, not a yearly recurring spike.'},
+    {t:'Rauschen',t_en:'Noise',correct:false,why:'Nein. Rauschen sind zufällige Schwankungen ohne erkennbares Muster.',why_en:'No. Noise is random fluctuation without a recognizable pattern.'}
+  ]},
+  {id:'p_ds_l4_2_mc2',type:'mc',xp:10,question:'Wie teilt man eine Zeitreihe korrekt in Trainings- und Testdaten?',question_en:'How do you correctly split a time series into training and test data?',options:[
+    {t:'Auf der Vergangenheit trainieren, auf der Zukunft testen (zeitlich getrennt)',t_en:'Train on the past, test on the future (separated in time)',correct:true,why:'Genau. Nur ein zeitlich geordneter Split verhindert, dass Information aus der Zukunft ins Training gelangt.',why_en:'Exactly. Only a time-ordered split prevents information from the future reaching training.'},
+    {t:'Die Punkte zufällig mischen und dann aufteilen',t_en:'Shuffle the points randomly and then split',correct:false,why:'Nein. Zufälliges Mischen lässt das Modell aus der Zukunft lernen — Leakage.',why_en:'No. Random shuffling lets the model learn from the future — leakage.'},
+    {t:'Immer nur die letzten Punkte fürs Training nehmen',t_en:'Always use only the last points for training',correct:false,why:'Nein. Trainiert wird auf der Vergangenheit; die letzten (jüngsten) Punkte dienen dem Test.',why_en:'No. Training uses the past; the last (most recent) points serve as the test.'}
+  ]},
+  {id:'p_ds_l4_2_tf1',type:'truefalse',xp:8,statement:'Ein gleitender Durchschnitt (Moving Average) glättet Rauschen und macht den Trend besser sichtbar.',statement_en:'A moving average smooths noise and makes the trend more visible.',correct:true,explanation:'Richtig. Er mittelt über ein Fenster benachbarter Werte und dämpft so kurzfristige Schwankungen.',explanation_en:'Correct. It averages over a window of neighboring values and thereby dampens short-term fluctuations.'},
+  {id:'p_ds_l4_2_tf2',type:'truefalse',xp:8,statement:'Eine Zeitreihe darf man für den Train/Test-Split zufällig mischen wie andere Daten auch.',statement_en:'You may randomly shuffle a time series for the train/test split like any other data.',correct:false,explanation:'Falsch. Zufälliges Mischen zerstört die zeitliche Ordnung und erzeugt Leakage aus der Zukunft; man splittet entlang der Zeitachse.',explanation_en:'False. Random shuffling destroys the time order and creates leakage from the future; you split along the time axis.'},
+  {id:'p_ds_l4_2_fb1',type:'fillblank',xp:12,prompt:'Die Eigenschaft, dass ein Wert einer Zeitreihe von seinen früheren Werten abhängt, heißt ___.',prompt_en:'The property that a value in a time series depends on its earlier values is called ___.',answers:['Autokorrelation','autokorrelation','Autocorrelation','autocorrelation'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<code>Autokorrelation</code> ist das Kennzeichen von Zeitreihen — genau deshalb darf man die Punkte nicht als unabhängig behandeln.',explanation_en:'<code>Autocorrelation</code> is the hallmark of time series — exactly why the points must not be treated as independent.'},
+  {id:'p_ds_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Was bewirkt die Differenzierung (das Bilden der Differenz aufeinanderfolgender Werte) bei einer Zeitreihe?',question_en:'What does differencing (taking the difference of consecutive values) do to a time series?',options:[
+    {t:'Sie entfernt einen Trend',t_en:'It removes a trend',correct:true,why:'Genau. Die Differenz aufeinanderfolgender Werte hebt eine gleichmäßige Auf- oder Abwärtsbewegung heraus.',why_en:'Exactly. The difference of consecutive values cancels out a steady upward or downward movement.'},
+    {t:'Sie fügt der Reihe künstliche Saisonalität hinzu',t_en:'It adds artificial seasonality to the series',correct:false,why:'Nein. Differenzierung fügt nichts hinzu, sie entfernt einen Trend.',why_en:'No. Differencing adds nothing, it removes a trend.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l5_2'] = [
+  {id:'p_ds_l5_2_mc1',type:'mc',xp:10,question:'Welche ist eine typische Quelle von Bias in einem Modell?',question_en:'Which is a typical source of bias in a model?',options:[
+    {t:'Eine unausgewogene Stichprobe, in der eine Gruppe unterrepräsentiert ist',t_en:'An unbalanced sample in which a group is underrepresented',correct:true,why:'Genau. Fehlt eine Gruppe in den Daten, lernt das Modell sie schlechter und entscheidet für sie unfair.',why_en:'Exactly. If a group is missing in the data, the model learns it worse and decides unfairly for it.'},
+    {t:'Ein zu großer Testdatensatz',t_en:'A test set that is too large',correct:false,why:'Nein. Die Größe der Testmenge ist keine Bias-Quelle; verzerrte oder unausgewogene Daten sind es.',why_en:'No. The size of the test set is not a source of bias; biased or unbalanced data is.'},
+    {t:'Die Verwendung von Kreuzvalidierung',t_en:'The use of cross-validation',correct:false,why:'Nein. Kreuzvalidierung ist eine Bewertungsmethode und erzeugt für sich keinen Bias.',why_en:'No. Cross-validation is an evaluation method and does not by itself create bias.'}
+  ]},
+  {id:'p_ds_l5_2_mc2',type:'mc',xp:10,question:'Was ist ein guter erster Schritt im Umgang mit personenbezogenen Daten (PII)?',question_en:'What is a good first step when handling personal data (PII)?',options:[
+    {t:'Datenminimierung: nur erheben, was nötig ist, und anonymisieren/pseudonymisieren',t_en:'Data minimization: collect only what is needed and anonymize/pseudonymize',correct:true,why:'Genau. Weniger und anonymisierte Daten senken das Risiko und entsprechen der Zweckbindung.',why_en:'Exactly. Less and anonymized data lowers the risk and matches purpose limitation.'},
+    {t:'So viele Daten wie möglich sammeln, für den Fall der Fälle',t_en:'Collect as much data as possible, just in case',correct:false,why:'Nein. Daten zu horten erhöht das Risiko und widerspricht der Datenminimierung.',why_en:'No. Hoarding data increases the risk and contradicts data minimization.'},
+    {t:'Die Rohdaten offen für jeden Zweck weitergeben',t_en:'Share the raw data openly for any purpose',correct:false,why:'Nein. Das verletzt die Zweckbindung und den Schutz personenbezogener Daten.',why_en:'No. That violates purpose limitation and the protection of personal data.'}
+  ]},
+  {id:'p_ds_l5_2_tf1',type:'truefalse',xp:8,statement:'Ein Modell kann die Verzerrungen seiner Trainingsdaten übernehmen und dadurch unfair werden.',statement_en:'A model can inherit the biases of its training data and thereby become unfair.',correct:true,explanation:'Richtig. Ein Modell lernt die Muster seiner Daten — steckt darin Bias, gibt es ihn systematisch weiter.',explanation_en:'Correct. A model learns the patterns of its data — if bias is in there, it passes it on systematically.'},
+  {id:'p_ds_l5_2_tf2',type:'truefalse',xp:8,statement:'Erklärbarkeit ist überflüssig, um Bias in einem Modell zu erkennen.',statement_en:'Explainability is unnecessary for detecting bias in a model.',correct:false,explanation:'Falsch. Erst wenn man nachvollzieht, warum ein Modell so entschied, kann man Bias erkennen und belegen.',explanation_en:'False. Only when you can trace why a model decided as it did can you detect and prove bias.'},
+  {id:'p_ds_l5_2_fb1',type:'fillblank',xp:12,prompt:'Personenbezogene Daten wie Name, Adresse oder Geburtsdatum werden mit der englischen Abkürzung ___ bezeichnet.',prompt_en:'Personal data such as name, address or date of birth is referred to by the abbreviation ___.',answers:['PII','pii'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'<code>PII</code> (Personally Identifiable Information) sollte man erkennen, minimieren und anonymisieren oder pseudonymisieren.',explanation_en:'<code>PII</code> (personally identifiable information) should be detected, minimized and anonymized or pseudonymized.'},
+  {id:'p_ds_l5_2_bonus',type:'mc',xp:20,optional:true,question:'Was besagt die Zweckbindung (ein Grundsatz der DSGVO)?',question_en:'What does purpose limitation (a principle of the GDPR) state?',options:[
+    {t:'Daten dürfen nur für den Zweck genutzt werden, für den sie erhoben wurden',t_en:'Data may be used only for the purpose it was collected for',correct:true,why:'Genau. Die Zweckbindung begrenzt die Nutzung auf den ursprünglich angegebenen Zweck.',why_en:'Exactly. Purpose limitation restricts use to the originally stated purpose.'},
+    {t:'Einmal erhobene Daten dürfen beliebig weiterverwendet werden',t_en:'Once collected, data may be reused for anything',correct:false,why:'Nein. Das ist das Gegenteil der Zweckbindung.',why_en:'No. That is the opposite of purpose limitation.'}
   ]}
 ];
 
