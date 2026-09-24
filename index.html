@@ -20852,6 +20852,97 @@ Query (per question):
           ${renderBonus('ai_l1_2')}
         `
       },
+      {
+        id: 'ai_l1_3', title: 'Prompting & strukturierte Ausgaben',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 3</div>
+            <h1 class="lesson-title">Prompting & strukturierte Ausgaben</h1>
+            <p class="lesson-desc">Ein präziser Prompt und ein festes Ausgabeformat verwandeln einen plaudernden Chat-Partner in einen zuverlässigen Baustein, den Programme weiterverarbeiten können.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ist ein Prompt — und was macht ihn gut</div>
+            <div class="explanation">
+              Ein <strong>Prompt</strong> ist die Anweisung, die das Modell erhält. Die Qualität der Antwort hängt entscheidend davon ab, wie klar diese Anweisung ist. Ein guter Prompt besteht aus wenigen wiederkehrenden Bausteinen.<br><br>
+              <strong>Klare Aufgabe:</strong> Was genau soll herauskommen? <strong>Rolle und Kontext:</strong> aus welcher Perspektive und mit welchem Hintergrund? <strong>Beispiele:</strong> ein oder zwei Muster für die gewünschte Antwort. <strong>Format-Vorgabe:</strong> wie soll die Antwort aussehen (Liste, Tabelle, <code>JSON</code>)? <strong>Einschränkungen:</strong> was ist erlaubt, was verboten, wie lang darf es sein? Je konkreter diese Bausteine, desto weniger rät das Modell.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Zero-Shot, Few-Shot & Chain-of-Thought</div>
+            <div class="explanation">
+              <strong>Zero-Shot</strong> heißt: Man stellt die Aufgabe ohne Beispiel und verlässt sich darauf, dass das Modell sie versteht. <strong>Few-Shot</strong> heißt: Man legt einige gelöste Beispiele in den Prompt — das Modell erkennt daran das gewünschte Muster und trifft Format und Ton zuverlässiger.<br><br>
+              <strong>Chain-of-Thought</strong> bittet das Modell, in Schritten zu denken, statt sofort das Endergebnis zu nennen. Bei mehrstufigen oder logischen Aufgaben verbessert das die Trefferquote deutlich, weil Zwischenschritte nicht übersprungen werden.<br><br>
+              Getrennt davon steht die Rollenteilung: Der <strong>System-Prompt</strong> setzt die feste Rolle und die Regeln, die über den ganzen Dialog gelten. Der <strong>User-Prompt</strong> ist die konkrete Anfrage im Moment. Beides zusammen ergibt das Verhalten.
+            </div>
+          </div>
+          ${quickCheck('Wann lohnt sich Few-Shot statt Zero-Shot besonders?', ['Immer, weil Beispiele nie schaden', 'Wenn ein bestimmtes Format oder ein Muster zuverlässig getroffen werden soll', 'Nur wenn das Modell zu langsam antwortet'], 1, 'Beispiele im Prompt zeigen dem Modell das gewünschte Muster. Gerade bei festem Format oder Ton trifft Few-Shot das Ziel zuverlässiger als eine reine Beschreibung.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Strukturierte Ausgaben & Tool-Calling</div>
+            <div class="explanation">
+              Für ein Programm ist Fließtext schwer zu verarbeiten. Deshalb bittet man das Modell um eine <strong>strukturierte Ausgabe</strong>: ein festes Format nach Schema, meist <code>JSON</code>. Viele Schnittstellen bieten dafür einen eigenen Modus (Structured Output oder JSON-Modus), der garantiert, dass die Antwort dem Schema entspricht.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Strukturierte Ausgabe</span></div>
+                <div class="code-pre">Aufgabe: Extrahiere die Kontaktdaten aus dem Text.
+Antworte NUR als JSON nach diesem Schema:
+{
+  "name":    "string",
+  "email":   "string",
+  "telefon": "string oder null"
+}</div>
+              </div>
+              Ein Schritt weiter geht das <strong>Function- oder Tool-Calling</strong>: Das Modell gibt strukturiert aus, WELCHE Funktion mit welchen Argumenten aufgerufen werden soll. Es ruft selbst nichts auf — die umgebende Software führt den Aufruf aus. Genau das ist die technische Grundlage für die Werkzeug-Nutzung und damit für Agenten.
+            </div>
+          </div>
+          ${quickCheck('Was leistet Function- bzw. Tool-Calling?', ['Das Modell führt Datenbankbefehle selbst aus', 'Das Modell gibt strukturiert an, welche Funktion mit welchen Argumenten aufzurufen ist', 'Das Modell vergrößert damit sein Kontextfenster'], 1, 'Beim Tool-Calling liefert das Modell nur die Auswahl von Funktion und Argumenten in fester Form. Die Ausführung übernimmt die Software drumherum — das ist die Basis für Agenten.')}
+          ${callout('key', 'Merke', 'Ein präziser Prompt und ein festes Ausgabeformat machen aus einem plaudernden Chat-Partner einen zuverlässigen Baustein. Fließtext ist für Menschen; strukturierte Ausgaben sind für Programme.')}
+          ${renderQuestions('ai_l1_3', 6)}
+          ${renderBonus('ai_l1_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 3</div>
+            <h1 class="lesson-title">Prompting & Structured Outputs</h1>
+            <p class="lesson-desc">A precise prompt and a fixed output format turn a chatty conversation partner into a reliable building block that programs can process further.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What a prompt is — and what makes it good</div>
+            <div class="explanation">
+              A <strong>prompt</strong> is the instruction the model receives. The quality of the answer depends heavily on how clear this instruction is. A good prompt is made of a few recurring building blocks.<br><br>
+              <strong>Clear task:</strong> what exactly should come out? <strong>Role and context:</strong> from which perspective and with what background? <strong>Examples:</strong> one or two patterns of the desired answer. <strong>Format specification:</strong> how should the answer look (list, table, <code>JSON</code>)? <strong>Constraints:</strong> what is allowed, what is forbidden, how long may it be? The more concrete these blocks, the less the model has to guess.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Zero-shot, few-shot & chain-of-thought</div>
+            <div class="explanation">
+              <strong>Zero-shot</strong> means: you state the task without an example and rely on the model to understand it. <strong>Few-shot</strong> means: you place a few solved examples into the prompt — from these the model recognizes the desired pattern and hits format and tone more reliably.<br><br>
+              <strong>Chain-of-thought</strong> asks the model to think in steps instead of naming the final result at once. For multi-step or logical tasks this clearly improves the hit rate, because intermediate steps are not skipped.<br><br>
+              Separate from this is the split of roles: the <strong>system prompt</strong> sets the fixed role and the rules that apply across the whole dialog. The <strong>user prompt</strong> is the concrete request of the moment. Together they produce the behavior.
+            </div>
+          </div>
+          ${quickCheck('When is few-shot especially worthwhile over zero-shot?', ['Always, because examples never hurt', 'When a certain format or pattern must be hit reliably', 'Only when the model answers too slowly'], 1, 'Examples in the prompt show the model the desired pattern. Especially for a fixed format or tone, few-shot hits the target more reliably than a pure description.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Structured outputs & tool calling</div>
+            <div class="explanation">
+              For a program, free text is hard to process. That is why you ask the model for a <strong>structured output</strong>: a fixed format following a schema, usually <code>JSON</code>. Many interfaces offer a dedicated mode for this (structured output or JSON mode) that guarantees the answer matches the schema.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Structured output</span></div>
+                <div class="code-pre">Task: Extract the contact details from the text.
+Answer ONLY as JSON following this schema:
+{
+  "name":  "string",
+  "email": "string",
+  "phone": "string or null"
+}</div>
+              </div>
+              One step further goes <strong>function or tool calling</strong>: the model outputs, in structured form, WHICH function should be called with which arguments. It calls nothing itself — the surrounding software runs the call. Exactly this is the technical foundation for tool use and thus for agents.
+            </div>
+          </div>
+          ${quickCheck('What does function or tool calling achieve?', ['The model runs database commands itself', 'The model states in structured form which function to call with which arguments', 'The model thereby enlarges its context window'], 1, 'In tool calling the model only supplies the choice of function and arguments in a fixed form. The execution is done by the surrounding software — that is the basis for agents.')}
+          ${callout('key', 'Remember', 'A precise prompt and a fixed output format turn a chatty conversation partner into a reliable building block. Free text is for humans; structured outputs are for programs.')}
+          ${renderQuestions('ai_l1_3', 6)}
+          ${renderBonus('ai_l1_3')}
+        `
+      },
     ]
   },
   {
@@ -21057,6 +21148,89 @@ Silent wrong answer -> grounding + sources, validator, approval</div>
           ${callout('key', 'Remember', 'Every production agent needs three hard limits: a loop cap, a cost budget with a stop and a human-in-the-loop approval before irreversible actions.')}
           ${renderQuestions('ai_l2_2', 6)}
           ${renderBonus('ai_l2_2')}
+        `
+      },
+      {
+        id: 'ai_l2_3', title: 'Kontext-Engineering & Gedächtnis',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 3</div>
+            <h1 class="lesson-title">Kontext-Engineering & Gedächtnis</h1>
+            <p class="lesson-desc">Das Kontextfenster ist ein knapper, teurer Arbeitsspeicher. Nicht mehr Kontext ist besser, sondern der richtige — gezielt zusammengestellt.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Das Kontextfenster als knapper Arbeitsspeicher</div>
+            <div class="explanation">
+              Das <strong>Kontextfenster</strong> ist die Menge an Text, die das Modell bei einer Anfrage gleichzeitig sehen kann. Es ist begrenzt und mit jedem Token verbunden mit Kosten und Wartezeit — also ein knapper, teurer Arbeitsspeicher.<br><br>
+              <strong>Kontext-Engineering</strong> heißt, gezielt zusammenzustellen, was in dieses Fenster kommt: der System-Prompt, die wirklich relevanten Dokumente und nur der nötige Gesprächsverlauf. Alles unbesehen hineinzukippen macht die Antwort nicht besser — es macht sie teurer, langsamer und oft ungenauer, weil das Wichtige im Rauschen untergeht.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Kurzzeit- und Langzeitgedächtnis</div>
+            <div class="explanation">
+              Ein Agent braucht ein <strong>Gedächtnis</strong> auf zwei Zeitachsen. Das <strong>Kurzzeitgedächtnis</strong> ist der laufende Dialog: der Verlauf der aktuellen Aufgabe, der im Kontextfenster mitgeführt wird. Das <strong>Langzeitgedächtnis</strong> ist dauerhaft gespeichertes Wissen über den Nutzer und frühere Aufgaben.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Zwei Gedächtnisse</span></div>
+                <div class="code-pre">Kurzzeit: laufender Dialog / Verlauf  -&gt; steht im Kontextfenster
+Langzeit: Wissen ueber Nutzer & fruehere Aufgaben
+          -&gt; dauerhaft in einer Vektordatenbank abgelegt
+          -&gt; bei Bedarf abgerufen und in den Kontext geholt (RAG)</div>
+              </div>
+              Das Langzeitgedächtnis wird oft in einer <strong>Vektordatenbank</strong> abgelegt und bei Bedarf abgerufen — RAG dient hier als Gedächtnis: Es holt zur Laufzeit genau das gespeicherte Wissen zurück, das gerade gebraucht wird.
+            </div>
+          </div>
+          ${quickCheck('Worin unterscheiden sich Kurz- und Langzeitgedächtnis eines Agenten?', ['Kurzzeit ist der laufende Dialog, Langzeit ist dauerhaft gespeichertes Wissen, das bei Bedarf abgerufen wird', 'Kurzzeit liegt in der Vektordatenbank, Langzeit im Kontextfenster', 'Beide sind dasselbe, nur unterschiedlich benannt'], 0, 'Das Kurzzeitgedächtnis ist der aktuelle Verlauf im Kontextfenster. Das Langzeitgedächtnis wird dauerhaft gespeichert, oft in einer Vektordatenbank, und nur bei Bedarf zurückgeholt.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Fenster schlank halten: Zusammenfassen, Caching, Platzierung</div>
+            <div class="explanation">
+              Bei langen Dialogen läuft das Fenster irgendwann über. Die Lösung: ältere Teile <strong>zusammenfassen und komprimieren</strong>, statt jede Zeile mitzuschleppen — der Kern bleibt erhalten, der Platzbedarf sinkt.<br><br>
+              <strong>Prompt-Caching</strong> speichert wiederkehrende Prompt-Teile zwischen, damit sie nicht jedes Mal neu verarbeitet werden müssen — das macht Anfragen schneller und billiger. Und die Platzierung zählt: Modelle beachten <strong>Anfang und Ende</strong> des Kontexts stärker als die Mitte (das Phänomen „lost in the middle"). Wichtiges gehört deshalb bewusst an den Anfang oder ans Ende.
+            </div>
+          </div>
+          ${quickCheck('Was besagt das Phänomen „lost in the middle"?', ['Modelle beachten den Anfang und das Ende des Kontexts stärker als die Mitte', 'Modelle vergessen den Anfang eines Dialogs sofort', 'Die Mitte eines Textes wird doppelt gewichtet'], 0, 'Wichtige Informationen in der Mitte eines langen Kontexts werden leichter übersehen. Deshalb platziert man Entscheidendes bewusst am Anfang oder am Ende.')}
+          ${callout('key', 'Merke', 'Nicht MEHR Kontext ist besser, sondern der RICHTIGE Kontext. Gezielt zusammenstellen, Altes zusammenfassen, Wiederkehrendes cachen und Wichtiges an Anfang oder Ende platzieren.')}
+          ${renderQuestions('ai_l2_3', 6)}
+          ${renderBonus('ai_l2_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 3</div>
+            <h1 class="lesson-title">Context Engineering & Memory</h1>
+            <p class="lesson-desc">The context window is a scarce, expensive working memory. Not more context is better, but the right context — deliberately assembled.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The context window as scarce working memory</div>
+            <div class="explanation">
+              The <strong>context window</strong> is the amount of text the model can see at once for a request. It is limited, and every token carries cost and latency — so it is a scarce, expensive working memory.<br><br>
+              <strong>Context engineering</strong> means deliberately assembling what enters this window: the system prompt, the truly relevant documents and only the necessary conversation history. Dumping everything in unfiltered does not make the answer better — it makes it more expensive, slower and often less accurate, because the important part drowns in the noise.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Short-term and long-term memory</div>
+            <div class="explanation">
+              An agent needs a <strong>memory</strong> on two time scales. The <strong>short-term memory</strong> is the running dialog: the history of the current task, carried along in the context window. The <strong>long-term memory</strong> is permanently stored knowledge about the user and earlier tasks.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Two memories</span></div>
+                <div class="code-pre">Short-term: running dialog / history  -&gt; lives in the context window
+Long-term:  knowledge about user & earlier tasks
+            -&gt; stored permanently in a vector database
+            -&gt; retrieved on demand into the context (RAG)</div>
+              </div>
+              The long-term memory is often stored in a <strong>vector database</strong> and retrieved on demand — RAG serves here as memory: at run time it brings back exactly the stored knowledge that is needed right now.
+            </div>
+          </div>
+          ${quickCheck('How do an agent short-term and long-term memory differ?', ['Short-term is the running dialog, long-term is permanently stored knowledge retrieved on demand', 'Short-term lives in the vector database, long-term in the context window', 'Both are the same, just named differently'], 0, 'Short-term memory is the current history in the context window. Long-term memory is stored permanently, often in a vector database, and only brought back when needed.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Keeping the window lean: summarizing, caching, placement</div>
+            <div class="explanation">
+              In long dialogs the window eventually overflows. The solution: <strong>summarize and compress</strong> older parts instead of carrying every line along — the essence stays, the footprint shrinks.<br><br>
+              <strong>Prompt caching</strong> stores recurring prompt parts so they need not be processed again each time — that makes requests faster and cheaper. And placement matters: models attend to the <strong>beginning and end</strong> of the context more than the middle (the "lost in the middle" phenomenon). Important content therefore belongs deliberately at the start or the end.
+            </div>
+          </div>
+          ${quickCheck('What does the "lost in the middle" phenomenon state?', ['Models attend to the beginning and end of the context more than the middle', 'Models forget the start of a dialog immediately', 'The middle of a text is weighted twice'], 0, 'Important information in the middle of a long context is more easily overlooked. That is why you deliberately place the crucial parts at the beginning or the end.')}
+          ${callout('key', 'Remember', 'Not MORE context is better, but the RIGHT context. Assemble deliberately, summarize the old, cache the recurring and place the important at the start or end.')}
+          ${renderQuestions('ai_l2_3', 6)}
+          ${renderBonus('ai_l2_3')}
         `
       },
     ]
@@ -21685,6 +21859,95 @@ cases: 120</div>
           ${quickCheck('When should you migrate to a new model according to the eval comparison?', ['Always immediately, as soon as a newer model appears', 'Only when the same test cases show that quality, cost and latency are equal or better', 'Never — a running model is never swapped on principle'], 1, 'Migration is a measurement, not a fashion: run the same eval cases against old and new, and switch only when the new model at least matches on quality, cost and latency.')}
           ${renderQuestions('ai_l6_1', 6)}
           ${renderBonus('ai_l6_1')}
+        `
+      },
+      {
+        id: 'ai_l6_2', title: 'Prompting vs. RAG vs. Fine-Tuning',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 2</div>
+            <h1 class="lesson-title">Prompting vs. RAG vs. Fine-Tuning</h1>
+            <p class="lesson-desc">Drei Hebel, um das Verhalten eines LLM anzupassen. Wer weiß, wann welcher greift, spart Zeit, Geld und Nerven.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Drei Hebel im Überblick</div>
+            <div class="explanation">
+              Ein Sprachmodell lässt sich auf drei grundsätzlich verschiedene Arten an eine Aufgabe anpassen. Sie schließen sich nicht aus — in der Praxis werden sie oft kombiniert.<br><br>
+              <strong>Prompting</strong> gibt dem Modell die Anweisung und Beispiele direkt im Prompt mit. <strong>RAG</strong> holt zur Laufzeit passende Fakten aus einer Wissensbasis dazu. <strong>Fine-Tuning</strong> trainiert das Modell mit eigenen Beispielen nach und verändert dabei seine Gewichte. Prompting und RAG lassen das Modell unverändert; nur Fine-Tuning greift ins Modell selbst ein.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Wann welcher Hebel</div>
+            <div class="explanation">
+              <strong>Prompting</strong> ist schnell, billig und braucht kein Training — die erste Wahl. Seine Grenze ist das Kontextfenster: Was nicht hineinpasst, kann das Modell nicht berücksichtigen.<br><br>
+              <strong>RAG</strong> ist ideal, wenn aktuelles oder privates Wissen nötig ist und Quellen belegt werden sollen. Es ändert das Modell nicht, sondern reicht die Fakten zur Laufzeit nach.<br><br>
+              <strong>Fine-Tuning</strong> ist ideal, um Stil, Format oder Verhalten zuverlässig zu prägen — oder um ein kleineres Modell auf eine enge Aufgabe zu spezialisieren. Der Preis: Es ist teuer, braucht gute Trainingsdaten und veraltet, wenn sich das Wissen ändert, weil die Fakten in den Gewichten festgeschrieben sind.
+            </div>
+          </div>
+          ${quickCheck('Warum ist Fine-Tuning schlecht geeignet, um häufig wechselnde Fakten aktuell zu halten?', ['Weil Fine-Tuning das Kontextfenster verkleinert', 'Weil die Fakten in die Gewichte eingebrannt werden und bei jeder Änderung ein neues Training nötig wäre', 'Weil Fine-Tuning nur den Stil, aber nie das Format ändern kann'], 1, 'Fine-Tuning schreibt Wissen fest in die Gewichte. Ändern sich Fakten oft, müsste man ständig neu trainieren — dafür ist RAG gedacht, das aktuelle Fakten zur Laufzeit nachreicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Faustregel & Entscheidung</div>
+            <div class="explanation">
+              Die Zuordnung folgt einer einfachen Faustregel: Geht es um <strong>Fakten und Wissen</strong>, nimm RAG. Geht es um <strong>Verhalten, Stil oder Format</strong>, nimm Fine-Tuning. Und <strong>zuerst</strong> reizt man immer Prompting aus, bevor man den teureren Weg geht.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Bedarf -&gt; Methode</span></div>
+                <div class="code-pre">Bedarf                              -&gt; Methode
+--------------------------------------------------
+Schneller erster Wurf, wenig Aufwand -&gt; Prompting
+Aktuelles / privates Wissen + Quellen -&gt; RAG
+Stil / Format / Verhalten praegen    -&gt; Fine-Tuning
+Enges Modell fuer eine Spezialaufgabe -&gt; Fine-Tuning</div>
+              </div>
+              In echten Systemen wird oft kombiniert: ein sauberer Prompt, RAG fürs aktuelle Wissen und, wo nötig, ein fein abgestimmtes Modell fürs Verhalten. Immer mitdenken: Kosten und Latenz — jede zusätzliche Stufe kostet beides.
+            </div>
+          </div>
+          ${quickCheck('Ein Assistent soll im festen Firmen-Ton antworten UND stets aktuelle Preise nennen. Was passt?', ['Nur Fine-Tuning für beides', 'Fine-Tuning für den Ton und RAG für die aktuellen Preise', 'Nur Prompting, alles andere ist überflüssig'], 1, 'Verhalten und Stil prägt man mit Fine-Tuning; aktuelle, sich ändernde Fakten wie Preise holt RAG zur Laufzeit. Beides zusammen deckt beide Anforderungen ab.')}
+          ${callout('key', 'Merke', 'Erst Prompting ausreizen, dann RAG fürs Wissen, Fine-Tuning zuletzt fürs Verhalten. Fakten gehören in RAG, Verhalten in Fine-Tuning — und Kosten und Latenz denkt man immer mit.')}
+          ${renderQuestions('ai_l6_2', 6)}
+          ${renderBonus('ai_l6_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lesson 2</div>
+            <h1 class="lesson-title">Prompting vs. RAG vs. Fine-Tuning</h1>
+            <p class="lesson-desc">Three levers to adapt an LLM behavior. Knowing when each one applies saves time, money and nerves.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Three levers at a glance</div>
+            <div class="explanation">
+              A language model can be adapted to a task in three fundamentally different ways. They are not mutually exclusive — in practice they are often combined.<br><br>
+              <strong>Prompting</strong> gives the model the instruction and examples directly in the prompt. <strong>RAG</strong> pulls in matching facts from a knowledge base at run time. <strong>Fine-tuning</strong> retrains the model with your own examples and thereby changes its weights. Prompting and RAG leave the model unchanged; only fine-tuning reaches into the model itself.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">When to use which lever</div>
+            <div class="explanation">
+              <strong>Prompting</strong> is fast, cheap and needs no training — the first choice. Its limit is the context window: what does not fit in cannot be taken into account by the model.<br><br>
+              <strong>RAG</strong> is ideal when current or private knowledge is needed and sources should be cited. It does not change the model but supplies the facts at run time.<br><br>
+              <strong>Fine-tuning</strong> is ideal to reliably imprint style, format or behavior — or to specialize a smaller model on a narrow task. The price: it is expensive, needs good training data and goes stale when the knowledge changes, because the facts are baked into the weights.
+            </div>
+          </div>
+          ${quickCheck('Why is fine-tuning poorly suited to keep frequently changing facts up to date?', ['Because fine-tuning shrinks the context window', 'Because the facts are baked into the weights and every change would require a new training run', 'Because fine-tuning can change only the style but never the format'], 1, 'Fine-tuning writes knowledge firmly into the weights. If facts change often, you would have to retrain constantly — that is what RAG is for, supplying current facts at run time.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Rule of thumb & decision</div>
+            <div class="explanation">
+              The mapping follows a simple rule of thumb: for <strong>facts and knowledge</strong>, use RAG. For <strong>behavior, style or format</strong>, use fine-tuning. And <strong>first</strong> you always exhaust prompting before taking the more expensive route.
+              <div class="code-block" style="margin-top:14px">
+                <div class="code-block-header"><span class="code-lang">Need -&gt; method</span></div>
+                <div class="code-pre">Need                                 -&gt; Method
+--------------------------------------------------
+Quick first pass, little effort      -&gt; Prompting
+Current / private knowledge + sources -&gt; RAG
+Imprint style / format / behavior    -&gt; Fine-tuning
+Narrow model for a special task      -&gt; Fine-tuning</div>
+              </div>
+              In real systems these are often combined: a clean prompt, RAG for current knowledge and, where needed, a fine-tuned model for behavior. Always keep in mind: cost and latency — every extra stage costs both.
+            </div>
+          </div>
+          ${quickCheck('An assistant should answer in a fixed company tone AND always state current prices. What fits?', ['Only fine-tuning for both', 'Fine-tuning for the tone and RAG for the current prices', 'Only prompting, everything else is superfluous'], 1, 'Behavior and style are imprinted with fine-tuning; current, changing facts like prices are pulled in by RAG at run time. Together they cover both requirements.')}
+          ${callout('key', 'Remember', 'Exhaust prompting first, then RAG for the knowledge, fine-tuning last for the behavior. Facts belong in RAG, behavior in fine-tuning — and always keep cost and latency in mind.')}
+          ${renderQuestions('ai_l6_2', 6)}
+          ${renderBonus('ai_l6_2')}
         `
       },
     ]
@@ -32073,6 +32336,66 @@ QUESTION_POOLS['ds_l6_1'] = [
     {t:'Sie beschreibt Nutzer und Items durch wenige latente Faktoren und skaliert gut bei großen, dünnen Matrizen',t_en:'It describes users and items by a few latent factors and scales well for large, sparse matrices',correct:true,why:'Genau. Aus den beobachteten Bewertungen werden kompakte latente Faktoren gelernt, die auch leere Zellen schätzen.',why_en:'Exactly. From the observed ratings it learns compact latent factors that also estimate empty cells.'},
     {t:'Sie empfiehlt allen Nutzern schlicht die beliebtesten Items',t_en:'It simply recommends the most popular items to all users',correct:false,why:'Nein, das wäre Popularity. Matrix-Faktorisierung ist personalisiert und modellbasiert.',why_en:'No, that would be popularity. Matrix factorization is personalized and model-based.'},
     {t:'Sie nutzt ausschließlich die Textmerkmale der Items',t_en:'It uses only the text features of the items',correct:false,why:'Nein, das wäre content-based. Matrix-Faktorisierung lernt aus dem Bewertungsverhalten, nicht aus Item-Texten.',why_en:'No, that would be content-based. Matrix factorization learns from rating behavior, not from item texts.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l1_3'] = [
+  {id:'p_ai_l1_3_mc1',type:'mc',xp:10,question:'Was gehört zu den Bausteinen eines guten Prompts?',question_en:'What belongs to the building blocks of a good prompt?',options:[
+    {t:'Klare Aufgabe, Rolle und Kontext, Beispiele, Format-Vorgabe und Einschränkungen',t_en:'Clear task, role and context, examples, format specification and constraints',correct:true,why:'Genau. Je konkreter diese Bausteine sind, desto weniger muss das Modell raten.',why_en:'Exactly. The more concrete these blocks are, the less the model has to guess.'},
+    {t:'Möglichst viele Höflichkeitsfloskeln',t_en:'As many polite phrases as possible',correct:false,why:'Nein. Höflichkeit schadet nicht, ersetzt aber keine klare Aufgabe, kein Format und keine Beispiele.',why_en:'No. Politeness does no harm but replaces neither a clear task, nor a format, nor examples.'},
+    {t:'Ein möglichst großes Modell',t_en:'The largest possible model',correct:false,why:'Nein. Die Modellgröße ist keine Eigenschaft des Prompts; ein guter Prompt strukturiert die Anweisung.',why_en:'No. Model size is not a property of the prompt; a good prompt structures the instruction.'}
+  ]},
+  {id:'p_ai_l1_3_mc2',type:'mc',xp:10,question:'Was leistet Function- bzw. Tool-Calling?',question_en:'What does function or tool calling achieve?',options:[
+    {t:'Das Modell gibt strukturiert aus, welche Funktion mit welchen Argumenten aufzurufen ist',t_en:'The model outputs in structured form which function to call with which arguments',correct:true,why:'Richtig. Das ist die technische Grundlage für Werkzeug-Nutzung und damit für Agenten — ausgeführt wird der Aufruf von der Software drumherum.',why_en:'Correct. That is the technical foundation for tool use and thus for agents — the call is executed by the surrounding software.'},
+    {t:'Das Modell führt Datenbank- und API-Aufrufe selbst aus',t_en:'The model executes database and API calls itself',correct:false,why:'Nein. Das Modell wählt nur Funktion und Argumente; die Ausführung übernimmt die umgebende Software.',why_en:'No. The model only chooses function and arguments; the surrounding software does the execution.'},
+    {t:'Das Modell vergrößert damit sein Kontextfenster',t_en:'The model thereby enlarges its context window',correct:false,why:'Nein. Tool-Calling hat mit der Fenstergröße nichts zu tun; es strukturiert die Auswahl eines Funktionsaufrufs.',why_en:'No. Tool calling has nothing to do with window size; it structures the choice of a function call.'}
+  ]},
+  {id:'p_ai_l1_3_tf1',type:'truefalse',xp:8,statement:'Bei Few-Shot legt man einige gelöste Beispiele in den Prompt, damit das Modell das gewünschte Muster erkennt.',statement_en:'In few-shot you place a few solved examples into the prompt so the model recognizes the desired pattern.',correct:true,explanation:'Richtig. Zero-Shot stellt die Aufgabe ohne Beispiel; Few-Shot zeigt Muster und trifft Format und Ton dadurch zuverlässiger.',explanation_en:'Correct. Zero-shot states the task without an example; few-shot shows patterns and thereby hits format and tone more reliably.'},
+  {id:'p_ai_l1_3_tf2',type:'truefalse',xp:8,statement:'Der System-Prompt setzt die feste Rolle und die Regeln für den ganzen Dialog, der User-Prompt ist die konkrete Anfrage.',statement_en:'The system prompt sets the fixed role and rules for the whole dialog, the user prompt is the concrete request.',correct:true,explanation:'Richtig. System- und User-Prompt zusammen ergeben das Verhalten: der eine setzt den Rahmen, der andere die aktuelle Aufgabe.',explanation_en:'Correct. System and user prompt together produce the behavior: one sets the frame, the other the current task.'},
+  {id:'p_ai_l1_3_fb1',type:'fillblank',xp:12,prompt:'Bittet man das Modell, in Schritten zu denken statt sofort das Ergebnis zu nennen, spricht man von Chain-of-___ .',prompt_en:'When you ask the model to think in steps instead of naming the result at once, this is called chain-of-___ .',answers:['Thought','thought','Gedanken','gedanken'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Chain-of-Thought verbessert bei mehrstufigen oder logischen Aufgaben die Trefferquote, weil Zwischenschritte nicht übersprungen werden.',explanation_en:'Chain-of-thought improves the hit rate on multi-step or logical tasks, because intermediate steps are not skipped.'},
+  {id:'p_ai_l1_3_bonus',type:'mc',xp:20,optional:true,question:'Warum bittet man ein Modell um eine strukturierte Ausgabe (z. B. JSON nach Schema) statt um Fließtext?',question_en:'Why ask a model for a structured output (e.g. JSON following a schema) instead of free text?',options:[
+    {t:'Damit ein Programm die Antwort zuverlässig weiterverarbeiten kann',t_en:'So that a program can reliably process the answer further',correct:true,why:'Genau. Ein festes Format nach Schema ist maschinell auswertbar; viele Schnittstellen bieten dafür einen JSON- oder Structured-Output-Modus.',why_en:'Exactly. A fixed format following a schema is machine-readable; many interfaces offer a JSON or structured-output mode for this.'},
+    {t:'Weil JSON das Modell schneller trainiert',t_en:'Because JSON trains the model faster',correct:false,why:'Nein. Das Ausgabeformat hat mit Training nichts zu tun; es geht um die zuverlässige Weiterverarbeitung.',why_en:'No. The output format has nothing to do with training; it is about reliable further processing.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l2_3'] = [
+  {id:'p_ai_l2_3_mc1',type:'mc',xp:10,question:'Was bedeutet Kontext-Engineering?',question_en:'What does context engineering mean?',options:[
+    {t:'Gezielt zusammenstellen, was ins Kontextfenster kommt, statt alles hineinzukippen',t_en:'Deliberately assembling what enters the context window instead of dumping everything in',correct:true,why:'Genau. Man wählt System-Prompt, relevante Dokumente und nötigen Verlauf aus — das hält die Antwort präzise, schnell und günstig.',why_en:'Exactly. You select system prompt, relevant documents and necessary history — that keeps the answer precise, fast and cheap.'},
+    {t:'Das Kontextfenster technisch vergrößern',t_en:'Technically enlarging the context window',correct:false,why:'Nein. Kontext-Engineering ändert nicht die Fenstergröße, sondern die Auswahl dessen, was hineinkommt.',why_en:'No. Context engineering does not change the window size but the selection of what goes in.'},
+    {t:'So viel Text wie möglich mitschicken',t_en:'Sending along as much text as possible',correct:false,why:'Das Gegenteil. Zu viel Kontext macht die Antwort teurer, langsamer und oft ungenauer.',why_en:'The opposite. Too much context makes the answer more expensive, slower and often less accurate.'}
+  ]},
+  {id:'p_ai_l2_3_mc2',type:'mc',xp:10,question:'Wo wird das Langzeitgedächtnis eines Agenten typischerweise abgelegt und bei Bedarf abgerufen?',question_en:'Where is an agent long-term memory typically stored and retrieved on demand?',options:[
+    {t:'In einer Vektordatenbank, aus der relevantes Wissen per RAG zurückgeholt wird',t_en:'In a vector database, from which relevant knowledge is retrieved via RAG',correct:true,why:'Genau. So bleibt dauerhaftes Wissen erhalten und wird nur bei Bedarf in den Kontext geholt.',why_en:'Exactly. That way durable knowledge is preserved and only pulled into the context when needed.'},
+    {t:'Ausschließlich im laufenden Kontextfenster',t_en:'Exclusively in the running context window',correct:false,why:'Nein. Das Kontextfenster ist das Kurzzeitgedächtnis; es geht am Ende des Dialogs verloren.',why_en:'No. The context window is the short-term memory; it is lost at the end of the dialog.'},
+    {t:'In den Gewichten des Modells',t_en:'In the model weights',correct:false,why:'Nein. Wissen in den Gewichten entstünde durch Fine-Tuning; das Langzeitgedächtnis wird extern gespeichert und abgerufen.',why_en:'No. Knowledge in the weights would come from fine-tuning; long-term memory is stored and retrieved externally.'}
+  ]},
+  {id:'p_ai_l2_3_tf1',type:'truefalse',xp:8,statement:'Bei langen Dialogen fasst man ältere Teile zusammen, damit das Kontextfenster nicht überläuft.',statement_en:'In long dialogs you summarize older parts so the context window does not overflow.',correct:true,explanation:'Richtig. Zusammenfassen bewahrt den Kern und senkt den Platzbedarf, statt jede einzelne Zeile mitzuschleppen.',explanation_en:'Correct. Summarizing preserves the essence and lowers the footprint instead of carrying every single line along.'},
+  {id:'p_ai_l2_3_tf2',type:'truefalse',xp:8,statement:'Wegen „lost in the middle" beachten Modelle Anfang und Ende des Kontexts stärker als die Mitte.',statement_en:'Because of "lost in the middle" models attend to the beginning and end of the context more than the middle.',correct:true,explanation:'Richtig. Deshalb platziert man Wichtiges bewusst am Anfang oder am Ende und nicht mitten in einem langen Kontext.',explanation_en:'Correct. That is why you deliberately place important content at the beginning or end, not in the middle of a long context.'},
+  {id:'p_ai_l2_3_fb1',type:'fillblank',xp:12,prompt:'Das Zwischenspeichern wiederkehrender Prompt-Teile, das Anfragen schneller und billiger macht, heißt Prompt-___ .',prompt_en:'Storing recurring prompt parts to make requests faster and cheaper is called prompt ___ .',answers:['Caching','caching','Cache','cache'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Prompt-Caching vermeidet, dass gleiche Prompt-Teile jedes Mal neu verarbeitet werden — das spart Zeit und Kosten.',explanation_en:'Prompt caching avoids reprocessing identical prompt parts each time — saving time and cost.'},
+  {id:'p_ai_l2_3_bonus',type:'mc',xp:20,optional:true,question:'Welcher Grundsatz fasst gutes Kontext-Engineering am besten zusammen?',question_en:'Which principle best sums up good context engineering?',options:[
+    {t:'Nicht mehr Kontext ist besser, sondern der richtige Kontext',t_en:'Not more context is better, but the right context',correct:true,why:'Genau. Gezielte Auswahl schlägt Masse: relevant, komprimiert und gut platziert statt viel und ungefiltert.',why_en:'Exactly. Deliberate selection beats bulk: relevant, compressed and well placed rather than much and unfiltered.'},
+    {t:'Je mehr Verlauf mitgeschickt wird, desto besser die Antwort',t_en:'The more history sent along, the better the answer',correct:false,why:'Nein. Zu viel Kontext ist teurer und langsamer und lässt Wichtiges leichter untergehen.',why_en:'No. Too much context is more expensive and slower and lets the important part sink more easily.'}
+  ]}
+];
+
+QUESTION_POOLS['ai_l6_2'] = [
+  {id:'p_ai_l6_2_mc1',type:'mc',xp:10,question:'Welcher Hebel verändert die Gewichte des Modells selbst?',question_en:'Which lever changes the model weights themselves?',options:[
+    {t:'Fine-Tuning',t_en:'Fine-tuning',correct:true,why:'Genau. Fine-Tuning trainiert das Modell mit eigenen Beispielen nach und schreibt Verhalten in die Gewichte.',why_en:'Exactly. Fine-tuning retrains the model with your own examples and writes behavior into the weights.'},
+    {t:'Prompting',t_en:'Prompting',correct:false,why:'Nein. Prompting gibt nur Anweisung und Beispiele im Prompt mit; das Modell bleibt unverändert.',why_en:'No. Prompting only supplies instruction and examples in the prompt; the model stays unchanged.'},
+    {t:'RAG',t_en:'RAG',correct:false,why:'Nein. RAG reicht Fakten zur Laufzeit nach und lässt das Modell unverändert.',why_en:'No. RAG supplies facts at run time and leaves the model unchanged.'}
+  ]},
+  {id:'p_ai_l6_2_mc2',type:'mc',xp:10,question:'Wofür ist RAG die passende Methode?',question_en:'For what is RAG the fitting method?',options:[
+    {t:'Wenn aktuelles oder privates Wissen nötig ist und Quellen belegt werden sollen',t_en:'When current or private knowledge is needed and sources should be cited',correct:true,why:'Genau. RAG holt die Fakten zur Laufzeit dazu, ändert das Modell nicht und kann Quellen ausweisen.',why_en:'Exactly. RAG pulls the facts in at run time, does not change the model and can cite sources.'},
+    {t:'Wenn ein fester Antwortstil zuverlässig geprägt werden soll',t_en:'When a fixed answer style should be reliably imprinted',correct:false,why:'Das ist eher die Domäne des Fine-Tunings. RAG liefert Wissen, nicht Verhalten.',why_en:'That is rather the domain of fine-tuning. RAG delivers knowledge, not behavior.'},
+    {t:'Wenn man ganz ohne Wissensbasis auskommen will',t_en:'When you want to get by entirely without a knowledge base',correct:false,why:'Nein. RAG setzt gerade eine Wissensbasis voraus, aus der es die Belege holt.',why_en:'No. RAG in fact requires a knowledge base from which it pulls the evidence.'}
+  ]},
+  {id:'p_ai_l6_2_tf1',type:'truefalse',xp:8,statement:'Prompting sollte man in der Regel zuerst ausreizen, bevor man zu RAG oder Fine-Tuning greift.',statement_en:'As a rule you should exhaust prompting first before reaching for RAG or fine-tuning.',correct:true,explanation:'Richtig. Prompting ist schnell und billig und braucht kein Training — die günstige erste Wahl, begrenzt nur durch das Kontextfenster.',explanation_en:'Correct. Prompting is fast and cheap and needs no training — the inexpensive first choice, limited only by the context window.'},
+  {id:'p_ai_l6_2_tf2',type:'truefalse',xp:8,statement:'Ein fein abgestimmtes Modell veraltet, wenn sich das Wissen ändert, weil die Fakten in den Gewichten festgeschrieben sind.',statement_en:'A fine-tuned model goes stale when the knowledge changes, because the facts are fixed in the weights.',correct:true,explanation:'Richtig. Für häufig wechselnde Fakten ist RAG besser geeignet, da es sie zur Laufzeit nachreicht, ohne neu zu trainieren.',explanation_en:'Correct. For frequently changing facts RAG is better suited, since it supplies them at run time without retraining.'},
+  {id:'p_ai_l6_2_fb1',type:'fillblank',xp:12,prompt:'Faustregel: Geht es um Fakten, nimm RAG; geht es um Verhalten oder Stil, nimm ___ .',prompt_en:'Rule of thumb: for facts use RAG; for behavior or style use ___ .',answers:['Fine-Tuning','Fine-tuning','fine-tuning','Finetuning','finetuning'],placeholder:'Methode…',placeholder_en:'Method…',explanation:'Fakten gehören in RAG, Verhalten und Stil ins Fine-Tuning — und zuerst reizt man immer Prompting aus.',explanation_en:'Facts belong in RAG, behavior and style in fine-tuning — and you always exhaust prompting first.'},
+  {id:'p_ai_l6_2_bonus',type:'mc',xp:20,optional:true,question:'Ein Assistent soll im festen Firmen-Ton antworten UND stets aktuelle Preise nennen. Welche Kombination passt?',question_en:'An assistant should answer in a fixed company tone AND always state current prices. Which combination fits?',options:[
+    {t:'Fine-Tuning für den Ton und RAG für die aktuellen Preise',t_en:'Fine-tuning for the tone and RAG for the current prices',correct:true,why:'Genau. Verhalten und Stil prägt Fine-Tuning, sich ändernde Fakten wie Preise liefert RAG zur Laufzeit — oft kombiniert man beides.',why_en:'Exactly. Fine-tuning imprints behavior and style, RAG delivers changing facts like prices at run time — the two are often combined.'},
+    {t:'Nur Fine-Tuning, das deckt auch die aktuellen Preise dauerhaft ab',t_en:'Only fine-tuning, that also covers the current prices permanently',correct:false,why:'Nein. In den Gewichten festgeschriebene Preise veralten; wechselnde Fakten gehören in RAG.',why_en:'No. Prices fixed in the weights go stale; changing facts belong in RAG.'}
   ]}
 ];
 
