@@ -5366,12 +5366,6 @@ Set-Cookie: session=abc123; HttpOnly; Secure
           ${callout('key', 'AND vs. OR merken', '<strong>AND</strong> ist streng — <em>beide</em> Seiten müssen wahr sein. <strong>OR</strong> ist großzügig — <em>eine</em> wahre Seite reicht schon. <strong>NOT</strong> dreht den Wert einfach um.')}
           ${quickCheck('Was ergibt <code>false OR true</code>?', ['false', 'true'], 1, 'Bei <strong>OR</strong> genügt eine einzige wahre Seite, damit das Ganze wahr wird. Hier ist die rechte Seite <code>true</code> — also ist das Ergebnis <code>true</code>.')}
           ${callout('fact', 'Wusstest du?', 'Die boolesche Logik ist nach dem Mathematiker <strong>George Boole</strong> benannt — er beschrieb sie schon 1854, fast 100 Jahre bevor der erste Computer damit rechnete.')}
-          ${quiz('q_logic1', 'Was ergibt: true AND false?', [
-            {t:'true', correct:false, why:'AND ist nur true wenn BEIDE Seiten true sind. false macht die ganze Aussage false.'},
-            {t:'false', correct:true, why:'Richtig! AND = beide müssen wahr sein. Eine Seite ist false → Ergebnis ist false.'},
-            {t:'null', correct:false, why:'Null ist kein Bool\'scher Wert. Das Ergebnis ist immer true oder false.'},
-            {t:'error', correct:false, why:'Kein Fehler — das ist eine gültige boolesche Operation.'},
-          ])}
           <div class="content-card animate-in" style="animation-delay:0.12s">
             <div class="card-label">Pseudocode — Algorithmen aufschreiben</div>
             <div class="explanation">
@@ -5393,12 +5387,8 @@ END</pre>
             </div>
           </div>
           ${callout('tip', 'Profi-Tipp', 'Skizziere schwierige Logik erst in Pseudocode, bevor du echten Code tippst. Du denkst dann über das <em>Problem</em> nach statt über Syntax — und findest Fehler, bevor sie im Code stecken.')}
-          ${quiz('q_logic2', 'Welcher Grundbaustein beschreibt eine wiederholte Ausführung?', [
-            {t:'Sequenz', correct:false, why:'Sequenz = Anweisungen nacheinander, einmal.'},
-            {t:'Selektion', correct:false, why:'Selektion = Verzweigung / Entscheidung (if/else).'},
-            {t:'Iteration', correct:true, why:'Genau! Iteration = Schleife, etwas wiederholen solange eine Bedingung gilt.'},
-            {t:'Kompilation', correct:false, why:'Kompilation ist ein Schritt beim Übersetzen von Code, kein Algorithmus-Baustein.'},
-          ])}
+          ${renderQuestions('l1_7', 6)}
+          ${renderBonus('l1_7')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -5427,18 +5417,8 @@ END</pre>
               <strong>NOT</strong>: flips the value: <code>NOT true = false</code>
             </div>
           </div>
-          ${quiz('q_logic1', 'What does: true AND false evaluate to?', [
-            {t:'true', correct:false, why:'AND is only true when BOTH sides are true.'},
-            {t:'false', correct:true, why:'Correct! AND = both must be true. One side is false → result is false.'},
-            {t:'null', correct:false, why:'Null is not a boolean value here.'},
-            {t:'error', correct:false, why:'No error — this is a valid boolean operation.'},
-          ])}
-          ${quiz('q_logic2', 'Which building block describes repeated execution?', [
-            {t:'Sequence', correct:false, why:'Sequence = instructions one after another, once.'},
-            {t:'Selection', correct:false, why:'Selection = branching / decision (if/else).'},
-            {t:'Iteration', correct:true, why:'Exactly! Iteration = loop, repeat something while a condition holds.'},
-            {t:'Compilation', correct:false, why:'Compilation is a code translation step, not an algorithm building block.'},
-          ])}
+          ${renderQuestions('l1_7', 6)}
+          ${renderBonus('l1_7')}
         `
       },
       // ── l1_8: Hardware-Grundlagen ──────────────────────────
@@ -5475,12 +5455,6 @@ END</pre>
           </div>
           ${callout('warn', 'Häufiger Fehler', 'Wird der RAM knapp, lagert das System auf die Festplatte aus (<strong>Swap</strong>) — und alles wird zäh. Ein Programm, das immer mehr RAM belegt und nie freigibt, hat ein <strong>Memory Leak</strong>.')}
           ${quickCheck('Du schaltest den Computer aus. Was passiert mit den Daten im RAM?', ['Sie bleiben gespeichert', 'Sie sind weg'], 1, 'RAM ist <strong>flüchtig</strong>: er hält Daten nur, solange Strom fließt. Zum dauerhaften Speichern muss alles auf die Festplatte (SSD/HDD) — die behält Daten auch ohne Strom.')}
-          ${quiz('q_hw1', 'Was ist der Hauptunterschied zwischen RAM und Festplatte?', [
-            {t:'RAM ist dauerhafter Speicher, Festplatte ist flüchtig', correct:false, why:'Genau umgekehrt: RAM ist flüchtig (weg beim Ausschalten), Festplatte ist dauerhaft.'},
-            {t:'RAM ist schneller und flüchtig, Festplatte ist langsamer und dauerhaft', correct:true, why:'Richtig! RAM: ~ns Zugriffszeit, Daten weg beim Ausschalten. SSD: ~µs, Daten bleiben.'},
-            {t:'RAM und Festplatte sind gleich schnell', correct:false, why:'RAM ist ca. 1000× schneller als eine SSD.'},
-            {t:'Festplatten haben mehr Kerne als RAM', correct:false, why:'Kerne hat die CPU, nicht Speicher.'},
-          ])}
           <div class="content-card animate-in" style="animation-delay:0.12s">
             <div class="card-label">GPU — wenn Parallelität gewinnt</div>
             <div class="explanation">
@@ -5494,12 +5468,8 @@ END</pre>
           </div>
           ${callout('key', 'CPU vs. GPU in einem Bild', 'CPU = ein paar <strong>Profis</strong>, die knifflige Aufgaben nacheinander lösen. GPU = <strong>tausende Praktikanten</strong>, die alle dieselbe einfache Aufgabe gleichzeitig erledigen.')}
           ${callout('fact', 'Wusstest du?', 'Genau die Tausenden Parallel-Kerne, die eine GPU für Spiele-Grafik hat, machen sie zum Motor der KI: moderne Sprachmodelle werden auf riesigen GPU-Clustern trainiert.')}
-          ${quiz('q_hw2', 'Wofür ist eine GPU besonders geeignet?', [
-            {t:'Komplexe, sequenzielle Berechnungen', correct:false, why:'Das ist die Stärke der CPU mit wenigen leistungsstarken Kernen.'},
-            {t:'Massiv parallele Berechnungen mit vielen gleichartigen Operationen', correct:true, why:'Genau! Tausende einfache Kerne → perfekt für Grafik, KI-Training, Physik-Simulationen.'},
-            {t:'Dauerhaften Datenspeicher', correct:false, why:'Speicher ist RAM und Festplatte — nicht GPU.'},
-            {t:'Netzwerkkommunikation', correct:false, why:'Netzwerk übernimmt die Netzwerkkarte (NIC), nicht die GPU.'},
-          ])}
+          ${renderQuestions('l1_8', 6)}
+          ${renderBonus('l1_8')}
         `,
         content_en: () => `
           <div class="lesson-header animate-in">
@@ -5524,18 +5494,8 @@ END</pre>
               Developer note: If your program continuously consumes more RAM and never frees it → <strong>memory leak</strong>. A classic bug.
             </div>
           </div>
-          ${quiz('q_hw1', 'What is the key difference between RAM and a hard drive?', [
-            {t:'RAM is permanent, hard drive is volatile', correct:false, why:"It's the opposite: RAM is volatile (gone when powered off), hard drive is permanent."},
-            {t:'RAM is faster and volatile, hard drive is slower and permanent', correct:true, why:'Correct! RAM: ~ns access time, data lost on shutdown. SSD: ~µs, data persists.'},
-            {t:'RAM and hard drives are equally fast', correct:false, why:'RAM is about 1000× faster than an SSD.'},
-            {t:'Hard drives have more cores than RAM', correct:false, why:'Cores belong to the CPU, not storage.'},
-          ])}
-          ${quiz('q_hw2', 'What is a GPU especially suited for?', [
-            {t:'Complex sequential calculations', correct:false, why:"That's the CPU's strength with few powerful cores."},
-            {t:'Massively parallel calculations with many similar operations', correct:true, why:'Exactly! Thousands of simple cores → perfect for graphics, AI training, physics simulations.'},
-            {t:'Permanent data storage', correct:false, why:'Storage is RAM and hard drives — not GPU.'},
-            {t:'Network communication', correct:false, why:'Networking is handled by the NIC, not the GPU.'},
-          ])}
+          ${renderQuestions('l1_8', 6)}
+          ${renderBonus('l1_8')}
         `
       },
       // ── l1_9: Betriebssysteme & Prozesse ──────────────────
@@ -5577,12 +5537,6 @@ END</pre>
           </div>
           ${callout('fact', 'Wusstest du?', 'Auch wenn Windows die Desktops dominiert: die allermeisten Server im Internet laufen unter <strong>Linux</strong> — und Android baut ebenfalls auf einem Linux-Kernel auf.')}
           ${quickCheck('Prozess = Restaurant, Thread = Koch. Was teilen sich mehrere Threads?', ['Nichts, jeder hat alles für sich', 'Den Speicher des Prozesses (die "Küche")', 'Je einen eigenen Computer'], 1, 'Threads leben alle im selben Prozess und teilen sich dessen RAM — wie Köche, die sich eine Küche teilen. Deshalb kann es Streit geben, wenn zwei gleichzeitig an dieselbe Sache wollen (Race Condition).')}
-          ${quiz('q_os1', 'Was ist die Hauptaufgabe eines Betriebssystems?', [
-            {t:'Websites anzeigen', correct:false, why:'Das ist die Aufgabe eines Browsers, nicht des OS.'},
-            {t:'Hardware und Anwendungen verwalten und koordinieren', correct:true, why:'Genau! Das OS ist die Schicht zwischen Hardware und Software — Speicher, CPU-Zeit, Dateien, Sicherheit.'},
-            {t:'Code kompilieren', correct:false, why:'Kompilierung übernimmt ein Compiler (z.B. gcc, javac) — nicht das OS selbst.'},
-            {t:'Daten im Internet übertragen', correct:false, why:'Das übernehmen Netzwerkprotokolle (TCP/IP). Das OS stellt nur die Schnittstelle zur Netzwerkkarte bereit.'},
-          ])}
           <div class="content-card animate-in" style="animation-delay:0.12s">
             <div class="card-label">Kernel vs. Userspace</div>
             <div class="explanation">
@@ -5595,12 +5549,8 @@ END</pre>
           </div>
           ${callout('key', 'Zwei Ebenen', '<strong>Kernel-Space</strong> = der Maschinenraum mit vollen Rechten und direktem Hardware-Zugriff. <strong>User-Space</strong> = wo deine Programme laufen; sie müssen für alles höflich per <em>Syscall</em> beim Kernel anfragen.')}
           ${callout('tip', 'Profi-Tipp', 'Willst du sehen, welche Prozesse gerade laufen und wie viel CPU/RAM sie fressen? Nutze <code>top</code> oder <code>htop</code> im Terminal (Windows: Task-Manager) — dein wichtigstes Werkzeug beim Aufspüren von Ressourcen-Fressern.')}
-          ${quiz('q_os2', 'Was ist ein "Race Condition" Bug?', [
-            {t:'Ein Programm das zu schnell läuft und crasht', correct:false, why:'Nicht die Geschwindigkeit ist das Problem, sondern der gleichzeitige Zugriff.'},
-            {t:'Zwei Threads ändern gleichzeitig dieselbe Variable ohne Synchronisation', correct:true, why:'Genau! Das Ergebnis ist zufällig/unkontrollierbar — je nachdem welcher Thread "gewinnt". Schwer zu reproduzieren, schwer zu debuggen.'},
-            {t:'Ein Algorithmus der in einer Endlosschleife steckt', correct:false, why:'Das wäre ein Infinite Loop — ein anderer Bug-Typ.'},
-            {t:'Ein Betriebssystem das abstürzt', correct:false, why:'Ein OS-Absturz heißt Kernel Panic oder Bluescreen — nicht Race Condition.'},
-          ])}
+          ${renderQuestions('l1_9', 6)}
+          ${renderBonus('l1_9')}
           ${exercise('ex_os1',
             'Prozess-Analyse',
             'Öffne ein Terminal und liste alle laufenden Prozesse auf. Auf Linux/Mac: top oder ps aux. Auf Windows: tasklist. Schreib den Befehl den du verwenden würdest.',
@@ -5630,18 +5580,8 @@ END</pre>
               Two threads changing the same variable simultaneously without synchronization → <strong>Race Condition</strong> — a nasty bug.
             </div>
           </div>
-          ${quiz('q_os1', "What is an operating system's main job?", [
-            {t:'Display websites', correct:false, why:"That's a browser's job."},
-            {t:'Manage and coordinate hardware and applications', correct:true, why:'Exactly! The OS is the layer between hardware and software — memory, CPU time, files, security.'},
-            {t:'Compile code', correct:false, why:'Compilation is done by a compiler (e.g. gcc, javac), not the OS itself.'},
-            {t:'Transfer data over the internet', correct:false, why:'That is handled by network protocols (TCP/IP). The OS just provides the interface to the network card.'},
-          ])}
-          ${quiz('q_os2', 'What is a "race condition" bug?', [
-            {t:'A program that runs too fast and crashes', correct:false, why:'Speed alone is not the issue — it is about concurrent access.'},
-            {t:'Two threads modify the same variable simultaneously without synchronization', correct:true, why:'Exactly! The result is random/unpredictable — depending on which thread "wins". Hard to reproduce, hard to debug.'},
-            {t:'An algorithm stuck in an infinite loop', correct:false, why:'That would be an infinite loop — a different type of bug.'},
-            {t:'An operating system crash', correct:false, why:'An OS crash is called a Kernel Panic or Blue Screen — not a race condition.'},
-          ])}
+          ${renderQuestions('l1_9', 6)}
+          ${renderBonus('l1_9')}
           ${exercise('ex_os1',
             'Process Analysis',
             'Open a terminal and list all running processes. On Linux/Mac: top or ps aux. On Windows: tasklist. Write the command you would use.',
@@ -26204,6 +26144,564 @@ QUESTION_POOLS['l1_6'] = [
       {t:'DNS → TCP-Handshake → TLS-Handshake → HTTP GET', correct:true, why:'Richtig! 1. DNS löst api.example.com auf → IP. 2. TCP baut die Verbindung auf (SYN/SYN-ACK/ACK). 3. TLS handshake verschlüsselt den Kanal. 4. Erst dann kommt die HTTP-Anfrage.', why_en:'Correct! 1. DNS resolves api.example.com → IP. 2. TCP establishes the connection (SYN/SYN-ACK/ACK). 3. The TLS handshake encrypts the channel. 4. Only then comes the HTTP request.'},
       {t:'HTTP GET → DNS → TCP → TLS', correct:false, why:'HTTP kommt ganz am Ende — erst muss die Verbindung (TCP + TLS) stehen.', why_en:'HTTP comes at the very end — the connection (TCP + TLS) must be established first.'},
       {t:'DNS → TLS → TCP → HTTP GET', correct:false, why:'TLS und TCP in falscher Reihenfolge: erst wird die TCP-Verbindung aufgebaut, dann darüber der TLS-Handshake.', why_en:'TLS and TCP in the wrong order: the TCP connection is established first, then the TLS handshake on top of it.'},
+    ]
+  },
+];
+
+QUESTION_POOLS['l1_7'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_7_mc1', type: 'mc', xp: 10,
+    question: 'Was ist ein Algorithmus?',
+    question_en: 'What is an algorithm?',
+    options: [
+      {t:'Eine eindeutige Schritt-für-Schritt-Anleitung zur Lösung eines Problems', correct:true, why:'Richtig! Ein Algorithmus ist eine vollständige, eindeutige Folge von Schritten — wie ein Rezept.', t_en:'An unambiguous step-by-step instruction for solving a problem', why_en:'Correct! An algorithm is a complete, unambiguous sequence of steps — like a recipe.'},
+      {t:'Eine Programmiersprache wie Python', correct:false, why:'Nein, eine Sprache dient dazu, Algorithmen aufzuschreiben — sie ist nicht der Algorithmus selbst.', t_en:'A programming language like Python', why_en:'No, a language is used to write algorithms — it is not the algorithm itself.'},
+      {t:'Ein besonders schneller Computer', correct:false, why:'Hardware hat nichts mit der Definition eines Algorithmus zu tun.', t_en:'A particularly fast computer', why_en:'Hardware has nothing to do with the definition of an algorithm.'},
+      {t:'Ein zufälliges Raten der Lösung', correct:false, why:'Ein Algorithmus ist das Gegenteil von Zufall — er ist eindeutig und wiederholbar.', t_en:'A random guessing of the solution', why_en:'An algorithm is the opposite of randomness — it is unambiguous and repeatable.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc2', type: 'mc', xp: 10,
+    question: 'Was ergibt: true AND false?',
+    question_en: 'What does true AND false evaluate to?',
+    options: [
+      {t:'true',  correct:false, why:'AND ist nur wahr, wenn BEIDE Seiten wahr sind. false macht die ganze Aussage false.', why_en:'AND is only true when BOTH sides are true. false makes the whole statement false.'},
+      {t:'false', correct:true,  why:'Richtig! AND verlangt, dass beide Seiten wahr sind. Eine falsche Seite → Ergebnis false.', why_en:'Correct! AND requires both sides to be true. One false side → result false.'},
+      {t:'null',  correct:false, why:'null ist kein boolescher Wert — das Ergebnis ist immer true oder false.', why_en:'null is not a boolean value — the result is always true or false.'},
+      {t:'error', correct:false, why:'Kein Fehler — das ist eine gültige boolesche Operation.', why_en:'No error — this is a valid boolean operation.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc3', type: 'mc', xp: 10,
+    question: 'Welcher Grundbaustein beschreibt eine wiederholte Ausführung?',
+    question_en: 'Which building block describes repeated execution?',
+    options: [
+      {t:'Sequenz',     correct:false, why:'Sequenz = Anweisungen nacheinander, einmal ausgeführt.', t_en:'Sequence', why_en:'Sequence = instructions one after another, executed once.'},
+      {t:'Selektion',   correct:false, why:'Selektion = Verzweigung / Entscheidung (wenn … dann).', t_en:'Selection', why_en:'Selection = branching / decision (if … then).'},
+      {t:'Iteration',   correct:true,  why:'Richtig! Iteration = Schleife — Schritte wiederholen, solange eine Bedingung gilt.', t_en:'Iteration', why_en:'Correct! Iteration = loop — repeat steps while a condition holds.'},
+      {t:'Kompilation', correct:false, why:'Kompilation übersetzt Code in Maschinensprache — kein Algorithmus-Baustein.', t_en:'Compilation', why_en:'Compilation translates code into machine language — not an algorithm building block.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc4', type: 'mc', xp: 10,
+    question: 'Welcher Baustein steckt hinter "wenn es regnet, dann nimm den Schirm"?',
+    question_en: 'Which building block is behind "if it rains, then take the umbrella"?',
+    options: [
+      {t:'Sequenz',   correct:false, why:'Sequenz wäre einfach ein Schritt nach dem anderen ohne Bedingung.', t_en:'Sequence', why_en:'Sequence would just be one step after another without a condition.'},
+      {t:'Selektion', correct:true,  why:'Richtig! Sobald eine Entscheidung getroffen wird (wenn … dann), ist es Selektion.', t_en:'Selection', why_en:'Correct! Whenever a decision is made (if … then), it is selection.'},
+      {t:'Iteration', correct:false, why:'Iteration wäre ein Wiederholen — hier wird aber entschieden.', t_en:'Iteration', why_en:'Iteration would be repeating — but here a decision is made.'},
+      {t:'Rekursion', correct:false, why:'Rekursion ist ein Sonderfall der Wiederholung, nicht die Entscheidung selbst.', t_en:'Recursion', why_en:'Recursion is a special form of repetition, not the decision itself.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc5', type: 'mc', xp: 10,
+    question: 'Was ergibt: false OR true?',
+    question_en: 'What does false OR true evaluate to?',
+    options: [
+      {t:'false', correct:false, why:'Bei OR genügt eine wahre Seite. Hier ist die rechte Seite wahr.', why_en:'With OR one true side is enough. Here the right side is true.'},
+      {t:'true',  correct:true,  why:'Richtig! OR ist wahr, sobald mindestens eine Seite wahr ist.', why_en:'Correct! OR is true as soon as at least one side is true.'},
+      {t:'null',  correct:false, why:'null ist kein boolescher Wert.', why_en:'null is not a boolean value.'},
+      {t:'beides gleichzeitig', correct:false, why:'Ein boolescher Ausdruck ergibt genau einen Wert — true oder false.', t_en:'both at the same time', why_en:'A boolean expression yields exactly one value — true or false.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc6', type: 'mc', xp: 10,
+    question: 'Was beschreibt die (Zeit-)Komplexität eines Algorithmus?',
+    question_en: 'What does the (time) complexity of an algorithm describe?',
+    options: [
+      {t:'Wie schnell der Computer getaktet ist', correct:false, why:'Das ist Hardware (GHz) — Komplexität ist unabhängig vom konkreten Rechner.', t_en:'How fast the computer is clocked', why_en:'That is hardware (GHz) — complexity is independent of the specific machine.'},
+      {t:'Wie der Aufwand mit der Größe der Eingabe wächst', correct:true, why:'Richtig! Komplexität beschreibt, wie Laufzeit/Speicher mit steigender Eingabemenge zunehmen.', t_en:'How the effort grows with the size of the input', why_en:'Correct! Complexity describes how runtime/memory grow as the input size increases.'},
+      {t:'Wie viele Zeilen Code der Algorithmus hat', correct:false, why:'Die Zeilenzahl sagt nichts über Effizienz — ein kurzer Algorithmus kann sehr langsam sein.', t_en:'How many lines of code the algorithm has', why_en:'Line count says nothing about efficiency — a short algorithm can be very slow.'},
+      {t:'In welcher Sprache er geschrieben ist', correct:false, why:'Die Grundidee der Komplexität ist sprachunabhängig.', t_en:'Which language it is written in', why_en:'The basic idea of complexity is language-independent.'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc7', type: 'mc', xp: 10,
+    question: 'Was ist Pseudocode?',
+    question_en: 'What is pseudocode?',
+    options: [
+      {t:'Eine menschenlesbare Skizze eines Algorithmus ohne feste Syntaxregeln', correct:true, why:'Richtig! Pseudocode beschreibt die Logik verständlich, ohne an eine Programmiersprache gebunden zu sein.', t_en:'A human-readable sketch of an algorithm without fixed syntax rules', why_en:'Correct! Pseudocode describes the logic understandably, without being tied to a programming language.'},
+      {t:'Eine Sprache, die Computer direkt ausführen', correct:false, why:'Kein Computer führt Pseudocode aus — er dient nur dem Menschen zum Denken und Planen.', t_en:'A language that computers execute directly', why_en:'No computer runs pseudocode — it only helps humans think and plan.'},
+      {t:'Verschlüsselter Quellcode', correct:false, why:'Pseudocode hat nichts mit Verschlüsselung zu tun.', t_en:'Encrypted source code', why_en:'Pseudocode has nothing to do with encryption.'},
+      {t:'Fehlerhafter Code voller Bugs', correct:false, why:'Pseudocode ist bewusst informell, aber nicht "fehlerhaft".', t_en:'Faulty code full of bugs', why_en:'Pseudocode is intentionally informal, but not "faulty".'},
+    ]
+  },
+  {
+    id: 'p_l1_7_mc8', type: 'mc', xp: 10,
+    question: 'Was ergibt: NOT (true AND false)?',
+    question_en: 'What does NOT (true AND false) evaluate to?',
+    options: [
+      {t:'true',  correct:true,  why:'Richtig! Zuerst innen: true AND false = false. Dann NOT false = true.', why_en:'Correct! Inner first: true AND false = false. Then NOT false = true.'},
+      {t:'false', correct:false, why:'Zuerst innen: true AND false = false. NOT dreht das dann zu true.', why_en:'Inner first: true AND false = false. NOT then flips it to true.'},
+      {t:'null',  correct:false, why:'Boolesche Ausdrücke ergeben nur true oder false.', why_en:'Boolean expressions yield only true or false.'},
+      {t:'error', correct:false, why:'Der Ausdruck ist völlig gültig.', why_en:'The expression is perfectly valid.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_7_tf1', type: 'truefalse', xp: 8,
+    statement: 'Ein Algorithmus muss vollständig und eindeutig sein — kein "irgendwie".',
+    statement_en: 'An algorithm must be complete and unambiguous — no "somehow".',
+    correct: true,
+    explanation: 'Stimmt! Computer folgen Anweisungen exakt und ohne Kontext. Deshalb muss jeder Schritt eindeutig festgelegt sein.',
+    explanation_en: 'True! Computers follow instructions exactly and without context. Therefore every step must be unambiguously defined.'
+  },
+  {
+    id: 'p_l1_7_tf2', type: 'truefalse', xp: 8,
+    statement: 'Bei der Verknüpfung OR müssen beide Bedingungen wahr sein.',
+    statement_en: 'With the OR operator both conditions must be true.',
+    correct: false,
+    explanation: 'Falsch! Das gilt für AND. Bei OR genügt eine einzige wahre Seite.',
+    explanation_en: 'False! That applies to AND. With OR a single true side is enough.'
+  },
+  {
+    id: 'p_l1_7_tf3', type: 'truefalse', xp: 8,
+    statement: 'Die drei Grundbausteine jedes Algorithmus sind Sequenz, Selektion und Iteration.',
+    statement_en: 'The three building blocks of every algorithm are sequence, selection and iteration.',
+    correct: true,
+    explanation: 'Stimmt! Mit diesen drei Bausteinen lässt sich jeder Algorithmus ausdrücken.',
+    explanation_en: 'True! With these three building blocks every algorithm can be expressed.'
+  },
+  {
+    id: 'p_l1_7_tf4', type: 'truefalse', xp: 8,
+    statement: 'Pseudocode muss exakt der Syntax von Python folgen, sonst ist er ungültig.',
+    statement_en: 'Pseudocode must follow Python syntax exactly, otherwise it is invalid.',
+    correct: false,
+    explanation: 'Falsch! Pseudocode hat bewusst keine festen Syntaxregeln — er dient nur dem Verständnis.',
+    explanation_en: 'False! Pseudocode has no fixed syntax rules on purpose — it only serves understanding.'
+  },
+  {
+    id: 'p_l1_7_tf5', type: 'truefalse', xp: 8,
+    statement: 'Der Operator NOT kehrt einen Wahrheitswert um.',
+    statement_en: 'The NOT operator flips a truth value.',
+    correct: true,
+    explanation: 'Stimmt! NOT true = false und NOT false = true.',
+    explanation_en: 'True! NOT true = false and NOT false = true.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_7_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt der Grundbaustein, der Entscheidungen trifft (wenn … dann …)?',
+    prompt_en: 'What is the building block called that makes decisions (if … then …)?',
+    answers: ['Selektion','selektion','Selection','selection'],
+    placeholder: 'Baustein eingeben',
+    placeholder_en: 'Enter a building block',
+    explanation: 'Richtig! Die Selektion (Verzweigung) wählt je nach Bedingung unterschiedliche Wege.',
+    explanation_en: 'Correct! Selection (branching) chooses different paths depending on the condition.'
+  },
+  {
+    id: 'p_l1_7_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Welcher logische Operator ist nur wahr, wenn beide Seiten wahr sind? (englisches Wort)',
+    prompt_en: 'Which logical operator is only true when both sides are true? (English word)',
+    answers: ['AND','and','UND','und'],
+    placeholder: 'Operator eingeben',
+    placeholder_en: 'Enter an operator',
+    explanation: 'Richtig! AND (und) verlangt, dass beide Bedingungen erfüllt sind.',
+    explanation_en: 'Correct! AND requires both conditions to be met.'
+  },
+  {
+    id: 'p_l1_7_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Wie nennt man eine menschenlesbare Skizze eines Algorithmus ohne feste Programmiersyntax?',
+    prompt_en: 'What do you call a human-readable sketch of an algorithm without fixed programming syntax?',
+    answers: ['Pseudocode','pseudocode'],
+    placeholder: 'Begriff eingeben',
+    placeholder_en: 'Enter a term',
+    explanation: 'Richtig! Pseudocode hilft, die Logik zu planen, bevor man echten Code schreibt.',
+    explanation_en: 'Correct! Pseudocode helps plan the logic before writing real code.'
+  },
+  {
+    id: 'p_l1_7_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt der Grundbaustein, der Schritte wiederholt (Schleife)?',
+    prompt_en: 'What is the building block called that repeats steps (loop)?',
+    answers: ['Iteration','iteration'],
+    placeholder: 'Baustein eingeben',
+    placeholder_en: 'Enter a building block',
+    explanation: 'Richtig! Iteration wiederholt Anweisungen, solange eine Bedingung gilt.',
+    explanation_en: 'Correct! Iteration repeats instructions while a condition holds.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_7_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Was ergibt der Ausdruck: (true OR false) AND (NOT false)?',
+    question_en: 'What does the expression (true OR false) AND (NOT false) evaluate to?',
+    options: [
+      {t:'true',  correct:true,  why:'Richtig! true OR false = true, NOT false = true, und true AND true = true.', why_en:'Correct! true OR false = true, NOT false = true, and true AND true = true.'},
+      {t:'false', correct:false, why:'Beide Klammern ergeben true, und true AND true ist true.', why_en:'Both parentheses evaluate to true, and true AND true is true.'},
+      {t:'Hängt vom Computer ab', correct:false, why:'Boolesche Logik ist eindeutig und unabhängig von der Hardware.', t_en:'Depends on the computer', why_en:'Boolean logic is unambiguous and independent of the hardware.'},
+      {t:'null',  correct:false, why:'Das Ergebnis eines booleschen Ausdrucks ist immer true oder false.', why_en:'The result of a boolean expression is always true or false.'},
+    ]
+  },
+];
+
+QUESTION_POOLS['l1_8'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_8_mc1', type: 'mc', xp: 10,
+    question: 'Was ist die Hauptaufgabe der CPU?',
+    question_en: 'What is the main job of the CPU?',
+    options: [
+      {t:'Anweisungen ausführen (rechnen)', correct:true, why:'Richtig! Die CPU führt Programm-Anweisungen aus — Milliarden pro Sekunde.', t_en:'Execute instructions (compute)', why_en:'Correct! The CPU executes program instructions — billions per second.'},
+      {t:'Daten dauerhaft speichern', correct:false, why:'Dauerhaft speichert die Festplatte (SSD/HDD), nicht die CPU.', t_en:'Store data permanently', why_en:'The hard drive (SSD/HDD) stores data permanently, not the CPU.'},
+      {t:'Bilder auf den Monitor zeichnen', correct:false, why:'Grafik ist vor allem Sache der GPU.', t_en:'Draw images on the monitor', why_en:'Graphics are mainly the job of the GPU.'},
+      {t:'Mit dem Internet verbinden', correct:false, why:'Netzwerk übernimmt die Netzwerkkarte (NIC), nicht die CPU.', t_en:'Connect to the internet', why_en:'The network card (NIC) handles networking, not the CPU.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc2', type: 'mc', xp: 10,
+    question: 'Was bringen dir mehr CPU-Kerne?',
+    question_en: 'What do more CPU cores give you?',
+    options: [
+      {t:'Mehr Aufgaben gleichzeitig (Parallelität)', correct:true, why:'Richtig! Jeder Kern kann eine Aufgabe bearbeiten — mehr Kerne = mehr parallele Arbeit.', t_en:'More tasks at the same time (parallelism)', why_en:'Correct! Each core can handle one task — more cores = more parallel work.'},
+      {t:'Mehr Speicherplatz', correct:false, why:'Speicherplatz liefert RAM/Festplatte, nicht die Kernzahl.', t_en:'More storage space', why_en:'Storage comes from RAM/disk, not the number of cores.'},
+      {t:'Schnelleres Internet', correct:false, why:'Das Internet-Tempo hängt von der Netzwerkverbindung ab.', t_en:'Faster internet', why_en:'Internet speed depends on the network connection.'},
+      {t:'Eine höhere Bildschirmauflösung', correct:false, why:'Auflösung hängt von Monitor und GPU ab.', t_en:'A higher screen resolution', why_en:'Resolution depends on the monitor and GPU.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc3', type: 'mc', xp: 10,
+    question: 'Was ist der Hauptunterschied zwischen RAM und Festplatte?',
+    question_en: 'What is the key difference between RAM and a hard drive?',
+    options: [
+      {t:'RAM ist dauerhaft, Festplatte ist flüchtig', correct:false, why:'Genau umgekehrt: RAM ist flüchtig, die Festplatte dauerhaft.', t_en:'RAM is permanent, the hard drive is volatile', why_en:'Exactly the opposite: RAM is volatile, the hard drive is permanent.'},
+      {t:'RAM ist schneller und flüchtig, Festplatte langsamer und dauerhaft', correct:true, why:'Richtig! RAM: sehr schnell, aber beim Ausschalten leer. Festplatte: langsamer, behält Daten.', t_en:'RAM is faster and volatile, the hard drive slower and permanent', why_en:'Correct! RAM: very fast but empty on shutdown. Disk: slower, keeps data.'},
+      {t:'Beide sind gleich schnell', correct:false, why:'RAM ist rund 1000× schneller als eine SSD.', t_en:'Both are equally fast', why_en:'RAM is about 1000× faster than an SSD.'},
+      {t:'Festplatten haben Kerne, RAM nicht', correct:false, why:'Kerne hat nur die CPU — weder RAM noch Festplatte.', t_en:'Hard drives have cores, RAM does not', why_en:'Only the CPU has cores — neither RAM nor the hard drive.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc4', type: 'mc', xp: 10,
+    question: 'Wofür ist eine GPU besonders geeignet?',
+    question_en: 'What is a GPU especially suited for?',
+    options: [
+      {t:'Massiv parallele Berechnungen mit vielen gleichartigen Operationen', correct:true, why:'Richtig! Tausende einfache Kerne → perfekt für Grafik, KI-Training, Simulationen.', t_en:'Massively parallel calculations with many similar operations', why_en:'Correct! Thousands of simple cores → perfect for graphics, AI training, simulations.'},
+      {t:'Komplexe, streng sequenzielle Aufgaben', correct:false, why:'Das ist die Stärke der CPU mit wenigen, starken Kernen.', t_en:'Complex, strictly sequential tasks', why_en:'That is the strength of the CPU with few powerful cores.'},
+      {t:'Daten dauerhaft speichern', correct:false, why:'Speicher ist RAM und Festplatte — nicht die GPU.', t_en:'Store data permanently', why_en:'Storage is RAM and the hard drive — not the GPU.'},
+      {t:'Das Betriebssystem verwalten', correct:false, why:'Das OS läuft auf der CPU, nicht auf der GPU.', t_en:'Manage the operating system', why_en:'The OS runs on the CPU, not the GPU.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc5', type: 'mc', xp: 10,
+    question: 'Was ist der Cache in einer CPU?',
+    question_en: 'What is the cache in a CPU?',
+    options: [
+      {t:'Sehr schneller Speicher direkt auf dem Chip für häufig genutzte Daten', correct:true, why:'Richtig! L1/L2/L3-Cache ist ~100× schneller als RAM und puffert oft gebrauchte Daten.', t_en:'Very fast memory on the chip itself for frequently used data', why_en:'Correct! L1/L2/L3 cache is ~100× faster than RAM and buffers frequently used data.'},
+      {t:'Ein Ordner auf der Festplatte', correct:false, why:'Der CPU-Cache ist Hardware auf dem Chip, kein Verzeichnis.', t_en:'A folder on the hard drive', why_en:'The CPU cache is hardware on the chip, not a directory.'},
+      {t:'Der Papierkorb des Betriebssystems', correct:false, why:'Das ist etwas völlig anderes — Cache dient der Geschwindigkeit.', t_en:'The recycle bin of the operating system', why_en:'That is something entirely different — cache is about speed.'},
+      {t:'Der Arbeitsspeicher (RAM)', correct:false, why:'Cache ist noch schneller als RAM und liegt näher an den Rechenkernen.', t_en:'The main memory (RAM)', why_en:'Cache is even faster than RAM and sits closer to the compute cores.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc6', type: 'mc', xp: 10,
+    question: 'Was bedeutet eine Taktfrequenz von 3,5 GHz?',
+    question_en: 'What does a clock speed of 3.5 GHz mean?',
+    options: [
+      {t:'3,5 Milliarden Takte pro Sekunde', correct:true, why:'Richtig! 1 GHz = 1 Milliarde Zyklen pro Sekunde, also 3,5 GHz = 3,5 Milliarden.', t_en:'3.5 billion cycles per second', why_en:'Correct! 1 GHz = 1 billion cycles per second, so 3.5 GHz = 3.5 billion.'},
+      {t:'3,5 Kerne', correct:false, why:'GHz misst Geschwindigkeit pro Kern, nicht die Anzahl der Kerne.', t_en:'3.5 cores', why_en:'GHz measures speed per core, not the number of cores.'},
+      {t:'3,5 Gigabyte Speicher', correct:false, why:'Gigabyte (GB) ist Speichergröße, Gigahertz (GHz) ist Frequenz.', t_en:'3.5 gigabytes of memory', why_en:'Gigabyte (GB) is storage size, gigahertz (GHz) is frequency.'},
+      {t:'3,5 Watt Stromverbrauch', correct:false, why:'Watt misst Leistung bzw. Stromverbrauch, nicht die Taktfrequenz.', t_en:'3.5 watts of power draw', why_en:'Watts measure power consumption, not clock frequency.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc7', type: 'mc', xp: 10,
+    question: 'Was passiert, wenn der RAM voll ist?',
+    question_en: 'What happens when RAM is full?',
+    options: [
+      {t:'Das OS lagert Daten auf die Festplatte aus (Swap) — alles wird langsamer', correct:true, why:'Richtig! Der Swap nutzt die langsame Festplatte als Notreserve für den RAM.', t_en:'The OS swaps data to the hard drive — everything gets slower', why_en:'Correct! Swap uses the slow disk as an emergency reserve for RAM.'},
+      {t:'Der Computer bekommt automatisch mehr RAM', correct:false, why:'RAM ist physische Hardware — sie wächst nicht von selbst.', t_en:'The computer automatically gets more RAM', why_en:'RAM is physical hardware — it does not grow on its own.'},
+      {t:'Die CPU-Kerne verdoppeln sich', correct:false, why:'Die Kernzahl ist fest und hat nichts mit vollem RAM zu tun.', t_en:'The CPU cores double', why_en:'The core count is fixed and has nothing to do with full RAM.'},
+      {t:'Die Daten im RAM werden dauerhaft gespeichert', correct:false, why:'RAM bleibt flüchtig — beim Ausschalten sind die Daten weg.', t_en:'The data in RAM is stored permanently', why_en:'RAM stays volatile — the data is gone on shutdown.'},
+    ]
+  },
+  {
+    id: 'p_l1_8_mc8', type: 'mc', xp: 10,
+    question: 'Welche Reihenfolge der Speicherhierarchie stimmt (schnellster zuerst)?',
+    question_en: 'Which memory hierarchy order is correct (fastest first)?',
+    options: [
+      {t:'CPU-Cache → RAM → SSD → HDD', correct:true, why:'Richtig! Je näher an der CPU, desto schneller (und teurer/kleiner) der Speicher.', t_en:'CPU cache → RAM → SSD → HDD', why_en:'Correct! The closer to the CPU, the faster (and more expensive/smaller) the memory.'},
+      {t:'HDD → SSD → RAM → Cache', correct:false, why:'Das ist die umgekehrte Reihenfolge — die HDD ist am langsamsten.', t_en:'HDD → SSD → RAM → cache', why_en:'That is the reverse order — the HDD is the slowest.'},
+      {t:'RAM → Cache → HDD → SSD', correct:false, why:'Cache ist schneller als RAM, und die SSD schneller als die HDD.', t_en:'RAM → cache → HDD → SSD', why_en:'Cache is faster than RAM, and the SSD faster than the HDD.'},
+      {t:'SSD → HDD → RAM → Cache', correct:false, why:'Weder ist die SSD schneller als RAM noch die HDD schneller als die SSD.', t_en:'SSD → HDD → RAM → cache', why_en:'Neither is the SSD faster than RAM nor the HDD faster than the SSD.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_8_tf1', type: 'truefalse', xp: 8,
+    statement: 'RAM behält seine Daten auch nach dem Ausschalten des Computers.',
+    statement_en: 'RAM keeps its data even after the computer is switched off.',
+    correct: false,
+    explanation: 'Falsch! RAM ist flüchtig — beim Stromverlust ist der Inhalt weg. Dauerhaft speichert nur die Festplatte.',
+    explanation_en: 'False! RAM is volatile — its content is gone when power is lost. Only the hard drive stores data permanently.'
+  },
+  {
+    id: 'p_l1_8_tf2', type: 'truefalse', xp: 8,
+    statement: 'Der CPU-Cache ist schneller als der RAM.',
+    statement_en: 'The CPU cache is faster than RAM.',
+    correct: true,
+    explanation: 'Stimmt! Cache liegt direkt auf dem Chip und ist rund 100× schneller als RAM.',
+    explanation_en: 'True! Cache sits directly on the chip and is about 100× faster than RAM.'
+  },
+  {
+    id: 'p_l1_8_tf3', type: 'truefalse', xp: 8,
+    statement: 'Ein einzelner Thread kann gleichzeitig mehrere CPU-Kerne nutzen.',
+    statement_en: 'A single thread can use several CPU cores at the same time.',
+    correct: false,
+    explanation: 'Falsch! Ein Thread läuft auf einem Kern. Für mehrere Kerne brauchst du mehrere Threads oder Prozesse.',
+    explanation_en: 'False! A thread runs on one core. To use several cores you need multiple threads or processes.'
+  },
+  {
+    id: 'p_l1_8_tf4', type: 'truefalse', xp: 8,
+    statement: 'Eine GPU besitzt tausende einfache Rechenkerne.',
+    statement_en: 'A GPU has thousands of simple compute cores.',
+    correct: true,
+    explanation: 'Stimmt! Genau diese massive Parallelität macht sie stark für Grafik und KI-Training.',
+    explanation_en: 'True! Exactly this massive parallelism makes it strong for graphics and AI training.'
+  },
+  {
+    id: 'p_l1_8_tf5', type: 'truefalse', xp: 8,
+    statement: 'Eine SSD ist deutlich schneller als eine klassische Festplatte (HDD).',
+    statement_en: 'An SSD is significantly faster than a classic hard drive (HDD).',
+    correct: true,
+    explanation: 'Stimmt! SSDs haben keine beweglichen Teile und sind um ein Vielfaches schneller als HDDs.',
+    explanation_en: 'True! SSDs have no moving parts and are many times faster than HDDs.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_8_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt der flüchtige Arbeitsspeicher (Abkürzung, 3 Buchstaben)?',
+    prompt_en: 'What is the volatile working memory called (abbreviation, 3 letters)?',
+    answers: ['RAM','ram'],
+    placeholder: 'Abkürzung eingeben',
+    placeholder_en: 'Enter an abbreviation',
+    explanation: 'Richtig! RAM = Random Access Memory. Schnell, aber beim Ausschalten leer.',
+    explanation_en: 'Correct! RAM = Random Access Memory. Fast, but empty on shutdown.'
+  },
+  {
+    id: 'p_l1_8_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Welche Komponente ist das "Gehirn" des Computers und führt Anweisungen aus (Abkürzung)?',
+    prompt_en: 'Which component is the "brain" of the computer and executes instructions (abbreviation)?',
+    answers: ['CPU','cpu'],
+    placeholder: 'Abkürzung eingeben',
+    placeholder_en: 'Enter an abbreviation',
+    explanation: 'Richtig! CPU = Central Processing Unit.',
+    explanation_en: 'Correct! CPU = Central Processing Unit.'
+  },
+  {
+    id: 'p_l1_8_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Wie nennt man den Vorgang, bei dem das OS bei vollem RAM auf die Festplatte auslagert?',
+    prompt_en: 'What is it called when the OS offloads to the hard drive when RAM is full?',
+    answers: ['Swap','swap','Swapping','swapping','Auslagern','auslagern'],
+    placeholder: 'Begriff eingeben',
+    placeholder_en: 'Enter a term',
+    explanation: 'Richtig! Beim Swapping wird die Festplatte als "virtueller RAM" genutzt — das bremst spürbar.',
+    explanation_en: 'Correct! During swapping the disk is used as "virtual RAM" — noticeably slowing things down.'
+  },
+  {
+    id: 'p_l1_8_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Spezialprozessor ist auf massiv parallele Grafik- und KI-Berechnungen ausgelegt (Abkürzung)?',
+    prompt_en: 'Which specialized processor is designed for massively parallel graphics and AI calculations (abbreviation)?',
+    answers: ['GPU','gpu'],
+    placeholder: 'Abkürzung eingeben',
+    placeholder_en: 'Enter an abbreviation',
+    explanation: 'Richtig! GPU = Graphics Processing Unit — tausende Kerne für Parallelarbeit.',
+    explanation_en: 'Correct! GPU = Graphics Processing Unit — thousands of cores for parallel work.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_8_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Ein Programm belegt mit der Zeit immer mehr RAM und gibt ihn nie wieder frei. Wie nennt man diesen Fehler?',
+    question_en: 'A program keeps allocating more and more RAM over time and never releases it. What is this bug called?',
+    options: [
+      {t:'Memory Leak', correct:true, why:'Richtig! Ein Memory Leak (Speicherleck) ist belegter, aber nie freigegebener Speicher — irgendwann ist der RAM voll.', t_en:'Memory leak', why_en:'Correct! A memory leak is memory that is allocated but never released — eventually RAM fills up.'},
+      {t:'Race Condition', correct:false, why:'Eine Race Condition betrifft gleichzeitigen Zugriff mehrerer Threads, nicht wachsenden Speicher.', t_en:'Race condition', why_en:'A race condition is about concurrent access by multiple threads, not growing memory.'},
+      {t:'Cache Hit', correct:false, why:'Ein Cache Hit ist etwas Positives: Daten wurden im schnellen Cache gefunden.', t_en:'Cache hit', why_en:'A cache hit is something positive: data was found in the fast cache.'},
+      {t:'Overclocking', correct:false, why:'Overclocking bedeutet, die CPU über den Standardtakt hinaus zu betreiben.', t_en:'Overclocking', why_en:'Overclocking means running the CPU above its standard clock speed.'},
+    ]
+  },
+];
+
+QUESTION_POOLS['l1_9'] = [
+  // ── Multiple Choice ───────────────────────────────────────
+  {
+    id: 'p_l1_9_mc1', type: 'mc', xp: 10,
+    question: 'Was ist die Hauptaufgabe eines Betriebssystems?',
+    question_en: 'What is the main job of an operating system?',
+    options: [
+      {t:'Hardware und Anwendungen verwalten und koordinieren', correct:true, why:'Richtig! Das OS ist die Schicht zwischen Hardware und Software — es verteilt Speicher, CPU-Zeit und Dateizugriffe.', t_en:'Manage and coordinate hardware and applications', why_en:'Correct! The OS is the layer between hardware and software — it allocates memory, CPU time and file access.'},
+      {t:'Websites anzeigen', correct:false, why:'Das ist die Aufgabe eines Browsers, nicht des OS.', t_en:'Display websites', why_en:'That is the job of a browser, not the OS.'},
+      {t:'Code in Maschinensprache übersetzen', correct:false, why:'Das übernimmt ein Compiler (z.B. gcc), nicht das OS selbst.', t_en:'Translate code into machine language', why_en:'That is done by a compiler (e.g. gcc), not the OS itself.'},
+      {t:'Bilder für Spiele berechnen', correct:false, why:'Grafikberechnung ist Sache der GPU.', t_en:'Compute images for games', why_en:'Computing graphics is the job of the GPU.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc2', type: 'mc', xp: 10,
+    question: 'Was ist ein Prozess?',
+    question_en: 'What is a process?',
+    options: [
+      {t:'Ein isolierter Ausführungsbereich mit eigenem RAM, Code und Zustand', correct:true, why:'Richtig! Beim Start eines Programms legt das OS einen Prozess an — abgeschottet von anderen.', t_en:'An isolated execution space with its own RAM, code and state', why_en:'Correct! When a program starts, the OS creates a process — isolated from others.'},
+      {t:'Ein einzelner Befehl in der CPU', correct:false, why:'Ein Prozess ist viel mehr als ein einzelner Befehl — er umfasst das ganze laufende Programm.', t_en:'A single instruction in the CPU', why_en:'A process is much more than a single instruction — it comprises the whole running program.'},
+      {t:'Eine Datei auf der Festplatte', correct:false, why:'Eine Programmdatei wird erst zum Prozess, wenn sie gestartet und in den RAM geladen wird.', t_en:'A file on the hard drive', why_en:'A program file only becomes a process when it is started and loaded into RAM.'},
+      {t:'Ein Netzwerkanschluss', correct:false, why:'Das wäre ein Port — kein Prozess.', t_en:'A network connection', why_en:'That would be a port — not a process.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc3', type: 'mc', xp: 10,
+    question: 'Was teilen sich mehrere Threads eines Prozesses?',
+    question_en: 'What do multiple threads of a process share?',
+    options: [
+      {t:'Den Speicher des gemeinsamen Prozesses', correct:true, why:'Richtig! Threads leben im selben Prozess und teilen dessen RAM — deshalb sind Race Conditions möglich.', t_en:'The memory of the shared process', why_en:'Correct! Threads live in the same process and share its RAM — which is why race conditions are possible.'},
+      {t:'Nichts, jeder hat komplett eigenen Speicher', correct:false, why:'Das trifft auf getrennte Prozesse zu, nicht auf Threads desselben Prozesses.', t_en:'Nothing, each has completely separate memory', why_en:'That applies to separate processes, not threads of the same process.'},
+      {t:'Je einen eigenen Computer', correct:false, why:'Threads laufen auf demselben Rechner, oft sogar auf denselben Kernen.', t_en:'Each their own computer', why_en:'Threads run on the same machine, often even on the same cores.'},
+      {t:'Eine eigene IP-Adresse pro Thread', correct:false, why:'IP-Adressen betreffen Netzwerkgeräte, nicht Threads.', t_en:'A separate IP address per thread', why_en:'IP addresses relate to network devices, not threads.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc4', type: 'mc', xp: 10,
+    question: 'Was ist eine Race Condition?',
+    question_en: 'What is a race condition?',
+    options: [
+      {t:'Zwei Threads ändern gleichzeitig dieselbe Variable ohne Synchronisation', correct:true, why:'Richtig! Das Ergebnis hängt davon ab, welcher Thread "gewinnt" — schwer reproduzierbar, schwer zu debuggen.', t_en:'Two threads modify the same variable simultaneously without synchronization', why_en:'Correct! The result depends on which thread "wins" — hard to reproduce, hard to debug.'},
+      {t:'Ein Programm läuft zu schnell und stürzt ab', correct:false, why:'Nicht die Geschwindigkeit ist das Problem, sondern der ungesicherte gleichzeitige Zugriff.', t_en:'A program runs too fast and crashes', why_en:'Speed is not the problem — it is the unsynchronized concurrent access.'},
+      {t:'Ein Algorithmus in einer Endlosschleife', correct:false, why:'Das wäre ein Infinite Loop — ein anderer Bug-Typ.', t_en:'An algorithm in an infinite loop', why_en:'That would be an infinite loop — a different type of bug.'},
+      {t:'Ein abgestürztes Betriebssystem', correct:false, why:'Ein OS-Absturz heißt Kernel Panic oder Bluescreen.', t_en:'A crashed operating system', why_en:'An OS crash is called a kernel panic or blue screen.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc5', type: 'mc', xp: 10,
+    question: 'Was ist der Unterschied zwischen Kernel-Space und User-Space?',
+    question_en: 'What is the difference between kernel space and user space?',
+    options: [
+      {t:'Kernel-Space hat vollen Hardware-Zugriff, User-Space geht nur über Syscalls', correct:true, why:'Richtig! Programme im User-Space müssen für privilegierte Aktionen den Kernel per Syscall fragen.', t_en:'Kernel space has full hardware access, user space only via syscalls', why_en:'Correct! Programs in user space must ask the kernel via syscall for privileged actions.'},
+      {t:'Beide sind identisch und austauschbar', correct:false, why:'Nein — die Trennung schützt das System: ein User-Programm kann den Kernel nicht einfach zerstören.', t_en:'Both are identical and interchangeable', why_en:'No — the separation protects the system: a user program cannot simply destroy the kernel.'},
+      {t:'User-Space hat mehr Rechte als der Kernel', correct:false, why:'Umgekehrt: der Kernel hat die vollen Rechte, der User-Space die eingeschränkten.', t_en:'User space has more rights than the kernel', why_en:'The other way around: the kernel has full rights, user space the restricted ones.'},
+      {t:'Kernel-Space ist nur für Spiele da', correct:false, why:'Der Kernel-Space ist der privilegierte Kern des OS, nichts Spiele-Spezifisches.', t_en:'Kernel space is only for games', why_en:'Kernel space is the privileged core of the OS, nothing game-specific.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc6', type: 'mc', xp: 10,
+    question: 'Was ist ein Syscall (System Call)?',
+    question_en: 'What is a syscall (system call)?',
+    options: [
+      {t:'Eine Anfrage eines User-Programms an den Kernel für eine privilegierte Aktion', correct:true, why:'Richtig! Z.B. Datei öffnen: Programm → Syscall → Kernel → Treiber → Hardware.', t_en:'A request from a user program to the kernel for a privileged action', why_en:'Correct! E.g. opening a file: program → syscall → kernel → driver → hardware.'},
+      {t:'Ein Telefonanruf an den Support', correct:false, why:'Ein Syscall hat nichts mit Telefonie zu tun — es ist eine Software-Schnittstelle.', t_en:'A phone call to support', why_en:'A syscall has nothing to do with phone calls — it is a software interface.'},
+      {t:'Der Aufruf einer Webseite', correct:false, why:'Das wäre ein HTTP-Request, kein Syscall.', t_en:'A call to a website', why_en:'That would be an HTTP request, not a syscall.'},
+      {t:'Ein Fehler im Kernel', correct:false, why:'Ein Syscall ist eine reguläre, gewollte Anfrage — kein Fehler.', t_en:'An error in the kernel', why_en:'A syscall is a regular, intended request — not an error.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc7', type: 'mc', xp: 10,
+    question: 'Was macht der Scheduler eines Betriebssystems?',
+    question_en: 'What does the scheduler of an operating system do?',
+    options: [
+      {t:'Er verteilt die CPU-Zeit auf die laufenden Prozesse', correct:true, why:'Richtig! Der Scheduler entscheidet, welcher Prozess wann und wie lange den Kern bekommt.', t_en:'It distributes CPU time among the running processes', why_en:'Correct! The scheduler decides which process gets the core, when, and for how long.'},
+      {t:'Er speichert Dateien auf der Festplatte', correct:false, why:'Das ist Aufgabe des Dateisystems, nicht des Schedulers.', t_en:'It saves files to the hard drive', why_en:'That is the job of the file system, not the scheduler.'},
+      {t:'Er verbindet den Rechner mit dem Internet', correct:false, why:'Netzwerk übernimmt der Netzwerk-Stack bzw. die NIC.', t_en:'It connects the machine to the internet', why_en:'Networking is handled by the network stack or the NIC.'},
+      {t:'Er übersetzt Quellcode', correct:false, why:'Übersetzen macht ein Compiler.', t_en:'It translates source code', why_en:'Translating is done by a compiler.'},
+    ]
+  },
+  {
+    id: 'p_l1_9_mc8', type: 'mc', xp: 10,
+    question: 'Welches Betriebssystem dominiert die Server im Internet?',
+    question_en: 'Which operating system dominates the servers on the internet?',
+    options: [
+      {t:'Linux',   correct:true,  why:'Richtig! Die allermeisten Internet-Server laufen unter Linux; auch Android baut auf dem Linux-Kernel auf.', why_en:'Correct! The vast majority of internet servers run Linux; Android is also based on the Linux kernel.'},
+      {t:'Windows', correct:false, why:'Windows dominiert Desktop-PCs, aber nicht die Server-Welt.', why_en:'Windows dominates desktop PCs, but not the server world.'},
+      {t:'macOS',   correct:false, why:'macOS läuft vor allem auf Apple-Desktops und -Laptops.', why_en:'macOS runs mainly on Apple desktops and laptops.'},
+      {t:'Android', correct:false, why:'Android ist für Smartphones — und basiert selbst auf einem Linux-Kernel.', why_en:'Android is for smartphones — and is itself based on a Linux kernel.'},
+    ]
+  },
+  // ── True / False ──────────────────────────────────────────
+  {
+    id: 'p_l1_9_tf1', type: 'truefalse', xp: 8,
+    statement: 'Ein Prozess kann mehrere Threads enthalten.',
+    statement_en: 'A process can contain multiple threads.',
+    correct: true,
+    explanation: 'Stimmt! Threads sind "Arbeiter" innerhalb eines Prozesses und teilen sich dessen Speicher.',
+    explanation_en: 'True! Threads are "workers" inside a process and share its memory.'
+  },
+  {
+    id: 'p_l1_9_tf2', type: 'truefalse', xp: 8,
+    statement: 'Programme im User-Space greifen direkt und ungefiltert auf die Hardware zu.',
+    statement_en: 'Programs in user space access the hardware directly and unfiltered.',
+    correct: false,
+    explanation: 'Falsch! User-Programme müssen für Hardware-Zugriff den Kernel per Syscall bitten — das schützt das System.',
+    explanation_en: 'False! User programs must ask the kernel via syscall for hardware access — this protects the system.'
+  },
+  {
+    id: 'p_l1_9_tf3', type: 'truefalse', xp: 8,
+    statement: 'Das Dateisystem organisiert, wie Daten auf der Festplatte abgelegt und gefunden werden.',
+    statement_en: 'The file system organizes how data is stored on and found on the disk.',
+    correct: true,
+    explanation: 'Stimmt! Das Dateisystem verwaltet Ordner, Dateien und ihre Speicherorte.',
+    explanation_en: 'True! The file system manages folders, files and their storage locations.'
+  },
+  {
+    id: 'p_l1_9_tf4', type: 'truefalse', xp: 8,
+    statement: 'Android basiert auf einem Linux-Kernel.',
+    statement_en: 'Android is based on a Linux kernel.',
+    correct: true,
+    explanation: 'Stimmt! Trotz eigener Oberfläche steckt bei Android ein Linux-Kernel darunter.',
+    explanation_en: 'True! Despite its own interface, Android runs on a Linux kernel underneath.'
+  },
+  {
+    id: 'p_l1_9_tf5', type: 'truefalse', xp: 8,
+    statement: 'Ein Absturz im Kernel-Space betrifft nur ein einzelnes Programm und ist harmlos.',
+    statement_en: 'A crash in kernel space affects only a single program and is harmless.',
+    correct: false,
+    explanation: 'Falsch! Ein Kernel-Absturz reißt das ganze System mit — Kernel Panic bzw. Bluescreen.',
+    explanation_en: 'False! A kernel crash takes down the whole system — kernel panic or blue screen.'
+  },
+  // ── Fill in the Blank ─────────────────────────────────────
+  {
+    id: 'p_l1_9_fb1', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt ein gestartetes Programm mit eigenem, isoliertem Speicher?',
+    prompt_en: 'What is a started program with its own isolated memory called?',
+    answers: ['Prozess','prozess','Process','process'],
+    placeholder: 'Begriff eingeben',
+    placeholder_en: 'Enter a term',
+    explanation: 'Richtig! Ein Prozess ist eine laufende Instanz eines Programms mit eigenem Adressraum.',
+    explanation_en: 'Correct! A process is a running instance of a program with its own address space.'
+  },
+  {
+    id: 'p_l1_9_fb2', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt der privilegierte Kern des Betriebssystems mit direktem Hardware-Zugriff?',
+    prompt_en: 'What is the privileged core of the operating system with direct hardware access called?',
+    answers: ['Kernel','kernel'],
+    placeholder: 'Begriff eingeben',
+    placeholder_en: 'Enter a term',
+    explanation: 'Richtig! Der Kernel läuft mit vollen Rechten; ein Absturz dort bedeutet Kernel Panic bzw. Bluescreen.',
+    explanation_en: 'Correct! The kernel runs with full rights; a crash there means kernel panic or blue screen.'
+  },
+  {
+    id: 'p_l1_9_fb3', type: 'fillblank', xp: 12,
+    prompt: 'Wie heißt der Bug, wenn zwei Threads ungesichert gleichzeitig dieselbe Variable ändern? (2 Wörter, englisch)',
+    prompt_en: 'What is the bug called when two threads modify the same variable unsynchronized at the same time? (2 words)',
+    answers: ['Race Condition','race condition','racecondition'],
+    placeholder: 'Begriff eingeben',
+    placeholder_en: 'Enter a term',
+    explanation: 'Richtig! Eine Race Condition liefert unvorhersehbare Ergebnisse und ist schwer zu debuggen.',
+    explanation_en: 'Correct! A race condition yields unpredictable results and is hard to debug.'
+  },
+  {
+    id: 'p_l1_9_fb4', type: 'fillblank', xp: 12,
+    prompt: 'Welcher Linux/Mac-Terminalbefehl zeigt laufende Prozesse live an (ein Wort)?',
+    prompt_en: 'Which Linux/Mac terminal command shows running processes live (one word)?',
+    answers: ['top','htop','ps'],
+    placeholder: 'Befehl eingeben',
+    placeholder_en: 'Enter a command',
+    explanation: 'Richtig! top (oder htop) zeigt Prozesse mit CPU- und RAM-Verbrauch in Echtzeit. Auf Windows: Task-Manager.',
+    explanation_en: 'Correct! top (or htop) shows processes with CPU and RAM usage in real time. On Windows: Task Manager.'
+  },
+  // ── Bonus Profi-Frage ─────────────────────────────────────
+  {
+    id: 'p_l1_9_bonus', type: 'mc', xp: 20, optional: true,
+    question: 'Dein Python-Skript öffnet eine Datei. Welchen Weg nimmt die Anfrage typischerweise?',
+    question_en: 'Your Python script opens a file. Which path does the request typically take?',
+    options: [
+      {t:'Programm (User-Space) → Syscall → Kernel → Treiber → Festplatte', correct:true, why:'Richtig! User-Programme erreichen die Hardware nie direkt — immer über einen Syscall an den Kernel.', t_en:'Program (user space) → syscall → kernel → driver → disk', why_en:'Correct! User programs never reach the hardware directly — always via a syscall to the kernel.'},
+      {t:'Programm → Festplatte direkt, ohne Kernel', correct:false, why:'Direkter Hardware-Zugriff aus dem User-Space ist gesperrt — der Kernel muss vermitteln.', t_en:'Program → disk directly, without the kernel', why_en:'Direct hardware access from user space is blocked — the kernel must mediate.'},
+      {t:'Programm → Browser → Kernel → Festplatte', correct:false, why:'Ein Browser ist am Dateizugriff eines Skripts nicht beteiligt.', t_en:'Program → browser → kernel → disk', why_en:'A browser is not involved in file access by a script.'},
+      {t:'Programm → GPU → Festplatte', correct:false, why:'Die GPU ist für Grafik zuständig, nicht für Dateizugriffe.', t_en:'Program → GPU → disk', why_en:'The GPU is responsible for graphics, not file access.'},
     ]
   },
 ];
