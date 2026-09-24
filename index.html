@@ -22203,6 +22203,97 @@ Core testable: replace adapters with fakes in tests</div>
           ${renderBonus('arch_l1_2')}
         `
       },
+      {
+        id: 'arch_l1_3', title: 'Domain-Driven Design',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 3</div>
+            <h1 class="lesson-title">Domain-Driven Design</h1>
+            <p class="lesson-desc">Domain-Driven Design richtet die Software an der Fachdomäne aus statt an der Technik. Der Code spricht die Sprache der Fachleute — und die Grenzen des Systems folgen den Grenzen der Fachlichkeit.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Ubiquitous Language — eine Sprache für alle</div>
+            <div class="explanation">
+              <strong>Domain-Driven Design</strong> (DDD) dreht die übliche Reihenfolge um: nicht die Technik gibt das Modell vor, sondern die <strong>Fachdomäne</strong> — das Geschäft, um das es geht.<br><br>
+              Das Herzstück ist die <strong>Ubiquitous Language</strong> (allgegenwärtige Sprache): Entwickler und Fachexperten nutzen <em>dieselben</em> Begriffe — im Gespräch, im Modell und im Code. Heißt ein Vorgang fachlich „Angebot annehmen", dann heißt die Methode nicht <code>updateStatus</code>, sondern <code>angebotAnnehmen</code>. So verschwindet die Übersetzungsschicht zwischen Fachabteilung und Technik, in der die meisten Missverständnisse entstehen.
+            </div>
+          </div>
+          ${callout('key', 'Merke', 'Schneide entlang Bounded Contexts — dort, wo ein Begriff seine Bedeutung wechselt, gehört eine Grenze hin.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Bounded Context — wo ein Begriff eindeutig bleibt</div>
+            <div class="explanation">
+              Ein <strong>Bounded Context</strong> (abgegrenzter Kontext) ist eine klare Grenze, innerhalb derer ein Begriff <em>eine</em> eindeutige Bedeutung hat. „Kunde" im Vertrieb ist ein Interessent mit offenen Angeboten; „Kunde" in der Buchhaltung ist eine Rechnungsadresse mit Zahlungsziel und Saldo — dasselbe Wort, zwei verschiedene Modelle.<br><br>
+              Statt ein verwirrendes All-Modell zu bauen, das beiden gerecht werden will, trennt DDD die Kontexte sauber. Genau diese Grenzen sind die natürlichen Schnittlinien für <strong>Module und Microservices</strong> — das verbindet sich mit dem Prinzip, entlang fachlicher Domänen zu schneiden.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Ein Wort, zwei Kontexte</span></div>
+              <div class="code-pre">Bounded Context: Vertrieb          Bounded Context: Buchhaltung
++----------------------------+     +----------------------------+
+| Kunde                      |     | Kunde                      |
+|   - Interesse, Kontakt     |     |   - Rechnungsadresse       |
+|   - offene Angebote        |     |   - Zahlungsziel, Saldo    |
++----------------------------+     +----------------------------+
+
+        gleiches Wort  -&gt;  zwei getrennte Modelle</div>
+            </div>
+          </div>
+          ${quickCheck('Warum modelliert man Kunde im Vertrieb und in der Buchhaltung getrennt?', ['Weil zwei Teams nie dasselbe Wort nutzen dürfen', 'Weil derselbe Begriff je Bounded Context eine andere Bedeutung hat', 'Weil ein gemeinsames Modell immer schneller ist'], 1, 'Kunde bedeutet im Vertrieb etwas anderes als in der Buchhaltung. Getrennte Bounded Contexts halten jeden Begriff eindeutig, statt ihn in einem All-Modell zu verwässern.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Aggregate, Entity &amp; Value Object</div>
+            <div class="explanation">
+              Ein <strong>Aggregate</strong> ist eine Gruppe zusammengehöriger Objekte, die als <em>Einheit</em> geändert werden und gemeinsam Konsistenz garantieren. Der Zugang läuft nur über das <strong>Aggregate Root</strong> — den einzigen Einstiegspunkt. Beispiel: eine <em>Bestellung</em> mit ihren Positionen; man ändert eine Position nie direkt, sondern immer über die Bestellung, die die Regeln wahrt (etwa Summe gleich Summe der Positionen).<br><br>
+              Zwei Objektarten unterscheidet DDD: eine <strong>Entity</strong> hat eine <em>Identität über die Zeit</em> (die Bestellung 42 bleibt dieselbe, auch wenn sich ihr Inhalt ändert). Ein <strong>Value Object</strong> ist nur durch seine <em>Werte</em> definiert und austauschbar (ein Betrag von 10 Euro ist jeder andere 10-Euro-Betrag). Die <strong>Context Map</strong> zeigt schließlich, wie die Bounded Contexts zusammenhängen — heikle Übergänge sichert ein <strong>Anti-Corruption-Layer</strong> ab, der fremde Modelle übersetzt, bevor sie den eigenen Kern verunreinigen.
+            </div>
+          </div>
+          ${quickCheck('Was ist die Aufgabe eines Aggregate Root?', ['Es ist der einzige Zugangspunkt und wahrt die Konsistenz der Gruppe', 'Es speichert die Daten in der Datenbank', 'Es übersetzt zwischen zwei Programmiersprachen'], 0, 'Das Aggregate Root ist der einzige Einstiegspunkt in ein Aggregate. Alle Änderungen laufen über es, damit die Regeln der Gruppe immer eingehalten werden.')}
+          ${renderQuestions('arch_l1_3', 6)}
+          ${renderBonus('arch_l1_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 3</div>
+            <h1 class="lesson-title">Domain-Driven Design</h1>
+            <p class="lesson-desc">Domain-driven design aligns the software with the business domain instead of the technology. The code speaks the language of the experts — and the boundaries of the system follow the boundaries of the domain.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Ubiquitous language — one language for all</div>
+            <div class="explanation">
+              <strong>Domain-driven design</strong> (DDD) reverses the usual order: the model is not dictated by the technology but by the <strong>business domain</strong> — the business the software is about.<br><br>
+              Its core is the <strong>ubiquitous language</strong>: developers and domain experts use the <em>same</em> terms — in conversation, in the model and in the code. If a step is called "accept offer" in the business, the method is not <code>updateStatus</code> but <code>acceptOffer</code>. That removes the translation layer between the business side and technology, where most misunderstandings arise.
+            </div>
+          </div>
+          ${callout('key', 'Remember', 'Cut along bounded contexts — wherever a term changes its meaning, that is where a boundary belongs.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Bounded context — where a term stays unambiguous</div>
+            <div class="explanation">
+              A <strong>bounded context</strong> is a clear boundary within which a term has <em>one</em> unambiguous meaning. "Customer" in sales is a prospect with open offers; "customer" in accounting is a billing address with a payment term and balance — the same word, two different models.<br><br>
+              Instead of building a confusing all-purpose model that tries to serve both, DDD separates the contexts cleanly. These very boundaries are the natural cut lines for <strong>modules and microservices</strong> — which connects to the principle of cutting along business domains.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">One word, two contexts</span></div>
+              <div class="code-pre">Bounded context: Sales             Bounded context: Accounting
++----------------------------+     +----------------------------+
+| Customer                   |     | Customer                   |
+|   - interest, contact      |     |   - billing address        |
+|   - open offers            |     |   - payment term, balance  |
++----------------------------+     +----------------------------+
+
+        same word  -&gt;  two separate models</div>
+            </div>
+          </div>
+          ${quickCheck('Why model customer separately in sales and in accounting?', ['Because two teams may never use the same word', 'Because the same term has a different meaning per bounded context', 'Because a shared model is always faster'], 1, 'Customer means something different in sales than in accounting. Separate bounded contexts keep each term unambiguous instead of diluting it in an all-purpose model.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Aggregate, entity &amp; value object</div>
+            <div class="explanation">
+              An <strong>aggregate</strong> is a group of related objects changed as a <em>unit</em> that together guarantee consistency. Access runs only through the <strong>aggregate root</strong> — the single entry point. Example: an <em>order</em> with its line items; you never change a line item directly but always through the order, which upholds the rules (such as total equals the sum of line items).<br><br>
+              DDD distinguishes two kinds of object: an <strong>entity</strong> has an <em>identity over time</em> (order 42 stays the same order even as its contents change). A <strong>value object</strong> is defined only by its <em>values</em> and is interchangeable (an amount of 10 euros is any other 10-euro amount). Finally, the <strong>context map</strong> shows how the bounded contexts relate — tricky transitions are guarded by an <strong>anti-corruption layer</strong> that translates foreign models before they pollute your own core.
+            </div>
+          </div>
+          ${quickCheck('What is the job of an aggregate root?', ['It is the single access point and upholds the consistency of the group', 'It stores the data in the database', 'It translates between two programming languages'], 0, 'The aggregate root is the single entry point into an aggregate. All changes go through it so the rules of the group are always kept.')}
+          ${renderQuestions('arch_l1_3', 6)}
+          ${renderBonus('arch_l1_3')}
+        `
+      },
     ]
   },
   {
@@ -22724,6 +22815,107 @@ half-open  -&gt; success: close  |  error: open again</div>
           ${quickCheck('Where does an API key belong?', ['As a query parameter in the URL, e.g. ?key=abc', 'In the Authorization header as a bearer token', 'In the path, e.g. /abc/leads/42'], 1, 'Keys in the URL end up in logs and histories. Auth belongs in the Authorization header (bearer token) or an OAuth flow.')}
           ${renderQuestions('arch_l4_1', 6)}
           ${renderBonus('arch_l4_1')}
+        `
+      },
+      {
+        id: 'arch_l4_2', title: 'API-Reife: Pagination, Versionierung & Contract-Tests',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 2</div>
+            <h1 class="lesson-title">API-Reife: Pagination, Versionierung &amp; Contract-Tests</h1>
+            <p class="lesson-desc">Drei Handwerksfragen entscheiden, ob eine API auch unter Last und über Jahre trägt: Wie blättert man durch große Listen, wie ändert man sie ohne Bruch, und wie merkt man den Bruch, bevor er in Produktion auffällt?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Pagination: Offset vs. Cursor</div>
+            <div class="explanation">
+              Listen darf man nie komplett ausliefern — man blättert. <strong>Offset-Pagination</strong> (<code>?page=2&amp;limit=20</code>, intern <code>OFFSET/LIMIT</code>) ist einfach zu verstehen, wird aber bei großen Offsets langsam (die Datenbank muss alle übersprungenen Zeilen zählen) und ist <em>instabil</em>: ändern sich die Daten während des Blätterns, rutschen Einträge über die Seitengrenze und werden doppelt oder gar nicht gezeigt.<br><br>
+              <strong>Cursor- bzw. Keyset-Pagination</strong> merkt sich stattdessen einen <strong>Cursor</strong> — einen Zeiger auf die zuletzt gesehene Position — und fragt: gib mir die nächsten 20 <em>nach</em> dieser Position. Das bleibt schnell und stabil, auch bei Millionen Zeilen. Für große und lebende Datensätze ist Cursor-Pagination der bevorzugte Weg.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Offset vs. Cursor</span></div>
+              <div class="code-pre">Offset:  GET /leads?page=2&amp;limit=20        -&gt; ueberspringe 20, nimm 20
+         einfach, aber langsam bei grossen Offsets und instabil
+
+Cursor:  GET /leads?limit=20&amp;after=lead_42   -&gt; ab Position lead_42
+         stabil und schnell, auch bei Millionen Zeilen</div>
+            </div>
+          </div>
+          ${quickCheck('Warum ist Cursor-Pagination bei großen, sich ändernden Listen der Offset-Variante überlegen?', ['Weil sie weniger Speicher im Client braucht', 'Weil ein Zeiger auf die letzte Position stabil und schnell bleibt, statt alle übersprungenen Zeilen zu zählen', 'Weil sie keine Sortierung benötigt'], 1, 'Der Cursor zeigt direkt auf die zuletzt gesehene Position. Die Datenbank springt dorthin, statt tausende Zeilen zu überspringen — das ist schnell und übersteht Änderungen während des Blätterns.')}
+          ${callout('key', 'Merke', 'Cursor-Pagination für große Listen, eine neue Version nur bei Bruch — und ein Contract-Test fängt den Bruch vor Produktion.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Versionierung: sichtbar, sauber oder implizit</div>
+            <div class="explanation">
+              Eine API ändert sich — die Frage ist nur, ob abwärtskompatibel oder als neue Version. Drei Strategien sind üblich: im <strong>URL-Pfad</strong> (<code>/v1/...</code> — sichtbar, einfach, weit verbreitet), im <strong>Header bzw. Media-Type</strong> (<code>Accept: application/vnd.api.v2+json</code> — sauberer, aber weniger sichtbar) oder als <strong>Query-Parameter</strong>.<br><br>
+              Die Regel dahinter: <strong>nur abwärtskompatible Änderungen ohne neue Version</strong> — Felder hinzufügen ja, Felder entfernen oder ihre Bedeutung ändern nein. Und eine klare <strong>Deprecation-Politik</strong>: die alte Version läuft nach der Ankündigung noch eine Weile parallel, damit die Nutzer Zeit zum Umstellen haben, bevor sie abgeschaltet wird.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Drei Wege, eine Version zu benennen</span></div>
+              <div class="code-pre">Im Pfad:    GET /v1/leads                       -&gt; sichtbar, verbreitet
+Im Header:  Accept: application/vnd.api.v2+json  -&gt; sauber, unsichtbar
+Query:      GET /leads?version=2                 -&gt; simpel, uneinheitlich
+
+Regel: nur abwaertskompatible Aenderungen ohne neue Version.</div>
+            </div>
+          </div>
+          ${quickCheck('Welche API-Änderung rechtfertigt KEINE neue Version?', ['Ein optionales Feld zur Antwort hinzufügen', 'Ein bestehendes Feld entfernen', 'Die Bedeutung eines Feldes ändern'], 0, 'Ein optionales Feld hinzuzufügen ist abwärtskompatibel — alte Clients ignorieren es. Felder entfernen oder umdeuten bricht Nutzer und verlangt eine neue Version.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Contract-Tests: den Bruch vor Produktion fangen</div>
+            <div class="explanation">
+              Ein <strong>Contract-Test</strong> prüft automatisch, dass sich <strong>Anbieter</strong> und <strong>Konsument</strong> an das vereinbarte Schnittstellenformat halten. Bei <strong>Consumer-Driven Contracts</strong> beschreibt der Konsument, welche Felder und Formen er wirklich erwartet; dieser Vertrag wird gegen den Anbieter geprüft.<br><br>
+              Der Gewinn: Der Test schlägt an, <em>bevor</em> eine Formatänderung den anderen Dienst in Produktion bricht — schon in der Pipeline, nicht erst beim Kunden. Damit ist der Contract-Test das dynamische Gegenstück zum statischen OpenAPI-Vertrag: OpenAPI beschreibt die Form, der Contract-Test beweist bei jedem Build, dass beide Seiten sie noch einhalten.
+            </div>
+          </div>
+          ${renderQuestions('arch_l4_2', 6)}
+          ${renderBonus('arch_l4_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 2</div>
+            <h1 class="lesson-title">API Maturity: Pagination, Versioning &amp; Contract Tests</h1>
+            <p class="lesson-desc">Three craft questions decide whether an API holds up under load and over years: how do you page through large lists, how do you change them without breaking users, and how do you notice the break before it shows up in production?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Pagination: offset vs. cursor</div>
+            <div class="explanation">
+              A list must never be delivered whole — you page through it. <strong>Offset pagination</strong> (<code>?page=2&amp;limit=20</code>, internally <code>OFFSET/LIMIT</code>) is easy to understand but gets slow at large offsets (the database has to count all skipped rows) and is <em>unstable</em>: if the data changes while you page, entries slip across the page boundary and get shown twice or not at all.<br><br>
+              <strong>Cursor or keyset pagination</strong> instead remembers a <strong>cursor</strong> — a pointer to the last seen position — and asks: give me the next 20 <em>after</em> this position. That stays fast and stable, even with millions of rows. For large and living datasets, cursor pagination is the preferred way.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Offset vs. cursor</span></div>
+              <div class="code-pre">Offset:  GET /leads?page=2&amp;limit=20        -&gt; skip 20, take 20
+         simple, but slow at large offsets and unstable
+
+Cursor:  GET /leads?limit=20&amp;after=lead_42   -&gt; from position lead_42
+         stable and fast, even with millions of rows</div>
+            </div>
+          </div>
+          ${quickCheck('Why does cursor pagination beat the offset variant on large, changing lists?', ['Because it needs less memory in the client', 'Because a pointer to the last position stays stable and fast instead of counting all skipped rows', 'Because it needs no sorting'], 1, 'The cursor points straight at the last seen position. The database jumps there instead of skipping thousands of rows — that is fast and survives changes while paging.')}
+          ${callout('key', 'Remember', 'Cursor pagination for large lists, a new version only on a break — and a contract test catches the break before production.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Versioning: visible, clean or implicit</div>
+            <div class="explanation">
+              An API changes — the only question is whether backward-compatibly or as a new version. Three strategies are common: in the <strong>URL path</strong> (<code>/v1/...</code> — visible, simple, widespread), in the <strong>header or media type</strong> (<code>Accept: application/vnd.api.v2+json</code> — cleaner, but less visible) or as a <strong>query parameter</strong>.<br><br>
+              The rule behind it: <strong>only backward-compatible changes without a new version</strong> — adding fields yes, removing fields or changing their meaning no. And a clear <strong>deprecation policy</strong>: after the announcement the old version keeps running alongside for a while, so users have time to migrate before it is switched off.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Three ways to name a version</span></div>
+              <div class="code-pre">In path:    GET /v1/leads                       -&gt; visible, widespread
+In header:  Accept: application/vnd.api.v2+json  -&gt; clean, invisible
+Query:      GET /leads?version=2                 -&gt; simple, inconsistent
+
+Rule: only backward-compatible changes without a new version.</div>
+            </div>
+          </div>
+          ${quickCheck('Which API change justifies NO new version?', ['Adding an optional field to the response', 'Removing an existing field', 'Changing the meaning of a field'], 0, 'Adding an optional field is backward-compatible — old clients ignore it. Removing or reinterpreting fields breaks users and demands a new version.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Contract tests: catch the break before production</div>
+            <div class="explanation">
+              A <strong>contract test</strong> automatically checks that <strong>provider</strong> and <strong>consumer</strong> adhere to the agreed interface format. With <strong>consumer-driven contracts</strong>, the consumer describes which fields and shapes it really expects; that contract is checked against the provider.<br><br>
+              The payoff: the test fires <em>before</em> a format change breaks the other service in production — already in the pipeline, not at the customer. That makes the contract test the dynamic counterpart to the static OpenAPI contract: OpenAPI describes the shape, the contract test proves on every build that both sides still honour it.
+            </div>
+          </div>
+          ${renderQuestions('arch_l4_2', 6)}
+          ${renderBonus('arch_l4_2')}
         `
       },
     ]
@@ -32727,6 +32919,46 @@ QUESTION_POOLS['ds_l5_2'] = [
   {id:'p_ds_l5_2_bonus',type:'mc',xp:20,optional:true,question:'Was besagt die Zweckbindung (ein Grundsatz der DSGVO)?',question_en:'What does purpose limitation (a principle of the GDPR) state?',options:[
     {t:'Daten dürfen nur für den Zweck genutzt werden, für den sie erhoben wurden',t_en:'Data may be used only for the purpose it was collected for',correct:true,why:'Genau. Die Zweckbindung begrenzt die Nutzung auf den ursprünglich angegebenen Zweck.',why_en:'Exactly. Purpose limitation restricts use to the originally stated purpose.'},
     {t:'Einmal erhobene Daten dürfen beliebig weiterverwendet werden',t_en:'Once collected, data may be reused for anything',correct:false,why:'Nein. Das ist das Gegenteil der Zweckbindung.',why_en:'No. That is the opposite of purpose limitation.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l1_3'] = [
+  {id:'p_arch_l1_3_mc1',type:'mc',xp:10,question:'Was beschreibt die Ubiquitous Language im Domain-Driven Design?',question_en:'What does the ubiquitous language describe in domain-driven design?',options:[
+    {t:'Entwickler und Fachexperten nutzen dieselben Begriffe — im Gespräch, im Modell und im Code',t_en:'Developers and domain experts use the same terms — in conversation, model and code',correct:true,why:'Genau. Die gemeinsame Sprache entfernt die fehleranfällige Übersetzungsschicht zwischen Fach und Technik.',why_en:'Exactly. The shared language removes the error-prone translation layer between business and technology.'},
+    {t:'Eine Programmiersprache, die für alle Microservices vorgeschrieben ist',t_en:'A programming language mandated for all microservices',correct:false,why:'Nein. Es geht um Fachbegriffe, nicht um die technische Programmiersprache.',why_en:'No. It is about domain terms, not the technical programming language.'},
+    {t:'Ein Übersetzungsdienst, der Fachbegriffe automatisch in Code umwandelt',t_en:'A translation service that turns domain terms into code automatically',correct:false,why:'Nein. Die Sprache wird von Menschen geteilt und bewusst gepflegt, nicht automatisch generiert.',why_en:'No. The language is shared and deliberately maintained by people, not generated automatically.'}
+  ]},
+  {id:'p_arch_l1_3_mc2',type:'mc',xp:10,question:'Was ist die natürliche Schnittgrenze für Module und Microservices im DDD?',question_en:'What is the natural cut boundary for modules and microservices in DDD?',options:[
+    {t:'Der Bounded Context — dort, wo ein Begriff seine Bedeutung wechselt',t_en:'The bounded context — where a term changes its meaning',correct:true,why:'Genau. Bounded Contexts sind die fachlichen Grenzen und damit die sauberen Schnittlinien für Services.',why_en:'Exactly. Bounded contexts are the domain boundaries and thus the clean cut lines for services.'},
+    {t:'Die Anzahl der Datenbanktabellen',t_en:'The number of database tables',correct:false,why:'Nein. Technische Tabellen sind kein fachliches Kriterium für den Schnitt.',why_en:'No. Technical tables are not a domain criterion for the cut.'},
+    {t:'Die Größe des Entwicklungsteams in Personen',t_en:'The size of the development team in people',correct:false,why:'Nein. Teamgröße bestimmt nicht die fachliche Grenze eines Kontexts.',why_en:'No. Team size does not determine the domain boundary of a context.'}
+  ]},
+  {id:'p_arch_l1_3_tf1',type:'truefalse',xp:8,statement:'Der Begriff Kunde hat in jedem Bounded Context zwingend dieselbe Bedeutung.',statement_en:'The term customer necessarily has the same meaning in every bounded context.',correct:false,explanation:'Falsch. Kunde im Vertrieb (Interessent) meint etwas anderes als Kunde in der Buchhaltung (Rechnungsadresse) — deshalb getrennte Modelle.',explanation_en:'False. Customer in sales (a prospect) means something different from customer in accounting (a billing address) — hence separate models.'},
+  {id:'p_arch_l1_3_tf2',type:'truefalse',xp:8,statement:'Ein Aggregate wird nur über sein Aggregate Root verändert, das die Konsistenz der Gruppe sichert.',statement_en:'An aggregate is changed only through its aggregate root, which guards the consistency of the group.',correct:true,explanation:'Richtig. Das Aggregate Root ist der einzige Zugangspunkt und wahrt die Regeln — man ändert eine Position nur über die Bestellung.',explanation_en:'Correct. The aggregate root is the single access point and upholds the rules — you change a line item only through the order.'},
+  {id:'p_arch_l1_3_fb1',type:'fillblank',xp:12,prompt:'Eine Gruppe zusammengehöriger Objekte, die als Einheit geändert wird und Konsistenz garantiert, heißt im DDD ein ___ .',prompt_en:'A group of related objects changed as a unit that guarantees consistency is called an ___ in DDD.',answers:['Aggregate','aggregate','Aggregat','aggregat'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <code>Aggregate</code> wird als Einheit geändert; der Zugang läuft nur über das Aggregate Root.',explanation_en:'The <code>aggregate</code> is changed as a unit; access runs only through the aggregate root.'},
+  {id:'p_arch_l1_3_bonus',type:'mc',xp:20,optional:true,question:'Worin unterscheidet sich eine Entity von einem Value Object?',question_en:'How does an entity differ from a value object?',options:[
+    {t:'Eine Entity hat eine Identität über die Zeit; ein Value Object ist nur durch seine Werte definiert und austauschbar',t_en:'An entity has an identity over time; a value object is defined only by its values and is interchangeable',correct:true,why:'Genau. Bestellung 42 bleibt dieselbe, auch wenn sich ihr Inhalt ändert; ein 10-Euro-Betrag ist jeder andere 10-Euro-Betrag.',why_en:'Exactly. Order 42 stays the same even as its contents change; a 10-euro amount is any other 10-euro amount.'},
+    {t:'Eine Entity liegt im Speicher, ein Value Object nur in der Datenbank',t_en:'An entity lives in memory, a value object only in the database',correct:false,why:'Nein. Der Unterschied ist die Identität, nicht der Speicherort.',why_en:'No. The difference is identity, not the storage location.'}
+  ]}
+];
+
+QUESTION_POOLS['arch_l4_2'] = [
+  {id:'p_arch_l4_2_mc1',type:'mc',xp:10,question:'Welche Pagination ist bei großen, sich ändernden Datensätzen stabil und schnell?',question_en:'Which pagination is stable and fast for large, changing datasets?',options:[
+    {t:'Cursor- bzw. Keyset-Pagination — ein Cursor zeigt auf die zuletzt gesehene Position',t_en:'Cursor or keyset pagination — a cursor points to the last seen position',correct:true,why:'Genau. Die Datenbank springt zur Cursor-Position, statt alle übersprungenen Zeilen zu zählen — schnell und stabil.',why_en:'Exactly. The database jumps to the cursor position instead of counting all skipped rows — fast and stable.'},
+    {t:'Offset-Pagination mit page und limit',t_en:'Offset pagination with page and limit',correct:false,why:'Nein. Offset wird bei großen Offsets langsam und ist instabil, wenn sich die Daten während des Blätterns ändern.',why_en:'No. Offset gets slow at large offsets and is unstable when data changes while paging.'},
+    {t:'Gar keine Pagination — alle Zeilen auf einmal ausliefern',t_en:'No pagination at all — deliver all rows at once',correct:false,why:'Nein. Ganze Listen auszuliefern skaliert nicht und belastet Server wie Client.',why_en:'No. Delivering whole lists does not scale and strains both server and client.'}
+  ]},
+  {id:'p_arch_l4_2_mc2',type:'mc',xp:10,question:'Was prüft ein Contract-Test?',question_en:'What does a contract test check?',options:[
+    {t:'Dass Anbieter und Konsument sich an das vereinbarte Schnittstellenformat halten',t_en:'That provider and consumer adhere to the agreed interface format',correct:true,why:'Genau. Er schlägt an, bevor eine Formatänderung den anderen Dienst in Produktion bricht.',why_en:'Exactly. It fires before a format change breaks the other service in production.'},
+    {t:'Wie schnell die API unter hoher Last antwortet',t_en:'How fast the API responds under high load',correct:false,why:'Nein. Das ist ein Last- bzw. Performance-Test, kein Contract-Test.',why_en:'No. That is a load or performance test, not a contract test.'},
+    {t:'Ob die Datenbank genug Speicherplatz hat',t_en:'Whether the database has enough storage space',correct:false,why:'Nein. Speicherplatz hat nichts mit dem Schnittstellenvertrag zu tun.',why_en:'No. Storage space has nothing to do with the interface contract.'}
+  ]},
+  {id:'p_arch_l4_2_tf1',type:'truefalse',xp:8,statement:'Offset-Pagination kann instabil werden, wenn sich die Daten während des Blätterns ändern.',statement_en:'Offset pagination can become unstable when the data changes while paging.',correct:true,explanation:'Richtig. Rutschen Einträge über die Seitengrenze, werden sie doppelt oder gar nicht gezeigt — Cursor-Pagination vermeidet das.',explanation_en:'Correct. If entries slip across the page boundary they get shown twice or not at all — cursor pagination avoids that.'},
+  {id:'p_arch_l4_2_tf2',type:'truefalse',xp:8,statement:'Ein optionales Feld zur Antwort hinzuzufügen erfordert immer eine neue API-Version.',statement_en:'Adding an optional field to the response always requires a new API version.',correct:false,explanation:'Falsch. Das ist abwärtskompatibel — alte Clients ignorieren das Feld. Erst Entfernen oder Umdeuten von Feldern verlangt eine neue Version.',explanation_en:'False. That is backward-compatible — old clients ignore the field. Only removing or reinterpreting fields demands a new version.'},
+  {id:'p_arch_l4_2_fb1',type:'fillblank',xp:12,prompt:'Die Politik, eine alte API-Version nach ihrer Ankündigung noch eine Weile parallel weiterzubetreiben, heißt ___ (englischer Begriff).',prompt_en:'The policy of keeping an old API version running alongside for a while after announcing its end is called ___ .',answers:['Deprecation','deprecation'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine <code>Deprecation</code>-Politik kündigt das Ende an und lässt Nutzern Zeit zum Umstellen, bevor die alte Version abgeschaltet wird.',explanation_en:'A <code>deprecation</code> policy announces the end and gives users time to migrate before the old version is switched off.'},
+  {id:'p_arch_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Welche Versionierungsstrategie ist am sichtbarsten und am weitesten verbreitet?',question_en:'Which versioning strategy is the most visible and most widespread?',options:[
+    {t:'Die Version im URL-Pfad, z. B. /v1/leads',t_en:'The version in the URL path, e.g. /v1/leads',correct:true,why:'Genau. Der Pfad zeigt die Version offen an und ist einfach zu nutzen — daher weit verbreitet.',why_en:'Exactly. The path shows the version openly and is simple to use — hence widespread.'},
+    {t:'Die Version nur im Media-Type des Accept-Headers',t_en:'The version only in the media type of the Accept header',correct:false,why:'Nein. Das ist sauber, aber weniger sichtbar — nicht die sichtbarste Variante.',why_en:'No. That is clean but less visible — not the most visible variant.'}
   ]}
 ];
 
