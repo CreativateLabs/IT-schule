@@ -23481,6 +23481,75 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
           ${renderBonus('cloud_l2_1')}
         `
       },
+      {
+        id: 'cloud_l2_2', title: 'Datenschutz-Recht bei Cloud & Datenübermittlung',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 2</div>
+            <h1 class="lesson-title">Datenschutz-Recht bei Cloud & Datenübermittlung</h1>
+            <p class="lesson-desc">In Lektion 1 ging es um Verschlüsselung und eigene Schlüssel. Hier folgt die rechtliche Seite: Wann dürfen personenbezogene Daten die EU überhaupt verlassen — und warum genügt eine „EU-Region" allein nicht?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">DSGVO: Daten verlassen die EU nur mit Garantien</div>
+            <div class="explanation">
+              Nach der <strong>DSGVO</strong> dürfen personenbezogene Daten das EU/EWR-Gebiet nur verlassen, wenn ein gleichwertiges Schutzniveau gesichert ist.<br><br>
+              Das <strong>Schrems-II-Urteil</strong> des EuGH (2020) kippte das damalige EU-US-Abkommen, weil US-Überwachungsgesetze keinen gleichwertigen Schutz boten. <strong>Standardvertragsklauseln (SCC)</strong> bleiben gültig — aber nur mit einer Einzelfallprüfung, dem <strong>Transfer Impact Assessment (TIA)</strong>, und gegebenenfalls zusätzlichen Maßnahmen wie starker Verschlüsselung, bei der der Anbieter den Schlüssel nicht hält. Damit schlägt die Brücke zu <code>BYOK</code>/<code>HYOK</code> aus Lektion 1.
+            </div>
+          </div>
+          ${callout('key', 'Schrems II in einem Satz', 'Ein bloßer Vertrag genügt nicht: Bei jedem Transfer in ein Drittland musst du prüfen, ob dort ein gleichwertiger Schutz real durchsetzbar ist — und wo nicht, mit zusätzlichen Maßnahmen wie Verschlüsselung ohne Anbieter-Schlüssel nachbessern.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">DPF, Datenresidenz und Rechtshoheit</div>
+            <div class="explanation">
+              Das <strong>Data Privacy Framework (DPF, 2023)</strong> ist das aktuelle EU-US-Abkommen: Ist ein US-Anbieter danach <strong>zertifiziert</strong>, ist die Übermittlung wieder auf Basis eines <strong>Angemessenheitsbeschlusses</strong> möglich — ohne SCC-Einzelfallprüfung.<br><br>
+              Wichtig ist der Unterschied zwischen <strong>Datenresidenz</strong> (Data Residency, die gewählte Speicherregion) und <strong>Rechtshoheit</strong>. Beides ist nicht dasselbe: Über den <strong>US CLOUD Act</strong> kann ein US-Mutterkonzern theoretisch auch auf Daten zugreifen, die in einer EU-Region liegen. „EU-Region" allein ist also keine vollständige Garantie.
+            </div>
+          </div>
+          ${quickCheck('Ein US-Anbieter speichert deine Daten in einer EU-Region. Warum ist das allein noch keine vollständige Garantie gegen fremden Zugriff?', ['Weil EU-Regionen technisch unsicherer sind', 'Weil über den US CLOUD Act ein US-Mutterkonzern theoretisch auch auf in der EU gespeicherte Daten zugreifen kann', 'Weil die DSGVO das Speichern in der EU verbietet'], 1, 'Datenresidenz wählt nur den Speicherort, nicht die Rechtshoheit. Der US CLOUD Act kann ein US-Unternehmen unabhängig vom Speicherort zur Herausgabe verpflichten — darum braucht es DPF-Zertifizierung oder SCC plus Transfer-Prüfung.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Rollen und der Merksatz</div>
+            <div class="explanation">
+              Bei jeder Auftragsverarbeitung gibt es zwei Rollen: Der <strong>Kunde</strong> bleibt <strong>Verantwortlicher (Controller)</strong> und bestimmt Zweck und Mittel; der <strong>Cloud-Anbieter</strong> ist <strong>Auftragsverarbeiter (Processor)</strong> und handelt nur auf Weisung. Verpflichtend ist dafür ein <strong>Auftragsverarbeitungsvertrag (AVV / DPA)</strong>.<br><br>
+              <strong>Merksatz:</strong> Die Region wählt den Ort, nicht die Rechtshoheit — für einen US-Anbieter braucht es DPF-Zertifizierung oder SCC plus Transfer-Prüfung, mit Verschlüsselung ohne Anbieter-Schlüssel als Rückfallnetz.
+            </div>
+          </div>
+          ${quickCheck('Du buchst eine Cloud und legst dort Kundendaten ab. Welche Rolle trägst du nach der DSGVO — und was ist Pflicht?', ['Der Anbieter ist Verantwortlicher, ich brauche keinen Vertrag', 'Ich bleibe Verantwortlicher (Controller), der Anbieter ist Auftragsverarbeiter (Processor) — ein AVV/DPA ist Pflicht', 'Beide Seiten sind gemeinsam von jeder Haftung befreit'], 1, 'Der Kunde bestimmt Zweck und Mittel und bleibt damit Verantwortlicher; der Anbieter verarbeitet nur auf Weisung und ist Auftragsverarbeiter. Ein Auftragsverarbeitungsvertrag (AVV/DPA) ist dafür verpflichtend.')}
+          ${renderQuestions('cloud_l2_2', 6)}
+          ${renderBonus('cloud_l2_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 2</div>
+            <h1 class="lesson-title">Data-Protection Law for Cloud & Data Transfers</h1>
+            <p class="lesson-desc">Lesson 1 was about encryption and holding your own keys. Here comes the legal side: when may personal data leave the EU at all — and why is an "EU region" alone not enough?</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">GDPR: data leaves the EU only with guarantees</div>
+            <div class="explanation">
+              Under the <strong>GDPR</strong>, personal data may leave the EU/EEA only if an equivalent level of protection is secured.<br><br>
+              The <strong>Schrems II ruling</strong> of the CJEU (2020) struck down the then EU-US agreement, because US surveillance laws offered no equivalent protection. <strong>Standard contractual clauses (SCC)</strong> remain valid — but only with a case-by-case check, the <strong>transfer impact assessment (TIA)</strong>, and where needed extra measures such as strong encryption whose key the provider does not hold. That is the bridge to <code>BYOK</code>/<code>HYOK</code> from Lesson 1.
+            </div>
+          </div>
+          ${callout('key', 'Schrems II in one sentence', 'A contract alone is not enough: for every transfer to a third country you must check whether an equivalent level of protection is really enforceable there — and where it is not, add measures such as encryption whose key the provider does not hold.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">DPF, data residency and legal jurisdiction</div>
+            <div class="explanation">
+              The <strong>Data Privacy Framework (DPF, 2023)</strong> is the current EU-US agreement: if a US provider is <strong>certified</strong> under it, the transfer is possible again on the basis of an <strong>adequacy decision</strong> — without a case-by-case SCC check.<br><br>
+              What matters is the difference between <strong>data residency</strong> (the chosen storage region) and <strong>legal jurisdiction</strong>. The two are not the same: via the <strong>US CLOUD Act</strong>, a US parent company can in theory access even data that sits in an EU region. So an "EU region" alone is not a full guarantee.
+            </div>
+          </div>
+          ${quickCheck('A US provider stores your data in an EU region. Why is that alone not yet a full guarantee against foreign access?', ['Because EU regions are technically less secure', 'Because under the US CLOUD Act a US parent company can in theory access even data stored in the EU', 'Because the GDPR forbids storing data in the EU'], 1, 'Data residency only picks the storage location, not legal jurisdiction. The US CLOUD Act can compel a US company to disclose data regardless of where it sits — so you need DPF certification or SCC plus a transfer assessment.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Roles and the takeaway</div>
+            <div class="explanation">
+              Every processing arrangement has two roles: the <strong>customer</strong> remains the <strong>controller</strong> and decides purpose and means; the <strong>cloud provider</strong> is the <strong>processor</strong> and acts only on instruction. A <strong>data processing agreement (DPA / AVV)</strong> is mandatory for this.<br><br>
+              <strong>Takeaway:</strong> the region picks the place, not the legal jurisdiction — for a US provider you need DPF certification or SCC plus a transfer assessment, with encryption whose key the provider does not hold as the safety net.
+            </div>
+          </div>
+          ${quickCheck('You book a cloud and store customer data there. What role do you hold under the GDPR — and what is mandatory?', ['The provider is the controller, I need no contract', 'I remain the controller, the provider is the processor — a DPA (AVV) is mandatory', 'Both sides are jointly released from all liability'], 1, 'The customer decides purpose and means and so remains the controller; the provider acts only on instruction and is the processor. A data processing agreement (DPA/AVV) is mandatory for this.')}
+          ${renderQuestions('cloud_l2_2', 6)}
+          ${renderBonus('cloud_l2_2')}
+        `
+      },
     ]
   },
   {
@@ -23615,6 +23684,105 @@ Hybrid      -&gt; a mix: sensitive parts in house, the rest in the cloud</div>
           ${quickCheck('What is the core of the zero-trust model compared to the old "castle" model?', ['An even thicker wall to the outside so no one gets in', 'No one is trusted blindly internally either — every service authenticates and authorizes every request', 'Internal services may skip encryption entirely'], 1, 'Zero-trust means "never trust, always verify": the trust boundary no longer runs only at the outer wall. Internally too, every service must authenticate (mTLS), and microsegmentation limits the damage of a breach.')}
           ${renderQuestions('cloud_l3_1', 6)}
           ${renderBonus('cloud_l3_1')}
+        `
+      },
+      {
+        id: 'cloud_l3_2', title: 'Zero-Trust-Identität',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 2</div>
+            <h1 class="lesson-title">Zero-Trust-Identität</h1>
+            <p class="lesson-desc">In Lektion 1 stand das IAM im Mittelpunkt. Zero Trust denkt es konsequent zu Ende: Nicht der Ort im Netz entscheidet über Zugriff, sondern wer fragt — bei jeder einzelnen Anfrage neu.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Identität ist der neue Perimeter</div>
+            <div class="explanation">
+              <strong>Zero Trust</strong> bedeutet „never trust, always verify": kein implizites Vertrauen aufgrund des Netzwerkstandorts. Das alte „innen gleich sicher" gilt nicht mehr — ein Platz im internen Netz ist kein Freifahrtschein.<br><br>
+              Stattdessen wird <strong>jeder Zugriff pro Anfrage</strong> anhand von <strong>Identität</strong>, <strong>Gerätezustand</strong> und <strong>Kontext</strong> geprüft. Damit wird die Identität zum eigentlichen Perimeter — nicht mehr die Netzgrenze. Das baut direkt auf dem IAM aus Lektion 1 auf.
+            </div>
+          </div>
+          ${callout('key', 'Never trust, always verify', 'Nicht der Ort im Netz entscheidet über Zugriff, sondern wer fragt, mit welchem Gerät und in welchem Kontext. Jede Anfrage wird neu geprüft — ein einmaliges Login am Morgen genügt nicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die Bausteine</div>
+            <div class="explanation">
+              Zero Trust ruht auf mehreren Bausteinen, die zusammenwirken:<br><br>
+              <strong>Starke Authentifizierung</strong> — MFA und phishing-resistente Verfahren wie <strong>Passkeys / FIDO2</strong> statt reiner Passwörter.<br>
+              <strong>Prinzip der geringsten Rechte (least privilege)</strong> — jede Identität erhält nur die Rechte, die sie gerade braucht (aus Lektion 1).<br>
+              <strong>Just-in-Time-Zugriff (JIT)</strong> — Rechte werden nur temporär vergeben statt dauerhaft; nach der Aufgabe verfallen sie wieder.<br>
+              <strong>Kontinuierliche Verifikation</strong> — geprüft wird laufend, nicht nur einmal beim Login.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Prüfung pro Anfrage</span></div>
+              <div class="code-pre">Anfrage
+  -&gt; Identität prüfen      wer fragt? (MFA / Passkey)
+  -&gt; Gerätezustand prüfen  verwaltet, aktuell, gesund?
+  -&gt; Kontext prüfen        Ort, Zeit, Verhalten plausibel?
+  -----------------------------------------------------
+  -&gt; erlauben    nur mit knappen Rechten, nur auf Zeit (JIT)
+  -&gt; verweigern  bei Zweifel</div>
+            </div>
+          </div>
+          ${quickCheck('Was bedeutet Just-in-Time-Zugriff (JIT) im Zero-Trust-Modell?', ['Jede Identität bekommt dauerhaft alle Rechte, um Wartezeit zu sparen', 'Rechte werden nur temporär für die konkrete Aufgabe vergeben und verfallen danach wieder', 'Zugriff wird nur einmal beim Login geprüft und dann nie wieder'], 1, 'JIT vergibt Rechte nur auf Zeit statt dauerhaft: Nach der Aufgabe verfallen sie wieder. Das verkleinert das Zeitfenster, in dem ein gekapertes Konto Schaden anrichten kann.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Maschinen, Segmente und die Entscheidung</div>
+            <div class="explanation">
+              Auch <strong>Dienste und Maschinen</strong> brauchen Identitäten (<strong>Workload-Identität</strong>): Statt langlebiger, statischer Schlüssel nutzt man <strong>kurzlebige, automatisch rotierte Tokens</strong> — die Brücke zum Secrets-Management.<br><br>
+              <strong>Mikrosegmentierung</strong> teilt das Netz in kleine Zonen, damit sich ein kompromittierter Dienst nicht frei ausbreiten kann.<br><br>
+              Die Regeln legt ein <strong>Policy Decision Point (PDP)</strong> zentral als Entscheider fest; ein <strong>Policy Enforcement Point (PEP)</strong> setzt sie verteilt an vielen Stellen durch.<br><br>
+              <strong>Merksatz:</strong> Zero Trust vertraut keinem Netz — es prüft bei jeder Anfrage Identität, Gerät und Kontext und vergibt Rechte knapp und auf Zeit.
+            </div>
+          </div>
+          ${quickCheck('Warum bekommen auch Dienste und Maschinen im Zero-Trust-Modell eigene Identitäten?', ['Damit man langlebige, statische Schlüssel bequem im Code speichern kann', 'Damit sie sich mit kurzlebigen, automatisch rotierten Tokens ausweisen statt mit dauerhaften statischen Schlüsseln', 'Weil sonst nur Menschen zu viele Rechte hätten'], 1, 'Workload-Identität gibt auch Diensten eine geprüfte Identität. Kurzlebige, automatisch rotierte Tokens ersetzen langlebige statische Schlüssel — ein geleakter Token ist schnell wertlos.')}
+          ${renderQuestions('cloud_l3_2', 6)}
+          ${renderBonus('cloud_l3_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 2</div>
+            <h1 class="lesson-title">Zero-Trust Identity</h1>
+            <p class="lesson-desc">Lesson 1 centered on IAM. Zero trust thinks it through to the end: it is not the place in the network that decides access, but who is asking — checked anew on every single request.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Identity is the new perimeter</div>
+            <div class="explanation">
+              <strong>Zero trust</strong> means "never trust, always verify": no implicit trust based on network location. The old "inside equals safe" no longer holds — a spot in the internal network is no free pass.<br><br>
+              Instead, <strong>every access is checked per request</strong> against <strong>identity</strong>, <strong>device state</strong> and <strong>context</strong>. That makes identity the real perimeter — no longer the network boundary. It builds directly on the IAM from Lesson 1.
+            </div>
+          </div>
+          ${callout('key', 'Never trust, always verify', 'It is not the place in the network that decides access, but who is asking, with which device and in which context. Every request is checked anew — a single login in the morning is not enough.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The building blocks</div>
+            <div class="explanation">
+              Zero trust rests on several building blocks that work together:<br><br>
+              <strong>Strong authentication</strong> — MFA and phishing-resistant methods such as <strong>passkeys / FIDO2</strong> instead of plain passwords.<br>
+              <strong>Principle of least privilege</strong> — every identity gets only the rights it currently needs (from Lesson 1).<br>
+              <strong>Just-in-time (JIT) access</strong> — rights are granted only temporarily instead of permanently; after the task they expire again.<br>
+              <strong>Continuous verification</strong> — checking happens continuously, not just once at login.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Check per request</span></div>
+              <div class="code-pre">Request
+  -&gt; check identity      who is asking? (MFA / passkey)
+  -&gt; check device state  managed, up to date, healthy?
+  -&gt; check context       location, time, behavior plausible?
+  -----------------------------------------------------
+  -&gt; allow    only with tight rights, only on time (JIT)
+  -&gt; deny     on doubt</div>
+            </div>
+          </div>
+          ${quickCheck('What does just-in-time (JIT) access mean in the zero-trust model?', ['Every identity permanently gets all rights to save waiting time', 'Rights are granted only temporarily for the specific task and expire again afterwards', 'Access is checked only once at login and then never again'], 1, 'JIT grants rights only for a limited time instead of permanently: after the task they expire again. That shrinks the window in which a hijacked account can do damage.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Machines, segments and the decision</div>
+            <div class="explanation">
+              <strong>Services and machines</strong> need identities too (<strong>workload identity</strong>): instead of long-lived, static keys you use <strong>short-lived, automatically rotated tokens</strong> — the bridge to secrets management.<br><br>
+              <strong>Microsegmentation</strong> splits the network into small zones, so a compromised service cannot spread freely.<br><br>
+              A <strong>policy decision point (PDP)</strong> sets the rules centrally as the decider; a <strong>policy enforcement point (PEP)</strong> enforces them in a distributed way at many places.<br><br>
+              <strong>Takeaway:</strong> zero trust trusts no network — it checks identity, device and context on every request and grants rights tightly and on time.
+            </div>
+          </div>
+          ${quickCheck('Why do services and machines get their own identities in the zero-trust model too?', ['So that long-lived static keys can be conveniently stored in the code', 'So that they authenticate with short-lived, automatically rotated tokens instead of permanent static keys', 'Because otherwise only humans would have too many rights'], 1, 'Workload identity gives services a verified identity too. Short-lived, automatically rotated tokens replace long-lived static keys — a leaked token is worthless fast.')}
+          ${renderQuestions('cloud_l3_2', 6)}
+          ${renderBonus('cloud_l3_2')}
         `
       },
     ]
@@ -32959,6 +33127,48 @@ QUESTION_POOLS['arch_l4_2'] = [
   {id:'p_arch_l4_2_bonus',type:'mc',xp:20,optional:true,question:'Welche Versionierungsstrategie ist am sichtbarsten und am weitesten verbreitet?',question_en:'Which versioning strategy is the most visible and most widespread?',options:[
     {t:'Die Version im URL-Pfad, z. B. /v1/leads',t_en:'The version in the URL path, e.g. /v1/leads',correct:true,why:'Genau. Der Pfad zeigt die Version offen an und ist einfach zu nutzen — daher weit verbreitet.',why_en:'Exactly. The path shows the version openly and is simple to use — hence widespread.'},
     {t:'Die Version nur im Media-Type des Accept-Headers',t_en:'The version only in the media type of the Accept header',correct:false,why:'Nein. Das ist sauber, aber weniger sichtbar — nicht die sichtbarste Variante.',why_en:'No. That is clean but less visible — not the most visible variant.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l2_2'] = [
+  {id:'p_cloud_l2_2_mc1',type:'mc',xp:10,question:'Was war die Kernaussage des Schrems-II-Urteils (2020)?',question_en:'What was the core message of the Schrems II ruling (2020)?',options:[
+    {t:'Das damalige EU-US-Abkommen war ungültig, weil US-Überwachungsgesetze keinen gleichwertigen Schutz boten',t_en:'The then EU-US agreement was invalid, because US surveillance laws offered no equivalent protection',correct:true,why:'Genau. Ohne gleichwertiges Schutzniveau fällt die Grundlage für die Übermittlung weg.',why_en:'Exactly. Without an equivalent level of protection the basis for the transfer falls away.'},
+    {t:'Standardvertragsklauseln (SCC) wurden ersatzlos verboten',t_en:'Standard contractual clauses (SCC) were banned outright',correct:false,why:'Nein. SCC bleiben gültig — aber nur mit Einzelfallprüfung (Transfer Impact Assessment).',why_en:'No. SCC remain valid — but only with a case-by-case check (transfer impact assessment).'},
+    {t:'Personenbezogene Daten dürfen die EU seither nie mehr verlassen',t_en:'Personal data may never leave the EU since then',correct:false,why:'Nein. Mit Garantien wie DPF-Zertifizierung oder SCC plus Zusatzmaßnahmen bleibt ein Transfer möglich.',why_en:'No. With guarantees like DPF certification or SCC plus extra measures a transfer stays possible.'}
+  ]},
+  {id:'p_cloud_l2_2_mc2',type:'mc',xp:10,question:'Was ermöglicht das Data Privacy Framework (DPF, 2023) für einen US-Anbieter?',question_en:'What does the Data Privacy Framework (DPF, 2023) enable for a US provider?',options:[
+    {t:'Ist der Anbieter DPF-zertifiziert, ist die Übermittlung wieder auf Basis eines Angemessenheitsbeschlusses möglich',t_en:'If the provider is DPF-certified, the transfer is possible again on the basis of an adequacy decision',correct:true,why:'Genau. Die DPF-Zertifizierung ersetzt die SCC-Einzelfallprüfung.',why_en:'Exactly. The DPF certification replaces the case-by-case SCC check.'},
+    {t:'Es verlagert automatisch alle Daten in die EU',t_en:'It automatically moves all data into the EU',correct:false,why:'Nein. Das DPF ist eine Rechtsgrundlage für den Transfer, kein Umzug der Daten.',why_en:'No. The DPF is a legal basis for the transfer, not a move of the data.'},
+    {t:'Es hebt die DSGVO für US-Anbieter auf',t_en:'It suspends the GDPR for US providers',correct:false,why:'Nein. Die DSGVO gilt weiter; das DPF regelt nur die Rechtmäßigkeit der Übermittlung.',why_en:'No. The GDPR still applies; the DPF only governs the lawfulness of the transfer.'}
+  ]},
+  {id:'p_cloud_l2_2_tf1',type:'truefalse',xp:8,statement:'Datenresidenz (die gewählte Speicherregion) ist dasselbe wie Rechtshoheit über die Daten.',statement_en:'Data residency (the chosen storage region) is the same as legal jurisdiction over the data.',correct:false,explanation:'Falsch. Die Region wählt nur den Speicherort. Über den US CLOUD Act kann ein US-Mutterkonzern theoretisch auch auf in der EU gespeicherte Daten zugreifen.',explanation_en:'False. The region only picks the storage location. Via the US CLOUD Act a US parent company can in theory access even data stored in the EU.'},
+  {id:'p_cloud_l2_2_tf2',type:'truefalse',xp:8,statement:'Bei der Cloud-Nutzung bleibt der Kunde Verantwortlicher (Controller), während der Anbieter Auftragsverarbeiter (Processor) ist.',statement_en:'When using the cloud the customer remains the controller, while the provider is the processor.',correct:true,explanation:'Richtig. Der Kunde bestimmt Zweck und Mittel; der Anbieter handelt auf Weisung. Ein AVV/DPA ist Pflicht.',explanation_en:'Correct. The customer decides purpose and means; the provider acts on instruction. A DPA/AVV is mandatory.'},
+  {id:'p_cloud_l2_2_fb1',type:'fillblank',xp:12,prompt:'Der verpflichtende Vertrag zwischen Kunde und Cloud-Anbieter über die Verarbeitung personenbezogener Daten heißt Auftragsverarbeitungsvertrag, kurz ___ (englisch DPA).',prompt_en:'The mandatory contract between customer and cloud provider about processing personal data is called the data processing agreement, in German ___ (Auftragsverarbeitungsvertrag).',answers:['AVV','avv','Auftragsverarbeitungsvertrag','auftragsverarbeitungsvertrag','DPA','dpa'],placeholder:'Kürzel…',placeholder_en:'Acronym…',explanation:'<code>AVV</code> (Auftragsverarbeitungsvertrag) bzw. englisch <code>DPA</code> ist bei jeder Auftragsverarbeitung Pflicht.',explanation_en:'<code>AVV</code> (Auftragsverarbeitungsvertrag) or in English <code>DPA</code> is mandatory for every processing arrangement.'},
+  {id:'p_cloud_l2_2_bonus',type:'mc',xp:20,optional:true,question:'Welche Leitplanke fasst die Lektion am besten zusammen?',question_en:'Which guardrail best sums up the lesson?',options:[
+    {t:'Die Region wählt den Ort, nicht die Rechtshoheit — für US-Anbieter braucht es DPF-Zertifizierung oder SCC plus Transfer-Prüfung, mit Verschlüsselung ohne Anbieter-Schlüssel als Rückfallnetz',t_en:'The region picks the place, not the jurisdiction — for US providers you need DPF certification or SCC plus a transfer assessment, with encryption whose key the provider does not hold as the safety net',correct:true,why:'Genau. Rechtsgrundlage plus technische Zusatzmaßnahme greifen ineinander.',why_en:'Exactly. Legal basis plus technical extra measure work hand in hand.'},
+    {t:'Sobald die Daten in einer EU-Region liegen, ist jede weitere Prüfung überflüssig',t_en:'Once the data sits in an EU region, any further check is superfluous',correct:false,why:'Nein. Genau dieser Trugschluss ist der Kernfehler — die Region sagt nichts über die Rechtshoheit.',why_en:'No. That fallacy is the core mistake — the region says nothing about jurisdiction.'},
+    {t:'Ein Auftragsverarbeitungsvertrag ist optional, solange verschlüsselt wird',t_en:'A data processing agreement is optional as long as encryption is used',correct:false,why:'Nein. Der AVV/DPA ist bei jeder Auftragsverarbeitung Pflicht, unabhängig von der Verschlüsselung.',why_en:'No. The DPA/AVV is mandatory for every processing arrangement, regardless of encryption.'}
+  ]}
+];
+
+QUESTION_POOLS['cloud_l3_2'] = [
+  {id:'p_cloud_l3_2_mc1',type:'mc',xp:10,question:'Was bedeutet „never trust, always verify" im Zero-Trust-Modell?',question_en:'What does "never trust, always verify" mean in the zero-trust model?',options:[
+    {t:'Kein implizites Vertrauen aufgrund des Netzwerkstandorts — jede Anfrage wird anhand von Identität, Gerät und Kontext geprüft',t_en:'No implicit trust based on network location — every request is checked against identity, device and context',correct:true,why:'Genau. Die Identität wird zum eigentlichen Perimeter, nicht mehr die Netzgrenze.',why_en:'Exactly. Identity becomes the real perimeter, no longer the network boundary.'},
+    {t:'Wer einmal im internen Netz ist, gilt dauerhaft als vertrauenswürdig',t_en:'Whoever is once in the internal network is treated as trustworthy permanently',correct:false,why:'Nein. Das ist das alte „innen gleich sicher", das Zero Trust gerade ablöst.',why_en:'No. That is the old "inside equals safe" that zero trust replaces.'},
+    {t:'Nutzer müssen sich nie authentifizieren',t_en:'Users never have to authenticate',correct:false,why:'Nein. Im Gegenteil: Jede Anfrage verlangt eine geprüfte Identität.',why_en:'No. On the contrary: every request demands a verified identity.'}
+  ]},
+  {id:'p_cloud_l3_2_mc2',type:'mc',xp:10,question:'Wie weisen sich Dienste und Maschinen (Workload-Identität) im Zero-Trust-Modell idealerweise aus?',question_en:'How do services and machines (workload identity) ideally authenticate in the zero-trust model?',options:[
+    {t:'Mit kurzlebigen, automatisch rotierten Tokens statt langlebiger statischer Schlüssel',t_en:'With short-lived, automatically rotated tokens instead of long-lived static keys',correct:true,why:'Genau. Ein geleakter kurzlebiger Token ist schnell wertlos — die Brücke zum Secrets-Management.',why_en:'Exactly. A leaked short-lived token is worthless fast — the bridge to secrets management.'},
+    {t:'Mit einem einzigen, fest im Code hinterlegten Passwort für alle Dienste',t_en:'With a single password hard-coded for all services',correct:false,why:'Nein. Ein langlebiges statisches Geheimnis im Code ist genau das, was man vermeiden will.',why_en:'No. A long-lived static secret in the code is exactly what one wants to avoid.'},
+    {t:'Gar nicht — nur Menschen brauchen Identitäten',t_en:'Not at all — only humans need identities',correct:false,why:'Nein. Auch Dienste und Maschinen brauchen eine geprüfte Identität.',why_en:'No. Services and machines need a verified identity too.'}
+  ]},
+  {id:'p_cloud_l3_2_tf1',type:'truefalse',xp:8,statement:'Mikrosegmentierung teilt das Netz in kleine Zonen, damit sich ein kompromittierter Dienst nicht frei ausbreiten kann.',statement_en:'Microsegmentation splits the network into small zones so a compromised service cannot spread freely.',correct:true,explanation:'Richtig. Kleine Zonen begrenzen den Radius, den ein Angreifer nach einem Einbruch erreicht.',explanation_en:'Correct. Small zones limit the radius an attacker reaches after a breach.'},
+  {id:'p_cloud_l3_2_tf2',type:'truefalse',xp:8,statement:'Just-in-Time-Zugriff bedeutet, dass jede Identität ihre Rechte dauerhaft behält.',statement_en:'Just-in-time access means every identity keeps its rights permanently.',correct:false,explanation:'Falsch. JIT vergibt Rechte nur temporär für die konkrete Aufgabe; danach verfallen sie wieder.',explanation_en:'False. JIT grants rights only temporarily for the specific task; afterwards they expire again.'},
+  {id:'p_cloud_l3_2_fb1',type:'fillblank',xp:12,prompt:'Phishing-resistente Anmeldeverfahren, die Passwörter ersetzen und auf dem FIDO2-Standard beruhen, heißen ___.',prompt_en:'Phishing-resistant sign-in methods that replace passwords and build on the FIDO2 standard are called ___.',answers:['Passkeys','passkeys','Passkey','passkey'],placeholder:'Verfahren…',placeholder_en:'Method…',explanation:'<code>Passkeys</code> (FIDO2) sind an das Gerät gebunden und lassen sich nicht wie ein Passwort abphishen.',explanation_en:'<code>Passkeys</code> (FIDO2) are bound to the device and cannot be phished like a password.'},
+  {id:'p_cloud_l3_2_bonus',type:'mc',xp:20,optional:true,question:'Welcher Leitsatz fasst Zero Trust am besten zusammen?',question_en:'Which principle best sums up zero trust?',options:[
+    {t:'Zero Trust vertraut keinem Netz — es prüft bei jeder Anfrage Identität, Gerät und Kontext und vergibt Rechte knapp und auf Zeit',t_en:'Zero trust trusts no network — it checks identity, device and context on every request and grants rights tightly and on time',correct:true,why:'Genau. Kein Ort-Bonus, sondern Prüfung pro Anfrage plus least privilege und JIT.',why_en:'Exactly. No location bonus, but a check per request plus least privilege and JIT.'},
+    {t:'Eine dicke Außenmauer genügt; innen darf jeder alles',t_en:'A thick outer wall is enough; inside everyone may do anything',correct:false,why:'Nein. Das ist das alte Burg-Modell, das Zero Trust gerade ablöst.',why_en:'No. That is the old castle model that zero trust replaces.'},
+    {t:'Rechte einmal vergeben und nie wieder anfassen spart Aufwand',t_en:'Granting rights once and never touching them again saves effort',correct:false,why:'Nein. Zero Trust setzt auf least privilege und Just-in-Time-Rechte statt dauerhafter Vergabe.',why_en:'No. Zero trust relies on least privilege and just-in-time rights instead of permanent grants.'}
   ]}
 ];
 
