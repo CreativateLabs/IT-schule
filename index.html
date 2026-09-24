@@ -24853,6 +24853,39 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('tip', 'Weniger ist mehr', 'Entferne alles, was nicht zur Botschaft beiträgt (überflüssige Gitter, 3D-Effekte, grelle Farben). Achte auf ehrliche Achsen — eine abgeschnittene y-Achse kann kleine Unterschiede dramatisch übertreiben.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Erst die Frage, dann der Chart-Typ</div>
+            <div class="explanation">
+              Die Grafik ist nie der Startpunkt — die Frage ist es. Formuliere zuerst, was du wissen willst, und der passende Chart-Typ ergibt sich fast von selbst: Willst du <strong>Kategorien vergleichen</strong>, nimmst du einen Balken. Geht es um einen <strong>Verlauf über die Zeit</strong>, eine Linie. Fragst du nach dem <strong>Zusammenhang zweier Zahlen</strong>, ein Streudiagramm. Willst du die <strong>Verteilung einer einzelnen Größe</strong> sehen, ein Histogramm; brauchst du zusätzlich Ausreißer und Streuung kompakt, ein Boxplot.<br><br>
+              Das <strong>Kreisdiagramm</strong> setzt man sparsam ein — nur für wenige Anteile am Ganzen, die sich klar zu 100 % summieren. Bei mehr als einer Handvoll Segmenten wird es unlesbar, und ein Balken zeigt Unterschiede meist deutlicher.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Frage -&gt; Chart-Typ</span></div>
+              <div class="code-pre">Vergleich zwischen Kategorien   -&gt; Balken
+Verlauf ueber die Zeit          -&gt; Linie
+Zusammenhang zweier Zahlen      -&gt; Streudiagramm
+Verteilung EINER Groesse        -&gt; Histogramm
+Verteilung + Ausreisser         -&gt; Boxplot
+Wenige Anteile am Ganzen        -&gt; Kreis (sparsam)</div>
+            </div>
+          </div>
+          ${quickCheck('Du willst zeigen, wie sich der Umsatz Monat für Monat über ein Jahr entwickelt hat. Welcher Chart-Typ passt am besten?', ['Kreisdiagramm', 'Liniendiagramm', 'Histogramm'], 1, 'Für einen <strong>Verlauf über die Zeit</strong> ist die Linie die natürliche Wahl — sie verbindet die Zeitpunkte und macht Auf und Ab sofort sichtbar. Ein Kreis zeigt Anteile, ein Histogramm eine Verteilung.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Ehrliche Achsen & wenig Ballast</div>
+            <div class="explanation">
+              Eine Grafik kann täuschen, ohne eine einzige Zahl zu fälschen. Der häufigste Trick ist die <strong>abgeschnittene Achse</strong>: Beginnt die y-Achse eines Balkendiagramms nicht bei 0, wirkt ein Unterschied von wenigen Prozent wie eine Verdopplung. Bei Balken gehört die Werteachse deshalb immer auf 0; bei Liniendiagrammen ist ein Ausschnitt eher vertretbar, sollte aber klar beschriftet sein.<br><br>
+              Der zweite Hebel ist das <strong>Weglassen</strong>. Alles, was keine Information trägt — dicke Gitter, 3D-Effekte, Schlagschatten, grelle Hintergründe — ist „Chartjunk" und lenkt vom Inhalt ab. Als Faustregel gilt eine hohe <strong>Data-Ink-Ratio</strong>: möglichst viel Farbe und Fläche zeigt echte Daten, möglichst wenig reine Deko.
+            </div>
+          </div>
+          ${quickCheck('Ein Balkendiagramm lässt zwei fast gleich große Werte wie 3:1 aussehen. Was ist die wahrscheinlichste Ursache?', ['Die y-Achse beginnt nicht bei 0', 'Es sind zu wenige Balken', 'Die Farben sind zu blass'], 0, 'Startet die Werteachse eines Balkendiagramms über 0, wird nur die Spitze der Balken gezeigt und ein kleiner Unterschied dramatisch übertrieben. Für einen ehrlichen Vergleich gehört die Achse bei Balken auf 0.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Farbe, Beschriftung & Dashboards</div>
+            <div class="explanation">
+              Farbe ist ein Werkzeug, kein Schmuck. Für <strong>Kategorien</strong> nimmt man klar unterscheidbare Farbtöne, für einen <strong>Wert von niedrig nach hoch</strong> eine sequenzielle Abstufung eines Tons. Setze Farbe gezielt ein, um das Wichtige hervorzuheben, und achte auf <strong>Farbfehlsichtigkeit</strong> — Rot und Grün allein zu unterscheiden, funktioniert nicht für alle. Wo möglich, <strong>beschrifte direkt</strong> am Element statt über eine separate Legende, die den Blick hin- und herspringen lässt.<br><br>
+              Ein <strong>Dashboard</strong> bündelt mehrere Sichten für die laufende Beobachtung. Die wichtigste Kennzahl gehört prominent nach oben, unterstützende Details darunter — so erfasst man den Zustand in Sekunden, statt sich durch viele einzelne Grafiken zu klicken.
+            </div>
+          </div>
+          ${callout('fact', 'Die Reihenfolge zählt', 'Erst die Frage, dann der Chart-Typ, dann der Feinschliff. Wer mit dem Diagramm beginnt, biegt sich am Ende die Frage passend zurecht — wer mit der Frage beginnt, wählt die Grafik, die sie am ehrlichsten beantwortet.')}
           ${renderQuestions('ds_l4_1', 6)}
           ${renderBonus('ds_l4_1')}
         `,
@@ -24870,6 +24903,39 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('tip', 'Less is more', 'Remove everything that does not serve the message (needless gridlines, 3D effects, garish colors). Watch for honest axes — a truncated y-axis can dramatically exaggerate small differences.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">First the question, then the chart type</div>
+            <div class="explanation">
+              The chart is never the starting point — the question is. State first what you want to know, and the fitting chart type almost picks itself: to <strong>compare categories</strong>, use a bar. For a <strong>trend over time</strong>, a line. To ask about the <strong>relationship between two numbers</strong>, a scatter plot. To see the <strong>distribution of a single quantity</strong>, a histogram; if you also need outliers and spread in a compact form, a boxplot.<br><br>
+              The <strong>pie chart</strong> is used sparingly — only for a few parts of a whole that clearly sum to 100%. Beyond a handful of segments it becomes unreadable, and a bar usually shows differences more clearly.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Question -&gt; chart type</span></div>
+              <div class="code-pre">Compare across categories     -&gt; Bar
+Trend over time               -&gt; Line
+Relationship of two numbers   -&gt; Scatter
+Distribution of ONE quantity  -&gt; Histogram
+Distribution + outliers       -&gt; Boxplot
+Few parts of a whole          -&gt; Pie (sparingly)</div>
+            </div>
+          </div>
+          ${quickCheck('You want to show how revenue developed month by month over a year. Which chart type fits best?', ['Pie chart', 'Line chart', 'Histogram'], 1, 'For a <strong>trend over time</strong> the line is the natural choice — it connects the time points and makes ups and downs visible at once. A pie shows parts, a histogram a distribution.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Honest axes & little ballast</div>
+            <div class="explanation">
+              A chart can deceive without faking a single number. The most common trick is the <strong>truncated axis</strong>: if the y-axis of a bar chart does not start at 0, a difference of a few percent looks like a doubling. For bars the value axis therefore always belongs at 0; for line charts a cropped range is more acceptable, but should be clearly labeled.<br><br>
+              The second lever is <strong>leaving out</strong>. Anything carrying no information — heavy gridlines, 3D effects, drop shadows, garish backgrounds — is "chartjunk" and distracts from the content. A rule of thumb is a high <strong>data-ink ratio</strong>: as much color and area as possible shows real data, as little as possible is pure decoration.
+            </div>
+          </div>
+          ${quickCheck('A bar chart makes two almost equal values look like 3:1. What is the most likely cause?', ['The y-axis does not start at 0', 'There are too few bars', 'The colors are too pale'], 0, 'If the value axis of a bar chart starts above 0, only the tips of the bars are shown and a small difference is dramatically exaggerated. For an honest comparison the axis on bars belongs at 0.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Color, labeling & dashboards</div>
+            <div class="explanation">
+              Color is a tool, not decoration. For <strong>categories</strong> use clearly distinguishable hues, for a <strong>value from low to high</strong> a sequential shading of one hue. Use color deliberately to highlight what matters, and watch out for <strong>color vision deficiency</strong> — telling red and green apart by hue alone does not work for everyone. Where possible, <strong>label directly</strong> at the element instead of a separate legend that makes the eye jump back and forth.<br><br>
+              A <strong>dashboard</strong> bundles several views for ongoing monitoring. The most important metric belongs prominently at the top, supporting details below — so you grasp the state in seconds instead of clicking through many separate charts.
+            </div>
+          </div>
+          ${callout('fact', 'The order matters', 'First the question, then the chart type, then the polish. Whoever starts with the diagram ends up bending the question to fit it — whoever starts with the question picks the chart that answers it most honestly.')}
           ${renderQuestions('ds_l4_1', 6)}
           ${renderBonus('ds_l4_1')}
         `
@@ -24897,6 +24963,48 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('key', 'Ehrlich messen', 'Bewerte ein Modell NIE auf den Daten, mit denen es trainiert wurde — das ist wie eine Prüfung mit vorher bekannten Lösungen. Nur die Leistung auf ungesehenen Testdaten zählt. Metriken: Accuracy/Precision/Recall (Klassifikation), RMSE (Regression).')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Features, Label & die Aufgaben-Typen</div>
+            <div class="explanation">
+              Zwei Begriffe ziehen sich durch alles: <strong>Features</strong> sind die Eingabemerkmale, aus denen das Modell lernt (Größe, Alter, Wörter einer E-Mail), das <strong>Label</strong> (oder Target) ist die Zielvariable, die es vorhersagen soll.<br><br>
+              Beim <strong>Supervised Learning</strong> kennt man zu jedem Beispiel die Antwort: <code>Klassifikation</code> sagt eine Kategorie voraus (Spam oder nicht), <code>Regression</code> eine Zahl (ein Preis). Beim <strong>Unsupervised Learning</strong> gibt es keine Antworten: <code>Clustering</code> gruppiert ähnliche Punkte, <code>Dimensionsreduktion</code> fasst viele Merkmale zu wenigen zusammen. Die üblichen Verfahren muss man nur einordnen können: lineare und logistische Regression, Entscheidungsbaum und Random Forest, k-Nearest-Neighbors für Vorhersagen, k-Means fürs Clustering.
+            </div>
+          </div>
+          ${quickCheck('Ein Modell soll für Wohnungen den zu erwartenden Mietpreis in Euro schätzen. Um welche Aufgabe handelt es sich?', ['Klassifikation', 'Regression', 'Clustering'], 1, 'Ein <strong>Preis ist eine Zahl</strong> — das ist Regression. Klassifikation würde eine Kategorie vorhersagen, Clustering gruppiert ohne bekannte Zielwerte.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Generalisierung: Train/Test & Overfitting</div>
+            <div class="explanation">
+              Ziel ist nicht, die bekannten Daten auswendig zu können, sondern auf <strong>neuen</strong> Daten gut zu sein — Generalisierung. Dafür teilt man die Daten in einen Trainings- und einen Testteil (typisch etwa 80/20). Trainiert wird nur auf dem Trainingsteil, gemessen nur auf dem zurückgehaltenen Testteil. Bei der <strong>Cross-Validation</strong> teilt man mehrfach unterschiedlich auf und mittelt die Ergebnisse — das gibt ein stabileres Bild.<br><br>
+              <strong>Overfitting</strong> heißt: das Modell hat die Trainingsdaten samt Rauschen auswendig gelernt und versagt auf neuen Daten — Symptom ist ein starker Abfall von Trainings- zu Testergebnis. <strong>Underfitting</strong> heißt: das Modell ist zu simpel und schon auf den Trainingsdaten schlecht. Dahinter steht die <strong>Bias-Varianz-Abwägung</strong>: ein zu einfaches Modell hat hohen Bias, ein zu komplexes hohe Varianz.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Train/Test-Idee</span></div>
+              <div class="code-pre">Alle Daten
+  -&gt; 80% Training  (Modell lernt hier)
+  -&gt; 20% Test      (nur zum Messen, ungesehen)
+
+Top auf Training + schlecht auf Test = Overfitting
+Schlecht auf beidem                  = Underfitting</div>
+            </div>
+          </div>
+          ${quickCheck('Ein Modell erreicht 99 % auf den Trainingsdaten, aber nur 62 % auf dem Testteil. Was liegt am ehesten vor?', ['Underfitting', 'Overfitting', 'Ein perfektes Modell'], 1, 'Der große Abstand zwischen sehr gutem Training und schwachem Test ist das klassische Zeichen für <strong>Overfitting</strong>: das Modell hat die Trainingsdaten auswendig gelernt statt das allgemeine Muster.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Die richtigen Metriken</div>
+            <div class="explanation">
+              Bei der <strong>Klassifikation</strong> reicht die reine <code>Accuracy</code> (Anteil richtig) oft nicht — bei seltenen Fällen kann ein Modell hohe Accuracy erreichen und trotzdem nutzlos sein. Deshalb schaut man auf die <strong>Confusion-Matrix</strong> (richtig/falsch je Klasse) und daraus: <code>Precision</code> (von den als positiv vorhergesagten wirklich positiv) und <code>Recall</code> (von den wirklich positiven auch gefunden). Der <code>F1</code>-Wert fasst beide zu einer Zahl zusammen.<br><br>
+              Bei der <strong>Regression</strong> misst man den Fehler in der Einheit der Zielgröße: <code>MAE</code> (mittlerer absoluter Fehler), <code>RMSE</code> (bestraft große Ausreißer stärker) und <code>R²</code> (wie viel der Streuung das Modell erklärt).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Confusion-Matrix</span></div>
+              <div class="code-pre">                 vorhergesagt +   vorhergesagt -
+wirklich +            TP              FN
+wirklich -            FP              TN
+
+Precision = TP / (TP + FP)
+Recall    = TP / (TP + FN)</div>
+            </div>
+          </div>
+          ${callout('tip', 'Gegen Overfitting', 'Hilft ein Modell die Trainingsdaten auswendig zu lernen, gibt es drei bewährte Gegenmittel: mehr Daten sammeln, ein einfacheres Modell wählen oder Regularisierung einsetzen (die zu große Komplexität bestraft). Und gemessen wird die Wirkung immer nur auf ungesehenen Testdaten.')}
           ${renderQuestions('ds_l5_1', 6)}
           ${renderBonus('ds_l5_1')}
         `,
@@ -24914,6 +25022,48 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('key', 'Measure honestly', 'Never evaluate a model on the data it was trained on — that is like an exam with the answers known in advance. Only performance on unseen test data counts. Metrics: accuracy/precision/recall (classification), RMSE (regression).')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Features, label & the task types</div>
+            <div class="explanation">
+              Two terms run through everything: <strong>features</strong> are the input attributes the model learns from (size, age, the words of an email), the <strong>label</strong> (or target) is the variable it should predict.<br><br>
+              In <strong>supervised learning</strong> the answer is known for every example: <code>classification</code> predicts a category (spam or not), <code>regression</code> a number (a price). In <strong>unsupervised learning</strong> there are no answers: <code>clustering</code> groups similar points, <code>dimensionality reduction</code> condenses many features into a few. You only need to place the common methods: linear and logistic regression, decision tree and random forest, k-nearest neighbors for predictions, k-means for clustering.
+            </div>
+          </div>
+          ${quickCheck('A model should estimate the expected monthly rent in euros for apartments. What kind of task is this?', ['Classification', 'Regression', 'Clustering'], 1, 'A <strong>price is a number</strong> — that is regression. Classification would predict a category, clustering groups without known target values.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Generalization: train/test & overfitting</div>
+            <div class="explanation">
+              The goal is not to memorize the known data but to be good on <strong>new</strong> data — generalization. For that you split the data into a training and a test part (typically about 80/20). Training happens only on the training part, measuring only on the held-out test part. In <strong>cross-validation</strong> you split several ways and average the results — giving a more stable picture.<br><br>
+              <strong>Overfitting</strong> means: the model memorized the training data including its noise and fails on new data — the symptom is a sharp drop from training to test score. <strong>Underfitting</strong> means: the model is too simple and already poor on the training data. Behind this sits the <strong>bias-variance trade-off</strong>: a too-simple model has high bias, a too-complex one high variance.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Train/test idea</span></div>
+              <div class="code-pre">All data
+  -&gt; 80% training  (model learns here)
+  -&gt; 20% test      (only for measuring, unseen)
+
+Great on training + poor on test = overfitting
+Poor on both                     = underfitting</div>
+            </div>
+          </div>
+          ${quickCheck('A model reaches 99% on the training data but only 62% on the test part. What is most likely going on?', ['Underfitting', 'Overfitting', 'A perfect model'], 1, 'The large gap between very good training and weak test is the classic sign of <strong>overfitting</strong>: the model memorized the training data instead of the general pattern.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">The right metrics</div>
+            <div class="explanation">
+              For <strong>classification</strong> plain <code>accuracy</code> (share correct) often is not enough — with rare cases a model can reach high accuracy and still be useless. So you look at the <strong>confusion matrix</strong> (correct/wrong per class) and from it: <code>precision</code> (of those predicted positive, how many really are) and <code>recall</code> (of the truly positive, how many were found). The <code>F1</code> score combines both into one number.<br><br>
+              For <strong>regression</strong> you measure the error in the unit of the target: <code>MAE</code> (mean absolute error), <code>RMSE</code> (penalizes large outliers more) and <code>R squared</code> (how much of the spread the model explains).
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Confusion matrix</span></div>
+              <div class="code-pre">                predicted +     predicted -
+actual +            TP              FN
+actual -            FP              TN
+
+Precision = TP / (TP + FP)
+Recall    = TP / (TP + FN)</div>
+            </div>
+          </div>
+          ${callout('tip', 'Against overfitting', 'If a model tends to memorize the training data, there are three proven remedies: collect more data, choose a simpler model, or apply regularization (which penalizes too much complexity). And the effect is always measured only on unseen test data.')}
           ${renderQuestions('ds_l5_1', 6)}
           ${renderBonus('ds_l5_1')}
         `
@@ -24941,6 +25091,39 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('tip', 'Der Cold-Start', 'Ein neues System oder ein neuer Nutzer hat noch keine Interaktionsdaten — dann versagt Collaborative Filtering. Deshalb kombiniert man in der Praxis mehrere Ansätze: erst Beliebtheit/Content-based, dann mit wachsenden Daten Collaborative Filtering.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Die User-Item-Matrix</div>
+            <div class="explanation">
+              Das Grunddatenmodell fast aller Empfehlungssysteme ist eine große Tabelle: die <strong>User-Item-Matrix</strong>. Die Zeilen sind Nutzer, die Spalten sind Items (Filme, Produkte), und in den Zellen stehen Bewertungen oder Interaktionen. Das Entscheidende: Die meisten Zellen sind <strong>leer</strong> — niemand bewertet alles. Diese Matrix ist also <strong>dünn besetzt</strong> (sparse), und die eigentliche Aufgabe ist, die leeren Zellen sinnvoll zu schätzen.<br><br>
+              <strong>Popularity</strong> ist der einfachste Ansatz: Er ignoriert die einzelnen Nutzer und empfiehlt allen dieselben Top-N nach Beliebtheit. Das löst den Cold-Start (auch ohne Nutzerdaten gibt es einen Vorschlag), bleibt aber unpersönlich.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">User-Item-Matrix (dünn)</span></div>
+              <div class="code-pre">          Item A   Item B   Item C   Item D
+Nutzer 1    5        .        3        .
+Nutzer 2    .        4        .        2
+Nutzer 3    5        .        4        .
+
+.  = keine Bewertung (zu schaetzen)</div>
+            </div>
+          </div>
+          ${quickCheck('In einem realen Empfehlungssystem hat jeder Nutzer nur einen winzigen Bruchteil aller Items bewertet. Wie nennt man diese Eigenschaft der Matrix?', ['Dünn besetzt (sparse)', 'Voll besetzt (dense)', 'Sortiert'], 0, 'Weil kaum jemand mehr als einen Bruchteil aller Items bewertet, sind fast alle Zellen leer — die Matrix ist <strong>dünn besetzt (sparse)</strong>. Genau das macht das Schätzen der leeren Zellen anspruchsvoll.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Content-based & Collaborative Filtering</div>
+            <div class="explanation">
+              <strong>Content-based</strong> nutzt die Merkmale der Items (Genre, Kategorie, Schlagworte) und baut aus dem, was ein Nutzer mochte, ein Profil — dann empfiehlt es Ähnliches. Vorteil: Es funktioniert auch für <strong>neue Items</strong>, sobald deren Merkmale bekannt sind. Nachteil: Es neigt zur <strong>Filterblase</strong> — es zeigt immer mehr vom Gleichen und wenig Überraschendes.<br><br>
+              <strong>Collaborative Filtering</strong> nutzt stattdessen das Verhalten <em>vieler</em> Nutzer. <strong>Memory-based</strong> arbeitet direkt auf der Matrix: <code>user-based</code> sucht ähnliche Nutzer und empfiehlt, was diese mochten; <code>item-based</code> sucht Items, die denen ähneln, die der Nutzer schon mochte — das ist meist stabiler und besser skalierbar. <strong>Model-based</strong> lernt aus der Matrix kompakte Muster: die <strong>Matrix-Faktorisierung</strong> (z. B. SVD) beschreibt Nutzer und Items durch wenige <em>latente Faktoren</em> und skaliert auch bei großen, dünnen Matrizen gut.
+            </div>
+          </div>
+          ${quickCheck('Ein brandneues Produkt wurde noch von niemandem bewertet, seine Merkmale (Kategorie, Beschreibung) sind aber bekannt. Welcher Ansatz kann es am ehesten empfehlen?', ['Content-based', 'User-based Collaborative Filtering', 'Popularity nach Bewertungen'], 0, 'Ohne einzige Bewertung hat Collaborative Filtering nichts zu vergleichen. <strong>Content-based</strong> braucht keine Bewertungen, sondern die Item-Merkmale — und kann ein neues Item deshalb sofort einordnen.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Ähnlichkeit & Evaluierung</div>
+            <div class="explanation">
+              Wie misst man, dass zwei Nutzer oder zwei Items „ähnlich" sind? Die <strong>Cosine-Similarity</strong> vergleicht den Winkel zwischen zwei Bewertungs-Vektoren und ist damit unempfindlich gegen die Länge — ob jemand generell hoch oder niedrig bewertet, spielt weniger Rolle als das Muster. Die <strong>Pearson-Korrelation</strong> geht noch einen Schritt weiter und rechnet die unterschiedliche <strong>Strenge</strong> der Nutzer heraus (der eine vergibt nie mehr als 3, der andere selten weniger als 4).<br><br>
+              Bewertet wird ehrlich mit Train/Test auf bekannten Ratings: <code>RMSE</code>/<code>MAE</code> messen, wie genau vorhergesagte Bewertungen treffen; <code>Precision@k</code>/<code>Recall@k</code> messen die Qualität der Top-k-Liste. Die zwei Dauerprobleme bleiben <strong>Cold-Start</strong> (neuer Nutzer oder neues Item ohne Daten) und <strong>Sparsity</strong> (zu wenige Bewertungen für verlässliche Ähnlichkeiten).
+            </div>
+          </div>
+          ${callout('fact', 'Hybrid gewinnt', 'In der Praxis kombiniert man die Ansätze zu einem Hybrid: Popularity und Content-based fangen den Cold-Start ab, Collaborative Filtering übernimmt, sobald genug Verhalten vorliegt. Kein Ansatz allein ist überall stark — die Mischung gleicht die jeweiligen Schwächen aus.')}
           ${renderQuestions('ds_l6_1', 6)}
           ${renderBonus('ds_l6_1')}
         `,
@@ -24958,6 +25141,39 @@ df[df["age"] &gt; 30]     # only rows over 30</div>
             </div>
           </div>
           ${callout('tip', 'The cold start', 'A new system or a new user has no interaction data yet — then collaborative filtering fails. That is why in practice you combine approaches: first popularity/content-based, then collaborative filtering as data grows.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">The user-item matrix</div>
+            <div class="explanation">
+              The basic data model of almost every recommender is a big table: the <strong>user-item matrix</strong>. Rows are users, columns are items (films, products), and the cells hold ratings or interactions. The key point: most cells are <strong>empty</strong> — nobody rates everything. So this matrix is <strong>sparse</strong>, and the real task is to sensibly estimate the empty cells.<br><br>
+              <strong>Popularity</strong> is the simplest approach: it ignores the individual user and recommends the same top-N by popularity to everyone. That solves the cold start (there is a suggestion even without user data) but stays impersonal.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">User-item matrix (sparse)</span></div>
+              <div class="code-pre">          Item A   Item B   Item C   Item D
+User 1       5        .        3        .
+User 2       .        4        .        2
+User 3       5        .        4        .
+
+.  = no rating (to be estimated)</div>
+            </div>
+          </div>
+          ${quickCheck('In a real recommender each user has rated only a tiny fraction of all items. What is this property of the matrix called?', ['Sparse', 'Dense', 'Sorted'], 0, 'Because hardly anyone rates more than a fraction of all items, almost all cells are empty — the matrix is <strong>sparse</strong>. That is exactly what makes estimating the empty cells hard.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Content-based & collaborative filtering</div>
+            <div class="explanation">
+              <strong>Content-based</strong> uses the items features (genre, category, tags) and builds a profile from what a user liked — then recommends similar things. Upside: it works even for <strong>new items</strong> as soon as their features are known. Downside: it tends toward a <strong>filter bubble</strong> — showing more and more of the same and little that surprises.<br><br>
+              <strong>Collaborative filtering</strong> instead uses the behavior of <em>many</em> users. <strong>Memory-based</strong> works directly on the matrix: <code>user-based</code> finds similar users and recommends what they liked; <code>item-based</code> finds items similar to the ones the user already liked — usually more stable and more scalable. <strong>Model-based</strong> learns compact patterns from the matrix: <strong>matrix factorization</strong> (e.g. SVD) describes users and items by a few <em>latent factors</em> and scales well even for large, sparse matrices.
+            </div>
+          </div>
+          ${quickCheck('A brand-new product has been rated by nobody yet, but its features (category, description) are known. Which approach can recommend it soonest?', ['Content-based', 'User-based collaborative filtering', 'Popularity by ratings'], 0, 'Without a single rating, collaborative filtering has nothing to compare. <strong>Content-based</strong> needs no ratings, only the item features — so it can place a new item right away.')}
+          <div class="content-card animate-in" style="animation-delay:0.14s">
+            <div class="card-label">Similarity & evaluation</div>
+            <div class="explanation">
+              How do you measure that two users or two items are "similar"? <strong>Cosine similarity</strong> compares the angle between two rating vectors and is thus insensitive to length — whether someone rates high or low in general matters less than the pattern. <strong>Pearson correlation</strong> goes a step further and factors out the differing <strong>strictness</strong> of users (one never gives more than 3, another rarely less than 4).<br><br>
+              Evaluation is honest with train/test on known ratings: <code>RMSE</code>/<code>MAE</code> measure how accurately predicted ratings hit; <code>Precision@k</code>/<code>Recall@k</code> measure the quality of the top-k list. The two lasting problems remain <strong>cold start</strong> (new user or new item without data) and <strong>sparsity</strong> (too few ratings for reliable similarities).
+            </div>
+          </div>
+          ${callout('fact', 'Hybrid wins', 'In practice you combine the approaches into a hybrid: popularity and content-based catch the cold start, collaborative filtering takes over once enough behavior exists. No single approach is strong everywhere — the mix balances out their individual weaknesses.')}
           ${renderQuestions('ds_l6_1', 6)}
           ${renderBonus('ds_l6_1')}
         `
@@ -31794,6 +32010,69 @@ QUESTION_POOLS['ds_l3_1'] = [
     {t:'<code>merge()</code>',t_en:'<code>merge()</code>',correct:true,why:'Genau. <code>merge()</code> verbindet zwei DataFrames über Schlüsselspalten — das direkte Gegenstück zum JOIN.',why_en:'Exactly. <code>merge()</code> connects two DataFrames on key columns — the direct counterpart to a join.'},
     {t:'<code>describe()</code>',t_en:'<code>describe()</code>',correct:false,why:'Nein. <code>describe()</code> liefert nur eine statistische Zusammenfassung einer Tabelle.',why_en:'No. <code>describe()</code> only gives a statistical summary of a table.'},
     {t:'<code>astype()</code>',t_en:'<code>astype()</code>',correct:false,why:'Nein. <code>astype()</code> ändert nur den Datentyp einer Spalte.',why_en:'No. <code>astype()</code> only changes the data type of a column.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l4_1'] = [
+  {id:'p_ds_l4_1_mc1',type:'mc',xp:10,question:'Du willst den Verlauf eines Werts über zwölf Monate zeigen. Welcher Chart-Typ passt am besten?',question_en:'You want to show the trend of a value over twelve months. Which chart type fits best?',options:[
+    {t:'Ein <code>Liniendiagramm</code>',t_en:'A <code>line chart</code>',correct:true,why:'Genau. Die Linie verbindet die Zeitpunkte und macht den Verlauf über die Zeit sofort sichtbar.',why_en:'Exactly. The line connects the time points and makes the trend over time visible at once.'},
+    {t:'Ein <code>Kreisdiagramm</code>',t_en:'A <code>pie chart</code>',correct:false,why:'Nein. Ein Kreis zeigt Anteile am Ganzen zu einem Zeitpunkt, keinen Verlauf über die Zeit.',why_en:'No. A pie shows parts of a whole at one point in time, not a trend over time.'},
+    {t:'Ein <code>Histogramm</code>',t_en:'A <code>histogram</code>',correct:false,why:'Nein. Ein Histogramm zeigt die Verteilung einer Größe, nicht ihre Entwicklung über die Zeit.',why_en:'No. A histogram shows the distribution of a quantity, not its development over time.'}
+  ]},
+  {id:'p_ds_l4_1_mc2',type:'mc',xp:10,question:'Was ist der Hauptunterschied zwischen explorativer und erklärender Visualisierung?',question_en:'What is the main difference between exploratory and explanatory visualization?',options:[
+    {t:'Explorativ ist für einen selbst zum Muster-Finden, erklärend für ein Publikum mit EINER Botschaft',t_en:'Exploratory is for yourself to find patterns, explanatory is for an audience with ONE message',correct:true,why:'Genau. Explorativ heißt schnell und viele Grafiken für sich; erklärend heißt reduziert und beschriftet fürs Publikum.',why_en:'Exactly. Exploratory means quick and many charts for yourself; explanatory means reduced and labeled for the audience.'},
+    {t:'Explorativ nutzt nur Balken, erklärend nur Linien',t_en:'Exploratory uses only bars, explanatory only lines',correct:false,why:'Nein. Der Chart-Typ folgt der Frage, nicht dem Zweck; beide Zwecke nutzen alle Typen.',why_en:'No. The chart type follows the question, not the purpose; both purposes use all types.'},
+    {t:'Explorativ ist immer farbig, erklärend immer schwarz-weiß',t_en:'Exploratory is always colored, explanatory always black and white',correct:false,why:'Nein. Farbe ist ein gezieltes Werkzeug in beiden Fällen, kein Unterscheidungsmerkmal der Zwecke.',why_en:'No. Color is a deliberate tool in both cases, not what distinguishes the purposes.'}
+  ]},
+  {id:'p_ds_l4_1_tf1',type:'truefalse',xp:8,statement:'Bei einem Balkendiagramm sollte die Werteachse (y-Achse) grundsätzlich bei 0 beginnen.',statement_en:'For a bar chart the value axis (y-axis) should generally start at 0.',correct:true,explanation:'Richtig. Beginnt sie höher, wird nur die Spitze der Balken gezeigt und kleine Unterschiede werden dramatisch übertrieben.',explanation_en:'Correct. If it starts higher, only the tips of the bars are shown and small differences are dramatically exaggerated.'},
+  {id:'p_ds_l4_1_tf2',type:'truefalse',xp:8,statement:'Zusätzliche 3D-Effekte und dicke Gitterlinien machen eine Grafik in der Regel verständlicher.',statement_en:'Extra 3D effects and heavy gridlines usually make a chart easier to understand.',correct:false,explanation:'Falsch. Das ist „Chartjunk" — er lenkt vom Inhalt ab. Ziel ist eine hohe Data-Ink-Ratio: viel Daten, wenig Deko.',explanation_en:'False. That is "chartjunk" — it distracts from the content. The goal is a high data-ink ratio: much data, little decoration.'},
+  {id:'p_ds_l4_1_fb1',type:'fillblank',xp:12,prompt:'Um die Verteilung EINER einzelnen numerischen Größe zu zeigen (wie oft welche Werte vorkommen), nutzt man ein ___.',prompt_en:'To show the distribution of ONE single numeric quantity (how often which values occur), you use a ___.',answers:['Histogramm','histogramm','Histogram','histogram'],placeholder:'Chart-Typ…',placeholder_en:'Chart type…',explanation:'Das <code>Histogramm</code> teilt die Werte in Klassen und zeigt deren Häufigkeit — das Standardbild für die Verteilung einer Größe.',explanation_en:'The <code>histogram</code> bins the values and shows their frequency — the standard picture for the distribution of one quantity.'},
+  {id:'p_ds_l4_1_bonus',type:'mc',xp:20,optional:true,question:'Du willst den Zusammenhang zwischen zwei numerischen Größen (z. B. Wohnfläche und Preis) untersuchen. Welcher Chart-Typ eignet sich am besten?',question_en:'You want to examine the relationship between two numeric quantities (e.g. floor area and price). Which chart type is best suited?',options:[
+    {t:'Ein <code>Streudiagramm</code>',t_en:'A <code>scatter plot</code>',correct:true,why:'Genau. Jeder Punkt ist ein Datensatz mit zwei Koordinaten — ideal, um einen Zusammenhang zweier Größen zu erkennen.',why_en:'Exactly. Each point is a record with two coordinates — ideal for spotting a relationship between two quantities.'},
+    {t:'Ein <code>Kreisdiagramm</code>',t_en:'A <code>pie chart</code>',correct:false,why:'Nein. Ein Kreis zeigt nur Anteile einer einzelnen Größe, keinen Zusammenhang zweier Größen.',why_en:'No. A pie only shows parts of a single quantity, not a relationship between two.'},
+    {t:'Ein <code>Balkendiagramm</code>',t_en:'A <code>bar chart</code>',correct:false,why:'Nein. Balken vergleichen Kategorien; für zwei numerische Größen ist das Streudiagramm passender.',why_en:'No. Bars compare categories; for two numeric quantities the scatter plot fits better.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l5_1'] = [
+  {id:'p_ds_l5_1_mc1',type:'mc',xp:10,question:'Ein Modell soll aus Merkmalen einer E-Mail vorhersagen, ob sie Spam ist oder nicht. Um welche Aufgabe handelt es sich?',question_en:'A model should predict from an email\'s features whether it is spam or not. What kind of task is this?',options:[
+    {t:'<code>Klassifikation</code> (Kategorie vorhersagen)',t_en:'<code>Classification</code> (predict a category)',correct:true,why:'Genau. „Spam oder nicht" ist eine Kategorie — das ist Klassifikation.',why_en:'Exactly. "Spam or not" is a category — that is classification.'},
+    {t:'<code>Regression</code> (Zahl vorhersagen)',t_en:'<code>Regression</code> (predict a number)',correct:false,why:'Nein. Regression sagt eine Zahl voraus; hier geht es um eine Kategorie.',why_en:'No. Regression predicts a number; here it is about a category.'},
+    {t:'<code>Clustering</code> (gruppieren)',t_en:'<code>Clustering</code> (grouping)',correct:false,why:'Nein. Clustering arbeitet ohne bekannte Antworten; hier ist die Antwort (Spam/kein Spam) bekannt.',why_en:'No. Clustering works without known answers; here the answer (spam / not) is known.'}
+  ]},
+  {id:'p_ds_l5_1_mc2',type:'mc',xp:10,question:'Ein Modell erreicht auf den Trainingsdaten fast 100 %, auf ungesehenen Testdaten aber nur mäßige Werte. Was liegt vor?',question_en:'A model reaches nearly 100% on the training data but only mediocre values on unseen test data. What is going on?',options:[
+    {t:'<code>Overfitting</code>',t_en:'<code>Overfitting</code>',correct:true,why:'Genau. Der große Abstand Training zu Test zeigt, dass das Modell die Trainingsdaten auswendig gelernt hat.',why_en:'Exactly. The large gap between training and test shows the model memorized the training data.'},
+    {t:'<code>Underfitting</code>',t_en:'<code>Underfitting</code>',correct:false,why:'Nein. Underfitting wäre schlecht auf beidem; hier ist das Training ja sehr gut.',why_en:'No. Underfitting would be poor on both; here training is very good.'},
+    {t:'Ein ideal generalisierendes Modell',t_en:'An ideally generalizing model',correct:false,why:'Nein. Gute Generalisierung hieße ähnliche Werte auf Training und Test, nicht ein starker Abfall.',why_en:'No. Good generalization would mean similar values on training and test, not a sharp drop.'}
+  ]},
+  {id:'p_ds_l5_1_tf1',type:'truefalse',xp:8,statement:'Ein Modell darf nur auf ungesehenen Testdaten ehrlich bewertet werden, nicht auf den Trainingsdaten.',statement_en:'A model may be honestly evaluated only on unseen test data, not on the training data.',correct:true,explanation:'Richtig. Auf den Trainingsdaten kennt das Modell die Antworten schon — nur ungesehene Daten zeigen die echte Leistung.',explanation_en:'Correct. On training data the model already knows the answers — only unseen data shows the real performance.'},
+  {id:'p_ds_l5_1_tf2',type:'truefalse',xp:8,statement:'Beim unüberwachten Lernen (Unsupervised Learning) sind zu jedem Beispiel die richtigen Antworten (Labels) bekannt.',statement_en:'In unsupervised learning the correct answers (labels) are known for every example.',correct:false,explanation:'Falsch. Genau das Gegenteil: Unsupervised Learning findet Struktur ohne Labels, z. B. durch Clustering.',explanation_en:'False. Quite the opposite: unsupervised learning finds structure without labels, e.g. through clustering.'},
+  {id:'p_ds_l5_1_fb1',type:'fillblank',xp:12,prompt:'Die Klassifikations-Metrik, die angibt, welcher Anteil der wirklich positiven Fälle vom Modell auch gefunden wurde, heißt ___.',prompt_en:'The classification metric that states which share of the truly positive cases the model actually found is called ___.',answers:['Recall','recall','Sensitivität','Sensitivitaet','Trefferquote'],placeholder:'Metrik…',placeholder_en:'Metric…',explanation:'<code>Recall</code> = TP / (TP + FN): von allen wirklich positiven Fällen der Anteil, den das Modell erwischt. Precision misst dagegen die Verlässlichkeit der positiven Vorhersagen.',explanation_en:'<code>Recall</code> = TP / (TP + FN): of all truly positive cases the share the model catches. Precision by contrast measures the reliability of the positive predictions.'},
+  {id:'p_ds_l5_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Maßnahme wirkt NICHT gegen Overfitting?',question_en:'Which measure does NOT help against overfitting?',options:[
+    {t:'Das Modell noch komplexer und flexibler machen',t_en:'Making the model even more complex and flexible',correct:true,why:'Genau — das ist die Falle. Mehr Komplexität verstärkt Overfitting eher, statt es zu verringern.',why_en:'Exactly — that is the trap. More complexity tends to worsen overfitting rather than reduce it.'},
+    {t:'Mehr Trainingsdaten sammeln',t_en:'Collecting more training data',correct:false,why:'Nein, das hilft: Mehr Daten machen es schwerer, bloßes Rauschen auswendig zu lernen.',why_en:'No, that helps: more data makes it harder to memorize mere noise.'},
+    {t:'Regularisierung einsetzen',t_en:'Applying regularization',correct:false,why:'Nein, das hilft: Regularisierung bestraft zu große Komplexität und dämpft so Overfitting.',why_en:'No, that helps: regularization penalizes too much complexity and thus curbs overfitting.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l6_1'] = [
+  {id:'p_ds_l6_1_mc1',type:'mc',xp:10,question:'In der User-Item-Matrix eines realen Systems sind die allermeisten Zellen leer. Wie beschreibt man diese Matrix?',question_en:'In the user-item matrix of a real system the vast majority of cells are empty. How is this matrix described?',options:[
+    {t:'Als <code>dünn besetzt</code> (sparse)',t_en:'As <code>sparse</code>',correct:true,why:'Genau. Kaum jemand bewertet mehr als einen Bruchteil aller Items, daher sind fast alle Zellen leer.',why_en:'Exactly. Hardly anyone rates more than a fraction of all items, so almost all cells are empty.'},
+    {t:'Als <code>voll besetzt</code> (dense)',t_en:'As <code>dense</code>',correct:false,why:'Nein. Dense hieße, fast alle Zellen sind gefüllt — das Gegenteil des Normalfalls.',why_en:'No. Dense would mean almost all cells are filled — the opposite of the usual case.'},
+    {t:'Als <code>quadratisch</code>',t_en:'As <code>square</code>',correct:false,why:'Nein. Die Zahl der Nutzer und der Items ist meist ganz verschieden; auf die Form kommt es hier nicht an.',why_en:'No. The number of users and items is usually quite different; the shape is not the point here.'}
+  ]},
+  {id:'p_ds_l6_1_mc2',type:'mc',xp:10,question:'„Nutzer, die ähnlich bewertet haben wie du, mochten auch X." Welcher Ansatz steckt dahinter?',question_en:'"Users who rated similarly to you also liked X." Which approach is behind this?',options:[
+    {t:'<code>Collaborative Filtering</code>',t_en:'<code>Collaborative filtering</code>',correct:true,why:'Genau. Es nutzt das Verhalten vieler Nutzer und deren Ähnlichkeit, statt nur Item-Merkmale.',why_en:'Exactly. It uses the behavior of many users and their similarity, not just item features.'},
+    {t:'<code>Content-based</code>',t_en:'<code>Content-based</code>',correct:false,why:'Nein. Content-based nutzt die Merkmale der Items, nicht die Ähnlichkeit zwischen Nutzern.',why_en:'No. Content-based uses item features, not the similarity between users.'},
+    {t:'<code>Popularity</code>',t_en:'<code>Popularity</code>',correct:false,why:'Nein. Popularity empfiehlt allen dasselbe Beliebteste, unabhängig von einzelnen Nutzern.',why_en:'No. Popularity recommends the same most-popular items to everyone, regardless of the individual user.'}
+  ]},
+  {id:'p_ds_l6_1_tf1',type:'truefalse',xp:8,statement:'Content-based Filtering kann ein neues Item empfehlen, sobald dessen Merkmale bekannt sind — auch ohne eine einzige Bewertung.',statement_en:'Content-based filtering can recommend a new item as soon as its features are known — even without a single rating.',correct:true,explanation:'Richtig. Da es die Item-Merkmale nutzt, braucht es keine Bewertungshistorie und umgeht so den Cold-Start für neue Items.',explanation_en:'Correct. Since it uses item features, it needs no rating history and thus sidesteps the cold start for new items.'},
+  {id:'p_ds_l6_1_tf2',type:'truefalse',xp:8,statement:'Die Cosine-Similarity misst die Ähnlichkeit über den Winkel zwischen zwei Vektoren und ist damit unempfindlich gegen deren Länge.',statement_en:'Cosine similarity measures similarity via the angle between two vectors and is thus insensitive to their length.',correct:true,explanation:'Richtig. Nicht der Betrag, sondern das Muster zählt — ob jemand generell hoch oder niedrig bewertet, spielt eine geringere Rolle.',explanation_en:'Correct. Not the magnitude but the pattern counts — whether someone rates high or low in general matters less.'},
+  {id:'p_ds_l6_1_fb1',type:'fillblank',xp:12,prompt:'Das Problem, dass ein neuer Nutzer oder ein neues Item noch keine Daten hat und daher schwer zu empfehlen ist, heißt ___-Start.',prompt_en:'The problem that a new user or a new item has no data yet and is therefore hard to recommend is called the ___ start.',answers:['Cold','cold','Kalt','kalt'],placeholder:'…-Start',placeholder_en:'… start',explanation:'Beim <code>Cold-Start</code> fehlen die Interaktionsdaten. Man überbrückt ihn meist mit Popularity oder Content-based, bis genug Verhalten vorliegt.',explanation_en:'In the <code>cold start</code> the interaction data is missing. You usually bridge it with popularity or content-based until enough behavior exists.'},
+  {id:'p_ds_l6_1_bonus',type:'mc',xp:20,optional:true,question:'Was beschreibt die Matrix-Faktorisierung (z. B. SVD) in einem Empfehlungssystem am besten?',question_en:'What best describes matrix factorization (e.g. SVD) in a recommender system?',options:[
+    {t:'Sie beschreibt Nutzer und Items durch wenige latente Faktoren und skaliert gut bei großen, dünnen Matrizen',t_en:'It describes users and items by a few latent factors and scales well for large, sparse matrices',correct:true,why:'Genau. Aus den beobachteten Bewertungen werden kompakte latente Faktoren gelernt, die auch leere Zellen schätzen.',why_en:'Exactly. From the observed ratings it learns compact latent factors that also estimate empty cells.'},
+    {t:'Sie empfiehlt allen Nutzern schlicht die beliebtesten Items',t_en:'It simply recommends the most popular items to all users',correct:false,why:'Nein, das wäre Popularity. Matrix-Faktorisierung ist personalisiert und modellbasiert.',why_en:'No, that would be popularity. Matrix factorization is personalized and model-based.'},
+    {t:'Sie nutzt ausschließlich die Textmerkmale der Items',t_en:'It uses only the text features of the items',correct:false,why:'Nein, das wäre content-based. Matrix-Faktorisierung lernt aus dem Bewertungsverhalten, nicht aus Item-Texten.',why_en:'No, that would be content-based. Matrix factorization learns from rating behavior, not from item texts.'}
   ]}
 ];
 
