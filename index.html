@@ -24515,6 +24515,41 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('key', 'Merke', 'Korrelation ist nicht Kausalität. Dass zwei Größen zusammen steigen, heißt nicht, dass die eine die andere verursacht — dafür braucht es ein sauberes Experiment (z. B. einen A/B-Test mit Kontrollgruppe).')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Lagemaße & Streumaße</div>
+            <div class="explanation">
+              <strong>Lagemaße</strong> beschreiben die Mitte einer Verteilung. Der <code>Mittelwert</code> ist die Summe aller Werte geteilt durch ihre Anzahl — einfach, aber empfindlich gegenüber Ausreißern. Der <code>Median</code> ist der Wert genau in der Mitte der sortierten Daten und bleibt stabil, selbst wenn einzelne Werte extrem sind. Der <code>Modus</code> ist der häufigste Wert.<br><br>
+              <strong>Streumaße</strong> beschreiben, wie weit die Werte auseinanderliegen. Die <code>Varianz</code> ist die mittlere quadratische Abweichung vom Mittelwert; die <code>Standardabweichung</code> ist ihre Wurzel und steht wieder in der Originaleinheit, ist also leichter zu deuten. Die <code>Spannweite</code> ist der Abstand zwischen kleinstem und größtem Wert, und der <code>IQR</code> (Interquartilsabstand) fasst die mittleren 50 % der Daten zusammen — ein robustes Maß, um Ausreißer zu erkennen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Mittelwert vs. Median</span></div>
+              <div class="code-pre">Daten:      2  3  3  4  5
+Mittelwert: (2+3+3+4+5) / 5 = 3.4
+Median:     mittlerer Wert  = 3
+
+Ein Ausreißer kommt dazu (100):
+Daten:      2  3  3  4  5  100
+Mittelwert: 117 / 6 = 19.5   -&gt; stark verzerrt
+Median:     (3+4) / 2 = 3.5  -&gt; kaum bewegt</div>
+            </div>
+          </div>
+          ${quickCheck('Ein einzelner sehr großer Ausreißer taucht in den Daten auf. Welches Lagemaß bleibt am stabilsten?', ['Der Mittelwert', 'Der Median', 'Die Spannweite'], 1, 'Der <strong>Median</strong> ist nur der Wert in der Mitte — ein einzelner Extremwert verschiebt ihn kaum. Der Mittelwert dagegen zählt jeden Wert voll mit und wird von Ausreißern nach oben oder unten gezogen.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Wahrscheinlichkeit & Normalverteilung</div>
+            <div class="explanation">
+              Eine <strong>Wahrscheinlichkeit</strong> liegt immer zwischen 0 (unmöglich) und 1 (sicher). Wie sich viele Messwerte verteilen, beschreibt eine <strong>Verteilung</strong>. Die wichtigste ist die <code>Normalverteilung</code> — die symmetrische Glockenkurve, deren Werte sich um den Mittelwert häufen.<br><br>
+              Für sie gilt die <strong>68–95–99,7-Regel</strong>: rund 68 % aller Werte liegen im Bereich einer Standardabweichung um den Mittelwert, etwa 95 % innerhalb von zwei und rund 99,7 % innerhalb von drei. Dass so viele reale Größen annähernd normalverteilt sind, erklärt der <strong>Zentrale Grenzwertsatz</strong>: Bildet man aus vielen Stichproben jeweils den Mittelwert, nähern sich diese Mittelwerte einer Normalverteilung — fast unabhängig davon, wie die Einzeldaten verteilt sind.
+            </div>
+          </div>
+          ${callout('fact', 'Die 68–95–99,7-Regel', 'Bei einer Normalverteilung liegen etwa zwei von drei Werten innerhalb einer Standardabweichung und 19 von 20 innerhalb von zwei. Ein Wert jenseits von drei Standardabweichungen ist so selten (unter 0,3 %), dass er meist ein echter Ausreißer ist.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Von der Stichprobe zur Aussage</div>
+            <div class="explanation">
+              <strong>Inferenz</strong> schließt von einer Stichprobe auf die ganze Grundgesamtheit. Man startet mit einer <code>Nullhypothese</code> — der Annahme, es gebe keinen Effekt. Der <code>p-Wert</code> gibt an, wie überraschend die beobachteten Daten wären, falls die Nullhypothese stimmt: ein kleiner p-Wert (etwa unter dem Signifikanzniveau 0,05) spricht dafür, dass der Effekt eher echt als reiner Zufall ist. Ein <code>Konfidenzintervall</code> nennt statt einer Scheingenauigkeit einen plausiblen Bereich, z. B. „mit 95 % Sicherheit zwischen 12 und 18".<br><br>
+              Um Ursachen sauber zu prüfen, dient der <strong>A/B-Test</strong>: zwei zufällig gebildete Gruppen, von denen nur eine die Änderung erhält (die andere ist die Kontrollgruppe), wobei genau <em>eine</em> Variable verändert wird. Nur so lässt sich ein Effekt der Änderung zuordnen — denn ein <code>Confounder</code> (eine dritte Störvariable, die beide Größen beeinflusst) kann sonst eine Scheinbeziehung vortäuschen.
+            </div>
+          </div>
+          ${quickCheck('In einem A/B-Test misst du, ob ein neuer Ablauf besser wirkt. Wozu dient die Kontrollgruppe?', ['Sie erhält die Änderung doppelt', 'Sie liefert den Vergleichswert ohne die Änderung', 'Sie macht den Test schneller'], 1, 'Ohne eine unveränderte <strong>Kontrollgruppe</strong> weißt du nicht, was auch ohne die Änderung passiert wäre. Erst der Vergleich beider Gruppen trennt den echten Effekt vom allgemeinen Trend.')}
           ${renderQuestions('ds_l1_1', 6)}
           ${renderBonus('ds_l1_1')}
         `,
@@ -24532,6 +24567,41 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('key', 'Remember', 'Correlation is not causation. That two quantities rise together does not mean one causes the other — that requires a clean experiment (e.g. an A/B test with a control group).')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Center & spread</div>
+            <div class="explanation">
+              <strong>Measures of center</strong> describe the middle of a distribution. The <code>mean</code> is the sum of all values divided by their count — simple, but sensitive to outliers. The <code>median</code> is the value right in the middle of the sorted data and stays stable even when single values are extreme. The <code>mode</code> is the most frequent value.<br><br>
+              <strong>Measures of spread</strong> describe how far the values lie apart. The <code>variance</code> is the mean squared deviation from the mean; the <code>standard deviation</code> is its square root and is back in the original unit, so it is easier to interpret. The <code>range</code> is the distance between the smallest and largest value, and the <code>IQR</code> (interquartile range) captures the middle 50% of the data — a robust way to spot outliers.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Mean vs. median</span></div>
+              <div class="code-pre">Data:   2  3  3  4  5
+Mean:   (2+3+3+4+5) / 5 = 3.4
+Median: middle value    = 3
+
+Add one outlier (100):
+Data:   2  3  3  4  5  100
+Mean:   117 / 6 = 19.5   -&gt; heavily skewed
+Median: (3+4) / 2 = 3.5  -&gt; barely moves</div>
+            </div>
+          </div>
+          ${quickCheck('A single very large outlier appears in the data. Which measure of center stays most stable?', ['The mean', 'The median', 'The range'], 1, 'The <strong>median</strong> is just the value in the middle — a single extreme value barely shifts it. The mean, by contrast, counts every value fully and gets pulled up or down by outliers.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Probability & the normal distribution</div>
+            <div class="explanation">
+              A <strong>probability</strong> always lies between 0 (impossible) and 1 (certain). How many measurements spread out is described by a <strong>distribution</strong>. The most important one is the <code>normal distribution</code> — the symmetric bell curve whose values cluster around the mean.<br><br>
+              For it the <strong>68–95–99.7 rule</strong> holds: about 68% of all values lie within one standard deviation of the mean, roughly 95% within two and about 99.7% within three. That so many real quantities are approximately normal is explained by the <strong>central limit theorem</strong>: if you take the mean of many samples, those means approach a normal distribution — almost regardless of how the individual data is distributed.
+            </div>
+          </div>
+          ${callout('fact', 'The 68–95–99.7 rule', 'In a normal distribution about two in three values lie within one standard deviation and 19 in 20 within two. A value beyond three standard deviations is so rare (under 0.3%) that it is usually a genuine outlier.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">From sample to statement</div>
+            <div class="explanation">
+              <strong>Inference</strong> reasons from a sample to the whole population. You start with a <code>null hypothesis</code> — the assumption that there is no effect. The <code>p-value</code> says how surprising the observed data would be if the null hypothesis were true: a small p-value (say below the significance level 0.05) argues that the effect is more likely real than pure chance. A <code>confidence interval</code> gives a plausible range instead of false precision, e.g. "with 95% confidence between 12 and 18".<br><br>
+              To test causes cleanly, use an <strong>A/B test</strong>: two randomly formed groups, only one of which gets the change (the other is the control group), while exactly <em>one</em> variable is changed. Only then can an effect be attributed to the change — because a <code>confounder</code> (a third lurking variable that influences both quantities) could otherwise fake a spurious relationship.
+            </div>
+          </div>
+          ${quickCheck('In an A/B test you measure whether a new flow works better. What is the control group for?', ['It gets the change twice', 'It provides the baseline without the change', 'It makes the test faster'], 1, 'Without an unchanged <strong>control group</strong> you do not know what would have happened anyway. Only comparing both groups separates the real effect from a general trend.')}
           ${renderQuestions('ds_l1_1', 6)}
           ${renderBonus('ds_l1_1')}
         `
@@ -24559,6 +24629,40 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Profi-Tipp', 'Denke in Mengen, nicht in Schleifen. SQL beschreibt, WAS du willst (das Ergebnis), nicht WIE es Zeile für Zeile berechnet wird. Wer versucht, wie in einer Programmiersprache durch die Daten zu „laufen", macht sich das Leben unnötig schwer.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Das relationale Modell</div>
+            <div class="explanation">
+              In einer relationalen Datenbank steht jede <strong>Tabelle</strong> für eine Art von Objekt — etwa Kunden oder Bestellungen. Eine <strong>Zeile</strong> ist ein einzelner Datensatz, eine <strong>Spalte</strong> ein Feld mit festem Datentyp.<br><br>
+              Jede Zeile bekommt einen <code>Primärschlüssel</code> — eine eindeutige ID, die den Datensatz zweifelsfrei identifiziert. Ein <code>Fremdschlüssel</code> ist eine Spalte, die auf den Primärschlüssel einer anderen Tabelle verweist. So entstehen Beziehungen: Eine Bestellung trägt die Kunden-ID als Fremdschlüssel und ist damit eindeutig einem Kunden zugeordnet — ohne die Kundendaten zu wiederholen.
+            </div>
+          </div>
+          ${quickCheck('Wodurch wird eine einzelne Zeile in einer Tabelle zweifelsfrei identifiziert?', ['Durch den Fremdschlüssel', 'Durch den Primärschlüssel', 'Durch die Sortierung'], 1, 'Der <strong>Primärschlüssel</strong> ist die eindeutige ID jeder Zeile. Ein Fremdschlüssel zeigt dagegen auf den Primärschlüssel einer <em>anderen</em> Tabelle und stellt so die Verbindung her.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Aggregieren & Gruppen filtern</div>
+            <div class="explanation">
+              Aggregatfunktionen fassen viele Zeilen zu einer Kennzahl zusammen: <code>COUNT</code> zählt, <code>SUM</code> summiert, <code>AVG</code> bildet den Durchschnitt, <code>MIN</code> und <code>MAX</code> liefern Extremwerte. Mit <code>GROUP BY</code> geschieht das je Gruppe — etwa eine Summe pro Land.<br><br>
+              Wichtig ist der Unterschied zwischen <code>WHERE</code> und <code>HAVING</code>: <code>WHERE</code> filtert einzelne Zeilen <em>vor</em> der Gruppierung, <code>HAVING</code> filtert fertige Gruppen <em>nach</em> der Aggregation. „Nur Bestellungen dieses Jahres" ist WHERE; „nur Kunden mit mehr als zehn Bestellungen" ist HAVING.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">JOIN + GROUP BY</span></div>
+              <div class="code-pre">SELECT c.land, COUNT(*) AS bestellungen, SUM(o.betrag) AS umsatz
+FROM orders o
+INNER JOIN customers c ON o.kunden_id = c.id
+WHERE o.jahr = 2024
+GROUP BY c.land
+HAVING SUM(o.betrag) &gt; 1000
+ORDER BY umsatz DESC;</div>
+            </div>
+          </div>
+          ${callout('key', 'WHERE vs. HAVING', 'Eine Merkregel: <code>WHERE</code> filtert Zeilen, bevor gruppiert wird; <code>HAVING</code> filtert Gruppen, nachdem aggregiert wurde. Wer eine Aggregatfunktion wie <code>SUM</code> in der Bedingung braucht, muss <code>HAVING</code> nehmen.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">JOINs & Ausführungsreihenfolge</div>
+            <div class="explanation">
+              Ein <code>INNER JOIN</code> liefert nur Zeilen, zu denen es in <em>beiden</em> Tabellen einen Treffer gibt. Ein <code>LEFT JOIN</code> behält dagegen alle Zeilen der linken Tabelle und ergänzt die passenden Werte von rechts — fehlt ein Partner, stehen dort <code>NULL</code>-Werte. Die Tabellen werden über die <code>ON</code>-Bedingung verbunden, z. B. <code>ON o.kunden_id = c.id</code>.<br><br>
+              Auch wenn man <code>SELECT</code> zuerst schreibt, wertet die Datenbank grob in dieser Reihenfolge aus: <code>FROM</code> -&gt; <code>WHERE</code> -&gt; <code>GROUP BY</code> -&gt; <code>HAVING</code> -&gt; <code>SELECT</code> -&gt; <code>ORDER BY</code>. Dieses Wissen erklärt, warum ein in SELECT vergebener Spaltenname in WHERE oft noch nicht nutzbar ist.
+            </div>
+          </div>
+          ${quickCheck('Du willst ALLE Kunden auflisten, auch die ohne einzige Bestellung. Welcher JOIN passt?', ['INNER JOIN', 'LEFT JOIN (Kunden links)', 'Gar kein JOIN'], 1, 'Ein <strong>LEFT JOIN</strong> mit den Kunden auf der linken Seite behält jede Kundenzeile, selbst ohne passende Bestellung — dort stehen dann NULL-Werte. Ein INNER JOIN würde kundenlose Kunden ganz weglassen.')}
           ${renderQuestions('ds_l2_1', 6)}
           ${renderBonus('ds_l2_1')}
         `,
@@ -24576,6 +24680,40 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('tip', 'Pro tip', 'Think in sets, not loops. SQL describes WHAT you want (the result), not HOW it is computed row by row. Trying to "walk" through the data like in a programming language makes life unnecessarily hard.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The relational model</div>
+            <div class="explanation">
+              In a relational database each <strong>table</strong> stands for one kind of object — say customers or orders. A <strong>row</strong> is a single record, a <strong>column</strong> a field with a fixed data type.<br><br>
+              Every row gets a <code>primary key</code> — a unique ID that identifies the record unambiguously. A <code>foreign key</code> is a column that points to the primary key of another table. That is how relationships form: an order carries the customer ID as a foreign key and is thereby tied to exactly one customer — without repeating the customer data.
+            </div>
+          </div>
+          ${quickCheck('What unambiguously identifies a single row in a table?', ['The foreign key', 'The primary key', 'The sort order'], 1, 'The <strong>primary key</strong> is the unique ID of every row. A foreign key instead points to the primary key of <em>another</em> table and so creates the link.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Aggregate & filter groups</div>
+            <div class="explanation">
+              Aggregate functions condense many rows into one metric: <code>COUNT</code> counts, <code>SUM</code> adds up, <code>AVG</code> averages, <code>MIN</code> and <code>MAX</code> give extremes. With <code>GROUP BY</code> this happens per group — say a sum per country.<br><br>
+              The key distinction is between <code>WHERE</code> and <code>HAVING</code>: <code>WHERE</code> filters individual rows <em>before</em> grouping, <code>HAVING</code> filters finished groups <em>after</em> aggregation. "Only orders from this year" is WHERE; "only customers with more than ten orders" is HAVING.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">JOIN + GROUP BY</span></div>
+              <div class="code-pre">SELECT c.country, COUNT(*) AS orders, SUM(o.amount) AS revenue
+FROM orders o
+INNER JOIN customers c ON o.customer_id = c.id
+WHERE o.year = 2024
+GROUP BY c.country
+HAVING SUM(o.amount) &gt; 1000
+ORDER BY revenue DESC;</div>
+            </div>
+          </div>
+          ${callout('key', 'WHERE vs. HAVING', 'A rule of thumb: <code>WHERE</code> filters rows before grouping; <code>HAVING</code> filters groups after aggregation. If you need an aggregate function like <code>SUM</code> in the condition, you must use <code>HAVING</code>.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Joins & execution order</div>
+            <div class="explanation">
+              An <code>INNER JOIN</code> returns only rows that have a match in <em>both</em> tables. A <code>LEFT JOIN</code> instead keeps every row of the left table and adds the matching values from the right — if a partner is missing, <code>NULL</code> values stand there. The tables are connected via the <code>ON</code> condition, e.g. <code>ON o.customer_id = c.id</code>.<br><br>
+              Even though you write <code>SELECT</code> first, the database evaluates roughly in this order: <code>FROM</code> -&gt; <code>WHERE</code> -&gt; <code>GROUP BY</code> -&gt; <code>HAVING</code> -&gt; <code>SELECT</code> -&gt; <code>ORDER BY</code>. That knowledge explains why a column alias defined in SELECT often cannot be used yet in WHERE.
+            </div>
+          </div>
+          ${quickCheck('You want to list ALL customers, including those with no order at all. Which join fits?', ['INNER JOIN', 'LEFT JOIN (customers on the left)', 'No join at all'], 1, 'A <strong>LEFT JOIN</strong> with customers on the left keeps every customer row, even without a matching order — those get NULL values. An INNER JOIN would drop customers with no orders entirely.')}
           ${renderQuestions('ds_l2_1', 6)}
           ${renderBonus('ds_l2_1')}
         `
@@ -24603,6 +24741,40 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('key', 'Merke', 'Rund 80 % der Arbeit im Data Science ist Datenbereinigung und -aufbereitung, nicht das Modell. Garbage in, garbage out: Das beste Verfahren liefert Unsinn, wenn die Eingabedaten schmutzig sind.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Laden & erkunden</div>
+            <div class="explanation">
+              Ein <strong>DataFrame</strong> ist eine 2D-Tabelle im Speicher; jede Spalte ist eine <code>Series</code>, und sowohl Zeilen als auch Spalten haben einen Index. Geladen wird meist mit <code>read_csv</code>.<br><br>
+              Bevor man rechnet, verschafft man sich einen Überblick: <code>head()</code> zeigt die ersten Zeilen, <code>info()</code> nennt Datentypen und fehlende Werte, <code>describe()</code> liefert eine statistische Zusammenfassung (Mittelwert, Quartile, Minimum, Maximum) und <code>shape</code> gibt die Größe als Zeilen mal Spalten zurück.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Erste Schritte</span></div>
+              <div class="code-pre">import pandas as pd
+
+df = pd.read_csv("daten.csv")
+df.head()          # erste Zeilen ansehen
+df.info()          # Typen und NULL-Werte
+df.shape           # (Zeilen, Spalten)
+df[df["alter"] &gt; 30]   # nur Zeilen ueber 30</div>
+            </div>
+          </div>
+          ${quickCheck('Du willst schnell sehen, welche Spalten fehlende Werte enthalten und welchen Datentyp sie haben. Welche Methode passt?', ['head()', 'info()', 'shape'], 1, '<code>info()</code> listet je Spalte den Datentyp und die Zahl der gefüllten Werte — daraus liest du sofort ab, wo Werte fehlen. head() zeigt nur die ersten Zeilen, shape nur die Größe.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Auswählen & filtern</div>
+            <div class="explanation">
+              Eine einzelne Spalte holst du mit <code>df["spalte"]</code>, mehrere mit einer Liste <code>df[["a","b"]]</code>. Für gezielten Zugriff gibt es zwei Wege: <code>df.loc[]</code> wählt nach <strong>Label</strong> (Zeilen- und Spaltennamen), <code>df.iloc[]</code> nach <strong>Position</strong> (Zahlindex ab 0).<br><br>
+              Am häufigsten ist der <strong>Boolesche Filter</strong>: <code>df[df["alter"] &gt; 30]</code> behält nur die Zeilen, für die die Bedingung wahr ist. Solche Bedingungen lassen sich mit <code>&amp;</code> (und) und <code>|</code> (oder) kombinieren — jede Teilbedingung gehört dabei in eigene Klammern.
+            </div>
+          </div>
+          ${quickCheck('Du kennst die genaue Zeilennummer (Position 5), aber keinen Zeilennamen. Womit greifst du zu?', ['df.loc[5]', 'df.iloc[5]', 'df["5"]'], 1, '<code>iloc</code> arbeitet nach <strong>Position</strong> (dem Zahlindex ab 0), <code>loc</code> nach <strong>Label</strong>. Kennst du nur die Position und nicht den Namen, ist iloc der richtige Weg.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Gruppieren, bereinigen & zusammenführen</div>
+            <div class="explanation">
+              <code>groupby</code> ist das Gegenstück zu SQLs GROUP BY: <code>df.groupby("land")["umsatz"].mean()</code> bildet je Gruppe eine Kennzahl, und mit <code>agg()</code> lassen sich mehrere Kennzahlen auf einmal berechnen.<br><br>
+              Reale Daten sind selten sauber. Fehlende Werte erscheinen als <code>NaN</code>; du findest sie mit <code>isna()</code> und behandelst sie mit <code>fillna()</code> (auffüllen) oder <code>dropna()</code> (entfernen). <code>drop_duplicates()</code> wirft doppelte Zeilen raus, <code>astype()</code> ändert den Datentyp, <code>rename()</code> benennt Spalten um. Und <code>merge()</code> führt zwei DataFrames über einen gemeinsamen Schlüssel zusammen — genau wie ein SQL-JOIN.
+            </div>
+          </div>
+          ${callout('warn', 'Erst putzen, dann rechnen', 'Rund 80 % der Arbeit im Data Science ist Aufräumen, nicht Modellieren. Garbage in, garbage out: Ein NaN in einer Spalte kann eine ganze Auswertung verfälschen, wenn es unbemerkt in eine Summe oder einen Mittelwert einfließt.')}
           ${renderQuestions('ds_l3_1', 6)}
           ${renderBonus('ds_l3_1')}
         `,
@@ -24620,6 +24792,40 @@ const DS_PHASES = [
             </div>
           </div>
           ${callout('key', 'Remember', 'About 80% of data science work is data cleaning and preparation, not the model. Garbage in, garbage out: the best method produces nonsense if the input data is dirty.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Load & explore</div>
+            <div class="explanation">
+              A <strong>DataFrame</strong> is a 2D in-memory table; each column is a <code>Series</code>, and both rows and columns have an index. You usually load it with <code>read_csv</code>.<br><br>
+              Before computing anything, get an overview: <code>head()</code> shows the first rows, <code>info()</code> names data types and missing values, <code>describe()</code> gives a statistical summary (mean, quartiles, minimum, maximum) and <code>shape</code> returns the size as rows by columns.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">First steps</span></div>
+              <div class="code-pre">import pandas as pd
+
+df = pd.read_csv("data.csv")
+df.head()          # look at the first rows
+df.info()          # types and NULL values
+df.shape           # (rows, columns)
+df[df["age"] &gt; 30]     # only rows over 30</div>
+            </div>
+          </div>
+          ${quickCheck('You want to quickly see which columns contain missing values and what data type they have. Which method fits?', ['head()', 'info()', 'shape'], 1, '<code>info()</code> lists the data type and the count of filled values per column — from that you read off at once where values are missing. head() shows only the first rows, shape only the size.')}
+          <div class="content-card animate-in" style="animation-delay:0.1s">
+            <div class="card-label">Select & filter</div>
+            <div class="explanation">
+              You get a single column with <code>df["column"]</code>, several with a list <code>df[["a","b"]]</code>. For targeted access there are two ways: <code>df.loc[]</code> selects by <strong>label</strong> (row and column names), <code>df.iloc[]</code> by <strong>position</strong> (integer index from 0).<br><br>
+              The most common is the <strong>boolean filter</strong>: <code>df[df["age"] &gt; 30]</code> keeps only the rows for which the condition is true. Such conditions combine with <code>&amp;</code> (and) and <code>|</code> (or) — each part belongs in its own parentheses.
+            </div>
+          </div>
+          ${quickCheck('You know the exact row number (position 5) but no row name. What do you use?', ['df.loc[5]', 'df.iloc[5]', 'df["5"]'], 1, '<code>iloc</code> works by <strong>position</strong> (the integer index from 0), <code>loc</code> by <strong>label</strong>. If you only know the position and not the name, iloc is the right way.')}
+          <div class="content-card animate-in" style="animation-delay:0.12s">
+            <div class="card-label">Group, clean & merge</div>
+            <div class="explanation">
+              <code>groupby</code> is the counterpart to SQL GROUP BY: <code>df.groupby("country")["revenue"].mean()</code> forms one metric per group, and with <code>agg()</code> you can compute several metrics at once.<br><br>
+              Real data is rarely clean. Missing values appear as <code>NaN</code>; you find them with <code>isna()</code> and handle them with <code>fillna()</code> (fill in) or <code>dropna()</code> (remove). <code>drop_duplicates()</code> throws out repeated rows, <code>astype()</code> changes the data type, <code>rename()</code> renames columns. And <code>merge()</code> joins two DataFrames on a shared key — just like a SQL join.
+            </div>
+          </div>
+          ${callout('warn', 'Clean first, compute later', 'About 80% of data science work is cleaning, not modeling. Garbage in, garbage out: one NaN in a column can distort a whole analysis if it slips unnoticed into a sum or a mean.')}
           ${renderQuestions('ds_l3_1', 6)}
           ${renderBonus('ds_l3_1')}
         `
@@ -31525,6 +31731,69 @@ QUESTION_POOLS['lead_l4_1'] = [
     {t:'Konzept verstehen → in einem kleinen lauffähigen Beispiel nachbauen → belegen (Repo, Erklärung)',t_en:'Understand the concept → rebuild it in a small working example → prove it (repo, explanation)',correct:true,why:'Genau. Der Beleg deckt auf, ob man es wirklich verstanden hat — man kann nur erklären oder bauen, was man begriffen hat.',why_en:'Exactly. The proof reveals whether you truly understood it — you can only explain or build what you have grasped.'},
     {t:'Ein großes Tutorial von Anfang bis Ende durcharbeiten',t_en:'Work through one large tutorial from start to finish',correct:false,why:'Nein. Kleine lauffähige Beispiele, die man selbst repariert, brennen sich besser ein als ein großes Tutorial.',why_en:'No. Small working examples you fix yourself stick better than one large tutorial.'},
     {t:'Nur die Theorie lesen und auf den Ernstfall vertrauen',t_en:'Only read the theory and trust the real case',correct:false,why:'Nein. Ohne praktischen Nachbau und Beleg bleibt unklar, ob man es wirklich verstanden hat.',why_en:'No. Without hands-on rebuilding and proof it stays unclear whether you truly understood it.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l1_1'] = [
+  {id:'p_ds_l1_1_mc1',type:'mc',xp:10,question:'In einer Gehaltsliste steht ein einzelnes, extrem hohes Gehalt. Welches Lagemaß beschreibt die „typische" Mitte am ehrlichsten?',question_en:'A salary list contains a single extremely high salary. Which measure of center describes the "typical" middle most honestly?',options:[
+    {t:'Der <code>Median</code>',t_en:'The <code>median</code>',correct:true,why:'Genau. Der Median ist der mittlere Wert und bleibt von einem einzelnen Ausreißer nahezu unberührt.',why_en:'Exactly. The median is the middle value and stays nearly untouched by a single outlier.'},
+    {t:'Der <code>Mittelwert</code>',t_en:'The <code>mean</code>',correct:false,why:'Nein. Der Mittelwert zählt jeden Wert voll mit und wird vom Ausreißer nach oben gezogen.',why_en:'No. The mean counts every value fully and gets pulled up by the outlier.'},
+    {t:'Die <code>Spannweite</code>',t_en:'The <code>range</code>',correct:false,why:'Nein. Die Spannweite ist ein Streumaß, kein Lagemaß, und reagiert selbst stark auf Ausreißer.',why_en:'No. The range is a measure of spread, not center, and reacts strongly to outliers itself.'}
+  ]},
+  {id:'p_ds_l1_1_mc2',type:'mc',xp:10,question:'Ein Test ergibt einen sehr kleinen <code>p-Wert</code> (deutlich unter 0,05). Wie ist das zu deuten?',question_en:'A test yields a very small <code>p-value</code> (well below 0.05). How should it be read?',options:[
+    {t:'Die beobachteten Daten wären unter der Nullhypothese sehr unwahrscheinlich — der Effekt ist eher echt als Zufall',t_en:'The observed data would be very unlikely under the null hypothesis — the effect is more likely real than chance',correct:true,why:'Genau. Ein kleiner p-Wert bedeutet: Unter „kein Effekt" wären solche Daten überraschend selten.',why_en:'Exactly. A small p-value means: under "no effect" such data would be surprisingly rare.'},
+    {t:'Die Nullhypothese ist damit zu 100 % bewiesen falsch',t_en:'The null hypothesis is thereby proven 100% false',correct:false,why:'Nein. Ein p-Wert liefert keinen Beweis, nur ein Maß für Überraschung — ein Restzweifel bleibt immer.',why_en:'No. A p-value is not proof, only a measure of surprise — some doubt always remains.'},
+    {t:'Der gemessene Effekt ist garantiert praktisch bedeutsam',t_en:'The measured effect is guaranteed to be practically meaningful',correct:false,why:'Nein. Statistische Signifikanz sagt nichts über die praktische Größe des Effekts.',why_en:'No. Statistical significance says nothing about the practical size of the effect.'}
+  ]},
+  {id:'p_ds_l1_1_tf1',type:'truefalse',xp:8,statement:'Wenn zwei Größen stark korrelieren, verursacht die eine zwangsläufig die andere.',statement_en:'If two quantities correlate strongly, one necessarily causes the other.',correct:false,explanation:'Falsch. Korrelation ist nicht Kausalität — oft steckt ein Confounder dahinter, eine dritte Größe, die beide beeinflusst.',explanation_en:'False. Correlation is not causation — often a confounder is behind it, a third quantity that influences both.'},
+  {id:'p_ds_l1_1_tf2',type:'truefalse',xp:8,statement:'In einem sauberen A/B-Test wird zwischen den beiden Gruppen nur eine einzige Variable verändert.',statement_en:'In a clean A/B test only a single variable is changed between the two groups.',correct:true,explanation:'Richtig. Ändert man mehrere Dinge gleichzeitig, lässt sich ein Effekt keiner einzelnen Ursache mehr zuordnen.',explanation_en:'Correct. If you change several things at once, an effect can no longer be attributed to any single cause.'},
+  {id:'p_ds_l1_1_fb1',type:'fillblank',xp:12,prompt:'Die symmetrische Glockenkurve, um deren Mittelwert sich die Werte häufen und für die die 68–95–99,7-Regel gilt, heißt ___-verteilung.',prompt_en:'The symmetric bell curve whose values cluster around its mean and for which the 68–95–99.7 rule holds is called the ___ distribution.',answers:['Normal','normal','Normalverteilung','Gauss','Gauß'],placeholder:'Verteilung…',placeholder_en:'Distribution…',explanation:'Die <code>Normalverteilung</code> (Gauß-Verteilung) ist die zentrale Verteilung der Statistik; der Zentrale Grenzwertsatz erklärt, warum sie so oft auftritt.',explanation_en:'The <code>normal distribution</code> (Gaussian) is the central distribution of statistics; the central limit theorem explains why it appears so often.'},
+  {id:'p_ds_l1_1_bonus',type:'mc',xp:20,optional:true,question:'Wie viel Prozent der Werte einer Normalverteilung liegen etwa innerhalb von zwei Standardabweichungen um den Mittelwert?',question_en:'About what percent of a normal distribution values lie within two standard deviations of the mean?',options:[
+    {t:'Rund <strong>95 %</strong>',t_en:'About <strong>95%</strong>',correct:true,why:'Genau. Die 68–95–99,7-Regel: etwa 68 % bei einer, 95 % bei zwei und 99,7 % bei drei Standardabweichungen.',why_en:'Exactly. The 68–95–99.7 rule: about 68% at one, 95% at two and 99.7% at three standard deviations.'},
+    {t:'Rund <strong>50 %</strong>',t_en:'About <strong>50%</strong>',correct:false,why:'Nein. 50 % markiert lediglich der Median in der Mitte; zwei Standardabweichungen decken deutlich mehr ab.',why_en:'No. 50% only marks the median in the middle; two standard deviations cover much more.'},
+    {t:'Rund <strong>99,7 %</strong>',t_en:'About <strong>99.7%</strong>',correct:false,why:'Nein. 99,7 % gilt erst für drei Standardabweichungen, nicht für zwei.',why_en:'No. 99.7% applies only to three standard deviations, not two.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l2_1'] = [
+  {id:'p_ds_l2_1_mc1',type:'mc',xp:10,question:'Du willst nur Gruppen behalten, deren Gesamtumsatz über 1000 liegt. Welche Klausel gehört dafür in die Abfrage?',question_en:'You want to keep only groups whose total revenue exceeds 1000. Which clause belongs in the query for that?',options:[
+    {t:'<code>HAVING SUM(betrag) &gt; 1000</code>',t_en:'<code>HAVING SUM(amount) &gt; 1000</code>',correct:true,why:'Genau. <code>HAVING</code> filtert nach der Aggregation und darf Aggregatfunktionen wie SUM verwenden.',why_en:'Exactly. <code>HAVING</code> filters after aggregation and may use aggregate functions like SUM.'},
+    {t:'<code>WHERE SUM(betrag) &gt; 1000</code>',t_en:'<code>WHERE SUM(amount) &gt; 1000</code>',correct:false,why:'Nein. <code>WHERE</code> wirkt vor der Gruppierung und kann keine Aggregatfunktion auf Gruppen anwenden.',why_en:'No. <code>WHERE</code> acts before grouping and cannot apply an aggregate function to groups.'},
+    {t:'<code>ORDER BY SUM(betrag)</code>',t_en:'<code>ORDER BY SUM(amount)</code>',correct:false,why:'Nein. <code>ORDER BY</code> sortiert nur das Ergebnis, filtert aber keine Gruppen heraus.',why_en:'No. <code>ORDER BY</code> only sorts the result, it does not filter groups out.'}
+  ]},
+  {id:'p_ds_l2_1_mc2',type:'mc',xp:10,question:'Ein <code>LEFT JOIN</code> von <code>customers</code> (links) auf <code>orders</code> — was passiert mit einem Kunden ganz ohne Bestellung?',question_en:'A <code>LEFT JOIN</code> from <code>customers</code> (left) onto <code>orders</code> — what happens to a customer with no order at all?',options:[
+    {t:'Er bleibt erhalten; die Bestellspalten stehen auf <code>NULL</code>',t_en:'It is kept; the order columns are <code>NULL</code>',correct:true,why:'Genau. Ein LEFT JOIN behält jede linke Zeile; fehlt rechts ein Partner, füllt die Datenbank mit NULL.',why_en:'Exactly. A LEFT JOIN keeps every left row; if a right partner is missing, the database fills with NULL.'},
+    {t:'Er fällt komplett aus dem Ergebnis',t_en:'It falls out of the result entirely',correct:false,why:'Nein. Das wäre das Verhalten eines INNER JOIN, der nur beidseitige Treffer liefert.',why_en:'No. That would be the behavior of an INNER JOIN, which returns only two-sided matches.'},
+    {t:'Die Abfrage bricht mit einem Fehler ab',t_en:'The query aborts with an error',correct:false,why:'Nein. Fehlende Partner sind kein Fehler, sondern führen einfach zu NULL-Werten.',why_en:'No. Missing partners are not an error, they simply lead to NULL values.'}
+  ]},
+  {id:'p_ds_l2_1_tf1',type:'truefalse',xp:8,statement:'Ein Primärschlüssel identifiziert jede Zeile einer Tabelle eindeutig.',statement_en:'A primary key uniquely identifies each row of a table.',correct:true,explanation:'Richtig. Genau das ist seine Aufgabe; ein Fremdschlüssel verweist dagegen auf den Primärschlüssel einer anderen Tabelle.',explanation_en:'Correct. That is exactly its job; a foreign key by contrast points to the primary key of another table.'},
+  {id:'p_ds_l2_1_tf2',type:'truefalse',xp:8,statement:'<code>WHERE</code> filtert einzelne Zeilen erst, nachdem <code>GROUP BY</code> sie zu Gruppen zusammengefasst hat.',statement_en:'<code>WHERE</code> filters individual rows only after <code>GROUP BY</code> has combined them into groups.',correct:false,explanation:'Falsch. <code>WHERE</code> filtert Zeilen vor der Gruppierung; für das Filtern nach der Aggregation ist <code>HAVING</code> zuständig.',explanation_en:'False. <code>WHERE</code> filters rows before grouping; filtering after aggregation is the job of <code>HAVING</code>.'},
+  {id:'p_ds_l2_1_fb1',type:'fillblank',xp:12,prompt:'Die Aggregatfunktion, die die Anzahl der Zeilen einer Gruppe zählt, heißt ___ (Schlüsselwort).',prompt_en:'The aggregate function that counts the number of rows in a group is called ___ (keyword).',answers:['COUNT','count','COUNT()','count()'],placeholder:'Funktion…',placeholder_en:'Function…',explanation:'<code>COUNT</code> zählt Zeilen; mit <code>GROUP BY</code> ergibt sich daraus z. B. die Zahl der Bestellungen pro Kunde.',explanation_en:'<code>COUNT</code> counts rows; with <code>GROUP BY</code> this yields e.g. the number of orders per customer.'},
+  {id:'p_ds_l2_1_bonus',type:'mc',xp:20,optional:true,question:'Welche Klausel wertet die Datenbank in der logischen Reihenfolge als Erstes aus?',question_en:'Which clause does the database evaluate first in the logical order?',options:[
+    {t:'<code>FROM</code> (inklusive der JOINs)',t_en:'<code>FROM</code> (including the joins)',correct:true,why:'Genau. Grobe Reihenfolge: FROM -&gt; WHERE -&gt; GROUP BY -&gt; HAVING -&gt; SELECT -&gt; ORDER BY.',why_en:'Exactly. Rough order: FROM -&gt; WHERE -&gt; GROUP BY -&gt; HAVING -&gt; SELECT -&gt; ORDER BY.'},
+    {t:'<code>SELECT</code>, weil es ganz oben steht',t_en:'<code>SELECT</code>, because it is written at the top',correct:false,why:'Nein. SELECT steht zwar oben, wird aber erst spät ausgewertet — daher sind SELECT-Aliase in WHERE oft nicht nutzbar.',why_en:'No. SELECT is written at the top but evaluated late — which is why SELECT aliases are often unusable in WHERE.'},
+    {t:'<code>ORDER BY</code>',t_en:'<code>ORDER BY</code>',correct:false,why:'Nein. Sortiert wird zuletzt, erst wenn das Ergebnis feststeht.',why_en:'No. Sorting happens last, once the result is fixed.'}
+  ]}
+];
+
+QUESTION_POOLS['ds_l3_1'] = [
+  {id:'p_ds_l3_1_mc1',type:'mc',xp:10,question:'Du kennst nur die <strong>Position</strong> einer Zeile (die dritte von oben), nicht ihren Indexnamen. Womit wählst du sie aus?',question_en:'You only know the <strong>position</strong> of a row (the third from the top), not its index label. What do you select it with?',options:[
+    {t:'<code>df.iloc[2]</code>',t_en:'<code>df.iloc[2]</code>',correct:true,why:'Genau. <code>iloc</code> greift nach Position (ab 0), also ist die dritte Zeile Index 2.',why_en:'Exactly. <code>iloc</code> accesses by position (from 0), so the third row is index 2.'},
+    {t:'<code>df.loc[2]</code>',t_en:'<code>df.loc[2]</code>',correct:false,why:'Nein. <code>loc</code> wählt nach Label — das kann eine ganz andere Zeile treffen als die dritte Position.',why_en:'No. <code>loc</code> selects by label — that can hit a completely different row than the third position.'},
+    {t:'<code>df["2"]</code>',t_en:'<code>df["2"]</code>',correct:false,why:'Nein. Diese Schreibweise wählt eine Spalte namens „2", nicht eine Zeile nach Position.',why_en:'No. That syntax selects a column named "2", not a row by position.'}
+  ]},
+  {id:'p_ds_l3_1_mc2',type:'mc',xp:10,question:'Eine Spalte enthält vereinzelt <code>NaN</code>-Werte, die du durch 0 ersetzen willst, ohne Zeilen zu löschen. Welche Methode passt?',question_en:'A column contains occasional <code>NaN</code> values that you want to replace with 0 without deleting rows. Which method fits?',options:[
+    {t:'<code>df["spalte"].fillna(0)</code>',t_en:'<code>df["column"].fillna(0)</code>',correct:true,why:'Genau. <code>fillna</code> füllt fehlende Werte mit einem Ersatz, hier 0, und behält alle Zeilen.',why_en:'Exactly. <code>fillna</code> fills missing values with a replacement, here 0, and keeps all rows.'},
+    {t:'<code>df.dropna()</code>',t_en:'<code>df.dropna()</code>',correct:false,why:'Nein. <code>dropna</code> würde die Zeilen mit fehlenden Werten ganz entfernen statt sie aufzufüllen.',why_en:'No. <code>dropna</code> would remove the rows with missing values entirely instead of filling them.'},
+    {t:'<code>df.drop_duplicates()</code>',t_en:'<code>df.drop_duplicates()</code>',correct:false,why:'Nein. <code>drop_duplicates</code> entfernt doppelte Zeilen und hat mit NaN nichts zu tun.',why_en:'No. <code>drop_duplicates</code> removes repeated rows and has nothing to do with NaN.'}
+  ]},
+  {id:'p_ds_l3_1_tf1',type:'truefalse',xp:8,statement:'<code>groupby</code> in pandas ist das Gegenstück zu <code>GROUP BY</code> in SQL.',statement_en:'<code>groupby</code> in pandas is the counterpart to <code>GROUP BY</code> in SQL.',correct:true,explanation:'Richtig. Beide gruppieren Zeilen nach einer Spalte und berechnen je Gruppe eine Kennzahl wie Summe oder Mittelwert.',explanation_en:'Correct. Both group rows by a column and compute a metric per group such as sum or mean.'},
+  {id:'p_ds_l3_1_tf2',type:'truefalse',xp:8,statement:'<code>df.iloc[]</code> wählt Zeilen und Spalten nach ihrem Label-Namen aus.',statement_en:'<code>df.iloc[]</code> selects rows and columns by their label name.',correct:false,explanation:'Falsch. <code>iloc</code> arbeitet nach Position (Zahlindex ab 0); nach Label wählt man mit <code>loc</code>.',explanation_en:'False. <code>iloc</code> works by position (integer index from 0); to select by label you use <code>loc</code>.'},
+  {id:'p_ds_l3_1_fb1',type:'fillblank',xp:12,prompt:'Die zentrale 2D-Tabellenstruktur von pandas, deren Spalten jeweils eine Series sind, heißt ___.',prompt_en:'The central 2D table structure of pandas, whose columns are each a Series, is called a ___.',answers:['DataFrame','dataframe','Data Frame','data frame','df'],placeholder:'Struktur…',placeholder_en:'Structure…',explanation:'Der <code>DataFrame</code> ist das Herzstück von pandas — eine Tabelle im Speicher, die du filtern, gruppieren und bereinigen kannst.',explanation_en:'The <code>DataFrame</code> is the heart of pandas — an in-memory table you can filter, group and clean.'},
+  {id:'p_ds_l3_1_bonus',type:'mc',xp:20,optional:true,question:'Welche pandas-Funktion entspricht am ehesten einem SQL-JOIN, führt also zwei DataFrames über einen gemeinsamen Schlüssel zusammen?',question_en:'Which pandas function most closely matches a SQL join, i.e. combines two DataFrames on a shared key?',options:[
+    {t:'<code>merge()</code>',t_en:'<code>merge()</code>',correct:true,why:'Genau. <code>merge()</code> verbindet zwei DataFrames über Schlüsselspalten — das direkte Gegenstück zum JOIN.',why_en:'Exactly. <code>merge()</code> connects two DataFrames on key columns — the direct counterpart to a join.'},
+    {t:'<code>describe()</code>',t_en:'<code>describe()</code>',correct:false,why:'Nein. <code>describe()</code> liefert nur eine statistische Zusammenfassung einer Tabelle.',why_en:'No. <code>describe()</code> only gives a statistical summary of a table.'},
+    {t:'<code>astype()</code>',t_en:'<code>astype()</code>',correct:false,why:'Nein. <code>astype()</code> ändert nur den Datentyp einer Spalte.',why_en:'No. <code>astype()</code> only changes the data type of a column.'}
   ]}
 ];
 
