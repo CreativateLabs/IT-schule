@@ -25018,6 +25018,89 @@ Rule: dominant interaction = X-as-a-service
           ${renderBonus('lead_l1_1')}
         `
       },
+      {
+        id: 'lead_l1_2', title: 'DORA-Metriken',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 2</div>
+            <h1 class="lesson-title">DORA-Metriken</h1>
+            <p class="lesson-desc">Woran erkennt man ein leistungsstarkes Liefer-Team, ohne einzelne Personen zu bewerten? DORA gibt darauf eine Antwort mit vier nüchternen Zahlen — je zwei für Tempo und für Stabilität.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Vier Kernmetriken & die zwei fürs Tempo</div>
+            <div class="explanation">
+              <strong>DORA</strong> (DevOps Research and Assessment) definiert vier Kernmetriken für die Software-Lieferfähigkeit eines Teams. Zwei davon messen das <strong>Tempo</strong>: die <strong>Deployment Frequency</strong> (Bereitstellungshäufigkeit) — wie oft ein Team überhaupt in Produktion liefert — und die <strong>Lead Time for Changes</strong> (Änderungsdurchlaufzeit) — wie lange es von einem Code-Commit bis in die Produktion dauert.<br><br>
+              Beide zusammen beantworten die Frage: Wie schnell fließt eine fertige Änderung zum Nutzer? Ein Team, das täglich liefert und dessen Änderung in Stunden statt Wochen in Produktion ist, kann schneller lernen und korrigieren als eines, das quartalsweise einen großen Block ausrollt.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Die zwei für die Stabilität</div>
+            <div class="explanation">
+              Die anderen beiden Metriken messen die <strong>Stabilität</strong>: die <strong>Change Failure Rate</strong> (Änderungsfehlerrate) — der Anteil der Releases, die einen Fehler oder einen Rollback auslösen — und die <strong>Time to Restore</strong> bzw. Recovery Time (Wiederherstellzeit) — wie lange es dauert, bis der Dienst nach einem Ausfall wieder läuft.<br><br>
+              Diese beiden Zahlen sind die Brücke zu Fehlerbudget und SLO: Sie beschreiben nicht, wie schnell geliefert wird, sondern wie zuverlässig. Ein Team, das selten Fehler ausrollt und einen Ausfall in Minuten statt Stunden behebt, hält seine Zusagen ein, ohne Tempo zu opfern.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">DORA-Uebersicht</span></div>
+              <div class="code-pre">Tempo       -&gt; Deployment Frequency  (wie oft in Produktion geliefert)
+            -&gt; Lead Time for Changes (Commit bis in Produktion)
+Stabilitaet -&gt; Change Failure Rate   (Anteil fehlerhafter Releases)
+            -&gt; Recovery Time         (Zeit bis der Dienst wieder laeuft)</div>
+            </div>
+          </div>
+          ${quickCheck('Welche zwei DORA-Metriken messen das Tempo?', ['Deployment Frequency und Lead Time for Changes', 'Change Failure Rate und Recovery Time', 'Deployment Frequency und Change Failure Rate'], 0, 'Deployment Frequency (wie oft geliefert wird) und Lead Time for Changes (Commit bis Produktion) messen das Tempo. Change Failure Rate und Recovery Time messen dagegen die Stabilität.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Kein Zielkonflikt & nie auf Einzelpersonen</div>
+            <div class="explanation">
+              Die zentrale Erkenntnis von DORA: Tempo <strong>und</strong> Stabilität steigen zusammen — es gibt keinen Zielkonflikt zwischen „schnell" und „stabil". Leistungsstarke Teams sind in beidem gut: Sie liefern häufig, mit kurzer Durchlaufzeit, niedriger Fehlerrate und schneller Wiederherstellung. Wer Stabilität gegen Tempo ausspielt, hat das Muster falsch verstanden.<br><br>
+              Genauso wichtig ist, <strong>was</strong> DORA misst: immer das Team und das System, nie einzelne Personen. Sobald man die Zahlen einer Einzelperson zuschreibt, wird die Metrik gespielt statt verbessert — man optimiert die Anzeige, nicht die Lieferfähigkeit. DORA ist ein Kompass für das System, keine Bewertung von Menschen (Brücke zu „Vanity-Metriken vermeiden").
+            </div>
+          </div>
+          ${quickCheck('Auf welcher Ebene misst DORA — und warum?', ['Auf Team- und System-Ebene, nie auf Einzelpersonen — sonst wird die Zahl gespielt statt verbessert', 'Auf Ebene einzelner Entwickler, um Leistung zu vergleichen', 'Nur auf Ebene des gesamten Unternehmens als Jahreskennzahl'], 0, 'DORA misst das Team und das System. Schreibt man die Zahlen Einzelpersonen zu, optimieren sie die Anzeige statt der echten Lieferfähigkeit.')}
+          ${callout('key', 'Merksatz', 'DORA misst mit vier Zahlen Tempo (Deploy-Häufigkeit, Lead Time) und Stabilität (Change Failure Rate, Recovery Time) — auf Team-Ebene, nie als Einzelbewertung. Tempo und Stabilität steigen zusammen, sie stehen nicht im Zielkonflikt.')}
+          ${renderQuestions('lead_l1_2', 6)}
+          ${renderBonus('lead_l1_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 2</div>
+            <h1 class="lesson-title">DORA Metrics</h1>
+            <p class="lesson-desc">How do you recognize a high-performing delivery team without rating individual people? DORA answers with four sober numbers — two for speed and two for stability.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Four core metrics & the two for speed</div>
+            <div class="explanation">
+              <strong>DORA</strong> (DevOps Research and Assessment) defines four core metrics for a team's software delivery capability. Two of them measure <strong>speed</strong>: <strong>deployment frequency</strong> — how often a team actually ships to production — and <strong>lead time for changes</strong> — how long it takes from a code commit until it reaches production.<br><br>
+              Together they answer the question: how fast does a finished change flow to the user? A team that ships daily and gets its change into production in hours rather than weeks can learn and correct faster than one that rolls out a big block quarterly.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The two for stability</div>
+            <div class="explanation">
+              The other two metrics measure <strong>stability</strong>: the <strong>change failure rate</strong> — the share of releases that trigger a failure or a rollback — and the <strong>time to restore</strong> or recovery time — how long it takes for the service to run again after an outage.<br><br>
+              These two numbers are the bridge to error budgets and SLOs: they describe not how fast you deliver, but how reliably. A team that rarely ships a failure and fixes an outage in minutes rather than hours keeps its promises without sacrificing speed.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">DORA overview</span></div>
+              <div class="code-pre">Speed     -&gt; Deployment Frequency  (how often shipped to production)
+          -&gt; Lead Time for Changes (commit until in production)
+Stability -&gt; Change Failure Rate   (share of faulty releases)
+          -&gt; Recovery Time         (time until the service runs again)</div>
+            </div>
+          </div>
+          ${quickCheck('Which two DORA metrics measure speed?', ['Deployment frequency and lead time for changes', 'Change failure rate and recovery time', 'Deployment frequency and change failure rate'], 0, 'Deployment frequency (how often you ship) and lead time for changes (commit to production) measure speed. Change failure rate and recovery time measure stability instead.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">No trade-off & never on individuals</div>
+            <div class="explanation">
+              The central insight of DORA: speed <strong>and</strong> stability rise together — there is no trade-off between "fast" and "stable". High-performing teams are good at both: they ship frequently, with short lead time, low failure rate and fast recovery. Whoever plays stability off against speed has misread the pattern.<br><br>
+              Just as important is <strong>what</strong> DORA measures: always the team and the system, never individual people. The moment you attribute the numbers to an individual, the metric gets gamed instead of improved — you optimize the readout, not the delivery capability. DORA is a compass for the system, not a rating of people (bridge to "avoiding vanity metrics").
+            </div>
+          </div>
+          ${quickCheck('At what level does DORA measure — and why?', ['At team and system level, never on individuals — otherwise the number gets gamed instead of improved', 'At the level of individual developers, to compare performance', 'Only at whole-company level as an annual figure'], 0, 'DORA measures the team and the system. Attribute the numbers to individuals and they optimize the readout instead of the real delivery capability.')}
+          ${callout('key', 'Key line', 'DORA measures speed (deploy frequency, lead time) and stability (change failure rate, recovery time) with four numbers — at team level, never as an individual rating. Speed and stability rise together; they are not a trade-off.')}
+          ${renderQuestions('lead_l1_2', 6)}
+          ${renderBonus('lead_l1_2')}
+        `
+      },
     ]
   },
   {
@@ -25126,6 +25209,99 @@ Key person unavailable       | low    | high   | Document knowledge, pair up</di
           ${callout('key', 'Guiding line & guardrail', 'A CTO\'s most valuable contribution arises before the first line of code — in the question of whether and why to build at all. Guardrail: never communicate estimates as a point, but as a range with an assumption.')}
           ${renderQuestions('lead_l2_1', 6)}
           ${renderBonus('lead_l2_1')}
+        `
+      },
+      {
+        id: 'lead_l2_2', title: 'Delegation & Entscheidungsrechte',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 2</div>
+            <h1 class="lesson-title">Delegation & Entscheidungsrechte</h1>
+            <p class="lesson-desc">Ein CTO, der jede Entscheidung selbst trifft, wird zum Nadelöhr. Führung skaliert nur über Delegation — und die braucht Klarheit darüber, wer was entscheiden darf.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Wer entscheidet? & das Spektrum der Delegation</div>
+            <div class="explanation">
+              Führung skaliert nur über <strong>Delegation</strong> — sonst wird der Kopf der Führungskraft, wie im Golden Path gezeigt, zum Nadelöhr, durch das jede Entscheidung muss. Das erste Werkzeug ist Klarheit darüber, <strong>wer</strong> entscheidet. Ein einfaches Modell „Berät / Entscheidet / Wird informiert" (analog zu <strong>RACI</strong>: Responsible, Accountable, Consulted, Informed) verhindert hängende oder doppelt getroffene Entscheidungen.<br><br>
+              Das zweite Werkzeug: Delegation ist ein <strong>Spektrum</strong>, kein Schalter. Sie reicht von „ich entscheide und teile es mit" über „ich frage um Rat und entscheide dann" bis „du entscheidest allein". Welche Stufe passt, hängt von Risiko und Erfahrung ab — ein erfahrenes Team in einem umkehrbaren Feld bekommt mehr Autonomie als ein neues Team in einem kritischen.
+            </div>
+          </div>
+          ${callout('tip', 'Umkehrbarkeit als Kompass', 'Umkehrbare Entscheidungen („Two-Way-Door", leicht rückgängig zu machen) schnell und weit unten delegieren — der Schaden eines Fehlers ist klein, das Team lernt. Schwer umkehrbare Entscheidungen („One-Way-Door") langsamer treffen und mit mehr Beteiligung: hier lohnt sich Sorgfalt, weil ein Fehler teuer und dauerhaft ist.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Umkehrbarkeit & Delegation-Levels</div>
+            <div class="explanation">
+              Die <strong>Umkehrbarkeit</strong> einer Entscheidung ist der beste Kompass, wie weit und wie schnell man delegiert. Eine <strong>Two-Way-Door</strong> — etwa ein Button-Text, ein Experiment, eine reversible Konfiguration — lässt sich leicht zurücknehmen; solche Entscheidungen gehören schnell und weit nach unten. Eine <strong>One-Way-Door</strong> — die Wahl der Datenbank, ein öffentliches API-Versprechen, ein Rechtsvertrag — ist schwer umkehrbar und wird langsamer sowie mit mehr Beteiligten getroffen.<br><br>
+              Praktisch heißt das: Nicht jede Entscheidung verdient dasselbe Gewicht. Wer umkehrbare Entscheidungen wie unumkehrbare behandelt, macht das Team langsam und lernunfähig; wer unumkehrbare wie umkehrbare behandelt, riskiert teure, dauerhafte Fehler.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Delegation-Spektrum</span></div>
+              <div class="code-pre">Ich entscheide und teile es mit        -&gt; wenig Autonomie
+Ich frage um Rat und entscheide dann   -&gt; ...
+Wir entscheiden gemeinsam              -&gt; ...
+Du entscheidest, ich berate            -&gt; ...
+Du entscheidest allein                 -&gt; volle Autonomie
+
+Kompass: Two-Way-Door  = schnell, weit unten delegieren
+         One-Way-Door  = langsamer, mehr Beteiligung</div>
+            </div>
+          </div>
+          ${quickCheck('Wie delegiert man eine leicht umkehrbare Entscheidung („Two-Way-Door") am besten?', ['Schnell und weit unten — der Schaden eines Fehlers ist klein und das Team lernt', 'Genauso langsam und vorsichtig wie eine unumkehrbare Entscheidung', 'Gar nicht — reversible Entscheidungen trifft immer die Führungskraft selbst'], 0, 'Umkehrbare Entscheidungen delegiert man schnell und weit nach unten. Sorgfalt und viele Beteiligte lohnen sich erst bei schwer umkehrbaren „One-Way-Door"-Entscheidungen.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Ziel statt Weg & der häufigste Fehler</div>
+            <div class="explanation">
+              Richtig delegieren heißt, <strong>Ziel, Kontext und Grenzen</strong> zu übergeben — nicht den genauen Weg vorzuschreiben. Das ist Autonomie mit Leitplanken: das Team entscheidet über das Wie, kennt aber die Grenzen (Budget, Deadline, Nicht-verhandelbares). Die <strong>Verantwortung fürs Ergebnis</strong> bleibt dabei bei der Führungskraft — sie ist weiterhin accountable, auch wenn sie die Ausführung abgibt.<br><br>
+              Der <strong>häufigste Fehler</strong>: die Aufgabe delegieren, aber nicht die Befugnis. Wer jemanden verantwortlich macht, ihm aber nicht die Entscheidungsrechte gibt, erzeugt Frust und Rückdelegation — jede Frage landet wieder oben. Aufgabe und Befugnis gehören zusammen übergeben.
+            </div>
+          </div>
+          ${quickCheck('Was ist der häufigste Delegations-Fehler?', ['Die Aufgabe delegieren, aber nicht die Befugnis — das erzeugt Frust und Rückdelegation', 'Zu viel Kontext und zu klare Grenzen mitzugeben', 'Die Verantwortung fürs Ergebnis vollständig abzugeben'], 0, 'Aufgabe ohne Befugnis lässt jede Frage wieder oben landen. Man übergibt Ziel und Grenzen samt Entscheidungsrechten — die Verantwortung fürs Ergebnis bleibt bei der Führungskraft.')}
+          ${callout('key', 'Merksatz', 'Kläre pro Entscheidung, wer entscheidet, delegiere umkehrbare Entscheidungen schnell und weit nach unten, und übergib Ziel und Grenzen statt den genauen Weg — die Verantwortung fürs Ergebnis bleibt bei dir.')}
+          ${renderQuestions('lead_l2_2', 6)}
+          ${renderBonus('lead_l2_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 2</div>
+            <h1 class="lesson-title">Delegation & Decision Rights</h1>
+            <p class="lesson-desc">A CTO who makes every decision personally becomes the bottleneck. Leadership scales only through delegation — and that needs clarity about who may decide what.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Who decides? & the spectrum of delegation</div>
+            <div class="explanation">
+              Leadership scales only through <strong>delegation</strong> — otherwise the leader's head, as shown in the golden path, becomes the bottleneck every decision must pass through. The first tool is clarity about <strong>who</strong> decides. A simple model of "advises / decides / is informed" (analogous to <strong>RACI</strong>: responsible, accountable, consulted, informed) prevents decisions from stalling or being made twice.<br><br>
+              The second tool: delegation is a <strong>spectrum</strong>, not a switch. It ranges from "I decide and tell you" through "I ask for advice and then decide" to "you decide alone". Which level fits depends on risk and experience — an experienced team in a reversible field gets more autonomy than a new team in a critical one.
+            </div>
+          </div>
+          ${callout('tip', 'Reversibility as a compass', 'Delegate reversible decisions ("two-way door", easy to undo) fast and far down — the harm of a mistake is small and the team learns. Make hard-to-reverse decisions ("one-way door") more slowly and with more involvement: here care pays off, because a mistake is expensive and permanent.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Reversibility & delegation levels</div>
+            <div class="explanation">
+              The <strong>reversibility</strong> of a decision is the best compass for how far and how fast to delegate. A <strong>two-way door</strong> — a button label, an experiment, a reversible configuration — is easy to take back; such decisions belong fast and far down. A <strong>one-way door</strong> — the choice of database, a public API promise, a legal contract — is hard to reverse and is made more slowly and with more people involved.<br><br>
+              In practice: not every decision deserves the same weight. Treat reversible decisions like irreversible ones and you make the team slow and unable to learn; treat irreversible ones like reversible ones and you risk expensive, permanent mistakes.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Delegation spectrum</span></div>
+              <div class="code-pre">I decide and tell you           -&gt; little autonomy
+I ask for advice, then decide   -&gt; ...
+We decide together              -&gt; ...
+You decide, I advise            -&gt; ...
+You decide alone                -&gt; full autonomy
+
+Compass: two-way door  = fast, delegate far down
+         one-way door  = slower, more involvement</div>
+            </div>
+          </div>
+          ${quickCheck('How is an easily reversible ("two-way door") decision best delegated?', ['Fast and far down — the harm of a mistake is small and the team learns', 'Just as slowly and carefully as an irreversible decision', 'Not at all — reversible decisions are always made by the leader'], 0, 'Reversible decisions are delegated fast and far down. Care and many people involved pay off only for hard-to-reverse "one-way door" decisions.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Goal instead of path & the most common mistake</div>
+            <div class="explanation">
+              Delegating well means handing over <strong>goal, context and boundaries</strong> — not prescribing the exact path. That is autonomy with guardrails: the team decides the how, but knows the boundaries (budget, deadline, the non-negotiable). The <strong>responsibility for the outcome</strong> stays with the leader — they remain accountable, even after handing off the execution.<br><br>
+              The <strong>most common mistake</strong>: delegating the task but not the authority. Making someone responsible without giving them the decision rights breeds frustration and reverse delegation — every question lands back on top. Task and authority must be handed over together.
+            </div>
+          </div>
+          ${quickCheck('What is the most common delegation mistake?', ['Delegating the task but not the authority — that breeds frustration and reverse delegation', 'Handing over too much context and too clear boundaries', 'Giving away the responsibility for the outcome entirely'], 0, 'Task without authority makes every question land back on top. You hand over goal and boundaries together with the decision rights — the responsibility for the outcome stays with the leader.')}
+          ${callout('key', 'Key line', 'For each decision, clarify who decides, delegate reversible decisions fast and far down, and hand over goal and boundaries instead of the exact path — the responsibility for the outcome stays with you.')}
+          ${renderQuestions('lead_l2_2', 6)}
+          ${renderBonus('lead_l2_2')}
         `
       },
     ]
@@ -33493,6 +33669,48 @@ QUESTION_POOLS['sec_l4_2'] = [
     {t:'Verfügbarkeit ist nicht das einzige SLI — auch Latenz und Korrektheit sind wichtige Messgrößen',t_en:'Availability is not the only SLI — latency and correctness are important measures too',correct:true,why:'Genau. Ein Dienst kann „laufen" und trotzdem zu langsam oder falsch antworten und sein Ziel verfehlen.',why_en:'Exactly. A service can "run" and still answer too slowly or wrongly and miss its goal.'},
     {t:'Nur die Verfügbarkeit zählt; Latenz und Korrektheit sind irrelevant',t_en:'Only availability counts; latency and correctness are irrelevant',correct:false,why:'Nein. Ein hochverfügbarer, aber langsamer oder falscher Dienst verfehlt trotzdem den Bedarf.',why_en:'No. A highly available but slow or wrong service still misses the need.'},
     {t:'Man richtet das SLO immer am technisch Maximalen aus, nicht am Nutzerbedarf',t_en:'You always align the SLO with the technical maximum, not the user need',correct:false,why:'Nein. Das SLO orientiert sich am tatsächlichen Bedarf der Nutzer, nicht am technisch Machbaren.',why_en:'No. The SLO follows the actual need of users, not what is technically possible.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l1_2'] = [
+  {id:'p_lead_l1_2_mc1',type:'mc',xp:10,question:'Welche zwei DORA-Metriken messen das <strong>Tempo</strong> der Lieferung?',question_en:'Which two DORA metrics measure delivery <strong>speed</strong>?',options:[
+    {t:'Deployment Frequency und Lead Time for Changes',t_en:'Deployment frequency and lead time for changes',correct:true,why:'Genau. Wie oft geliefert wird und wie lange ein Commit bis Produktion braucht — beides sind Tempo-Metriken.',why_en:'Exactly. How often you ship and how long a commit takes to reach production — both are speed metrics.'},
+    {t:'Change Failure Rate und Recovery Time',t_en:'Change failure rate and recovery time',correct:false,why:'Nein. Diese beiden messen die Stabilität, nicht das Tempo.',why_en:'No. These two measure stability, not speed.'},
+    {t:'Deployment Frequency und Change Failure Rate',t_en:'Deployment frequency and change failure rate',correct:false,why:'Nein. Nur die erste misst Tempo; die Change Failure Rate gehört zur Stabilität.',why_en:'No. Only the first measures speed; the change failure rate belongs to stability.'}
+  ]},
+  {id:'p_lead_l1_2_mc2',type:'mc',xp:10,question:'Auf welcher Ebene misst DORA — und warum?',question_en:'At what level does DORA measure — and why?',options:[
+    {t:'Auf Team- und System-Ebene, nie auf Einzelpersonen — sonst wird die Zahl gespielt statt verbessert',t_en:'At team and system level, never on individuals — otherwise the number gets gamed instead of improved',correct:true,why:'Genau. Einer Einzelperson zugeschrieben, optimiert man die Anzeige statt der Lieferfähigkeit.',why_en:'Exactly. Attributed to an individual, you optimize the readout rather than the delivery capability.'},
+    {t:'Auf Ebene einzelner Entwickler, um deren Leistung zu vergleichen',t_en:'At the level of individual developers, to compare their performance',correct:false,why:'Nein. Genau das führt dazu, dass die Metrik gespielt statt verbessert wird.',why_en:'No. That is exactly what leads to the metric being gamed instead of improved.'},
+    {t:'Nur auf Unternehmensebene als reine Jahreskennzahl',t_en:'Only at company level as a pure annual figure',correct:false,why:'Nein. DORA misst das liefernde Team und System, nicht eine jährliche Gesamtkennzahl.',why_en:'No. DORA measures the delivering team and system, not an annual aggregate figure.'}
+  ]},
+  {id:'p_lead_l1_2_tf1',type:'truefalse',xp:8,statement:'Laut DORA steigen Tempo und Stabilität zusammen — leistungsstarke Teams sind in beidem gut, es gibt keinen Zielkonflikt.',statement_en:'According to DORA, speed and stability rise together — high-performing teams are good at both, there is no trade-off.',correct:true,explanation:'Richtig. Wer Stabilität gegen Tempo ausspielt, hat das Muster falsch verstanden.',explanation_en:'Correct. Whoever plays stability off against speed has misread the pattern.'},
+  {id:'p_lead_l1_2_tf2',type:'truefalse',xp:8,statement:'Die Change Failure Rate misst, wie schnell ein Dienst nach einem Ausfall wieder läuft.',statement_en:'The change failure rate measures how quickly a service runs again after an outage.',correct:false,explanation:'Falsch. Das misst die Recovery Time. Die Change Failure Rate ist der Anteil der Releases, die einen Fehler oder Rollback auslösen.',explanation_en:'False. That is the recovery time. The change failure rate is the share of releases that trigger a failure or rollback.'},
+  {id:'p_lead_l1_2_fb1',type:'fillblank',xp:12,prompt:'Die DORA-Metrik für die Zeit von einem Code-Commit bis in die Produktion heißt ___ (englischer Begriff, drei Wörter).',prompt_en:'The DORA metric for the time from a code commit until it reaches production is called ___ (three-word term).',answers:['Lead Time for Changes','lead time for changes','Lead Time','lead time'],placeholder:'Fachbegriff…',placeholder_en:'Term…',explanation:'Die <strong>Lead Time for Changes</strong> (Änderungsdurchlaufzeit) ist eine der beiden Tempo-Metriken.',explanation_en:'The <strong>lead time for changes</strong> is one of the two speed metrics.'},
+  {id:'p_lead_l1_2_bonus',type:'mc',xp:20,optional:true,question:'Welche zwei DORA-Metriken bilden die Brücke zu Fehlerbudget und SLO?',question_en:'Which two DORA metrics form the bridge to error budget and SLO?',options:[
+    {t:'Change Failure Rate und Recovery Time — die beiden Stabilitätsmetriken',t_en:'Change failure rate and recovery time — the two stability metrics',correct:true,why:'Genau. Sie beschreiben die Zuverlässigkeit und knüpfen direkt an Fehlerbudget und SLO an.',why_en:'Exactly. They describe reliability and tie directly into error budget and SLO.'},
+    {t:'Deployment Frequency und Lead Time for Changes',t_en:'Deployment frequency and lead time for changes',correct:false,why:'Nein. Das sind die Tempo-Metriken; sie messen Geschwindigkeit, nicht Zuverlässigkeit.',why_en:'No. Those are the speed metrics; they measure velocity, not reliability.'},
+    {t:'Deployment Frequency und Recovery Time',t_en:'Deployment frequency and recovery time',correct:false,why:'Nein. Nur die Recovery Time gehört zur Stabilität; die Deployment Frequency misst Tempo.',why_en:'No. Only the recovery time belongs to stability; deployment frequency measures speed.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l2_2'] = [
+  {id:'p_lead_l2_2_mc1',type:'mc',xp:10,question:'Wofür dient ein Modell wie „Berät / Entscheidet / Wird informiert" (analog RACI)?',question_en:'What is a model like "advises / decides / is informed" (analogous to RACI) for?',options:[
+    {t:'Es macht klar, wer entscheidet, und verhindert hängende oder doppelt getroffene Entscheidungen',t_en:'It makes clear who decides and prevents decisions from stalling or being made twice',correct:true,why:'Genau. Klare Entscheidungsrechte sind die Voraussetzung dafür, dass Delegation überhaupt funktioniert.',why_en:'Exactly. Clear decision rights are the precondition for delegation to work at all.'},
+    {t:'Es sorgt dafür, dass die Führungskraft jede Entscheidung selbst trifft',t_en:'It ensures the leader makes every decision personally',correct:false,why:'Nein. Das Gegenteil — es verteilt die Entscheidungsrechte, statt sie zu bündeln.',why_en:'No. The opposite — it distributes the decision rights instead of concentrating them.'},
+    {t:'Es ersetzt die Verantwortung fürs Ergebnis vollständig durch ein Diagramm',t_en:'It replaces the responsibility for the outcome entirely with a diagram',correct:false,why:'Nein. Die Verantwortung fürs Ergebnis bleibt bei der Führungskraft; das Modell klärt nur die Rollen.',why_en:'No. The responsibility for the outcome stays with the leader; the model only clarifies the roles.'}
+  ]},
+  {id:'p_lead_l2_2_mc2',type:'mc',xp:10,question:'Wie behandelt man eine schwer umkehrbare Entscheidung („One-Way-Door")?',question_en:'How do you handle a hard-to-reverse ("one-way door") decision?',options:[
+    {t:'Langsamer und mit mehr Beteiligung — ein Fehler wäre teuer und dauerhaft',t_en:'More slowly and with more involvement — a mistake would be expensive and permanent',correct:true,why:'Genau. Bei unumkehrbaren Entscheidungen lohnt sich Sorgfalt; umkehrbare delegiert man dagegen schnell.',why_en:'Exactly. For irreversible decisions care pays off; reversible ones you delegate fast instead.'},
+    {t:'Genauso schnell und weit unten wie eine umkehrbare Entscheidung',t_en:'Just as fast and far down as a reversible decision',correct:false,why:'Nein. Umkehrbare behandelt man schnell, unumkehrbare mit mehr Sorgfalt und Beteiligung.',why_en:'No. Reversible ones you treat fast, irreversible ones with more care and involvement.'},
+    {t:'Man vermeidet sie grundsätzlich, weil sie nie nötig sind',t_en:'You avoid them on principle, because they are never necessary',correct:false,why:'Nein. Unumkehrbare Entscheidungen sind normal und nötig — man trifft sie nur bewusster.',why_en:'No. Irreversible decisions are normal and necessary — you just make them more deliberately.'}
+  ]},
+  {id:'p_lead_l2_2_tf1',type:'truefalse',xp:8,statement:'Delegieren heißt, Ziel, Kontext und Grenzen zu übergeben, statt den genauen Weg vorzuschreiben.',statement_en:'Delegating means handing over goal, context and boundaries instead of prescribing the exact path.',correct:true,explanation:'Richtig. Das ist Autonomie mit Leitplanken — das Team entscheidet über das Wie innerhalb klarer Grenzen.',explanation_en:'Correct. That is autonomy with guardrails — the team decides the how within clear boundaries.'},
+  {id:'p_lead_l2_2_tf2',type:'truefalse',xp:8,statement:'Beim Delegieren geht die Verantwortung fürs Ergebnis vollständig an das ausführende Team über.',statement_en:'When delegating, the responsibility for the outcome passes entirely to the executing team.',correct:false,explanation:'Falsch. Die Ausführung wird abgegeben, die Verantwortung fürs Ergebnis bleibt bei der Führungskraft (accountable).',explanation_en:'False. The execution is handed off, but the responsibility for the outcome stays with the leader (accountable).'},
+  {id:'p_lead_l2_2_fb1',type:'fillblank',xp:12,prompt:'Eine leicht umkehrbare Entscheidung, die man schnell und weit unten delegiert, nennt man eine ___ (englischer Begriff, mit Bindestrichen).',prompt_en:'An easily reversible decision that you delegate fast and far down is called a ___ (two-word door term).',answers:['Two-Way-Door','two-way-door','Two-Way Door','two-way door','Two Way Door','two way door'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine <strong>Two-Way-Door</strong>-Entscheidung ist leicht rückgängig zu machen; ihr Gegenstück ist die schwer umkehrbare One-Way-Door.',explanation_en:'A <strong>two-way door</strong> decision is easy to undo; its counterpart is the hard-to-reverse one-way door.'},
+  {id:'p_lead_l2_2_bonus',type:'mc',xp:20,optional:true,question:'Was ist der häufigste Fehler beim Delegieren?',question_en:'What is the most common mistake when delegating?',options:[
+    {t:'Die Aufgabe delegieren, aber nicht die Befugnis — das erzeugt Frust und Rückdelegation',t_en:'Delegating the task but not the authority — that breeds frustration and reverse delegation',correct:true,why:'Genau. Ohne Entscheidungsrechte landet jede Frage wieder oben; Aufgabe und Befugnis gehören zusammen übergeben.',why_en:'Exactly. Without decision rights every question lands back on top; task and authority must be handed over together.'},
+    {t:'Zu klare Grenzen und zu viel Kontext mitzugeben',t_en:'Handing over too clear boundaries and too much context',correct:false,why:'Nein. Ziel, Kontext und Grenzen sind gerade das, was gutes Delegieren ausmacht.',why_en:'No. Goal, context and boundaries are exactly what good delegation provides.'},
+    {t:'Umkehrbare Entscheidungen zu schnell nach unten zu delegieren',t_en:'Delegating reversible decisions too quickly downward',correct:false,why:'Nein. Umkehrbare Entscheidungen soll man gerade schnell und weit unten delegieren.',why_en:'No. Reversible decisions are precisely the ones to delegate fast and far down.'}
   ]}
 ];
 
