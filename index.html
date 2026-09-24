@@ -24491,6 +24491,276 @@ Date &amp; author  : when, by whom</div>
 ];
 
 // ============================================================
+//   COURSE: Data Science — unique ids "ds_*" (originally authored)
+// ============================================================
+const DS_PHASES = [
+  {
+    id: 'p_ds1', title: 'Statistik-Grundlagen', title_en: 'Statistics Foundations',
+    sub: 'Daten beschreiben, Wahrscheinlichkeiten verstehen und von der Stichprobe auf die Wahrheit schließen.',
+    sub_en: 'Describe data, understand probability and infer the truth from a sample.',
+    lessons: [
+      {
+        id: 'ds_l1_1', title: 'Statistik verstehen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 1</div>
+            <h1 class="lesson-title">Statistik verstehen</h1>
+            <p class="lesson-desc">Data Science beginnt bei der Statistik: Daten zusammenfassen, ihre Streuung verstehen und von einer Stichprobe verlässlich auf die ganze Grundgesamtheit schließen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Beschreiben & schließen</div>
+            <div class="explanation">
+              <strong>Deskriptive Statistik</strong> fasst Daten zusammen: Lagemaße (<code>Mittelwert</code>, <code>Median</code>, <code>Modus</code>) sagen, wo die Mitte liegt; Streumaße (<code>Varianz</code>, <code>Standardabweichung</code>) sagen, wie weit die Werte auseinanderliegen. Der Median ist robuster gegen Ausreißer als der Mittelwert.<br><br>
+              <strong>Inferenzstatistik</strong> schließt von einer <em>Stichprobe</em> auf die <em>Grundgesamtheit</em>. Ein <code>Hypothesentest</code> prüft, ob ein Effekt echt ist oder Zufall; der <code>p-Wert</code> misst, wie überraschend die Daten unter der Annahme „kein Effekt" wären. Ein <code>Konfidenzintervall</code> gibt einen plausiblen Bereich statt einer Scheingenauigkeit.
+            </div>
+          </div>
+          ${callout('key', 'Merke', 'Korrelation ist nicht Kausalität. Dass zwei Größen zusammen steigen, heißt nicht, dass die eine die andere verursacht — dafür braucht es ein sauberes Experiment (z. B. einen A/B-Test mit Kontrollgruppe).')}
+          ${renderQuestions('ds_l1_1', 6)}
+          ${renderBonus('ds_l1_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 1</div>
+            <h1 class="lesson-title">Understanding Statistics</h1>
+            <p class="lesson-desc">Data science starts with statistics: summarizing data, understanding its spread and reliably inferring from a sample to the whole population.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Describe & infer</div>
+            <div class="explanation">
+              <strong>Descriptive statistics</strong> summarizes data: measures of center (<code>mean</code>, <code>median</code>, <code>mode</code>) say where the middle is; measures of spread (<code>variance</code>, <code>standard deviation</code>) say how far the values lie apart. The median is more robust to outliers than the mean.<br><br>
+              <strong>Inferential statistics</strong> infers from a <em>sample</em> to the <em>population</em>. A <code>hypothesis test</code> checks whether an effect is real or chance; the <code>p-value</code> measures how surprising the data would be under the assumption of "no effect". A <code>confidence interval</code> gives a plausible range instead of false precision.
+            </div>
+          </div>
+          ${callout('key', 'Remember', 'Correlation is not causation. That two quantities rise together does not mean one causes the other — that requires a clean experiment (e.g. an A/B test with a control group).')}
+          ${renderQuestions('ds_l1_1', 6)}
+          ${renderBonus('ds_l1_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ds2', title: 'SQL & Datenbanken', title_en: 'SQL & Databases',
+    sub: 'Daten dort abfragen, wo sie liegen — mit der universellen Sprache relationaler Datenbanken.',
+    sub_en: 'Query data where it lives — with the universal language of relational databases.',
+    lessons: [
+      {
+        id: 'ds_l2_1', title: 'Daten abfragen mit SQL',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 1</div>
+            <h1 class="lesson-title">Daten abfragen mit SQL</h1>
+            <p class="lesson-desc">Die meisten Unternehmensdaten liegen in relationalen Datenbanken. SQL ist die Sprache, mit der du sie filterst, verknüpfst und zusammenfasst — die Grundfertigkeit jedes Data Scientists.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Abfragen, verknüpfen, aggregieren</div>
+            <div class="explanation">
+              Eine relationale Datenbank speichert Daten in <strong>Tabellen</strong> (Zeilen = Datensätze, Spalten = Felder). Die Grundabfrage: <code>SELECT</code> wählt Spalten, <code>WHERE</code> filtert Zeilen, <code>ORDER BY</code> sortiert.<br><br>
+              Der eigentliche Hebel sind <strong>JOINs</strong>: Sie verbinden Tabellen über einen gemeinsamen Schlüssel (z. B. Bestellungen mit Kunden). Und <code>GROUP BY</code> mit Aggregatfunktionen (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) fasst viele Zeilen zu Kennzahlen zusammen — „Umsatz pro Land", „Bestellungen pro Kunde".
+            </div>
+          </div>
+          ${callout('tip', 'Profi-Tipp', 'Denke in Mengen, nicht in Schleifen. SQL beschreibt, WAS du willst (das Ergebnis), nicht WIE es Zeile für Zeile berechnet wird. Wer versucht, wie in einer Programmiersprache durch die Daten zu „laufen", macht sich das Leben unnötig schwer.')}
+          ${renderQuestions('ds_l2_1', 6)}
+          ${renderBonus('ds_l2_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 1</div>
+            <h1 class="lesson-title">Querying Data with SQL</h1>
+            <p class="lesson-desc">Most company data lives in relational databases. SQL is the language you use to filter, join and summarize it — the core skill of every data scientist.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Query, join, aggregate</div>
+            <div class="explanation">
+              A relational database stores data in <strong>tables</strong> (rows = records, columns = fields). The basic query: <code>SELECT</code> picks columns, <code>WHERE</code> filters rows, <code>ORDER BY</code> sorts.<br><br>
+              The real lever is <strong>joins</strong>: they connect tables via a shared key (e.g. orders with customers). And <code>GROUP BY</code> with aggregate functions (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) condenses many rows into metrics — "revenue per country", "orders per customer".
+            </div>
+          </div>
+          ${callout('tip', 'Pro tip', 'Think in sets, not loops. SQL describes WHAT you want (the result), not HOW it is computed row by row. Trying to "walk" through the data like in a programming language makes life unnecessarily hard.')}
+          ${renderQuestions('ds_l2_1', 6)}
+          ${renderBonus('ds_l2_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ds3', title: 'Python für Daten (Pandas)', title_en: 'Python for Data (Pandas)',
+    sub: 'Daten in Python laden, filtern, gruppieren und bereinigen — mit dem Werkzeug pandas.',
+    sub_en: 'Load, filter, group and clean data in Python — with the pandas toolkit.',
+    lessons: [
+      {
+        id: 'ds_l3_1', title: 'Datenanalyse mit Pandas',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lektion 1</div>
+            <h1 class="lesson-title">Datenanalyse mit Pandas</h1>
+            <p class="lesson-desc">pandas ist das Standard-Werkzeug, um Daten in Python zu bearbeiten. Sein Herzstück ist der DataFrame — eine Tabelle im Speicher, die du filtern, gruppieren und bereinigen kannst.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">DataFrame, Selektion & Bereinigung</div>
+            <div class="explanation">
+              Ein <strong>DataFrame</strong> ist eine 2D-Tabelle (Spalten = <code>Series</code>). Selektion: <code>df["spalte"]</code> holt eine Spalte, <code>df.loc[]</code> wählt nach Label, <code>df.iloc[]</code> nach Position, und ein Boolescher Filter (<code>df[df["alter"] &gt; 30]</code>) wählt Zeilen nach Bedingung.<br><br>
+              <code>groupby</code> ist das Pandas-Gegenstück zu SQLs GROUP BY: gruppieren und je Gruppe aggregieren. Vor jeder Analyse steht die <strong>Bereinigung</strong>: fehlende Werte (<code>NaN</code>) behandeln, Duplikate entfernen, Datentypen korrigieren — reale Daten sind fast nie sauber.
+            </div>
+          </div>
+          ${callout('key', 'Merke', 'Rund 80 % der Arbeit im Data Science ist Datenbereinigung und -aufbereitung, nicht das Modell. Garbage in, garbage out: Das beste Verfahren liefert Unsinn, wenn die Eingabedaten schmutzig sind.')}
+          ${renderQuestions('ds_l3_1', 6)}
+          ${renderBonus('ds_l3_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 3 · Lesson 1</div>
+            <h1 class="lesson-title">Data Analysis with Pandas</h1>
+            <p class="lesson-desc">pandas is the standard tool for working with data in Python. Its heart is the DataFrame — an in-memory table you can filter, group and clean.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">DataFrame, selection & cleaning</div>
+            <div class="explanation">
+              A <strong>DataFrame</strong> is a 2D table (columns = <code>Series</code>). Selection: <code>df["column"]</code> gets a column, <code>df.loc[]</code> selects by label, <code>df.iloc[]</code> by position, and a boolean filter (<code>df[df["age"] &gt; 30]</code>) selects rows by condition.<br><br>
+              <code>groupby</code> is the pandas counterpart to SQL's GROUP BY: group and aggregate per group. Before any analysis comes <strong>cleaning</strong>: handle missing values (<code>NaN</code>), remove duplicates, fix data types — real data is almost never clean.
+            </div>
+          </div>
+          ${callout('key', 'Remember', 'About 80% of data science work is data cleaning and preparation, not the model. Garbage in, garbage out: the best method produces nonsense if the input data is dirty.')}
+          ${renderQuestions('ds_l3_1', 6)}
+          ${renderBonus('ds_l3_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ds4', title: 'Datenvisualisierung', title_en: 'Data Visualization',
+    sub: 'Daten sichtbar machen — erst zum Erkunden, dann zum Erklären. Und was einen guten Plot ausmacht.',
+    sub_en: 'Make data visible — first to explore, then to explain. And what makes a good plot.',
+    lessons: [
+      {
+        id: 'ds_l4_1', title: 'Daten sichtbar machen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 1</div>
+            <h1 class="lesson-title">Daten sichtbar machen</h1>
+            <p class="lesson-desc">Eine gute Grafik zeigt in Sekunden, was in einer Tabelle verborgen bleibt. Visualisierung hat zwei Zwecke — erkunden und erklären — und jeder verlangt andere Grafiken.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Explorativ vs. erklärend</div>
+            <div class="explanation">
+              <strong>Explorative</strong> Plots baust du für dich selbst, um Muster, Ausreißer und Zusammenhänge zu finden — schnell und viele. <strong>Erklärende</strong> Plots baust du für ein Publikum, um genau eine Botschaft klar zu machen — reduziert und beschriftet.<br><br>
+              Die Chart-Wahl folgt der Frage: <code>Balken</code> für Vergleiche zwischen Kategorien, <code>Linie</code> für Verläufe über Zeit, <code>Streudiagramm</code> für den Zusammenhang zweier Größen, <code>Histogramm</code> für eine Verteilung. Ein <strong>Dashboard</strong> bündelt mehrere Sichten für die laufende Beobachtung.
+            </div>
+          </div>
+          ${callout('tip', 'Weniger ist mehr', 'Entferne alles, was nicht zur Botschaft beiträgt (überflüssige Gitter, 3D-Effekte, grelle Farben). Achte auf ehrliche Achsen — eine abgeschnittene y-Achse kann kleine Unterschiede dramatisch übertreiben.')}
+          ${renderQuestions('ds_l4_1', 6)}
+          ${renderBonus('ds_l4_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 1</div>
+            <h1 class="lesson-title">Making Data Visible</h1>
+            <p class="lesson-desc">A good chart shows in seconds what stays hidden in a table. Visualization has two purposes — exploring and explaining — and each calls for different charts.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Exploratory vs. explanatory</div>
+            <div class="explanation">
+              <strong>Exploratory</strong> plots you build for yourself, to find patterns, outliers and relationships — quick and many. <strong>Explanatory</strong> plots you build for an audience, to make exactly one message clear — reduced and labeled.<br><br>
+              Chart choice follows the question: <code>bar</code> for comparisons across categories, <code>line</code> for trends over time, <code>scatter</code> for the relationship between two quantities, <code>histogram</code> for a distribution. A <strong>dashboard</strong> bundles several views for ongoing monitoring.
+            </div>
+          </div>
+          ${callout('tip', 'Less is more', 'Remove everything that does not serve the message (needless gridlines, 3D effects, garish colors). Watch for honest axes — a truncated y-axis can dramatically exaggerate small differences.')}
+          ${renderQuestions('ds_l4_1', 6)}
+          ${renderBonus('ds_l4_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ds5', title: 'Machine Learning', title_en: 'Machine Learning',
+    sub: 'Aus Daten Muster lernen — überwacht und unüberwacht — und ehrlich messen, ob es funktioniert.',
+    sub_en: 'Learn patterns from data — supervised and unsupervised — and honestly measure if it works.',
+    lessons: [
+      {
+        id: 'ds_l5_1', title: 'Machine Learning Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lektion 1</div>
+            <h1 class="lesson-title">Machine Learning Grundlagen</h1>
+            <p class="lesson-desc">Machine Learning lernt Muster aus Daten, statt sie fest zu programmieren. Der entscheidende Test ist nicht, wie gut ein Modell die Trainingsdaten kennt, sondern wie gut es auf neuen Daten arbeitet.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Überwacht, unüberwacht & Generalisierung</div>
+            <div class="explanation">
+              <strong>Supervised Learning</strong> lernt aus Beispielen mit bekannter Antwort: <code>Klassifikation</code> (Kategorie vorhersagen, z. B. Spam/kein Spam) und <code>Regression</code> (Zahl vorhersagen, z. B. Preis). <strong>Unsupervised Learning</strong> findet Struktur ohne Antworten, z. B. <code>Clustering</code> (ähnliche Datenpunkte gruppieren).<br><br>
+              Das zentrale Problem ist die <strong>Generalisierung</strong>: Man teilt die Daten in <code>Training</code> und <code>Test</code>. <strong>Overfitting</strong> heißt, das Modell hat die Trainingsdaten auswendig gelernt und versagt auf neuen; <strong>Underfitting</strong> heißt, es ist zu simpel für das Muster.
+            </div>
+          </div>
+          ${callout('key', 'Ehrlich messen', 'Bewerte ein Modell NIE auf den Daten, mit denen es trainiert wurde — das ist wie eine Prüfung mit vorher bekannten Lösungen. Nur die Leistung auf ungesehenen Testdaten zählt. Metriken: Accuracy/Precision/Recall (Klassifikation), RMSE (Regression).')}
+          ${renderQuestions('ds_l5_1', 6)}
+          ${renderBonus('ds_l5_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 5 · Lesson 1</div>
+            <h1 class="lesson-title">Machine Learning Basics</h1>
+            <p class="lesson-desc">Machine learning learns patterns from data instead of hard-coding them. The decisive test is not how well a model knows the training data, but how well it works on new data.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Supervised, unsupervised & generalization</div>
+            <div class="explanation">
+              <strong>Supervised learning</strong> learns from examples with known answers: <code>classification</code> (predict a category, e.g. spam / not spam) and <code>regression</code> (predict a number, e.g. price). <strong>Unsupervised learning</strong> finds structure without answers, e.g. <code>clustering</code> (grouping similar data points).<br><br>
+              The central problem is <strong>generalization</strong>: you split the data into <code>training</code> and <code>test</code>. <strong>Overfitting</strong> means the model memorized the training data and fails on new data; <strong>underfitting</strong> means it is too simple for the pattern.
+            </div>
+          </div>
+          ${callout('key', 'Measure honestly', 'Never evaluate a model on the data it was trained on — that is like an exam with the answers known in advance. Only performance on unseen test data counts. Metrics: accuracy/precision/recall (classification), RMSE (regression).')}
+          ${renderQuestions('ds_l5_1', 6)}
+          ${renderBonus('ds_l5_1')}
+        `
+      },
+    ]
+  },
+  {
+    id: 'p_ds6', title: 'Empfehlungssysteme', title_en: 'Recommender Systems',
+    sub: 'Wie Systeme vorschlagen, was dir gefallen könnte — von Beliebtheit bis Collaborative Filtering.',
+    sub_en: 'How systems suggest what you might like — from popularity to collaborative filtering.',
+    lessons: [
+      {
+        id: 'ds_l6_1', title: 'Empfehlungssysteme',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lektion 1</div>
+            <h1 class="lesson-title">Empfehlungssysteme</h1>
+            <p class="lesson-desc">Empfehlungssysteme schlagen vor, was einem Nutzer gefallen könnte — von Filmen bis Produkten. Sie sind eine der sichtbarsten Anwendungen von Data Science im Alltag.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Drei Ansätze</div>
+            <div class="explanation">
+              <strong>Popularity</strong> (Beliebtheit): empfiehlt allen dasselbe Beliebteste — einfach, aber unpersönlich; gut als Start, wenn noch keine Daten über einen Nutzer vorliegen (Cold-Start). <strong>Content-based</strong>: empfiehlt Ähnliches zu dem, was der Nutzer mochte (gleiches Genre, ähnliche Merkmale).<br><br>
+              <strong>Collaborative Filtering</strong>: nutzt das Verhalten <em>vieler</em> Nutzer — „Menschen, die mochten wie du, mochten auch X". Man unterscheidet <code>user-based</code> (ähnliche Nutzer) und <code>item-based</code> (ähnliche Artikel). Die Ähnlichkeit misst man z. B. mit <code>Cosine-Similarity</code> oder <code>Pearson-Korrelation</code>.
+            </div>
+          </div>
+          ${callout('tip', 'Der Cold-Start', 'Ein neues System oder ein neuer Nutzer hat noch keine Interaktionsdaten — dann versagt Collaborative Filtering. Deshalb kombiniert man in der Praxis mehrere Ansätze: erst Beliebtheit/Content-based, dann mit wachsenden Daten Collaborative Filtering.')}
+          ${renderQuestions('ds_l6_1', 6)}
+          ${renderBonus('ds_l6_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 6 · Lesson 1</div>
+            <h1 class="lesson-title">Recommender Systems</h1>
+            <p class="lesson-desc">Recommender systems suggest what a user might like — from films to products. They are one of the most visible everyday applications of data science.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Three approaches</div>
+            <div class="explanation">
+              <strong>Popularity</strong>: recommends the same most-popular items to everyone — simple but impersonal; good as a start when there is no data about a user yet (cold start). <strong>Content-based</strong>: recommends items similar to what the user liked (same genre, similar features).<br><br>
+              <strong>Collaborative filtering</strong>: uses the behavior of <em>many</em> users — "people who liked what you liked also liked X". It comes in <code>user-based</code> (similar users) and <code>item-based</code> (similar items) variants. Similarity is measured, for example, with <code>cosine similarity</code> or <code>Pearson correlation</code>.
+            </div>
+          </div>
+          ${callout('tip', 'The cold start', 'A new system or a new user has no interaction data yet — then collaborative filtering fails. That is why in practice you combine approaches: first popularity/content-based, then collaborative filtering as data grows.')}
+          ${renderQuestions('ds_l6_1', 6)}
+          ${renderBonus('ds_l6_1')}
+        `
+      },
+    ]
+  },
+];
+
+// ============================================================
 //              COURSES — top level above phases
 // ============================================================
 // A course bundles its own phases. `PHASES` always points at the ACTIVE
@@ -24575,6 +24845,19 @@ const COURSES = [
     level_en: 'Pro',
     accent: 'var(--accent)',
     phases: LEAD_PHASES,
+    available: true,
+  },
+  {
+    id: 'data_science',
+    title: 'Data Science',
+    title_en: 'Data Science',
+    sub: 'Von Statistik über SQL und Pandas bis Visualisierung, Machine Learning und Empfehlungssystemen.',
+    sub_en: 'From statistics through SQL and pandas to visualization, machine learning and recommender systems.',
+    icon: 'bar-chart-3',
+    level: 'Einsteiger → Fortgeschritten',
+    level_en: 'Beginner → Advanced',
+    accent: 'var(--green)',
+    phases: DS_PHASES,
     available: true,
   },
 ];
