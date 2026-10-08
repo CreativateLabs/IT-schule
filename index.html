@@ -25101,6 +25101,170 @@ Stability -&gt; Change Failure Rate   (share of faulty releases)
           ${renderBonus('lead_l1_2')}
         `
       },
+      {
+        id: 'lead_l1_3', title: 'Platform Engineering & Developer Experience',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 3</div>
+            <h1 class="lesson-title">Platform Engineering & Developer Experience</h1>
+            <p class="lesson-desc">Wie senkt man die geistige Last der Produktteams, ohne ein neues Silo zu bauen? Indem man eine interne Plattform wie ein Produkt behandelt — mit den Entwicklern als Nutzern — und die Entwickler-Erfahrung mehrdimensional misst.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die interne Entwicklerplattform als Produkt</div>
+            <div class="explanation">
+              <strong>Platform Engineering</strong> bedeutet: ein internes Produktteam baut eine <strong>interne Entwicklerplattform</strong> (Internal Developer Platform, IDP), die den Golden Path aus Lektion 1 als <strong>Self-Service</strong> bereitstellt. Ein Produktteam klickt sich einen neuen Dienst zusammen und bekommt CI/CD, Observability und Standard-Konfiguration ohne Ticket und ohne Wartezeit.<br><br>
+              Das Ziel ist, die <strong>kognitive Last</strong> der Produktteams zu senken — nicht, ein neues Silo oder einen Gatekeeper zu schaffen, durch den jede Änderung muss. Deshalb wird die Plattform wie ein Produkt mit echten Nutzern behandelt: den Entwicklern. Sie hat eine Roadmap, nimmt Feedback auf und startet bewusst klein als „thinnest viable platform" (kleinste tragfähige Plattform), die mit dem Bedarf wächst, statt von Anfang an alles vorschreiben zu wollen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Developer Experience: drei Kerndimensionen</div>
+            <div class="explanation">
+              <strong>Developer Experience</strong> (DevEx) beschreibt, wie sich die tägliche Arbeit für Entwickler anfühlt. Sie hat drei Kerndimensionen: <strong>Feedback-Schleifen</strong> — wie schnell kommt Rückmeldung aus Builds, Tests, Reviews und Deploys; <strong>kognitive Last</strong> — wie viel muss man gleichzeitig im Kopf behalten; und <strong>Flow-Zustand</strong> — wie ununterbrochen und fokussiert kann man arbeiten. Eine gute Plattform verbessert alle drei: schnelle Feedback-Schleifen durch Automatisierung, geringe kognitive Last durch Self-Service, mehr Flow durch weniger Unterbrechungen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Self-Service-Skizze</span></div>
+              <div class="code-pre">neuer Service -&gt; Template waehlen
+              -&gt; CI/CD out-of-the-box
+              -&gt; Observability out-of-the-box
+              -&gt; Golden Path als Default</div>
+            </div>
+          </div>
+          ${quickCheck('Welche drei Kerndimensionen hat Developer Experience?', ['Feedback-Schleifen, kognitive Last und Flow-Zustand', 'Gehalt, Hardware und Bürogröße', 'Commits, Codezeilen und Story Points'], 0, 'DevEx wird über Feedback-Schleifen (wie schnell kommt Rückmeldung), kognitive Last (wie viel muss man behalten) und den Flow-Zustand (ununterbrochenes Arbeiten) beschrieben.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Messen jenseits von DORA: SPACE statt Vanity-Metrik</div>
+            <div class="explanation">
+              DORA misst die Lieferfähigkeit — doch die Produktivität eines Teams ist breiter. Das <strong>SPACE-Framework</strong> nennt fünf Dimensionen: <strong>S</strong>atisfaction (Wohlbefinden), <strong>P</strong>erformance, <strong>A</strong>ctivity, <strong>C</strong>ommunication und <strong>E</strong>fficiency (Flow). Die Botschaft: Produktivität ist mehrdimensional und lässt sich <strong>nicht</strong> auf eine einzelne Zahl wie Codezeilen oder Commits reduzieren — das wäre eine leicht manipulierbare Vanity-Metrik, die man optimiert, ohne dass echter Wert entsteht.<br><br>
+              Der Nutzen ist handfest: bessere DevEx führt zu schnellerer Lieferung, weniger Burnout und besserer Mitarbeiterbindung. Wer die Plattform als Produkt pflegt und DevEx mehrdimensional misst, verbessert die Lieferfähigkeit und das Wohlbefinden gleichzeitig.
+            </div>
+          </div>
+          ${quickCheck('Warum taugt die Zahl der Codezeilen nicht als Produktivitätsmaß?', ['Weil Produktivität mehrdimensional ist und eine einzelne Zahl zur manipulierbaren Vanity-Metrik wird', 'Weil Codezeilen technisch nicht zählbar sind', 'Weil nur die Deployment Frequency zählt'], 0, 'SPACE zeigt, dass Produktivität viele Dimensionen hat. Eine einzelne Zahl wie Codezeilen lässt sich leicht spielen und misst Aktivität statt Wert.')}
+          ${callout('key', 'Merksatz', 'Behandle die Plattform als Produkt für deine Entwickler und miss DevEx mehrdimensional — Feedback-Schleifen, kognitive Last und Flow — nie an einer einzelnen Zahl.')}
+          ${renderQuestions('lead_l1_3', 6)}
+          ${renderBonus('lead_l1_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 3</div>
+            <h1 class="lesson-title">Platform Engineering & Developer Experience</h1>
+            <p class="lesson-desc">How do you lower the cognitive load on product teams without building a new silo? By treating an internal platform like a product — with developers as its users — and measuring developer experience across several dimensions.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The internal developer platform as a product</div>
+            <div class="explanation">
+              <strong>Platform engineering</strong> means an internal product team builds an <strong>internal developer platform</strong> (IDP) that provides the golden path from lesson 1 as <strong>self-service</strong>. A product team spins up a new service and gets CI/CD, observability and standard configuration without a ticket and without waiting.<br><br>
+              The goal is to lower the <strong>cognitive load</strong> on product teams — not to create a new silo or a gatekeeper that every change has to pass through. That is why the platform is treated like a product with real users: the developers. It has a roadmap, takes in feedback and deliberately starts small as the "thinnest viable platform", growing with demand instead of trying to prescribe everything from day one.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Developer experience: three core dimensions</div>
+            <div class="explanation">
+              <strong>Developer experience</strong> (DevEx) describes how daily work feels for developers. It has three core dimensions: <strong>feedback loops</strong> — how fast feedback comes back from builds, tests, reviews and deploys; <strong>cognitive load</strong> — how much you must hold in your head at once; and <strong>flow state</strong> — how uninterrupted and focused you can work. A good platform improves all three: fast feedback loops through automation, low cognitive load through self-service, more flow through fewer interruptions.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Self-service sketch</span></div>
+              <div class="code-pre">new service -&gt; choose template
+            -&gt; CI/CD out-of-the-box
+            -&gt; observability out-of-the-box
+            -&gt; golden path as default</div>
+            </div>
+          </div>
+          ${quickCheck('Which three core dimensions does developer experience have?', ['Feedback loops, cognitive load and flow state', 'Salary, hardware and office size', 'Commits, lines of code and story points'], 0, 'DevEx is described through feedback loops (how fast feedback returns), cognitive load (how much you must hold in your head) and flow state (uninterrupted work).')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Measuring beyond DORA: SPACE, not a vanity metric</div>
+            <div class="explanation">
+              DORA measures delivery capability — but a team's productivity is broader. The <strong>SPACE framework</strong> names five dimensions: <strong>S</strong>atisfaction (well-being), <strong>P</strong>erformance, <strong>A</strong>ctivity, <strong>C</strong>ommunication and <strong>E</strong>fficiency (flow). The message: productivity is multidimensional and <strong>cannot</strong> be reduced to a single number such as lines of code or commits — that would be an easily gamed vanity metric you optimize without creating real value.<br><br>
+              The benefit is concrete: better DevEx leads to faster delivery, less burnout and better retention. Whoever maintains the platform as a product and measures DevEx across several dimensions improves delivery capability and well-being at the same time.
+            </div>
+          </div>
+          ${quickCheck('Why is the number of lines of code a poor productivity measure?', ['Because productivity is multidimensional and a single number becomes a gameable vanity metric', 'Because lines of code cannot technically be counted', 'Because only deployment frequency matters'], 0, 'SPACE shows that productivity has many dimensions. A single number like lines of code is easy to game and measures activity instead of value.')}
+          ${callout('key', 'Key line', 'Treat the platform as a product for your developers and measure DevEx across several dimensions — feedback loops, cognitive load and flow — never by a single number.')}
+          ${renderQuestions('lead_l1_3', 6)}
+          ${renderBonus('lead_l1_3')}
+        `
+      },
+      {
+        id: 'lead_l1_4', title: 'Zuverlässigkeitskultur: SRE, SLOs & blameless Postmortems',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 4</div>
+            <h1 class="lesson-title">Zuverlässigkeitskultur: SRE, SLOs & blameless Postmortems</h1>
+            <p class="lesson-desc">Wie steuert man Zuverlässigkeit als Führungskraft, ohne 100 Prozent zu versprechen? Mit SLOs und Fehlerbudget als Steuerungsinstrument — und mit einer schuldfreien Lernkultur nach Vorfällen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">SLOs & Fehlerbudget als Steuerungsinstrument</div>
+            <div class="explanation">
+              <strong>Site Reliability Engineering</strong> (SRE) wendet Engineering-Methoden auf den Betrieb an. Für Leader ist der Kern: <strong>SLOs</strong> (Service Level Objectives) sind die gemeinsame Sprache zwischen Produkt und Engineering — sie legen fest, wie zuverlässig ein Dienst sein soll, etwa 99,9 Prozent erfolgreiche Anfragen.<br><br>
+              Daraus folgt das <strong>Fehlerbudget</strong> (100 Prozent minus SLO): der Spielraum, den man an Unzuverlässigkeit ausgeben darf. Ist Budget vorhanden, darf man schneller Features liefern; ist es aufgebraucht, hat Stabilität Vorrang. Das macht den Zielkonflikt zwischen Tempo und Stabilität <strong>explizit</strong> und entpolitisiert ihn — statt Bauchgefühl entscheidet eine vereinbarte Zahl.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">On-Call menschlich gestalten & Alarm-Hygiene</div>
+            <div class="explanation">
+              Zuverlässigkeit hängt auch an den Menschen im Bereitschaftsdienst. <strong>On-Call menschlich gestalten</strong> heißt: faire Rotationen, klare Eskalationspfade und vor allem <strong>Alarm-Hygiene</strong> — nur alarmieren, was sofortiges Handeln erfordert. Jeder Alarm ohne nötige Reaktion erzeugt <strong>Alarm-Müdigkeit</strong>, bis echte Vorfälle im Rauschen untergehen.<br><br>
+              Zwei weitere Hebel: <strong>MTTR</strong> (mittlere Wiederherstellzeit) kurz halten, indem man schnelle Diagnose und Rollback einübt; und <strong>Toil</strong> (wiederkehrende manuelle Betriebsarbeit) systematisch automatisieren, damit das Team an der Zuverlässigkeit arbeitet statt sie nur manuell aufrechtzuerhalten. <strong>Game Days</strong> üben Ernstfälle bewusst, bevor sie echt passieren.
+            </div>
+          </div>
+          ${quickCheck('Wozu dient das Fehlerbudget (100 Prozent minus SLO)?', ['Als Steuerungsinstrument: ist Budget da, liefert man schneller Features; ist es aufgebraucht, hat Stabilität Vorrang', 'Als Jahresbudget für neue Server', 'Als Bonus-Kennzahl für einzelne Entwickler'], 0, 'Das Fehlerbudget macht den Zielkonflikt Tempo gegen Stabilität explizit: verfügbares Budget erlaubt mehr Tempo, ein aufgebrauchtes zwingt zu Stabilität.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Blameless Postmortem: Systeme hinterfragen, nicht Personen</div>
+            <div class="explanation">
+              Nach einem Vorfall folgt das <strong>blameless Postmortem</strong> (schuldfreie Nachbetrachtung). Die Leitfrage ist „welches System, welcher Prozess hat das zugelassen?" statt „wer war schuld?". Der Grund: Menschen handeln meist rational im gegebenen Kontext — Schuldzuweisung zerstört die psychologische Sicherheit und damit das ehrliche Lernen. Wer Angst vor Schuld hat, verschweigt Fehler, und das System lernt nicht.<br><br>
+              Ein Postmortem hält nüchtern fest: Zeitstrahl, Auswirkung, Grundursachen und konkrete Maßnahmen mit Verantwortlichen. So wird aus einem Ausfall dauerhafte Verbesserung statt Angst.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Postmortem-Vorlage</span></div>
+              <div class="code-pre">Zeitstrahl    -&gt; was geschah wann
+Auswirkung    -&gt; wer/was war betroffen
+Grundursachen -&gt; welches System liess es zu
+Massnahmen    -&gt; Aufgabe + Verantwortliche/r</div>
+            </div>
+          </div>
+          ${quickCheck('Welche Leitfrage stellt ein blameless Postmortem?', ['Welches System oder welcher Prozess hat das zugelassen — statt wer war schuld', 'Wer war schuld und muss die Konsequenzen tragen', 'Wie verhindern wir künftig jede Art von Veröffentlichung'], 0, 'Blameless heißt: man hinterfragt Systeme und Prozesse, nicht Personen. Schuldzuweisung zerstört die psychologische Sicherheit und das ehrliche Lernen.')}
+          ${callout('key', 'Merksatz', 'Zuverlässigkeit steuert man mit SLOs und Fehlerbudget statt mit 100-Prozent-Versprechen — und man lernt aus Vorfällen schuldfrei, indem man Systeme hinterfragt, nicht Personen.')}
+          ${renderQuestions('lead_l1_4', 6)}
+          ${renderBonus('lead_l1_4')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 4</div>
+            <h1 class="lesson-title">A reliability culture: SRE, SLOs & blameless postmortems</h1>
+            <p class="lesson-desc">How do you steer reliability as a leader without promising 100 percent? With SLOs and an error budget as a control instrument — and with a blameless learning culture after incidents.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">SLOs & error budget as a control instrument</div>
+            <div class="explanation">
+              <strong>Site reliability engineering</strong> (SRE) applies engineering methods to operations. For leaders the core is: <strong>SLOs</strong> (service level objectives) are the shared language between product and engineering — they define how reliable a service should be, for example 99.9 percent successful requests.<br><br>
+              From this follows the <strong>error budget</strong> (100 percent minus the SLO): the room you are allowed to spend on unreliability. When budget remains, you may ship features faster; when it is used up, stability takes priority. This makes the trade-off between speed and stability <strong>explicit</strong> and depoliticizes it — an agreed number decides instead of a gut feeling.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Humane on-call & alert hygiene</div>
+            <div class="explanation">
+              Reliability also depends on the people on call. <strong>Humane on-call</strong> means fair rotations, clear escalation paths and above all <strong>alert hygiene</strong> — only page for what requires immediate action. Every alert without a needed response breeds <strong>alert fatigue</strong>, until real incidents drown in the noise.<br><br>
+              Two further levers: keep <strong>MTTR</strong> (mean time to restore) short by rehearsing fast diagnosis and rollback; and systematically automate <strong>toil</strong> (recurring manual operational work), so the team works on reliability instead of only sustaining it by hand. <strong>Game days</strong> deliberately rehearse emergencies before they happen for real.
+            </div>
+          </div>
+          ${quickCheck('What is the error budget (100 percent minus the SLO) for?', ['As a control instrument: when budget remains you ship features faster, when it is used up stability takes priority', 'As an annual budget for new servers', 'As a bonus metric for individual developers'], 0, 'The error budget makes the speed-versus-stability trade-off explicit: available budget allows more speed, a depleted one forces stability.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Blameless postmortem: question systems, not people</div>
+            <div class="explanation">
+              After an incident comes the <strong>blameless postmortem</strong>. The guiding question is "which system, which process allowed this?" instead of "who was at fault?". The reason: people mostly act rationally in the context they were in — assigning blame destroys psychological safety and with it honest learning. Whoever fears blame hides mistakes, and the system does not learn.<br><br>
+              A postmortem records soberly: a timeline, the impact, root causes and concrete actions with owners. That turns an outage into lasting improvement instead of fear.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Postmortem template</span></div>
+              <div class="code-pre">Timeline   -&gt; what happened when
+Impact     -&gt; who/what was affected
+Root cause -&gt; which system allowed it
+Actions    -&gt; task + owner</div>
+            </div>
+          </div>
+          ${quickCheck('What guiding question does a blameless postmortem ask?', ['Which system or process allowed this — instead of who was at fault', 'Who was at fault and must bear the consequences', 'How do we prevent every kind of release in future'], 0, 'Blameless means you question systems and processes, not people. Assigning blame destroys psychological safety and honest learning.')}
+          ${callout('key', 'Key line', 'You steer reliability with SLOs and an error budget instead of 100-percent promises — and you learn from incidents blamelessly by questioning systems, not people.')}
+          ${renderQuestions('lead_l1_4', 6)}
+          ${renderBonus('lead_l1_4')}
+        `
+      },
     ]
   },
   {
@@ -33711,6 +33875,48 @@ QUESTION_POOLS['lead_l2_2'] = [
     {t:'Die Aufgabe delegieren, aber nicht die Befugnis — das erzeugt Frust und Rückdelegation',t_en:'Delegating the task but not the authority — that breeds frustration and reverse delegation',correct:true,why:'Genau. Ohne Entscheidungsrechte landet jede Frage wieder oben; Aufgabe und Befugnis gehören zusammen übergeben.',why_en:'Exactly. Without decision rights every question lands back on top; task and authority must be handed over together.'},
     {t:'Zu klare Grenzen und zu viel Kontext mitzugeben',t_en:'Handing over too clear boundaries and too much context',correct:false,why:'Nein. Ziel, Kontext und Grenzen sind gerade das, was gutes Delegieren ausmacht.',why_en:'No. Goal, context and boundaries are exactly what good delegation provides.'},
     {t:'Umkehrbare Entscheidungen zu schnell nach unten zu delegieren',t_en:'Delegating reversible decisions too quickly downward',correct:false,why:'Nein. Umkehrbare Entscheidungen soll man gerade schnell und weit unten delegieren.',why_en:'No. Reversible decisions are precisely the ones to delegate fast and far down.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l1_3'] = [
+  {id:'p_lead_l1_3_mc1',type:'mc',xp:10,question:'Was ist das Ziel von <strong>Platform Engineering</strong>?',question_en:'What is the goal of <strong>platform engineering</strong>?',options:[
+    {t:'Eine interne Plattform als Self-Service bereitstellen, die die kognitive Last der Produktteams senkt',t_en:'Provide an internal platform as self-service that lowers the cognitive load on product teams',correct:true,why:'Genau. Die Plattform stellt den Golden Path als Self-Service bereit und nimmt den Teams geistige Last ab.',why_en:'Exactly. The platform provides the golden path as self-service and takes cognitive load off the teams.'},
+    {t:'Ein neues Gatekeeper-Silo schaffen, durch das jede Änderung muss',t_en:'Create a new gatekeeper silo that every change has to pass through',correct:false,why:'Nein. Genau das soll Platform Engineering vermeiden — es ist kein Gatekeeper.',why_en:'No. That is exactly what platform engineering avoids — it is not a gatekeeper.'},
+    {t:'Die Produktteams durch ein zentrales Betriebsteam zu ersetzen',t_en:'Replace the product teams with a central operations team',correct:false,why:'Nein. Die Produktteams bleiben; die Plattform befähigt sie, statt sie zu ersetzen.',why_en:'No. The product teams remain; the platform enables them rather than replacing them.'}
+  ]},
+  {id:'p_lead_l1_3_mc2',type:'mc',xp:10,question:'Welche drei Kerndimensionen beschreiben die <strong>Developer Experience</strong>?',question_en:'Which three core dimensions describe <strong>developer experience</strong>?',options:[
+    {t:'Feedback-Schleifen, kognitive Last und Flow-Zustand',t_en:'Feedback loops, cognitive load and flow state',correct:true,why:'Genau. Wie schnell Rückmeldung kommt, wie viel man im Kopf behalten muss und wie ungestört man arbeitet.',why_en:'Exactly. How fast feedback comes, how much you must hold in your head and how undisturbed you can work.'},
+    {t:'Gehalt, Hardware und Büroausstattung',t_en:'Salary, hardware and office equipment',correct:false,why:'Nein. Das sind Rahmenbedingungen, aber nicht die Kerndimensionen von DevEx.',why_en:'No. Those are background conditions, not the core dimensions of DevEx.'},
+    {t:'Commits, Codezeilen und Story Points',t_en:'Commits, lines of code and story points',correct:false,why:'Nein. Das sind Aktivitätszahlen — leicht manipulierbare Vanity-Metriken, keine DevEx-Dimensionen.',why_en:'No. Those are activity counts — easily gamed vanity metrics, not DevEx dimensions.'}
+  ]},
+  {id:'p_lead_l1_3_tf1',type:'truefalse',xp:8,statement:'Eine interne Entwicklerplattform wird wie ein Produkt mit Nutzern — den Entwicklern — behandelt, inklusive Roadmap und Feedback.',statement_en:'An internal developer platform is treated like a product with users — the developers — including a roadmap and feedback.',correct:true,explanation:'Richtig. Die Idee der „thinnest viable platform" beginnt bewusst klein und wächst mit dem Bedarf der Nutzer.',explanation_en:'Correct. The idea of the "thinnest viable platform" starts deliberately small and grows with user demand.'},
+  {id:'p_lead_l1_3_tf2',type:'truefalse',xp:8,statement:'Die Zahl der Codezeilen ist ein zuverlässiges Maß für die Produktivität eines Teams.',statement_en:'The number of lines of code is a reliable measure of a team\'s productivity.',correct:false,explanation:'Falsch. Produktivität ist mehrdimensional (SPACE); Codezeilen sind eine leicht manipulierbare Vanity-Metrik.',explanation_en:'False. Productivity is multidimensional (SPACE); lines of code are an easily gamed vanity metric.'},
+  {id:'p_lead_l1_3_fb1',type:'fillblank',xp:12,prompt:'Das Framework, das Produktivität mehrdimensional misst (Satisfaction, Performance, Activity, Communication, Efficiency), heißt ___ (Akronym).',prompt_en:'The framework that measures productivity across several dimensions (satisfaction, performance, activity, communication, efficiency) is called ___ (acronym).',answers:['SPACE','space'],placeholder:'Akronym…',placeholder_en:'Acronym…',explanation:'Das <strong>SPACE</strong>-Framework zeigt, dass Produktivität nicht auf eine einzelne Zahl reduzierbar ist.',explanation_en:'The <strong>SPACE</strong> framework shows that productivity cannot be reduced to a single number.'},
+  {id:'p_lead_l1_3_bonus',type:'mc',xp:20,optional:true,question:'Was meint die „thinnest viable platform" (kleinste tragfähige Plattform)?',question_en:'What does the "thinnest viable platform" mean?',options:[
+    {t:'Bewusst klein starten und mit dem Bedarf der Entwickler wachsen, statt von Anfang an alles vorzuschreiben',t_en:'Start deliberately small and grow with developer demand instead of prescribing everything from day one',correct:true,why:'Genau. Die Plattform ist ein Produkt, das iterativ nach echtem Bedarf wächst.',why_en:'Exactly. The platform is a product that grows iteratively according to real demand.'},
+    {t:'Eine Plattform mit möglichst wenigen Nutzern',t_en:'A platform with as few users as possible',correct:false,why:'Nein. Es geht um den minimalen tragfähigen Funktionsumfang, nicht um wenige Nutzer.',why_en:'No. It is about the minimal viable scope of features, not about few users.'},
+    {t:'Eine Plattform, die alle denkbaren Funktionen von Anfang an bietet',t_en:'A platform that offers every conceivable feature from the start',correct:false,why:'Nein. Das ist das Gegenteil — die Idee ist bewusst minimal und wächst mit dem Bedarf.',why_en:'No. That is the opposite — the idea is deliberately minimal and grows with demand.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l1_4'] = [
+  {id:'p_lead_l1_4_mc1',type:'mc',xp:10,question:'Wozu dient das <strong>Fehlerbudget</strong> (100 Prozent minus SLO)?',question_en:'What is the <strong>error budget</strong> (100 percent minus the SLO) for?',options:[
+    {t:'Als Steuerungsinstrument: ist Budget vorhanden, liefert man schneller Features; ist es aufgebraucht, hat Stabilität Vorrang',t_en:'As a control instrument: when budget remains you ship features faster, when it is used up stability takes priority',correct:true,why:'Genau. Es macht den Zielkonflikt Tempo gegen Stabilität explizit und entpolitisiert ihn.',why_en:'Exactly. It makes the speed-versus-stability trade-off explicit and depoliticizes it.'},
+    {t:'Als Jahresbudget für die Beschaffung neuer Server',t_en:'As an annual budget for procuring new servers',correct:false,why:'Nein. Das Fehlerbudget ist kein Finanzbudget, sondern der erlaubte Spielraum an Unzuverlässigkeit.',why_en:'No. The error budget is not a financial budget but the allowed room for unreliability.'},
+    {t:'Als Bonus-Kennzahl zur Bewertung einzelner Entwickler',t_en:'As a bonus metric to rate individual developers',correct:false,why:'Nein. Es steuert das System, nicht die Bewertung einzelner Personen.',why_en:'No. It steers the system, not the rating of individuals.'}
+  ]},
+  {id:'p_lead_l1_4_mc2',type:'mc',xp:10,question:'Welche Leitfrage stellt ein <strong>blameless Postmortem</strong>?',question_en:'What guiding question does a <strong>blameless postmortem</strong> ask?',options:[
+    {t:'Welches System oder welcher Prozess hat das zugelassen — statt wer war schuld',t_en:'Which system or process allowed this — instead of who was at fault',correct:true,why:'Genau. Menschen handeln meist rational im Kontext; Schuldzuweisung zerstört die psychologische Sicherheit.',why_en:'Exactly. People mostly act rationally in context; assigning blame destroys psychological safety.'},
+    {t:'Wer war schuld und muss die Konsequenzen tragen',t_en:'Who was at fault and must bear the consequences',correct:false,why:'Nein. Schuldzuweisung zerstört das ehrliche Lernen — genau das vermeidet blameless.',why_en:'No. Assigning blame destroys honest learning — that is exactly what blameless avoids.'},
+    {t:'Wie lässt sich künftig jede Veröffentlichung vermeiden',t_en:'How can every future release be avoided',correct:false,why:'Nein. Ziel ist Lernen und Verbesserung, nicht das Lahmlegen der Lieferung.',why_en:'No. The goal is learning and improvement, not shutting down delivery.'}
+  ]},
+  {id:'p_lead_l1_4_tf1',type:'truefalse',xp:8,statement:'Alarm-Hygiene bedeutet, nur das zu alarmieren, was sofortiges Handeln erfordert — sonst entsteht Alarm-Müdigkeit.',statement_en:'Alert hygiene means paging only for what requires immediate action — otherwise alert fatigue sets in.',correct:true,explanation:'Richtig. Jeder Alarm ohne nötige Reaktion stumpft ab, bis echte Vorfälle im Rauschen untergehen.',explanation_en:'Correct. Every alert without a needed response dulls the senses until real incidents drown in the noise.'},
+  {id:'p_lead_l1_4_tf2',type:'truefalse',xp:8,statement:'Ein SLO verspricht grundsätzlich 100 Prozent Verfügbarkeit ohne jedes Fehlerbudget.',statement_en:'An SLO fundamentally promises 100 percent availability with no error budget at all.',correct:false,explanation:'Falsch. Gerade das Fehlerbudget (100 Prozent minus SLO) ersetzt das unrealistische 100-Prozent-Versprechen.',explanation_en:'False. The error budget (100 percent minus the SLO) is precisely what replaces the unrealistic 100-percent promise.'},
+  {id:'p_lead_l1_4_fb1',type:'fillblank',xp:12,prompt:'Die wiederkehrende manuelle Betriebsarbeit, die man im SRE systematisch automatisiert, heißt ___ (englischer Begriff).',prompt_en:'The recurring manual operational work that SRE systematically automates is called ___ (English term).',answers:['Toil','toil'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Toil</strong> ist wiederkehrende manuelle Arbeit ohne bleibenden Wert — sie wird systematisch automatisiert.',explanation_en:'<strong>Toil</strong> is recurring manual work with no lasting value — it gets systematically automated.'},
+  {id:'p_lead_l1_4_bonus',type:'mc',xp:20,optional:true,question:'Warum zerstört Schuldzuweisung nach einem Vorfall das Lernen?',question_en:'Why does assigning blame after an incident destroy learning?',options:[
+    {t:'Weil sie die psychologische Sicherheit zerstört und Menschen dann Fehler verschweigen',t_en:'Because it destroys psychological safety and people then hide mistakes',correct:true,why:'Genau. Ohne Angst werden Vorfälle offen geteilt und das System kann wirklich lernen.',why_en:'Exactly. Without fear incidents are shared openly and the system can truly learn.'},
+    {t:'Weil Schuldige immer schneller lernen als Teams',t_en:'Because those blamed always learn faster than teams',correct:false,why:'Nein. Angst führt zu Vertuschung, nicht zu schnellerem Lernen.',why_en:'No. Fear leads to cover-ups, not faster learning.'},
+    {t:'Weil Postmortems gesetzlich verboten sind',t_en:'Because postmortems are legally forbidden',correct:false,why:'Nein. Postmortems sind erwünscht; nur die Schuldzuweisung darin ist schädlich.',why_en:'No. Postmortems are desirable; only assigning blame within them is harmful.'}
   ]}
 ];
 
