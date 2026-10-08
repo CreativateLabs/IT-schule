@@ -25468,6 +25468,202 @@ Compass: two-way door  = fast, delegate far down
           ${renderBonus('lead_l2_2')}
         `
       },
+      {
+        id: 'lead_l2_3', title: 'Technische Strategie & Vision',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 3</div>
+            <h1 class="lesson-title">Technische Strategie & Vision</h1>
+            <p class="lesson-desc">Eine technische Strategie ist keine Wunschliste von Technologien, sondern eine kohärente Antwort auf eine zentrale Herausforderung — und sie muss sichtbar an den Geschäftszielen hängen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Strategie ist kein Technologie-Wunschzettel</div>
+            <div class="explanation">
+              Viele „Strategien" sind in Wahrheit nur Listen begehrenswerter Technologien: Microservices, eine neue Datenbank, mehr Automatisierung. Das ist keine Strategie, sondern ein Einkaufszettel. Eine echte <strong>technische Strategie</strong> ist eine kohärente Antwort auf eine zentrale Herausforderung — sie benennt, woran es gerade wirklich hakt, und richtet die Kräfte darauf aus.<br><br>
+              Ein bewährtes Gerüst hat drei Teile: die <strong>Diagnose</strong> (was ist das eigentliche Problem, nicht nur das Symptom?), die <strong>Leitlinie</strong> (der gewählte Ansatz, der das Problem angeht) und ein Satz <strong>kohärenter Maßnahmen</strong>, die sich gegenseitig verstärken statt in verschiedene Richtungen zu ziehen. Fehlt die Diagnose, löst man hübsch das falsche Problem.
+            </div>
+          </div>
+          ${callout('tip', 'Zuerst diagnostizieren', 'Bevor eine einzige Technologie genannt wird, die Frage beantworten: Was ist das eigentliche Hindernis — langsame Lieferung, instabiler Betrieb, fehlende Skalierung? Die Diagnose entscheidet, welche Maßnahmen überhaupt sinnvoll sind. Ohne sie wird jede Technologie-Entscheidung zur Geschmacksfrage.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Zielbild & Technologie-Radar</div>
+            <div class="explanation">
+              Eine <strong>Vision</strong> oder ein <strong>Zielbild der Architektur</strong> gibt Teams eine gemeinsame Richtung, ohne jeden Schritt vorzuschreiben. Es beschreibt den angestrebten Zustand — nicht als Detailplan, sondern als Kompass, an dem einzelne Teams ihre eigenen Entscheidungen ausrichten können.<br><br>
+              Ein <strong>Technologie-Radar</strong> ist ein leichtgewichtiges Governance-Werkzeug: Technologien werden in Kategorien wie <strong>Adopt</strong> (bewährt, Standard), <strong>Trial</strong> (vielversprechend, gezielt erproben), <strong>Assess</strong> (beobachten, noch nicht einsetzen) und <strong>Hold</strong> (meiden oder ablösen) einsortiert. So lenkt man Technologie-Entscheidungen, ohne Teams zu mikromanagen — die Richtung ist klar, die Umsetzung bleibt beim Team.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Technologie-Radar (Skizze)</span></div>
+              <div class="code-pre">Adopt   -&gt; bewaehrt, als Standard einsetzen
+Trial   -&gt; vielversprechend, gezielt in einem Projekt erproben
+Assess  -&gt; beobachten, Potenzial pruefen, noch nicht breit nutzen
+Hold    -&gt; meiden oder aktiv abloesen
+
+Zweck: Richtung geben, ohne Teams zu mikromanagen</div>
+            </div>
+          </div>
+          ${quickCheck('Was ist der Zweck eines Technologie-Radars mit Kategorien wie Adopt, Trial, Assess und Hold?', ['Ein leichtgewichtiges Werkzeug, das Technologie-Entscheidungen lenkt, ohne Teams zu mikromanagen', 'Eine verbindliche Vorschrift, die jedem Team exakt jede Bibliothek vorschreibt', 'Eine reine Einkaufsliste neuer Technologien ohne Bewertung'], 0, 'Der Radar ordnet Technologien in Reifegrade ein und gibt so eine gemeinsame Richtung — die konkrete Umsetzung bleibt bei den Teams.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Nein sagen & an Geschäftsziele binden</div>
+            <div class="explanation">
+              Kern jeder Strategie ist, bewusst <strong>Nein</strong> zu Optionen zu sagen — das knüpft direkt an das begründete Nein aus Lektion 1 an. Eine Strategie, die alles gleichzeitig will, ist keine Strategie: Sie verteilt die Kräfte auf zu viele Fronten und verstärkt nichts. Fokus entsteht erst dadurch, dass man attraktive, aber nicht zum Kernproblem passende Optionen bewusst zurückstellt.<br><br>
+              Ebenso wichtig: Die technische Strategie muss sichtbar an die <strong>Geschäftsziele</strong> andocken. Sonst wird sie zur <strong>Schattenstrategie</strong>, die nur in der Technik lebt und die niemand im Rest des Unternehmens trägt. Wer zeigen kann, welches Geschäftsziel eine Maßnahme bedient, bekommt Rückendeckung — wer das nicht kann, kämpft bei jeder Budgetrunde allein.
+            </div>
+          </div>
+          ${quickCheck('Warum muss eine technische Strategie sichtbar an die Geschäftsziele andocken?', ['Sonst wird sie zur Schattenstrategie, die nur in der Technik lebt und die niemand mitträgt', 'Weil Geschäftsziele die genaue Technologie-Auswahl vorschreiben', 'Damit man möglichst viele Optionen gleichzeitig verfolgen kann'], 0, 'Nur mit sichtbarem Bezug zu einem Geschäftsziel bekommt eine Maßnahme Rückendeckung — ohne ihn bleibt die Strategie isoliert und ungetragen.')}
+          ${callout('key', 'Merksatz', 'Strategie ist Diagnose plus Leitlinie plus kohärente Maßnahmen — und der Mut, bewusst Optionen abzulehnen und alles an die Geschäftsziele zu binden.')}
+          ${renderQuestions('lead_l2_3', 6)}
+          ${renderBonus('lead_l2_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 3</div>
+            <h1 class="lesson-title">Technical Strategy & Vision</h1>
+            <p class="lesson-desc">A technical strategy is not a wish list of technologies but a coherent answer to a central challenge — and it must visibly hang on the business goals.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Strategy is not a technology wish list</div>
+            <div class="explanation">
+              Many "strategies" are really just lists of desirable technologies: microservices, a new database, more automation. That is not a strategy but a shopping list. A real <strong>technical strategy</strong> is a coherent answer to a central challenge — it names what is genuinely getting in the way right now and aligns the forces on it.<br><br>
+              A proven framework has three parts: the <strong>diagnosis</strong> (what is the actual problem, not just the symptom?), the <strong>guiding policy</strong> (the chosen approach that addresses the problem) and a set of <strong>coherent actions</strong> that reinforce one another instead of pulling in different directions. Without the diagnosis you elegantly solve the wrong problem.
+            </div>
+          </div>
+          ${callout('tip', 'Diagnose first', 'Before naming a single technology, answer the question: what is the actual obstacle — slow delivery, unstable operations, missing scalability? The diagnosis decides which actions even make sense. Without it, every technology choice becomes a matter of taste.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Target picture & technology radar</div>
+            <div class="explanation">
+              A <strong>vision</strong> or <strong>target picture of the architecture</strong> gives teams a shared direction without prescribing every step. It describes the desired state — not as a detailed plan but as a compass along which individual teams can align their own decisions.<br><br>
+              A <strong>technology radar</strong> is a lightweight governance tool: technologies are sorted into categories such as <strong>Adopt</strong> (proven, standard), <strong>Trial</strong> (promising, try deliberately), <strong>Assess</strong> (watch, do not yet use) and <strong>Hold</strong> (avoid or phase out). This steers technology decisions without micromanaging teams — the direction is clear, the implementation stays with the team.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Technology radar (sketch)</span></div>
+              <div class="code-pre">Adopt   -&gt; proven, use as the standard
+Trial   -&gt; promising, try deliberately in one project
+Assess  -&gt; watch, check potential, do not use broadly yet
+Hold    -&gt; avoid or actively phase out
+
+Purpose: give direction without micromanaging teams</div>
+            </div>
+          </div>
+          ${quickCheck('What is the purpose of a technology radar with categories like Adopt, Trial, Assess and Hold?', ['A lightweight tool that steers technology decisions without micromanaging teams', 'A binding rule that prescribes every library to each team exactly', 'A mere shopping list of new technologies without any assessment'], 0, 'The radar sorts technologies into maturity levels and thus gives a shared direction — the concrete implementation stays with the teams.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Saying no & binding to business goals</div>
+            <div class="explanation">
+              The core of any strategy is deliberately saying <strong>no</strong> to options — this ties directly to the reasoned no from lesson 1. A strategy that wants everything at once is not a strategy: it spreads the forces across too many fronts and reinforces nothing. Focus only arises when you deliberately set aside attractive options that do not fit the core problem.<br><br>
+              Just as important: the technical strategy must visibly connect to the <strong>business goals</strong>. Otherwise it becomes a <strong>shadow strategy</strong> that lives only inside engineering and that nobody in the rest of the company carries. Whoever can show which business goal an action serves gets backing — whoever cannot fights alone at every budget round.
+            </div>
+          </div>
+          ${quickCheck('Why must a technical strategy visibly connect to the business goals?', ['Otherwise it becomes a shadow strategy that lives only inside engineering and nobody carries', 'Because business goals dictate the exact technology selection', 'So that you can pursue as many options as possible at once'], 0, 'Only with a visible link to a business goal does an action get backing — without it the strategy stays isolated and uncarried.')}
+          ${callout('key', 'Key line', 'Strategy is diagnosis plus guiding policy plus coherent actions — and the courage to deliberately reject options and bind everything to the business goals.')}
+          ${renderQuestions('lead_l2_3', 6)}
+          ${renderBonus('lead_l2_3')}
+        `
+      },
+      {
+        id: 'lead_l2_4', title: 'Technische Schulden strategisch steuern',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 4</div>
+            <h1 class="lesson-title">Technische Schulden strategisch steuern</h1>
+            <p class="lesson-desc">Technische Schuld ist Risiko und Kosten, nicht Ästhetik. Die Führungsaufgabe ist, sie sichtbar zu machen, bewusst zu budgetieren und inkrementell abzubauen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was Schuld ist — und was nicht</div>
+            <div class="explanation">
+              <strong>Technische Schuld</strong> ist eine Abkürzung in Design oder Code, die spätere Änderungen verlangsamt — wie ein Kredit mit Zinsen: Man leiht sich Tempo heute und zahlt es mit Reibung morgen zurück. Ein nützliches Bild ist der <strong>Schulden-Quadrant</strong>: Schuld kann bewusst oder unbewusst und klug oder leichtsinnig eingegangen werden. Bewusst und klug („wir liefern jetzt, räumen später auf") ist legitim; unbewusst und leichtsinnig ist die gefährliche Variante.<br><br>
+              Wichtig: Nicht jeder unschöne Code ist Schuld. Relevant ist nur, was echte, anstehende <strong>Änderungen bremst</strong>. Code, der stabil läuft und selten angefasst wird, muss nicht perfekt sein — ihn zu „verschönern" bindet Kapazität ohne Nutzen. Schuld misst sich an ihren Zinsen, nicht an ihrer Hässlichkeit.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Schulden-Quadrant</span></div>
+              <div class="code-pre">                bewusst            unbewusst
+klug       | wir liefern jetzt,  | jetzt wissen wir,
+           | raeumen spaeter auf  | wie es besser geht
+-----------+---------------------+--------------------
+leichtsinn | keine Zeit fuer     | was ist
+           | Design, egal        | ueberhaupt Design?</div>
+            </div>
+          </div>
+          ${callout('tip', 'Zinsen statt Ästhetik', 'Die richtige Frage ist nicht „ist dieser Code schön?", sondern „bremst er eine Änderung, die wir wirklich vorhaben?". Stabiler, selten angefasster Code mit unschöner Struktur verursacht kaum Zinsen — er hat niedrige Priorität. Teuer ist Schuld dort, wo oft geändert wird.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Sichtbar machen & bewusst budgetieren</div>
+            <div class="explanation">
+              Als Führungsaufgabe gilt: Schuld <strong>sichtbar machen</strong>, statt sie zu verstecken. Ein <strong>Schulden-Register</strong> hält fest, welche Abkürzungen wo bestehen, was sie kosten und welche Änderungen sie bremsen. Erst was sichtbar ist, lässt sich priorisieren und gegen neue Features abwägen.<br><br>
+              Der zweite Schritt ist, Schuldenabbau <strong>bewusst in der Roadmap zu budgetieren</strong> — zum Beispiel ein fester Anteil der Kapazität pro Zyklus. So wird Modernisierung zur geplanten Routine statt zum heroischen Sonderprojekt, das man „irgendwann" angeht und das deshalb nie kommt. Ohne festes Budget verliert der Abbau jeden Wettlauf gegen das nächste Feature.
+            </div>
+          </div>
+          ${quickCheck('Was ist die bessere Führungsstrategie für technische Schuld?', ['Sie in einem Register sichtbar machen und einen festen Kapazitätsanteil für den Abbau budgetieren', 'Sie verstecken, damit das Business keine Zweifel an der Technik bekommt', 'Sie ignorieren, solange noch Features ausgeliefert werden'], 0, 'Nur sichtbare Schuld lässt sich priorisieren; ein fester Anteil der Kapazität macht den Abbau zur Routine statt zum nie kommenden Sonderprojekt.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Inkrementell modernisieren & mit dem Business sprechen</div>
+            <div class="explanation">
+              Statt eines riskanten „großen Rewrite" — der oft Jahre dauert, das Alte einfriert und am Ende scheitert — ist <strong>inkrementelle Modernisierung</strong> der sicherere Weg. Ein bewährtes Muster ist der <strong>Strangler Fig</strong>: Das Alte wird Stück für Stück ersetzt, während es weiterläuft; neue Funktionen entstehen daneben, und das alte System schrumpft, bis man es abschalten kann.<br><br>
+              Mit dem Business spricht man über Schuld als <strong>Risiko und Kosten</strong> — langsamere Lieferung, mehr Ausfälle, höhere Fehlerquote — nicht als „hässlichen Code". „Wir müssen refaktorieren" überzeugt keine Geschäftsführung; „diese Abkürzung kostet uns zwei Tage pro Release und erhöht das Ausfallrisiko" schon. Schuld wird in der Sprache des Geschäfts verhandelt, nicht in der der Ästhetik.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Strangler Fig (Skizze)</span></div>
+              <div class="code-pre">1. Neues neben das Alte stellen, Verkehr umleiten
+2. Funktion fuer Funktion ins Neue ziehen
+3. Altes schrumpft, laeuft aber weiter
+4. Rest abschalten, wenn nichts mehr darauf zeigt
+
+Gegenteil: grosser Rewrite = alles neu, hohes Risiko</div>
+            </div>
+          </div>
+          ${quickCheck('Wie spricht man mit dem Business am wirksamsten über technische Schuld?', ['Als Risiko und Kosten — langsamere Lieferung, mehr Ausfälle — nicht als „hässlichen Code"', 'Als ästhetisches Problem, das nur Entwickler verstehen müssen', 'Am besten gar nicht, um das Vertrauen ins Team nicht zu gefährden'], 0, 'Das Business entscheidet über Risiko und Kosten, nicht über Code-Schönheit — in dieser Sprache wird Schuldenabbau verhandelbar und bekommt Budget.')}
+          ${callout('key', 'Merksatz', 'Technische Schuld ist Risiko und Kosten, nicht Ästhetik — mach sie sichtbar, budgetiere sie bewusst und modernisiere inkrementell statt per großem Rewrite.')}
+          ${renderQuestions('lead_l2_4', 6)}
+          ${renderBonus('lead_l2_4')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 4</div>
+            <h1 class="lesson-title">Steering Technical Debt Strategically</h1>
+            <p class="lesson-desc">Technical debt is risk and cost, not aesthetics. The leadership task is to make it visible, budget it deliberately and pay it down incrementally.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What debt is — and what it is not</div>
+            <div class="explanation">
+              <strong>Technical debt</strong> is a shortcut in design or code that slows later changes — like a loan with interest: you borrow speed today and repay it with friction tomorrow. A useful picture is the <strong>debt quadrant</strong>: debt can be taken on deliberately or inadvertently, and prudently or recklessly. Deliberate and prudent ("we ship now, clean up later") is legitimate; inadvertent and reckless is the dangerous variant.<br><br>
+              Important: not every ugly piece of code is debt. What matters is only what slows real, upcoming <strong>changes</strong>. Code that runs stably and is rarely touched need not be perfect — "beautifying" it ties up capacity for no benefit. Debt is measured by its interest, not by its ugliness.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Debt quadrant</span></div>
+              <div class="code-pre">              deliberate          inadvertent
+prudent  | we ship now,        | now we know how
+         | clean up later      | to do it better
+---------+---------------------+--------------------
+reckless | no time for         | what is
+         | design, whatever    | design anyway?</div>
+            </div>
+          </div>
+          ${callout('tip', 'Interest, not aesthetics', 'The right question is not "is this code pretty?" but "does it slow a change we actually plan to make?". Stable, rarely touched code with an ugly structure barely accrues interest — it is low priority. Debt is expensive where change happens often.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Make it visible & budget it deliberately</div>
+            <div class="explanation">
+              As a leadership task: make debt <strong>visible</strong> instead of hiding it. A <strong>debt register</strong> records which shortcuts exist where, what they cost and which changes they slow. Only what is visible can be prioritized and weighed against new features.<br><br>
+              The second step is to <strong>budget debt reduction deliberately in the roadmap</strong> — for example a fixed share of capacity per cycle. That turns modernization into planned routine instead of a heroic special project you tackle "someday" and that therefore never comes. Without a fixed budget, paying down debt loses every race against the next feature.
+            </div>
+          </div>
+          ${quickCheck('What is the better leadership strategy for technical debt?', ['Make it visible in a register and budget a fixed share of capacity for paying it down', 'Hide it so the business keeps no doubts about engineering', 'Ignore it as long as features are still shipping'], 0, 'Only visible debt can be prioritized; a fixed share of capacity turns paying it down into routine instead of a special project that never comes.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Modernize incrementally & talk to the business</div>
+            <div class="explanation">
+              Instead of a risky "big rewrite" — which often takes years, freezes the old system and ultimately fails — <strong>incremental modernization</strong> is the safer path. A proven pattern is the <strong>strangler fig</strong>: the old is replaced piece by piece while it keeps running; new functions grow alongside, and the old system shrinks until you can switch it off.<br><br>
+              With the business you talk about debt as <strong>risk and cost</strong> — slower delivery, more outages, a higher defect rate — not as "ugly code". "We need to refactor" convinces no executive; "this shortcut costs us two days per release and raises the outage risk" does. Debt is negotiated in the language of the business, not of aesthetics.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Strangler fig (sketch)</span></div>
+              <div class="code-pre">1. Put the new beside the old, reroute traffic
+2. Move function by function into the new
+3. The old shrinks but keeps running
+4. Switch off the rest when nothing points to it
+
+Opposite: big rewrite = all new at once, high risk</div>
+            </div>
+          </div>
+          ${quickCheck('How do you most effectively talk to the business about technical debt?', ['As risk and cost — slower delivery, more outages — not as "ugly code"', 'As an aesthetic problem only developers need to understand', 'Best not at all, so as not to endanger trust in the team'], 0, 'The business decides on risk and cost, not on code beauty — in that language paying down debt becomes negotiable and gets budget.')}
+          ${callout('key', 'Key line', 'Technical debt is risk and cost, not aesthetics — make it visible, budget it deliberately and modernize incrementally instead of via a big rewrite.')}
+          ${renderQuestions('lead_l2_4', 6)}
+          ${renderBonus('lead_l2_4')}
+        `
+      },
     ]
   },
   {
@@ -33917,6 +34113,48 @@ QUESTION_POOLS['lead_l1_4'] = [
     {t:'Weil sie die psychologische Sicherheit zerstört und Menschen dann Fehler verschweigen',t_en:'Because it destroys psychological safety and people then hide mistakes',correct:true,why:'Genau. Ohne Angst werden Vorfälle offen geteilt und das System kann wirklich lernen.',why_en:'Exactly. Without fear incidents are shared openly and the system can truly learn.'},
     {t:'Weil Schuldige immer schneller lernen als Teams',t_en:'Because those blamed always learn faster than teams',correct:false,why:'Nein. Angst führt zu Vertuschung, nicht zu schnellerem Lernen.',why_en:'No. Fear leads to cover-ups, not faster learning.'},
     {t:'Weil Postmortems gesetzlich verboten sind',t_en:'Because postmortems are legally forbidden',correct:false,why:'Nein. Postmortems sind erwünscht; nur die Schuldzuweisung darin ist schädlich.',why_en:'No. Postmortems are desirable; only assigning blame within them is harmful.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l2_3'] = [
+  {id:'p_lead_l2_3_mc1',type:'mc',xp:10,question:'Aus welchen drei Teilen besteht eine <strong>echte technische Strategie</strong>?',question_en:'Which three parts make up a <strong>real technical strategy</strong>?',options:[
+    {t:'Diagnose, Leitlinie und ein Satz kohärenter, sich verstärkender Maßnahmen',t_en:'Diagnosis, guiding policy and a set of coherent, mutually reinforcing actions',correct:true,why:'Genau. Dieses Gerüst macht aus einer Wunschliste eine kohärente Antwort auf die zentrale Herausforderung.',why_en:'Exactly. This framework turns a wish list into a coherent answer to the central challenge.'},
+    {t:'Eine Liste begehrenswerter Technologien, nach Beliebtheit sortiert',t_en:'A list of desirable technologies sorted by popularity',correct:false,why:'Nein. Das ist ein Einkaufszettel, keine Strategie — die Diagnose fehlt völlig.',why_en:'No. That is a shopping list, not a strategy — the diagnosis is missing entirely.'},
+    {t:'Budget, Zeitplan und die Namen der verantwortlichen Teams',t_en:'Budget, schedule and the names of the responsible teams',correct:false,why:'Nein. Das ist Projektplanung; eine Strategie beantwortet zuerst, was das eigentliche Problem ist.',why_en:'No. That is project planning; a strategy first answers what the actual problem is.'}
+  ]},
+  {id:'p_lead_l2_3_mc2',type:'mc',xp:10,question:'Wozu dient ein <strong>Technologie-Radar</strong> mit Kategorien wie Adopt, Trial, Assess und Hold?',question_en:'What is a <strong>technology radar</strong> with categories like Adopt, Trial, Assess and Hold for?',options:[
+    {t:'Als leichtgewichtiges Governance-Werkzeug, das Technologie-Entscheidungen lenkt, ohne Teams zu mikromanagen',t_en:'As a lightweight governance tool that steers technology decisions without micromanaging teams',correct:true,why:'Genau. Die Richtung ist klar, die konkrete Umsetzung bleibt beim Team.',why_en:'Exactly. The direction is clear, the concrete implementation stays with the team.'},
+    {t:'Als verbindliche Vorschrift, die jedem Team jede einzelne Bibliothek vorschreibt',t_en:'As a binding rule that prescribes every single library to each team',correct:false,why:'Nein. Genau dieses Mikromanagement vermeidet der Radar — er gibt Richtung, keine Detailbefehle.',why_en:'No. That micromanagement is exactly what the radar avoids — it gives direction, not detailed orders.'},
+    {t:'Als Ranking, das nur die neuesten Technologien zur Pflicht macht',t_en:'As a ranking that makes only the newest technologies mandatory',correct:false,why:'Nein. Reife und Eignung entscheiden über die Einordnung, nicht das bloße Alter.',why_en:'No. Maturity and fit decide the placement, not mere newness.'}
+  ]},
+  {id:'p_lead_l2_3_tf1',type:'truefalse',xp:8,statement:'Eine Strategie, die alle attraktiven Optionen gleichzeitig verfolgen will, ist in Wahrheit keine Strategie.',statement_en:'A strategy that wants to pursue all attractive options at once is in truth not a strategy.',correct:true,explanation:'Richtig. Fokus entsteht erst durch das bewusste Nein — wer alles will, verstärkt nichts.',explanation_en:'Correct. Focus arises only through the deliberate no — whoever wants everything reinforces nothing.'},
+  {id:'p_lead_l2_3_tf2',type:'truefalse',xp:8,statement:'Eine technische Strategie ist am stärksten, wenn sie unabhängig von den Geschäftszielen rein technisch gedacht wird.',statement_en:'A technical strategy is strongest when it is thought out purely technically, independent of the business goals.',correct:false,explanation:'Falsch. Ohne sichtbaren Bezug zu den Geschäftszielen wird sie zur Schattenstrategie, die niemand mitträgt.',explanation_en:'False. Without a visible link to the business goals it becomes a shadow strategy that nobody carries.'},
+  {id:'p_lead_l2_3_fb1',type:'fillblank',xp:12,prompt:'Der erste Teil des Strategie-Gerüsts — die nüchterne Antwort auf „was ist das eigentliche Problem?" — heißt ___ (ein Wort).',prompt_en:'The first part of the strategy framework — the sober answer to "what is the actual problem?" — is called the ___ (one word).',answers:['Diagnose','diagnose','Diagnosis','diagnosis'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Diagnose</strong> benennt das eigentliche Problem — ohne sie löst man elegant das falsche.',explanation_en:'The <strong>diagnosis</strong> names the actual problem — without it you elegantly solve the wrong one.'},
+  {id:'p_lead_l2_3_bonus',type:'mc',xp:20,optional:true,question:'Was ist eine <strong>Schattenstrategie</strong>?',question_en:'What is a <strong>shadow strategy</strong>?',options:[
+    {t:'Eine technische Strategie ohne sichtbaren Bezug zu den Geschäftszielen, die nur in der Technik lebt und die niemand mitträgt',t_en:'A technical strategy with no visible link to the business goals that lives only inside engineering and that nobody carries',correct:true,why:'Genau. Ohne Andocken an ein Geschäftsziel fehlt die Rückendeckung, und die Strategie bleibt isoliert.',why_en:'Exactly. Without connecting to a business goal the backing is missing and the strategy stays isolated.'},
+    {t:'Eine geheime Strategie, die bewusst vor dem Wettbewerb verborgen wird',t_en:'A secret strategy deliberately hidden from the competition',correct:false,why:'Nein. Gemeint ist nicht Geheimhaltung, sondern die fehlende Verankerung im Geschäft.',why_en:'No. It is not about secrecy but about the missing anchoring in the business.'},
+    {t:'Eine Strategie, die nur nachts in Bereitschaftsdiensten greift',t_en:'A strategy that only applies during night-time on-call shifts',correct:false,why:'Nein. Der Begriff hat nichts mit Betriebszeiten zu tun.',why_en:'No. The term has nothing to do with operating hours.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l2_4'] = [
+  {id:'p_lead_l2_4_mc1',type:'mc',xp:10,question:'Welcher Code ist im Sinne <strong>technischer Schuld</strong> am ehesten relevant?',question_en:'Which code is most relevant in the sense of <strong>technical debt</strong>?',options:[
+    {t:'Code, der echte, anstehende Änderungen bremst — Schuld misst sich an ihren Zinsen',t_en:'Code that slows real, upcoming changes — debt is measured by its interest',correct:true,why:'Genau. Stabiler, selten angefasster Code verursacht kaum Zinsen und hat niedrige Priorität.',why_en:'Exactly. Stable, rarely touched code barely accrues interest and is low priority.'},
+    {t:'Jeder Code, der nicht dem neuesten Stil-Leitfaden entspricht',t_en:'Any code that does not match the latest style guide',correct:false,why:'Nein. Nicht jeder unschöne Code ist Schuld — entscheidend ist, ob er Änderungen bremst.',why_en:'No. Not every ugly piece of code is debt — what matters is whether it slows changes.'},
+    {t:'Code, der stabil läuft und nie mehr angefasst wird',t_en:'Code that runs stably and is never touched again',correct:false,why:'Nein. Genau der muss nicht perfekt sein — ihn zu verschönern bindet Kapazität ohne Nutzen.',why_en:'No. That is exactly the code that need not be perfect — beautifying it ties up capacity for no benefit.'}
+  ]},
+  {id:'p_lead_l2_4_mc2',type:'mc',xp:10,question:'Wie spricht man mit dem Business am wirksamsten über technische Schuld?',question_en:'How do you most effectively talk to the business about technical debt?',options:[
+    {t:'Als Risiko und Kosten — langsamere Lieferung, mehr Ausfälle — statt als „hässlichen Code"',t_en:'As risk and cost — slower delivery, more outages — instead of as "ugly code"',correct:true,why:'Genau. „Diese Abkürzung kostet zwei Tage pro Release" überzeugt, „wir müssen refaktorieren" nicht.',why_en:'Exactly. "This shortcut costs two days per release" convinces; "we need to refactor" does not.'},
+    {t:'Als rein ästhetisches Problem, das nur Entwickler verstehen müssen',t_en:'As a purely aesthetic problem only developers need to understand',correct:false,why:'Nein. In der Sprache der Ästhetik bekommt Schuldenabbau nie ein Budget.',why_en:'No. In the language of aesthetics, paying down debt never gets a budget.'},
+    {t:'Gar nicht, um das Vertrauen ins Team nicht zu gefährden',t_en:'Not at all, so as not to endanger trust in the team',correct:false,why:'Nein. Verstecken verhindert jede Priorisierung — Sichtbarkeit schafft erst Vertrauen.',why_en:'No. Hiding prevents any prioritization — visibility is what builds trust in the first place.'}
+  ]},
+  {id:'p_lead_l2_4_tf1',type:'truefalse',xp:8,statement:'Inkrementelle Modernisierung nach dem Strangler-Fig-Muster ersetzt das Alte Stück für Stück, während es weiterläuft.',statement_en:'Incremental modernization following the strangler fig pattern replaces the old piece by piece while it keeps running.',correct:true,explanation:'Richtig. Das Neue wächst daneben, das Alte schrumpft — ohne den riskanten Stillstand eines großen Rewrites.',explanation_en:'Correct. The new grows alongside, the old shrinks — without the risky standstill of a big rewrite.'},
+  {id:'p_lead_l2_4_tf2',type:'truefalse',xp:8,statement:'Technische Schuld bewusst und klug aufzunehmen, um jetzt zu liefern, ist grundsätzlich unzulässig.',statement_en:'Taking on technical debt deliberately and prudently in order to ship now is fundamentally impermissible.',correct:false,explanation:'Falsch. Bewusst und klug eingegangen ist Schuld legitim; gefährlich ist die unbewusste, leichtsinnige Variante.',explanation_en:'False. Taken on deliberately and prudently, debt is legitimate; the dangerous variant is the inadvertent, reckless one.'},
+  {id:'p_lead_l2_4_fb1',type:'fillblank',xp:12,prompt:'Das Muster, bei dem man ein altes System Stück für Stück ersetzt, während es weiterläuft, heißt ___ (englischer Begriff, zwei Wörter).',prompt_en:'The pattern of replacing an old system piece by piece while it keeps running is called the ___ (two-word English term).',answers:['Strangler Fig','strangler fig','Strangler-Fig','strangler-fig','Strangler Pattern','strangler pattern'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Strangler Fig</strong> löst das Alte inkrementell ab — das sichere Gegenteil des großen Rewrites.',explanation_en:'The <strong>strangler fig</strong> phases out the old incrementally — the safe opposite of the big rewrite.'},
+  {id:'p_lead_l2_4_bonus',type:'mc',xp:20,optional:true,question:'Warum ist ein großer Rewrite oft riskanter als inkrementelle Modernisierung?',question_en:'Why is a big rewrite often riskier than incremental modernization?',options:[
+    {t:'Er dauert oft Jahre, friert das Alte ein und scheitert nicht selten ganz, bevor Wert entsteht',t_en:'It often takes years, freezes the old system and not rarely fails entirely before value appears',correct:true,why:'Genau. Deshalb ersetzt man lieber Stück für Stück, während das System weiterläuft.',why_en:'Exactly. That is why one prefers to replace piece by piece while the system keeps running.'},
+    {t:'Weil ein Rewrite grundsätzlich mehr Entwickler benötigt als jedes andere Vorgehen',t_en:'Because a rewrite fundamentally needs more developers than any other approach',correct:false,why:'Nein. Das Hauptproblem ist das gebündelte Risiko und der lange Stillstand, nicht die reine Teamgröße.',why_en:'No. The main problem is the concentrated risk and the long standstill, not sheer team size.'},
+    {t:'Weil moderne Technologien grundsätzlich schlechter sind als alte',t_en:'Because modern technologies are fundamentally worse than old ones',correct:false,why:'Nein. Nicht die Technologie ist das Problem, sondern der riskante Alles-auf-einmal-Umstieg.',why_en:'No. The technology is not the problem; the risky all-at-once switch is.'}
   ]}
 ];
 
