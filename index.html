@@ -26974,6 +26974,302 @@ Review date     : when we check against the result</div>
           ${renderBonus('lead_l4_3')}
         `
       },
+      {
+        id: 'lead_l4_4', title: 'Daten-informiert entscheiden', title_en: 'Deciding data-informed',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 4</div>
+            <h1 class="lesson-title">Daten-informiert entscheiden</h1>
+            <p class="lesson-desc">Zahlen machen ein Urteil schärfer — sie ersetzen es nicht. Wer Daten liest, ohne ihre Grenzen zu kennen, trifft falsche Schlüsse mit großer Sicherheit.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Daten-informiert, nicht daten-getrieben</div>
+            <div class="explanation">
+              Der Unterschied steckt im Wort: <strong>daten-getrieben</strong> klingt, als lenkten die Zahlen das Steuer; <strong>daten-informiert</strong> heißt, dass Zahlen das <strong>Urteil stützen, aber nicht ersetzen</strong>. Daten beantworten das Was und das Wie-viel, selten das Warum — und nie allein, was zu tun ist.<br><br>
+              Hilfreich ist die Unterscheidung von <strong>führenden und nachlaufenden Indikatoren</strong> (leading vs. lagging). Ein <strong>nachlaufender</strong> Indikator misst das Ergebnis, wenn es schon feststeht — der Umsatz des letzten Quartals. Ein <strong>führender</strong> Indikator zeigt früh, wohin es läuft, und ist noch beeinflussbar — etwa die Zahl begonnener Testzugänge. Steuern lässt sich nur an führenden Indikatoren; nachlaufende bestätigen hinterher.
+            </div>
+          </div>
+          ${quickCheck('Was bedeutet daten-informiert statt daten-getrieben?', ['Zahlen stützen das Urteil, ersetzen es aber nicht', 'Die Zahlen treffen die Entscheidung automatisch', 'Man entscheidet grundsätzlich ohne Zahlen aus dem Bauch'], 0, 'Daten-informiert heißt: die Zahlen schärfen das Urteil und machen es überprüfbar, treffen die Entscheidung aber nicht an deiner Stelle.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Handlungsleitende Kennzahlen statt Eitelkeitszahlen</div>
+            <div class="explanation">
+              Eine <strong>Eitelkeitszahl</strong> (vanity metric) sieht gut aus und ändert nichts an deinem Handeln — die nackte Gesamtzahl der Anmeldungen etwa steigt immer und sagt wenig. Eine <strong>handlungsleitende Kennzahl</strong> dagegen verändert eine Entscheidung, je nachdem wie sie ausfällt: der Anteil der Nutzer, die nach einer Woche wiederkommen, führt zu anderem Handeln als eine schöne Summe.<br><br>
+              Prüfe jede Kennzahl mit drei Fragen: Würde ich <strong>anders handeln</strong>, wenn sie anders ausfiele? Ist sie auf eine <strong>Bezugsgröße</strong> bezogen (Rate statt nackter Summe)? Lässt sie sich <strong>bewusst verbessern</strong>, ohne das eigentliche Ziel zu verfehlen?
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Kennzahl-Checkliste</span></div>
+              <div class="code-pre">Fuehrend  (leading):   frueh, beeinflussbar  -&gt; zum Steuern
+Nachlaufend (lagging): spaet, steht fest     -&gt; zum Bestaetigen
+
+Gute Kennzahl?
+[ ] Aenderung wuerde mein Handeln aendern
+[ ] als Rate/Anteil, nicht nackte Summe
+[ ] bewusst verbesserbar, ohne das Ziel zu verfehlen</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Korrelation, Kausalität und der kleine A/B-Test</div>
+            <div class="explanation">
+              <strong>Korrelation ist nicht Kausalität</strong>: Zwei Größen, die sich gemeinsam bewegen, müssen nichts miteinander zu tun haben — oft steckt eine dritte Ursache dahinter. Wer das verwechselt, optimiert das Falsche.<br><br>
+              Sauber trennt das ein <strong>A/B-Test</strong>: Man teilt vergleichbare Nutzer zufällig in zwei Gruppen, ändert für die eine Gruppe <strong>genau eine Variable</strong> und lässt die andere als <strong>Vergleichsgruppe</strong> unverändert. Zeigt sich ein Unterschied, fragt man, ob er groß und stabil genug ist, um nicht bloß Zufall zu sein — das meint <strong>Signifikanz</strong> in einfachen Worten. Zwei Stolpersteine bleiben: eine zu kleine <strong>Stichprobe</strong> trägt kein Urteil, und ohne die <strong>Basisrate</strong> (wie häufig etwas ohnehin vorkommt) wirkt jeder Wert größer, als er ist.
+            </div>
+          </div>
+          ${quickCheck('Warum braucht ein A/B-Test eine Vergleichsgruppe?', ['Damit man den Effekt der einen geänderten Variable gegen das Verhalten ohne Änderung messen kann', 'Damit doppelt so viele Nutzer teilnehmen', 'Damit man zwei Dinge gleichzeitig ändern und Zeit sparen kann'], 0, 'Nur der Vergleich mit einer möglichst gleichen Gruppe ohne Änderung zeigt, ob der Unterschied wirklich von der einen geänderten Variable kommt und nicht vom Zufall.')}
+          ${callout('key', 'Merksatz', 'Entscheide daten-informiert: Zahlen stützen das Urteil, ersetzen es nicht. Steuere an führenden Indikatoren und handlungsleitenden Kennzahlen, nicht an Eitelkeitszahlen. Verwechsle Korrelation nie mit Kausalität, ändere im A/B-Test nur eine Variable gegen eine Vergleichsgruppe und vergiss Basisrate und Stichprobe nicht.')}
+          ${renderQuestions('lead_l4_4', 10)}
+          ${renderBonus('lead_l4_4')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 4</div>
+            <h1 class="lesson-title">Deciding data-informed</h1>
+            <p class="lesson-desc">Numbers sharpen a judgment — they do not replace it. Whoever reads data without knowing its limits draws wrong conclusions with great confidence.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Data-informed, not data-driven</div>
+            <div class="explanation">
+              The difference is in the word: <strong>data-driven</strong> sounds as if the numbers steer the wheel; <strong>data-informed</strong> means the numbers <strong>support the judgment but do not replace it</strong>. Data answer the what and the how-much, rarely the why — and never on their own what to do.<br><br>
+              It helps to distinguish <strong>leading and lagging indicators</strong>. A <strong>lagging</strong> indicator measures the outcome once it is already fixed — last quarter\'s revenue. A <strong>leading</strong> indicator shows early where things are heading and is still influenceable — such as the number of trials started. You can only steer by leading indicators; lagging ones confirm after the fact.
+            </div>
+          </div>
+          ${quickCheck('What does data-informed instead of data-driven mean?', ['Numbers support the judgment but do not replace it', 'The numbers make the decision automatically', 'You always decide from the gut, without any numbers'], 0, 'Data-informed means the numbers sharpen the judgment and make it verifiable, but they do not make the decision for you.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Actionable metrics instead of vanity metrics</div>
+            <div class="explanation">
+              A <strong>vanity metric</strong> looks good and changes nothing about your action — the raw total of sign-ups, say, only ever goes up and says little. An <strong>actionable metric</strong>, by contrast, changes a decision depending on how it turns out: the share of users who return after a week leads to different action than a pretty sum.<br><br>
+              Test every metric with three questions: would I <strong>act differently</strong> if it came out differently? Is it tied to a <strong>reference</strong> (a rate rather than a bare sum)? Can it be <strong>deliberately improved</strong> without missing the actual goal?
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Metric checklist</span></div>
+              <div class="code-pre">Leading:  early, influenceable  -&gt; to steer
+Lagging:  late, already fixed   -&gt; to confirm
+
+Good metric?
+[ ] a change would change my action
+[ ] as a rate/share, not a bare sum
+[ ] deliberately improvable without missing the goal</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Correlation, causation and the small A/B test</div>
+            <div class="explanation">
+              <strong>Correlation is not causation</strong>: two quantities that move together need have nothing to do with each other — often a third cause lies behind both. Whoever confuses this optimizes the wrong thing.<br><br>
+              An <strong>A/B test</strong> separates this cleanly: you split comparable users randomly into two groups, change <strong>exactly one variable</strong> for one group and leave the other unchanged as a <strong>control group</strong>. If a difference shows up, you ask whether it is large and stable enough not to be mere chance — that is <strong>significance</strong> in plain words. Two pitfalls remain: too small a <strong>sample</strong> carries no verdict, and without the <strong>base rate</strong> (how often something happens anyway) every value looks bigger than it is.
+            </div>
+          </div>
+          ${quickCheck('Why does an A/B test need a control group?', ['So the effect of the one changed variable can be measured against the behavior without a change', 'So that twice as many users take part', 'So you can change two things at once and save time'], 0, 'Only the comparison with an as-equal-as-possible group without a change shows whether the difference really comes from the one changed variable and not from chance.')}
+          ${callout('key', 'Key takeaway', 'Decide data-informed: numbers support the judgment, they do not replace it. Steer by leading indicators and actionable metrics, not by vanity metrics. Never confuse correlation with causation, change only one variable in an A/B test against a control group, and do not forget base rate and sample.')}
+          ${renderQuestions('lead_l4_4', 10)}
+          ${renderBonus('lead_l4_4')}
+        `
+      },
+      {
+        id: 'lead_l4_5', title: 'Priorisierung & Fokus', title_en: 'Prioritization & Focus',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 5</div>
+            <h1 class="lesson-title">Priorisierung &amp; Fokus</h1>
+            <p class="lesson-desc">Priorisieren heißt nicht, alles in eine Reihenfolge zu bringen — es heißt, bewusst wegzulassen. Fokus entsteht erst, wenn man den Mut hat, viele gute Dinge nicht zu tun.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Priorisieren heißt weglassen</div>
+            <div class="explanation">
+              <strong>Priorisierung ist aktives Weglassen</strong>. Eine Liste, auf der alles wichtig ist, priorisiert nichts. Die schwere Arbeit liegt nicht darin, das Wichtige nach oben zu sortieren, sondern das Gute bewusst nach unten — und vieles ganz zu streichen.<br><br>
+              Dahinter stehen <strong>Opportunitätskosten</strong>: Jedes Ja ist zugleich ein Nein zu allem, was du in derselben Zeit nicht tust (Brücke zu Lektion „Strategie & Fokus", lead_l2_1). Ressourcen sind endlich; die eigentliche Frage ist nie „ist das wertvoll?", sondern „ist das wertvoller als das Beste, was wir sonst täten?".
+            </div>
+          </div>
+          ${quickCheck('Was ist der Kern von Priorisierung?', ['Bewusst weglassen — auch gute Dinge nicht tun, um Platz für das Wichtigste zu schaffen', 'Alles erledigen, nur in der richtigen Reihenfolge', 'Die längste Aufgabe zuerst angehen'], 0, 'Priorisieren heißt wählen und damit verzichten. Wer nichts weglässt, hat nicht priorisiert, sondern nur sortiert.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Rahmenwerke: RICE und WSJF</div>
+            <div class="explanation">
+              Rahmenwerke machen das Abwägen nachvollziehbar. <strong>RICE</strong> wägt vier Größen ab: <strong>Reichweite</strong> (wie viele betrifft es), <strong>Wirkung</strong> (wie stark pro Fall), <strong>Zuversicht</strong> (wie sicher sind wir in der Schätzung) und <strong>Aufwand</strong>. Die ersten drei stehen im Zähler, der Aufwand im Nenner — viel Wirkung bei wenig Aufwand gewinnt.<br><br>
+              <strong>WSJF</strong> (weighted shortest job first) sagt es anders herum: Erledige die <strong>kürzeste gewichtete Aufgabe zuerst</strong> — teile den Wert durch die Dauer und beginne dort, wo pro Zeiteinheit am meisten Wert entsteht (Brücke zu lead_l7_1, Durchsatz &amp; Fluss). Beide Werkzeuge liefern kein Orakel; sie zwingen nur, Annahmen offenzulegen, statt nach Lautstärke zu entscheiden.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">RICE-Skizze</span></div>
+              <div class="code-pre">RICE = (Reichweite * Wirkung * Zuversicht) / Aufwand
+
+Beispiel A: (2000 * 2 * 0.8) / 4  = 800
+Beispiel B: (500  * 3 * 0.9) / 1  = 1350  -&gt; zuerst
+
+WSJF = Wert / Dauer  -&gt; kuerzeste gewichtete Aufgabe zuerst</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Fokus schlägt Auslastung</div>
+            <div class="explanation">
+              Ein verbreiteter Irrtum setzt <strong>Auslastung</strong> mit Produktivität gleich. Doch ein Team, das an zehn Dingen gleichzeitig arbeitet, liefert selten etwas ganz fertig — Umschaltkosten und halbfertige Stände fressen den Gewinn auf. <strong>Wenige Dinge wirklich fertig</strong> schlagen vieles halb.<br><br>
+              Fokus bedeutet, die Zahl der gleichzeitig offenen Aufgaben klein zu halten und erst abzuschließen, bevor Neues beginnt. Ergebnis zählt, nicht Beschäftigung: eine fertige Sache wirkt, zehn angefangene wirken nicht. <strong>Fokus schlägt Auslastung</strong>.
+            </div>
+          </div>
+          ${quickCheck('Warum schlägt Fokus die reine Auslastung?', ['Weil wenige abgeschlossene Dinge wirken, während vieles Halbfertiges durch Umschaltkosten den Gewinn auffrisst', 'Weil ausgelastete Teams immer unglücklich sind', 'Weil Auslastung sich nicht messen lässt'], 0, 'Nur abgeschlossene Arbeit liefert Wert. Vieles parallel zu betreiben erhöht die Beschäftigung, aber senkt das, was wirklich fertig wird.')}
+          ${callout('key', 'Merksatz', 'Priorisieren heißt aktiv weglassen: jedes Ja ist ein Nein zu etwas anderem. Nutze RICE (Reichweite · Wirkung · Zuversicht / Aufwand) und WSJF (kürzeste gewichtete Aufgabe zuerst), um Annahmen offenzulegen. Und bring wenige Dinge wirklich fertig — Fokus schlägt Auslastung.')}
+          ${renderQuestions('lead_l4_5', 10)}
+          ${renderBonus('lead_l4_5')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 5</div>
+            <h1 class="lesson-title">Prioritization &amp; Focus</h1>
+            <p class="lesson-desc">Prioritizing does not mean putting everything in order — it means deliberately leaving things out. Focus only arises once you have the courage not to do many good things.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">To prioritize is to leave out</div>
+            <div class="explanation">
+              <strong>Prioritization is active omission</strong>. A list on which everything is important prioritizes nothing. The hard work lies not in sorting the important to the top, but in deliberately pushing the good down — and cutting much of it entirely.<br><br>
+              Behind this stand <strong>opportunity costs</strong>: every yes is at the same time a no to everything you are not doing in the same time (bridge to the lesson on strategy and focus, lead_l2_1). Resources are finite; the real question is never "is this valuable?" but "is this more valuable than the best thing we would otherwise do?".
+            </div>
+          </div>
+          ${quickCheck('What is the core of prioritization?', ['Deliberate omission — not doing even good things to make room for the most important', 'Getting everything done, just in the right order', 'Tackling the longest task first'], 0, 'To prioritize is to choose and thereby to forgo. Whoever leaves nothing out has not prioritized but only sorted.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Frameworks: RICE and WSJF</div>
+            <div class="explanation">
+              Frameworks make the weighing traceable. <strong>RICE</strong> weighs four quantities: <strong>reach</strong> (how many it affects), <strong>impact</strong> (how strong per case), <strong>confidence</strong> (how sure we are in the estimate) and <strong>effort</strong>. The first three sit in the numerator, the effort in the denominator — much impact at little effort wins.<br><br>
+              <strong>WSJF</strong> (weighted shortest job first) puts it the other way around: do the <strong>shortest weighted job first</strong> — divide the value by the duration and start where the most value arises per unit of time (bridge to lead_l7_1, throughput &amp; flow). Neither tool is an oracle; they only force you to lay assumptions open instead of deciding by loudness.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">RICE sketch</span></div>
+              <div class="code-pre">RICE = (reach * impact * confidence) / effort
+
+Example A: (2000 * 2 * 0.8) / 4  = 800
+Example B: (500  * 3 * 0.9) / 1  = 1350  -&gt; first
+
+WSJF = value / duration  -&gt; shortest weighted job first</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Focus beats utilization</div>
+            <div class="explanation">
+              A widespread error equates <strong>utilization</strong> with productivity. Yet a team working on ten things at once rarely finishes anything fully — switching costs and half-done states eat up the gain. <strong>A few things truly finished</strong> beat much left half-done.<br><br>
+              Focus means keeping the number of simultaneously open tasks small and finishing before starting something new. Outcome counts, not busyness: one finished thing takes effect, ten started ones do not. <strong>Focus beats utilization</strong>.
+            </div>
+          </div>
+          ${quickCheck('Why does focus beat raw utilization?', ['Because a few finished things take effect, while much half-done work eats the gain through switching costs', 'Because busy teams are always unhappy', 'Because utilization cannot be measured'], 0, 'Only finished work delivers value. Running many things in parallel raises busyness but lowers what actually gets finished.')}
+          ${callout('key', 'Key takeaway', 'To prioritize is to leave out actively: every yes is a no to something else. Use RICE (reach · impact · confidence / effort) and WSJF (shortest weighted job first) to lay assumptions open. And get a few things truly finished — focus beats utilization.')}
+          ${renderQuestions('lead_l4_5', 10)}
+          ${renderBonus('lead_l4_5')}
+        `
+      },
+      {
+        id: 'lead_l4_6', title: 'Annahmen & Experimente', title_en: 'Assumptions & Experiments',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lektion 6</div>
+            <h1 class="lesson-title">Annahmen &amp; Experimente</h1>
+            <p class="lesson-desc">Hinter jedem Plan stehen Annahmen. Die riskanteste zuerst zu testen — nicht zuletzt — ist der Unterschied zwischen teurem Scheitern am Ende und billigem Lernen am Anfang.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Die riskanteste Annahme zuerst</div>
+            <div class="explanation">
+              Jeder Plan ruht auf Annahmen: dass Nutzer ein Problem haben, dass sie unsere Lösung wollen, dass die Technik trägt. Der teuerste Fehler ist, die <strong>riskanteste Annahme zuletzt</strong> zu prüfen — erst nach Monaten Bauen zu merken, dass niemand das Ergebnis braucht.<br><br>
+              Darum gilt: <strong>teste die riskanteste Annahme zuerst</strong>. Frage bei jedem Vorhaben, welche einzelne Annahme, wäre sie falsch, das Ganze zum Einsturz brächte — und prüfe genau diese, bevor du groß investierst. So fällt das Scheitern früh und billig, nicht spät und teuer.
+            </div>
+          </div>
+          ${quickCheck('Welche Annahme testest du zuerst?', ['Die riskanteste — die, deren Scheitern das ganze Vorhaben zum Einsturz brächte', 'Die einfachste, weil sie am schnellsten geht', 'Die, bei der ich mir am sichersten bin'], 0, 'Die riskanteste Annahme zuerst zu prüfen macht Scheitern früh und billig. Wer sie aufschiebt, baut womöglich monatelang am Falschen.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Hypothese und kleinstmöglicher Test</div>
+            <div class="explanation">
+              Eine Annahme wird prüfbar, wenn man sie als <strong>Hypothese</strong> formuliert: „Wir glauben, dass …; wir wissen es, wenn …". Der erste Teil nennt die Vermutung, der zweite das beobachtbare Signal, an dem man sie widerlegen oder bestätigen könnte. Ohne ein solches „wir wissen es, wenn" bleibt jede Meinung unangreifbar — und damit wertlos.<br><br>
+              Dann wählt man den <strong>kleinstmöglichen Test</strong>, der die Hypothese beantwortet, und folgt dem Dreischritt <strong>bauen – messen – lernen</strong> (build-measure-learn): etwas Kleines bauen, an der Realität messen, aus dem Ergebnis die nächste Annahme ableiten.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Hypothese -&gt; Test -&gt; Lernen</span></div>
+              <div class="code-pre">Hypothese: Wir glauben, dass ___ .
+           Wir wissen es, wenn ___ (beobachtbares Signal).
+
+-&gt; kleinster Test, der genau das beantwortet
+-&gt; bauen - messen - lernen
+-&gt; naechste Annahme ableiten</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Das MVP als Lernwerkzeug</div>
+            <div class="explanation">
+              Ein <strong>MVP</strong> (minimal brauchbares Produkt) ist ein <strong>Lernwerkzeug, kein halbes Produkt</strong>. Sein Zweck ist nicht, möglichst wenig zu liefern, sondern mit möglichst wenig Aufwand eine riskante Annahme zu prüfen. Die Frage lautet nie „was lassen wir weg?", sondern „was ist das Kleinste, das uns etwas Echtes lehrt?".<br><br>
+              Das passt zum Umgang mit Unsicherheit aus Lektion 2 (lead_l4_2): <strong>umkehrbare Entscheidungen</strong> trifft man schnell und experimentell — man probiert, misst und korrigiert, statt lange zu analysieren. Nur schwer Umkehrbares verdient die gründliche, langsame Prüfung.
+            </div>
+          </div>
+          ${quickCheck('Was ist ein MVP in erster Linie?', ['Ein Lernwerkzeug, das mit wenig Aufwand eine riskante Annahme prüft', 'Ein bewusst schlecht gebautes, halbes Produkt', 'Die erste vollständige Version mit allen Funktionen'], 0, 'Ein MVP dient dem Lernen: es prüft mit minimalem Aufwand eine Annahme. Es ist kein halbes Produkt, sondern ein gezieltes Experiment.')}
+          ${callout('key', 'Merksatz', 'Teste die riskanteste Annahme zuerst, nicht zuletzt. Formuliere sie als Hypothese („wir glauben, dass …; wir wissen es, wenn …"), wähle den kleinstmöglichen Test und folge bauen – messen – lernen. Ein MVP ist ein Lernwerkzeug, kein halbes Produkt — und Umkehrbares entscheidest du schnell und experimentell.')}
+          ${renderQuestions('lead_l4_6', 10)}
+          ${renderBonus('lead_l4_6')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Lesson 6</div>
+            <h1 class="lesson-title">Assumptions &amp; Experiments</h1>
+            <p class="lesson-desc">Behind every plan stand assumptions. Testing the riskiest one first — not last — is the difference between expensive failure at the end and cheap learning at the start.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">The riskiest assumption first</div>
+            <div class="explanation">
+              Every plan rests on assumptions: that users have a problem, that they want our solution, that the technology holds. The most expensive mistake is to test the <strong>riskiest assumption last</strong> — to notice only after months of building that no one needs the result.<br><br>
+              So the rule is: <strong>test the riskiest assumption first</strong>. For every undertaking ask which single assumption, were it wrong, would bring the whole thing down — and check exactly that one before you invest heavily. That way failure comes early and cheap, not late and expensive.
+            </div>
+          </div>
+          ${quickCheck('Which assumption do you test first?', ['The riskiest — the one whose failure would bring the whole undertaking down', 'The easiest, because it is quickest', 'The one I am most certain about'], 0, 'Testing the riskiest assumption first makes failure early and cheap. Whoever defers it may spend months building the wrong thing.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Hypothesis and smallest possible test</div>
+            <div class="explanation">
+              An assumption becomes testable when you phrase it as a <strong>hypothesis</strong>: "We believe that …; we will know it when …". The first part names the guess, the second the observable signal by which you could refute or confirm it. Without such a "we will know it when", any opinion stays unassailable — and therefore worthless.<br><br>
+              Then you choose the <strong>smallest possible test</strong> that answers the hypothesis and follow the three steps <strong>build – measure – learn</strong>: build something small, measure it against reality, derive the next assumption from the result.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Hypothesis -&gt; test -&gt; learn</span></div>
+              <div class="code-pre">Hypothesis: We believe that ___ .
+            We will know it when ___ (observable signal).
+
+-&gt; smallest test that answers exactly that
+-&gt; build - measure - learn
+-&gt; derive the next assumption</div>
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">The MVP as a learning tool</div>
+            <div class="explanation">
+              An <strong>MVP</strong> (minimum viable product) is a <strong>learning tool, not a half product</strong>. Its purpose is not to deliver as little as possible, but to test a risky assumption with as little effort as possible. The question is never "what do we leave out?" but "what is the smallest thing that teaches us something real?".<br><br>
+              This fits the handling of uncertainty from lesson 2 (lead_l4_2): <strong>reversible decisions</strong> are made fast and experimentally — you try, measure and correct instead of analyzing at length. Only the hard-to-reverse deserves the thorough, slow examination.
+            </div>
+          </div>
+          ${quickCheck('What is an MVP first and foremost?', ['A learning tool that tests a risky assumption with little effort', 'A deliberately badly built, half product', 'The first complete version with all features'], 0, 'An MVP serves learning: it tests an assumption with minimal effort. It is not a half product but a targeted experiment.')}
+          ${callout('key', 'Key takeaway', 'Test the riskiest assumption first, not last. Phrase it as a hypothesis ("we believe that …; we will know it when …"), choose the smallest possible test and follow build – measure – learn. An MVP is a learning tool, not a half product — and the reversible you decide fast and experimentally.')}
+          ${renderQuestions('lead_l4_6', 10)}
+          ${renderBonus('lead_l4_6')}
+        `
+      },
+      {
+        id: 'lead_p4_exam', title: 'Phase 4 — Abschlussprüfung', title_en: 'Phase 4 — Final Exam',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Prüfung</div>
+            <h1 class="lesson-title">Phase 4 — Abschlussprüfung</h1>
+            <p class="lesson-desc">Die kumulative Prüfung über alle Lektionen der Phase 4 — Checklisten, ADR und Build-vs-Buy, Entscheiden unter Unsicherheit, Retrospektiven und lernende Organisation, daten-informiert entscheiden, Priorisierung und Fokus sowie Annahmen und Experimente.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was diese Prüfung abdeckt</div>
+            <div class="explanation">
+              Diese Abschlussprüfung bündelt die ganze Phase 4 — <strong>Entscheiden &amp; Lernen</strong>. Sie prüft <strong>Checklisten, ADR und Build-vs-Buy</strong> als Handwerk guter Entscheidungen, das <strong>Entscheiden unter Unsicherheit</strong> mit dem Unterschied von Ergebnis und Entscheidungsqualität, <strong>Retrospektiven und die lernende Organisation</strong> mit Double-Loop-Learning, das <strong>daten-informierte Entscheiden</strong> mit führenden Indikatoren und A/B-Test, die <strong>Priorisierung und den Fokus</strong> mit RICE und WSJF sowie <strong>Annahmen und Experimente</strong> mit Hypothese und MVP.<br><br>
+              15 gemischte Fragen aus einem größeren Pool prüfen das Zusammenspiel dieser Themen. Nimm dir Zeit, lies genau und wende die Leitsätze der einzelnen Lektionen an.
+            </div>
+          </div>
+          ${renderQuestions('lead_p4_exam', 15)}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 4 · Exam</div>
+            <h1 class="lesson-title">Phase 4 — Final Exam</h1>
+            <p class="lesson-desc">The cumulative exam across all lessons of Phase 4 — checklists, ADR and build-vs-buy, deciding under uncertainty, retrospectives and the learning organization, deciding data-informed, prioritization and focus, and assumptions and experiments.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What this exam covers</div>
+            <div class="explanation">
+              This final exam bundles all of Phase 4 — <strong>deciding &amp; learning</strong>. It tests <strong>checklists, ADR and build-vs-buy</strong> as the craft of good decisions, <strong>deciding under uncertainty</strong> with the difference between outcome and decision quality, <strong>retrospectives and the learning organization</strong> with double-loop learning, <strong>data-informed deciding</strong> with leading indicators and the A/B test, <strong>prioritization and focus</strong> with RICE and WSJF, and <strong>assumptions and experiments</strong> with hypothesis and MVP.<br><br>
+              15 mixed questions from a larger pool test how these topics work together. Take your time, read closely and apply the guiding lines of the individual lessons.
+            </div>
+          </div>
+          ${renderQuestions('lead_p4_exam', 15)}
+        `
+      },
     ]
   },
   {
@@ -36477,7 +36773,20 @@ QUESTION_POOLS['lead_l4_1'] = [
     {t:'Konzept verstehen → in einem kleinen lauffähigen Beispiel nachbauen → belegen (Repo, Erklärung)',t_en:'Understand the concept → rebuild it in a small working example → prove it (repo, explanation)',correct:true,why:'Genau. Der Beleg deckt auf, ob man es wirklich verstanden hat — man kann nur erklären oder bauen, was man begriffen hat.',why_en:'Exactly. The proof reveals whether you truly understood it — you can only explain or build what you have grasped.'},
     {t:'Ein großes Tutorial von Anfang bis Ende durcharbeiten',t_en:'Work through one large tutorial from start to finish',correct:false,why:'Nein. Kleine lauffähige Beispiele, die man selbst repariert, brennen sich besser ein als ein großes Tutorial.',why_en:'No. Small working examples you fix yourself stick better than one large tutorial.'},
     {t:'Nur die Theorie lesen und auf den Ernstfall vertrauen',t_en:'Only read the theory and trust the real case',correct:false,why:'Nein. Ohne praktischen Nachbau und Beleg bleibt unklar, ob man es wirklich verstanden hat.',why_en:'No. Without hands-on rebuilding and proof it stays unclear whether you truly understood it.'}
-  ]}
+  ]},
+  {id:'p_lead_l4_1_mc3',type:'mc',xp:10,question:'Was gehört zwingend in einen <strong>ADR</strong>?',question_en:'What must a <strong>ADR</strong> contain?',options:[
+    {t:'Kontext, die Entscheidung, die betrachteten Alternativen und die Konsequenzen',t_en:'Context, the decision, the alternatives considered and the consequences',correct:true,why:'Genau. Erst die verworfenen Alternativen und die Konsequenzen machen die Entscheidung nachvollziehbar.',why_en:'Exactly. Only the rejected alternatives and the consequences make the decision traceable.'},
+    {t:'Nur die am Ende gewählte Lösung, ohne die Alternativen',t_en:'Only the finally chosen solution, without the alternatives',correct:false,why:'Nein. Ohne die Alternativen bleibt unklar, warum gerade diese Lösung gewählt wurde.',why_en:'No. Without the alternatives it stays unclear why this solution in particular was chosen.'},
+    {t:'Den Namen der Person, die den Fehler zu verantworten hat',t_en:'The name of the person to blame for the error',correct:false,why:'Nein. Ein ADR dokumentiert eine Entscheidung, nicht Schuld.',why_en:'No. An ADR documents a decision, not blame.'}
+  ]},
+  {id:'p_lead_l4_1_mc4',type:'mc',xp:10,question:'Worüber vergleichst du bei <strong>Build-vs-Buy</strong> die Kosten ehrlich?',question_en:'What do you honestly compare the costs over in <strong>build-vs-buy</strong>?',options:[
+    {t:'Über die gesamten Lebenszykluskosten inklusive Betrieb und Wartung über mehrere Jahre',t_en:'Over the total lifecycle cost including operation and maintenance over several years',correct:true,why:'Genau. Selbstbau ist fast immer teurer als gedacht — der Unterhalt über Jahre entscheidet.',why_en:'Exactly. Building yourself is almost always more expensive than expected — the upkeep over years decides.'},
+    {t:'Nur über die Kosten der ersten Version',t_en:'Only over the cost of the first version',correct:false,why:'Nein. Version eins ist billig; teuer wird der jahrelange Betrieb.',why_en:'No. Version one is cheap; the years of operation become expensive.'},
+    {t:'Nur über den Kaufpreis der fertigen Lösung',t_en:'Only over the purchase price of the ready-made solution',correct:false,why:'Nein. Auch beim Kaufen zählen Anbindung, Betrieb und Abhängigkeit mit.',why_en:'No. With buying too, integration, operation and dependency count.'}
+  ]},
+  {id:'p_lead_l4_1_tf3',type:'truefalse',xp:8,statement:'Eine schwer umkehrbare Entscheidung verdient mehr Sorgfalt und Zeit als eine leicht umkehrbare.',statement_en:'A hard-to-reverse decision deserves more care and time than an easily reversible one.',correct:true,explanation:'Richtig. Die Umkehrbarkeit bestimmt die richtige Geschwindigkeit: schwer Umkehrbares gründlich, Umkehrbares schnell.',explanation_en:'Correct. Reversibility sets the right speed: the hard-to-reverse thoroughly, the reversible fast.'},
+  {id:'p_lead_l4_1_tf4',type:'truefalse',xp:8,statement:'Eine gute Checkliste ist möglichst lang und deckt jeden denkbaren Fall ab.',statement_en:'A good checklist is as long as possible and covers every conceivable case.',correct:false,explanation:'Falsch. Eine gute Checkliste ist kurz und auf die kritischen, leicht vergessenen Punkte beschränkt — sonst wird sie ignoriert.',explanation_en:'False. A good checklist is short and limited to the critical, easily forgotten points — otherwise it gets ignored.'},
+  {id:'p_lead_l4_1_fb2',type:'fillblank',xp:12,prompt:'Der Gegenbegriff zu „reversibel" (umkehrbar) lautet ___ (ein Wort).',prompt_en:'The opposite term to "reversible" is ___ (one word).',answers:['irreversibel','Irreversibel','irreversible','Irreversible','unumkehrbar'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine <strong>irreversible</strong> Entscheidung lässt sich nur mit hohem Aufwand rückgängig machen und verdient daher gründliche Sorgfalt.',explanation_en:'An <strong>irreversible</strong> decision can be undone only at high cost and therefore deserves thorough care.'}
 ];
 
 QUESTION_POOLS['ds_l1_1'] = [
@@ -37161,7 +37470,20 @@ QUESTION_POOLS['lead_l4_2'] = [
     {t:'Um später die Vorhersage gegen das Ergebnis zu prüfen und die eigene Kalibrierung zu verbessern',t_en:'To later check the prediction against the result and improve your own calibration',correct:true,why:'Genau. Nur die vorab notierte Erwartung schützt vor dem „ich habe es ja kommen sehen".',why_en:'Exactly. Only the expectation noted in advance guards against "I saw it coming all along".'},
     {t:'Um im Streitfall nachweisen zu können, wer schuld war',t_en:'To be able to prove who was to blame in a dispute',correct:false,why:'Nein. Das Tagebuch dient dem Lernen, nicht der Schuldzuweisung.',why_en:'No. The journal serves learning, not assigning blame.'},
     {t:'Weil die Konfidenz nach dem Ergebnis nicht mehr messbar ist',t_en:'Because confidence can no longer be measured after the outcome',correct:false,why:'Nein. Der eigentliche Grund ist der Schutz vor dem Rückschaufehler durch die vorab festgehaltene Erwartung.',why_en:'No. The real reason is guarding against the hindsight fallacy with an expectation fixed in advance.'}
-  ]}
+  ]},
+  {id:'p_lead_l4_2_mc3',type:'mc',xp:10,question:'Wie entscheidest du unter Unsicherheit am rationalsten?',question_en:'How do you decide most rationally under uncertainty?',options:[
+    {t:'Mögliche Ergebnisse mit ihren Wahrscheinlichkeiten abwägen (Erwartungswert), nicht nur den besten oder schlimmsten Fall',t_en:'Weigh possible outcomes by their probabilities (expected value), not just the best or worst case',correct:true,why:'Genau. Der Erwartungswert bündelt Chance und Risiko in einer vergleichbaren Größe.',why_en:'Exactly. The expected value bundles chance and risk into one comparable quantity.'},
+    {t:'Ausschließlich für den schlimmsten Fall planen',t_en:'Plan exclusively for the worst case',correct:false,why:'Nein. Wer nur den schlimmsten Fall sieht, verschenkt jede vernünftige Chance.',why_en:'No. Whoever sees only the worst case forgoes every reasonable chance.'},
+    {t:'Immer die Option mit dem höchstmöglichen Gewinn wählen, egal wie unwahrscheinlich',t_en:'Always pick the option with the highest possible gain, no matter how unlikely',correct:false,why:'Nein. Ein hoher Gewinn mit winziger Wahrscheinlichkeit ist selten die kluge Wahl.',why_en:'No. A high gain with a tiny probability is rarely the wise choice.'}
+  ]},
+  {id:'p_lead_l4_2_mc4',type:'mc',xp:10,question:'Wann ist <strong>Satisficing</strong> der richtige Ansatz?',question_en:'When is <strong>satisficing</strong> the right approach?',options:[
+    {t:'Wenn weitere Suche mehr kostet als der mögliche Zugewinn — die erste Option, die die Kriterien erfüllt, genügt',t_en:'When further search costs more than the possible gain — the first option that meets the criteria suffices',correct:true,why:'Genau. Satisficing spart die teure Suche nach dem letzten Prozent, das niemand braucht.',why_en:'Exactly. Satisficing saves the expensive hunt for the last percent nobody needs.'},
+    {t:'Immer, weil die beste Option grundsätzlich Zeitverschwendung ist',t_en:'Always, because the best option is fundamentally a waste of time',correct:false,why:'Nein. Bei schwer umkehrbaren, großen Entscheidungen lohnt die gründliche Suche durchaus.',why_en:'No. For hard-to-reverse, large decisions the thorough search is well worth it.'},
+    {t:'Nie, man sollte stets so lange suchen, bis die objektiv beste Option feststeht',t_en:'Never, one should always search until the objectively best option is settled',correct:false,why:'Nein. Das ist maximizing — oft teurer als der Gewinn, den es bringt.',why_en:'No. That is maximizing — often more expensive than the gain it brings.'}
+  ]},
+  {id:'p_lead_l4_2_tf3',type:'truefalse',xp:8,statement:'Ein Entscheidungstagebuch hält die Konfidenz vor dem Ergebnis fest, um später die eigene Kalibrierung zu prüfen.',statement_en:'A decision journal records confidence before the outcome in order to check one\'s own calibration later.',correct:true,explanation:'Richtig. Nur die vorab notierte Erwartung schützt vor dem „ich habe es ja kommen sehen".',explanation_en:'Correct. Only the expectation noted in advance guards against "I saw it coming all along".'},
+  {id:'p_lead_l4_2_tf4',type:'truefalse',xp:8,statement:'Unter Unsicherheit ist es meist am besten, zu warten, bis alle Informationen vorliegen.',statement_en:'Under uncertainty it is usually best to wait until all information is available.',correct:false,explanation:'Falsch. Informationen sind nie vollständig, und Warten hat Kosten — gerade Umkehrbares entscheidet man lieber zügig.',explanation_en:'False. Information is never complete, and waiting has costs — the reversible in particular is better decided promptly.'},
+  {id:'p_lead_l4_2_fb2',type:'fillblank',xp:12,prompt:'Das Prinzip, nach dem jemand eine Entscheidung mitträgt, obwohl er vorher dagegen argumentiert hat, heißt „disagree and ___" (ein Wort, englisch).',prompt_en:'The principle by which someone backs a decision although they argued against it beforehand is called "disagree and ___" (one word).',answers:['commit','Commit','committen'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Bei <strong>disagree and commit</strong> gehört der Widerspruch vor die Entscheidung; danach wird geschlossen umgesetzt.',explanation_en:'With <strong>disagree and commit</strong> the disagreement belongs before the decision; afterwards it is executed as one.'}
 ];
 
 QUESTION_POOLS['lead_l4_3'] = [
@@ -37182,7 +37504,20 @@ QUESTION_POOLS['lead_l4_3'] = [
     {t:'Lernen wird zur Gewohnheit, und Erkenntnisse werden über Teamgrenzen hinweg geteilt',t_en:'Learning becomes a habit, and insights are shared across team boundaries',correct:true,why:'Genau. So bleibt Wissen nicht in einzelnen Köpfen, sondern wirkt in der ganzen Organisation.',why_en:'Exactly. That way knowledge does not stay in individual heads but takes effect across the whole organization.'},
     {t:'Jedes Team löst seine Probleme strikt für sich allein',t_en:'Each team solves its problems strictly on its own',correct:false,why:'Nein. Isoliertes Lernen wiederholt Fehler, die andere längst verstanden haben.',why_en:'No. Isolated learning repeats mistakes others have long understood.'},
     {t:'Erkenntnisse werden gesammelt, aber aus Vertraulichkeit nicht geteilt',t_en:'Insights are collected but, for confidentiality, not shared',correct:false,why:'Nein. Gerade das Teilen über Grenzen hinweg macht die lernende Organisation aus.',why_en:'No. It is precisely the sharing across boundaries that defines the learning organization.'}
-  ]}
+  ]},
+  {id:'p_lead_l4_3_mc3',type:'mc',xp:10,question:'Welches Gerüst strukturiert eine Retrospektive mit vier Fragen?',question_en:'Which frame structures a retrospective with four questions?',options:[
+    {t:'Die After-Action-Review: geplant? passiert? warum Unterschiede? was nehmen wir mit?',t_en:'The after-action review: planned? happened? why differences? what do we take away?',correct:true,why:'Genau. Die ersten drei Fragen trennen Absicht, Realität und Ursache; die vierte übersetzt in Handeln.',why_en:'Exactly. The first three questions separate intent, reality and cause; the fourth turns into action.'},
+    {t:'Das Entscheidungstagebuch',t_en:'The decision journal',correct:false,why:'Nein. Das Tagebuch prüft die Kalibrierung einzelner Entscheidungen, nicht die Arbeitsweise des Teams.',why_en:'No. The journal checks the calibration of individual decisions, not the team\'s way of working.'},
+    {t:'Der A/B-Test',t_en:'The A/B test',correct:false,why:'Nein. Der A/B-Test vergleicht zwei Varianten an Nutzern, er strukturiert keine Retrospektive.',why_en:'No. The A/B test compares two variants on users; it does not structure a retrospective.'}
+  ]},
+  {id:'p_lead_l4_3_mc4',type:'mc',xp:10,question:'Was ist das <strong>Ziel</strong> einer Retrospektive?',question_en:'What is the <strong>goal</strong> of a retrospective?',options:[
+    {t:'Die Arbeitsweise verbessern — schuldfrei, nicht rechtfertigen und keine Schuldigen suchen',t_en:'Improve the way of working — blameless, not justify and not hunt for culprits',correct:true,why:'Genau. Es geht um System und Umstände, nicht um Personen.',why_en:'Exactly. It is about the system and circumstances, not about people.'},
+    {t:'Die Leistung einzelner Personen bewerten',t_en:'Assess the performance of individuals',correct:false,why:'Nein. Leistungsbewertung widerspricht dem schuldfreien Ziel.',why_en:'No. Performance assessment contradicts the blameless goal.'},
+    {t:'Einen konkreten Störfall technisch aufklären',t_en:'Technically clear up one concrete incident',correct:false,why:'Nein. Das ist der Gegenstand eines Postmortems, nicht einer Retrospektive.',why_en:'No. That is the subject of a postmortem, not a retrospective.'}
+  ]},
+  {id:'p_lead_l4_3_tf3',type:'truefalse',xp:8,statement:'In der einfachen Schleife (single loop) behebt man den Fehler selbst, ohne die zugrunde liegenden Annahmen zu hinterfragen.',statement_en:'In the single loop you fix the error itself, without questioning the underlying assumptions.',correct:true,explanation:'Richtig. Erst die doppelte Schleife fragt, welche Annahmen und Regeln den Fehler möglich gemacht haben.',explanation_en:'Correct. Only the double loop asks which assumptions and rules made the error possible.'},
+  {id:'p_lead_l4_3_tf4',type:'truefalse',xp:8,statement:'Eine gute Retrospektive endet mit einer möglichst langen Wunschliste an Verbesserungen.',statement_en:'A good retrospective ends with a wish list of improvements that is as long as possible.',correct:false,explanation:'Falsch. Sie endet mit wenigen, konkreten, verantworteten Maßnahmen inklusive Termin — lieber zwei, die passieren, als zehn, die niemand anfasst.',explanation_en:'False. It ends with a few concrete, owned actions including a due date — better two that happen than ten nobody touches.'},
+  {id:'p_lead_l4_3_fb2',type:'fillblank',xp:12,prompt:'Das Gerüst mit vier Fragen (geplant / passiert / warum / Mitnahme) heißt ___-Review (Bindestrich-Begriff, englisch).',prompt_en:'The frame with four questions (planned / happened / why / takeaway) is called the ___ review (hyphenated term).',answers:['After-Action','after-action','After Action','after action','AAR','Afteraction'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>After-Action-Review</strong> ist ein einfaches, robustes Gerüst, das die vierte Frage in wenige konkrete Maßnahmen übersetzt.',explanation_en:'The <strong>after-action review</strong> is a simple, robust frame that turns the fourth question into a few concrete actions.'}
 ];
 
 QUESTION_POOLS['lead_l5_1'] = [
@@ -37971,6 +38306,161 @@ QUESTION_POOLS['lead_p3_exam'] = [
   {id:'p_lead_p3_exam_fb3',type:'fillblank',xp:12,prompt:'Die Impact-Formel im CV lautet Aktion + Ergebnis + ___ (ein Wort).',prompt_en:'The impact formula in the CV is action + result + ___ (one word).',answers:['Beleg','beleg','Nachweis','nachweis','evidence','Evidence'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Beleg</strong> verankert das Ergebnis mit Zahl oder Kontext und macht die Zeile überprüfbar.',explanation_en:'The <strong>evidence</strong> anchors the result with a number or context and makes the line verifiable.'},
   {id:'p_lead_p3_exam_fb4',type:'fillblank',xp:12,prompt:'Zu den nicht-funktionalen Anforderungen im System-Design gehören Last, ___ und Konsistenz (ein Wort).',prompt_en:'Non-functional requirements in system design include load, ___ and consistency (one word).',answers:['Latenz','latenz','Antwortzeit','antwortzeit','latency','Latency'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Latenz</strong> gehört neben Last und Konsistenz zu den zentralen nicht-funktionalen Anforderungen.',explanation_en:'The <strong>latency</strong> is, alongside load and consistency, a central non-functional requirement.'},
   {id:'p_lead_p3_exam_fb5',type:'fillblank',xp:12,prompt:'Deine beste Alternative, wenn ein Angebot scheitert, heißt ___ (ein englisches Akronym).',prompt_en:'Your best alternative if an offer falls through is called ___ (an English acronym).',answers:['BATNA','batna'],placeholder:'Akronym…',placeholder_en:'Acronym…',explanation:'Die <strong>BATNA</strong> gibt dir ruhigen Stand in der Verhandlung, ohne zu drohen.',explanation_en:'The <strong>BATNA</strong> gives you calm footing in the negotiation without threatening.'}
+];
+
+QUESTION_POOLS['lead_l4_4'] = [
+  {id:'p_lead_l4_4_mc1',type:'mc',xp:10,question:'An welchem Indikator lässt sich <strong>steuern</strong>?',question_en:'By which indicator can you <strong>steer</strong>?',options:[
+    {t:'Am führenden Indikator — er zeigt früh, wohin es läuft, und ist noch beeinflussbar',t_en:'By the leading indicator — it shows early where things head and is still influenceable',correct:true,why:'Genau. Nachlaufende Indikatoren bestätigen erst hinterher, wenn nichts mehr zu ändern ist.',why_en:'Exactly. Lagging indicators only confirm afterwards, when nothing can be changed anymore.'},
+    {t:'Am nachlaufenden Indikator, weil er das endgültige Ergebnis misst',t_en:'By the lagging indicator, because it measures the final result',correct:false,why:'Nein. Das Ergebnis steht dann schon fest — steuern kann man es nicht mehr.',why_en:'No. The result is already fixed then — you can no longer steer it.'},
+    {t:'An einer Eitelkeitszahl, weil sie stetig steigt',t_en:'By a vanity metric, because it rises steadily',correct:false,why:'Nein. Eine stetig steigende Zahl ändert kein Handeln und taugt nicht zum Steuern.',why_en:'No. A steadily rising number changes no action and is useless for steering.'}
+  ]},
+  {id:'p_lead_l4_4_mc2',type:'mc',xp:10,question:'Was zeichnet eine <strong>handlungsleitende</strong> Kennzahl aus?',question_en:'What marks an <strong>actionable</strong> metric?',options:[
+    {t:'Sie verändert eine Entscheidung, je nachdem wie sie ausfällt',t_en:'It changes a decision depending on how it turns out',correct:true,why:'Genau. Nur was dein Handeln ändern würde, ist eine Kennzahl, die zählt.',why_en:'Exactly. Only what would change your action is a metric that counts.'},
+    {t:'Sie sieht beeindruckend aus und steigt zuverlässig',t_en:'It looks impressive and rises reliably',correct:false,why:'Nein. Das beschreibt eine Eitelkeitszahl, die nichts ändert.',why_en:'No. That describes a vanity metric that changes nothing.'},
+    {t:'Sie ist eine nackte Gesamtsumme ohne Bezugsgröße',t_en:'It is a bare total without any reference',correct:false,why:'Nein. Ohne Bezugsgröße (Rate, Anteil) sagt eine Summe wenig.',why_en:'No. Without a reference (rate, share) a sum says little.'}
+  ]},
+  {id:'p_lead_l4_4_mc3',type:'mc',xp:10,question:'Zwei Kennzahlen bewegen sich gemeinsam. Was folgt daraus?',question_en:'Two metrics move together. What follows from that?',options:[
+    {t:'Zunächst nichts über Ursache und Wirkung — Korrelation ist nicht Kausalität',t_en:'At first nothing about cause and effect — correlation is not causation',correct:true,why:'Genau. Oft steckt eine dritte Ursache dahinter; nur ein Experiment trennt das sauber.',why_en:'Exactly. Often a third cause lies behind both; only an experiment separates it cleanly.'},
+    {t:'Die eine verursacht sicher die andere',t_en:'One surely causes the other',correct:false,why:'Nein. Gemeinsame Bewegung belegt keine Kausalität.',why_en:'No. Moving together proves no causation.'},
+    {t:'Zufall ist damit ausgeschlossen',t_en:'Chance is thereby ruled out',correct:false,why:'Nein. Gerade Zufall oder eine dritte Ursache bleiben möglich.',why_en:'No. Chance in particular, or a third cause, remains possible.'}
+  ]},
+  {id:'p_lead_l4_4_mc4',type:'mc',xp:10,question:'Was macht einen <strong>A/B-Test</strong> aussagekräftig?',question_en:'What makes an <strong>A/B test</strong> meaningful?',options:[
+    {t:'Zufällig geteilte Gruppen, genau eine geänderte Variable und eine unveränderte Vergleichsgruppe',t_en:'Randomly split groups, exactly one changed variable and an unchanged control group',correct:true,why:'Genau. Nur so lässt sich der Unterschied der einen Variable zuordnen.',why_en:'Exactly. Only then can the difference be attributed to the one variable.'},
+    {t:'Möglichst viele Variablen gleichzeitig ändern, um Zeit zu sparen',t_en:'Change as many variables as possible at once to save time',correct:false,why:'Nein. Dann weiß man am Ende nicht, welche Änderung gewirkt hat.',why_en:'No. Then you do not know in the end which change had the effect.'},
+    {t:'Auf eine Vergleichsgruppe verzichten',t_en:'Skip a control group',correct:false,why:'Nein. Ohne Vergleichsgruppe fehlt der Maßstab für den Effekt.',why_en:'No. Without a control group the yardstick for the effect is missing.'}
+  ]},
+  {id:'p_lead_l4_4_tf1',type:'truefalse',xp:8,statement:'Eine zu kleine Stichprobe trägt kein belastbares Urteil.',statement_en:'Too small a sample carries no reliable verdict.',correct:true,explanation:'Richtig. Aus wenigen Fällen lässt sich ein Unterschied kaum vom Zufall trennen.',explanation_en:'Correct. From few cases a difference can hardly be separated from chance.'},
+  {id:'p_lead_l4_4_tf2',type:'truefalse',xp:8,statement:'Ohne die Basisrate wirkt ein Wert oft größer, als er tatsächlich ist.',statement_en:'Without the base rate a value often looks bigger than it actually is.',correct:true,explanation:'Richtig. Erst der Bezug darauf, wie häufig etwas ohnehin vorkommt, ordnet die Zahl richtig ein.',explanation_en:'Correct. Only the reference to how often something happens anyway places the number correctly.'},
+  {id:'p_lead_l4_4_tf3',type:'truefalse',xp:8,statement:'Ein nachlaufender Indikator eignet sich gut zum Steuern, weil er früh zeigt, wohin es läuft.',statement_en:'A lagging indicator is well suited for steering because it shows early where things head.',correct:false,explanation:'Falsch. Das beschreibt den führenden Indikator; der nachlaufende misst das Ergebnis erst, wenn es feststeht.',explanation_en:'False. That describes the leading indicator; the lagging one measures the result only once it is fixed.'},
+  {id:'p_lead_l4_4_fb1',type:'fillblank',xp:12,prompt:'Eine Kennzahl, die gut aussieht, aber kein Handeln ändert, nennt man ___zahl (ein Wort, Vorderteil).',prompt_en:'A metric that looks good but changes no action is called a ___ metric (one word).',answers:['Eitelkeits','eitelkeits','Eitelkeit','vanity','Vanity'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine <strong>Eitelkeitszahl</strong> (vanity metric) schmückt, ändert aber keine Entscheidung.',explanation_en:'A <strong>vanity metric</strong> flatters but changes no decision.'},
+  {id:'p_lead_l4_4_fb2',type:'fillblank',xp:12,prompt:'Im A/B-Test ändert man in der Testgruppe genau ___ Variable (Zahl als Wort).',prompt_en:'In an A/B test you change exactly ___ variable in the test group (number as a word).',answers:['eine','1','eine einzige','one'],placeholder:'Zahl…',placeholder_en:'Number…',explanation:'Nur bei <strong>einer</strong> geänderten Variable lässt sich ein Unterschied dieser Variable zuordnen.',explanation_en:'Only with <strong>one</strong> changed variable can a difference be attributed to that variable.'},
+  {id:'p_lead_l4_4_fb3',type:'fillblank',xp:12,prompt:'Dass ein Unterschied groß und stabil genug ist, um nicht bloß Zufall zu sein, nennt man ___ (ein Wort).',prompt_en:'That a difference is large and stable enough not to be mere chance is called ___ (one word).',answers:['Signifikanz','signifikanz','Significance','significance','signifikant'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Signifikanz</strong> heißt in einfachen Worten: der Unterschied ist zu groß und stabil, um Zufall zu sein.',explanation_en:'<strong>Significance</strong> means, in plain words: the difference is too large and stable to be chance.'},
+  {id:'p_lead_l4_4_bonus',type:'mc',xp:20,optional:true,question:'Eine Auswertung zeigt einen großen Effekt, beruht aber auf nur zwölf Fällen. Wie deutest du das?',question_en:'An analysis shows a large effect but rests on only twelve cases. How do you read it?',options:[
+    {t:'Zurückhaltend — die Stichprobe ist zu klein, um den Effekt vom Zufall zu trennen',t_en:'Cautiously — the sample is too small to separate the effect from chance',correct:true,why:'Genau. Bei zwölf Fällen kann ein großer Ausschlag reiner Zufall sein; erst mehr Daten tragen ein Urteil.',why_en:'Exactly. With twelve cases a large swing can be pure chance; only more data carries a verdict.'},
+    {t:'Als klaren Beweis, weil der Effekt groß ist',t_en:'As clear proof, because the effect is large',correct:false,why:'Nein. Die Größe des Effekts ersetzt nicht die nötige Stichprobe.',why_en:'No. The size of the effect does not replace the necessary sample.'},
+    {t:'Als Kausalität, weil die Zahlen zusammenpassen',t_en:'As causation, because the numbers fit together',correct:false,why:'Nein. Passende Zahlen belegen weder Kausalität noch eine ausreichende Stichprobe.',why_en:'No. Fitting numbers prove neither causation nor a sufficient sample.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l4_5'] = [
+  {id:'p_lead_l4_5_mc1',type:'mc',xp:10,question:'Was ist der Kern von <strong>Priorisierung</strong>?',question_en:'What is the core of <strong>prioritization</strong>?',options:[
+    {t:'Aktives Weglassen — auch gute Dinge nicht tun, um Platz für das Wichtigste zu schaffen',t_en:'Active omission — not doing even good things to make room for the most important',correct:true,why:'Genau. Eine Liste, auf der alles wichtig ist, priorisiert nichts.',why_en:'Exactly. A list on which everything is important prioritizes nothing.'},
+    {t:'Alles erledigen, nur in der richtigen Reihenfolge',t_en:'Getting everything done, just in the right order',correct:false,why:'Nein. Wer nichts weglässt, hat nur sortiert, nicht priorisiert.',why_en:'No. Whoever leaves nothing out has only sorted, not prioritized.'},
+    {t:'Die längste Aufgabe zuerst angehen',t_en:'Tackling the longest task first',correct:false,why:'Nein. Die Dauer allein sagt nichts über die Priorität.',why_en:'No. The duration alone says nothing about priority.'}
+  ]},
+  {id:'p_lead_l4_5_mc2',type:'mc',xp:10,question:'Welche vier Größen wägt <strong>RICE</strong> ab?',question_en:'Which four quantities does <strong>RICE</strong> weigh?',options:[
+    {t:'Reichweite, Wirkung, Zuversicht und Aufwand',t_en:'Reach, impact, confidence and effort',correct:true,why:'Genau. Die ersten drei stehen im Zähler, der Aufwand im Nenner.',why_en:'Exactly. The first three sit in the numerator, the effort in the denominator.'},
+    {t:'Risiko, Kosten, Zeit und Qualität',t_en:'Risk, cost, time and quality',correct:false,why:'Nein. Das sind klassische Projektgrößen, nicht die RICE-Faktoren.',why_en:'No. Those are classic project quantities, not the RICE factors.'},
+    {t:'Reichweite, Umsatz, Kundschaft und Aufwand',t_en:'Reach, revenue, customers and effort',correct:false,why:'Nein. In RICE stehen Wirkung und Zuversicht, nicht Umsatz und Kundschaft.',why_en:'No. RICE has impact and confidence, not revenue and customers.'}
+  ]},
+  {id:'p_lead_l4_5_mc3',type:'mc',xp:10,question:'Was sagt <strong>WSJF</strong> (weighted shortest job first)?',question_en:'What does <strong>WSJF</strong> (weighted shortest job first) say?',options:[
+    {t:'Erledige die kürzeste gewichtete Aufgabe zuerst — teile den Wert durch die Dauer',t_en:'Do the shortest weighted job first — divide the value by the duration',correct:true,why:'Genau. So entsteht pro Zeiteinheit am meisten Wert.',why_en:'Exactly. That way the most value arises per unit of time.'},
+    {t:'Erledige stets die größte und wichtigste Aufgabe zuerst',t_en:'Always do the biggest and most important job first',correct:false,why:'Nein. Eine große, lange Aufgabe kann pro Zeit weniger Wert liefern als mehrere kurze.',why_en:'No. One big, long job can deliver less value per time than several short ones.'},
+    {t:'Erledige die Aufgaben in der Reihenfolge ihres Eingangs',t_en:'Do the jobs in the order they arrived',correct:false,why:'Nein. Die Eingangsreihenfolge sagt nichts über Wert pro Zeit.',why_en:'No. The arrival order says nothing about value per time.'}
+  ]},
+  {id:'p_lead_l4_5_mc4',type:'mc',xp:10,question:'Was bedeuten <strong>Opportunitätskosten</strong> für das Priorisieren?',question_en:'What do <strong>opportunity costs</strong> mean for prioritizing?',options:[
+    {t:'Jedes Ja ist zugleich ein Nein zu allem, was du in derselben Zeit nicht tust',t_en:'Every yes is at the same time a no to everything you are not doing in the same time',correct:true,why:'Genau. Die Frage ist nie nur, ob etwas wertvoll ist, sondern ob es wertvoller ist als die beste Alternative.',why_en:'Exactly. The question is never just whether something is valuable, but whether it is more valuable than the best alternative.'},
+    {t:'Dass teure Aufgaben grundsätzlich wichtiger sind',t_en:'That expensive tasks are fundamentally more important',correct:false,why:'Nein. Kosten allein bestimmen keine Priorität.',why_en:'No. Cost alone determines no priority.'},
+    {t:'Dass man jede Gelegenheit sofort ergreifen sollte',t_en:'That you should seize every opportunity at once',correct:false,why:'Nein. Gerade das verletzt die Opportunitätskosten — jedes Ja bindet Zeit.',why_en:'No. That in particular violates opportunity costs — every yes ties up time.'}
+  ]},
+  {id:'p_lead_l4_5_tf1',type:'truefalse',xp:8,statement:'Auslastung ist dasselbe wie Produktivität.',statement_en:'Utilization is the same as productivity.',correct:false,explanation:'Falsch. Ein voll ausgelastetes Team mit vielen halbfertigen Dingen liefert selten etwas ganz fertig — Umschaltkosten fressen den Gewinn.',explanation_en:'False. A fully utilized team with many half-done things rarely finishes anything fully — switching costs eat the gain.'},
+  {id:'p_lead_l4_5_tf2',type:'truefalse',xp:8,statement:'Bei RICE steht der Aufwand im Nenner, sodass viel Wirkung bei wenig Aufwand gewinnt.',statement_en:'In RICE the effort sits in the denominator, so much impact at little effort wins.',correct:true,explanation:'Richtig. Wirkung, Reichweite und Zuversicht oben, Aufwand unten — das belohnt kleine, wirksame Vorhaben.',explanation_en:'Correct. Impact, reach and confidence on top, effort below — that rewards small, effective undertakings.'},
+  {id:'p_lead_l4_5_tf3',type:'truefalse',xp:8,statement:'Wenige Dinge wirklich fertig zu bringen schlägt vieles halb zu betreiben.',statement_en:'Getting a few things truly finished beats running much half-done.',correct:true,explanation:'Richtig. Nur abgeschlossene Arbeit wirkt; Fokus schlägt Auslastung.',explanation_en:'Correct. Only finished work takes effect; focus beats utilization.'},
+  {id:'p_lead_l4_5_fb1',type:'fillblank',xp:12,prompt:'RICE steht für Reichweite, Wirkung, Zuversicht und ___ (ein Wort).',prompt_en:'RICE stands for reach, impact, confidence and ___ (one word).',answers:['Aufwand','aufwand','Effort','effort'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Aufwand</strong> steht im Nenner — viel Wirkung bei wenig Aufwand ergibt einen hohen RICE-Wert.',explanation_en:'The <strong>effort</strong> sits in the denominator — much impact at little effort yields a high RICE score.'},
+  {id:'p_lead_l4_5_fb2',type:'fillblank',xp:12,prompt:'Die Kosten des Besten, was man stattdessen hätte tun können, heißen ___ (ein Wort).',prompt_en:'The cost of the best thing you could have done instead is called ___ (one word).',answers:['Opportunitätskosten','opportunitätskosten','Opportunitaetskosten','opportunitaetskosten','Opportunitätskost','opportunity cost','Opportunity cost'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Opportunitätskosten</strong> machen sichtbar, dass jedes Ja ein Nein zu etwas anderem ist.',explanation_en:'The <strong>opportunity cost</strong> makes visible that every yes is a no to something else.'},
+  {id:'p_lead_l4_5_fb3',type:'fillblank',xp:12,prompt:'WSJF berechnet sich grob als Wert geteilt durch die ___ (ein Wort).',prompt_en:'WSJF is roughly value divided by the ___ (one word).',answers:['Dauer','dauer','Duration','duration','Zeit','zeit'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Wert geteilt durch <strong>Dauer</strong> stellt die kürzeste gewichtete Aufgabe nach vorn.',explanation_en:'Value divided by <strong>duration</strong> puts the shortest weighted job first.'},
+  {id:'p_lead_l4_5_bonus',type:'mc',xp:20,optional:true,question:'Zwei Aufgaben haben denselben Wert, aber unterschiedliche Dauer. Welche kommt nach WSJF zuerst?',question_en:'Two tasks have the same value but different durations. Which comes first under WSJF?',options:[
+    {t:'Die kürzere, weil pro Zeiteinheit mehr Wert entsteht',t_en:'The shorter one, because more value arises per unit of time',correct:true,why:'Genau. Bei gleichem Wert gewinnt die kürzere Dauer den höheren Wert pro Zeit.',why_en:'Exactly. At equal value the shorter duration wins the higher value per time.'},
+    {t:'Die längere, weil sie offenbar aufwendiger und damit wichtiger ist',t_en:'The longer one, because it is evidently more involved and thus more important',correct:false,why:'Nein. Mehr Aufwand ist kein Zeichen für mehr Priorität.',why_en:'No. More effort is no sign of more priority.'},
+    {t:'Beide gleichzeitig, um keine Zeit zu verlieren',t_en:'Both at once, so as not to lose time',correct:false,why:'Nein. Paralleles Betreiben erhöht Umschaltkosten und widerspricht dem Fokus.',why_en:'No. Running them in parallel raises switching costs and contradicts focus.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l4_6'] = [
+  {id:'p_lead_l4_6_mc1',type:'mc',xp:10,question:'Welche Annahme testest du <strong>zuerst</strong>?',question_en:'Which assumption do you test <strong>first</strong>?',options:[
+    {t:'Die riskanteste — die, deren Scheitern das ganze Vorhaben zum Einsturz brächte',t_en:'The riskiest — the one whose failure would bring the whole undertaking down',correct:true,why:'Genau. So fällt das Scheitern früh und billig, nicht spät und teuer.',why_en:'Exactly. That way failure comes early and cheap, not late and expensive.'},
+    {t:'Die einfachste, weil sie am schnellsten zu prüfen ist',t_en:'The easiest, because it is quickest to check',correct:false,why:'Nein. Die einfachste zuerst zu prüfen verschiebt das eigentliche Risiko nach hinten.',why_en:'No. Checking the easiest first pushes the real risk to the back.'},
+    {t:'Die, bei der du dir am sichersten bist',t_en:'The one you are most certain about',correct:false,why:'Nein. Sichere Annahmen lehren wenig; das Risiko steckt in den unsicheren.',why_en:'No. Safe assumptions teach little; the risk sits in the uncertain ones.'}
+  ]},
+  {id:'p_lead_l4_6_mc2',type:'mc',xp:10,question:'Was ist ein <strong>MVP</strong> in erster Linie?',question_en:'What is an <strong>MVP</strong> first and foremost?',options:[
+    {t:'Ein Lernwerkzeug, das mit wenig Aufwand eine riskante Annahme prüft',t_en:'A learning tool that tests a risky assumption with little effort',correct:true,why:'Genau. Die Frage ist, was das Kleinste ist, das uns etwas Echtes lehrt.',why_en:'Exactly. The question is what the smallest thing is that teaches us something real.'},
+    {t:'Ein bewusst schlecht gebautes, halbes Produkt',t_en:'A deliberately badly built, half product',correct:false,why:'Nein. Ein MVP ist kein halbes Produkt, sondern ein gezieltes Experiment.',why_en:'No. An MVP is not a half product but a targeted experiment.'},
+    {t:'Die erste vollständige Version mit allen Funktionen',t_en:'The first complete version with all features',correct:false,why:'Nein. Vollständigkeit ist gerade nicht der Zweck eines MVP.',why_en:'No. Completeness is precisely not the purpose of an MVP.'}
+  ]},
+  {id:'p_lead_l4_6_mc3',type:'mc',xp:10,question:'Wie formuliert man eine prüfbare <strong>Hypothese</strong>?',question_en:'How do you phrase a testable <strong>hypothesis</strong>?',options:[
+    {t:'„Wir glauben, dass …; wir wissen es, wenn …" — Vermutung plus beobachtbares Signal',t_en:'"We believe that …; we will know it when …" — guess plus observable signal',correct:true,why:'Genau. Ohne das beobachtbare „wir wissen es, wenn" bleibt jede Meinung unangreifbar.',why_en:'Exactly. Without the observable "we will know it when", any opinion stays unassailable.'},
+    {t:'„Wir sind überzeugt, dass wir recht haben"',t_en:'"We are convinced that we are right"',correct:false,why:'Nein. Ohne widerlegbares Signal ist das keine Hypothese, sondern eine Behauptung.',why_en:'No. Without a refutable signal that is not a hypothesis but a claim.'},
+    {t:'„Alle wollen das, das ist offensichtlich"',t_en:'"Everyone wants this, it is obvious"',correct:false,why:'Nein. Offensichtlichkeit ersetzt keinen Test.',why_en:'No. Obviousness replaces no test.'}
+  ]},
+  {id:'p_lead_l4_6_mc4',type:'mc',xp:10,question:'Welche Reihenfolge beschreibt den Experimentierkreis richtig?',question_en:'Which order describes the experimentation loop correctly?',options:[
+    {t:'Bauen, messen, lernen — etwas Kleines bauen, an der Realität messen, die nächste Annahme ableiten',t_en:'Build, measure, learn — build something small, measure against reality, derive the next assumption',correct:true,why:'Genau. Der Kreis dreht sich: aus dem Gelernten entsteht die nächste Hypothese.',why_en:'Exactly. The loop turns: the next hypothesis arises from what was learned.'},
+    {t:'Messen, lernen, bauen — erst die Daten, dann der Schluss, dann der Bau',t_en:'Measure, learn, build — first the data, then the conclusion, then the build',correct:false,why:'Nein. Ohne etwas Gebautes gibt es nichts zu messen.',why_en:'No. Without something built there is nothing to measure.'},
+    {t:'Lernen, bauen, messen — erst die Theorie vollständig, dann ein großes Produkt',t_en:'Learn, build, measure — first the theory in full, then a large product',correct:false,why:'Nein. Lernen steht am Ende der Schleife, nicht am Anfang als Theorie.',why_en:'No. Learning stands at the end of the loop, not at the start as theory.'}
+  ]},
+  {id:'p_lead_l4_6_tf1',type:'truefalse',xp:8,statement:'Ein MVP ist ein bewusst halbfertiges Produkt, bei dem man so viel wie möglich weglässt.',statement_en:'An MVP is a deliberately half-finished product in which you leave out as much as possible.',correct:false,explanation:'Falsch. Ein MVP ist ein Lernwerkzeug: es prüft mit minimalem Aufwand eine riskante Annahme, es ist kein halbes Produkt.',explanation_en:'False. An MVP is a learning tool: it tests a risky assumption with minimal effort; it is not a half product.'},
+  {id:'p_lead_l4_6_tf2',type:'truefalse',xp:8,statement:'Umkehrbare Entscheidungen trifft man besser schnell und experimentell.',statement_en:'Reversible decisions are better made fast and experimentally.',correct:true,explanation:'Richtig. Man probiert, misst und korrigiert — nur schwer Umkehrbares verdient die langsame, gründliche Prüfung.',explanation_en:'Correct. You try, measure and correct — only the hard-to-reverse deserves the slow, thorough examination.'},
+  {id:'p_lead_l4_6_tf3',type:'truefalse',xp:8,statement:'Der zweite Teil einer Hypothese nennt das beobachtbare Signal, an dem man sie widerlegen oder bestätigen könnte.',statement_en:'The second part of a hypothesis names the observable signal by which it could be refuted or confirmed.',correct:true,explanation:'Richtig. Das „wir wissen es, wenn …" macht die Vermutung überhaupt erst prüfbar.',explanation_en:'Correct. The "we will know it when …" is what makes the guess testable in the first place.'},
+  {id:'p_lead_l4_6_fb1',type:'fillblank',xp:12,prompt:'Der Dreischritt des Experimentierens lautet bauen – messen – ___ (ein Wort).',prompt_en:'The three steps of experimentation are build – measure – ___ (one word).',answers:['lernen','Lernen','learn','Learn'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Aus dem <strong>Lernen</strong> entsteht die nächste Annahme, und der Kreis beginnt von vorn.',explanation_en:'From the <strong>learning</strong> the next assumption arises, and the loop begins again.'},
+  {id:'p_lead_l4_6_fb2',type:'fillblank',xp:12,prompt:'MVP steht für minimal ___ Produkt (ein Wort, das die Brauchbarkeit meint).',prompt_en:'MVP stands for minimum ___ product (one word meaning usable).',answers:['brauchbares','Brauchbares','brauchbar','viable','Viable','nutzbares'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>brauchbare</strong> (viable) Minimum reicht gerade aus, um eine Annahme zu prüfen — nicht mehr.',explanation_en:'The <strong>viable</strong> minimum is just enough to test an assumption — no more.'},
+  {id:'p_lead_l4_6_fb3',type:'fillblank',xp:12,prompt:'Man testet die ___ Annahme zuerst, nicht zuletzt (ein Wort).',prompt_en:'You test the ___ assumption first, not last (one word).',answers:['riskanteste','Riskanteste','riskigste','gefährlichste','gefaehrlichste','riskiest'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>riskanteste</strong> Annahme zuerst zu prüfen macht Scheitern früh und billig.',explanation_en:'Testing the <strong>riskiest</strong> assumption first makes failure early and cheap.'},
+  {id:'p_lead_l4_6_bonus',type:'mc',xp:20,optional:true,question:'Warum baut man ein MVP zuerst für die riskanteste Annahme statt für die Politur?',question_en:'Why build an MVP first for the riskiest assumption rather than for the polish?',options:[
+    {t:'Weil früh und billig erkanntes Scheitern teures spätes Scheitern verhindert',t_en:'Because failure recognized early and cheaply prevents expensive late failure',correct:true,why:'Genau. Der Wert des MVP liegt im frühen Lernen, nicht im fertigen Aussehen.',why_en:'Exactly. The value of the MVP lies in early learning, not in a finished look.'},
+    {t:'Weil ein poliertes Produkt grundsätzlich unnötig ist',t_en:'Because a polished product is fundamentally unnecessary',correct:false,why:'Nein. Politur hat ihren Platz — nur eben nicht, bevor die riskante Annahme steht.',why_en:'No. Polish has its place — just not before the risky assumption holds.'},
+    {t:'Weil Nutzer ein unfertiges Produkt immer bevorzugen',t_en:'Because users always prefer an unfinished product',correct:false,why:'Nein. Darum geht es nicht; es geht um das frühe Prüfen der riskanten Annahme.',why_en:'No. That is not the point; the point is testing the risky assumption early.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_p4_exam'] = [
+  {id:'p_lead_p4_exam_mc1',type:'mc',xp:10,question:'Wann lohnt sich <strong>Selbstbau</strong> (Build) am ehesten?',question_en:'When does <strong>building yourself</strong> (build) pay off most?',options:[
+    {t:'Beim Kerngeschäft — dem Teil, der den eigenen Wettbewerbsvorteil ausmacht',t_en:'For the core business — the part that makes up your own competitive advantage',correct:true,why:'Genau. Bei Standardproblemen ist Kaufen über die Lebenszykluskosten meist günstiger.',why_en:'Exactly. For standard problems, buying is usually cheaper over the lifecycle cost.'},
+    {t:'Bei jedem Standardproblem mit fertiger Lösung',t_en:'For every standard problem with a ready-made solution',correct:false,why:'Nein. Da bindet Selbstbau nur Kapazität ohne Differenzierung.',why_en:'No. There, building yourself only ties up capacity without differentiation.'},
+    {t:'Immer, weil selbst gebaute Software billiger im Unterhalt ist',t_en:'Always, because self-built software is cheaper to maintain',correct:false,why:'Nein. Selbstbau ist fast immer teurer als gedacht — im jahrelangen Unterhalt.',why_en:'No. Building yourself is almost always more expensive than expected — in years of upkeep.'}
+  ]},
+  {id:'p_lead_p4_exam_mc2',type:'mc',xp:10,question:'Eine sorgfältige Entscheidung hatte ein schlechtes Ergebnis. Wie bewertest du sie?',question_en:'A careful decision had a bad outcome. How do you assess it?',options:[
+    {t:'An ihrer Qualität zum Zeitpunkt — Ergebnis und Entscheidungsqualität sind zweierlei',t_en:'By its quality at the time — outcome and decision quality are two different things',correct:true,why:'Genau. Eine gute Entscheidung kann durch Zufall schlecht ausgehen.',why_en:'Exactly. A good decision can turn out badly by chance.'},
+    {t:'Als klar schlechte Entscheidung, denn das Ergebnis beweist es',t_en:'As a clearly bad decision, because the outcome proves it',correct:false,why:'Nein. Das ist resulting, ein Rückschaufehler.',why_en:'No. That is resulting, a hindsight fallacy.'},
+    {t:'Als reinen Zufall, aus dem man nichts lernen kann',t_en:'As pure chance, from which nothing can be learned',correct:false,why:'Nein. Aus Annahmen und Konfidenz lässt sich über die Kalibrierung lernen.',why_en:'No. One can learn via calibration from assumptions and confidence.'}
+  ]},
+  {id:'p_lead_p4_exam_mc3',type:'mc',xp:10,question:'Woran erkennt man eine <strong>wirksame</strong> Retrospektive?',question_en:'How do you recognize an <strong>effective</strong> retrospective?',options:[
+    {t:'Sie endet mit wenigen, konkreten, verantworteten Maßnahmen inklusive Termin',t_en:'It ends with a few concrete, owned actions including a due date',correct:true,why:'Genau. Lieber zwei Dinge, die passieren, als zehn, die niemand anfasst.',why_en:'Exactly. Better two things that happen than ten nobody touches.'},
+    {t:'Sie sammelt möglichst viele Ideen auf einer langen Wunschliste',t_en:'It gathers as many ideas as possible on a long wish list',correct:false,why:'Nein. Ohne Verantwortung und Termin bleibt die Liste folgenlos.',why_en:'No. Without ownership and a due date the list stays without consequence.'},
+    {t:'Sie klärt, wer den Fehler zu verantworten hatte',t_en:'It clarifies who was to blame for the error',correct:false,why:'Nein. Schuldzuweisung widerspricht dem schuldfreien Ziel.',why_en:'No. Assigning blame contradicts the blameless goal.'}
+  ]},
+  {id:'p_lead_p4_exam_mc4',type:'mc',xp:10,question:'An welchem Indikator lässt sich <strong>steuern</strong>?',question_en:'By which indicator can you <strong>steer</strong>?',options:[
+    {t:'Am führenden Indikator — früh und noch beeinflussbar',t_en:'By the leading indicator — early and still influenceable',correct:true,why:'Genau. Der nachlaufende bestätigt erst, wenn nichts mehr zu ändern ist.',why_en:'Exactly. The lagging one confirms only when nothing can be changed anymore.'},
+    {t:'Am nachlaufenden Indikator, weil er das Ergebnis misst',t_en:'By the lagging indicator, because it measures the result',correct:false,why:'Nein. Dann steht das Ergebnis schon fest.',why_en:'No. By then the result is already fixed.'},
+    {t:'An einer Eitelkeitszahl, weil sie stetig steigt',t_en:'By a vanity metric, because it rises steadily',correct:false,why:'Nein. Sie ändert kein Handeln.',why_en:'No. It changes no action.'}
+  ]},
+  {id:'p_lead_p4_exam_mc5',type:'mc',xp:10,question:'Welche vier Größen wägt <strong>RICE</strong> ab?',question_en:'Which four quantities does <strong>RICE</strong> weigh?',options:[
+    {t:'Reichweite, Wirkung, Zuversicht und Aufwand',t_en:'Reach, impact, confidence and effort',correct:true,why:'Genau. Die ersten drei oben, der Aufwand unten.',why_en:'Exactly. The first three on top, the effort below.'},
+    {t:'Risiko, Kosten, Zeit und Qualität',t_en:'Risk, cost, time and quality',correct:false,why:'Nein. Das sind klassische Projektgrößen, nicht RICE.',why_en:'No. Those are classic project quantities, not RICE.'},
+    {t:'Reichweite, Umsatz, Kundschaft und Aufwand',t_en:'Reach, revenue, customers and effort',correct:false,why:'Nein. RICE nennt Wirkung und Zuversicht, nicht Umsatz und Kundschaft.',why_en:'No. RICE names impact and confidence, not revenue and customers.'}
+  ]},
+  {id:'p_lead_p4_exam_mc6',type:'mc',xp:10,question:'Welche Annahme testest du <strong>zuerst</strong>?',question_en:'Which assumption do you test <strong>first</strong>?',options:[
+    {t:'Die riskanteste — deren Scheitern das ganze Vorhaben zum Einsturz brächte',t_en:'The riskiest — whose failure would bring the whole undertaking down',correct:true,why:'Genau. So fällt das Scheitern früh und billig.',why_en:'Exactly. That way failure comes early and cheap.'},
+    {t:'Die einfachste, weil sie am schnellsten geht',t_en:'The easiest, because it is quickest',correct:false,why:'Nein. Das verschiebt das eigentliche Risiko nach hinten.',why_en:'No. That pushes the real risk to the back.'},
+    {t:'Die, bei der du dir am sichersten bist',t_en:'The one you are most certain about',correct:false,why:'Nein. Sichere Annahmen lehren wenig.',why_en:'No. Safe assumptions teach little.'}
+  ]},
+  {id:'p_lead_p4_exam_mc7',type:'mc',xp:10,question:'Was macht einen <strong>A/B-Test</strong> aussagekräftig?',question_en:'What makes an <strong>A/B test</strong> meaningful?',options:[
+    {t:'Zufällig geteilte Gruppen, genau eine geänderte Variable, eine unveränderte Vergleichsgruppe',t_en:'Randomly split groups, exactly one changed variable, an unchanged control group',correct:true,why:'Genau. Nur so ordnet man den Unterschied der einen Variable zu.',why_en:'Exactly. Only then is the difference attributed to the one variable.'},
+    {t:'Möglichst viele Variablen gleichzeitig ändern',t_en:'Change as many variables as possible at once',correct:false,why:'Nein. Dann weiß man nicht, welche Änderung gewirkt hat.',why_en:'No. Then you do not know which change had the effect.'},
+    {t:'Auf die Vergleichsgruppe verzichten',t_en:'Skip the control group',correct:false,why:'Nein. Ohne sie fehlt der Maßstab.',why_en:'No. Without it the yardstick is missing.'}
+  ]},
+  {id:'p_lead_p4_exam_mc8',type:'mc',xp:10,question:'Warum schlägt <strong>Fokus</strong> die reine Auslastung?',question_en:'Why does <strong>focus</strong> beat raw utilization?',options:[
+    {t:'Weil wenige abgeschlossene Dinge wirken, während vieles Halbfertige durch Umschaltkosten den Gewinn auffrisst',t_en:'Because a few finished things take effect, while much half-done work eats the gain through switching costs',correct:true,why:'Genau. Nur abgeschlossene Arbeit liefert Wert.',why_en:'Exactly. Only finished work delivers value.'},
+    {t:'Weil ausgelastete Teams immer unglücklich sind',t_en:'Because busy teams are always unhappy',correct:false,why:'Nein. Darum geht es nicht, sondern um fertige Ergebnisse.',why_en:'No. That is not the point; finished results are.'},
+    {t:'Weil Auslastung sich nicht messen lässt',t_en:'Because utilization cannot be measured',correct:false,why:'Nein. Messbar ist sie schon — nur ist sie kein guter Maßstab für Wert.',why_en:'No. It can be measured — it is just no good yardstick for value.'}
+  ]},
+  {id:'p_lead_p4_exam_tf1',type:'truefalse',xp:8,statement:'Eine reversible Entscheidung darf man schnell treffen, beobachten und bei Bedarf korrigieren.',statement_en:'A reversible decision may be made fast, observed and corrected if needed.',correct:true,explanation:'Richtig. Umkehrbares verdient Tempo; nur schwer Umkehrbares verdient Gründlichkeit.',explanation_en:'Correct. The reversible deserves speed; only the hard-to-reverse deserves thoroughness.'},
+  {id:'p_lead_p4_exam_tf2',type:'truefalse',xp:8,statement:'Die einfache Schleife (single loop) hinterfragt die zugrunde liegenden Annahmen und Regeln.',statement_en:'The single loop questions the underlying assumptions and rules.',correct:false,explanation:'Falsch. Das tut die doppelte Schleife; die einfache behebt nur den Fehler selbst.',explanation_en:'False. The double loop does that; the single loop only fixes the error itself.'},
+  {id:'p_lead_p4_exam_tf3',type:'truefalse',xp:8,statement:'Dass zwei Kennzahlen sich gemeinsam bewegen, beweist, dass die eine die andere verursacht.',statement_en:'That two metrics move together proves that one causes the other.',correct:false,explanation:'Falsch. Korrelation ist nicht Kausalität — oft steckt eine dritte Ursache dahinter.',explanation_en:'False. Correlation is not causation — often a third cause lies behind both.'},
+  {id:'p_lead_p4_exam_tf4',type:'truefalse',xp:8,statement:'Ein MVP ist ein Lernwerkzeug, kein halbes Produkt.',statement_en:'An MVP is a learning tool, not a half product.',correct:true,explanation:'Richtig. Es prüft mit minimalem Aufwand eine riskante Annahme.',explanation_en:'Correct. It tests a risky assumption with minimal effort.'},
+  {id:'p_lead_p4_exam_tf5',type:'truefalse',xp:8,statement:'Das Ergebnis allein zeigt zuverlässig, wie gut eine Entscheidung war.',statement_en:'The outcome alone reliably shows how good a decision was.',correct:false,explanation:'Falsch. Das ist resulting; der Zufall redet mit, beurteilt wird die Qualität zum Zeitpunkt.',explanation_en:'False. That is resulting; chance has a say, and what is judged is the quality at the time.'},
+  {id:'p_lead_p4_exam_fb1',type:'fillblank',xp:12,prompt:'Eine kurze, datierte Notiz zu einer einzelnen Architektur-Entscheidung heißt ___ (Abkürzung, drei Buchstaben).',prompt_en:'A short, dated note on a single architecture decision is called an ___ (abbreviation, three letters).',answers:['ADR','adr','A.D.R.','a.d.r.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Ein <strong>ADR</strong> ist das ehrliche Entscheidungs-Gedächtnis eines Teams.',explanation_en:'An <strong>ADR</strong> is a team\'s honest decision memory.'},
+  {id:'p_lead_p4_exam_fb2',type:'fillblank',xp:12,prompt:'Lernen, das die zugrunde liegenden Annahmen hinterfragt, heißt ___-Loop-Learning (ein Wort).',prompt_en:'Learning that questions the underlying assumptions is called ___-loop learning (one word).',answers:['Double','double','Doppel','doppel','doppelte'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Beim <strong>Double</strong>-Loop-Learning ändert man die Annahmen und Regeln, nicht nur die fehlerhafte Variable.',explanation_en:'With <strong>double</strong>-loop learning you change the assumptions and rules, not just the faulty variable.'},
+  {id:'p_lead_p4_exam_fb3',type:'fillblank',xp:12,prompt:'Dass ein Unterschied groß und stabil genug ist, um nicht bloß Zufall zu sein, nennt man ___ (ein Wort).',prompt_en:'That a difference is large and stable enough not to be mere chance is called ___ (one word).',answers:['Signifikanz','signifikanz','Significance','significance','signifikant'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Signifikanz</strong> heißt in einfachen Worten: zu groß und stabil, um Zufall zu sein.',explanation_en:'<strong>Significance</strong> means, in plain words: too large and stable to be chance.'},
+  {id:'p_lead_p4_exam_fb4',type:'fillblank',xp:12,prompt:'WSJF berechnet sich grob als Wert geteilt durch die ___ (ein Wort).',prompt_en:'WSJF is roughly value divided by the ___ (one word).',answers:['Dauer','dauer','Duration','duration','Zeit','zeit'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Wert geteilt durch <strong>Dauer</strong> stellt die kürzeste gewichtete Aufgabe nach vorn.',explanation_en:'Value divided by <strong>duration</strong> puts the shortest weighted job first.'},
+  {id:'p_lead_p4_exam_fb5',type:'fillblank',xp:12,prompt:'Der Dreischritt des Experimentierens lautet bauen – messen – ___ (ein Wort).',prompt_en:'The three steps of experimentation are build – measure – ___ (one word).',answers:['lernen','Lernen','learn','Learn'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Aus dem <strong>Lernen</strong> entsteht die nächste Annahme, und der Kreis beginnt von vorn.',explanation_en:'From the <strong>learning</strong> the next assumption arises, and the loop begins again.'}
 ];
 
 
