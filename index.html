@@ -25265,6 +25265,215 @@ Actions    -&gt; task + owner</div>
           ${renderBonus('lead_l1_4')}
         `
       },
+      {
+        id: 'lead_l1_5', title: 'Code-Review & Qualitäts-Gates als Führungsinstrument',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 5</div>
+            <h1 class="lesson-title">Code-Review & Qualitäts-Gates als Führungsinstrument</h1>
+            <p class="lesson-desc">Review und automatische Gates sind kein Bürokratie-Aufschlag, sondern Führung im Code: Sie machen Qualität zu einer gemeinsamen, objektiven Vereinbarung statt zu einer Frage von Personen und Bauchgefühl.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Review-Kultur: kleine PRs, zügiges Feedback, Review als Lernen</div>
+            <div class="explanation">
+              Ein <strong>Pull Request</strong> (PR) ist der Ort, an dem Qualität und Wissen geteilt werden — vorausgesetzt, die Kultur stimmt. Drei Grundregeln: <strong>Kleine PRs</strong> (wenige, zusammenhängende Änderungen) werden schneller und gründlicher geprüft als ein tausendzeiliger Brocken, in dem jeder nur noch durchwinkt. <strong>Zügiges Feedback</strong> hält den Fluss aufrecht — ein PR, der tagelang liegt, blockiert den Autor und veraltet.<br><br>
+              Am wichtigsten ist die Haltung: Review ist <strong>Lernen, nicht Torwache</strong>. Es geht nicht darum, Fehler vorzuführen oder Macht auszuüben, sondern darum, gemeinsam besseren Code und geteiltes Verständnis zu erzeugen. Rückmeldungen zielen auf den Code, nicht auf die Person, und begründen das Warum statt nur ein Urteil zu fällen.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Definition of Done & automatische Gates als objektive Grenze</div>
+            <div class="explanation">
+              Die <strong>Definition of Done</strong> (DoD) ist die vorab vereinbarte Liste, was „fertig" wirklich heißt — etwa getestet, dokumentiert, geprüft und lauffähig. Sie verhindert, dass „fertig" je nach Tagesform etwas anderes bedeutet.<br><br>
+              Den größten Hebel haben <strong>automatische Qualitäts-Gates in der CI</strong> (Continuous Integration): Tests müssen grün sein, der <strong>Linter</strong> prüft Stil und offensichtliche Fehler, ein <strong>Sicherheits-Scan</strong> sucht bekannte Schwachstellen, und eine <strong>Coverage-Schwelle</strong> stellt eine Mindest-Testabdeckung sicher. Der Clou für Führung: Ein Gate ist eine <strong>objektive statt persönliche Grenze</strong>. Nicht ein Mensch sagt Nein, sondern eine vorab vereinbarte Regel — das nimmt Konflikte aus dem Zwischenmenschlichen heraus.
+            </div>
+          </div>
+          ${quickCheck('Warum ist ein automatisches Qualitäts-Gate in der CI führungswirksam?', ['Weil es eine objektive, vorab vereinbarte Grenze setzt, statt dass eine Person im Einzelfall Nein sagen muss', 'Weil es Code-Reviews durch Menschen vollständig überflüssig macht', 'Weil es die Verantwortung für Qualität allein auf das Tool verschiebt'], 0, 'Ein Gate entpersonalisiert die Grenze: Nicht ein Mensch, sondern eine vereinbarte Regel entscheidet — das reduziert zwischenmenschliche Konflikte, ersetzt aber das menschliche Review nicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Trunk-Based, lange Branches & „Shift Left"</div>
+            <div class="explanation">
+              Wie Code zusammengeführt wird, entscheidet über das Tempo. Beim <strong>Trunk-Based Development</strong> arbeiten alle auf einem gemeinsamen Hauptzweig und integrieren sehr häufig in kleinen Schritten. Lange <strong>Feature-Branches</strong> dagegen laufen tage- oder wochenlang auseinander und enden in schmerzhaften, riskanten Merge-Konflikten — die Integration wird zur gefürchteten Großoperation.<br><br>
+              Dahinter steht das Prinzip <strong>„Shift Left"</strong>: Fehler so früh wie möglich finden, weil sie dort am billigsten zu beheben sind. Ein Test, der schon beim Commit fehlschlägt, kostet Minuten; derselbe Fehler in Produktion kostet einen Vorfall. Gates und häufige Integration ziehen das Finden von Fehlern nach vorne — nach links auf dem Zeitstrahl.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">CI-Qualitäts-Gate (Skizze)</span></div>
+              <div class="code-pre">on: pull_request
+steps:
+  - build        -&gt; kompiliert ohne Fehler
+  - test         -&gt; alle Tests gruen
+  - lint         -&gt; Stil &amp; offensichtliche Fehler
+  - security     -&gt; Scan auf bekannte Luecken
+  - coverage     -&gt; Abdeckung &gt;= Schwelle
+merge erlaubt NUR wenn alle Gates gruen</div>
+            </div>
+          </div>
+          ${quickCheck('Was bedeutet „Shift Left" in der Lieferung?', ['Fehler so früh wie möglich finden, weil sie dort am billigsten zu beheben sind', 'Die Verantwortung für Qualität an das Betriebsteam ganz am Ende abgeben', 'Reviews grundsätzlich erst nach dem Deployment durchführen'], 0, 'Shift Left zieht das Finden von Fehlern nach vorne auf dem Zeitstrahl: ein beim Commit gefundener Fehler kostet Minuten, derselbe Fehler in Produktion einen Vorfall.')}
+          ${callout('key', 'Merksatz', 'Kleine PRs mit zügigem, lernendem Feedback plus automatische Gates machen Qualität zu einer objektiven, gemeinsamen Vereinbarung — und häufige Integration mit „Shift Left" findet Fehler dort, wo sie am billigsten sind.')}
+          ${renderQuestions('lead_l1_5', 10)}
+          ${renderBonus('lead_l1_5')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 5</div>
+            <h1 class="lesson-title">Code review & quality gates as a leadership instrument</h1>
+            <p class="lesson-desc">Review and automatic gates are not a bureaucratic surcharge but leadership in code: they turn quality into a shared, objective agreement instead of a matter of personalities and gut feeling.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Review culture: small PRs, fast feedback, review as learning</div>
+            <div class="explanation">
+              A <strong>pull request</strong> (PR) is where quality and knowledge are shared — provided the culture is right. Three ground rules: <strong>Small PRs</strong> (few, coherent changes) get reviewed faster and more thoroughly than a thousand-line lump in which everyone just waves things through. <strong>Fast feedback</strong> keeps the flow alive — a PR left sitting for days blocks the author and goes stale.<br><br>
+              Most important is the attitude: review is <strong>learning, not gatekeeping</strong>. It is not about exposing mistakes or exercising power, but about jointly producing better code and shared understanding. Feedback targets the code, not the person, and explains the why instead of merely passing a verdict.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Definition of done & automatic gates as an objective boundary</div>
+            <div class="explanation">
+              The <strong>definition of done</strong> (DoD) is the agreed-in-advance list of what "done" really means — for example tested, documented, reviewed and runnable. It prevents "done" from meaning something different depending on the day.<br><br>
+              The biggest lever is <strong>automatic quality gates in CI</strong> (continuous integration): tests must be green, the <strong>linter</strong> checks style and obvious errors, a <strong>security scan</strong> looks for known vulnerabilities, and a <strong>coverage threshold</strong> ensures a minimum of test coverage. The key point for leadership: a gate is an <strong>objective rather than personal boundary</strong>. It is not a human saying no, but a rule agreed in advance — that takes conflict out of the interpersonal realm.
+            </div>
+          </div>
+          ${quickCheck('Why is an automatic quality gate in CI a leadership tool?', ['Because it sets an objective, pre-agreed boundary instead of a person having to say no case by case', 'Because it makes human code reviews entirely unnecessary', 'Because it shifts responsibility for quality onto the tool alone'], 0, 'A gate depersonalizes the boundary: not a human but an agreed rule decides — that reduces interpersonal conflict, but it does not replace human review.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Trunk-based, long branches & "shift left"</div>
+            <div class="explanation">
+              How code is merged decides the pace. In <strong>trunk-based development</strong> everyone works on one shared main branch and integrates very frequently in small steps. Long <strong>feature branches</strong>, by contrast, diverge for days or weeks and end in painful, risky merge conflicts — integration becomes a dreaded major operation.<br><br>
+              Behind this stands the principle <strong>"shift left"</strong>: find errors as early as possible, because that is where they are cheapest to fix. A test that already fails at commit time costs minutes; the same error in production costs an incident. Gates and frequent integration pull the finding of errors forward — to the left on the timeline.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">CI quality gate (sketch)</span></div>
+              <div class="code-pre">on: pull_request
+steps:
+  - build        -&gt; compiles without errors
+  - test         -&gt; all tests green
+  - lint         -&gt; style &amp; obvious errors
+  - security     -&gt; scan for known holes
+  - coverage     -&gt; coverage &gt;= threshold
+merge allowed ONLY if all gates green</div>
+            </div>
+          </div>
+          ${quickCheck('What does "shift left" mean in delivery?', ['Find errors as early as possible, because that is where they are cheapest to fix', 'Hand responsibility for quality to the operations team right at the end', 'Perform reviews on principle only after deployment'], 0, 'Shift left pulls the finding of errors forward on the timeline: an error found at commit time costs minutes, the same error in production costs an incident.')}
+          ${callout('key', 'Key line', 'Small PRs with fast, learning-oriented feedback plus automatic gates turn quality into an objective, shared agreement — and frequent integration with "shift left" finds errors where they are cheapest.')}
+          ${renderQuestions('lead_l1_5', 10)}
+          ${renderBonus('lead_l1_5')}
+        `
+      },
+      {
+        id: 'lead_l1_6', title: 'Flow, WIP-Limits & Durchsatz',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lektion 6</div>
+            <h1 class="lesson-title">Flow, WIP-Limits & Durchsatz</h1>
+            <p class="lesson-desc">Mehr gleichzeitig anzufangen fühlt sich produktiv an, liefert aber weniger. Flusssteuerung aus Kanban und Lean zeigt, warum begrenzter Work-in-Progress den Durchsatz erhöht — und warum 100 Prozent Auslastung staut.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Fluss-Denken: begrenzter WIP erhöht den Durchsatz</div>
+            <div class="explanation">
+              <strong>Fluss-Denken</strong> aus <strong>Kanban</strong> und <strong>Lean</strong> betrachtet nicht einzelne Personen, sondern den Weg, den eine Aufgabe von „angefangen" bis „fertig" nimmt. Der zentrale Hebel ist das <strong>WIP-Limit</strong> (Work-in-Progress-Limit): die bewusste Obergrenze, wie viele Aufgaben gleichzeitig offen sein dürfen.<br><br>
+              Der Grund ist unintuitiv: Begrenzter WIP <strong>erhöht</strong> den Durchsatz. Jedes parallele Arbeiten erzwingt <strong>Umschalten</strong> zwischen Aufgaben, und jeder Wechsel kostet Rüstzeit im Kopf und lässt Dinge halbfertig liegen. Wer weniger gleichzeitig anfängt, bringt mehr zu Ende — „Stop starting, start finishing".
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Littles Gesetz, Engpässe & Warteschlangen</div>
+            <div class="explanation">
+              <strong>Littles Gesetz</strong> fasst den Zusammenhang in Worten: Die <strong>Durchlaufzeit</strong> (wie lange eine Aufgabe insgesamt braucht) ist gleich dem <strong>WIP</strong> geteilt durch den <strong>Durchsatz</strong>. Praktisch heißt das: Je mehr gleichzeitig offen ist, desto länger dauert jede einzelne Sache — bei gleichem Durchsatz.<br><br>
+              Der Durchsatz wird fast immer von einem <strong>Engpass</strong> (Bottleneck) bestimmt — der langsamsten Station in der Kette. Mehr Arbeit vor den Engpass zu kippen beschleunigt nichts, es verlängert nur die <strong>Warteschlange</strong>. Auch jede <strong>Übergabe</strong> zwischen Personen oder Teams kostet Wartezeit. Führung heißt hier: den Engpass finden und gezielt entlasten, statt überall gleichzeitig Druck zu machen.
+            </div>
+          </div>
+          ${quickCheck('Was sagt Littles Gesetz über die Durchlaufzeit?', ['Durchlaufzeit = WIP geteilt durch Durchsatz — mehr gleichzeitig Offenes verlängert jede einzelne Aufgabe', 'Durchlaufzeit steigt automatisch, je mehr Personen man einstellt', 'Durchlaufzeit hängt nur von der Zahl der Meetings ab'], 0, 'Littles Gesetz verknüpft Durchlaufzeit, WIP und Durchsatz: bei gleichem Durchsatz verlängert mehr paralleler WIP die Zeit, die jede einzelne Aufgabe bis zur Fertigstellung braucht.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Zykluszeit statt Auslastung — und Abgrenzung zu DORA</div>
+            <div class="explanation">
+              Ein verbreiteter Fehler ist, auf <strong>Auslastung</strong> zu optimieren: Jeder soll immer zu 100 Prozent beschäftigt sein. Doch 100 Prozent Auslastung <strong>staut</strong> — wie eine Autobahn, die bei voller Belegung in den Stillstand kippt. Ohne Puffer wartet jede neue Aufgabe hinter allen anderen. Besser ist, die <strong>Zykluszeit</strong> (die Zeit von „in Arbeit" bis „fertig") kurz zu halten; etwas Leerlauf ist der Preis für schnellen Fluss.<br><br>
+              Abgrenzung zu den <strong>DORA</strong>-Metriken aus Lektion 2: DORA misst das Ergebnis der Lieferung (wie oft, wie schnell, wie stabil). Flusssteuerung ist die <strong>Ursache</strong>-Seite davor — wie man die Arbeit durch das System steuert, damit gute Liefermetriken überhaupt entstehen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Fluss & WIP (Skizze)</span></div>
+              <div class="code-pre">Backlog -&gt; [ In Arbeit: WIP-Limit 3 ] -&gt; Review -&gt; Fertig
+ohne Limit: 9 offen, alles halbfertig, lange Wartezeit
+mit Limit 3: wenig offen, zuegig fertig, kurze Zykluszeit
+Durchlaufzeit = WIP / Durchsatz
+Engpass bestimmt den Durchsatz -&gt; dort entlasten</div>
+            </div>
+          </div>
+          ${quickCheck('Warum ist 100 Prozent Auslastung schädlich für den Fluss?', ['Weil ohne Puffer jede neue Aufgabe hinter allen anderen wartet und das System staut', 'Weil 100 Prozent Auslastung immer den Durchsatz maximiert', 'Weil Auslastung und Zykluszeit nichts miteinander zu tun haben'], 0, 'Volle Auslastung lässt Warteschlangen explodieren — wie eine überfüllte Autobahn. Etwas Leerlauf ist der Preis für kurze Zykluszeit und schnellen Fluss.')}
+          ${callout('key', 'Merksatz', 'Begrenze den WIP: weniger gleichzeitig Angefangenes erhöht den Durchsatz, verkürzt die Zykluszeit und macht Engpässe sichtbar — optimiere den Fluss, nicht die Auslastung.')}
+          ${renderQuestions('lead_l1_6', 10)}
+          ${renderBonus('lead_l1_6')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Lesson 6</div>
+            <h1 class="lesson-title">Flow, WIP limits & throughput</h1>
+            <p class="lesson-desc">Starting more things at once feels productive but delivers less. Flow control from Kanban and Lean shows why limited work-in-progress raises throughput — and why 100 percent utilization causes congestion.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Flow thinking: limited WIP raises throughput</div>
+            <div class="explanation">
+              <strong>Flow thinking</strong> from <strong>Kanban</strong> and <strong>Lean</strong> looks not at individual people but at the path a task takes from "started" to "done". The central lever is the <strong>WIP limit</strong> (work-in-progress limit): the deliberate cap on how many tasks may be open at the same time.<br><br>
+              The reason is counterintuitive: limited WIP <strong>raises</strong> throughput. Every parallel effort forces <strong>context switching</strong> between tasks, and each switch costs mental setup time and leaves things half-finished. Whoever starts fewer things at once finishes more — "stop starting, start finishing".
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Little's law, bottlenecks & queues</div>
+            <div class="explanation">
+              <strong>Little's law</strong> captures the relationship in words: the <strong>lead time</strong> (how long a task takes overall) equals the <strong>WIP</strong> divided by the <strong>throughput</strong>. In practice: the more that is open at once, the longer each individual thing takes — at the same throughput.<br><br>
+              Throughput is almost always set by a <strong>bottleneck</strong> — the slowest station in the chain. Dumping more work in front of the bottleneck speeds up nothing; it only lengthens the <strong>queue</strong>. Every <strong>handover</strong> between people or teams also costs waiting time. Leadership here means: find the bottleneck and relieve it deliberately, instead of applying pressure everywhere at once.
+            </div>
+          </div>
+          ${quickCheck("What does Little's law say about lead time?", ['Lead time = WIP divided by throughput — more open at once lengthens every single task', 'Lead time automatically rises the more people you hire', 'Lead time depends only on the number of meetings'], 0, "Little's law links lead time, WIP and throughput: at the same throughput, more parallel WIP lengthens the time each single task needs to reach completion.")}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Cycle time over utilization — and the line to DORA</div>
+            <div class="explanation">
+              A common mistake is to optimize for <strong>utilization</strong>: everyone should be 100 percent busy at all times. But 100 percent utilization <strong>causes congestion</strong> — like a motorway that tips into gridlock when fully occupied. Without slack, every new task waits behind all the others. It is better to keep the <strong>cycle time</strong> (the time from "in progress" to "done") short; a little idle time is the price of fast flow.<br><br>
+              The line to the <strong>DORA</strong> metrics from lesson 2: DORA measures the result of delivery (how often, how fast, how stable). Flow control is the <strong>cause</strong> side ahead of it — how you steer the work through the system so that good delivery metrics can arise at all.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Flow & WIP (sketch)</span></div>
+              <div class="code-pre">Backlog -&gt; [ In progress: WIP limit 3 ] -&gt; Review -&gt; Done
+without limit: 9 open, all half-done, long wait
+with limit 3: few open, finished fast, short cycle time
+Lead time = WIP / throughput
+bottleneck sets the throughput -&gt; relieve it there</div>
+            </div>
+          </div>
+          ${quickCheck('Why is 100 percent utilization harmful to flow?', ['Because without slack every new task waits behind all others and the system congests', 'Because 100 percent utilization always maximizes throughput', 'Because utilization and cycle time have nothing to do with each other'], 0, 'Full utilization makes queues explode — like an overcrowded motorway. A little idle time is the price of short cycle time and fast flow.')}
+          ${callout('key', 'Key line', 'Limit the WIP: fewer things started at once raise throughput, shorten cycle time and make bottlenecks visible — optimize the flow, not the utilization.')}
+          ${renderQuestions('lead_l1_6', 10)}
+          ${renderBonus('lead_l1_6')}
+        `
+      },
+      {
+        id: 'lead_p1_exam', title: 'Phase 1 — Abschlussprüfung',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Prüfung</div>
+            <h1 class="lesson-title">Phase 1 — Abschlussprüfung</h1>
+            <p class="lesson-desc">Die kumulative Prüfung über die gesamte Phase 1: Delivery & Führung von Golden Path bis Flusssteuerung — in einem gemischten Fragenset.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">So läuft die Abschlussprüfung</div>
+            <div class="explanation">
+              Dies ist die <strong>kumulative Abschlussprüfung</strong> über die ganze Phase 1. Sie zieht Fragen aus allen Themen quer: <strong>Golden Path & Team Topologies</strong>, <strong>DORA-Metriken</strong>, <strong>Platform Engineering & Developer Experience</strong>, <strong>Zuverlässigkeit (SRE, SLOs, blameless Postmortems)</strong>, <strong>Code-Review & Qualitäts-Gates</strong> sowie <strong>Flow, WIP-Limits & Durchsatz</strong>.<br><br>
+              Du beantwortest <strong>15 gemischte Fragen</strong> (Multiple-Choice, Wahr/Falsch und Lückentext). <strong>Bestanden</strong> ist die Prüfung ab der Standardschwelle. Nimm dir Zeit, lies jede Frage genau — es gibt keine Bonusfrage, jede Frage zählt.
+            </div>
+          </div>
+          ${renderQuestions('lead_p1_exam', 15)}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 1 · Exam</div>
+            <h1 class="lesson-title">Phase 1 — Final Exam</h1>
+            <p class="lesson-desc">The cumulative exam across all of phase 1: delivery & leadership from the golden path to flow control — in one mixed question set.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">How the final exam works</div>
+            <div class="explanation">
+              This is the <strong>cumulative final exam</strong> across all of phase 1. It draws questions from every topic: <strong>golden path & team topologies</strong>, <strong>DORA metrics</strong>, <strong>platform engineering & developer experience</strong>, <strong>reliability (SRE, SLOs, blameless postmortems)</strong>, <strong>code review & quality gates</strong>, and <strong>flow, WIP limits & throughput</strong>.<br><br>
+              You answer <strong>15 mixed questions</strong> (multiple choice, true/false and fill-in-the-blank). The exam is <strong>passed</strong> from the standard threshold upward. Take your time and read each question carefully — there is no bonus question, every question counts.
+            </div>
+          </div>
+          ${renderQuestions('lead_p1_exam', 15)}
+        `
+      },
     ]
   },
   {
@@ -35641,7 +35850,20 @@ QUESTION_POOLS['lead_l1_1'] = [
     {t:'Erst die gewünschte Architektur entwerfen, dann die Teams passend zuschneiden',t_en:'First design the desired architecture, then cut the teams to match',correct:true,why:'Genau. Die Team-Grenze wird bewusst zum Architektur-Werkzeug, statt sich zufällig durchzusetzen.',why_en:'Exactly. The team boundary deliberately becomes an architecture tool, instead of asserting itself by accident.'},
     {t:'Die bestehende Teamstruktur unangetastet lassen und die Architektur daran anpassen',t_en:'Leave the existing team structure untouched and adapt the architecture to it',correct:false,why:'Nein. Das ist die passive Wirkung von Conways Gesetz, nicht das bewusste Manöver dagegen.',why_en:'No. That is the passive effect of Conway\'s law, not the deliberate manoeuvre against it.'},
     {t:'Alle Teams horizontal in Frontend, Backend und DB aufteilen',t_en:'Split all teams horizontally into frontend, backend and DB',correct:false,why:'Nein. Der horizontale Schnitt erzeugt gerade die Übergabeketten, die man vermeiden will.',why_en:'No. The horizontal cut is precisely what creates the handover chains you want to avoid.'}
-  ]}
+  ]},
+  {id:'p_lead_l1_1_mc3',type:'mc',xp:10,question:'Welcher Team-Typ ist in Team Topologies der Standardfall, der direkt Wert an den Nutzer liefert?',question_en:'Which team type is the default case in team topologies that delivers value directly to the user?',options:[
+    {t:'Das Stream-aligned Team',t_en:'The stream-aligned team',correct:true,why:'Genau. Es ist entlang eines Wertstroms geschnitten und liefert fortlaufend Wert; die anderen drei Typen existieren, um es zu entlasten.',why_en:'Exactly. It is cut along a value stream and delivers value continuously; the other three types exist to relieve it.'},
+    {t:'Das Platform-Team',t_en:'The platform team',correct:false,why:'Nein. Das Platform-Team unterstützt die Stream-Teams als Self-Service, liefert aber nicht selbst direkt an den Endnutzer.',why_en:'No. The platform team supports the stream teams as self-service but does not itself deliver directly to the end user.'},
+    {t:'Das Enabling-Team',t_en:'The enabling team',correct:false,why:'Nein. Das Enabling-Team coacht andere Teams befristet in einer Fähigkeit und liefert keinen Wertstrom.',why_en:'No. The enabling team coaches other teams in a skill for a limited time and does not deliver a value stream.'}
+  ]},
+  {id:'p_lead_l1_1_mc4',type:'mc',xp:10,question:'Warum ist das Begrenzen der <strong>kognitiven Last</strong> eines Teams eine Führungsaufgabe?',question_en:'Why is limiting a team\'s <strong>cognitive load</strong> a leadership task?',options:[
+    {t:'Weil ein überlastetes Team langsamer und fehleranfälliger wird — gute Standardwege und klare Grenzen schaffen Entlastung',t_en:'Because an overloaded team gets slower and more error-prone — good standard paths and clear boundaries create relief',correct:true,why:'Genau. Team Topologies schneidet Verantwortungsbereiche bewusst so, dass die Last eines Teams tragbar bleibt.',why_en:'Exactly. Team topologies deliberately cuts areas of responsibility so a team\'s load stays bearable.'},
+    {t:'Weil kognitive Last nur ein anderes Wort für die Zahl der Meetings ist',t_en:'Because cognitive load is just another word for the number of meetings',correct:false,why:'Nein. Sie umfasst die gesamte geistige Last aus Zuständigkeiten, Technik und Kontextwechseln, nicht nur Meetings.',why_en:'No. It covers the whole mental load from responsibilities, technology and context switches, not just meetings.'},
+    {t:'Weil ein Team mit mehr Last automatisch produktiver ist',t_en:'Because a team with more load is automatically more productive',correct:false,why:'Nein. Überlast senkt die Lieferfähigkeit; genau deshalb begrenzt man sie bewusst.',why_en:'No. Overload lowers delivery capability; that is exactly why you deliberately limit it.'}
+  ]},
+  {id:'p_lead_l1_1_tf3',type:'truefalse',xp:8,statement:'Ein Enabling-Team coacht andere Teams dauerhaft und übernimmt deren Arbeit, statt sie zu befähigen.',statement_en:'An enabling team coaches other teams permanently and takes over their work instead of enabling them.',correct:false,explanation:'Falsch. Ein Enabling-Team hilft zeitlich befristet, eine Fähigkeit aufzubauen, und zieht sich dann zurück — es übernimmt die Arbeit nicht dauerhaft.',explanation_en:'False. An enabling team helps build a capability for a limited time and then withdraws — it does not permanently take over the work.'},
+  {id:'p_lead_l1_1_tf4',type:'truefalse',xp:8,statement:'Team Topologies kennt drei Interaktionsmodi: Collaboration, X-as-a-Service und Facilitating.',statement_en:'Team topologies defines three interaction modes: collaboration, X-as-a-service and facilitating.',correct:true,explanation:'Richtig. Diese drei Modi beschreiben bewusst, wie zwei Teams zusammenarbeiten — eng, als Self-Service oder unterstützend.',explanation_en:'Correct. These three modes deliberately describe how two teams work together — closely, as self-service or in a supporting role.'},
+  {id:'p_lead_l1_1_fb2',type:'fillblank',xp:12,prompt:'Der Interaktionsmodus, in dem ein Team die Leistung eines anderen als klar abgegrenzte Schnittstelle nutzt, ohne eng zusammenzuarbeiten, heißt ___ (englischer Begriff, drei Teile mit Bindestrichen).',prompt_en:'The interaction mode in which one team consumes another\'s offering as a clearly bounded interface without close collaboration is called ___ (three-part hyphenated English term).',answers:['X-as-a-Service','x-as-a-service','X as a Service','x as a service','as-a-service','As-a-Service'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Beim <strong>X-as-a-Service</strong>-Modus nutzt ein Team die Leistung eines anderen über eine klare Schnittstelle — typisch für die Plattformnutzung.',explanation_en:'In the <strong>X-as-a-service</strong> mode a team consumes another\'s offering through a clear interface — typical for using the platform.'}
 ];
 
 QUESTION_POOLS['lead_l2_1'] = [
@@ -36116,7 +36338,20 @@ QUESTION_POOLS['lead_l1_2'] = [
     {t:'Change Failure Rate und Recovery Time — die beiden Stabilitätsmetriken',t_en:'Change failure rate and recovery time — the two stability metrics',correct:true,why:'Genau. Sie beschreiben die Zuverlässigkeit und knüpfen direkt an Fehlerbudget und SLO an.',why_en:'Exactly. They describe reliability and tie directly into error budget and SLO.'},
     {t:'Deployment Frequency und Lead Time for Changes',t_en:'Deployment frequency and lead time for changes',correct:false,why:'Nein. Das sind die Tempo-Metriken; sie messen Geschwindigkeit, nicht Zuverlässigkeit.',why_en:'No. Those are the speed metrics; they measure velocity, not reliability.'},
     {t:'Deployment Frequency und Recovery Time',t_en:'Deployment frequency and recovery time',correct:false,why:'Nein. Nur die Recovery Time gehört zur Stabilität; die Deployment Frequency misst Tempo.',why_en:'No. Only the recovery time belongs to stability; deployment frequency measures speed.'}
-  ]}
+  ]},
+  {id:'p_lead_l1_2_mc3',type:'mc',xp:10,question:'Was misst die <strong>Deployment Frequency</strong>?',question_en:'What does <strong>deployment frequency</strong> measure?',options:[
+    {t:'Wie oft ein Team erfolgreich in Produktion liefert',t_en:'How often a team successfully delivers to production',correct:true,why:'Genau. Häufige kleine Releases sind ein Kennzeichen leistungsstarker Teams und senken das Risiko je Release.',why_en:'Exactly. Frequent small releases are a hallmark of high-performing teams and lower the risk per release.'},
+    {t:'Wie viele Entwickler ein Team hat',t_en:'How many developers a team has',correct:false,why:'Nein. Die Teamgröße ist keine DORA-Metrik; gemessen wird die Liefer-Häufigkeit.',why_en:'No. Team size is not a DORA metric; what is measured is the delivery frequency.'},
+    {t:'Wie viele Zeilen Code pro Woche geschrieben werden',t_en:'How many lines of code are written per week',correct:false,why:'Nein. Codezeilen sind eine Vanity-Metrik; die Deployment Frequency zählt Auslieferungen in Produktion.',why_en:'No. Lines of code are a vanity metric; deployment frequency counts deliveries to production.'}
+  ]},
+  {id:'p_lead_l1_2_mc4',type:'mc',xp:10,question:'Welche DORA-Metrik misst, wie schnell ein Dienst nach einem Ausfall wieder läuft?',question_en:'Which DORA metric measures how quickly a service runs again after an outage?',options:[
+    {t:'Die Recovery Time (mittlere Wiederherstellzeit)',t_en:'The recovery time (mean time to restore)',correct:true,why:'Genau. Sie ist eine der beiden Stabilitätsmetriken und spiegelt, wie gut ein Team Vorfälle beherrscht.',why_en:'Exactly. It is one of the two stability metrics and reflects how well a team handles incidents.'},
+    {t:'Die Lead Time for Changes',t_en:'The lead time for changes',correct:false,why:'Nein. Diese misst die Zeit von Commit bis Produktion — eine Tempo-Metrik, nicht die Erholung.',why_en:'No. That measures the time from commit to production — a speed metric, not recovery.'},
+    {t:'Die Change Failure Rate',t_en:'The change failure rate',correct:false,why:'Nein. Diese misst den Anteil fehlschlagender Releases, nicht die Dauer der Wiederherstellung.',why_en:'No. That measures the share of failing releases, not the duration of recovery.'}
+  ]},
+  {id:'p_lead_l1_2_tf3',type:'truefalse',xp:8,statement:'DORA umfasst genau vier Kernmetriken: Deployment Frequency, Lead Time for Changes, Change Failure Rate und Recovery Time.',statement_en:'DORA comprises exactly four core metrics: deployment frequency, lead time for changes, change failure rate and recovery time.',correct:true,explanation:'Richtig. Zwei messen das Tempo, zwei die Stabilität — zusammen beschreiben sie die Lieferfähigkeit.',explanation_en:'Correct. Two measure speed, two measure stability — together they describe the delivery capability.'},
+  {id:'p_lead_l1_2_tf4',type:'truefalse',xp:8,statement:'Eine hohe Deployment Frequency mit kleinen Releases erhöht typischerweise das Risiko je einzelner Auslieferung.',statement_en:'A high deployment frequency with small releases typically increases the risk per individual delivery.',correct:false,explanation:'Falsch. Kleine, häufige Releases senken das Risiko je Auslieferung, weil weniger auf einmal geändert wird und Fehler leichter zuzuordnen sind.',explanation_en:'False. Small, frequent releases lower the risk per delivery because less is changed at once and errors are easier to pin down.'},
+  {id:'p_lead_l1_2_fb2',type:'fillblank',xp:12,prompt:'Der Anteil der Releases, die einen Fehler oder Rollback auslösen, heißt ___ (englischer Begriff, drei Wörter).',prompt_en:'The share of releases that trigger a failure or rollback is called the ___ (three-word English term).',answers:['Change Failure Rate','change failure rate','Change-Failure-Rate'],placeholder:'Fachbegriff…',placeholder_en:'Term…',explanation:'Die <strong>Change Failure Rate</strong> ist eine der beiden Stabilitätsmetriken und ergänzt die Recovery Time.',explanation_en:'The <strong>change failure rate</strong> is one of the two stability metrics and complements the recovery time.'}
 ];
 
 QUESTION_POOLS['lead_l2_2'] = [
@@ -36158,7 +36393,20 @@ QUESTION_POOLS['lead_l1_3'] = [
     {t:'Bewusst klein starten und mit dem Bedarf der Entwickler wachsen, statt von Anfang an alles vorzuschreiben',t_en:'Start deliberately small and grow with developer demand instead of prescribing everything from day one',correct:true,why:'Genau. Die Plattform ist ein Produkt, das iterativ nach echtem Bedarf wächst.',why_en:'Exactly. The platform is a product that grows iteratively according to real demand.'},
     {t:'Eine Plattform mit möglichst wenigen Nutzern',t_en:'A platform with as few users as possible',correct:false,why:'Nein. Es geht um den minimalen tragfähigen Funktionsumfang, nicht um wenige Nutzer.',why_en:'No. It is about the minimal viable scope of features, not about few users.'},
     {t:'Eine Plattform, die alle denkbaren Funktionen von Anfang an bietet',t_en:'A platform that offers every conceivable feature from the start',correct:false,why:'Nein. Das ist das Gegenteil — die Idee ist bewusst minimal und wächst mit dem Bedarf.',why_en:'No. That is the opposite — the idea is deliberately minimal and grows with demand.'}
-  ]}
+  ]},
+  {id:'p_lead_l1_3_mc3',type:'mc',xp:10,question:'Warum behandelt man eine interne Entwicklerplattform wie ein <strong>Produkt</strong>?',question_en:'Why do you treat an internal developer platform like a <strong>product</strong>?',options:[
+    {t:'Weil sie echte Nutzer hat — die Entwickler — deren Bedarf sie mit Roadmap und Feedback dienen muss, sonst nutzt sie niemand',t_en:'Because it has real users — the developers — whose needs it must serve with a roadmap and feedback, otherwise nobody uses it',correct:true,why:'Genau. Eine Plattform ohne Produktdenken wird zum ungenutzten oder umgangenen Zwangssystem.',why_en:'Exactly. A platform without product thinking becomes an unused or bypassed mandatory system.'},
+    {t:'Weil sie möglichst viele Vorschriften durchsetzen soll',t_en:'Because it should enforce as many rules as possible',correct:false,why:'Nein. Zwang erzeugt Umgehung; eine gute Plattform wird freiwillig genutzt, weil sie den leichtesten Weg bietet.',why_en:'No. Coercion breeds workarounds; a good platform is used voluntarily because it offers the easiest path.'},
+    {t:'Weil sie extern an Kunden verkauft werden soll',t_en:'Because it is to be sold externally to customers',correct:false,why:'Nein. Die Nutzer sind die internen Entwickler, nicht externe Kunden.',why_en:'No. The users are the internal developers, not external customers.'}
+  ]},
+  {id:'p_lead_l1_3_mc4',type:'mc',xp:10,question:'Was beschreibt die Dimension <strong>Feedback-Schleifen</strong> in der Developer Experience?',question_en:'What does the <strong>feedback loops</strong> dimension of developer experience describe?',options:[
+    {t:'Wie schnell ein Entwickler nach einer Änderung eine Rückmeldung bekommt — etwa durch schnelle Tests und Builds',t_en:'How fast a developer gets a response after a change — for example through fast tests and builds',correct:true,why:'Genau. Lange Wartezeiten auf Build oder Test zerstören den Fluss und senken die Produktivität.',why_en:'Exactly. Long waits for a build or test destroy flow and lower productivity.'},
+    {t:'Wie viele Rückmeldungen ein Entwickler im Jahresgespräch erhält',t_en:'How much feedback a developer gets in the annual review',correct:false,why:'Nein. Gemeint sind technische Rückkopplungen im Arbeitsfluss, nicht Personalgespräche.',why_en:'No. It means technical feedback within the workflow, not personnel reviews.'},
+    {t:'Wie viele Meetings pro Woche stattfinden',t_en:'How many meetings take place per week',correct:false,why:'Nein. Feedback-Schleifen meinen die Geschwindigkeit technischer Rückmeldung, nicht die Meeting-Zahl.',why_en:'No. Feedback loops mean the speed of technical feedback, not the number of meetings.'}
+  ]},
+  {id:'p_lead_l1_3_tf3',type:'truefalse',xp:8,statement:'Platform Engineering soll die kognitive Last der Produktteams senken, nicht einen neuen Gatekeeper schaffen, durch den jede Änderung muss.',statement_en:'Platform engineering should lower the cognitive load on product teams, not create a new gatekeeper that every change has to pass through.',correct:true,explanation:'Richtig. Die Plattform ist Self-Service und Befähigung, kein Kontroll-Silo.',explanation_en:'Correct. The platform is self-service and enablement, not a control silo.'},
+  {id:'p_lead_l1_3_tf4',type:'truefalse',xp:8,statement:'Das SPACE-Framework reduziert Produktivität bewusst auf eine einzige Kennzahl, um sie vergleichbar zu machen.',statement_en:'The SPACE framework deliberately reduces productivity to a single metric to make it comparable.',correct:false,explanation:'Falsch. SPACE zeigt gerade, dass Produktivität mehrdimensional ist und sich nicht auf eine einzelne Zahl verkürzen lässt.',explanation_en:'False. SPACE shows precisely that productivity is multidimensional and cannot be reduced to a single number.'},
+  {id:'p_lead_l1_3_fb2',type:'fillblank',xp:12,prompt:'Die geistige Gesamtbelastung, die eine Plattform den Produktteams abnehmen soll, heißt kognitive ___ (ein Wort).',prompt_en:'The total mental burden that a platform should take off the product teams is called cognitive ___ (one word).',answers:['Last','Belastung','load','Load'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine gute Plattform senkt die kognitive <strong>Last</strong>, damit sich die Teams auf ihren Wertstrom konzentrieren können.',explanation_en:'A good platform lowers the cognitive <strong>load</strong> so teams can focus on their value stream.'}
 ];
 
 QUESTION_POOLS['lead_l1_4'] = [
@@ -36179,7 +36427,20 @@ QUESTION_POOLS['lead_l1_4'] = [
     {t:'Weil sie die psychologische Sicherheit zerstört und Menschen dann Fehler verschweigen',t_en:'Because it destroys psychological safety and people then hide mistakes',correct:true,why:'Genau. Ohne Angst werden Vorfälle offen geteilt und das System kann wirklich lernen.',why_en:'Exactly. Without fear incidents are shared openly and the system can truly learn.'},
     {t:'Weil Schuldige immer schneller lernen als Teams',t_en:'Because those blamed always learn faster than teams',correct:false,why:'Nein. Angst führt zu Vertuschung, nicht zu schnellerem Lernen.',why_en:'No. Fear leads to cover-ups, not faster learning.'},
     {t:'Weil Postmortems gesetzlich verboten sind',t_en:'Because postmortems are legally forbidden',correct:false,why:'Nein. Postmortems sind erwünscht; nur die Schuldzuweisung darin ist schädlich.',why_en:'No. Postmortems are desirable; only assigning blame within them is harmful.'}
-  ]}
+  ]},
+  {id:'p_lead_l1_4_mc3',type:'mc',xp:10,question:'Wofür steht ein <strong>SLO</strong> (Service Level Objective)?',question_en:'What does an <strong>SLO</strong> (service level objective) stand for?',options:[
+    {t:'Ein vereinbartes Zuverlässigkeitsziel, etwa 99,9 Prozent erfolgreiche Anfragen — die gemeinsame Sprache zwischen Produkt und Engineering',t_en:'An agreed reliability target, for example 99.9 percent successful requests — the shared language between product and engineering',correct:true,why:'Genau. Aus dem SLO leitet sich das Fehlerbudget ab und damit die Steuerung zwischen Tempo und Stabilität.',why_en:'Exactly. From the SLO the error budget is derived, and with it the steering between speed and stability.'},
+    {t:'Eine gesetzliche Garantie auf 100 Prozent Verfügbarkeit',t_en:'A legal guarantee of 100 percent availability',correct:false,why:'Nein. Gerade das 100-Prozent-Versprechen ersetzt das SLO durch ein realistisches Ziel mit Fehlerbudget.',why_en:'No. The SLO replaces exactly that 100-percent promise with a realistic target plus an error budget.'},
+    {t:'Die maximale Zahl an Servern, die ein Dienst nutzen darf',t_en:'The maximum number of servers a service may use',correct:false,why:'Nein. Ein SLO ist ein Zuverlässigkeitsziel, keine Ressourcenobergrenze.',why_en:'No. An SLO is a reliability target, not a resource cap.'}
+  ]},
+  {id:'p_lead_l1_4_mc4',type:'mc',xp:10,question:'Was gehört in ein gutes <strong>Postmortem</strong>?',question_en:'What belongs in a good <strong>postmortem</strong>?',options:[
+    {t:'Zeitstrahl, Auswirkung, Grundursachen und konkrete Maßnahmen mit Verantwortlichen',t_en:'A timeline, the impact, root causes and concrete actions with owners',correct:true,why:'Genau. So wird aus einem Ausfall dauerhafte Verbesserung statt Angst und Schuldzuweisung.',why_en:'Exactly. That turns an outage into lasting improvement instead of fear and blame.'},
+    {t:'Eine Liste der schuldigen Personen und ihrer Konsequenzen',t_en:'A list of the guilty people and their consequences',correct:false,why:'Nein. Schuldzuweisung zerstört die psychologische Sicherheit — ein Postmortem ist schuldfrei.',why_en:'No. Assigning blame destroys psychological safety — a postmortem is blameless.'},
+    {t:'Nur die Zusicherung, dass so etwas nie wieder vorkommt',t_en:'Only the assurance that this will never happen again',correct:false,why:'Nein. Leere Versprechen helfen nicht; nötig sind konkrete, nachverfolgbare Maßnahmen.',why_en:'No. Empty promises do not help; what is needed are concrete, trackable actions.'}
+  ]},
+  {id:'p_lead_l1_4_tf3',type:'truefalse',xp:8,statement:'Toil sollte man systematisch automatisieren, damit das Team an der Zuverlässigkeit arbeitet, statt sie nur manuell aufrechtzuerhalten.',statement_en:'Toil should be systematically automated so the team works on reliability instead of merely sustaining it by hand.',correct:true,explanation:'Richtig. Toil ist wiederkehrende manuelle Arbeit ohne bleibenden Wert; Automatisierung schafft Kapazität für echte Verbesserung.',explanation_en:'Correct. Toil is recurring manual work with no lasting value; automation frees capacity for real improvement.'},
+  {id:'p_lead_l1_4_tf4',type:'truefalse',xp:8,statement:'Je mehr Alarme ein System auslöst, desto zuverlässiger reagiert das On-Call-Team.',statement_en:'The more alerts a system triggers, the more reliably the on-call team responds.',correct:false,explanation:'Falsch. Zu viele Alarme erzeugen Alarm-Müdigkeit, bis echte Vorfälle im Rauschen untergehen — man alarmiert nur, was sofortiges Handeln erfordert.',explanation_en:'False. Too many alerts cause alert fatigue until real incidents drown in the noise — you page only for what requires immediate action.'},
+  {id:'p_lead_l1_4_fb2',type:'fillblank',xp:12,prompt:'Der erlaubte Spielraum an Unzuverlässigkeit, der sich als 100 Prozent minus SLO ergibt, heißt ___ (ein Wort).',prompt_en:'The allowed room for unreliability, which equals 100 percent minus the SLO, is called the error ___ (one word).',answers:['Fehlerbudget','budget','Budget'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>Fehlerbudget</strong> macht den Zielkonflikt zwischen Tempo und Stabilität explizit und entpolitisiert ihn.',explanation_en:'The error <strong>budget</strong> makes the trade-off between speed and stability explicit and depoliticizes it.'}
 ];
 
 QUESTION_POOLS['lead_l2_3'] = [
@@ -36705,6 +36966,119 @@ QUESTION_POOLS['lead_l9_4'] = [
     {t:'Ein einzelner anstrengender Tag nach einer langen Erholungsphase',t_en:'A single exhausting day after a long recovery phase',correct:false,why:'Nein. Burnout entsteht aus Dauer-Überlastung, nicht aus einem harten Tag.',why_en:'No. Burnout comes from permanent overload, not from one hard day.'},
     {t:'Gelegentliche Freude an einer besonders schwierigen Aufgabe',t_en:'Occasional joy in a particularly difficult task',correct:false,why:'Nein. Das ist ein gesundes Zeichen, kein Warnsignal.',why_en:'No. That is a healthy sign, not a warning signal.'}
   ]}
+];
+
+QUESTION_POOLS['lead_l1_5'] = [
+  {id:'p_lead_l1_5_mc1',type:'mc',xp:10,question:'Welche Haltung beschreibt eine gesunde <strong>Review-Kultur</strong>?',question_en:'Which attitude describes a healthy <strong>review culture</strong>?',options:[
+    {t:'Review ist gemeinsames Lernen am Code, nicht Torwache über Personen',t_en:'Review is shared learning on the code, not gatekeeping over people',correct:true,why:'Genau. Rückmeldung zielt auf den Code und begründet das Warum, statt Macht auszuüben oder Fehler vorzuführen.',why_en:'Exactly. Feedback targets the code and explains the why, instead of exercising power or exposing mistakes.'},
+    {t:'Review dient dazu, Fehler der Autorin öffentlich sichtbar zu machen',t_en:'Review serves to make the author\'s mistakes publicly visible',correct:false,why:'Nein. Bloßstellen zerstört Vertrauen; Review soll gemeinsam besseren Code erzeugen.',why_en:'No. Shaming destroys trust; review should jointly produce better code.'},
+    {t:'Review ist eine reine Formalität, die man schnell durchwinkt',t_en:'Review is a pure formality that you wave through quickly',correct:false,why:'Nein. Durchwinken verschenkt genau den Lern- und Qualitätsgewinn, für den Review da ist.',why_en:'No. Waving things through forfeits exactly the learning and quality gain review exists for.'}
+  ]},
+  {id:'p_lead_l1_5_mc2',type:'mc',xp:10,question:'Warum sind <strong>kleine Pull Requests</strong> besser als ein großer?',question_en:'Why are <strong>small pull requests</strong> better than one large one?',options:[
+    {t:'Sie werden schneller und gründlicher geprüft, weil der Prüfer den Überblick behält',t_en:'They get reviewed faster and more thoroughly because the reviewer keeps an overview',correct:true,why:'Genau. Ein tausendzeiliger Brocken wird nur noch durchgewunken; kleine PRs ermöglichen echtes Feedback.',why_en:'Exactly. A thousand-line lump just gets waved through; small PRs allow real feedback.'},
+    {t:'Weil die Zahl der PRs die wichtigste Produktivitätskennzahl ist',t_en:'Because the number of PRs is the most important productivity metric',correct:false,why:'Nein. Die Menge der PRs ist eine Vanity-Metrik; es geht um gründliche Prüfung und Fluss.',why_en:'No. The number of PRs is a vanity metric; the point is thorough review and flow.'},
+    {t:'Weil große PRs technisch gar nicht möglich sind',t_en:'Because large PRs are technically impossible',correct:false,why:'Nein. Große PRs sind möglich, aber schlecht prüfbar — deshalb vermeidet man sie.',why_en:'No. Large PRs are possible but hard to review — that is why they are avoided.'}
+  ]},
+  {id:'p_lead_l1_5_mc3',type:'mc',xp:10,question:'Was ist der Führungs-Vorteil eines <strong>automatischen Qualitäts-Gates</strong> in der CI?',question_en:'What is the leadership advantage of an <strong>automatic quality gate</strong> in CI?',options:[
+    {t:'Es setzt eine objektive, vorab vereinbarte Grenze, statt dass eine Person im Einzelfall Nein sagen muss',t_en:'It sets an objective, pre-agreed boundary instead of a person having to say no case by case',correct:true,why:'Genau. Das entpersonalisiert die Grenze und nimmt Konflikte aus dem Zwischenmenschlichen.',why_en:'Exactly. That depersonalizes the boundary and takes conflict out of the interpersonal realm.'},
+    {t:'Es macht menschliche Reviews vollständig überflüssig',t_en:'It makes human reviews entirely unnecessary',correct:false,why:'Nein. Gates prüfen das Maschinell-Prüfbare; Design und Sinn bleiben Sache des menschlichen Reviews.',why_en:'No. Gates check what is machine-checkable; design and intent remain the job of human review.'},
+    {t:'Es verschiebt die Verantwortung für Qualität allein auf das Tool',t_en:'It shifts responsibility for quality onto the tool alone',correct:false,why:'Nein. Das Team bleibt verantwortlich; das Gate ist nur ein objektives Hilfsmittel.',why_en:'No. The team stays responsible; the gate is only an objective aid.'}
+  ]},
+  {id:'p_lead_l1_5_mc4',type:'mc',xp:10,question:'Worin liegt das Risiko <strong>langer Feature-Branches</strong> gegenüber Trunk-Based Development?',question_en:'What is the risk of <strong>long feature branches</strong> compared to trunk-based development?',options:[
+    {t:'Sie laufen lange auseinander und enden in schmerzhaften, riskanten Merge-Konflikten',t_en:'They diverge for a long time and end in painful, risky merge conflicts',correct:true,why:'Genau. Häufige kleine Integration auf einem Hauptzweig vermeidet die gefürchtete Integrations-Großoperation.',why_en:'Exactly. Frequent small integration on a main branch avoids the dreaded big-bang integration.'},
+    {t:'Sie sind grundsätzlich verboten und technisch unmöglich',t_en:'They are forbidden on principle and technically impossible',correct:false,why:'Nein. Sie sind möglich, aber riskanter — deshalb bevorzugt man häufige Integration.',why_en:'No. They are possible but riskier — that is why frequent integration is preferred.'},
+    {t:'Sie beschleunigen die Integration, weil alles auf einmal zusammenkommt',t_en:'They speed up integration because everything comes together at once',correct:false,why:'Nein. Alles auf einmal zusammenzuführen ist gerade der riskante, langsame Teil.',why_en:'No. Merging everything at once is precisely the risky, slow part.'}
+  ]},
+  {id:'p_lead_l1_5_tf1',type:'truefalse',xp:8,statement:'Die Definition of Done ist die vorab vereinbarte Liste, was „fertig" wirklich heißt, zum Beispiel getestet, geprüft und lauffähig.',statement_en:'The definition of done is the agreed-in-advance list of what "done" really means, for example tested, reviewed and runnable.',correct:true,explanation:'Richtig. Sie verhindert, dass „fertig" je nach Tagesform etwas anderes bedeutet.',explanation_en:'Correct. It prevents "done" from meaning something different depending on the day.'},
+  {id:'p_lead_l1_5_tf2',type:'truefalse',xp:8,statement:'„Shift Left" heißt, Fehler so früh wie möglich zu finden, weil sie dort am billigsten zu beheben sind.',statement_en:'"Shift left" means finding errors as early as possible because that is where they are cheapest to fix.',correct:true,explanation:'Richtig. Ein beim Commit gefundener Fehler kostet Minuten, derselbe Fehler in Produktion einen Vorfall.',explanation_en:'Correct. An error found at commit time costs minutes, the same error in production costs an incident.'},
+  {id:'p_lead_l1_5_tf3',type:'truefalse',xp:8,statement:'Eine Coverage-Schwelle im Gate garantiert, dass der Code völlig fehlerfrei ist.',statement_en:'A coverage threshold in the gate guarantees the code is completely bug-free.',correct:false,explanation:'Falsch. Sie sichert nur eine Mindest-Testabdeckung; hohe Abdeckung ist kein Beweis für Fehlerfreiheit.',explanation_en:'False. It only ensures a minimum of test coverage; high coverage is no proof of being bug-free.'},
+  {id:'p_lead_l1_5_fb1',type:'fillblank',xp:12,prompt:'Das Prinzip, Fehler so früh wie möglich zu finden, weil sie dort am billigsten sind, heißt ___ (englischer Begriff, zwei Wörter).',prompt_en:'The principle of finding errors as early as possible because they are cheapest there is called ___ (two-word English term).',answers:['Shift Left','shift left','Shift-Left','shift-left'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Shift Left</strong> zieht das Finden von Fehlern nach vorne auf dem Zeitstrahl — nach links.',explanation_en:'<strong>Shift left</strong> pulls the finding of errors forward on the timeline — to the left.'},
+  {id:'p_lead_l1_5_fb2',type:'fillblank',xp:12,prompt:'Die vorab vereinbarte Liste, was „fertig" wirklich bedeutet, heißt Definition of ___ (ein englisches Wort).',prompt_en:'The agreed-in-advance list of what "done" really means is called the definition of ___ (one English word).',answers:['Done','done','Fertig'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Definition of Done</strong> macht „fertig" zu einer gemeinsamen, nachprüfbaren Vereinbarung.',explanation_en:'The <strong>definition of done</strong> turns "done" into a shared, checkable agreement.'},
+  {id:'p_lead_l1_5_fb3',type:'fillblank',xp:12,prompt:'Das automatische Zusammenführen und Prüfen von Code bei jeder Änderung heißt Continuous ___ (ein englisches Wort, Abkürzung CI).',prompt_en:'The automatic merging and checking of code on every change is called continuous ___ (one English word, abbreviated CI).',answers:['Integration','integration'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'In der <strong>Continuous Integration</strong> (CI) laufen die Qualitäts-Gates automatisch bei jedem Pull Request.',explanation_en:'In <strong>continuous integration</strong> (CI) the quality gates run automatically on every pull request.'},
+  {id:'p_lead_l1_5_bonus',type:'mc',xp:20,optional:true,question:'Warum zielt gutes Review-Feedback auf den <strong>Code</strong> und nicht auf die Person?',question_en:'Why does good review feedback target the <strong>code</strong> and not the person?',options:[
+    {t:'Weil es die psychologische Sicherheit erhält und so ehrliches, gemeinsames Lernen ermöglicht',t_en:'Because it preserves psychological safety and thus enables honest, shared learning',correct:true,why:'Genau. Wer sich angegriffen fühlt, verteidigt sich statt zu lernen — am Code lässt sich sachlich arbeiten.',why_en:'Exactly. Whoever feels attacked defends themselves instead of learning — on the code you can work objectively.'},
+    {t:'Weil der Code wichtiger ist als die Menschen, die ihn schreiben',t_en:'Because the code matters more than the people who write it',correct:false,why:'Nein. Es geht nicht um Rangordnung, sondern um eine sachliche, lernförderliche Ebene.',why_en:'No. It is not about ranking but about an objective, learning-friendly level.'},
+    {t:'Weil persönliche Rückmeldung in einem PR technisch nicht möglich ist',t_en:'Because personal feedback is technically impossible in a PR',correct:false,why:'Nein. Möglich wäre es, aber es schadet — deshalb bleibt man beim Code.',why_en:'No. It would be possible but harmful — that is why you stay with the code.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l1_6'] = [
+  {id:'p_lead_l1_6_mc1',type:'mc',xp:10,question:'Warum erhöht ein <strong>begrenzter WIP</strong> (Work-in-Progress) den Durchsatz?',question_en:'Why does <strong>limited WIP</strong> (work-in-progress) raise throughput?',options:[
+    {t:'Weil weniger paralleles Arbeiten das kostspielige Umschalten zwischen Aufgaben reduziert und mehr zu Ende gebracht wird',t_en:'Because less parallel work reduces the costly switching between tasks and more gets finished',correct:true,why:'Genau. „Stop starting, start finishing" — weniger gleichzeitig angefangen heißt mehr fertiggestellt.',why_en:'Exactly. "Stop starting, start finishing" — fewer things started at once means more finished.'},
+    {t:'Weil ein hohes WIP-Limit beweist, dass das Team ausgelastet ist',t_en:'Because a high WIP limit proves the team is fully utilized',correct:false,why:'Nein. Hoher WIP erzeugt Halbfertiges und lange Wartezeiten, nicht mehr Durchsatz.',why_en:'No. High WIP produces half-finished work and long waits, not more throughput.'},
+    {t:'Weil jedes gleichzeitig offene Ticket den Durchsatz automatisch steigert',t_en:'Because every simultaneously open ticket automatically increases throughput',correct:false,why:'Nein. Mehr Offenes verlängert bei gleichem Durchsatz nur die Durchlaufzeit jeder Aufgabe.',why_en:'No. More open work only lengthens each task\'s lead time at the same throughput.'}
+  ]},
+  {id:'p_lead_l1_6_mc2',type:'mc',xp:10,question:'Was besagt <strong>Littles Gesetz</strong> in Worten?',question_en:'What does <strong>Little\'s law</strong> say in words?',options:[
+    {t:'Durchlaufzeit = WIP geteilt durch Durchsatz',t_en:'Lead time = WIP divided by throughput',correct:true,why:'Genau. Bei gleichem Durchsatz verlängert mehr paralleler WIP die Durchlaufzeit jeder einzelnen Aufgabe.',why_en:'Exactly. At the same throughput, more parallel WIP lengthens each single task\'s lead time.'},
+    {t:'Durchsatz = Zahl der Entwickler mal Arbeitsstunden',t_en:'Throughput = number of developers times work hours',correct:false,why:'Nein. Littles Gesetz verknüpft Durchlaufzeit, WIP und Durchsatz, nicht Personalstunden.',why_en:'No. Little\'s law links lead time, WIP and throughput, not staff hours.'},
+    {t:'Durchlaufzeit = Zahl der Meetings mal Teamgröße',t_en:'Lead time = number of meetings times team size',correct:false,why:'Nein. Das ist frei erfunden; die Formel bezieht sich auf WIP und Durchsatz.',why_en:'No. That is made up; the formula relates to WIP and throughput.'}
+  ]},
+  {id:'p_lead_l1_6_mc3',type:'mc',xp:10,question:'Wie entlastet man als Führungskraft einen <strong>Engpass</strong> (Bottleneck)?',question_en:'How do you, as a leader, relieve a <strong>bottleneck</strong>?',options:[
+    {t:'Den Engpass finden und gezielt entlasten, statt überall gleichzeitig Druck zu machen',t_en:'Find the bottleneck and relieve it deliberately, instead of applying pressure everywhere at once',correct:true,why:'Genau. Der Engpass bestimmt den Durchsatz der ganzen Kette; nur dort hilft Entlastung.',why_en:'Exactly. The bottleneck sets the throughput of the whole chain; only there does relief help.'},
+    {t:'Mehr Arbeit vor den Engpass kippen, damit er beschäftigt bleibt',t_en:'Dump more work in front of the bottleneck to keep it busy',correct:false,why:'Nein. Das verlängert nur die Warteschlange, ohne den Durchsatz zu erhöhen.',why_en:'No. That only lengthens the queue without increasing throughput.'},
+    {t:'Alle Stationen gleich stark beschleunigen, außer dem Engpass',t_en:'Speed up all stations equally except the bottleneck',correct:false,why:'Nein. Nicht-Engpässe zu beschleunigen bringt nichts; der Engpass bleibt die Grenze.',why_en:'No. Speeding up non-bottlenecks achieves nothing; the bottleneck remains the limit.'}
+  ]},
+  {id:'p_lead_l1_6_mc4',type:'mc',xp:10,question:'Warum ist das Optimieren auf <strong>100 Prozent Auslastung</strong> schädlich?',question_en:'Why is optimizing for <strong>100 percent utilization</strong> harmful?',options:[
+    {t:'Weil ohne Puffer jede neue Aufgabe hinter allen anderen wartet und das System staut',t_en:'Because without slack every new task waits behind all others and the system congests',correct:true,why:'Genau. Wie eine volle Autobahn kippt ein voll ausgelastetes System in lange Wartezeiten.',why_en:'Exactly. Like a full motorway, a fully utilized system tips into long waits.'},
+    {t:'Weil volle Auslastung den Durchsatz immer maximiert',t_en:'Because full utilization always maximizes throughput',correct:false,why:'Nein. Volle Auslastung maximiert Warteschlangen, nicht den Durchsatz.',why_en:'No. Full utilization maximizes queues, not throughput.'},
+    {t:'Weil Auslastung und Zykluszeit nichts miteinander zu tun haben',t_en:'Because utilization and cycle time have nothing to do with each other',correct:false,why:'Nein. Hohe Auslastung verlängert die Zykluszeit — beide hängen eng zusammen.',why_en:'No. High utilization lengthens cycle time — the two are closely linked.'}
+  ]},
+  {id:'p_lead_l1_6_tf1',type:'truefalse',xp:8,statement:'Jeder Wechsel zwischen parallelen Aufgaben kostet geistige Rüstzeit und lässt Dinge halbfertig liegen.',statement_en:'Every switch between parallel tasks costs mental setup time and leaves things half-finished.',correct:true,explanation:'Richtig. Genau dieses Umschalten begrenzt man mit einem WIP-Limit, um den Fluss zu erhöhen.',explanation_en:'Correct. It is exactly this switching that a WIP limit curbs in order to raise flow.'},
+  {id:'p_lead_l1_6_tf2',type:'truefalse',xp:8,statement:'Übergaben zwischen Personen oder Teams sind kostenlos und verlängern die Durchlaufzeit nicht.',statement_en:'Handovers between people or teams are free and do not lengthen lead time.',correct:false,explanation:'Falsch. Jede Übergabe erzeugt Wartezeit und Kontextverlust — Übergaben sind ein versteckter Flusskiller.',explanation_en:'False. Every handover creates waiting time and context loss — handovers are a hidden flow killer.'},
+  {id:'p_lead_l1_6_tf3',type:'truefalse',xp:8,statement:'Flusssteuerung ist die Ursache-Seite vor den DORA-Metriken: sie steuert, wie Arbeit durch das System läuft, damit gute Liefermetriken entstehen.',statement_en:'Flow control is the cause side ahead of the DORA metrics: it steers how work runs through the system so good delivery metrics arise.',correct:true,explanation:'Richtig. DORA misst das Ergebnis der Lieferung; die Flusssteuerung beeinflusst, wie dieses Ergebnis zustande kommt.',explanation_en:'Correct. DORA measures the result of delivery; flow control influences how that result comes about.'},
+  {id:'p_lead_l1_6_fb1',type:'fillblank',xp:12,prompt:'Die bewusste Obergrenze, wie viele Aufgaben gleichzeitig offen sein dürfen, heißt ___-Limit (englische Abkürzung, drei Buchstaben).',prompt_en:'The deliberate cap on how many tasks may be open at the same time is called the ___ limit (three-letter English abbreviation).',answers:['WIP','wip'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Das <strong>WIP</strong>-Limit (Work in Progress) begrenzt das gleichzeitig Angefangene und erhöht so den Durchsatz.',explanation_en:'The <strong>WIP</strong> limit (work in progress) caps what is started at once and thereby raises throughput.'},
+  {id:'p_lead_l1_6_fb2',type:'fillblank',xp:12,prompt:'Die Zeit von „in Arbeit" bis „fertig", die man kurz halten will, heißt ___ (ein Wort, deutscher Begriff).',prompt_en:'The time from "in progress" to "done" that you want to keep short is called the ___ time (one English word).',answers:['Zykluszeit','Zyklus','cycle','Durchlaufzeit'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Zykluszeit</strong> kurz zu halten ist das Ziel; etwas Leerlauf ist der Preis für schnellen Fluss.',explanation_en:'Keeping the <strong>cycle</strong> time short is the goal; a little idle time is the price of fast flow.'},
+  {id:'p_lead_l1_6_fb3',type:'fillblank',xp:12,prompt:'Die langsamste Station in der Kette, die den Durchsatz des Ganzen bestimmt, heißt ___ (englischer Begriff).',prompt_en:'The slowest station in the chain that sets the throughput of the whole is called the ___ (English term).',answers:['Bottleneck','bottleneck','Engpass'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Bottleneck</strong> (Engpass) bestimmt den Durchsatz — nur dort zu entlasten beschleunigt das Ganze.',explanation_en:'The <strong>bottleneck</strong> sets the throughput — relieving it only there speeds up the whole.'},
+  {id:'p_lead_l1_6_bonus',type:'mc',xp:20,optional:true,question:'Was meint der Leitspruch „<strong>Stop starting, start finishing</strong>"?',question_en:'What does the maxim "<strong>stop starting, start finishing</strong>" mean?',options:[
+    {t:'Erst Angefangenes zu Ende bringen, bevor Neues begonnen wird — so sinkt der WIP und der Durchsatz steigt',t_en:'Finish what is started before beginning new work — this lowers WIP and raises throughput',correct:true,why:'Genau. Fertigstellen hat Vorrang vor Anfangen; das ist der Kern der Flusssteuerung.',why_en:'Exactly. Finishing takes priority over starting; that is the heart of flow control.'},
+    {t:'Möglichst viele Aufgaben gleichzeitig starten, um ausgelastet zu wirken',t_en:'Start as many tasks as possible at once to look busy',correct:false,why:'Nein. Das ist genau das Gegenteil und erzeugt Stau statt Durchsatz.',why_en:'No. That is exactly the opposite and creates congestion instead of throughput.'},
+    {t:'Nie wieder neue Aufgaben annehmen',t_en:'Never take on new tasks again',correct:false,why:'Nein. Man beginnt Neues — nur erst, wenn Kapazität frei wird, statt alles parallel zu starten.',why_en:'No. You do start new work — just once capacity frees up, instead of starting everything in parallel.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_p1_exam'] = [
+  {id:'p_lead_p1_exam_mc1',type:'mc',xp:10,question:'Wie verschiebt sich die Führungsaufgabe, wenn ein Team wächst?',question_en:'How does the leadership task shift as a team grows?',options:[
+    {t:'Vom „Ich baue es richtig" zum „Ich mache es anderen leicht, es richtig zu bauen"',t_en:'From "I build it right" to "I make it easy for others to build it right"',correct:true,why:'Genau. Sonst wird der Kopf des Gründers zum Nadelöhr; Führung heißt, gute Standardwege bereitzustellen.',why_en:'Exactly. Otherwise the founder\'s head becomes the bottleneck; leadership means providing good standard paths.'},
+    {t:'Hin zu möglichst enger Einzelkontrolle jeder Codezeile',t_en:'Toward the tightest possible control of every line of code',correct:false,why:'Nein. Führung skaliert durch bessere Standardwege, nicht durch mehr Kontrolle.',why_en:'No. Leadership scales through better standard paths, not more control.'},
+    {t:'Komplett weg von der Technik hin zu reiner Verwaltung',t_en:'Entirely away from engineering toward pure administration',correct:false,why:'Nein. Der Golden Path ist selbst technisch; Führung wird technisch anders, nicht technikfern.',why_en:'No. The golden path is itself technical; leadership becomes technical in a different way, not non-technical.'}
+  ]},
+  {id:'p_lead_p1_exam_mc2',type:'mc',xp:10,question:'Welche zwei DORA-Metriken messen die <strong>Stabilität</strong>?',question_en:'Which two DORA metrics measure <strong>stability</strong>?',options:[
+    {t:'Change Failure Rate und Recovery Time',t_en:'Change failure rate and recovery time',correct:true,why:'Genau. Sie beschreiben die Zuverlässigkeit und knüpfen an Fehlerbudget und SLO an.',why_en:'Exactly. They describe reliability and tie into error budget and SLO.'},
+    {t:'Deployment Frequency und Lead Time for Changes',t_en:'Deployment frequency and lead time for changes',correct:false,why:'Nein. Das sind die Tempo-Metriken.',why_en:'No. Those are the speed metrics.'},
+    {t:'Deployment Frequency und Change Failure Rate',t_en:'Deployment frequency and change failure rate',correct:false,why:'Nein. Nur die zweite misst Stabilität; die erste misst Tempo.',why_en:'No. Only the second measures stability; the first measures speed.'}
+  ]},
+  {id:'p_lead_p1_exam_mc3',type:'mc',xp:10,question:'Was ist das Ziel von <strong>Platform Engineering</strong>?',question_en:'What is the goal of <strong>platform engineering</strong>?',options:[
+    {t:'Eine interne Plattform als Self-Service, die die kognitive Last der Produktteams senkt',t_en:'An internal platform as self-service that lowers the cognitive load on product teams',correct:true,why:'Genau. Die Plattform stellt den Golden Path bereit und entlastet die Teams.',why_en:'Exactly. The platform provides the golden path and relieves the teams.'},
+    {t:'Ein neues Gatekeeper-Silo, durch das jede Änderung muss',t_en:'A new gatekeeper silo that every change must pass through',correct:false,why:'Nein. Genau das soll Platform Engineering vermeiden.',why_en:'No. That is exactly what platform engineering avoids.'},
+    {t:'Die Produktteams durch ein zentrales Betriebsteam ersetzen',t_en:'Replacing the product teams with a central operations team',correct:false,why:'Nein. Die Plattform befähigt die Teams, statt sie zu ersetzen.',why_en:'No. The platform enables the teams rather than replacing them.'}
+  ]},
+  {id:'p_lead_p1_exam_mc4',type:'mc',xp:10,question:'Wozu dient das <strong>Fehlerbudget</strong> (100 Prozent minus SLO)?',question_en:'What is the <strong>error budget</strong> (100 percent minus SLO) for?',options:[
+    {t:'Als Steuerungsinstrument: ist Budget da, liefert man schneller; ist es aufgebraucht, hat Stabilität Vorrang',t_en:'As a control instrument: with budget you ship faster, when it is used up stability takes priority',correct:true,why:'Genau. Es macht den Zielkonflikt Tempo gegen Stabilität explizit und entpolitisiert ihn.',why_en:'Exactly. It makes the speed-versus-stability trade-off explicit and depoliticizes it.'},
+    {t:'Als Jahresbudget für neue Server',t_en:'As an annual budget for new servers',correct:false,why:'Nein. Es ist kein Finanzbudget, sondern der erlaubte Spielraum an Unzuverlässigkeit.',why_en:'No. It is not a financial budget but the allowed room for unreliability.'},
+    {t:'Als Bonus-Kennzahl für einzelne Entwickler',t_en:'As a bonus metric for individual developers',correct:false,why:'Nein. Es steuert das System, nicht die Bewertung von Personen.',why_en:'No. It steers the system, not the rating of individuals.'}
+  ]},
+  {id:'p_lead_p1_exam_mc5',type:'mc',xp:10,question:'Welche Haltung kennzeichnet eine gesunde Review-Kultur?',question_en:'Which attitude marks a healthy review culture?',options:[
+    {t:'Review ist gemeinsames Lernen am Code, nicht Torwache über Personen',t_en:'Review is shared learning on the code, not gatekeeping over people',correct:true,why:'Genau. Rückmeldung zielt auf den Code und begründet das Warum.',why_en:'Exactly. Feedback targets the code and explains the why.'},
+    {t:'Review macht die Fehler der Autorin öffentlich sichtbar',t_en:'Review makes the author\'s mistakes publicly visible',correct:false,why:'Nein. Bloßstellen zerstört Vertrauen und das Lernen.',why_en:'No. Shaming destroys trust and learning.'},
+    {t:'Review ist eine Formalität, die man durchwinkt',t_en:'Review is a formality that you wave through',correct:false,why:'Nein. Durchwinken verschenkt Qualität und Lernen.',why_en:'No. Waving through forfeits quality and learning.'}
+  ]},
+  {id:'p_lead_p1_exam_mc6',type:'mc',xp:10,question:'Warum erhöht ein begrenzter WIP den Durchsatz?',question_en:'Why does limited WIP raise throughput?',options:[
+    {t:'Weil weniger paralleles Arbeiten das kostspielige Umschalten reduziert und mehr fertig wird',t_en:'Because less parallel work reduces costly switching and more gets finished',correct:true,why:'Genau. „Stop starting, start finishing".',why_en:'Exactly. "Stop starting, start finishing".'},
+    {t:'Weil ein hohes WIP-Limit die Auslastung beweist',t_en:'Because a high WIP limit proves utilization',correct:false,why:'Nein. Hoher WIP erzeugt Halbfertiges und Wartezeiten.',why_en:'No. High WIP produces half-finished work and waits.'},
+    {t:'Weil jedes offene Ticket den Durchsatz automatisch steigert',t_en:'Because every open ticket automatically raises throughput',correct:false,why:'Nein. Mehr Offenes verlängert nur die Durchlaufzeit.',why_en:'No. More open work only lengthens lead time.'}
+  ]},
+  {id:'p_lead_p1_exam_tf1',type:'truefalse',xp:8,statement:'Conways Gesetz besagt, dass ein System am Ende die Kommunikationsstruktur der Organisation spiegelt, die es baut.',statement_en:'Conway\'s law states that a system ends up mirroring the communication structure of the organization that builds it.',correct:true,explanation:'Richtig. Deshalb entwirft das Inverse Conway Manoeuvre erst die Architektur und schneidet die Teams passend zu.',explanation_en:'Correct. That is why the inverse Conway manoeuvre designs the architecture first and cuts the teams to match.'},
+  {id:'p_lead_p1_exam_tf2',type:'truefalse',xp:8,statement:'Laut DORA steigen Tempo und Stabilität zusammen — leistungsstarke Teams sind in beidem gut.',statement_en:'According to DORA, speed and stability rise together — high-performing teams are good at both.',correct:true,explanation:'Richtig. Wer Stabilität gegen Tempo ausspielt, hat das Muster falsch verstanden.',explanation_en:'Correct. Whoever plays stability off against speed has misread the pattern.'},
+  {id:'p_lead_p1_exam_tf3',type:'truefalse',xp:8,statement:'Ein blameless Postmortem fragt „wer war schuld?", um die verantwortliche Person zu bestrafen.',statement_en:'A blameless postmortem asks "who was at fault?" in order to punish the responsible person.',correct:false,explanation:'Falsch. Es fragt, welches System oder welcher Prozess das zuließ — Schuldzuweisung zerstört das Lernen.',explanation_en:'False. It asks which system or process allowed it — assigning blame destroys learning.'},
+  {id:'p_lead_p1_exam_tf4',type:'truefalse',xp:8,statement:'„Shift Left" heißt, Fehler möglichst früh zu finden, weil sie dort am billigsten zu beheben sind.',statement_en:'"Shift left" means finding errors as early as possible because they are cheapest to fix there.',correct:true,explanation:'Richtig. Gates und häufige Integration ziehen das Finden von Fehlern nach vorne.',explanation_en:'Correct. Gates and frequent integration pull the finding of errors forward.'},
+  {id:'p_lead_p1_exam_tf5',type:'truefalse',xp:8,statement:'100 Prozent Auslastung maximiert den Durchsatz und ist das Ziel guter Flusssteuerung.',statement_en:'100 percent utilization maximizes throughput and is the goal of good flow control.',correct:false,explanation:'Falsch. Volle Auslastung staut wie eine überfüllte Autobahn; man optimiert die Zykluszeit, nicht die Auslastung.',explanation_en:'False. Full utilization congests like an overcrowded motorway; you optimize cycle time, not utilization.'},
+  {id:'p_lead_p1_exam_tf6',type:'truefalse',xp:8,statement:'Eine interne Entwicklerplattform wird wie ein Produkt mit Nutzern — den Entwicklern — behandelt, inklusive Roadmap und Feedback.',statement_en:'An internal developer platform is treated like a product with users — the developers — including a roadmap and feedback.',correct:true,explanation:'Richtig. Ohne Produktdenken wird die Plattform umgangen oder ungenutzt.',explanation_en:'Correct. Without product thinking the platform gets bypassed or goes unused.'},
+  {id:'p_lead_p1_exam_fb1',type:'fillblank',xp:12,prompt:'Der bewusst schmale Standardweg, wie ein Dienst entsteht, getestet und deployt wird, heißt ___ (englischer Begriff, zwei Wörter).',prompt_en:'The deliberately narrow standard way a service is built, tested and deployed is called the ___ (two-word term).',answers:['Golden Path','golden path','Golden-Path','golden-path','goldener Pfad'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Golden Path</strong> senkt die kognitive Last und ist die technische Form von Führung.',explanation_en:'The <strong>golden path</strong> lowers cognitive load and is the technical form of leadership.'},
+  {id:'p_lead_p1_exam_fb2',type:'fillblank',xp:12,prompt:'Die DORA-Metrik für die Zeit von Commit bis Produktion heißt ___ (englischer Begriff, drei Wörter).',prompt_en:'The DORA metric for the time from commit to production is called ___ (three-word term).',answers:['Lead Time for Changes','lead time for changes','Lead Time','lead time'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Lead Time for Changes</strong> ist eine der beiden Tempo-Metriken.',explanation_en:'The <strong>lead time for changes</strong> is one of the two speed metrics.'},
+  {id:'p_lead_p1_exam_fb3',type:'fillblank',xp:12,prompt:'Die wiederkehrende manuelle Betriebsarbeit, die SRE systematisch automatisiert, heißt ___ (englischer Begriff).',prompt_en:'The recurring manual operational work that SRE systematically automates is called ___ (English term).',answers:['Toil','toil'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Toil</strong> ist wiederkehrende manuelle Arbeit ohne bleibenden Wert.',explanation_en:'<strong>Toil</strong> is recurring manual work with no lasting value.'},
+  {id:'p_lead_p1_exam_fb4',type:'fillblank',xp:12,prompt:'Die bewusste Obergrenze, wie viele Aufgaben gleichzeitig offen sein dürfen, heißt ___-Limit (englische Abkürzung, drei Buchstaben).',prompt_en:'The deliberate cap on how many tasks may be open at once is called the ___ limit (three-letter abbreviation).',answers:['WIP','wip'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Das <strong>WIP</strong>-Limit begrenzt das gleichzeitig Angefangene und erhöht den Durchsatz.',explanation_en:'The <strong>WIP</strong> limit caps what is started at once and raises throughput.'},
+  {id:'p_lead_p1_exam_fb5',type:'fillblank',xp:12,prompt:'Die vorab vereinbarte Liste, was „fertig" wirklich heißt, ist die Definition of ___ (ein englisches Wort).',prompt_en:'The agreed-in-advance list of what "done" really means is the definition of ___ (one English word).',answers:['Done','done','Fertig'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Definition of Done</strong> macht „fertig" zu einer gemeinsamen, nachprüfbaren Vereinbarung.',explanation_en:'The <strong>definition of done</strong> turns "done" into a shared, checkable agreement.'},
+  {id:'p_lead_p1_exam_fb6',type:'fillblank',xp:12,prompt:'Das vereinbarte Zuverlässigkeitsziel eines Dienstes, etwa 99,9 Prozent, heißt ___ (englische Abkürzung, drei Buchstaben).',prompt_en:'The agreed reliability target of a service, for example 99.9 percent, is called the ___ (three-letter abbreviation).',answers:['SLO','slo'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Das <strong>SLO</strong> (Service Level Objective) ist die gemeinsame Sprache zwischen Produkt und Engineering und Basis des Fehlerbudgets.',explanation_en:'The <strong>SLO</strong> (service level objective) is the shared language between product and engineering and the basis of the error budget.'}
 ];
 
 
