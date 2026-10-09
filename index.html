@@ -27341,6 +27341,284 @@ Lock-in      : check exit cost + data portability</div>
       },
     ]
   },
+  {
+    id: 'p_lead8', title: 'KI-Strategie für Tech-Leader', title_en: 'AI Strategy for Tech Leaders',
+    sub: 'KI als Führungsthema — Strategie, Verantwortung und KI-gestützte Entwicklung.',
+    sub_en: 'AI as a leadership topic — strategy, responsibility, and AI-assisted development.',
+    lessons: [
+      {
+        id: 'lead_l8_1', title: 'KI-Strategie & Build-vs-Buy im KI-Zeitalter',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lektion 1</div>
+            <h1 class="lesson-title">KI-Strategie & Build-vs-Buy im KI-Zeitalter</h1>
+            <p class="lesson-desc">KI gehört auf die Agenda der Führung. Die erste Frage ist nicht, wo KI beeindruckt, sondern wo sie messbaren Wert schafft — und was man dafür selbst baut.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Zuerst der Wert, dann die Technik</div>
+            <div class="explanation">
+              Eine <strong>KI-Strategie</strong> beginnt mit einer einzigen Frage: Wo schafft KI <strong>echten, messbaren Wert</strong>? Nicht dort, wo man sie aus <strong>Hype</strong> einsetzt, weil alle davon reden, sondern dort, wo sie ein reales Problem schneller, besser oder billiger löst als der heutige Weg.<br><br>
+              Gute Führung dreht die Reihenfolge um: erst der Anwendungsfall mit klarem Nutzen, dann die Wahl der Technik — nie umgekehrt. Eine Lösung, die eine Technologie sucht, ist fast immer teurer und wirkungsloser als ein klar benanntes Problem, das nach der passenden Technik verlangt.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Build vs. Buy im KI-Zeitalter neu gedacht</div>
+            <div class="explanation">
+              Ein fertiges <strong>Basismodell</strong> zu nutzen (buy) ist schnell und günstig — die Grundfähigkeit liefert der Anbieter. Den echten Unterschied macht man darüber, was nur man selbst hat: über <strong>eigene Daten</strong>, <strong>Feintuning</strong> und die <strong>Einbettung in die eigenen Abläufe</strong>. Oft sind <strong>Daten und Verteilung</strong> der eigentliche Burggraben, nicht das Modell selbst, das morgen jeder mieten kann.<br><br>
+              <strong>Selbst bauen</strong> lohnt nur dort, wo es einen echten, verteidigbaren <strong>Wettbewerbsvorteil</strong> bringt. Ein eigenes Modell dort zu trainieren, wo ein gemietetes genauso gut ist, bindet Geld und Köpfe ohne Vorsprung.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Entscheidung: buy vs. tune vs. build</span></div>
+              <div class="code-pre">Frage: Schafft es echten Wettbewerbsvorteil?
+  nein  -&gt; BUY   : fertiges Basismodell nutzen (schnell, guenstig)
+  teils -&gt; TUNE  : eigene Daten + Feintuning + Einbettung
+  ja    -&gt; BUILD : nur bei echtem, verteidigbarem Vorsprung
+Burggraben: Daten und Verteilung, selten das Modell selbst</div>
+            </div>
+          </div>
+          ${quickCheck('Was ist im KI-Zeitalter oft der eigentliche Burggraben?', ['Die eigenen Daten und die Verteilung — nicht das Basismodell, das bald jeder mieten kann', 'Allein das größte und neueste Basismodell', 'Die Zahl der eingesetzten KI-Werkzeuge'], 0, 'Basismodelle werden zur mietbaren Grundfähigkeit. Den Unterschied machen eigene Daten, Feintuning und die Einbettung in die eigenen Abläufe sowie die Verteilung — das ist schwerer zu kopieren als das Modell selbst.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Tempo, technische Schulden und der Piloten-Friedhof</div>
+            <div class="explanation">
+              KI-gestützte Entwicklung <strong>beschleunigt</strong>, erhöht aber das Risiko <strong>technischer Schulden</strong> (siehe Phase 2): schnell erzeugter Code, den niemand ganz versteht, rächt sich in der Wartung. Führung wägt bewusst <strong>Tempo gegen Wartbarkeit</strong> ab, statt nur auf die Geschwindigkeit zu schauen.<br><br>
+              Für neue KI-Ideen gilt: <strong>Pilotprojekte mit klaren Erfolgskriterien</strong> statt eines <strong>Piloten-Friedhofs</strong> aus Versuchen, die nie in Betrieb gehen. Wer vorab festlegt, was Erfolg bedeutet und wann abgebrochen wird, lernt schnell und vermeidet Dauer-Pilotprojekte ohne Wirkung.
+            </div>
+          </div>
+          ${quickCheck('Wie vermeidet man einen „Piloten-Friedhof" aus wirkungslosen KI-Versuchen?', ['Mit klaren Erfolgskriterien vorab — und der Konsequenz, abzubrechen oder in Betrieb zu bringen', 'Indem man möglichst viele Piloten gleichzeitig startet', 'Indem man jeden Piloten unbegrenzt weiterlaufen lässt'], 0, 'Ein Pilot braucht vorab definierte Erfolgskriterien. Wer misst und danach entscheidet — abbrechen oder in Betrieb bringen —, vermeidet den Friedhof aus Versuchen, die ewig laufen, aber nie Wert schaffen.')}
+          ${callout('key', 'Merksatz', 'Eine KI-Strategie fragt zuerst, wo KI messbaren Wert schafft — nicht, wo sie aus Hype beeindruckt. Buy nutzt ein fertiges Basismodell schnell und günstig; den Unterschied machen eigene Daten, Feintuning und Einbettung — Daten und Verteilung sind der Burggraben, nicht das Modell. Selbst bauen lohnt nur bei echtem Wettbewerbsvorteil. KI-gestützte Entwicklung beschleunigt, erhöht aber technische Schulden — Tempo gegen Wartbarkeit abwägen und Piloten an klaren Erfolgskriterien messen.')}
+          ${renderQuestions('lead_l8_1', 6)}
+          ${renderBonus('lead_l8_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lesson 1</div>
+            <h1 class="lesson-title">AI strategy & build vs. buy in the AI era</h1>
+            <p class="lesson-desc">AI belongs on the leadership agenda. The first question is not where AI impresses but where it creates measurable value — and what you build yourself for it.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Value first, technology second</div>
+            <div class="explanation">
+              An <strong>AI strategy</strong> begins with a single question: where does AI create <strong>real, measurable value</strong>? Not where you deploy it out of <strong>hype</strong> because everyone is talking about it, but where it solves a real problem faster, better or cheaper than the current way.<br><br>
+              Good leadership reverses the order: first the use case with a clear benefit, then the choice of technology — never the other way round. A solution looking for a technology is almost always more expensive and less effective than a clearly named problem that calls for the fitting technique.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Build vs. buy in the AI era, rethought</div>
+            <div class="explanation">
+              Using a ready <strong>base model</strong> (buy) is fast and cheap — the vendor supplies the basic capability. The real difference comes from what only you have: from <strong>your own data</strong>, <strong>fine-tuning</strong> and the <strong>embedding into your own workflows</strong>. Often <strong>data and distribution</strong> are the real moat, not the model itself, which anyone can rent tomorrow.<br><br>
+              <strong>Building yourself</strong> pays off only where it brings a real, defensible <strong>competitive advantage</strong>. Training your own model where a rented one is just as good ties up money and people without a lead.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Decision: buy vs. tune vs. build</span></div>
+              <div class="code-pre">Question: does it create real competitive advantage?
+  no     -&gt; BUY   : use a ready base model (fast, cheap)
+  partly -&gt; TUNE  : own data + fine-tuning + embedding
+  yes    -&gt; BUILD : only for a real, defensible lead
+Moat: data and distribution, rarely the model itself</div>
+            </div>
+          </div>
+          ${quickCheck('What is often the real moat in the AI era?', ['Your own data and distribution — not the base model that soon anyone can rent', 'Solely the biggest and newest base model', 'The number of AI tools in use'], 0, 'Base models become a rentable basic capability. The difference comes from your own data, fine-tuning and embedding into your workflows, plus distribution — harder to copy than the model itself.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Speed, technical debt and the pilot graveyard</div>
+            <div class="explanation">
+              AI-assisted development <strong>speeds things up</strong> but raises the risk of <strong>technical debt</strong> (see phase 2): quickly produced code that nobody fully understands takes its revenge in maintenance. Leadership deliberately weighs <strong>speed against maintainability</strong> instead of looking at velocity alone.<br><br>
+              For new AI ideas the rule is: <strong>pilots with clear success criteria</strong> rather than a <strong>pilot graveyard</strong> of experiments that never go live. Whoever defines up front what success means and when to stop learns fast and avoids forever-pilots without effect.
+            </div>
+          </div>
+          ${quickCheck('How do you avoid a pilot graveyard of ineffective AI experiments?', ['With clear success criteria up front — and the discipline to stop or put into operation', 'By starting as many pilots as possible at once', 'By letting every pilot run on indefinitely'], 0, 'A pilot needs success criteria defined in advance. Whoever measures and then decides — stop or put into operation — avoids the graveyard of experiments that run forever but never create value.')}
+          ${callout('key', 'Key takeaway', 'An AI strategy asks first where AI creates measurable value — not where it impresses out of hype. Buy uses a ready base model fast and cheap; the difference comes from your own data, fine-tuning and embedding — data and distribution are the moat, not the model. Building yourself pays off only for a real competitive advantage. AI-assisted development speeds up but raises technical debt — weigh speed against maintainability and measure pilots by clear success criteria.')}
+          ${renderQuestions('lead_l8_1', 6)}
+          ${renderBonus('lead_l8_1')}
+        `
+      },
+      {
+        id: 'lead_l8_2', title: 'Verantwortungsvolle KI & Governance',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lektion 2</div>
+            <h1 class="lesson-title">Verantwortungsvolle KI & Governance</h1>
+            <p class="lesson-desc">KI-Governance ist Führungsaufgabe, nicht Beiwerk. Wer KI einsetzt, muss klären, was erlaubt ist, wer aufpasst und wer am Ende haftet.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Governance ist Führungsaufgabe, kein Beiwerk</div>
+            <div class="explanation">
+              <strong>KI-Governance</strong> ist eine Aufgabe der Leitung, nicht eine Fußnote im Kleingedruckten. Ihre Bausteine: eine <strong>Richtlinie zur akzeptablen Nutzung</strong> (was darf womit), der <strong>Datenschutz</strong> (keine sensiblen oder personenbezogenen Daten unkontrolliert in fremde Modelle geben — Details zum LLM-Datenschutz stehen im Security-Kurs), die <strong>menschliche Aufsicht</strong> bei folgenreichen Entscheidungen (human in the loop), <strong>Transparenz und Nachvollziehbarkeit</strong>, die <strong>Prüfung auf Verzerrung und Fairness</strong> sowie die <strong>Protokollierung</strong>.<br><br>
+              Diese Bausteine sind keine Bürokratie um ihrer selbst willen. Sie sorgen dafür, dass KI im Zweifel erklärbar, überprüfbar und korrigierbar bleibt — und dass niemand überrascht wird, wenn etwas schiefgeht.
+            </div>
+          </div>
+          ${quickCheck('Welche Daten gehören NICHT unkontrolliert in ein fremdes KI-Modell?', ['Sensible oder personenbezogene Daten — hier greift der Datenschutz', 'Öffentlich bekannte, allgemein verfügbare Informationen', 'Bereits veröffentlichte Marketingtexte'], 0, 'Sensible oder personenbezogene Daten dürfen nicht unkontrolliert an fremde Modelle gegeben werden. Die Richtlinie zur akzeptablen Nutzung regelt, was womit erlaubt ist; Details stehen im Security-Kurs.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Risikobasiert regulieren — der EU AI Act</div>
+            <div class="explanation">
+              Moderne Regulierung denkt <strong>risikobasiert</strong>: Je größer der mögliche Schaden, desto strenger die Pflichten. Der <strong>EU AI Act</strong> stuft Anwendungen nach ihrem Risiko ein — grob in <strong>verbotene</strong> (inakzeptables Risiko), <strong>hochriskante</strong> (strenge Auflagen) und <strong>geringere</strong> Risiken (vor allem Transparenzpflichten) — und knüpft daran, was man dokumentieren, beaufsichtigen und nachweisen muss.<br><br>
+              Für die Führung heißt das: Man ordnet jeden KI-Einsatz zuerst einer Risikostufe zu und leitet daraus die Pflichten ab. Ein Chatbot für interne Suche trägt andere Pflichten als ein System, das über Kredite oder Bewerbungen mitentscheidet.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risikostufen & Governance-Checkliste</span></div>
+              <div class="code-pre">EU AI Act - risikobasiert:
+  verboten     : inakzeptables Risiko (untersagt)
+  hochriskant  : strenge Pflichten (Aufsicht, Doku, Qualitaet)
+  begrenzt     : Transparenzpflichten
+  minimal      : weitgehend frei
+Governance-Checkliste:
+  [ ] Richtlinie zur akzeptablen Nutzung
+  [ ] Datenschutz: keine sensiblen Daten in fremde Modelle
+  [ ] human in the loop bei folgenreichen Entscheidungen
+  [ ] Transparenz, Fairness-Pruefung, Protokollierung</div>
+            </div>
+          </div>
+          ${quickCheck('Wie ordnet der EU AI Act Anwendungen ein?', ['Risikobasiert — nach Risikostufen (verbotene, hochriskante, geringere) mit abgestuften Pflichten', 'Nach der Größe des Anbieters', 'Allein nach dem Preis der Lösung'], 0, 'Der EU AI Act denkt risikobasiert: Er stuft Anwendungen nach ihrem Risiko ein und knüpft daran die Pflichten. Je höher das Risiko, desto strenger die Auflagen.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Verantwortung bleibt beim Menschen</div>
+            <div class="explanation">
+              Entscheidend und oft übersehen: <strong>Verantwortung und Haftung bleiben beim Menschen und beim Unternehmen</strong> — nie „beim Modell". Ein KI-System ist ein Werkzeug; es kann weder zur Rechenschaft gezogen werden noch eine Entscheidung verantworten.<br><br>
+              Darum bleibt bei folgenreichen Entscheidungen ein <strong>Mensch in der Schleife</strong> (human in the loop), der prüft, übersteuern kann und am Ende geradesteht. „Das hat die KI entschieden" ist keine Entschuldigung, sondern ein Führungsversäumnis.
+            </div>
+          </div>
+          ${quickCheck('Bei wem liegen Verantwortung und Haftung für eine KI-gestützte Entscheidung?', ['Beim Menschen und beim Unternehmen — nie „beim Modell"', 'Beim Modell, das die Entscheidung berechnet hat', 'Beim Anbieter des Basismodells allein'], 0, 'Ein Modell ist ein Werkzeug und kann nicht haften. Verantwortung und Haftung bleiben beim Menschen und beim Unternehmen; bei folgenreichen Entscheidungen bleibt ein Mensch in der Schleife.')}
+          ${callout('key', 'Merksatz', 'KI-Governance ist Führungsaufgabe: Richtlinie zur akzeptablen Nutzung, Datenschutz, menschliche Aufsicht (human in the loop), Transparenz, Fairness-Prüfung und Protokollierung. Regulierung denkt risikobasiert — der EU AI Act stuft Anwendungen nach Risiko ein und knüpft daran die Pflichten. Verantwortung und Haftung bleiben immer beim Menschen und beim Unternehmen, nie „beim Modell".')}
+          ${renderQuestions('lead_l8_2', 6)}
+          ${renderBonus('lead_l8_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lesson 2</div>
+            <h1 class="lesson-title">Responsible AI & governance</h1>
+            <p class="lesson-desc">AI governance is a leadership task, not an accessory. Whoever deploys AI must clarify what is allowed, who watches over it, and who is liable in the end.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Governance is a leadership task, not an accessory</div>
+            <div class="explanation">
+              <strong>AI governance</strong> is a task of leadership, not a footnote in the fine print. Its building blocks: an <strong>acceptable use policy</strong> (what is allowed with what), <strong>data protection</strong> (no sensitive or personal data handed uncontrolled into external models — the detail on LLM data protection sits in the security course), <strong>human oversight</strong> for consequential decisions (human in the loop), <strong>transparency and traceability</strong>, the <strong>check for bias and fairness</strong>, and <strong>logging</strong>.<br><br>
+              These building blocks are not bureaucracy for its own sake. They ensure that, in doubt, AI stays explainable, checkable and correctable — and that nobody is surprised when something goes wrong.
+            </div>
+          </div>
+          ${quickCheck('Which data does NOT belong uncontrolled in an external AI model?', ['Sensitive or personal data — this is where data protection applies', 'Publicly known, generally available information', 'Marketing copy that has already been published'], 0, 'Sensitive or personal data must not be handed uncontrolled to external models. The acceptable use policy governs what is allowed with what; the detail sits in the security course.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Regulate risk-based — the EU AI Act</div>
+            <div class="explanation">
+              Modern regulation thinks <strong>risk-based</strong>: the greater the possible harm, the stricter the duties. The <strong>EU AI Act</strong> classifies applications by their risk — roughly into <strong>prohibited</strong> (unacceptable risk), <strong>high-risk</strong> (strict obligations) and <strong>lower</strong> risks (mainly transparency duties) — and ties to that what you must document, oversee and prove.<br><br>
+              For leadership this means: you first assign every AI use to a risk tier and derive the duties from it. A chatbot for internal search carries duties different from a system that helps decide on credit or job applications.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Risk tiers & governance checklist</span></div>
+              <div class="code-pre">EU AI Act - risk-based:
+  prohibited  : unacceptable risk (banned)
+  high-risk   : strict duties (oversight, docs, quality)
+  limited     : transparency duties
+  minimal     : largely free
+Governance checklist:
+  [ ] acceptable use policy
+  [ ] data protection: no sensitive data into external models
+  [ ] human in the loop for consequential decisions
+  [ ] transparency, fairness check, logging</div>
+            </div>
+          </div>
+          ${quickCheck('How does the EU AI Act classify applications?', ['Risk-based — by risk tiers (prohibited, high-risk, lower) with graduated duties', 'By the size of the vendor', 'Solely by the price of the solution'], 0, 'The EU AI Act thinks risk-based: it classifies applications by their risk and ties the duties to that. The higher the risk, the stricter the obligations.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Responsibility stays with the human</div>
+            <div class="explanation">
+              Crucial and often overlooked: <strong>responsibility and liability stay with the human and the company</strong> — never "with the model". An AI system is a tool; it can neither be held to account nor own a decision.<br><br>
+              So for consequential decisions a <strong>human stays in the loop</strong> (human in the loop) who checks, can override and in the end answers for it. "The AI decided that" is not an excuse but a failure of leadership.
+            </div>
+          </div>
+          ${quickCheck('Where do responsibility and liability for an AI-assisted decision lie?', ['With the human and the company — never "with the model"', 'With the model that computed the decision', 'With the vendor of the base model alone'], 0, 'A model is a tool and cannot be liable. Responsibility and liability stay with the human and the company; for consequential decisions a human stays in the loop.')}
+          ${callout('key', 'Key takeaway', 'AI governance is a leadership task: acceptable use policy, data protection, human oversight (human in the loop), transparency, fairness check and logging. Regulation thinks risk-based — the EU AI Act classifies applications by risk and ties the duties to that. Responsibility and liability always stay with the human and the company, never "with the model".')}
+          ${renderQuestions('lead_l8_2', 6)}
+          ${renderBonus('lead_l8_2')}
+        `
+      },
+      {
+        id: 'lead_l8_3', title: 'KI-gestützte Entwicklung führen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lektion 3</div>
+            <h1 class="lesson-title">KI-gestützte Entwicklung führen</h1>
+            <p class="lesson-desc">KI-Assistenten und -Agenten steigern die Produktivität — wenn Führung Qualität, Sicherheit und echten Nutzen im Blick behält.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Produktivität ja — Verantwortung bleibt beim Menschen</div>
+            <div class="explanation">
+              <strong>KI-Assistenten und -Agenten</strong> können die Produktivität real steigern: Sie entwerfen Code, erklären Zusammenhänge und übernehmen Routinearbeit. Doch <strong>Qualität und Sicherheit</strong> müssen gesichert bleiben. Der Grundsatz: Die <strong>Entwicklerin bleibt für den Code verantwortlich, den sie übernimmt</strong>.<br><br>
+              Daraus folgt eine <strong>Review-Pflicht</strong> — keine blinde Übernahme von Vorschlägen. Ein Vorschlag, der kompiliert, ist nicht automatisch richtig, sicher oder wartbar. Was man nicht erklären kann, übernimmt man nicht.
+            </div>
+          </div>
+          ${quickCheck('Wer verantwortet den von einem KI-Assistenten vorgeschlagenen Code?', ['Die Entwicklerin, die ihn übernimmt — mit Review-Pflicht statt blinder Übernahme', 'Der Anbieter des KI-Assistenten', 'Niemand, solange der Code kompiliert'], 0, 'Die Verantwortung bleibt bei der Person, die den Vorschlag übernimmt. Ein Vorschlag wird geprüft wie jeder andere Code; was man nicht erklären kann, übernimmt man nicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Qualitätslatte und Leitplanken setzen</div>
+            <div class="explanation">
+              Als Leitung setzt man eine klare <strong>Qualitätslatte</strong> für Agenten-Ausgaben und macht transparent, <strong>wann man übersteuert</strong> — welche Entscheidungen ein Mensch trifft und welche ein Agent treffen darf. Das schafft Tempo <em>und</em> Sicherheit.<br><br>
+              Getragen wird das von <strong>Richtlinien und Leitplanken</strong>: ein <strong>Review-Gate</strong>, an dem jeder KI-Vorschlag verstanden, geprüft, getestet und verantwortet wird, bevor er in die Codebasis gelangt. Leitplanken engen nicht ein — sie machen schnellen Einsatz überhaupt erst verantwortbar.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Review-Gate für KI-Vorschläge</span></div>
+              <div class="code-pre">Review-Gate fuer KI-Vorschlaege:
+  1. verstehen   : nur uebernehmen, was man erklaeren kann
+  2. pruefen     : Sicherheit, Lizenz, Aktualitaet
+  3. testen      : wie jeden anderen Code
+  4. verantworten: Autorin haftet, nicht das Werkzeug
+Messen: echter Nutzen (Wert, Qualitaet) statt Zeilen/Stunde</div>
+            </div>
+          </div>
+          ${quickCheck('Was leistet ein „Review-Gate" für KI-Vorschläge?', ['Es stellt sicher, dass jeder Vorschlag verstanden, geprüft, getestet und verantwortet wird, bevor er in die Codebasis gelangt', 'Es übernimmt KI-Vorschläge automatisch, wenn sie kompilieren', 'Es misst nur die Zahl erzeugter Codezeilen'], 0, 'Ein Review-Gate ist eine Leitplanke: verstehen, prüfen (Sicherheit, Lizenz, Aktualität), testen, verantworten. So bleibt schneller KI-Einsatz verantwortbar.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Gefahren im Blick — und den echten Nutzen messen</div>
+            <div class="explanation">
+              Drei Gefahren behält man im Auge: <strong>unsichere oder veraltete Vorschläge</strong>, <strong>Lizenz- und Urheberrechtsfragen</strong> bei generiertem Code und die <strong>Kompetenz-Erosion</strong> — das Risiko, dass Jüngere Grundlagen nicht mehr lernen, weil der Assistent sie scheinbar überflüssig macht.<br><br>
+              Gesund bleibt der Einsatz, wenn man den <strong>echten Nutzen misst</strong>: Wert, Qualität und Durchlaufzeit — nicht <strong>Zeilen pro Stunde</strong>. Mehr Code ist kein Fortschritt; weniger, besserer Code oft schon. Richtlinien, Leitplanken und die richtige Messgröße halten KI-gestützte Entwicklung dauerhaft gesund.
+            </div>
+          </div>
+          ${quickCheck('Woran misst man den Nutzen KI-gestützter Entwicklung sinnvoll?', ['Am echten Ergebnis — Wert, Qualität und Durchlaufzeit, nicht an Zeilen pro Stunde', 'An der Zahl erzeugter Codezeilen pro Stunde', 'An der Zahl der eingesetzten KI-Werkzeuge'], 0, 'Zeilen pro Stunde belohnen Masse, nicht Wert. Sinnvoll misst man am echten Ergebnis: Wert, Qualität und Durchlaufzeit. Weniger, besserer Code ist oft der größere Fortschritt.')}
+          ${callout('key', 'Merksatz', 'KI-Assistenten und -Agenten steigern die Produktivität real, aber die Entwicklerin bleibt für übernommenen Code verantwortlich — Review-Pflicht, keine blinde Übernahme. Führung setzt eine Qualitätslatte, Richtlinien und ein Review-Gate und macht klar, wann übersteuert wird. Gefahren im Blick behalten: unsichere Vorschläge, Lizenzfragen, Kompetenz-Erosion — und den echten Nutzen messen (Wert und Qualität), nicht Zeilen pro Stunde.')}
+          ${renderQuestions('lead_l8_3', 6)}
+          ${renderBonus('lead_l8_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 8 · Lesson 3</div>
+            <h1 class="lesson-title">Leading AI-assisted development</h1>
+            <p class="lesson-desc">AI assistants and agents raise productivity — when leadership keeps quality, security and real benefit in view.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Productivity yes — responsibility stays with the human</div>
+            <div class="explanation">
+              <strong>AI assistants and agents</strong> can genuinely raise productivity: they draft code, explain context and take over routine work. But <strong>quality and security</strong> must stay secured. The principle: the <strong>developer stays responsible for the code they adopt</strong>.<br><br>
+              From this follows a <strong>duty to review</strong> — no blind adoption of suggestions. A suggestion that compiles is not automatically correct, secure or maintainable. What you cannot explain, you do not adopt.
+            </div>
+          </div>
+          ${quickCheck('Who is responsible for the code suggested by an AI assistant?', ['The developer who adopts it — with a duty to review instead of blind adoption', 'The vendor of the AI assistant', 'Nobody, as long as the code compiles'], 0, 'Responsibility stays with the person who adopts the suggestion. A suggestion is reviewed like any other code; what you cannot explain, you do not adopt.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Set a quality bar and guardrails</div>
+            <div class="explanation">
+              As leadership you set a clear <strong>quality bar</strong> for agent output and make transparent <strong>when you override</strong> — which decisions a human makes and which an agent may make. That creates speed <em>and</em> safety.<br><br>
+              It rests on <strong>policies and guardrails</strong>: a <strong>review gate</strong> where every AI suggestion is understood, checked, tested and owned before it reaches the codebase. Guardrails do not constrain — they are what makes fast use accountable in the first place.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Review gate for AI suggestions</span></div>
+              <div class="code-pre">Review gate for AI suggestions:
+  1. understand : accept only what you can explain
+  2. check      : security, licence, up-to-dateness
+  3. test       : like any other code
+  4. own it     : the author is liable, not the tool
+Measure: real value (quality) instead of lines per hour</div>
+            </div>
+          </div>
+          ${quickCheck('What does a review gate for AI suggestions achieve?', ['It ensures every suggestion is understood, checked, tested and owned before it reaches the codebase', 'It adopts AI suggestions automatically when they compile', 'It only measures the number of generated lines of code'], 0, 'A review gate is a guardrail: understand, check (security, licence, up-to-dateness), test, own it. That keeps fast AI use accountable.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Keep the dangers in view — and measure the real benefit</div>
+            <div class="explanation">
+              Three dangers to keep an eye on: <strong>insecure or outdated suggestions</strong>, <strong>licence and copyright questions</strong> around generated code, and <strong>competence erosion</strong> — the risk that juniors no longer learn the fundamentals because the assistant seems to make them unnecessary.<br><br>
+              The use stays healthy when you <strong>measure the real benefit</strong>: value, quality and lead time — not <strong>lines per hour</strong>. More code is not progress; less, better code often is. Policies, guardrails and the right metric keep AI-assisted development healthy over time.
+            </div>
+          </div>
+          ${quickCheck('How do you sensibly measure the benefit of AI-assisted development?', ['By the real outcome — value, quality and lead time, not lines per hour', 'By the number of generated lines of code per hour', 'By the number of AI tools in use'], 0, 'Lines per hour reward volume, not value. You sensibly measure by the real outcome: value, quality and lead time. Less, better code is often the greater progress.')}
+          ${callout('key', 'Key takeaway', 'AI assistants and agents genuinely raise productivity, but the developer stays responsible for adopted code — a duty to review, no blind adoption. Leadership sets a quality bar, policies and a review gate and makes clear when it overrides. Keep the dangers in view: insecure suggestions, licence questions, competence erosion — and measure the real benefit (value and quality), not lines per hour.')}
+          ${renderQuestions('lead_l8_3', 6)}
+          ${renderBonus('lead_l8_3')}
+        `
+      },
+    ]
+  },
 ];
 
 // ============================================================
@@ -35924,6 +36202,69 @@ QUESTION_POOLS['lead_l7_4'] = [
     {t:'Weil ein Anbieter, mit dem man im Gespräch bleibt, im Problemfall anders reagiert als eine reine Rechnung',t_en:'Because a vendor you stay in conversation with reacts differently in a problem than a mere bill',correct:true,why:'Genau. Regelmäßige Reviews und klare Erwartungen zahlen sich gerade dann aus, wenn es schwierig wird.',why_en:'Exactly. Regular reviews and clear expectations pay off precisely when things get difficult.'},
     {t:'Weil man dadurch nie wieder über den Preis verhandeln muss',t_en:'Because that way you never have to negotiate the price again',correct:false,why:'Nein. Partnerschaft ersetzt keine Verhandlung; sie verbessert die Zusammenarbeit.',why_en:'No. Partnership does not replace negotiation; it improves the cooperation.'},
     {t:'Weil eine Partnerschaft jede technische Prüfung überflüssig macht',t_en:'Because a partnership makes any technical check superfluous',correct:false,why:'Nein. Due Diligence und klare SLAs bleiben trotzdem nötig.',why_en:'No. Due diligence and clear SLAs remain necessary nonetheless.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l8_1'] = [
+  {id:'p_lead_l8_1_mc1',type:'mc',xp:10,question:'Womit beginnt eine gute <strong>KI-Strategie</strong>?',question_en:'What does a good <strong>AI strategy</strong> begin with?',options:[
+    {t:'Mit der Frage, wo KI echten, messbaren Wert schafft — nicht, wo sie aus Hype beeindruckt',t_en:'With the question where AI creates real, measurable value — not where it impresses out of hype',correct:true,why:'Genau. Erst der Anwendungsfall mit klarem Nutzen, dann die Wahl der Technik.',why_en:'Exactly. First the use case with a clear benefit, then the choice of technology.'},
+    {t:'Mit der Wahl des größten verfügbaren Basismodells',t_en:'With choosing the biggest available base model',correct:false,why:'Nein. Eine Lösung, die eine Technologie sucht, ist meist teuer und wirkungslos.',why_en:'No. A solution looking for a technology is usually expensive and ineffective.'},
+    {t:'Damit, möglichst viele KI-Werkzeuge gleichzeitig einzuführen',t_en:'With rolling out as many AI tools as possible at once',correct:false,why:'Nein. Werkzeugmenge ist kein Wert; der Nutzen zählt.',why_en:'No. The number of tools is not value; the benefit counts.'}
+  ]},
+  {id:'p_lead_l8_1_mc2',type:'mc',xp:10,question:'Was ist im KI-Zeitalter oft der eigentliche <strong>Burggraben</strong>?',question_en:'What is often the real <strong>moat</strong> in the AI era?',options:[
+    {t:'Die eigenen Daten und die Verteilung — nicht das Basismodell selbst',t_en:'Your own data and distribution — not the base model itself',correct:true,why:'Genau. Das Modell kann bald jeder mieten; Daten und Verteilung sind schwerer zu kopieren.',why_en:'Exactly. Soon anyone can rent the model; data and distribution are harder to copy.'},
+    {t:'Allein das neueste und größte Basismodell',t_en:'Solely the newest and biggest base model',correct:false,why:'Nein. Basismodelle werden zur mietbaren Grundfähigkeit.',why_en:'No. Base models become a rentable basic capability.'},
+    {t:'Die Zahl der Mitarbeitenden im KI-Team',t_en:'The headcount of the AI team',correct:false,why:'Nein. Größe allein schafft keinen Vorsprung.',why_en:'No. Size alone creates no lead.'}
+  ]},
+  {id:'p_lead_l8_1_tf1',type:'truefalse',xp:8,statement:'Ein fertiges Basismodell zu nutzen (buy) ist meist schneller und günstiger, als selbst eines zu bauen.',statement_en:'Using a ready base model (buy) is usually faster and cheaper than building one yourself.',correct:true,explanation:'Richtig. Die Grundfähigkeit liefert der Anbieter; selbst bauen lohnt nur bei echtem Wettbewerbsvorteil.',explanation_en:'Correct. The vendor supplies the basic capability; building yourself pays off only for a real competitive advantage.'},
+  {id:'p_lead_l8_1_tf2',type:'truefalse',xp:8,statement:'KI-gestützte Entwicklung senkt automatisch das Risiko technischer Schulden.',statement_en:'AI-assisted development automatically lowers the risk of technical debt.',correct:false,explanation:'Falsch. Sie beschleunigt, kann aber technische Schulden erhöhen — Tempo gegen Wartbarkeit abwägen.',explanation_en:'False. It speeds things up but can raise technical debt — weigh speed against maintainability.'},
+  {id:'p_lead_l8_1_fb1',type:'fillblank',xp:12,prompt:'Pilotprojekte brauchen klare ___kriterien, um nicht als wirkungsloser „Piloten-Friedhof" zu enden (ein Wort).',prompt_en:'Pilots need clear ___ criteria so as not to end up as an ineffective pilot graveyard (one word).',answers:['Erfolgs','Erfolg','Erfolgskriterien','erfolgs','success','Success'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Vorab definierte <strong>Erfolgskriterien</strong> machen aus Piloten Lernschritte statt Dauerversuche ohne Wirkung.',explanation_en:'<strong>Success</strong> criteria defined up front turn pilots into learning steps instead of forever-experiments without effect.'},
+  {id:'p_lead_l8_1_bonus',type:'mc',xp:20,optional:true,question:'Wann lohnt es sich, ein KI-System <strong>selbst zu bauen</strong> statt einzukaufen?',question_en:'When is it worth <strong>building</strong> an AI system yourself instead of buying?',options:[
+    {t:'Nur dort, wo es einen echten, verteidigbaren Wettbewerbsvorteil bringt',t_en:'Only where it brings a real, defensible competitive advantage',correct:true,why:'Genau. Wo ein gemietetes Modell genauso gut ist, bindet Eigenbau nur Geld und Köpfe.',why_en:'Exactly. Where a rented model is just as good, building yourself only ties up money and people.'},
+    {t:'Immer, um von keinem Anbieter abhängig zu sein',t_en:'Always, to depend on no vendor',correct:false,why:'Nein. Alles selbst zu bauen bindet Kraft ohne Vorsprung.',why_en:'No. Building everything yourself binds energy without a lead.'},
+    {t:'Immer dann, wenn das eigene Team neugierig auf die Technik ist',t_en:'Whenever your own team is curious about the technology',correct:false,why:'Nein. Neugier ist kein Wettbewerbsvorteil und kein Strategiekriterium.',why_en:'No. Curiosity is not a competitive advantage nor a strategy criterion.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l8_2'] = [
+  {id:'p_lead_l8_2_mc1',type:'mc',xp:10,question:'Was ist <strong>KI-Governance</strong> in erster Linie?',question_en:'What is <strong>AI governance</strong> primarily?',options:[
+    {t:'Eine Führungsaufgabe mit festen Bausteinen — Richtlinie, Datenschutz, Aufsicht, Transparenz, Fairness-Prüfung, Protokollierung',t_en:'A leadership task with fixed building blocks — policy, data protection, oversight, transparency, fairness check, logging',correct:true,why:'Genau. Governance sorgt dafür, dass KI erklärbar, überprüfbar und korrigierbar bleibt.',why_en:'Exactly. Governance ensures AI stays explainable, checkable and correctable.'},
+    {t:'Eine rein technische Aufgabe des Entwicklungsteams',t_en:'A purely technical task of the development team',correct:false,why:'Nein. Governance ist Führungsaufgabe, nicht Beiwerk im Kleingedruckten.',why_en:'No. Governance is a leadership task, not an accessory in the fine print.'},
+    {t:'Ein Werkzeug, das Risiken automatisch beseitigt',t_en:'A tool that removes risks automatically',correct:false,why:'Nein. Werkzeuge helfen, ersetzen aber keine Regeln und keine Aufsicht.',why_en:'No. Tools help but do not replace rules and oversight.'}
+  ]},
+  {id:'p_lead_l8_2_mc2',type:'mc',xp:10,question:'Wie ordnet der <strong>EU AI Act</strong> Anwendungen ein?',question_en:'How does the <strong>EU AI Act</strong> classify applications?',options:[
+    {t:'Risikobasiert — nach Risikostufen (verbotene, hochriskante, geringere) mit abgestuften Pflichten',t_en:'Risk-based — by risk tiers (prohibited, high-risk, lower) with graduated duties',correct:true,why:'Genau. Je höher das Risiko, desto strenger die Auflagen.',why_en:'Exactly. The higher the risk, the stricter the obligations.'},
+    {t:'Nach der Größe und Bekanntheit des Anbieters',t_en:'By the size and fame of the vendor',correct:false,why:'Nein. Maßgeblich ist das Risiko der Anwendung, nicht der Anbieter.',why_en:'No. What matters is the risk of the application, not the vendor.'},
+    {t:'Allein nach dem Preis der Lösung',t_en:'Solely by the price of the solution',correct:false,why:'Nein. Der Preis ist kein Risikomaß.',why_en:'No. Price is not a measure of risk.'}
+  ]},
+  {id:'p_lead_l8_2_tf1',type:'truefalse',xp:8,statement:'Sensible oder personenbezogene Daten dürfen unkontrolliert in fremde Modelle gegeben werden, solange es schnell geht.',statement_en:'Sensitive or personal data may be handed uncontrolled into external models as long as it is fast.',correct:false,explanation:'Falsch. Datenschutz verbietet das; die Richtlinie zur akzeptablen Nutzung regelt, was womit erlaubt ist.',explanation_en:'False. Data protection forbids it; the acceptable use policy governs what is allowed with what.'},
+  {id:'p_lead_l8_2_tf2',type:'truefalse',xp:8,statement:'Bei folgenreichen Entscheidungen soll ein Mensch in der Schleife bleiben (human in the loop).',statement_en:'For consequential decisions a human should stay in the loop (human in the loop).',correct:true,explanation:'Richtig. Ein Mensch prüft, kann übersteuern und verantwortet die Entscheidung.',explanation_en:'Correct. A human checks, can override and owns the decision.'},
+  {id:'p_lead_l8_2_fb1',type:'fillblank',xp:12,prompt:'Verantwortung und ___ bleiben beim Menschen und beim Unternehmen, nie „beim Modell" (ein Wort).',prompt_en:'Responsibility and ___ stay with the human and the company, never with the model (one word).',answers:['Haftung','haftung','liability','Liability'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Ein Modell ist ein Werkzeug und kann nicht haften. <strong>Haftung</strong> und Verantwortung bleiben beim Menschen und beim Unternehmen.',explanation_en:'A model is a tool and cannot be liable. <strong>Liability</strong> and responsibility stay with the human and the company.'},
+  {id:'p_lead_l8_2_bonus',type:'mc',xp:20,optional:true,question:'Was bedeutet <strong>human in the loop</strong> in der KI-Governance?',question_en:'What does <strong>human in the loop</strong> mean in AI governance?',options:[
+    {t:'Ein Mensch prüft und verantwortet folgenreiche Entscheidungen, statt sie dem Modell allein zu überlassen',t_en:'A human checks and owns consequential decisions instead of leaving them to the model alone',correct:true,why:'Genau. Der Mensch kann übersteuern und steht am Ende gerade.',why_en:'Exactly. The human can override and answers for it in the end.'},
+    {t:'Das Modell trainiert sich während der Nutzung selbst weiter',t_en:'The model keeps training itself during use',correct:false,why:'Nein. Das beschreibt kein Aufsichtsprinzip, sondern eine technische Eigenschaft.',why_en:'No. That describes no oversight principle but a technical property.'},
+    {t:'Nutzer dürfen nur über ein Formular mit der KI sprechen',t_en:'Users may only talk to the AI through a form',correct:false,why:'Nein. Human in the loop meint menschliche Aufsicht, nicht die Art der Eingabe.',why_en:'No. Human in the loop means human oversight, not the kind of input.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l8_3'] = [
+  {id:'p_lead_l8_3_mc1',type:'mc',xp:10,question:'Wer verantwortet den von einem <strong>KI-Assistenten</strong> vorgeschlagenen Code?',question_en:'Who is responsible for the code suggested by an <strong>AI assistant</strong>?',options:[
+    {t:'Die Entwicklerin, die ihn übernimmt — mit Review-Pflicht statt blinder Übernahme',t_en:'The developer who adopts it — with a duty to review instead of blind adoption',correct:true,why:'Genau. Was man nicht erklären kann, übernimmt man nicht.',why_en:'Exactly. What you cannot explain, you do not adopt.'},
+    {t:'Der Anbieter des KI-Assistenten',t_en:'The vendor of the AI assistant',correct:false,why:'Nein. Die Verantwortung bleibt bei der Person, die den Code übernimmt.',why_en:'No. Responsibility stays with the person who adopts the code.'},
+    {t:'Niemand, solange der Code kompiliert',t_en:'Nobody, as long as the code compiles',correct:false,why:'Nein. Kompilieren heißt nicht richtig, sicher oder wartbar.',why_en:'No. Compiling does not mean correct, secure or maintainable.'}
+  ]},
+  {id:'p_lead_l8_3_mc2',type:'mc',xp:10,question:'Woran misst man den Nutzen <strong>KI-gestützter Entwicklung</strong> sinnvoll?',question_en:'How do you sensibly measure the benefit of <strong>AI-assisted development</strong>?',options:[
+    {t:'Am echten Ergebnis — Wert, Qualität und Durchlaufzeit, nicht an Zeilen pro Stunde',t_en:'By the real outcome — value, quality and lead time, not lines per hour',correct:true,why:'Genau. Mehr Code ist kein Fortschritt; weniger, besserer Code oft schon.',why_en:'Exactly. More code is not progress; less, better code often is.'},
+    {t:'An der Zahl erzeugter Codezeilen pro Stunde',t_en:'By the number of generated lines of code per hour',correct:false,why:'Nein. Zeilen pro Stunde belohnen Masse, nicht Wert.',why_en:'No. Lines per hour reward volume, not value.'},
+    {t:'An der Zahl der eingesetzten KI-Werkzeuge',t_en:'By the number of AI tools in use',correct:false,why:'Nein. Werkzeugmenge sagt nichts über den Nutzen.',why_en:'No. The number of tools says nothing about the benefit.'}
+  ]},
+  {id:'p_lead_l8_3_tf1',type:'truefalse',xp:8,statement:'Vorschläge eines KI-Assistenten darf man blind übernehmen, solange der Code kompiliert.',statement_en:'You may adopt an AI assistant suggestion blindly as long as the code compiles.',correct:false,explanation:'Falsch. Es gilt eine Review-Pflicht: verstehen, prüfen, testen, verantworten.',explanation_en:'False. A duty to review applies: understand, check, test, own it.'},
+  {id:'p_lead_l8_3_tf2',type:'truefalse',xp:8,statement:'Generierter Code kann Lizenz- und Urheberrechtsfragen aufwerfen.',statement_en:'Generated code can raise licence and copyright questions.',correct:true,explanation:'Richtig. Herkunft und Lizenz generierter Vorschläge gehören zur Prüfung am Review-Gate.',explanation_en:'Correct. The origin and licence of generated suggestions belong to the check at the review gate.'},
+  {id:'p_lead_l8_3_fb1',type:'fillblank',xp:12,prompt:'Wenn Jüngere Grundlagen nicht mehr lernen, droht eine Kompetenz-___ (ein Wort).',prompt_en:'If juniors no longer learn the fundamentals, competence ___ threatens (one word).',answers:['Erosion','erosion'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Kompetenz-Erosion</strong> ist das Risiko, dass Grundlagen verlernt werden, weil der Assistent sie scheinbar überflüssig macht.',explanation_en:'Competence <strong>erosion</strong> is the risk that fundamentals are unlearned because the assistant seems to make them unnecessary.'},
+  {id:'p_lead_l8_3_bonus',type:'mc',xp:20,optional:true,question:'Welche <strong>Leitplanke</strong> hält den Einsatz von KI-Agenten gesund?',question_en:'Which <strong>guardrail</strong> keeps the use of AI agents healthy?',options:[
+    {t:'Eine klare Qualitätslatte plus Review-Gate — und die Messung des echten Nutzens',t_en:'A clear quality bar plus review gate — and measuring the real benefit',correct:true,why:'Genau. So bleibt schneller Einsatz verantwortbar und wertorientiert.',why_en:'Exactly. That keeps fast use accountable and value-oriented.'},
+    {t:'Das Abschalten jeder menschlichen Prüfung, um Tempo zu gewinnen',t_en:'Switching off every human check to gain speed',correct:false,why:'Nein. Ohne Review-Gate wächst das Risiko unsicherer Übernahmen.',why_en:'No. Without a review gate the risk of insecure adoptions grows.'},
+    {t:'Die Belohnung möglichst vieler erzeugter Codezeilen',t_en:'Rewarding as many generated lines of code as possible',correct:false,why:'Nein. Zeilen pro Stunde ist die falsche Messgröße.',why_en:'No. Lines per hour is the wrong metric.'}
   ]}
 ];
 
