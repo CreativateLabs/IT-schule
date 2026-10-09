@@ -25873,6 +25873,247 @@ Opposite: big rewrite = all new at once, high risk</div>
           ${renderBonus('lead_l2_4')}
         `
       },
+      {
+        id: 'lead_l2_5', title: 'Architektur-Governance: Prinzipien & Fitness Functions',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 5</div>
+            <h1 class="lesson-title">Architektur-Governance: Prinzipien & Fitness Functions</h1>
+            <p class="lesson-desc">Ein CTO lenkt Architektur, ohne jede Entscheidung selbst zu treffen. Wenige klare Prinzipien rahmen das Feld vorab, automatisierte Fitness Functions machen Architektur testbar.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Lenken statt mikromanagen: Architektur-Prinzipien</div>
+            <div class="explanation">
+              Ein CTO lenkt Architektur, indem er <strong>wenige klare Prinzipien</strong> setzt, die Entscheidungen vorab rahmen — nicht, indem er jede einzelne Entscheidung freigibt. Prinzipien sind <strong>Leitplanken</strong> (etwa „bevorzuge Austauschbarkeit vor Wiederverwendung" oder „jeder Dienst besitzt seine Daten allein"), keine Einzelfreigaben. Das Team entscheidet selbst, solange es innerhalb der Leitplanken bleibt — und muss eine Abweichung <strong>begründen</strong>, statt vorher um Erlaubnis zu fragen.<br><br>
+              Ein nützliches Werkzeug ist die <strong>„paved road"</strong>: ein empfohlener, gut unterstützter Standardweg, der das Richtige zum einfachsten Weg macht. Wer ihn geht, bekommt Tooling, Beispiele und Support geschenkt. Abweichung bleibt erlaubt, kostet aber eine bewusste Begründung — so entsteht Richtung ohne Zwang.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Architektur-Prinzipien (Skizze)</span></div>
+              <div class="code-pre">Prinzip 1: Austauschbarkeit vor Wiederverwendung
+Prinzip 2: Jeder Dienst besitzt seine Daten allein
+Prinzip 3: Synchron nur, wenn der Nutzer sofort wartet
+
+paved road = empfohlener Standardweg (der einfachste Weg)
+Abweichung erlaubt -&gt; aber begruenden, nicht vorher fragen</div>
+            </div>
+          </div>
+          ${callout('tip', 'Leitplanken statt Einzelfreigaben', 'Ein Prinzip rahmt hunderte Entscheidungen vorab, die der CTO nie einzeln sieht. Wer stattdessen jede Entscheidung selbst freigibt, wird zum Flaschenhals — und das Team hoert auf, selbst mitzudenken.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Architektur testbar machen: Fitness Functions</div>
+            <div class="explanation">
+              Eine <strong>Architecture Fitness Function</strong> ist eine automatisierte, laufende Prüfung einer architektonischen Eigenschaft — etwa erlaubte Abhängigkeiten zwischen Modulen, maximale Antwortzeiten oder eine Sicherheitsgrenze. Sie läuft in der Pipeline mit und meldet einen <strong>Verstoß früh</strong>, genau wie ein Test eine fachliche Regression meldet.<br><br>
+              So wird Architektur <strong>testbar und evolutionär</strong>: Statt auf ein Diagramm an der Wand zu hoffen, prüft man die gewünschten Eigenschaften kontinuierlich. Verletzt ein Commit eine Regel — greift etwa die Oberflächen-Schicht direkt auf die Datenbank zu — schlägt die Prüfung fehl, bevor der Verstoß einwächst und teuer wird.
+            </div>
+          </div>
+          ${quickCheck('Was leistet eine Architecture Fitness Function?', ['Sie prüft eine architektonische Eigenschaft automatisiert und laufend und meldet Verstöße früh', 'Sie ersetzt alle Architektur-Entscheidungen durch ein einmaliges Diagramm an der Wand', 'Sie misst allein die optische Schönheit einzelner Code-Dateien'], 0, 'Fitness Functions machen Architektur testbar: Sie prüfen gewünschte Eigenschaften kontinuierlich in der Pipeline und melden Verstöße, bevor sie einwachsen.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Wann der CTO selbst eingreift</div>
+            <div class="explanation">
+              Die meisten Entscheidungen bleiben beim Team. Der CTO greift gezielt dort ein, wo eine Entscheidung <strong>schwer umkehrbar und weitreichend</strong> ist — eine One-Way-Door mit großem Radius: die Wahl eines zentralen Datenmodells, der Integrationsweise zwischen allen Diensten oder einer Sicherheits- und Compliance-Grenze. Solche Entscheidungen verdienen mehr Sorgfalt, mehr Beteiligung und ein festgehaltenes Warum.<br><br>
+              Genau dafür dient ein <strong>Architecture Decision Record (ADR)</strong>: eine kurze, datierte Notiz, die Entscheidung, Alternativen und Konsequenzen festhält (ausführlich in Phase 4). Leicht umkehrbare Entscheidungen dagegen delegiert der CTO schnell — Prinzipien und Fitness Functions fangen sie ohnehin auf.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Wann eingreifen? (Skizze)</span></div>
+              <div class="code-pre">leicht umkehrbar + kleiner Radius -&gt; Team entscheidet schnell
+schwer umkehrbar + grosser Radius -&gt; CTO beteiligt, ADR schreiben
+
+Leitplanken (Prinzipien + Fitness Functions) fangen den Rest</div>
+            </div>
+          </div>
+          ${quickCheck('Bei welchen Entscheidungen mischt sich ein CTO am ehesten selbst ein?', ['Bei schwer umkehrbaren, weitreichenden Entscheidungen mit großem Radius', 'Bei jeder einzelnen Bibliotheks-Wahl in jedem Team', 'Gar nicht — Architektur ist allein Sache der Teams'], 0, 'Reversible Entscheidungen werden schnell delegiert; schwer umkehrbare mit großem Radius verdienen Sorgfalt, Beteiligung und ein ADR.')}
+          ${callout('key', 'Merksatz', 'Lenke Architektur mit wenigen klaren Prinzipien und automatisierten Fitness Functions statt mit Einzelfreigaben — und greif nur bei schwer umkehrbaren, weitreichenden Entscheidungen selbst ein.')}
+          ${renderQuestions('lead_l2_5', 10)}
+          ${renderBonus('lead_l2_5')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 5</div>
+            <h1 class="lesson-title">Architecture Governance: Principles & Fitness Functions</h1>
+            <p class="lesson-desc">A CTO steers architecture without making every decision personally. A few clear principles frame the field in advance, and automated fitness functions make architecture testable.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Steer instead of micromanage: architecture principles</div>
+            <div class="explanation">
+              A CTO steers architecture by setting <strong>a few clear principles</strong> that frame decisions in advance — not by approving every single decision. Principles are <strong>guardrails</strong> (for example "prefer replaceability over reuse" or "each service owns its data alone"), not individual approvals. The team decides on its own as long as it stays within the guardrails — and has to <strong>justify</strong> a deviation instead of asking permission beforehand.<br><br>
+              A useful tool is the <strong>"paved road"</strong>: a recommended, well-supported standard path that makes the right thing the easiest thing. Whoever takes it gets tooling, examples and support for free. Deviation stays allowed but costs a deliberate justification — so direction emerges without coercion.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Architecture principles (sketch)</span></div>
+              <div class="code-pre">Principle 1: Replaceability over reuse
+Principle 2: Each service owns its data alone
+Principle 3: Synchronous only when the user waits right now
+
+paved road = recommended standard path (the easiest way)
+deviation allowed -&gt; but justify it, do not ask first</div>
+            </div>
+          </div>
+          ${callout('tip', 'Guardrails, not individual approvals', 'A principle frames hundreds of decisions in advance that the CTO never sees one by one. Whoever approves every decision personally instead becomes the bottleneck — and the team stops thinking for itself.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Make architecture testable: fitness functions</div>
+            <div class="explanation">
+              An <strong>architecture fitness function</strong> is an automated, continuous check of an architectural property — for example allowed dependencies between modules, maximum response times or a security boundary. It runs in the pipeline and reports a <strong>violation early</strong>, just as a test reports a functional regression.<br><br>
+              That makes architecture <strong>testable and evolutionary</strong>: instead of hoping for a diagram on the wall, you check the desired properties continuously. If a commit breaks a rule — say the UI layer reaches straight into the database — the check fails before the violation grows in and becomes expensive.
+            </div>
+          </div>
+          ${quickCheck('What does an architecture fitness function do?', ['It checks an architectural property automatically and continuously and reports violations early', 'It replaces all architecture decisions with a one-time diagram on the wall', 'It measures only the visual beauty of individual code files'], 0, 'Fitness functions make architecture testable: they check desired properties continuously in the pipeline and report violations before they grow in.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">When the CTO steps in personally</div>
+            <div class="explanation">
+              Most decisions stay with the team. The CTO steps in deliberately where a decision is <strong>hard to reverse and far-reaching</strong> — a one-way door with a large radius: choosing a central data model, the way all services integrate or a security and compliance boundary. Such decisions deserve more care, more involvement and a recorded why.<br><br>
+              That is exactly what an <strong>architecture decision record (ADR)</strong> is for: a short, dated note that captures the decision, alternatives and consequences (covered in depth in phase 4). Easily reversible decisions, by contrast, the CTO delegates fast — principles and fitness functions catch them anyway.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">When to step in? (sketch)</span></div>
+              <div class="code-pre">easy to reverse + small radius -&gt; team decides fast
+hard to reverse + large radius -&gt; CTO involved, write an ADR
+
+guardrails (principles + fitness functions) catch the rest</div>
+            </div>
+          </div>
+          ${quickCheck('For which decisions is a CTO most likely to step in personally?', ['For hard-to-reverse, far-reaching decisions with a large radius', 'For every single library choice in every team', 'Not at all — architecture is solely the teams\' business'], 0, 'Reversible decisions are delegated fast; hard-to-reverse ones with a large radius deserve care, involvement and an ADR.')}
+          ${callout('key', 'Key line', 'Steer architecture with a few clear principles and automated fitness functions instead of individual approvals — and step in personally only for hard-to-reverse, far-reaching decisions.')}
+          ${renderQuestions('lead_l2_5', 10)}
+          ${renderBonus('lead_l2_5')}
+        `
+      },
+      {
+        id: 'lead_l2_6', title: 'Innovation & das 3-Horizonte-Modell',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lektion 6</div>
+            <h1 class="lesson-title">Innovation & das 3-Horizonte-Modell</h1>
+            <p class="lesson-desc">Ein CTO balanciert das heutige Geschäft gegen die Zukunft. Drei Horizonte, ein geschütztes Innovationsbudget und ein Portfolio kleiner Wetten halten beides in der Waage.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Heute liefern und Zukunft bauen: die drei Horizonte</div>
+            <div class="explanation">
+              Ein CTO balanciert das <strong>heutige Geschäft</strong> gegen die <strong>Zukunft</strong>. Das <strong>3-Horizonte-Modell</strong> hilft dabei: Horizont 1 (H1) optimiert das Kerngeschäft, das heute den Umsatz trägt; Horizont 2 (H2) baut aufstrebende Chancen aus, die in ein bis zwei Jahren tragen könnten; Horizont 3 (H3) sind Experimente und Wetten auf übermorgen. Alle drei brauchen <strong>gleichzeitig</strong> Aufmerksamkeit — nicht nacheinander.<br><br>
+              Dahinter steht die Balance von <strong>Ausbeuten (exploit)</strong> und <strong>Erkunden (explore)</strong>: das Bestehende effizient nutzen und zugleich Neues erkunden. Das ist kein Entweder-Oder, sondern eine <strong>Portfolio-Balance</strong> — wer nur ausbeutet, verpasst die Zukunft; wer nur erkundet, verliert das Heute.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">3 Horizonte (Skizze)</span></div>
+              <div class="code-pre">H1  Kerngeschaeft optimieren   | traegt den Umsatz heute
+H2  Chancen ausbauen           | traegt in 1-2 Jahren
+H3  Experimente / Wetten       | Option auf uebermorgen
+
+exploit (ausbeuten)  vs  explore (erkunden)
+Balance statt Entweder-Oder</div>
+            </div>
+          </div>
+          ${callout('tip', 'Schütze das Innovationsbudget', 'Ohne fest geschuetztes Budget frisst das Dringende (H1) immer die Zukunft (H2 und H3) — der naechste Quartalsdruck gewinnt jeden Wettlauf. Innovation entsteht nur, wenn ihr Anteil bewusst reserviert und verteidigt wird.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Wetten-Denken: viele kleine, wenige große</div>
+            <div class="explanation">
+              Zukunft plant man nicht als ein großes Projekt, sondern als <strong>Portfolio von Wetten</strong>: viele kleine, einige mittlere, wenige große. Die meisten Wetten werden scheitern — und das ist in Ordnung, solange man <strong>früh und billig scheitert</strong>, bevor viel Kapital gebunden ist. Eine kleine Wette, die scheitert, kostet Tage; eine große, die zu lange ungeprüft läuft, kostet das Unternehmen.<br><br>
+              Das Prinzip ist, Unsicherheit in <strong>kleinen, günstigen Schritten</strong> zu kaufen: erst ein billiges Experiment, das die riskanteste Annahme prüft, dann — nur bei Erfolg — mehr investieren. So wandert das Geld dorthin, wo sich eine Wette bereits als tragfähig gezeigt hat.
+            </div>
+          </div>
+          ${quickCheck('Wie geht ein CTO mit Innovations-Wetten um?', ['Viele kleine, einige mittlere, wenige große Wetten — und früh und billig scheitern', 'Alles auf eine einzige große Wette setzen und möglichst lange durchhalten', 'Keine Wetten eingehen, bis eine Chance völlig sicher ist'], 0, 'Weil die meisten Wetten scheitern, kauft man Unsicherheit in kleinen, günstigen Schritten und investiert erst nach, wenn sich eine Wette als tragfähig zeigt.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Innovation ist mehr als Technik</div>
+            <div class="explanation">
+              Innovation ist oft kein neues Stück Technik, sondern ein neues <strong>Geschäftsmodell</strong> oder ein besserer <strong>Prozess</strong>. Eine veränderte Preislogik, ein reibungsloserer Ablauf oder ein neuer Kanal kann mehr Wert schaffen als jede neue Technologie. Ein CTO, der Innovation nur technisch denkt, übersieht die größten Hebel.<br><br>
+              Deshalb gehört H3 nicht in eine abgeschottete Ecke der Technik, sondern eng an <strong>Produkt und Geschäft</strong>. Die besten Wetten verbinden eine technische Möglichkeit mit einem echten Bedarf — die Technik ist das Mittel, der Wert für Nutzer und Geschäft ist der Zweck.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Wetten-Portfolio (Skizze)</span></div>
+              <div class="code-pre">viele kleine   -&gt; billig pruefen, meiste scheitern frueh
+einige mittlere -&gt; nachlegen, wenn sich etwas zeigt
+wenige grosse  -&gt; erst wenn die Annahme belegt ist
+
+Innovation = oft Geschaeftsmodell / Prozess, nicht nur Technik</div>
+            </div>
+          </div>
+          ${quickCheck('Warum ist Innovation nicht nur eine Frage der Technik?', ['Weil ein neues Geschäftsmodell oder ein besserer Prozess oft mehr Wert schafft als neue Technologie', 'Weil Technologie für Innovation völlig unwichtig ist', 'Weil allein das Marketing über Innovation entscheidet'], 0, 'Die größten Hebel liegen oft im Geschäftsmodell oder Prozess; die Technik ist Mittel, der Wert für Nutzer und Geschäft ist der Zweck.')}
+          ${callout('key', 'Merksatz', 'Halte alle drei Horizonte gleichzeitig in Balance, schütze das Innovationsbudget bewusst und setze viele kleine Wetten, die früh und billig scheitern dürfen — Innovation ist oft Geschäftsmodell und Prozess, nicht nur Technik.')}
+          ${renderQuestions('lead_l2_6', 10)}
+          ${renderBonus('lead_l2_6')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Lesson 6</div>
+            <h1 class="lesson-title">Innovation & the Three-Horizons Model</h1>
+            <p class="lesson-desc">A CTO balances today's business against the future. Three horizons, a protected innovation budget and a portfolio of small bets keep both in balance.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Deliver today and build the future: the three horizons</div>
+            <div class="explanation">
+              A CTO balances the <strong>business of today</strong> against the <strong>future</strong>. The <strong>three-horizons model</strong> helps: horizon 1 (H1) optimizes the core business that carries revenue today; horizon 2 (H2) builds up emerging opportunities that could carry in one to two years; horizon 3 (H3) is experiments and bets on the day after tomorrow. All three need attention <strong>at the same time</strong> — not one after another.<br><br>
+              Behind it stands the balance of <strong>exploit</strong> and <strong>explore</strong>: use the existing efficiently and explore the new at the same time. That is not an either-or but a <strong>portfolio balance</strong> — whoever only exploits misses the future; whoever only explores loses today.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Three horizons (sketch)</span></div>
+              <div class="code-pre">H1  optimize the core      | carries revenue today
+H2  build up opportunities | carries in 1-2 years
+H3  experiments / bets     | option on the day after
+
+exploit  vs  explore
+balance, not either-or</div>
+            </div>
+          </div>
+          ${callout('tip', 'Protect the innovation budget', 'Without a firmly protected budget, the urgent (H1) always eats the future (H2 and H3) — the next quarterly pressure wins every race. Innovation only happens when its share is deliberately reserved and defended.')}
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Bet thinking: many small, few large</div>
+            <div class="explanation">
+              You do not plan the future as one big project but as a <strong>portfolio of bets</strong>: many small, some medium, few large. Most bets will fail — and that is fine, as long as you <strong>fail early and cheaply</strong>, before much capital is tied up. A small bet that fails costs days; a large one that runs unchecked too long costs the company.<br><br>
+              The principle is to buy uncertainty in <strong>small, cheap steps</strong>: first a cheap experiment that tests the riskiest assumption, then — only on success — invest more. That way the money moves to where a bet has already shown itself viable.
+            </div>
+          </div>
+          ${quickCheck('How does a CTO handle innovation bets?', ['Many small, some medium, few large bets — and fail early and cheaply', 'Put everything on a single large bet and hold on as long as possible', 'Take no bets until an opportunity is completely certain'], 0, 'Because most bets fail, you buy uncertainty in small, cheap steps and invest more only once a bet has shown itself viable.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Innovation is more than technology</div>
+            <div class="explanation">
+              Innovation is often not a new piece of technology but a new <strong>business model</strong> or a better <strong>process</strong>. A changed pricing logic, a smoother workflow or a new channel can create more value than any new technology. A CTO who thinks of innovation only technically overlooks the biggest levers.<br><br>
+              That is why H3 does not belong in a sealed-off corner of engineering but close to <strong>product and business</strong>. The best bets connect a technical possibility with a real need — technology is the means, the value for users and business is the end.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Bet portfolio (sketch)</span></div>
+              <div class="code-pre">many small  -&gt; test cheaply, most fail early
+some medium -&gt; add more when something shows
+few large   -&gt; only once the assumption is proven
+
+innovation = often business model / process, not only tech</div>
+            </div>
+          </div>
+          ${quickCheck('Why is innovation not only a question of technology?', ['Because a new business model or a better process often creates more value than new technology', 'Because technology is completely unimportant for innovation', 'Because marketing alone decides on innovation'], 0, 'The biggest levers often lie in the business model or process; technology is the means, the value for users and business is the end.')}
+          ${callout('key', 'Key line', 'Keep all three horizons in balance at the same time, protect the innovation budget deliberately and place many small bets that may fail early and cheaply — innovation is often business model and process, not only technology.')}
+          ${renderQuestions('lead_l2_6', 10)}
+          ${renderBonus('lead_l2_6')}
+        `
+      },
+      {
+        id: 'lead_p2_exam', title: 'Phase 2 — Abschlussprüfung',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Prüfung</div>
+            <h1 class="lesson-title">Phase 2 — Abschlussprüfung</h1>
+            <p class="lesson-desc">Die kumulative Prüfung über die gesamte Phase 2: die CTO-Denkweise von Discovery bis Innovation — in einem gemischten Fragenset.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">So läuft die Abschlussprüfung</div>
+            <div class="explanation">
+              Dies ist die <strong>kumulative Abschlussprüfung</strong> über die ganze Phase 2. Sie zieht Fragen aus allen Themen quer: <strong>Discovery, das Nein & Risk-first</strong>, <strong>Delegation & Entscheidungsrechte</strong>, <strong>technische Strategie & Vision</strong>, <strong>technische Schulden</strong>, <strong>Architektur-Governance (Prinzipien & Fitness Functions)</strong> sowie <strong>Innovation & das 3-Horizonte-Modell</strong>.<br><br>
+              Du beantwortest <strong>15 gemischte Fragen</strong> (Multiple-Choice, Wahr/Falsch und Lückentext). <strong>Bestanden</strong> ist die Prüfung ab der Standardschwelle. Nimm dir Zeit, lies jede Frage genau — es gibt keine Bonusfrage, jede Frage zählt.
+            </div>
+          </div>
+          ${renderQuestions('lead_p2_exam', 15)}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 2 · Exam</div>
+            <h1 class="lesson-title">Phase 2 — Final Exam</h1>
+            <p class="lesson-desc">The cumulative exam across all of phase 2: the CTO mindset from discovery to innovation — in one mixed question set.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">How the final exam works</div>
+            <div class="explanation">
+              This is the <strong>cumulative final exam</strong> across all of phase 2. It draws questions from every topic: <strong>discovery, the no & risk-first</strong>, <strong>delegation & decision rights</strong>, <strong>technical strategy & vision</strong>, <strong>technical debt</strong>, <strong>architecture governance (principles & fitness functions)</strong>, and <strong>innovation & the three-horizons model</strong>.<br><br>
+              You answer <strong>15 mixed questions</strong> (multiple choice, true/false and fill-in-the-blank). The exam is <strong>passed</strong> from the standard threshold upward. Take your time and read each question carefully — there is no bonus question, every question counts.
+            </div>
+          </div>
+          ${renderQuestions('lead_p2_exam', 15)}
+        `
+      },
     ]
   },
   {
@@ -35884,7 +36125,20 @@ QUESTION_POOLS['lead_l2_1'] = [
     {t:'Es lehnt nicht die Person ab, sondern schützt die Kapazität und kommt mit Begründung und Alternative',t_en:'It does not reject the person but protects capacity and comes with a rationale and an alternative',correct:true,why:'Genau. Ein CTO, der jeden Wunsch annimmt, liefert alles halb — das Nein schützt das, was zählt.',why_en:'Exactly. A CTO who accepts every wish delivers everything half-done — the no protects what matters.'},
     {t:'Es lehnt die Anfrage knapp und ohne Begründung ab',t_en:'It rejects the request curtly and without a rationale',correct:false,why:'Nein. Ein gutes Nein kommt gerade mit Begründung und Alternative, nicht als Blockade.',why_en:'No. A good no comes precisely with a rationale and an alternative, not as a blockade.'},
     {t:'Es sagt zu allem Ja, um niemanden zu enttäuschen',t_en:'It says yes to everything so as to disappoint nobody',correct:false,why:'Nein. Genau das führt dazu, dass alles nur halb geliefert wird.',why_en:'No. That is exactly what leads to everything being delivered only half-done.'}
-  ]}
+  ]},
+  {id:'p_lead_l2_1_mc3',type:'mc',xp:10,question:'Was ist das teuerste Ergebnis fehlender Discovery?',question_en:'What is the most expensive result of missing discovery?',options:[
+    {t:'Software, die einwandfrei funktioniert, aber am echten Problem vorbeigeht',t_en:'Software that works flawlessly but misses the real problem',correct:true,why:'Genau. Die teuerste Software ist die, die niemand braucht — Discovery klärt den Bedarf vorher.',why_en:'Exactly. The most expensive software is the one nobody needs — discovery clarifies the need beforehand.'},
+    {t:'Software mit ein paar Tippfehlern in der Oberfläche',t_en:'Software with a few typos in the interface',correct:false,why:'Nein. Tippfehler sind billig zu beheben; am Problem vorbei zu bauen kostet das ganze Projekt.',why_en:'No. Typos are cheap to fix; building past the problem costs the whole project.'},
+    {t:'Ein Projekt, das einen Tag später als geplant startet',t_en:'A project that starts one day later than planned',correct:false,why:'Nein. Ein Tag Verzug ist nichts gegen Monate Arbeit an der falschen Lösung.',why_en:'No. One day of delay is nothing against months of work on the wrong solution.'}
+  ]},
+  {id:'p_lead_l2_1_mc4',type:'mc',xp:10,question:'Wie klärt ein <strong>Risk-first</strong>-Vorgehen das größte technische Risiko?',question_en:'How does a <strong>risk-first</strong> approach clear the biggest technical risk?',options:[
+    {t:'Mit einem kurzen, wegwerfbaren Spike, bevor die eigentliche Umsetzung beginnt',t_en:'With a short, throwaway spike before the real implementation begins',correct:true,why:'Genau. So verliert man Tage statt Monate, falls die Annahme nicht trägt.',why_en:'Exactly. That way you lose days instead of months if the assumption does not hold.'},
+    {t:'Indem man das Risiko ignoriert und erst ganz am Ende prüft',t_en:'By ignoring the risk and checking only at the very end',correct:false,why:'Nein. Spät geprüft wird das Risiko am teuersten — genau das vermeidet Risk-first.',why_en:'No. Checked late, the risk is most expensive — that is exactly what risk-first avoids.'},
+    {t:'Indem man zuerst die einfachste Aufgabe vollständig umsetzt',t_en:'By fully implementing the easiest task first',correct:false,why:'Nein. Das Einfache zuerst lässt das größte Risiko ungeklärt im Projekt stehen.',why_en:'No. Doing the easy part first leaves the biggest risk unresolved in the project.'}
+  ]},
+  {id:'p_lead_l2_1_tf3',type:'truefalse',xp:8,statement:'Ein gutes Nein lehnt die Person ab, nicht die Anfrage.',statement_en:'A good no rejects the person, not the request.',correct:false,explanation:'Falsch. Ein begründetes Nein lehnt die Anfrage ab — mit Begründung und Alternative — und schützt die Kapazität, ohne die Person abzuwerten.',explanation_en:'False. A reasoned no rejects the request — with a rationale and an alternative — and protects capacity without devaluing the person.'},
+  {id:'p_lead_l2_1_tf4',type:'truefalse',xp:8,statement:'Eine Schätzung als Spanne mit Annahme macht die Unsicherheit zu einer besprechbaren Größe.',statement_en:'An estimate as a range with an assumption turns uncertainty into something that can be discussed.',correct:true,explanation:'Richtig. Die Spanne benennt die Unsicherheit ehrlich, statt mit einer Punktzahl eine Sicherheit vorzutäuschen.',explanation_en:'Correct. The range names the uncertainty honestly instead of feigning certainty with a single number.'},
+  {id:'p_lead_l2_1_fb2',type:'fillblank',xp:12,prompt:'Ein kurzes, wegwerfbares Experiment, das zuerst das größte technische Risiko klärt, heißt Risk-first-___ (ein englisches Wort).',prompt_en:'A short, throwaway experiment that first clears the biggest technical risk is called a risk-first ___ (one English word).',answers:['Spike','spike'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Spike</strong> klärt die riskanteste Annahme, bevor die eigentliche Umsetzung beginnt.',explanation_en:'The <strong>spike</strong> clears the riskiest assumption before the real implementation begins.'}
 ];
 
 QUESTION_POOLS['lead_l3_1'] = [
@@ -36372,7 +36626,20 @@ QUESTION_POOLS['lead_l2_2'] = [
     {t:'Die Aufgabe delegieren, aber nicht die Befugnis — das erzeugt Frust und Rückdelegation',t_en:'Delegating the task but not the authority — that breeds frustration and reverse delegation',correct:true,why:'Genau. Ohne Entscheidungsrechte landet jede Frage wieder oben; Aufgabe und Befugnis gehören zusammen übergeben.',why_en:'Exactly. Without decision rights every question lands back on top; task and authority must be handed over together.'},
     {t:'Zu klare Grenzen und zu viel Kontext mitzugeben',t_en:'Handing over too clear boundaries and too much context',correct:false,why:'Nein. Ziel, Kontext und Grenzen sind gerade das, was gutes Delegieren ausmacht.',why_en:'No. Goal, context and boundaries are exactly what good delegation provides.'},
     {t:'Umkehrbare Entscheidungen zu schnell nach unten zu delegieren',t_en:'Delegating reversible decisions too quickly downward',correct:false,why:'Nein. Umkehrbare Entscheidungen soll man gerade schnell und weit unten delegieren.',why_en:'No. Reversible decisions are precisely the ones to delegate fast and far down.'}
-  ]}
+  ]},
+  {id:'p_lead_l2_2_mc3',type:'mc',xp:10,question:'Was heißt Delegieren richtig verstanden?',question_en:'What does delegating mean, properly understood?',options:[
+    {t:'Ziel, Kontext und Grenzen übergeben und das Wie dem Team überlassen',t_en:'Hand over goal, context and boundaries and leave the how to the team',correct:true,why:'Genau. Das ist Autonomie mit Leitplanken — das Team entscheidet über den Weg innerhalb klarer Grenzen.',why_en:'Exactly. That is autonomy with guardrails — the team decides the path within clear boundaries.'},
+    {t:'Den genauen Lösungsweg Schritt für Schritt vorschreiben',t_en:'Prescribe the exact solution path step by step',correct:false,why:'Nein. Das ist Mikromanagement, nicht Delegation — es nimmt dem Team jede Eigenverantwortung.',why_en:'No. That is micromanagement, not delegation — it removes all ownership from the team.'},
+    {t:'Die Aufgabe abgeben und sich für das Ergebnis nicht mehr zuständig fühlen',t_en:'Hand off the task and no longer feel responsible for the outcome',correct:false,why:'Nein. Die Ausführung wird abgegeben, die Verantwortung fürs Ergebnis bleibt oben.',why_en:'No. The execution is handed off, but the responsibility for the outcome stays on top.'}
+  ]},
+  {id:'p_lead_l2_2_mc4',type:'mc',xp:10,question:'Wie behandelt man eine leicht umkehrbare Entscheidung (Two-Way-Door)?',question_en:'How do you handle an easily reversible (two-way door) decision?',options:[
+    {t:'Schnell und weit unten delegieren, beobachten und bei Bedarf korrigieren',t_en:'Delegate fast and far down, observe and correct if needed',correct:true,why:'Genau. Reversible Entscheidungen verdienen keine wochenlange Analyse — der Fehler ist billig zu korrigieren.',why_en:'Exactly. Reversible decisions do not deserve weeks of analysis — the mistake is cheap to correct.'},
+    {t:'Mit wochenlanger Analyse und breiter Beteiligung absichern',t_en:'Secure it with weeks of analysis and broad involvement',correct:false,why:'Nein. Diese Sorgfalt ist nur bei schwer umkehrbaren Entscheidungen angemessen.',why_en:'No. That care is only appropriate for hard-to-reverse decisions.'},
+    {t:'Grundsätzlich vermeiden, weil jede Entscheidung Risiko bedeutet',t_en:'Avoid it on principle, because every decision means risk',correct:false,why:'Nein. Gerade weil sie umkehrbar ist, darf man sie schnell treffen und daraus lernen.',why_en:'No. Precisely because it is reversible, you may make it fast and learn from it.'}
+  ]},
+  {id:'p_lead_l2_2_tf3',type:'truefalse',xp:8,statement:'Klare Entscheidungsrechte — wer berät, wer entscheidet, wer informiert wird — verhindern hängende oder doppelt getroffene Entscheidungen.',statement_en:'Clear decision rights — who advises, who decides, who is informed — prevent decisions from stalling or being made twice.',correct:true,explanation:'Richtig. Klare Entscheidungsrechte sind die Voraussetzung dafür, dass Delegation überhaupt funktioniert.',explanation_en:'Correct. Clear decision rights are the precondition for delegation to work at all.'},
+  {id:'p_lead_l2_2_tf4',type:'truefalse',xp:8,statement:'Beim Delegieren sollte man die Aufgabe übergeben, die Befugnis aber zurückbehalten.',statement_en:'When delegating you should hand over the task but keep the authority.',correct:false,explanation:'Falsch. Aufgabe ohne Befugnis erzeugt Frust und Rückdelegation — beides gehört zusammen übergeben.',explanation_en:'False. A task without authority breeds frustration and reverse delegation — both must be handed over together.'},
+  {id:'p_lead_l2_2_fb2',type:'fillblank',xp:12,prompt:'Eine schwer umkehrbare Entscheidung, die man langsamer und mit mehr Beteiligung trifft, heißt One-Way-___ (ein englisches Wort).',prompt_en:'A hard-to-reverse decision that you make more slowly and with more involvement is called a one-way ___ (one English word).',answers:['Door','door'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>One-Way-Door</strong> ist schwer umkehrbar und verdient Sorgfalt; ihr Gegenstück ist die leicht umkehrbare Two-Way-Door.',explanation_en:'The <strong>one-way door</strong> is hard to reverse and deserves care; its counterpart is the easily reversible two-way door.'}
 ];
 
 QUESTION_POOLS['lead_l1_3'] = [
@@ -36461,7 +36728,20 @@ QUESTION_POOLS['lead_l2_3'] = [
     {t:'Eine technische Strategie ohne sichtbaren Bezug zu den Geschäftszielen, die nur in der Technik lebt und die niemand mitträgt',t_en:'A technical strategy with no visible link to the business goals that lives only inside engineering and that nobody carries',correct:true,why:'Genau. Ohne Andocken an ein Geschäftsziel fehlt die Rückendeckung, und die Strategie bleibt isoliert.',why_en:'Exactly. Without connecting to a business goal the backing is missing and the strategy stays isolated.'},
     {t:'Eine geheime Strategie, die bewusst vor dem Wettbewerb verborgen wird',t_en:'A secret strategy deliberately hidden from the competition',correct:false,why:'Nein. Gemeint ist nicht Geheimhaltung, sondern die fehlende Verankerung im Geschäft.',why_en:'No. It is not about secrecy but about the missing anchoring in the business.'},
     {t:'Eine Strategie, die nur nachts in Bereitschaftsdiensten greift',t_en:'A strategy that only applies during night-time on-call shifts',correct:false,why:'Nein. Der Begriff hat nichts mit Betriebszeiten zu tun.',why_en:'No. The term has nothing to do with operating hours.'}
-  ]}
+  ]},
+  {id:'p_lead_l2_3_mc3',type:'mc',xp:10,question:'Woran erkennt man, dass etwas <strong>keine</strong> echte Strategie ist?',question_en:'How do you tell that something is <strong>not</strong> a real strategy?',options:[
+    {t:'Es ist eine Wunschliste begehrenswerter Optionen ohne Diagnose und ohne Fokus',t_en:'It is a wish list of desirable options without diagnosis and without focus',correct:true,why:'Genau. Ohne Diagnose und bewusstes Nein bleibt es ein Einkaufszettel, keine Strategie.',why_en:'Exactly. Without a diagnosis and a deliberate no it stays a shopping list, not a strategy.'},
+    {t:'Es benennt klar das eigentliche Problem und eine Leitlinie',t_en:'It clearly names the actual problem and a guiding policy',correct:false,why:'Nein. Das sind gerade die Merkmale einer echten Strategie.',why_en:'No. Those are precisely the marks of a real strategy.'},
+    {t:'Es verzichtet bewusst auf einige attraktive Optionen',t_en:'It deliberately forgoes some attractive options',correct:false,why:'Nein. Genau dieser Fokus durch Verzicht macht eine Strategie stark.',why_en:'No. That very focus through forgoing is what makes a strategy strong.'}
+  ]},
+  {id:'p_lead_l2_3_mc4',type:'mc',xp:10,question:'Was leistet die <strong>Leitlinie</strong> (guiding policy) in einer Strategie?',question_en:'What does the <strong>guiding policy</strong> do in a strategy?',options:[
+    {t:'Sie gibt eine übergreifende Stoßrichtung vor, an der sich die einzelnen Maßnahmen ausrichten',t_en:'It sets an overarching direction that the individual actions align to',correct:true,why:'Genau. Die Leitlinie verbindet die Diagnose mit den konkreten Maßnahmen zu einem kohärenten Ganzen.',why_en:'Exactly. The guiding policy connects the diagnosis with the concrete actions into a coherent whole.'},
+    {t:'Sie zählt Budget, Zeitplan und verantwortliche Teams auf',t_en:'It lists budget, schedule and responsible teams',correct:false,why:'Nein. Das ist Projektplanung, nicht die strategische Leitlinie.',why_en:'No. That is project planning, not the strategic guiding policy.'},
+    {t:'Sie listet alle verfügbaren Technologien nach Beliebtheit',t_en:'It lists all available technologies by popularity',correct:false,why:'Nein. Eine Technologieliste nach Beliebtheit ersetzt keine Stoßrichtung.',why_en:'No. A technology list by popularity is no substitute for a direction.'}
+  ]},
+  {id:'p_lead_l2_3_tf3',type:'truefalse',xp:8,statement:'Die Maßnahmen einer guten Strategie sollten sich gegenseitig verstärken statt zu zersplittern.',statement_en:'The actions of a good strategy should reinforce one another rather than splinter.',correct:true,explanation:'Richtig. Kohärente, sich verstärkende Maßnahmen sind der dritte Teil des Strategie-Gerüsts.',explanation_en:'Correct. Coherent, mutually reinforcing actions are the third part of the strategy framework.'},
+  {id:'p_lead_l2_3_tf4',type:'truefalse',xp:8,statement:'Ein Technologie-Radar schreibt jedem Team jede einzelne Bibliothek verbindlich vor.',statement_en:'A technology radar prescribes every single library to each team in a binding way.',correct:false,explanation:'Falsch. Der Radar lenkt leichtgewichtig und gibt Richtung; die konkrete Umsetzung bleibt beim Team.',explanation_en:'False. The radar steers lightly and gives direction; the concrete implementation stays with the team.'},
+  {id:'p_lead_l2_3_fb2',type:'fillblank',xp:12,prompt:'Die Kategorie im Technologie-Radar für etwas, das man bereits aktiv und breit einsetzt, heißt ___ (ein englisches Wort).',prompt_en:'The technology-radar category for something you already use actively and broadly is called ___ (one English word).',answers:['Adopt','adopt'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Adopt</strong> steht im Radar für bewährte, breit einsetzbare Technologien; daneben gibt es Trial, Assess und Hold.',explanation_en:'<strong>Adopt</strong> in the radar stands for proven, broadly usable technologies; alongside it are Trial, Assess and Hold.'}
 ];
 
 QUESTION_POOLS['lead_l2_4'] = [
@@ -36482,7 +36762,20 @@ QUESTION_POOLS['lead_l2_4'] = [
     {t:'Er dauert oft Jahre, friert das Alte ein und scheitert nicht selten ganz, bevor Wert entsteht',t_en:'It often takes years, freezes the old system and not rarely fails entirely before value appears',correct:true,why:'Genau. Deshalb ersetzt man lieber Stück für Stück, während das System weiterläuft.',why_en:'Exactly. That is why one prefers to replace piece by piece while the system keeps running.'},
     {t:'Weil ein Rewrite grundsätzlich mehr Entwickler benötigt als jedes andere Vorgehen',t_en:'Because a rewrite fundamentally needs more developers than any other approach',correct:false,why:'Nein. Das Hauptproblem ist das gebündelte Risiko und der lange Stillstand, nicht die reine Teamgröße.',why_en:'No. The main problem is the concentrated risk and the long standstill, not sheer team size.'},
     {t:'Weil moderne Technologien grundsätzlich schlechter sind als alte',t_en:'Because modern technologies are fundamentally worse than old ones',correct:false,why:'Nein. Nicht die Technologie ist das Problem, sondern der riskante Alles-auf-einmal-Umstieg.',why_en:'No. The technology is not the problem; the risky all-at-once switch is.'}
-  ]}
+  ]},
+  {id:'p_lead_l2_4_mc3',type:'mc',xp:10,question:'Was beschreibt der <strong>Schulden-Quadrant</strong>?',question_en:'What does the <strong>debt quadrant</strong> describe?',options:[
+    {t:'Schuld kann bewusst oder unbewusst und klug oder leichtsinnig eingegangen werden',t_en:'Debt can be taken on deliberately or inadvertently, and prudently or recklessly',correct:true,why:'Genau. Bewusst und klug ist legitim; unbewusst und leichtsinnig ist die gefährliche Variante.',why_en:'Exactly. Deliberate and prudent is legitimate; inadvertent and reckless is the dangerous variant.'},
+    {t:'Schuld ist immer leichtsinnig und nie vertretbar',t_en:'Debt is always reckless and never justifiable',correct:false,why:'Nein. Bewusst aufgenommen, um jetzt zu liefern, ist Schuld ein legitimes Werkzeug.',why_en:'No. Taken on deliberately to ship now, debt is a legitimate tool.'},
+    {t:'Schuld misst sich allein an der optischen Hässlichkeit des Codes',t_en:'Debt is measured solely by the visual ugliness of the code',correct:false,why:'Nein. Schuld misst sich an ihren Zinsen — ob sie Änderungen bremst — nicht an ihrer Hässlichkeit.',why_en:'No. Debt is measured by its interest — whether it slows changes — not by its ugliness.'}
+  ]},
+  {id:'p_lead_l2_4_mc4',type:'mc',xp:10,question:'Warum sollte Schuldenabbau fest in der Roadmap budgetiert werden?',question_en:'Why should paying down debt be firmly budgeted in the roadmap?',options:[
+    {t:'Weil er ohne festes Budget jeden Wettlauf gegen das nächste Feature verliert',t_en:'Because without a fixed budget it loses every race against the next feature',correct:true,why:'Genau. Ein fester Kapazitätsanteil macht den Abbau zur Routine statt zum nie kommenden Sonderprojekt.',why_en:'Exactly. A fixed share of capacity turns paying it down into routine instead of a special project that never comes.'},
+    {t:'Weil Schuldenabbau wichtiger ist als jedes Feature und immer Vorrang hat',t_en:'Because paying down debt is more important than any feature and always takes priority',correct:false,why:'Nein. Es geht um eine bewusste Abwägung, nicht um pauschalen Vorrang.',why_en:'No. It is about a deliberate trade-off, not blanket priority.'},
+    {t:'Weil das Business ohnehin keine neuen Features mehr wünscht',t_en:'Because the business no longer wants any new features anyway',correct:false,why:'Nein. Features bleiben gefragt — gerade deshalb braucht der Abbau ein geschütztes Budget.',why_en:'No. Features stay in demand — which is exactly why paying down debt needs a protected budget.'}
+  ]},
+  {id:'p_lead_l2_4_tf3',type:'truefalse',xp:8,statement:'Ein Schulden-Register macht sichtbar, welche Abkürzungen wo bestehen und welche Änderungen sie bremsen.',statement_en:'A debt register makes visible which shortcuts exist where and which changes they slow.',correct:true,explanation:'Richtig. Erst was sichtbar ist, lässt sich priorisieren und gegen neue Features abwägen.',explanation_en:'Correct. Only what is visible can be prioritized and weighed against new features.'},
+  {id:'p_lead_l2_4_tf4',type:'truefalse',xp:8,statement:'Unschöner Code, der stabil läuft und selten angefasst wird, ist immer mit hoher Priorität zu beheben.',statement_en:'Ugly code that runs stably and is rarely touched must always be fixed with high priority.',correct:false,explanation:'Falsch. Solcher Code verursacht kaum Zinsen und hat niedrige Priorität — teuer ist Schuld dort, wo oft geändert wird.',explanation_en:'False. Such code barely accrues interest and is low priority — debt is expensive where change happens often.'},
+  {id:'p_lead_l2_4_fb2',type:'fillblank',xp:12,prompt:'Technische Schuld wirkt wie ein ___ mit Zinsen: Tempo heute, Reibung morgen (ein Wort).',prompt_en:'Technical debt works like a ___ with interest: speed today, friction tomorrow (one word).',answers:['Kredit','kredit','Darlehen','darlehen','loan','Loan'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das Bild vom <strong>Kredit</strong> mit Zinsen macht klar: Man leiht sich Tempo heute und zahlt es mit Reibung morgen zurück.',explanation_en:'The picture of a <strong>loan</strong> with interest makes it clear: you borrow speed today and repay it with friction tomorrow.'}
 ];
 
 QUESTION_POOLS['lead_l3_2'] = [
@@ -37079,6 +37372,127 @@ QUESTION_POOLS['lead_p1_exam'] = [
   {id:'p_lead_p1_exam_fb4',type:'fillblank',xp:12,prompt:'Die bewusste Obergrenze, wie viele Aufgaben gleichzeitig offen sein dürfen, heißt ___-Limit (englische Abkürzung, drei Buchstaben).',prompt_en:'The deliberate cap on how many tasks may be open at once is called the ___ limit (three-letter abbreviation).',answers:['WIP','wip'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Das <strong>WIP</strong>-Limit begrenzt das gleichzeitig Angefangene und erhöht den Durchsatz.',explanation_en:'The <strong>WIP</strong> limit caps what is started at once and raises throughput.'},
   {id:'p_lead_p1_exam_fb5',type:'fillblank',xp:12,prompt:'Die vorab vereinbarte Liste, was „fertig" wirklich heißt, ist die Definition of ___ (ein englisches Wort).',prompt_en:'The agreed-in-advance list of what "done" really means is the definition of ___ (one English word).',answers:['Done','done','Fertig'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Definition of Done</strong> macht „fertig" zu einer gemeinsamen, nachprüfbaren Vereinbarung.',explanation_en:'The <strong>definition of done</strong> turns "done" into a shared, checkable agreement.'},
   {id:'p_lead_p1_exam_fb6',type:'fillblank',xp:12,prompt:'Das vereinbarte Zuverlässigkeitsziel eines Dienstes, etwa 99,9 Prozent, heißt ___ (englische Abkürzung, drei Buchstaben).',prompt_en:'The agreed reliability target of a service, for example 99.9 percent, is called the ___ (three-letter abbreviation).',answers:['SLO','slo'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Das <strong>SLO</strong> (Service Level Objective) ist die gemeinsame Sprache zwischen Produkt und Engineering und Basis des Fehlerbudgets.',explanation_en:'The <strong>SLO</strong> (service level objective) is the shared language between product and engineering and the basis of the error budget.'}
+];
+
+QUESTION_POOLS['lead_l2_5'] = [
+  {id:'p_lead_l2_5_mc1',type:'mc',xp:10,question:'Wie lenkt ein CTO Architektur, ohne zu mikromanagen?',question_en:'How does a CTO steer architecture without micromanaging?',options:[
+    {t:'Mit wenigen klaren Prinzipien, die Entscheidungen vorab rahmen, statt jede Entscheidung einzeln freizugeben',t_en:'With a few clear principles that frame decisions in advance, instead of approving each decision individually',correct:true,why:'Genau. Ein Prinzip rahmt hunderte Entscheidungen, die der CTO nie einzeln sieht.',why_en:'Exactly. A principle frames hundreds of decisions the CTO never sees one by one.'},
+    {t:'Indem er jede Architektur-Entscheidung jedes Teams persönlich freigibt',t_en:'By personally approving every architecture decision of every team',correct:false,why:'Nein. Genau so wird der CTO zum Flaschenhals und das Team hört auf, selbst zu denken.',why_en:'No. That is exactly how the CTO becomes the bottleneck and the team stops thinking for itself.'},
+    {t:'Indem er gar keine Vorgaben macht und jedes Team alles frei wählt',t_en:'By giving no guidance at all and letting every team choose everything freely',correct:false,why:'Nein. Ganz ohne Leitplanken zersplittert die Architektur in unvereinbare Insellösungen.',why_en:'No. With no guardrails at all the architecture splinters into incompatible silos.'}
+  ]},
+  {id:'p_lead_l2_5_mc2',type:'mc',xp:10,question:'Was ist eine <strong>Architecture Fitness Function</strong>?',question_en:'What is an <strong>architecture fitness function</strong>?',options:[
+    {t:'Eine automatisierte, laufende Prüfung einer architektonischen Eigenschaft, die Verstöße früh meldet',t_en:'An automated, continuous check of an architectural property that reports violations early',correct:true,why:'Genau. Sie läuft in der Pipeline mit und macht Architektur testbar und evolutionär.',why_en:'Exactly. It runs in the pipeline and makes architecture testable and evolutionary.'},
+    {t:'Ein einmaliges Diagramm, das die Soll-Architektur an die Wand malt',t_en:'A one-time diagram that paints the target architecture on the wall',correct:false,why:'Nein. Ein Diagramm prüft nichts laufend — eine Fitness Function schon.',why_en:'No. A diagram checks nothing continuously — a fitness function does.'},
+    {t:'Eine Kennzahl, die ausschließlich die optische Schönheit des Codes bewertet',t_en:'A metric that rates solely the visual beauty of the code',correct:false,why:'Nein. Sie prüft architektonische Eigenschaften wie Abhängigkeiten oder Antwortzeiten, nicht Schönheit.',why_en:'No. It checks architectural properties like dependencies or response times, not beauty.'}
+  ]},
+  {id:'p_lead_l2_5_mc3',type:'mc',xp:10,question:'Was bedeutet eine <strong>„paved road"</strong> in der Architektur-Governance?',question_en:'What does a <strong>"paved road"</strong> mean in architecture governance?',options:[
+    {t:'Ein empfohlener, gut unterstützter Standardweg, der das Richtige zum einfachsten Weg macht',t_en:'A recommended, well-supported standard path that makes the right thing the easiest thing',correct:true,why:'Genau. Wer ihn geht, bekommt Tooling und Support; Abweichung bleibt erlaubt, kostet aber Begründung.',why_en:'Exactly. Whoever takes it gets tooling and support; deviation stays allowed but costs a justification.'},
+    {t:'Ein verbindlicher Zwang, von dem keinerlei Abweichung erlaubt ist',t_en:'A binding mandate from which no deviation is allowed at all',correct:false,why:'Nein. Die paved road empfiehlt, sie verbietet nicht — Abweichung ist mit Begründung möglich.',why_en:'No. The paved road recommends, it does not forbid — deviation is possible with a justification.'},
+    {t:'Ein Verbot jeglicher Standardisierung zugunsten völliger Freiheit',t_en:'A ban on any standardization in favor of complete freedom',correct:false,why:'Nein. Die paved road ist gerade ein Standardweg, kein Verzicht auf Standards.',why_en:'No. The paved road is precisely a standard path, not an abandonment of standards.'}
+  ]},
+  {id:'p_lead_l2_5_mc4',type:'mc',xp:10,question:'Bei welcher Art von Entscheidung greift ein CTO am ehesten selbst ein?',question_en:'For which kind of decision is a CTO most likely to step in personally?',options:[
+    {t:'Bei schwer umkehrbaren, weitreichenden Entscheidungen mit großem Radius',t_en:'For hard-to-reverse, far-reaching decisions with a large radius',correct:true,why:'Genau. Solche One-Way-Doors verdienen mehr Sorgfalt, mehr Beteiligung und ein festgehaltenes Warum.',why_en:'Exactly. Such one-way doors deserve more care, more involvement and a recorded why.'},
+    {t:'Bei jeder leicht umkehrbaren Detailentscheidung eines einzelnen Teams',t_en:'For every easily reversible detail decision of a single team',correct:false,why:'Nein. Reversible Detailentscheidungen delegiert der CTO schnell.',why_en:'No. Reversible detail decisions the CTO delegates fast.'},
+    {t:'Bei der Wahl einzelner Variablennamen im Code',t_en:'For the choice of individual variable names in the code',correct:false,why:'Nein. Das ist weit unterhalb der Ebene, auf der ein CTO eingreift.',why_en:'No. That is far below the level at which a CTO steps in.'}
+  ]},
+  {id:'p_lead_l2_5_tf1',type:'truefalse',xp:8,statement:'Fitness Functions machen Architektur testbar und evolutionär, weil sie gewünschte Eigenschaften laufend prüfen.',statement_en:'Fitness functions make architecture testable and evolutionary because they check desired properties continuously.',correct:true,explanation:'Richtig. Statt auf ein Diagramm zu hoffen, prüft man die Eigenschaften kontinuierlich und meldet Verstöße früh.',explanation_en:'Correct. Instead of hoping for a diagram, you check the properties continuously and report violations early.'},
+  {id:'p_lead_l2_5_tf2',type:'truefalse',xp:8,statement:'Ein Architektur-Prinzip verbietet jede Abweichung ausnahmslos.',statement_en:'An architecture principle forbids any deviation without exception.',correct:false,explanation:'Falsch. Abweichung ist erlaubt, muss aber begründet werden — Prinzipien sind Leitplanken, keine starren Verbote.',explanation_en:'False. Deviation is allowed but must be justified — principles are guardrails, not rigid bans.'},
+  {id:'p_lead_l2_5_tf3',type:'truefalse',xp:8,statement:'Je mehr einzelne Entscheidungen ein CTO persönlich freigibt, desto besser skaliert die Architektur-Governance.',statement_en:'The more individual decisions a CTO approves personally, the better architecture governance scales.',correct:false,explanation:'Falsch. Einzelfreigaben machen den CTO zum Flaschenhals; Prinzipien und Fitness Functions skalieren, Freigaben nicht.',explanation_en:'False. Individual approvals make the CTO the bottleneck; principles and fitness functions scale, approvals do not.'},
+  {id:'p_lead_l2_5_fb1',type:'fillblank',xp:12,prompt:'Eine automatisierte, laufende Prüfung einer architektonischen Eigenschaft heißt Architecture ___ Function (ein englisches Wort).',prompt_en:'An automated, continuous check of an architectural property is called an architecture ___ function (one English word).',answers:['Fitness','fitness'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Fitness</strong> Function prüft Eigenschaften wie Abhängigkeiten oder Antwortzeiten laufend in der Pipeline.',explanation_en:'The <strong>fitness</strong> function checks properties like dependencies or response times continuously in the pipeline.'},
+  {id:'p_lead_l2_5_fb2',type:'fillblank',xp:12,prompt:'Der empfohlene, gut unterstützte Standardweg, der das Richtige zum einfachsten Weg macht, heißt „paved ___" (ein englisches Wort).',prompt_en:'The recommended, well-supported standard path that makes the right thing the easiest thing is called a "paved ___" (one English word).',answers:['Road','road'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>paved road</strong> macht das Richtige zum bequemsten Weg — Abweichung bleibt erlaubt, kostet aber Begründung.',explanation_en:'The <strong>paved road</strong> makes the right thing the most convenient path — deviation stays allowed but costs a justification.'},
+  {id:'p_lead_l2_5_fb3',type:'fillblank',xp:12,prompt:'Die kurze, datierte Notiz, die eine schwer umkehrbare Architektur-Entscheidung mit Alternativen und Konsequenzen festhält, heißt ___ (Abkürzung, drei Buchstaben).',prompt_en:'The short, dated note that captures a hard-to-reverse architecture decision with alternatives and consequences is called an ___ (abbreviation, three letters).',answers:['ADR','adr','A.D.R.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Ein <strong>ADR</strong> (Architecture Decision Record) hält das Warum einer weitreichenden Entscheidung dauerhaft fest.',explanation_en:'An <strong>ADR</strong> (architecture decision record) permanently captures the why of a far-reaching decision.'},
+  {id:'p_lead_l2_5_bonus',type:'mc',xp:20,optional:true,question:'Warum rahmen Prinzipien Entscheidungen wirksamer als Einzelfreigaben?',question_en:'Why do principles frame decisions more effectively than individual approvals?',options:[
+    {t:'Weil ein Prinzip hunderte Entscheidungen vorab rahmt, die der CTO nie einzeln sieht, und das Team eigenständig entscheiden lässt',t_en:'Because a principle frames hundreds of decisions in advance that the CTO never sees one by one, and lets the team decide on its own',correct:true,why:'Genau. So entsteht Richtung ohne Flaschenhals, und das Team behält die Verantwortung für den Weg.',why_en:'Exactly. That creates direction without a bottleneck, and the team keeps ownership of the path.'},
+    {t:'Weil Prinzipien dem Team jede eigene Entscheidung abnehmen',t_en:'Because principles take every own decision away from the team',correct:false,why:'Nein. Prinzipien rahmen nur; die konkreten Entscheidungen bleiben beim Team.',why_en:'No. Principles only frame; the concrete decisions stay with the team.'},
+    {t:'Weil Einzelfreigaben grundsätzlich schneller sind als Prinzipien',t_en:'Because individual approvals are fundamentally faster than principles',correct:false,why:'Nein. Einzelfreigaben stauen sich beim CTO und sind gerade langsamer.',why_en:'No. Individual approvals pile up at the CTO and are precisely slower.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l2_6'] = [
+  {id:'p_lead_l2_6_mc1',type:'mc',xp:10,question:'Was beschreibt das <strong>3-Horizonte-Modell</strong>?',question_en:'What does the <strong>three-horizons model</strong> describe?',options:[
+    {t:'H1 optimiert das Kerngeschäft, H2 baut aufstrebende Chancen aus, H3 sind Experimente — alle drei gleichzeitig',t_en:'H1 optimizes the core, H2 builds up emerging opportunities, H3 is experiments — all three at the same time',correct:true,why:'Genau. Die drei Horizonte brauchen gleichzeitig Aufmerksamkeit, nicht nacheinander.',why_en:'Exactly. The three horizons need attention at the same time, not one after another.'},
+    {t:'Drei aufeinanderfolgende Phasen, von denen immer nur eine zur Zeit bearbeitet wird',t_en:'Three consecutive phases of which only one is worked on at a time',correct:false,why:'Nein. Gerade die Gleichzeitigkeit ist der Kern — nacheinander verliert man die Zukunft.',why_en:'No. The simultaneity is the point — done sequentially you lose the future.'},
+    {t:'Eine Rangliste, die nur das Kerngeschäft zählt und die Zukunft ignoriert',t_en:'A ranking that counts only the core business and ignores the future',correct:false,why:'Nein. H2 und H3 sind gerade die Zukunft, die das Modell schützt.',why_en:'No. H2 and H3 are precisely the future the model protects.'}
+  ]},
+  {id:'p_lead_l2_6_mc2',type:'mc',xp:10,question:'Was meint die Balance von <strong>explore</strong> und <strong>exploit</strong>?',question_en:'What does the balance of <strong>explore</strong> and <strong>exploit</strong> mean?',options:[
+    {t:'Das Bestehende effizient nutzen und zugleich Neues erkunden — als Portfolio-Balance statt Entweder-Oder',t_en:'Use the existing efficiently and explore the new at the same time — as a portfolio balance, not either-or',correct:true,why:'Genau. Wer nur ausbeutet, verpasst die Zukunft; wer nur erkundet, verliert das Heute.',why_en:'Exactly. Whoever only exploits misses the future; whoever only explores loses today.'},
+    {t:'Ausschließlich Neues erkunden und das Bestehende aufgeben',t_en:'Explore only the new and abandon the existing',correct:false,why:'Nein. Das Bestehende trägt heute den Umsatz — es aufzugeben ist keine Balance.',why_en:'No. The existing carries revenue today — abandoning it is no balance.'},
+    {t:'Nur das Bestehende ausnutzen und jede Erkundung vermeiden',t_en:'Only exploit the existing and avoid all exploration',correct:false,why:'Nein. Ohne Erkundung stirbt die Zukunft — genau das soll die Balance verhindern.',why_en:'No. Without exploration the future dies — that is exactly what the balance prevents.'}
+  ]},
+  {id:'p_lead_l2_6_mc3',type:'mc',xp:10,question:'Wie geht ein CTO mit Innovations-<strong>Wetten</strong> um?',question_en:'How does a CTO handle innovation <strong>bets</strong>?',options:[
+    {t:'Viele kleine, einige mittlere, wenige große Wetten — und früh und billig scheitern',t_en:'Many small, some medium, few large bets — and fail early and cheaply',correct:true,why:'Genau. Die meisten Wetten scheitern; man kauft Unsicherheit in kleinen, günstigen Schritten.',why_en:'Exactly. Most bets fail; you buy uncertainty in small, cheap steps.'},
+    {t:'Alles auf eine einzige große Wette setzen und möglichst lange durchhalten',t_en:'Put everything on a single large bet and hold on as long as possible',correct:false,why:'Nein. Eine große, lange ungeprüfte Wette kostet das Unternehmen, wenn sie scheitert.',why_en:'No. A large, long-unchecked bet costs the company when it fails.'},
+    {t:'Nur Wetten eingehen, deren Erfolg von Anfang an völlig sicher ist',t_en:'Take only bets whose success is completely certain from the start',correct:false,why:'Nein. Sichere Wetten gibt es nicht — Innovation lebt von früh geprüfter Unsicherheit.',why_en:'No. Certain bets do not exist — innovation lives on early-tested uncertainty.'}
+  ]},
+  {id:'p_lead_l2_6_mc4',type:'mc',xp:10,question:'Warum ist Innovation oft keine reine Technikfrage?',question_en:'Why is innovation often not a purely technical question?',options:[
+    {t:'Weil ein neues Geschäftsmodell oder ein besserer Prozess oft mehr Wert schafft als neue Technologie',t_en:'Because a new business model or a better process often creates more value than new technology',correct:true,why:'Genau. Die größten Hebel liegen oft im Modell oder Prozess; Technik ist Mittel, nicht Zweck.',why_en:'Exactly. The biggest levers often lie in the model or process; technology is the means, not the end.'},
+    {t:'Weil Technologie für Innovation vollständig bedeutungslos ist',t_en:'Because technology is completely meaningless for innovation',correct:false,why:'Nein. Technik ist ein wichtiges Mittel — nur eben nicht der einzige Hebel.',why_en:'No. Technology is an important means — just not the only lever.'},
+    {t:'Weil Innovation ausschließlich vom Vertrieb entschieden wird',t_en:'Because innovation is decided solely by sales',correct:false,why:'Nein. Die besten Wetten verbinden technische Möglichkeit mit echtem Bedarf, nicht nur Vertrieb.',why_en:'No. The best bets connect technical possibility with real need, not sales alone.'}
+  ]},
+  {id:'p_lead_l2_6_tf1',type:'truefalse',xp:8,statement:'Ohne bewusst geschütztes Innovationsbudget frisst das Dringende meist die Zukunft.',statement_en:'Without a deliberately protected innovation budget, the urgent usually eats the future.',correct:true,explanation:'Richtig. Der nächste Quartalsdruck gewinnt jeden Wettlauf, wenn der Anteil für Neues nicht reserviert ist.',explanation_en:'Correct. The next quarterly pressure wins every race if the share for the new is not reserved.'},
+  {id:'p_lead_l2_6_tf2',type:'truefalse',xp:8,statement:'Beim Wetten-Denken sollte man möglichst spät und teuer scheitern.',statement_en:'In bet thinking you should fail as late and as expensively as possible.',correct:false,explanation:'Falsch. Das Ziel ist genau das Gegenteil: früh und billig scheitern, bevor viel Kapital gebunden ist.',explanation_en:'False. The goal is exactly the opposite: fail early and cheaply, before much capital is tied up.'},
+  {id:'p_lead_l2_6_tf3',type:'truefalse',xp:8,statement:'Horizont 1 (Kerngeschäft) und Horizont 3 (Experimente) sollten gleichzeitig Aufmerksamkeit bekommen.',statement_en:'Horizon 1 (core business) and horizon 3 (experiments) should receive attention at the same time.',correct:true,explanation:'Richtig. Alle drei Horizonte laufen parallel — nur so bleibt das Heute tragfähig und die Zukunft offen.',explanation_en:'Correct. All three horizons run in parallel — only that keeps today viable and the future open.'},
+  {id:'p_lead_l2_6_fb1',type:'fillblank',xp:12,prompt:'Das Modell, das Kerngeschäft (H1), aufstrebende Chancen (H2) und Experimente (H3) gleichzeitig balanciert, heißt ___-Horizonte-Modell (eine Zahl).',prompt_en:'The model that balances core business (H1), emerging opportunities (H2) and experiments (H3) at the same time is called the ___-horizons model (a number).',answers:['3','drei','Drei','3er','three','Three'],placeholder:'Zahl…',placeholder_en:'Number…',explanation:'Das <strong>3</strong>-Horizonte-Modell hält heutiges Geschäft und Zukunft gemeinsam im Blick.',explanation_en:'The <strong>3</strong>-horizons model keeps today\'s business and the future in view together.'},
+  {id:'p_lead_l2_6_fb2',type:'fillblank',xp:12,prompt:'Die Balance aus „das Bestehende effizient nutzen" und „zugleich Neues erkunden" heißt im Englischen exploit und ___ (ein englisches Wort).',prompt_en:'The balance of "use the existing efficiently" and "explore the new at the same time" is in English called exploit and ___ (one English word).',answers:['explore','Explore'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Explore</strong> (erkunden) und exploit (ausbeuten) bilden zusammen die Portfolio-Balance der Innovation.',explanation_en:'<strong>Explore</strong> and exploit together form the portfolio balance of innovation.'},
+  {id:'p_lead_l2_6_fb3',type:'fillblank',xp:12,prompt:'Der bewusst reservierte und verteidigte Anteil der Kapazität, der die Zukunft gegen das Dringende schützt, heißt ___ (ein Wort, Kompositum mit „budget").',prompt_en:'The deliberately reserved and defended share of capacity that protects the future against the urgent is called the ___ (one compound word with "budget").',answers:['Innovationsbudget','innovationsbudget','Innovations-Budget','innovation budget','innovationbudget'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>Innovationsbudget</strong> muss bewusst reserviert werden, sonst gewinnt das Dringende jeden Wettlauf.',explanation_en:'The <strong>innovation budget</strong> must be deliberately reserved, otherwise the urgent wins every race.'},
+  {id:'p_lead_l2_6_bonus',type:'mc',xp:20,optional:true,question:'Warum setzt ein CTO lieber viele kleine als eine einzige große Wette?',question_en:'Why does a CTO prefer many small bets to a single large one?',options:[
+    {t:'Weil die meisten Wetten scheitern und man so früh und billig lernt, bevor viel Kapital gebunden ist',t_en:'Because most bets fail and that way you learn early and cheaply before much capital is tied up',correct:true,why:'Genau. Kleine Wetten begrenzen den Verlust je Fehlschlag und lenken Kapital zu dem, was sich bewährt.',why_en:'Exactly. Small bets cap the loss per failure and steer capital toward what proves itself.'},
+    {t:'Weil kleine Wetten garantiert alle erfolgreich sind',t_en:'Because small bets are all guaranteed to succeed',correct:false,why:'Nein. Auch kleine Wetten scheitern meist — der Vorteil ist der geringe Einsatz je Wette.',why_en:'No. Small bets mostly fail too — the advantage is the low stake per bet.'},
+    {t:'Weil große Wetten technisch unmöglich umzusetzen sind',t_en:'Because large bets are technically impossible to implement',correct:false,why:'Nein. Große Wetten sind machbar, aber sie bündeln das Risiko gefährlich an einer Stelle.',why_en:'No. Large bets are feasible, but they concentrate the risk dangerously in one place.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_p2_exam'] = [
+  {id:'p_lead_p2_exam_mc1',type:'mc',xp:10,question:'Was meint <strong>Discovery vor Delivery</strong>?',question_en:'What does <strong>discovery before delivery</strong> mean?',options:[
+    {t:'Das echte Problem verstehen, bevor man eine Lösung liefert',t_en:'Understand the real problem before delivering a solution',correct:true,why:'Genau. Die teuerste Software funktioniert einwandfrei und wird von niemandem gebraucht.',why_en:'Exactly. The most expensive software works flawlessly and is needed by nobody.'},
+    {t:'So schnell wie möglich liefern und das Problem später klären',t_en:'Deliver as fast as possible and clarify the problem later',correct:false,why:'Nein. Discovery klärt den Bedarf vorher — sonst liefert man effizient am Problem vorbei.',why_en:'No. Discovery clarifies the need beforehand — otherwise you efficiently deliver past the problem.'},
+    {t:'Zuerst den lautesten Stakeholder bedienen',t_en:'Serve the loudest stakeholder first',correct:false,why:'Nein. Discovery fragt nach dem echten Nutzerproblem, nicht nach der lautesten Stimme.',why_en:'No. Discovery asks for the real user problem, not for the loudest voice.'}
+  ]},
+  {id:'p_lead_p2_exam_mc2',type:'mc',xp:10,question:'Was ist der häufigste Fehler beim <strong>Delegieren</strong>?',question_en:'What is the most common mistake when <strong>delegating</strong>?',options:[
+    {t:'Die Aufgabe delegieren, aber nicht die Befugnis',t_en:'Delegating the task but not the authority',correct:true,why:'Genau. Ohne Entscheidungsrechte landet jede Frage wieder oben — Aufgabe und Befugnis gehören zusammen.',why_en:'Exactly. Without decision rights every question lands back on top — task and authority belong together.'},
+    {t:'Zu klare Grenzen und zu viel Kontext mitzugeben',t_en:'Handing over too clear boundaries and too much context',correct:false,why:'Nein. Ziel, Kontext und Grenzen sind gerade das, was gutes Delegieren ausmacht.',why_en:'No. Goal, context and boundaries are exactly what good delegation provides.'},
+    {t:'Umkehrbare Entscheidungen zu schnell nach unten zu delegieren',t_en:'Delegating reversible decisions too quickly downward',correct:false,why:'Nein. Umkehrbare Entscheidungen soll man gerade schnell und weit unten delegieren.',why_en:'No. Reversible decisions are precisely the ones to delegate fast and far down.'}
+  ]},
+  {id:'p_lead_p2_exam_mc3',type:'mc',xp:10,question:'Aus welchen drei Teilen besteht eine <strong>echte technische Strategie</strong>?',question_en:'Which three parts make up a <strong>real technical strategy</strong>?',options:[
+    {t:'Diagnose, Leitlinie und ein Satz kohärenter, sich verstärkender Maßnahmen',t_en:'Diagnosis, guiding policy and a set of coherent, mutually reinforcing actions',correct:true,why:'Genau. Dieses Gerüst macht aus einer Wunschliste eine kohärente Antwort auf die zentrale Herausforderung.',why_en:'Exactly. This framework turns a wish list into a coherent answer to the central challenge.'},
+    {t:'Eine Liste begehrenswerter Technologien, nach Beliebtheit sortiert',t_en:'A list of desirable technologies sorted by popularity',correct:false,why:'Nein. Das ist ein Einkaufszettel, keine Strategie — die Diagnose fehlt.',why_en:'No. That is a shopping list, not a strategy — the diagnosis is missing.'},
+    {t:'Budget, Zeitplan und die Namen der verantwortlichen Teams',t_en:'Budget, schedule and the names of the responsible teams',correct:false,why:'Nein. Das ist Projektplanung; eine Strategie beantwortet zuerst, was das eigentliche Problem ist.',why_en:'No. That is project planning; a strategy first answers what the actual problem is.'}
+  ]},
+  {id:'p_lead_p2_exam_mc4',type:'mc',xp:10,question:'Wie spricht man mit dem Business am wirksamsten über <strong>technische Schuld</strong>?',question_en:'How do you most effectively talk to the business about <strong>technical debt</strong>?',options:[
+    {t:'Als Risiko und Kosten — langsamere Lieferung, mehr Ausfälle — statt als „hässlichen Code"',t_en:'As risk and cost — slower delivery, more outages — instead of as "ugly code"',correct:true,why:'Genau. „Diese Abkürzung kostet zwei Tage pro Release" überzeugt, „wir müssen refaktorieren" nicht.',why_en:'Exactly. "This shortcut costs two days per release" convinces; "we need to refactor" does not.'},
+    {t:'Als rein ästhetisches Problem, das nur Entwickler verstehen müssen',t_en:'As a purely aesthetic problem only developers need to understand',correct:false,why:'Nein. In der Sprache der Ästhetik bekommt Schuldenabbau nie ein Budget.',why_en:'No. In the language of aesthetics, paying down debt never gets a budget.'},
+    {t:'Gar nicht, um das Vertrauen ins Team nicht zu gefährden',t_en:'Not at all, so as not to endanger trust in the team',correct:false,why:'Nein. Verstecken verhindert jede Priorisierung — Sichtbarkeit schafft erst Vertrauen.',why_en:'No. Hiding prevents any prioritization — visibility is what builds trust in the first place.'}
+  ]},
+  {id:'p_lead_p2_exam_mc5',type:'mc',xp:10,question:'Was ist eine <strong>Architecture Fitness Function</strong>?',question_en:'What is an <strong>architecture fitness function</strong>?',options:[
+    {t:'Eine automatisierte, laufende Prüfung einer architektonischen Eigenschaft, die Verstöße früh meldet',t_en:'An automated, continuous check of an architectural property that reports violations early',correct:true,why:'Genau. Sie macht Architektur testbar und evolutionär, genau wie ein Test eine Regression meldet.',why_en:'Exactly. It makes architecture testable and evolutionary, just as a test reports a regression.'},
+    {t:'Ein einmaliges Diagramm der Soll-Architektur an der Wand',t_en:'A one-time diagram of the target architecture on the wall',correct:false,why:'Nein. Ein Diagramm prüft nichts laufend — eine Fitness Function schon.',why_en:'No. A diagram checks nothing continuously — a fitness function does.'},
+    {t:'Eine Kennzahl für die optische Schönheit des Codes',t_en:'A metric for the visual beauty of the code',correct:false,why:'Nein. Sie prüft Eigenschaften wie Abhängigkeiten oder Antwortzeiten, nicht Schönheit.',why_en:'No. It checks properties like dependencies or response times, not beauty.'}
+  ]},
+  {id:'p_lead_p2_exam_mc6',type:'mc',xp:10,question:'Bei welchen Entscheidungen greift ein CTO am ehesten selbst ein?',question_en:'For which decisions is a CTO most likely to step in personally?',options:[
+    {t:'Bei schwer umkehrbaren, weitreichenden Entscheidungen mit großem Radius',t_en:'For hard-to-reverse, far-reaching decisions with a large radius',correct:true,why:'Genau. Solche One-Way-Doors verdienen mehr Sorgfalt, Beteiligung und ein festgehaltenes Warum (ADR).',why_en:'Exactly. Such one-way doors deserve more care, involvement and a recorded why (ADR).'},
+    {t:'Bei jeder leicht umkehrbaren Detailentscheidung eines Teams',t_en:'For every easily reversible detail decision of a team',correct:false,why:'Nein. Reversible Detailentscheidungen delegiert der CTO schnell.',why_en:'No. Reversible detail decisions the CTO delegates fast.'},
+    {t:'Bei der Wahl einzelner Variablennamen im Code',t_en:'For the choice of individual variable names in the code',correct:false,why:'Nein. Das liegt weit unter der Ebene, auf der ein CTO eingreift.',why_en:'No. That is far below the level at which a CTO steps in.'}
+  ]},
+  {id:'p_lead_p2_exam_mc7',type:'mc',xp:10,question:'Was beschreibt das <strong>3-Horizonte-Modell</strong>?',question_en:'What does the <strong>three-horizons model</strong> describe?',options:[
+    {t:'H1 optimiert das Kerngeschäft, H2 baut Chancen aus, H3 sind Experimente — alle drei gleichzeitig',t_en:'H1 optimizes the core, H2 builds up opportunities, H3 is experiments — all three at once',correct:true,why:'Genau. Die drei Horizonte brauchen gleichzeitig Aufmerksamkeit, nicht nacheinander.',why_en:'Exactly. The three horizons need attention at the same time, not one after another.'},
+    {t:'Drei Phasen, von denen immer nur eine zur Zeit bearbeitet wird',t_en:'Three phases of which only one is worked on at a time',correct:false,why:'Nein. Gerade die Gleichzeitigkeit ist der Kern des Modells.',why_en:'No. The simultaneity is the very point of the model.'},
+    {t:'Eine Rangliste, die nur das Kerngeschäft zählt',t_en:'A ranking that counts only the core business',correct:false,why:'Nein. H2 und H3 sind gerade die Zukunft, die das Modell schützt.',why_en:'No. H2 and H3 are precisely the future the model protects.'}
+  ]},
+  {id:'p_lead_p2_exam_mc8',type:'mc',xp:10,question:'Wie geht ein CTO mit Innovations-<strong>Wetten</strong> um?',question_en:'How does a CTO handle innovation <strong>bets</strong>?',options:[
+    {t:'Viele kleine, einige mittlere, wenige große Wetten — und früh und billig scheitern',t_en:'Many small, some medium, few large bets — and fail early and cheaply',correct:true,why:'Genau. Die meisten Wetten scheitern; man kauft Unsicherheit in kleinen, günstigen Schritten.',why_en:'Exactly. Most bets fail; you buy uncertainty in small, cheap steps.'},
+    {t:'Alles auf eine große Wette setzen und lange durchhalten',t_en:'Put everything on one large bet and hold on for a long time',correct:false,why:'Nein. Eine große, lange ungeprüfte Wette kostet das Unternehmen, wenn sie scheitert.',why_en:'No. A large, long-unchecked bet costs the company when it fails.'},
+    {t:'Nur völlig sichere Wetten eingehen',t_en:'Take only completely certain bets',correct:false,why:'Nein. Sichere Wetten gibt es nicht — Innovation lebt von früh geprüfter Unsicherheit.',why_en:'No. Certain bets do not exist — innovation lives on early-tested uncertainty.'}
+  ]},
+  {id:'p_lead_p2_exam_tf1',type:'truefalse',xp:8,statement:'Ein Risk-first-Spike klärt zuerst das größte technische Risiko in einem kurzen, wegwerfbaren Experiment.',statement_en:'A risk-first spike first clears the biggest technical risk in a short, throwaway experiment.',correct:true,explanation:'Richtig. Erst wenn das Risiko geklärt ist, beginnt die eigentliche Umsetzung — so verliert man Tage statt Monate.',explanation_en:'Correct. Only once the risk is cleared does the real implementation begin — that way you lose days instead of months.'},
+  {id:'p_lead_p2_exam_tf2',type:'truefalse',xp:8,statement:'Beim Delegieren bleibt die Verantwortung fürs Ergebnis bei der Führungskraft.',statement_en:'When delegating, the responsibility for the outcome stays with the leader.',correct:true,explanation:'Richtig. Die Ausführung wird abgegeben, die Verantwortung fürs Ergebnis (accountable) bleibt oben.',explanation_en:'Correct. The execution is handed off, the responsibility for the outcome (accountable) stays on top.'},
+  {id:'p_lead_p2_exam_tf3',type:'truefalse',xp:8,statement:'Eine Strategie, die alle attraktiven Optionen gleichzeitig verfolgen will, ist in Wahrheit keine Strategie.',statement_en:'A strategy that wants to pursue all attractive options at once is in truth not a strategy.',correct:true,explanation:'Richtig. Fokus entsteht erst durch das bewusste Nein — wer alles will, verstärkt nichts.',explanation_en:'Correct. Focus arises only through the deliberate no — whoever wants everything reinforces nothing.'},
+  {id:'p_lead_p2_exam_tf4',type:'truefalse',xp:8,statement:'Technische Schuld bewusst und klug aufzunehmen, um jetzt zu liefern, ist grundsätzlich unzulässig.',statement_en:'Taking on technical debt deliberately and prudently in order to ship now is fundamentally impermissible.',correct:false,explanation:'Falsch. Bewusst und klug eingegangen ist Schuld legitim; gefährlich ist die unbewusste, leichtsinnige Variante.',explanation_en:'False. Taken on deliberately and prudently, debt is legitimate; the dangerous variant is the inadvertent, reckless one.'},
+  {id:'p_lead_p2_exam_tf5',type:'truefalse',xp:8,statement:'Architektur-Prinzipien sind Leitplanken, von denen eine Abweichung mit Begründung erlaubt ist.',statement_en:'Architecture principles are guardrails from which a deviation is allowed with a justification.',correct:true,explanation:'Richtig. Prinzipien rahmen Entscheidungen vorab; Abweichung ist möglich, muss aber begründet werden.',explanation_en:'Correct. Principles frame decisions in advance; deviation is possible but must be justified.'},
+  {id:'p_lead_p2_exam_fb1',type:'fillblank',xp:12,prompt:'Die schlichte, gepflegte Liste offener Risiken mit Wahrscheinlichkeit, Auswirkung und Gegenmaßnahme heißt Risiko-___ (ein Wort).',prompt_en:'The plain, maintained list of open risks with probability, impact and countermeasure is called the risk ___ (one word).',answers:['Register','register'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>Risiko-Register</strong> macht die Frage „Was könnte uns umbringen?" zur nüchternen Routine.',explanation_en:'The <strong>risk register</strong> turns the question "what could kill us?" into sober routine.'},
+  {id:'p_lead_p2_exam_fb2',type:'fillblank',xp:12,prompt:'Eine leicht umkehrbare Entscheidung, die man schnell und weit unten delegiert, heißt Two-Way-___ (ein englisches Wort).',prompt_en:'An easily reversible decision that you delegate fast and far down is called a two-way ___ (one English word).',answers:['Door','door'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Two-Way-Door</strong> ist leicht rückgängig zu machen; ihr Gegenstück ist die schwer umkehrbare One-Way-Door.',explanation_en:'The <strong>two-way door</strong> is easy to undo; its counterpart is the hard-to-reverse one-way door.'},
+  {id:'p_lead_p2_exam_fb3',type:'fillblank',xp:12,prompt:'Der erste Teil des Strategie-Gerüsts — die nüchterne Antwort auf „was ist das eigentliche Problem?" — heißt ___ (ein Wort).',prompt_en:'The first part of the strategy framework — the sober answer to "what is the actual problem?" — is called the ___ (one word).',answers:['Diagnose','diagnose','Diagnosis','diagnosis'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Diagnose</strong> benennt das eigentliche Problem — ohne sie löst man elegant das falsche.',explanation_en:'The <strong>diagnosis</strong> names the actual problem — without it you elegantly solve the wrong one.'},
+  {id:'p_lead_p2_exam_fb4',type:'fillblank',xp:12,prompt:'Das Muster, ein altes System Stück für Stück zu ersetzen, während es weiterläuft, heißt Strangler ___ (ein englisches Wort).',prompt_en:'The pattern of replacing an old system piece by piece while it keeps running is called the strangler ___ (one English word).',answers:['Fig','fig'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Der <strong>Strangler Fig</strong> löst das Alte inkrementell ab — das sichere Gegenteil des großen Rewrites.',explanation_en:'The <strong>strangler fig</strong> phases out the old incrementally — the safe opposite of the big rewrite.'},
+  {id:'p_lead_p2_exam_fb5',type:'fillblank',xp:12,prompt:'Das Modell, das Kerngeschäft, aufstrebende Chancen und Experimente gleichzeitig balanciert, heißt ___-Horizonte-Modell (eine Zahl).',prompt_en:'The model that balances core business, emerging opportunities and experiments at the same time is called the ___-horizons model (a number).',answers:['3','drei','Drei','3er','three','Three'],placeholder:'Zahl…',placeholder_en:'Number…',explanation:'Das <strong>3</strong>-Horizonte-Modell hält heutiges Geschäft (H1), Chancen (H2) und Wetten (H3) gemeinsam im Blick.',explanation_en:'The <strong>3</strong>-horizons model keeps today\'s business (H1), opportunities (H2) and bets (H3) in view together.'}
 ];
 
 
