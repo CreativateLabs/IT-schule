@@ -28763,6 +28763,207 @@ Lock-in      : check exit cost + data portability</div>
           ${renderBonus('lead_l7_4')}
         `
       },
+      {
+        id: 'lead_l7_5', title: 'Produktökonomie & Pricing-Grundlagen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 5</div>
+            <h1 class="lesson-title">Produktökonomie & Pricing-Grundlagen</h1>
+            <p class="lesson-desc">Ein Produkt muss nicht nur funktionieren, es muss sich rechnen. Was ein Kunde über seine Lebensdauer einbringt, was seine Gewinnung kostet und wie der Preis gebaut ist, entscheidet, ob Wachstum trägt.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Wie das Produkt Geld verdient — und wann ein Kunde sich lohnt</div>
+            <div class="explanation">
+              Jedes Produkt braucht eine klare Antwort auf zwei Fragen: Wie verdient es Geld, und wann lohnt sich ein Kunde? Der Wert eines Kunden entsteht nicht beim ersten Kauf, sondern über die gesamte Geschäftsbeziehung. Diesen Wert über die Lebensdauer nennt man <strong>LTV</strong> (lifetime value) — die Summe dessen, was ein Kunde über die Zeit einbringt, abzüglich der Kosten, ihn zu bedienen.<br><br>
+              Dem gegenüber stehen die <strong>Kundengewinnungskosten</strong> (CAC, customer acquisition cost): alles, was Marketing und Vertrieb kosten, um einen neuen Kunden zu gewinnen, geteilt durch die Zahl der so gewonnenen Kunden. Ein Kunde lohnt sich erst, wenn er über seine Lebensdauer mehr einbringt, als seine Gewinnung gekostet hat.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">CAC gegen LTV — die gesunde Relation und die Amortisation</div>
+            <div class="explanation">
+              Entscheidend ist nicht eine einzelne Zahl, sondern ihr <strong>Verhältnis</strong>. Als gesund gilt, wenn der LTV <strong>deutlich über</strong> dem CAC liegt — eine Faustregel nennt etwa das Dreifache. Liegt der LTV nur knapp über dem CAC, bleibt nach Gewinnung und Betrieb kaum etwas übrig; liegt er darunter, verliert das Geschäft mit jedem neuen Kunden Geld.<br><br>
+              Daneben zählt die <strong>Amortisationszeit der Akquise</strong> (CAC payback): Wie lange dauert es, bis ein Kunde die Kosten seiner Gewinnung wieder eingespielt hat? Je kürzer, desto schneller finanziert das Geschäft sein eigenes Wachstum — ein direkter Bezug zur Amortisationsidee aus Lektion 1.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">CAC / LTV — Faustregel</span></div>
+              <div class="code-pre">CAC    : (Marketing + Vertrieb) / neue Kunden
+LTV    : Wert pro Kunde ueber die ganze Lebensdauer
+gesund : LTV deutlich ueber CAC (Faustregel ~ 3x)
+payback: wann ist der CAC wieder eingespielt?
+Warnung: LTV &lt; CAC  -&gt;  jeder Neukunde kostet Geld</div>
+            </div>
+          </div>
+          ${quickCheck('Wann lohnt sich ein Kunde wirtschaftlich?', ['Wenn sein Wert über die Lebensdauer (LTV) deutlich über den Kundengewinnungskosten (CAC) liegt', 'Sobald er ein einziges Mal gekauft hat, unabhängig von den Gewinnungskosten', 'Wenn die absolute Marketingrechnung niedrig ist, egal wie viele Kunden sie bringt'], 0, 'Ein Kunde trägt erst, wenn der LTV über dem CAC liegt — als Faustregel deutlich darüber. Der einzelne Kauf oder eine niedrige Gesamtrechnung sagen für sich nichts über die Wirtschaftlichkeit.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Abwanderung, Bindung und Preismodelle — Preis nach Wert</div>
+            <div class="explanation">
+              Wachstum entsteht nicht nur durch neue Kunden. Die <strong>Abwanderung</strong> (churn) — der Anteil der Kunden, die wieder abspringen — frisst Wachstum von hinten auf: Was oben hereinkommt, läuft unten wieder heraus. Darum ist die <strong>Bindung</strong> der stärkere Hebel; ein gehaltener Kunde erhöht den LTV, ohne erneut CAC zu kosten.<br><br>
+              Wie viel ein Kunde einbringt, hängt am <strong>Preismodell</strong>. Gängig sind der Preis <strong>pro Nutzer</strong>, der <strong>nutzungsbasierte</strong> Preis (je mehr Verbrauch, desto mehr), das <strong>gestaffelte</strong> Modell (Pakete mit wachsendem Umfang) und <strong>Freemium</strong> (kostenloser Einstieg, Bezahlung für mehr). Die Leitlinie lautet: Preis <strong>nach dem Wert</strong> für den Kunden, nicht bloß nach den eigenen Kosten. Die Kosten bilden nur die Untergrenze — hier schlägt die Brücke zu den Stückkosten und FinOps aus Lektion 2: Wer seine Kosten pro Kunde kennt, erkennt, ab welchem Preis sich ein Modell überhaupt trägt.
+            </div>
+          </div>
+          ${quickCheck('Wonach sollte sich der Preis eines Produkts in erster Linie richten?', ['Nach dem Wert, den es für den Kunden schafft — die eigenen Kosten bilden nur die Untergrenze', 'Allein nach den eigenen Herstellungskosten plus festem Aufschlag', 'Nach dem jeweils niedrigsten Preis am Markt, immer darunter'], 0, 'Preis nach Wert: Was dem Kunden nützt, bestimmt die Zahlungsbereitschaft. Die eigenen Stückkosten bilden nur die Untergrenze, unter die man dauerhaft nicht gehen kann.')}
+          ${callout('key', 'Merksatz', 'Ein Kunde lohnt sich, wenn sein Wert über die Lebensdauer (LTV) deutlich über den Kundengewinnungskosten (CAC) liegt und die Akquise sich schnell amortisiert. Abwanderung (churn) frisst Wachstum, darum ist Bindung der Hebel. Wähle das Preismodell — pro Nutzer, nutzungsbasiert, gestaffelt, Freemium — und setze den Preis nach dem Wert für den Kunden; die eigenen Stückkosten bilden nur die Untergrenze.')}
+          ${renderQuestions('lead_l7_5', 10)}
+          ${renderBonus('lead_l7_5')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 5</div>
+            <h1 class="lesson-title">Product economics & pricing basics</h1>
+            <p class="lesson-desc">A product must not only work, it must pay off. What a customer brings in over their lifetime, what their acquisition costs, and how the price is built decide whether growth holds.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">How the product earns money — and when a customer pays off</div>
+            <div class="explanation">
+              Every product needs a clear answer to two questions: how does it earn money, and when does a customer pay off? The value of a customer arises not at the first purchase but across the whole business relationship. This value over the lifetime is called <strong>LTV</strong> (lifetime value) — the sum of what a customer brings in over time, minus the cost of serving them.<br><br>
+              Against it stands the <strong>customer acquisition cost</strong> (CAC): everything marketing and sales cost to win a new customer, divided by the number of customers won that way. A customer only pays off once they bring in more over their lifetime than their acquisition cost.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">CAC against LTV — the healthy relation and the payback</div>
+            <div class="explanation">
+              What matters is not a single number but their <strong>ratio</strong>. It is considered healthy when the LTV is <strong>clearly above</strong> the CAC — a rule of thumb names roughly three times. If the LTV is only just above the CAC, little remains after acquisition and operation; if it is below, the business loses money with every new customer.<br><br>
+              Alongside it counts the <strong>payback period of acquisition</strong> (CAC payback): how long does it take until a customer has earned back the cost of their acquisition? The shorter it is, the faster the business finances its own growth — a direct link to the payback idea from Lesson 1.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">CAC / LTV — rule of thumb</span></div>
+              <div class="code-pre">CAC    : (marketing + sales) / new customers
+LTV    : value per customer over the whole lifetime
+healthy: LTV clearly above CAC (rule of thumb ~ 3x)
+payback: when is the CAC earned back?
+warning: LTV &lt; CAC  -&gt;  every new customer costs money</div>
+            </div>
+          </div>
+          ${quickCheck('When does a customer pay off economically?', ['When their value over the lifetime (LTV) is clearly above the customer acquisition cost (CAC)', 'As soon as they have bought a single time, regardless of the acquisition cost', 'When the absolute marketing bill is low, no matter how many customers it brings'], 0, 'A customer carries only when the LTV is above the CAC — as a rule of thumb clearly above. A single purchase or a low total bill say nothing in themselves about the economics.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Churn, retention and pricing models — price by value</div>
+            <div class="explanation">
+              Growth arises not only from new customers. The <strong>churn</strong> — the share of customers who drop off again — eats growth from behind: what comes in at the top runs out again at the bottom. That is why <strong>retention</strong> is the stronger lever; a kept customer raises the LTV without costing CAC again.<br><br>
+              How much a customer brings in depends on the <strong>pricing model</strong>. Common ones are the price <strong>per user</strong>, the <strong>usage-based</strong> price (more consumption, more price), the <strong>tiered</strong> model (packages with growing scope) and <strong>freemium</strong> (free entry, payment for more). The guiding line is: price <strong>by the value</strong> for the customer, not merely by your own cost. Cost only forms the lower bound — here the bridge to unit cost and FinOps from Lesson 2 appears: whoever knows their cost per customer recognises at which price a model carries at all.
+            </div>
+          </div>
+          ${quickCheck('What should the price of a product be based on first and foremost?', ['On the value it creates for the customer — your own cost only forms the lower bound', 'Solely on your own production cost plus a fixed markup', 'On the lowest price in the market at any time, always below it'], 0, 'Price by value: what benefits the customer sets the willingness to pay. Your own unit cost only forms the lower bound, below which you cannot go permanently.')}
+          ${callout('key', 'Key takeaway', 'A customer pays off when their value over the lifetime (LTV) is clearly above the customer acquisition cost (CAC) and the acquisition pays back quickly. Churn eats growth, so retention is the lever. Choose the pricing model — per user, usage-based, tiered, freemium — and set the price by the value for the customer; your own unit cost only forms the lower bound.')}
+          ${renderQuestions('lead_l7_5', 10)}
+          ${renderBonus('lead_l7_5')}
+        `
+      },
+      {
+        id: 'lead_l7_6', title: 'Verträge, Lizenzen & Open-Source-Strategie',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 6</div>
+            <h1 class="lesson-title">Verträge, Lizenzen & Open-Source-Strategie</h1>
+            <p class="lesson-desc">Verträge und Lizenzen sind kein Randthema der Juristen. Wer Technik führt, muss die wichtigen Punkte verstehen — sonst entstehen Risiken, die man zu spät bemerkt.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was ein Tech-Leader an Verträgen verstehen muss</div>
+            <div class="explanation">
+              Ein Tech-Leader unterschreibt selten selbst, muss die wichtigen Punkte eines Vertrags aber verstehen und einfordern können. Bei <strong>SaaS-Verträgen</strong> zählen vor allem: die <strong>Laufzeit</strong> samt automatischer Verlängerung, die Fristen und Bedingungen der <strong>Kündigung</strong>, die <strong>Datenrückgabe</strong> am Ende (bekommt man die eigenen Daten vollständig und in nutzbarer Form zurück?), die <strong>Haftung</strong> und ihre Grenzen sowie die zugesicherten <strong>Service-Zusagen</strong> (SLA).<br><br>
+              Das knüpft direkt an das Vendor-Management aus Lektion 4 an: Was nicht im Vertrag steht, ist im Ernstfall nicht durchsetzbar. Ein Vertrag ist kein Misstrauensbeweis, sondern die Vereinbarung, die trägt, wenn das Verhältnis einmal unter Druck gerät.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Open-Source-Lizenzen — freizügig gegen copyleft</div>
+            <div class="explanation">
+              Software wird fast nie ganz selbst geschrieben; sie steckt voller <strong>Open-Source-Bausteine</strong>, und jeder bringt eine <strong>Lizenz</strong> mit. Grob unterscheidet man zwei Arten. <strong>Freizügige</strong> Lizenzen (permissive, etwa nach Art von MIT oder Apache) erlauben die Nutzung mit wenigen Pflichten, meist nur der Nennung. <strong>Copyleft</strong>-Lizenzen (etwa nach Art der GPL) können dagegen <strong>Weitergabe-Pflichten</strong> auslösen: Wer so lizenzierten Code verändert und weitergibt, muss den eigenen Code unter denselben Bedingungen offenlegen.<br><br>
+              Damit ist die <strong>Lizenz-Compliance</strong> ein echtes Risiko, kein Formalkram: Eine falsch eingesetzte Abhängigkeit kann das eigene Produkt rechtlich belasten. Darum behält man die Abhängigkeiten und ihre Lizenzen im Blick — die Idee einer <strong>Software-Stückliste</strong> (SBOM, software bill of materials) listet auf, was im Produkt steckt.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Lizenz-Ampel</span></div>
+              <div class="code-pre">permissive (MIT/Apache-Art): nutzen, meist nur Nennung
+copyleft   (GPL-Art)       : Weitergabe kann Offenlegung ausloesen
+unklar / keine Lizenz      : nicht einfach verwenden, pruefen
+Werkzeug                   : Abhaengigkeiten + Lizenzen listen (SBOM)</div>
+            </div>
+          </div>
+          ${quickCheck('Worin unterscheidet sich eine copyleft-Lizenz von einer freizügigen (permissive) Lizenz?', ['Copyleft kann beim Weitergeben die Pflicht auslösen, den eigenen Code offenzulegen; permissive verlangt meist nur die Nennung', 'Copyleft verbietet jede kommerzielle Nutzung, permissive erlaubt sie', 'Es gibt keinen Unterschied, beide Begriffe meinen dasselbe'], 0, 'Freizügige Lizenzen verlangen meist nur die Nennung. Copyleft kann beim Weitergeben eine Offenlegungspflicht für den eigenen abgeleiteten Code auslösen — genau darin liegt das Risiko.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Open Source bewusst nutzen — und beitragen</div>
+            <div class="explanation">
+              Open Source ist kein Selbstbedienungsladen, sondern ein Ökosystem. Ein reifer Umgang heißt: bewusst <strong>nutzen</strong> und zugleich <strong>beitragen</strong> — Fehler zurückmelden, Korrekturen einreichen, bei wichtigen Bausteinen mittragen. Das ist nicht nur Großzügigkeit, sondern <strong>Strategie</strong>: Wer zu den Projekten beiträgt, von denen das eigene Produkt abhängt, sichert deren Fortbestand, gewinnt Einfluss auf die Richtung und zieht Talente an. Reines Konsumieren macht abhängig von der Arbeit anderer, ohne sie zu stützen.<br><br>
+              Für Tech-Leader heißt das, Verträge, Lizenzen und Open-Source-Beiträge als Teil der <strong>Technikstrategie</strong> zu behandeln — nicht als lästige Randthemen, sondern als Fragen von Risiko, Unabhängigkeit und Wirkung.
+            </div>
+          </div>
+          ${quickCheck('Warum trägt man strategisch zu Open Source bei, statt nur zu konsumieren?', ['Weil Beiträge den Fortbestand wichtiger Bausteine sichern, Einfluss auf die Richtung geben und Talente anziehen', 'Weil man dadurch die Lizenzpflichten der genutzten Software umgehen kann', 'Weil Beitragen jede Haftung aus den Verträgen automatisch aufhebt'], 0, 'Beiträge sichern die Bausteine, von denen man abhängt, geben Einfluss auf ihre Richtung und ziehen Talente an. Lizenzpflichten und Haftung bleiben davon unberührt.')}
+          ${callout('key', 'Merksatz', 'Verstehe bei SaaS-Verträgen Laufzeit, Kündigung, Datenrückgabe, Haftung und SLA — was nicht im Vertrag steht, ist nicht durchsetzbar. Unterscheide freizügige (permissive) von copyleft-Lizenzen, deren Weitergabe-Pflichten ein echtes Risiko sind, und behalte Abhängigkeiten samt Lizenzen im Blick (SBOM). Nutze Open Source bewusst und trage strategisch bei, statt nur zu konsumieren.')}
+          ${renderQuestions('lead_l7_6', 10)}
+          ${renderBonus('lead_l7_6')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 6</div>
+            <h1 class="lesson-title">Contracts, licences & open-source strategy</h1>
+            <p class="lesson-desc">Contracts and licences are no sideline for lawyers. Whoever leads technology must understand the important points — otherwise risks arise that you notice too late.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What a tech leader must understand about contracts</div>
+            <div class="explanation">
+              A tech leader rarely signs themselves, but must understand and be able to demand the important points of a contract. In <strong>SaaS contracts</strong>, what counts above all are: the <strong>term</strong> including automatic renewal, the deadlines and conditions of <strong>termination</strong>, the <strong>data return</strong> at the end (do you get your own data back completely and in a usable form?), the <strong>liability</strong> and its limits, and the assured <strong>service level agreements</strong> (SLA).<br><br>
+              This ties directly to the vendor management from Lesson 4: what is not in the contract is not enforceable when it matters. A contract is not a sign of distrust but the agreement that holds when the relationship comes under pressure.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Open-source licences — permissive against copyleft</div>
+            <div class="explanation">
+              Software is almost never written entirely in-house; it is full of <strong>open-source building blocks</strong>, and each brings a <strong>licence</strong> with it. Roughly, two kinds are distinguished. <strong>Permissive</strong> licences (such as in the manner of MIT or Apache) allow use with few obligations, mostly only attribution. <strong>Copyleft</strong> licences (such as in the manner of the GPL), by contrast, can trigger <strong>sharing obligations</strong>: whoever changes and passes on code licensed that way must disclose their own code under the same conditions.<br><br>
+              With that, <strong>licence compliance</strong> is a real risk, not red tape: a wrongly used dependency can legally burden your own product. That is why you keep the dependencies and their licences in view — the idea of a <strong>software bill of materials</strong> (SBOM) lists what is inside the product.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Licence traffic light</span></div>
+              <div class="code-pre">permissive (MIT/Apache style): use, mostly only attribution
+copyleft   (GPL style)        : sharing can trigger disclosure
+unclear / no licence          : do not just use, check first
+tool                          : list dependencies + licences (SBOM)</div>
+            </div>
+          </div>
+          ${quickCheck('How does a copyleft licence differ from a permissive one?', ['Copyleft can trigger the obligation to disclose your own code when passing it on; permissive mostly only requires attribution', 'Copyleft forbids any commercial use, permissive allows it', 'There is no difference, both terms mean the same'], 0, 'Permissive licences mostly require only attribution. Copyleft can trigger a disclosure obligation for your own derived code when passing it on — that is exactly where the risk lies.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Use open source deliberately — and contribute</div>
+            <div class="explanation">
+              Open source is not a self-service store but an ecosystem. A mature approach means: use deliberately and at the same time <strong>contribute</strong> — report bugs back, submit fixes, help carry important building blocks. This is not only generosity but <strong>strategy</strong>: whoever contributes to the projects their own product depends on secures their continuation, gains influence on the direction and attracts talent. Pure consuming makes you dependent on the work of others without supporting it.<br><br>
+              For tech leaders this means treating contracts, licences and open-source contributions as part of the <strong>technology strategy</strong> — not as annoying sidelines, but as questions of risk, independence and impact.
+            </div>
+          </div>
+          ${quickCheck('Why do you contribute to open source strategically instead of only consuming?', ['Because contributions secure the continuation of important building blocks, give influence on the direction and attract talent', 'Because it lets you circumvent the licence obligations of the software you use', 'Because contributing automatically cancels any liability from the contracts'], 0, 'Contributions secure the building blocks you depend on, give influence on their direction and attract talent. Licence obligations and liability remain untouched by this.')}
+          ${callout('key', 'Key takeaway', 'In SaaS contracts understand term, termination, data return, liability and SLA — what is not in the contract is not enforceable. Distinguish permissive from copyleft licences, whose sharing obligations are a real risk, and keep dependencies and their licences in view (SBOM). Use open source deliberately and contribute strategically instead of only consuming.')}
+          ${renderQuestions('lead_l7_6', 10)}
+          ${renderBonus('lead_l7_6')}
+        `
+      },
+      {
+        id: 'lead_p7_exam', title: 'Phase 7 — Abschlussprüfung', title_en: 'Phase 7 — Final Exam',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Prüfung</div>
+            <h1 class="lesson-title">Phase 7 — Abschlussprüfung</h1>
+            <p class="lesson-desc">Die kumulative Prüfung über alle Lektionen der Phase 7 — Budget und Business Case, FinOps und Stückkosten, OKRs und Roadmaps, Vendor-Management und Due Diligence, Produktökonomie mit CAC und LTV sowie Verträge, Lizenzen und Open-Source-Strategie.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Was diese Prüfung abdeckt</div>
+            <div class="explanation">
+              Diese Abschlussprüfung bündelt die ganze Phase 7 — <strong>Business &amp; Finanzen</strong>. Sie prüft <strong>Budget, Business Case, ROI und TCO</strong> mit der Amortisationszeit und den Kosten des Nichtstuns, <strong>FinOps und Stückkosten</strong> mit Sichtbarkeit und dem Blick auf die Kosten pro Kunde, <strong>OKRs und Roadmaps</strong> mit Wirkung statt Ausstoß und now/next/later, das <strong>Vendor-Management und die Due Diligence</strong> mit build vs. buy, Lock-in und SLAs, die <strong>Produktökonomie</strong> mit CAC, LTV, Abwanderung und Preismodellen sowie <strong>Verträge, Lizenzen und Open-Source-Strategie</strong> mit permissive gegen copyleft.<br><br>
+              15 gemischte Fragen aus einem größeren Pool prüfen das Zusammenspiel dieser Themen. Nimm dir Zeit, lies genau und wende die Leitsätze der einzelnen Lektionen an.
+            </div>
+          </div>
+          ${renderQuestions('lead_p7_exam', 15)}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Exam</div>
+            <h1 class="lesson-title">Phase 7 — Final Exam</h1>
+            <p class="lesson-desc">The cumulative exam across all lessons of Phase 7 — budget and business case, FinOps and unit cost, OKRs and roadmaps, vendor management and due diligence, product economics with CAC and LTV, and contracts, licences and open-source strategy.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">What this exam covers</div>
+            <div class="explanation">
+              This final exam bundles all of Phase 7 — <strong>business &amp; finance</strong>. It tests <strong>budget, business case, ROI and TCO</strong> with the payback period and the cost of doing nothing, <strong>FinOps and unit cost</strong> with visibility and an eye on the cost per customer, <strong>OKRs and roadmaps</strong> with impact over output and now/next/later, <strong>vendor management and due diligence</strong> with build vs. buy, lock-in and SLAs, <strong>product economics</strong> with CAC, LTV, churn and pricing models, and <strong>contracts, licences and open-source strategy</strong> with permissive against copyleft.<br><br>
+              15 mixed questions from a larger pool test how these topics work together. Take your time, read closely and apply the guiding lines of the individual lessons.
+            </div>
+          </div>
+          ${renderQuestions('lead_p7_exam', 15)}
+        `
+      },
     ]
   },
   {
@@ -38204,7 +38405,20 @@ QUESTION_POOLS['lead_l7_1'] = [
     {t:'Weighted shortest job first — die gewichtete kürzeste Aufgabe zuerst, also hoher Wert bei geringem Aufwand nach vorn',t_en:'Weighted shortest job first — high value at low effort moves to the front',correct:true,why:'Genau. So priorisiert man nach Wert gegen Aufwand statt nach Lautstärke oder Reihenfolge des Eingangs.',why_en:'Exactly. This prioritises by value against effort instead of by loudness or order of arrival.'},
     {t:'Work scheduled for June first — alle Vorhaben beginnen im Juni',t_en:'Work scheduled for June first — all endeavours start in June',correct:false,why:'Nein. WSJF hat nichts mit einem festen Monat zu tun.',why_en:'No. WSJF has nothing to do with a fixed month.'},
     {t:'Whoever shouts first — die lauteste Stimme bestimmt die Reihenfolge',t_en:'Whoever shouts first — the loudest voice sets the order',correct:false,why:'Nein. Genau das will WSJF durch Wert gegen Aufwand ersetzen.',why_en:'No. That is exactly what WSJF aims to replace with value against effort.'}
-  ]}
+  ]},
+  {id:'p_lead_l7_1_mc3',type:'mc',xp:10,question:'Was beschreibt der <strong>ROI</strong> (return on investment)?',question_en:'What does the <strong>ROI</strong> (return on investment) describe?',options:[
+    {t:'Das Verhältnis von Nutzen bzw. Gewinn zur eingesetzten Investition',t_en:'The ratio of benefit or profit to the invested amount',correct:true,why:'Genau. Der ROI setzt den erzielten Nutzen ins Verhältnis zum eingesetzten Geld.',why_en:'Exactly. The ROI relates the benefit achieved to the money invested.'},
+    {t:'Allein die absolute Höhe der Investition',t_en:'The absolute size of the investment alone',correct:false,why:'Nein. Die Höhe allein sagt nichts über den Ertrag.',why_en:'No. The size alone says nothing about the return.'},
+    {t:'Die Zahl der am Projekt beteiligten Personen',t_en:'The number of people involved in the project',correct:false,why:'Nein. Das ist kein Maß der Wirtschaftlichkeit.',why_en:'No. That is not a measure of economics.'}
+  ]},
+  {id:'p_lead_l7_1_mc4',type:'mc',xp:10,question:'Warum ist im Business Case eine ehrliche Spanne mit Annahmen oft besser als eine scheingenaue Zahl?',question_en:'Why is an honest range with assumptions in the business case often better than a precise-looking phantom figure?',options:[
+    {t:'Weil offengelegte Annahmen belastbarer sind und sich nachprüfen lassen',t_en:'Because disclosed assumptions are more robust and can be checked',correct:true,why:'Genau. Scheingenauigkeit blendet nur; eine Spanne mit Annahmen ist ehrlich und prüfbar.',why_en:'Exactly. False precision only dazzles; a range with assumptions is honest and checkable.'},
+    {t:'Weil eine Spanne immer eine kleinere Zahl ergibt',t_en:'Because a range always yields a smaller figure',correct:false,why:'Nein. Eine Spanne ist nicht automatisch kleiner, sondern ehrlicher.',why_en:'No. A range is not automatically smaller, but more honest.'},
+    {t:'Weil genaue Zahlen in einem Business Case verboten sind',t_en:'Because precise figures are forbidden in a business case',correct:false,why:'Nein. Verboten ist nichts; es geht um Belastbarkeit statt Schein.',why_en:'No. Nothing is forbidden; it is about robustness instead of pretence.'}
+  ]},
+  {id:'p_lead_l7_1_tf3',type:'truefalse',xp:8,statement:'Der Kaufpreis einer Lösung kann niedriger sein als bei einer Alternative, während ihre Gesamtbetriebskosten (TCO) über die Jahre höher liegen.',statement_en:'The purchase price of a solution can be lower than that of an alternative while its total cost of ownership (TCO) is higher over the years.',correct:true,explanation:'Richtig. Die billigere Anschaffung kann über Betrieb, Wartung und Personal langfristig die teurere sein.',explanation_en:'Correct. The cheaper purchase can be the more expensive one in the long run through operation, maintenance and staff.'},
+  {id:'p_lead_l7_1_fb2',type:'fillblank',xp:12,prompt:'Das Verhältnis von Nutzen zur eingesetzten Investition kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The ratio of benefit to the invested amount is abbreviated as ___ (three letters).',answers:['ROI','roi','R.O.I.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Der <strong>ROI</strong> (return on investment) setzt den Ertrag ins Verhältnis zur Investition.',explanation_en:'The <strong>ROI</strong> (return on investment) relates the return to the investment.'},
+  {id:'p_lead_l7_1_fb3',type:'fillblank',xp:12,prompt:'Die Gesamtbetriebskosten einer Lösung über die ganze Nutzungsdauer kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The total cost of ownership of a solution over the whole lifetime is abbreviated as ___ (three letters).',answers:['TCO','tco','T.C.O.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Die <strong>TCO</strong> (total cost of ownership) zählen Anschaffung und Betrieb über die ganze Nutzungsdauer.',explanation_en:'The <strong>TCO</strong> (total cost of ownership) count purchase and operation over the whole lifetime.'}
 ];
 
 QUESTION_POOLS['lead_l7_2'] = [
@@ -38225,7 +38439,20 @@ QUESTION_POOLS['lead_l7_2'] = [
     {t:'Showback zeigt den Teams ihre Kosten, Chargeback verrechnet sie intern tatsächlich',t_en:'Showback shows teams their cost, chargeback actually charges it back internally',correct:true,why:'Genau. Showback schafft Bewusstsein, Chargeback echte Verantwortung — was passt, hängt von der Reife ab.',why_en:'Exactly. Showback creates awareness, chargeback real ownership — which fits depends on maturity.'},
     {t:'Showback und Chargeback sind nur zwei Namen für dieselbe Rechnung',t_en:'Showback and chargeback are just two names for the same bill',correct:false,why:'Nein. Der Unterschied liegt darin, ob tatsächlich verrechnet wird.',why_en:'No. The difference lies in whether cost is actually charged back.'},
     {t:'Chargeback zeigt nur an, Showback verrechnet tatsächlich',t_en:'Chargeback only shows, showback actually charges',correct:false,why:'Nein. Es ist genau umgekehrt.',why_en:'No. It is exactly the other way round.'}
-  ]}
+  ]},
+  {id:'p_lead_l7_2_mc3',type:'mc',xp:10,question:'Was ist ein wirksamer <strong>Kostenhebel</strong> in der Cloud?',question_en:'What is an effective <strong>cost lever</strong> in the cloud?',options:[
+    {t:'Überdimensionierte Ressourcen passend verkleinern (rightsizing) und Ungenutztes abschalten',t_en:'Shrink oversized resources to the fitting size (rightsizing) and switch off the unused',correct:true,why:'Genau. Passende Größe, Autoscaling und das Abschalten von Ungenutztem senken die Kosten unmittelbar.',why_en:'Exactly. Fitting size, autoscaling and switching off the unused lower the cost directly.'},
+    {t:'Jeden Dienst dauerhaft auf Maximalgröße laufen lassen',t_en:'Run every service permanently at maximum size',correct:false,why:'Nein. Das erzeugt genau die Verschwendung, die FinOps vermeiden will.',why_en:'No. That creates exactly the waste FinOps aims to avoid.'},
+    {t:'Die Kosten gar nicht mehr messen',t_en:'Stop measuring the cost altogether',correct:false,why:'Nein. Ohne Messung lässt sich nichts steuern.',why_en:'No. Without measurement nothing can be steered.'}
+  ]},
+  {id:'p_lead_l7_2_mc4',type:'mc',xp:10,question:'Warum ist <strong>Sichtbarkeit</strong> die Voraussetzung, um Cloud-Kosten zu steuern?',question_en:'Why is <strong>visibility</strong> the precondition for steering cloud cost?',options:[
+    {t:'Weil man nur steuern kann, was man den Teams und Produkten zuordnet — über Tags und Kostenstellen',t_en:'Because you can only steer what you allocate to teams and products — via tags and cost centres',correct:true,why:'Genau. Ohne Zuordnung bleibt die Rechnung ein undurchschaubarer Block.',why_en:'Exactly. Without allocation the bill stays an impenetrable block.'},
+    {t:'Weil Sichtbarkeit die Rechnung von allein halbiert',t_en:'Because visibility halves the bill on its own',correct:false,why:'Nein. Sichtbarkeit ermöglicht das Steuern, spart aber nicht von selbst.',why_en:'No. Visibility enables steering but does not save on its own.'},
+    {t:'Weil Tags die Dienste schneller machen',t_en:'Because tags make the services faster',correct:false,why:'Nein. Tags dienen der Zuordnung, nicht der Geschwindigkeit.',why_en:'No. Tags serve allocation, not speed.'}
+  ]},
+  {id:'p_lead_l7_2_tf3',type:'truefalse',xp:8,statement:'Eine steigende Cloud-Rechnung ist wirtschaftlich gesund, solange die Stückkosten pro Kunde sinken.',statement_en:'A rising cloud bill is economically healthy as long as the unit cost per customer falls.',correct:true,explanation:'Richtig. Dann wächst das Geschäft effizienter; die absolute Rechnung steigt mit dem Erfolg.',explanation_en:'Correct. Then the business grows more efficiently; the absolute bill rises with success.'},
+  {id:'p_lead_l7_2_fb2',type:'fillblank',xp:12,prompt:'Ressourcen auf die passende statt überdimensionierte Größe bringen nennt man ___ (englischer Fachbegriff, ein Wort).',prompt_en:'Bringing resources to the fitting instead of oversized size is called ___ (one word).',answers:['Rightsizing','rightsizing','right-sizing','Right-sizing'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Rightsizing</strong> wählt die passende Größe statt teurer Überdimensionierung.',explanation_en:'<strong>Rightsizing</strong> chooses the fitting size instead of expensive oversizing.'},
+  {id:'p_lead_l7_2_fb3',type:'fillblank',xp:12,prompt:'Die Kultur, die Kostenverantwortung ins Engineering bringt, nennt man ___ (ein Wort).',prompt_en:'The culture that brings cost ownership into engineering is called ___ (one word).',answers:['FinOps','finops','Fin-Ops','fin ops'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>FinOps</strong> bringt die Kostenverantwortung dorthin, wo die technischen Entscheidungen fallen.',explanation_en:'<strong>FinOps</strong> brings cost ownership to where the technical decisions are made.'}
 ];
 
 QUESTION_POOLS['lead_l7_3'] = [
@@ -38246,7 +38473,20 @@ QUESTION_POOLS['lead_l7_3'] = [
     {t:'Damit jede und jeder erkennt, wozu die eigene Aufgabe beiträgt — das schafft Fokus und Sinn',t_en:'So that everyone recognises what their own task contributes to — that creates focus and meaning',correct:true,why:'Genau. Fehlt die Linie, fühlt sich Arbeit beliebig an; ist sie klar, entsteht Ausrichtung.',why_en:'Exactly. Without the line, work feels arbitrary; when it is clear, alignment arises.'},
     {t:'Damit die Führung jede einzelne Aufgabe im Detail genehmigen kann',t_en:'So that leadership can approve every single task in detail',correct:false,why:'Nein. Es geht um Ausrichtung und Sinn, nicht um Mikromanagement.',why_en:'No. It is about alignment and meaning, not micromanagement.'},
     {t:'Damit man die OKRs an die Vergütung koppeln kann',t_en:'So that the OKRs can be coupled to pay',correct:false,why:'Nein. Genau diese Kopplung ist zu vermeiden.',why_en:'No. That very coupling is to be avoided.'}
-  ]}
+  ]},
+  {id:'p_lead_l7_3_mc3',type:'mc',xp:10,question:'Was beschreibt eine <strong>now/next/later</strong>-Roadmap?',question_en:'What does a <strong>now/next/later</strong> roadmap describe?',options:[
+    {t:'Richtung und Themen nach Zeithorizont, ohne fixe Datumsversprechen',t_en:'Direction and themes by time horizon, without fixed date promises',correct:true,why:'Genau. Prioritäten bleiben sichtbar, ohne Termine zu versprechen, die man noch nicht halten kann.',why_en:'Exactly. Priorities stay visible without promising dates you cannot yet keep.'},
+    {t:'Für jede Aufgabe ein verbindliches Lieferdatum',t_en:'A binding delivery date for every task',correct:false,why:'Nein. Fixe Daten für alles machen die Roadmap zur Fessel.',why_en:'No. Fixed dates for everything turn the roadmap into a shackle.'},
+    {t:'Die vollständige Aufgabenliste des Teams',t_en:'The complete task list of the team',correct:false,why:'Nein. Das ist ein Backlog, keine Roadmap.',why_en:'No. That is a backlog, not a roadmap.'}
+  ]},
+  {id:'p_lead_l7_3_mc4',type:'mc',xp:10,question:'Was ist der Unterschied zwischen <strong>Output</strong> und <strong>Outcome</strong>?',question_en:'What is the difference between <strong>output</strong> and <strong>outcome</strong>?',options:[
+    {t:'Output ist der bloße Ausstoß (z. B. geliefertes Feature), Outcome die Wirkung in der Welt (z. B. gesenkte Abbruchrate)',t_en:'Output is the mere throughput (e.g. a delivered feature), outcome the impact in the world (e.g. a reduced drop-off rate)',correct:true,why:'Genau. Gute Ziele richten sich an der Wirkung aus, nicht am reinen Ausstoß.',why_en:'Exactly. Good goals orient on the impact, not on mere throughput.'},
+    {t:'Output ist die Wirkung, Outcome der reine Ausstoß',t_en:'Output is the impact, outcome the mere throughput',correct:false,why:'Nein. Das ist genau vertauscht.',why_en:'No. That is exactly swapped.'},
+    {t:'Beide Begriffe meinen dasselbe',t_en:'Both terms mean the same',correct:false,why:'Nein. Der Unterschied zwischen Ausstoß und Wirkung ist der Kern guter Ziele.',why_en:'No. The difference between throughput and impact is the core of good goals.'}
+  ]},
+  {id:'p_lead_l7_3_tf3',type:'truefalse',xp:8,statement:'Ambitionierte OKRs müssen nicht zu 100 Prozent erfüllt werden; ein Erreichungsgrad deutlich darunter kann bei anspruchsvollen Zielen normal sein.',statement_en:'Ambitious OKRs need not be fulfilled to 100 percent; an attainment clearly below that can be normal for demanding goals.',correct:true,explanation:'Richtig. Setzt man die Latte hoch, ist ein Teilerfolg erwartbar — das ist der Sinn von Stretch-Zielen, keine Schwäche.',explanation_en:'Correct. If you set the bar high, partial success is to be expected — that is the point of stretch goals, not a weakness.'},
+  {id:'p_lead_l7_3_fb2',type:'fillblank',xp:12,prompt:'Die messbaren Ergebnisse eines OKR, an denen man den Fortschritt erkennt, nennt man ___ ___ (englischer Fachbegriff, zwei Wörter).',prompt_en:'The measurable results of an OKR by which progress is recognised are called ___ ___ (two words).',answers:['Key Results','key results','Key-Results','keyresults'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Key Results</strong> machen das qualitative Objective messbar.',explanation_en:'The <strong>key results</strong> make the qualitative objective measurable.'},
+  {id:'p_lead_l7_3_fb3',type:'fillblank',xp:12,prompt:'Das qualitative Ziel in einem OKR, das die Richtung vorgibt, nennt man ___ (englischer Fachbegriff, ein Wort).',prompt_en:'The qualitative goal in an OKR that sets the direction is called ___ (one word).',answers:['Objective','objective','Ziel','ziel'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Das <strong>Objective</strong> gibt die Richtung; die Key Results machen den Fortschritt messbar.',explanation_en:'The <strong>objective</strong> gives the direction; the key results make the progress measurable.'}
 ];
 
 QUESTION_POOLS['lead_l7_4'] = [
@@ -38267,7 +38507,20 @@ QUESTION_POOLS['lead_l7_4'] = [
     {t:'Weil ein Anbieter, mit dem man im Gespräch bleibt, im Problemfall anders reagiert als eine reine Rechnung',t_en:'Because a vendor you stay in conversation with reacts differently in a problem than a mere bill',correct:true,why:'Genau. Regelmäßige Reviews und klare Erwartungen zahlen sich gerade dann aus, wenn es schwierig wird.',why_en:'Exactly. Regular reviews and clear expectations pay off precisely when things get difficult.'},
     {t:'Weil man dadurch nie wieder über den Preis verhandeln muss',t_en:'Because that way you never have to negotiate the price again',correct:false,why:'Nein. Partnerschaft ersetzt keine Verhandlung; sie verbessert die Zusammenarbeit.',why_en:'No. Partnership does not replace negotiation; it improves the cooperation.'},
     {t:'Weil eine Partnerschaft jede technische Prüfung überflüssig macht',t_en:'Because a partnership makes any technical check superfluous',correct:false,why:'Nein. Due Diligence und klare SLAs bleiben trotzdem nötig.',why_en:'No. Due diligence and clear SLAs remain necessary nonetheless.'}
-  ]}
+  ]},
+  {id:'p_lead_l7_4_mc3',type:'mc',xp:10,question:'Welche Funktion kauft man typischerweise ein, statt sie selbst zu bauen?',question_en:'Which function do you typically buy in instead of building yourself?',options:[
+    {t:'Gelöste Standardprobleme wie Zahlungsabwicklung, Mailversand oder Kartendarstellung',t_en:'Solved standard problems such as payment processing, email sending or map display',correct:true,why:'Genau. Diese sind gelöst; sie selbst zu bauen bindet Kraft ohne Vorsprung.',why_en:'Exactly. These are solved; building them yourself binds energy without a lead.'},
+    {t:'Die eigene Kernkompetenz, die einen von anderen unterscheidet',t_en:'Your own core competence that differentiates you from others',correct:false,why:'Nein. Gerade die Kernkompetenz baut man selbst.',why_en:'No. The core competence in particular is built yourself.'},
+    {t:'Nichts — man baut grundsätzlich alles selbst',t_en:'Nothing — you build everything yourself on principle',correct:false,why:'Nein. Alles selbst zu bauen bindet Kraft ohne Vorsprung.',why_en:'No. Building everything yourself binds energy without a lead.'}
+  ]},
+  {id:'p_lead_l7_4_mc4',type:'mc',xp:10,question:'Was bewertet eine <strong>technische Due Diligence</strong>?',question_en:'What does a <strong>technical due diligence</strong> assess?',options:[
+    {t:'Architektur, technische Schulden, Team, Sicherheit und Skalierbarkeit — vor der Entscheidung',t_en:'Architecture, technical debt, team, security and scalability — before the decision',correct:true,why:'Genau. Ziel ist, Risiken sichtbar zu machen, bevor der Vertrag unterschrieben ist.',why_en:'Exactly. The goal is to make risks visible before the contract is signed.'},
+    {t:'Allein den Markennamen und die Bekanntheit des Anbieters',t_en:'The brand name and fame of the vendor alone',correct:false,why:'Nein. Bekanntheit ersetzt keine Prüfung der Technik.',why_en:'No. Fame does not replace an assessment of the technology.'},
+    {t:'Nur den aktuellen Aktienkurs des Anbieters',t_en:'Only the current share price of the vendor',correct:false,why:'Nein. Das sagt nichts über Architektur, Schulden oder Sicherheit.',why_en:'No. That says nothing about architecture, debt or security.'}
+  ]},
+  {id:'p_lead_l7_4_tf3',type:'truefalse',xp:8,statement:'Datenportabilität bedeutet, dass man im Ernstfall an die eigenen Daten herankommt und sie in nutzbarer Form mitnehmen kann.',statement_en:'Data portability means that in an emergency you can reach your own data and take it with you in a usable form.',correct:true,explanation:'Richtig. Fehlende Datenportabilität macht den Ausstieg teuer und verschärft den Lock-in.',explanation_en:'Correct. Missing data portability makes the exit expensive and sharpens the lock-in.'},
+  {id:'p_lead_l7_4_fb2',type:'fillblank',xp:12,prompt:'Verbindliche Service-Zusagen eines Anbieters wie zugesicherte Verfügbarkeit und Reaktionszeiten kürzt man als ___ ab (drei Buchstaben).',prompt_en:'Binding service commitments of a vendor such as assured availability and response times are abbreviated as ___ (three letters).',answers:['SLA','sla','SLAs','slas','S.L.A.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Ein <strong>SLA</strong> (service level agreement) gehört in den Vertrag; nur dort ist es durchsetzbar.',explanation_en:'An <strong>SLA</strong> (service level agreement) belongs in the contract; only there is it enforceable.'},
+  {id:'p_lead_l7_4_fb3',type:'fillblank',xp:12,prompt:'Die strategische Grundfrage, ob man selbst baut oder einkauft, nennt man build vs. ___ (ein Wort).',prompt_en:'The strategic basic question whether to build yourself or buy in is called build vs. ___ (one word).',answers:['buy','Buy','kaufen'],placeholder:'Wort…',placeholder_en:'Word…',explanation:'Bei <strong>build vs. buy</strong> baut man die Kernkompetenz selbst und kauft den Rest ein.',explanation_en:'In <strong>build vs. buy</strong> you build the core competence yourself and buy the rest.'}
 ];
 
 QUESTION_POOLS['lead_l8_1'] = [
@@ -39201,6 +39454,127 @@ QUESTION_POOLS['lead_p6_exam'] = [
   {id:'p_lead_p6_exam_fb3',type:'fillblank',xp:12,prompt:'Das Muster Situation, Komplikation, Frage und Antwort kürzt man als ___ ab (vier Buchstaben).',prompt_en:'The pattern Situation, Complication, Question and Answer is abbreviated as ___ (four letters).',answers:['SCQA','scqa','S.C.Q.A.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'<strong>SCQA</strong> gibt in wenigen Sätzen den roten Faden und führt direkt zur Antwort.',explanation_en:'<strong>SCQA</strong> gives the common thread in a few sentences and leads straight to the answer.'},
   {id:'p_lead_p6_exam_fb4',type:'fillblank',xp:12,prompt:'In der Krise kommuniziert man schnell, ehrlich und mit einer ___ (ein Wort).',prompt_en:'In a crisis you communicate fast, honestly and with one ___ (one word).',answers:['Stimme','stimme','voice','Voice'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Mit einer <strong>Stimme</strong>: widersprüchliche Aussagen aus vielen Quellen vervielfachen die Verunsicherung.',explanation_en:'With one <strong>voice</strong>: contradictory statements from many sources multiply the uncertainty.'},
   {id:'p_lead_p6_exam_fb5',type:'fillblank',xp:12,prompt:'Für gute Folien gilt: eine Idee pro ___ , wenig Text, starke Bilder (ein Wort).',prompt_en:'For good slides: one idea per ___ , little text, strong images (one word).',answers:['Folie','folie','slide','Slide'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Eine Idee pro <strong>Folie</strong> hält den Fokus; überladene Folien zwingen zum Lesen statt Zuhören.',explanation_en:'One idea per <strong>slide</strong> keeps the focus; overloaded slides force reading instead of listening.'}
+];
+
+QUESTION_POOLS['lead_l7_5'] = [
+  {id:'p_lead_l7_5_mc1',type:'mc',xp:10,question:'Was beschreibt der <strong>LTV</strong> (lifetime value) eines Kunden?',question_en:'What does the <strong>LTV</strong> (lifetime value) of a customer describe?',options:[
+    {t:'Den Wert, den ein Kunde über die gesamte Lebensdauer der Beziehung einbringt, abzüglich der Kosten, ihn zu bedienen',t_en:'The value a customer brings in over the whole lifetime of the relationship, minus the cost of serving them',correct:true,why:'Genau. Der Wert entsteht über die Zeit, nicht beim ersten Kauf.',why_en:'Exactly. The value arises over time, not at the first purchase.'},
+    {t:'Nur den Umsatz des allerersten Kaufs',t_en:'Only the revenue of the very first purchase',correct:false,why:'Nein. Der LTV zählt die ganze Beziehung, nicht nur den Erstkauf.',why_en:'No. The LTV counts the whole relationship, not only the first purchase.'},
+    {t:'Die Kosten, einen neuen Kunden zu gewinnen',t_en:'The cost of winning a new customer',correct:false,why:'Nein. Das ist der CAC, nicht der LTV.',why_en:'No. That is the CAC, not the LTV.'}
+  ]},
+  {id:'p_lead_l7_5_mc2',type:'mc',xp:10,question:'Was zählt zu den <strong>Kundengewinnungskosten</strong> (CAC)?',question_en:'What counts towards the <strong>customer acquisition cost</strong> (CAC)?',options:[
+    {t:'Alles, was Marketing und Vertrieb kosten, um einen neuen Kunden zu gewinnen, geteilt durch die gewonnenen Kunden',t_en:'Everything marketing and sales cost to win a new customer, divided by the customers won',correct:true,why:'Genau. Der CAC misst die Kosten pro neu gewonnenem Kunden.',why_en:'Exactly. The CAC measures the cost per newly won customer.'},
+    {t:'Die laufenden Serverkosten pro Kunde im Betrieb',t_en:'The ongoing server cost per customer in operation',correct:false,why:'Nein. Das sind Betriebs- bzw. Stückkosten, nicht die Gewinnungskosten.',why_en:'No. That is operating or unit cost, not acquisition cost.'},
+    {t:'Der Wert eines Kunden über seine Lebensdauer',t_en:'The value of a customer over their lifetime',correct:false,why:'Nein. Das ist der LTV, nicht der CAC.',why_en:'No. That is the LTV, not the CAC.'}
+  ]},
+  {id:'p_lead_l7_5_mc3',type:'mc',xp:10,question:'Welche Relation von LTV und CAC gilt als <strong>gesund</strong>?',question_en:'Which relation of LTV and CAC is considered <strong>healthy</strong>?',options:[
+    {t:'Der LTV liegt deutlich über dem CAC, als Faustregel etwa das Dreifache',t_en:'The LTV is clearly above the CAC, as a rule of thumb roughly three times',correct:true,why:'Genau. Dann trägt der Kunde über seine Lebensdauer die Gewinnung und mehr.',why_en:'Exactly. Then the customer carries the acquisition and more over their lifetime.'},
+    {t:'CAC und LTV sind möglichst gleich groß',t_en:'CAC and LTV are as equal as possible',correct:false,why:'Nein. Dann bleibt nach Gewinnung und Betrieb kaum etwas übrig.',why_en:'No. Then little remains after acquisition and operation.'},
+    {t:'Der CAC liegt über dem LTV, damit man schnell wächst',t_en:'The CAC is above the LTV, so that you grow quickly',correct:false,why:'Nein. Dann verliert man mit jedem neuen Kunden Geld.',why_en:'No. Then you lose money with every new customer.'}
+  ]},
+  {id:'p_lead_l7_5_mc4',type:'mc',xp:10,question:'Welches Preismodell berechnet den Preis nach dem tatsächlichen Verbrauch?',question_en:'Which pricing model charges by the actual consumption?',options:[
+    {t:'Das nutzungsbasierte Modell — je mehr Verbrauch, desto mehr Preis',t_en:'The usage-based model — more consumption, more price',correct:true,why:'Genau. Der Preis folgt dem tatsächlichen Verbrauch.',why_en:'Exactly. The price follows the actual consumption.'},
+    {t:'Das Freemium-Modell mit kostenlosem Einstieg',t_en:'The freemium model with free entry',correct:false,why:'Nein. Freemium trennt kostenlos und bezahlt, nicht nach Verbrauch.',why_en:'No. Freemium separates free and paid, not by consumption.'},
+    {t:'Der feste Preis pro Nutzer unabhängig vom Verbrauch',t_en:'The fixed price per user regardless of consumption',correct:false,why:'Nein. Pro Nutzer ist unabhängig vom Verbrauch.',why_en:'No. Per user is independent of consumption.'}
+  ]},
+  {id:'p_lead_l7_5_tf1',type:'truefalse',xp:8,statement:'Eine hohe Abwanderung (churn) frisst Wachstum von hinten auf, darum ist Kundenbindung ein starker Hebel.',statement_en:'A high churn eats growth from behind, so customer retention is a strong lever.',correct:true,explanation:'Richtig. Ein gehaltener Kunde erhöht den LTV, ohne erneut CAC zu kosten.',explanation_en:'Correct. A kept customer raises the LTV without costing CAC again.'},
+  {id:'p_lead_l7_5_tf2',type:'truefalse',xp:8,statement:'Den Preis eines Produkts legt man am besten allein nach den eigenen Herstellungskosten plus festem Aufschlag fest.',statement_en:'The price of a product is best set solely by your own production cost plus a fixed markup.',correct:false,explanation:'Falsch. Der Preis richtet sich nach dem Wert für den Kunden; die Kosten bilden nur die Untergrenze.',explanation_en:'False. The price is set by the value for the customer; cost only forms the lower bound.'},
+  {id:'p_lead_l7_5_tf3',type:'truefalse',xp:8,statement:'Liegt der LTV unter dem CAC, verliert das Geschäft mit jedem neuen Kunden Geld.',statement_en:'If the LTV is below the CAC, the business loses money with every new customer.',correct:true,explanation:'Richtig. Dann kostet die Gewinnung mehr, als der Kunde je einbringt — Wachstum verstärkt den Verlust.',explanation_en:'Correct. Then acquisition costs more than the customer ever brings in — growth amplifies the loss.'},
+  {id:'p_lead_l7_5_fb1',type:'fillblank',xp:12,prompt:'Die Kennzahl für den Wert eines Kunden über die gesamte Lebensdauer kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The metric for the value of a customer over the whole lifetime is abbreviated as ___ (three letters).',answers:['LTV','ltv','L.T.V.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Der <strong>LTV</strong> (lifetime value) misst den Wert eines Kunden über die ganze Beziehung.',explanation_en:'The <strong>LTV</strong> (lifetime value) measures the value of a customer over the whole relationship.'},
+  {id:'p_lead_l7_5_fb2',type:'fillblank',xp:12,prompt:'Die Kosten, einen neuen Kunden zu gewinnen, kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The cost of winning a new customer is abbreviated as ___ (three letters).',answers:['CAC','cac','C.A.C.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Der <strong>CAC</strong> (customer acquisition cost) sind die Kosten pro neu gewonnenem Kunden.',explanation_en:'The <strong>CAC</strong> (customer acquisition cost) is the cost per newly won customer.'},
+  {id:'p_lead_l7_5_fb3',type:'fillblank',xp:12,prompt:'Der Anteil der Kunden, die wieder abspringen, heißt ___ (englischer Fachbegriff, ein Wort).',prompt_en:'The share of customers who drop off again is called ___ (one word).',answers:['Churn','churn','Abwanderung','abwanderung'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die Abwanderung (<strong>churn</strong>) frisst Wachstum von hinten; Bindung ist der Gegenhebel.',explanation_en:'The churn eats growth from behind; retention is the counter-lever.'},
+  {id:'p_lead_l7_5_bonus',type:'mc',xp:20,optional:true,question:'Was bedeutet die <strong>Amortisationszeit der Akquise</strong> (CAC payback)?',question_en:'What does the <strong>payback period of acquisition</strong> (CAC payback) mean?',options:[
+    {t:'Die Zeit, bis ein Kunde die Kosten seiner Gewinnung wieder eingespielt hat — je kürzer, desto schneller finanziert das Geschäft sein Wachstum',t_en:'The time until a customer has earned back the cost of their acquisition — the shorter, the faster the business finances its growth',correct:true,why:'Genau. Eine kurze Amortisation setzt Mittel für weiteres Wachstum frei.',why_en:'Exactly. A short payback frees funds for further growth.'},
+    {t:'Die Zeit, bis ein Kunde zum ersten Mal kauft',t_en:'The time until a customer buys for the first time',correct:false,why:'Nein. Gemeint ist die Rückgewinnung der Gewinnungskosten, nicht der Erstkauf.',why_en:'No. Meant is the recovery of the acquisition cost, not the first purchase.'},
+    {t:'Die maximale Vertragslaufzeit eines Kunden',t_en:'The maximum contract term of a customer',correct:false,why:'Nein. Das hat mit der Amortisation der Akquise nichts zu tun.',why_en:'No. That has nothing to do with the payback of acquisition.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l7_6'] = [
+  {id:'p_lead_l7_6_mc1',type:'mc',xp:10,question:'Welche Punkte sind bei einem <strong>SaaS-Vertrag</strong> besonders zu prüfen?',question_en:'Which points are to be checked particularly in a <strong>SaaS contract</strong>?',options:[
+    {t:'Laufzeit und Verlängerung, Kündigung, Datenrückgabe, Haftung und die zugesicherten SLAs',t_en:'Term and renewal, termination, data return, liability and the assured SLAs',correct:true,why:'Genau. Diese Punkte entscheiden im Ernstfall, nicht die Hochglanzbroschüre.',why_en:'Exactly. These points decide when it matters, not the glossy brochure.'},
+    {t:'Allein die Farbe des Logos und der Firmenname des Anbieters',t_en:'Only the colour of the logo and the company name of the vendor',correct:false,why:'Nein. Das sagt nichts über Rechte, Pflichten und Risiken.',why_en:'No. That says nothing about rights, obligations and risks.'},
+    {t:'Nur der monatliche Preis, alles Weitere regelt sich von selbst',t_en:'Only the monthly price, everything else sorts itself out',correct:false,why:'Nein. Was nicht im Vertrag steht, ist nicht durchsetzbar.',why_en:'No. What is not in the contract is not enforceable.'}
+  ]},
+  {id:'p_lead_l7_6_mc2',type:'mc',xp:10,question:'Was kennzeichnet eine <strong>freizügige</strong> (permissive) Open-Source-Lizenz?',question_en:'What characterises a <strong>permissive</strong> open-source licence?',options:[
+    {t:'Sie erlaubt die Nutzung mit wenigen Pflichten, meist nur der Nennung (etwa nach Art von MIT oder Apache)',t_en:'It allows use with few obligations, mostly only attribution (such as in the manner of MIT or Apache)',correct:true,why:'Genau. Freizügige Lizenzen lassen viel Spielraum bei wenigen Auflagen.',why_en:'Exactly. Permissive licences leave much room with few conditions.'},
+    {t:'Sie verlangt stets, den eigenen abgeleiteten Code offenzulegen',t_en:'It always requires disclosing your own derived code',correct:false,why:'Nein. Das ist eher das Merkmal von copyleft.',why_en:'No. That is rather the feature of copyleft.'},
+    {t:'Sie verbietet jede Nutzung in kommerziellen Produkten',t_en:'It forbids any use in commercial products',correct:false,why:'Nein. Freizügige Lizenzen erlauben gerade auch die kommerzielle Nutzung.',why_en:'No. Permissive licences allow commercial use in particular too.'}
+  ]},
+  {id:'p_lead_l7_6_mc3',type:'mc',xp:10,question:'Welche Pflicht kann eine <strong>copyleft</strong>-Lizenz (GPL-Art) auslösen?',question_en:'Which obligation can a <strong>copyleft</strong> licence (GPL style) trigger?',options:[
+    {t:'Wer so lizenzierten Code verändert und weitergibt, muss den eigenen Code unter denselben Bedingungen offenlegen',t_en:'Whoever changes and passes on code licensed that way must disclose their own code under the same conditions',correct:true,why:'Genau. Daraus entsteht das Compliance-Risiko bei falschem Einsatz.',why_en:'Exactly. From this arises the compliance risk when used wrongly.'},
+    {t:'Man muss dem Urheber eine feste Lizenzgebühr pro Nutzer zahlen',t_en:'You must pay the author a fixed licence fee per user',correct:false,why:'Nein. Copyleft verlangt keine Gebühr, sondern kann Offenlegung auslösen.',why_en:'No. Copyleft demands no fee but can trigger disclosure.'},
+    {t:'Man darf die Software nur ein Jahr lang verwenden',t_en:'You may use the software for only one year',correct:false,why:'Nein. Eine Zeitgrenze ist kein Merkmal von copyleft.',why_en:'No. A time limit is not a feature of copyleft.'}
+  ]},
+  {id:'p_lead_l7_6_mc4',type:'mc',xp:10,question:'Wozu dient eine <strong>Software-Stückliste</strong> (SBOM)?',question_en:'What is a <strong>software bill of materials</strong> (SBOM) for?',options:[
+    {t:'Sie listet die Abhängigkeiten und ihre Lizenzen auf, damit man den Überblick über das behält, was im Produkt steckt',t_en:'It lists the dependencies and their licences so that you keep an overview of what is inside the product',correct:true,why:'Genau. Nur was man kennt, kann man auf Lizenzrisiken prüfen.',why_en:'Exactly. Only what you know can be checked for licence risks.'},
+    {t:'Sie misst die Geschwindigkeit des Programms zur Laufzeit',t_en:'It measures the speed of the program at runtime',correct:false,why:'Nein. Das ist Leistungsmessung, keine Stückliste.',why_en:'No. That is performance measurement, not a bill of materials.'},
+    {t:'Sie ersetzt den Vertrag mit dem SaaS-Anbieter',t_en:'It replaces the contract with the SaaS vendor',correct:false,why:'Nein. Eine SBOM ersetzt keinen Vertrag.',why_en:'No. An SBOM does not replace a contract.'}
+  ]},
+  {id:'p_lead_l7_6_tf1',type:'truefalse',xp:8,statement:'Lizenz-Compliance ist ein echtes rechtliches Risiko, kein bloßer Formalkram.',statement_en:'Licence compliance is a real legal risk, not mere red tape.',correct:true,explanation:'Richtig. Eine falsch eingesetzte Abhängigkeit kann das eigene Produkt rechtlich belasten.',explanation_en:'Correct. A wrongly used dependency can legally burden your own product.'},
+  {id:'p_lead_l7_6_tf2',type:'truefalse',xp:8,statement:'Bei der Datenrückgabe im SaaS-Vertrag kommt es darauf an, die eigenen Daten vollständig und in nutzbarer Form zurückzubekommen.',statement_en:'With data return in a SaaS contract, what matters is getting your own data back completely and in a usable form.',correct:true,explanation:'Richtig. Daten in unbrauchbarem Format sind faktisch verloren und verschärfen den Lock-in.',explanation_en:'Correct. Data in an unusable format is effectively lost and sharpens the lock-in.'},
+  {id:'p_lead_l7_6_tf3',type:'truefalse',xp:8,statement:'Strategisch ist es am klügsten, Open Source nur zu konsumieren und nie etwas beizutragen.',statement_en:'Strategically it is wisest to only consume open source and never contribute.',correct:false,explanation:'Falsch. Beiträge sichern wichtige Bausteine, geben Einfluss auf die Richtung und ziehen Talente an.',explanation_en:'False. Contributions secure important building blocks, give influence on the direction and attract talent.'},
+  {id:'p_lead_l7_6_fb1',type:'fillblank',xp:12,prompt:'Eine Open-Source-Lizenz, die beim Weitergeben die Offenlegung des eigenen Codes auslösen kann, nennt man ___ (englischer Fachbegriff, ein Wort).',prompt_en:'An open-source licence that can trigger disclosure of your own code when passing it on is called ___ (one word).',answers:['Copyleft','copyleft','Copy-left','copy-left'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Copyleft</strong>-Lizenzen (GPL-Art) können Weitergabe-Pflichten auslösen.',explanation_en:'<strong>Copyleft</strong> licences (GPL style) can trigger sharing obligations.'},
+  {id:'p_lead_l7_6_fb2',type:'fillblank',xp:12,prompt:'Eine Lizenz, die die Nutzung mit wenigen Pflichten erlaubt (MIT/Apache-Art), nennt man ___ (englischer Fachbegriff, ein Wort).',prompt_en:'A licence that allows use with few obligations (MIT/Apache style) is called ___ (one word).',answers:['permissive','Permissive','freizügig','freizuegig'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Permissive</strong> (freizügige) Lizenzen verlangen meist nur die Nennung.',explanation_en:'<strong>Permissive</strong> licences mostly require only attribution.'},
+  {id:'p_lead_l7_6_fb3',type:'fillblank',xp:12,prompt:'Die Liste aller Softwarebausteine und ihrer Lizenzen in einem Produkt kürzt man als ___ ab (vier Buchstaben).',prompt_en:'The list of all software building blocks and their licences in a product is abbreviated as ___ (four letters).',answers:['SBOM','sbom','S.B.O.M.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Die <strong>SBOM</strong> (software bill of materials) listet die Bausteine und ihre Lizenzen auf.',explanation_en:'The <strong>SBOM</strong> (software bill of materials) lists the building blocks and their licences.'},
+  {id:'p_lead_l7_6_bonus',type:'mc',xp:20,optional:true,question:'Warum behandelt ein Tech-Leader Verträge und Lizenzen als Teil der <strong>Technikstrategie</strong>?',question_en:'Why does a tech leader treat contracts and licences as part of the <strong>technology strategy</strong>?',options:[
+    {t:'Weil sie über Risiko, Unabhängigkeit und Wirkung entscheiden und nicht bloß lästige Randthemen sind',t_en:'Because they decide risk, independence and impact and are not merely annoying sidelines',correct:true,why:'Genau. Wer sie ignoriert, holt sich Risiken ins Produkt, die er zu spät bemerkt.',why_en:'Exactly. Whoever ignores them brings risks into the product that are noticed too late.'},
+    {t:'Weil juristische Themen die einzige Aufgabe der Technikführung sind',t_en:'Because legal topics are the only task of technology leadership',correct:false,why:'Nein. Sie sind ein Teil der Strategie, nicht die einzige Aufgabe.',why_en:'No. They are one part of the strategy, not the only task.'},
+    {t:'Weil Lizenzen die Qualität des Codes automatisch verbessern',t_en:'Because licences automatically improve the quality of the code',correct:false,why:'Nein. Eine Lizenz sagt nichts über die Codequalität.',why_en:'No. A licence says nothing about code quality.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_p7_exam'] = [
+  {id:'p_lead_p7_exam_mc1',type:'mc',xp:10,question:'Was umfassen die <strong>Gesamtbetriebskosten</strong> (TCO)?',question_en:'What do the <strong>total cost of ownership</strong> (TCO) comprise?',options:[
+    {t:'Anschaffung plus Betrieb, Wartung, Energie und Personal über die ganze Nutzungsdauer',t_en:'Purchase plus operation, maintenance, energy and staff over the whole lifetime',correct:true,why:'Genau. Der Kaufpreis allein unterschätzt die wahren Kosten.',why_en:'Exactly. The purchase price alone underestimates the true cost.'},
+    {t:'Nur den einmaligen Kaufpreis',t_en:'Only the one-off purchase price',correct:false,why:'Nein. TCO zählt auch den laufenden Betrieb, der oft überwiegt.',why_en:'No. TCO also counts the ongoing operation, which often dominates.'},
+    {t:'Allein die Marketingkosten für die Lösung',t_en:'Only the marketing cost for the solution',correct:false,why:'Nein. Marketing ist kein Teil der TCO einer Lösung.',why_en:'No. Marketing is not part of the TCO of a solution.'}
+  ]},
+  {id:'p_lead_p7_exam_mc2',type:'mc',xp:10,question:'Welcher Posten wird im <strong>Business Case</strong> am häufigsten vergessen?',question_en:'Which item is most frequently forgotten in the <strong>business case</strong>?',options:[
+    {t:'Die Kosten des Nichtstuns — Risiko und entgangener Nutzen, wenn man nicht investiert',t_en:'The cost of doing nothing — risk and lost benefit if you do not invest',correct:true,why:'Genau. Auch eine Entscheidung gegen ein Projekt hat einen Preis.',why_en:'Exactly. A decision against a project also carries a price.'},
+    {t:'Der Kaufpreis der neuen Lösung',t_en:'The purchase price of the new solution',correct:false,why:'Nein. Den Kaufpreis vergisst kaum jemand.',why_en:'No. Hardly anyone forgets the purchase price.'},
+    {t:'Der Name des Projekts',t_en:'The name of the project',correct:false,why:'Nein. Das ist kein Kostenposten.',why_en:'No. That is not a cost item.'}
+  ]},
+  {id:'p_lead_p7_exam_mc3',type:'mc',xp:10,question:'Welche Größe trennt in der Cloud <strong>Wachstum von Verschwendung</strong>?',question_en:'Which measure separates <strong>growth from waste</strong> in the cloud?',options:[
+    {t:'Die Stückkosten — Kosten pro Kunde oder Transaktion',t_en:'The unit cost — cost per customer or transaction',correct:true,why:'Genau. Ein wachsendes System darf mehr kosten, solange die Stückkosten sinken.',why_en:'Exactly. A growing system may cost more as long as the unit cost falls.'},
+    {t:'Allein die absolute Monatsrechnung',t_en:'The absolute monthly bill alone',correct:false,why:'Nein. Die absolute Rechnung steigt mit dem Geschäft.',why_en:'No. The absolute bill rises with the business.'},
+    {t:'Die Anzahl der genutzten Cloud-Dienste',t_en:'The number of cloud services in use',correct:false,why:'Nein. Die Zahl der Dienste sagt nichts über Wirtschaftlichkeit.',why_en:'No. The number of services says nothing about economics.'}
+  ]},
+  {id:'p_lead_p7_exam_mc4',type:'mc',xp:10,question:'Woraus besteht ein <strong>OKR</strong>?',question_en:'What does an <strong>OKR</strong> consist of?',options:[
+    {t:'Aus einem qualitativen Objective und messbaren Key Results',t_en:'Of a qualitative objective and measurable key results',correct:true,why:'Genau. Das Objective gibt Richtung, die Key Results machen Fortschritt messbar.',why_en:'Exactly. The objective gives direction, the key results make progress measurable.'},
+    {t:'Aus einer Liste von Aufgaben mit festen Terminen',t_en:'Of a list of tasks with fixed deadlines',correct:false,why:'Nein. Key Results beschreiben Ergebnisse, keine Aufgaben.',why_en:'No. Key results describe results, not tasks.'},
+    {t:'Aus einem Budget und einer Personalplanung',t_en:'Of a budget and a staffing plan',correct:false,why:'Nein. Das ist kein OKR.',why_en:'No. That is not an OKR.'}
+  ]},
+  {id:'p_lead_p7_exam_mc5',type:'mc',xp:10,question:'Was baut man bei <strong>build vs. buy</strong> strategisch selbst?',question_en:'What do you build yourself strategically in <strong>build vs. buy</strong>?',options:[
+    {t:'Die eigene Kernkompetenz — das, was einzigartig macht und Wert für die Kunden schafft',t_en:'Your own core competence — what makes you unique and creates value for customers',correct:true,why:'Genau. Standardfunktionen kauft man ein.',why_en:'Exactly. Standard functions are bought in.'},
+    {t:'Grundsätzlich alles, um von keinem Anbieter abhängig zu sein',t_en:'Everything on principle, to depend on no vendor',correct:false,why:'Nein. Alles selbst zu bauen bindet Kraft ohne Vorsprung.',why_en:'No. Building everything yourself binds energy without a lead.'},
+    {t:'Vor allem die Standardfunktionen wie Zahlungsabwicklung',t_en:'Above all the standard functions such as payment processing',correct:false,why:'Nein. Gerade diese sind gelöst und werden eingekauft.',why_en:'No. These in particular are solved and are bought in.'}
+  ]},
+  {id:'p_lead_p7_exam_mc6',type:'mc',xp:10,question:'Wann lohnt sich ein Kunde wirtschaftlich?',question_en:'When does a customer pay off economically?',options:[
+    {t:'Wenn sein Wert über die Lebensdauer (LTV) deutlich über den Kundengewinnungskosten (CAC) liegt',t_en:'When their lifetime value (LTV) is clearly above the customer acquisition cost (CAC)',correct:true,why:'Genau. Erst dann bringt der Kunde mehr ein, als seine Gewinnung kostet.',why_en:'Exactly. Only then does the customer bring in more than their acquisition costs.'},
+    {t:'Sobald er ein einziges Mal gekauft hat',t_en:'As soon as they have bought a single time',correct:false,why:'Nein. Der einzelne Kauf sagt nichts über die Wirtschaftlichkeit.',why_en:'No. The single purchase says nothing about the economics.'},
+    {t:'Wenn die absolute Marketingrechnung niedrig ist',t_en:'When the absolute marketing bill is low',correct:false,why:'Nein. Entscheidend ist die Relation von LTV zu CAC.',why_en:'No. What matters is the relation of LTV to CAC.'}
+  ]},
+  {id:'p_lead_p7_exam_mc7',type:'mc',xp:10,question:'Welche Pflicht kann eine <strong>copyleft</strong>-Lizenz auslösen?',question_en:'Which obligation can a <strong>copyleft</strong> licence trigger?',options:[
+    {t:'Wer so lizenzierten Code verändert und weitergibt, muss den eigenen Code offenlegen',t_en:'Whoever changes and passes on code licensed that way must disclose their own code',correct:true,why:'Genau. Darin liegt das Compliance-Risiko bei falschem Einsatz.',why_en:'Exactly. Therein lies the compliance risk when used wrongly.'},
+    {t:'Man muss eine feste Gebühr pro Nutzer zahlen',t_en:'You must pay a fixed fee per user',correct:false,why:'Nein. Copyleft verlangt keine Gebühr.',why_en:'No. Copyleft demands no fee.'},
+    {t:'Man darf die Software nie kommerziell nutzen',t_en:'You may never use the software commercially',correct:false,why:'Nein. Auch copyleft erlaubt kommerzielle Nutzung unter seinen Bedingungen.',why_en:'No. Copyleft also allows commercial use under its conditions.'}
+  ]},
+  {id:'p_lead_p7_exam_mc8',type:'mc',xp:10,question:'Wonach soll sich der Preis eines Produkts in erster Linie richten?',question_en:'What should the price of a product be based on first and foremost?',options:[
+    {t:'Nach dem Wert für den Kunden; die eigenen Kosten bilden nur die Untergrenze',t_en:'By the value for the customer; your own cost only forms the lower bound',correct:true,why:'Genau. Wert bestimmt die Zahlungsbereitschaft, Kosten nur das Minimum.',why_en:'Exactly. Value determines willingness to pay, cost only the minimum.'},
+    {t:'Allein nach den eigenen Herstellungskosten plus festem Aufschlag',t_en:'Solely by your own production cost plus a fixed markup',correct:false,why:'Nein. Kostenbasiert verschenkt den Wert für den Kunden.',why_en:'No. Cost-based gives away the value for the customer.'},
+    {t:'Immer unter dem niedrigsten Preis am Markt',t_en:'Always below the lowest price in the market',correct:false,why:'Nein. Ein reiner Preiskampf trägt selten.',why_en:'No. A pure price war rarely holds.'}
+  ]},
+  {id:'p_lead_p7_exam_tf1',type:'truefalse',xp:8,statement:'Die Cloud verschiebt Kosten tendenziell von Investitionsausgaben (capex) hin zu laufenden Betriebskosten (opex).',statement_en:'The cloud tends to shift cost from capital expenditure (capex) to ongoing operating expenses (opex).',correct:true,explanation:'Richtig. Statt Hardware zu kaufen, mietet man Leistung und zahlt nach Verbrauch.',explanation_en:'Correct. Instead of buying hardware, you rent capacity and pay by consumption.'},
+  {id:'p_lead_p7_exam_tf2',type:'truefalse',xp:8,statement:'Eine gute Roadmap verspricht für jedes Vorhaben ein verbindliches Lieferdatum über Monate hinaus.',statement_en:'A good roadmap promises a binding delivery date months ahead for every endeavour.',correct:false,explanation:'Falsch. Eine Roadmap zeigt Richtung und Themen (now/next/later), keine fixen Datumsversprechen.',explanation_en:'False. A roadmap shows direction and themes (now/next/later), not fixed date promises.'},
+  {id:'p_lead_p7_exam_tf3',type:'truefalse',xp:8,statement:'Verbindliche Service-Zusagen (SLAs) gehören in den Vertrag, nicht nur in Hochglanzversprechen.',statement_en:'Binding service level agreements (SLAs) belong in the contract, not merely in glossy promises.',correct:true,explanation:'Richtig. Was nicht im Vertrag steht, ist im Ernstfall nicht durchsetzbar.',explanation_en:'Correct. What is not in the contract is not enforceable when it matters.'},
+  {id:'p_lead_p7_exam_tf4',type:'truefalse',xp:8,statement:'Eine hohe Abwanderung (churn) frisst Wachstum, darum ist Kundenbindung ein starker Hebel.',statement_en:'A high churn eats growth, so customer retention is a strong lever.',correct:true,explanation:'Richtig. Ein gehaltener Kunde erhöht den LTV, ohne erneut CAC zu kosten.',explanation_en:'Correct. A kept customer raises the LTV without costing CAC again.'},
+  {id:'p_lead_p7_exam_tf5',type:'truefalse',xp:8,statement:'OKRs sollte man direkt an die Vergütung koppeln, damit sie ernst genommen werden.',statement_en:'OKRs should be coupled directly to pay so that they are taken seriously.',correct:false,explanation:'Falsch. Dann setzen Teams absichtlich kleine, sichere Ziele; das Instrument für Ambition wird zur Absicherung.',explanation_en:'False. Then teams deliberately set small, safe goals; the instrument for ambition becomes self-protection.'},
+  {id:'p_lead_p7_exam_fb1',type:'fillblank',xp:12,prompt:'Ein einfaches Maß der Wirtschaftlichkeit ist die ___zeit: Wann hat sich die Investition wieder eingespielt? (ein Wort, deutscher Begriff für payback).',prompt_en:'A simple measure of economics is the ___ period: when has the investment earned itself back? (one word for payback).',answers:['Amortisations','Amortisation','Amortisationszeit','amortisation','payback','Payback'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Amortisationszeit</strong> (payback) sagt, nach welcher Zeit der Nutzen die Kosten eingespielt hat.',explanation_en:'The <strong>payback</strong> period says after what time the benefit has earned back the cost.'},
+  {id:'p_lead_p7_exam_fb2',type:'fillblank',xp:12,prompt:'Die Kosten, einen neuen Kunden zu gewinnen, kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The cost of winning a new customer is abbreviated as ___ (three letters).',answers:['CAC','cac','C.A.C.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Der <strong>CAC</strong> (customer acquisition cost) sind die Gewinnungskosten pro Kunde.',explanation_en:'The <strong>CAC</strong> (customer acquisition cost) is the acquisition cost per customer.'},
+  {id:'p_lead_p7_exam_fb3',type:'fillblank',xp:12,prompt:'Der Wert eines Kunden über die gesamte Lebensdauer kürzt man als ___ ab (drei Buchstaben).',prompt_en:'The value of a customer over the whole lifetime is abbreviated as ___ (three letters).',answers:['LTV','ltv','L.T.V.'],placeholder:'Abkürzung…',placeholder_en:'Abbreviation…',explanation:'Der <strong>LTV</strong> (lifetime value) misst den Wert eines Kunden über die ganze Beziehung.',explanation_en:'The <strong>LTV</strong> (lifetime value) measures the value of a customer over the whole relationship.'},
+  {id:'p_lead_p7_exam_fb4',type:'fillblank',xp:12,prompt:'Eine starke Abhängigkeit, aus der man nur schwer wieder herauskommt, nennt man ___ (englischer Fachbegriff, ein Begriff).',prompt_en:'A strong dependency that is hard to get out of again is called ___ (one term).',answers:['Lock-in','lock-in','Lockin','lockin','lock in','vendor lock-in'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Beim <strong>Lock-in</strong> prüft man Ausstiegskosten und Datenportabilität.',explanation_en:'With <strong>lock-in</strong> you check exit cost and data portability.'},
+  {id:'p_lead_p7_exam_fb5',type:'fillblank',xp:12,prompt:'Eine Zielwirkung in der Welt nennt man ___ (englischer Fachbegriff), im Gegensatz zum bloßen Ausstoß (output) — ein Wort.',prompt_en:'A target effect in the world is called ___ (one word), in contrast to mere output.',answers:['Outcome','outcome','Wirkung','wirkung'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Outcome</strong> ist die Wirkung (z. B. gesenkte Abbruchrate); Output ist nur der Ausstoß.',explanation_en:'<strong>Outcome</strong> is the impact (e.g. a reduced drop-off rate); output is only the throughput.'}
 ];
 
 
