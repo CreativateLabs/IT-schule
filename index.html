@@ -26988,6 +26988,359 @@ Next update : time of the next update  (even with nothing new)</div>
       },
     ]
   },
+  {
+    id: 'p_lead7', title: 'Business & Finanzen', title_en: 'Business & Finance',
+    sub: 'Die Sprache des Geschäfts — Budgets, Wirtschaftlichkeit, Ziele und Partner.',
+    sub_en: 'The language of business — budgets, economics, goals, and partners.',
+    lessons: [
+      {
+        id: 'lead_l7_1', title: 'Budget, Business Case & ROI',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 1</div>
+            <h1 class="lesson-title">Budget, Business Case & ROI</h1>
+            <p class="lesson-desc">Technik kostet Geld und soll Geld einbringen. Wer führt, muss rechnen können — und die eigenen Annahmen offenlegen, statt mit Scheingenauigkeit zu blenden.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Investition und Betrieb — capex, opex und die Gesamtkosten</div>
+            <div class="explanation">
+              Zwei Kostenarten muss man auseinanderhalten: <strong>Investitionsausgaben</strong> (capex) sind einmalige Anschaffungen, die über Jahre abgeschrieben werden — etwa ein eigener Serverraum. <strong>Laufende Betriebskosten</strong> (opex) fallen Monat für Monat an — Miete, Strom, Lizenzen, Rechenleistung nach Verbrauch. Die <strong>Cloud verschiebt vieles von capex zu opex</strong>: Statt Hardware zu kaufen, mietet man Leistung und zahlt, was man nutzt.<br><br>
+              Entscheidend ist nicht der Kaufpreis allein, sondern die <strong>Gesamtbetriebskosten</strong> (TCO, total cost of ownership). Sie zählen die Anschaffung <em>plus</em> Betrieb, Wartung, Energie und Personal über die ganze Nutzungsdauer. Die billigere Anschaffung kann über die Jahre die teurere sein — wer nur den Kaufpreis vergleicht, rechnet sich arm oder reich.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Der Business Case — Kosten gegen Nutzen und Risiko</div>
+            <div class="explanation">
+              Ein <strong>Business Case</strong> stellt die Kosten dem <strong>Nutzen</strong> und dem <strong>Risiko</strong> gegenüber und macht so eine Investition entscheidbar. Zwei einfache Maße helfen: die <strong>Amortisationszeit</strong> (payback — wann hat sich die Investition wieder eingespielt?) und die <strong>Kapitalrendite</strong> (ROI, return on investment — der Nutzen abzüglich der Kosten, bezogen auf die Kosten).<br><br>
+              Der am häufigsten vergessene Posten sind die <strong>Kosten des Nichtstuns</strong>: Was passiert, wenn man <em>nicht</em> investiert — welches Risiko bleibt, welcher Nutzen entgeht? Eine Entscheidung gegen ein Projekt ist auch eine Entscheidung, und sie hat ebenfalls einen Preis.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Business-Case-Skizze</span></div>
+              <div class="code-pre">Kosten      : Anschaffung (capex) + Betrieb pro Jahr (opex)
+Nutzen      : Einsparung + Mehrumsatz pro Jahr
+Risiko      : was unsicher ist + Kosten des Nichtstuns
+Amortisation: Kosten / Nutzen pro Jahr  -&gt; payback in Jahren
+ROI         : (Nutzen - Kosten) / Kosten  -&gt; in Prozent</div>
+            </div>
+          </div>
+          ${quickCheck('Was unterscheidet Investitionsausgaben (capex) von laufenden Betriebskosten (opex) — und was macht die Cloud?', ['capex ist die einmalige Anschaffung, opex der laufende Betrieb — die Cloud verschiebt vieles von capex zu opex', 'capex und opex sind dasselbe, nur unterschiedlich benannt', 'opex ist die einmalige Anschaffung, capex zahlt man nur in der Cloud'], 0, 'capex sind einmalige Anschaffungen (über Jahre abgeschrieben), opex die laufenden Betriebskosten. Die Cloud verschiebt vieles von capex zu opex: mieten und nach Verbrauch zahlen statt kaufen.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Priorisieren und Annahmen offenlegen</div>
+            <div class="explanation">
+              Es lässt sich nie alles gleichzeitig tun — priorisiert wird nach <strong>Wert gegen Aufwand</strong>. Eine verbreitete Idee ist <strong>WSJF</strong> (weighted shortest job first, die gewichtete kürzeste Aufgabe zuerst): hoher Wert bei geringem Aufwand kommt nach vorn, teure Vorhaben mit kleinem Nutzen nach hinten.<br><br>
+              Jede Zahl in einem Business Case beruht auf <strong>Annahmen</strong>. Gute Führung legt sie offen, statt mit <strong>Scheingenauigkeit</strong> zu blenden: „exakt 237.812 Euro Ersparnis" wirkt präzise, ist aber meist geraten. Eine ehrliche Spanne mit genannten Annahmen („250.000 bis 350.000, wenn die Nutzung wie geplant steigt") ist mehr wert als eine präzise aussehende Scheinzahl.
+            </div>
+          </div>
+          ${quickCheck('Warum zählen bei einer Entscheidung die Gesamtbetriebskosten (TCO) und nicht nur der Kaufpreis?', ['Weil Betrieb, Wartung, Energie und Personal über die Jahre oft mehr kosten als die Anschaffung — die billigere Anschaffung kann die teurere sein', 'Weil der Kaufpreis immer der größte Kostenblock ist', 'Weil TCO nur den Kaufpreis genauer schätzt'], 0, 'TCO zählt Anschaffung plus Betrieb, Wartung, Energie und Personal über die Nutzungsdauer. Wer nur den Kaufpreis vergleicht, übersieht die laufenden Kosten, die oft überwiegen.')}
+          ${callout('key', 'Merksatz', 'Trenne capex (einmalige Anschaffung) von opex (laufender Betrieb) und rechne mit den Gesamtbetriebskosten (TCO), nicht mit dem Kaufpreis. Ein Business Case stellt Kosten gegen Nutzen und Risiko — mit Amortisationszeit, ROI und den oft vergessenen Kosten des Nichtstuns. Priorisiere nach Wert gegen Aufwand (WSJF) und lege deine Annahmen offen, statt Scheingenauigkeit vorzutäuschen.')}
+          ${renderQuestions('lead_l7_1', 6)}
+          ${renderBonus('lead_l7_1')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 1</div>
+            <h1 class="lesson-title">Budget, business case & ROI</h1>
+            <p class="lesson-desc">Technology costs money and should earn money. Whoever leads must be able to do the math — and disclose their assumptions instead of dazzling with false precision.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Investment and operation — capex, opex and the total cost</div>
+            <div class="explanation">
+              Two kinds of cost must be kept apart: <strong>capital expenditure</strong> (capex) are one-off purchases depreciated over years — for example your own server room. <strong>Operating expenses</strong> (opex) fall due month after month — rent, power, licences, compute by consumption. The <strong>cloud shifts much from capex to opex</strong>: instead of buying hardware, you rent capacity and pay for what you use.<br><br>
+              What matters is not the purchase price alone but the <strong>total cost of ownership</strong> (TCO). It counts the purchase <em>plus</em> operation, maintenance, energy and staff over the whole lifetime. The cheaper purchase can be the more expensive one over the years — whoever compares only the purchase price miscalculates in both directions.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">The business case — cost against benefit and risk</div>
+            <div class="explanation">
+              A <strong>business case</strong> sets the cost against the <strong>benefit</strong> and the <strong>risk</strong> and thereby makes an investment decidable. Two simple measures help: the <strong>payback period</strong> (when has the investment earned itself back?) and the <strong>return on investment</strong> (ROI — the benefit minus the cost, relative to the cost).<br><br>
+              The most frequently forgotten item is the <strong>cost of doing nothing</strong>: what happens if you do <em>not</em> invest — which risk remains, which benefit is lost? A decision against a project is also a decision, and it carries a price too.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Business case sketch</span></div>
+              <div class="code-pre">Cost    : purchase (capex) + operation per year (opex)
+Benefit : saving + extra revenue per year
+Risk    : what is uncertain + cost of doing nothing
+Payback : cost / benefit per year  -&gt; payback in years
+ROI     : (benefit - cost) / cost  -&gt; in percent</div>
+            </div>
+          </div>
+          ${quickCheck('What distinguishes capital expenditure (capex) from operating expenses (opex) — and what does the cloud do?', ['capex is the one-off purchase, opex the ongoing operation — the cloud shifts much from capex to opex', 'capex and opex are the same, just named differently', 'opex is the one-off purchase, capex is paid only in the cloud'], 0, 'capex are one-off purchases (depreciated over years), opex the ongoing operating costs. The cloud shifts much from capex to opex: rent and pay by consumption instead of buying.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Prioritising and disclosing assumptions</div>
+            <div class="explanation">
+              You can never do everything at once — prioritising goes by <strong>value against effort</strong>. A widespread idea is <strong>WSJF</strong> (weighted shortest job first): high value at low effort moves to the front, expensive endeavours with little benefit to the back.<br><br>
+              Every number in a business case rests on <strong>assumptions</strong>. Good leadership discloses them instead of dazzling with <strong>false precision</strong>: "exactly 237,812 euros saved" looks precise but is mostly guessed. An honest range with stated assumptions ("250,000 to 350,000 if usage rises as planned") is worth more than a precise-looking phantom figure.
+            </div>
+          </div>
+          ${quickCheck('Why does the total cost of ownership (TCO) count in a decision, not just the purchase price?', ['Because operation, maintenance, energy and staff often cost more over the years than the purchase — the cheaper purchase can be the more expensive one', 'Because the purchase price is always the largest cost block', 'Because TCO just estimates the purchase price more accurately'], 0, 'TCO counts the purchase plus operation, maintenance, energy and staff over the lifetime. Whoever compares only the purchase price overlooks the ongoing costs, which often dominate.')}
+          ${callout('key', 'Key takeaway', 'Separate capex (one-off purchase) from opex (ongoing operation) and reckon with the total cost of ownership (TCO), not the purchase price. A business case sets cost against benefit and risk — with payback, ROI and the often forgotten cost of doing nothing. Prioritise by value against effort (WSJF) and disclose your assumptions instead of faking precision.')}
+          ${renderQuestions('lead_l7_1', 6)}
+          ${renderBonus('lead_l7_1')}
+        `
+      },
+      {
+        id: 'lead_l7_2', title: 'FinOps & Cloud-Kosten steuern',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 2</div>
+            <h1 class="lesson-title">FinOps & Cloud-Kosten steuern</h1>
+            <p class="lesson-desc">In der Cloud entsteht jede Rechnung aus tausend kleinen Entscheidungen der Teams. FinOps bringt die Kostenverantwortung dorthin, wo diese Entscheidungen fallen.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">FinOps ist eine Kultur, kein Werkzeug</div>
+            <div class="explanation">
+              In der Cloud sind Kosten <strong>variabel</strong> und entstehen durch die <strong>Entscheidungen der Teams</strong>: Jede laufende Instanz, jede Abfrage, jeder gespeicherte Datensatz kostet. Die Rechnung ist damit kein fester Posten mehr, sondern ein Ergebnis täglicher technischer Entscheidungen.<br><br>
+              <strong>FinOps</strong> bringt die <strong>Kostenverantwortung ins Engineering</strong> — die Teams, die Kosten verursachen, sehen und verantworten sie auch. Das ist vor allem eine <strong>Kultur</strong> der gemeinsamen Verantwortung von Technik, Finanzen und Geschäft, kein bloßes Werkzeug und kein reines Sparprogramm. Ziel ist nicht „so wenig wie möglich", sondern „so viel Wert wie möglich pro ausgegebenem Euro".
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Sichtbarkeit zuerst — zuordnen und rückmelden</div>
+            <div class="explanation">
+              Steuern kann man nur, was man <strong>sieht</strong>. Darum kommt die <strong>Sichtbarkeit zuerst</strong>: Kosten werden über <strong>Tags und Kostenstellen</strong> den Teams, Produkten und Umgebungen zugeordnet — sonst ist die Rechnung ein einziger undurchschaubarer Block.<br><br>
+              Rückgemeldet wird per <strong>Showback</strong> (den Teams ihre Kosten zeigen, ohne zu verrechnen) oder <strong>Chargeback</strong> (die Kosten intern tatsächlich verrechnen). Showback schafft Bewusstsein, Chargeback schafft echte Verantwortung — welches passt, hängt von der Reife der Organisation ab.
+            </div>
+          </div>
+          ${quickCheck('Was ist FinOps in erster Linie?', ['Eine Kultur der Kostenverantwortung im Engineering — kein bloßes Werkzeug und kein reines Sparprogramm', 'Ein Werkzeug, das die Cloud-Rechnung automatisch halbiert', 'Eine Abteilung, die allein über alle Cloud-Kosten entscheidet'], 0, 'FinOps bringt die Kostenverantwortung dorthin, wo die Entscheidungen fallen — ins Engineering. Es ist eine Kultur gemeinsamer Verantwortung; Werkzeuge helfen, ersetzen sie aber nicht.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Stückkosten statt absoluter Rechnung</div>
+            <div class="explanation">
+              Entscheidend sind die <strong>Stückkosten</strong> — Kosten pro Kunde, pro Transaktion, pro aktiver Nutzerin —, nicht die absolute Rechnung. Ein wachsendes System <em>darf</em> mehr kosten, solange die <strong>Stückkosten sinken</strong>: Dann wird das Geschäft mit der Größe effizienter, nicht teurer.<br><br>
+              Die wichtigsten Hebel: <strong>Rightsizing</strong> (passende statt überdimensionierter Größe), <strong>Autoscaling</strong> (hoch bei Last, runter bei Ruhe), <strong>Rabatte für Vorab-Zusagen</strong> (reserved bzw. committed statt teurem On-Demand) und <strong>Ungenutztes abschalten</strong> (Test- und Nachtbetrieb aus). Am stärksten wirkt es, Kosten schon im Entwurf als <strong>Designkriterium</strong> mitzudenken, statt sie am Monatsende zu beklagen.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Unit-Economics & Kostenhebel</span></div>
+              <div class="code-pre">Rechnung/Monat : waechst mit dem Geschaeft  (kann gesund sein)
+Stueckkosten   : Kosten / aktive Kunden  -&gt; muss sinken
+Hebel:
+  Rightsizing  - passende Groesse statt ueberdimensioniert
+  Autoscaling  - hoch bei Last, runter bei Ruhe
+  Commitments  - Rabatt fuer Vorab-Zusage (reserved)
+  Abschalten   - Ungenutztes aus (Nacht, Test)</div>
+            </div>
+          </div>
+          ${quickCheck('Ein System wächst und die Cloud-Rechnung steigt. Wann ist das trotzdem gesund?', ['Wenn die Stückkosten (Kosten pro Kunde oder Transaktion) dabei sinken', 'Nie — eine steigende Rechnung ist immer ein schlechtes Zeichen', 'Nur wenn die absolute Rechnung exakt gleich bleibt'], 0, 'Nicht die absolute Rechnung zählt, sondern die Stückkosten. Sinken die Kosten pro Kunde oder Transaktion, wird das Geschäft mit der Größe effizienter — die höhere Rechnung ist dann gesund.')}
+          ${callout('key', 'Merksatz', 'In der Cloud sind Kosten variabel und entstehen durch Entscheidungen der Teams. FinOps ist eine Kultur der Kostenverantwortung im Engineering, kein Werkzeug. Schaffe zuerst Sichtbarkeit (Tags, Kostenstellen, Showback oder Chargeback), steuere nach Stückkosten statt absoluter Rechnung und nutze die Hebel Rightsizing, Autoscaling, Vorab-Zusagen und Abschalten — Kosten gehören schon in den Entwurf.')}
+          ${renderQuestions('lead_l7_2', 6)}
+          ${renderBonus('lead_l7_2')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 2</div>
+            <h1 class="lesson-title">FinOps & steering cloud cost</h1>
+            <p class="lesson-desc">In the cloud every bill arises from a thousand small decisions by the teams. FinOps brings cost ownership to where those decisions are made.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">FinOps is a culture, not a tool</div>
+            <div class="explanation">
+              In the cloud, cost is <strong>variable</strong> and arises from the <strong>decisions of the teams</strong>: every running instance, every query, every stored record costs. The bill is therefore no longer a fixed item but the result of daily technical decisions.<br><br>
+              <strong>FinOps</strong> brings <strong>cost ownership into engineering</strong> — the teams that cause the cost also see and own it. Above all this is a <strong>culture</strong> of shared responsibility between engineering, finance and business, not a mere tool and not a pure savings programme. The goal is not "as little as possible" but "as much value as possible per euro spent".
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Visibility first — allocate and report back</div>
+            <div class="explanation">
+              You can only steer what you <strong>see</strong>. So <strong>visibility comes first</strong>: cost is allocated to teams, products and environments via <strong>tags and cost centres</strong> — otherwise the bill is a single impenetrable block.<br><br>
+              It is reported back via <strong>showback</strong> (showing teams their cost without charging) or <strong>chargeback</strong> (actually charging the cost back internally). Showback creates awareness, chargeback creates real ownership — which one fits depends on the maturity of the organisation.
+            </div>
+          </div>
+          ${quickCheck('What is FinOps primarily?', ['A culture of cost ownership in engineering — not a mere tool and not a pure savings programme', 'A tool that automatically halves the cloud bill', 'A department that alone decides on all cloud cost'], 0, 'FinOps brings cost ownership to where the decisions are made — into engineering. It is a culture of shared responsibility; tools help but do not replace it.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Unit cost rather than the absolute bill</div>
+            <div class="explanation">
+              What matters is the <strong>unit cost</strong> — cost per customer, per transaction, per active user — not the absolute bill. A growing system <em>may</em> cost more as long as the <strong>unit cost falls</strong>: then the business becomes more efficient with scale, not more expensive.<br><br>
+              The main levers: <strong>rightsizing</strong> (the fitting size instead of oversized), <strong>autoscaling</strong> (up under load, down at rest), <strong>discounts for upfront commitments</strong> (reserved or committed instead of expensive on-demand) and <strong>shutting down the unused</strong> (test and overnight off). It works most strongly to treat cost as a <strong>design criterion</strong> already in the design, instead of lamenting it at the end of the month.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Unit economics & cost levers</span></div>
+              <div class="code-pre">Bill/month : grows with the business  (can be healthy)
+Unit cost  : cost / active customers  -&gt; must fall
+Levers:
+  Rightsizing - fitting size instead of oversized
+  Autoscaling - up under load, down at rest
+  Commitments - discount for upfront pledge (reserved)
+  Shut down   - the unused off (night, test)</div>
+            </div>
+          </div>
+          ${quickCheck('A system grows and the cloud bill rises. When is that still healthy?', ['When the unit cost (cost per customer or transaction) falls at the same time', 'Never — a rising bill is always a bad sign', 'Only if the absolute bill stays exactly the same'], 0, 'It is not the absolute bill that counts but the unit cost. If the cost per customer or transaction falls, the business becomes more efficient with scale — the higher bill is then healthy.')}
+          ${callout('key', 'Key takeaway', 'In the cloud, cost is variable and arises from the decisions of the teams. FinOps is a culture of cost ownership in engineering, not a tool. Create visibility first (tags, cost centres, showback or chargeback), steer by unit cost rather than the absolute bill, and use the levers rightsizing, autoscaling, upfront commitments and shutting down — cost belongs in the design already.')}
+          ${renderQuestions('lead_l7_2', 6)}
+          ${renderBonus('lead_l7_2')}
+        `
+      },
+      {
+        id: 'lead_l7_3', title: 'OKRs & Roadmaps verzahnen',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 3</div>
+            <h1 class="lesson-title">OKRs & Roadmaps verzahnen</h1>
+            <p class="lesson-desc">Ziele geben Richtung, Roadmaps geben Form. Beides zählt nur, wenn jeder sieht, wie die tägliche Arbeit auf die Strategie einzahlt — und wenn Wirkung vor Ausstoß geht.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Objective und Key Results</div>
+            <div class="explanation">
+              Ein <strong>OKR</strong> besteht aus zwei Teilen. Das <strong>Objective</strong> ist <em>qualitativ</em> und inspirierend und beantwortet die Frage <strong>wohin?</strong> — es gibt eine Richtung, keine Zahl. Die <strong>Key Results</strong> sind <em>messbar</em> und beschreiben ein <strong>Ergebnis, keine Aufgabe</strong>: Sie beantworten die Frage <strong>woran erkennen wir Fortschritt?</strong><br><br>
+              Der häufigste Fehler ist, Aufgaben als Key Results zu tarnen. „Feature X bauen" ist eine Aufgabe; „die Abschlussquote der Einrichtung von 55 auf 75 Prozent heben" ist ein Ergebnis. Nur das Ergebnis sagt, ob die Arbeit tatsächlich etwas bewirkt hat.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Wirkung statt Ausstoß — Outcome vor Output</div>
+            <div class="explanation">
+              Der Kern guter Ziele ist <strong>Wirkung</strong> (outcome) statt bloßem <strong>Ausstoß</strong> (output). „Feature X geliefert" ist Output — es sagt nichts darüber, ob es jemandem genützt hat. „Abbruchrate um ein Drittel gesenkt" ist Outcome — eine echte Veränderung in der Welt.<br><br>
+              Darum: <strong>wenige, fokussierte, ambitionierte</strong> OKRs statt einer langen Wunschliste. Und ein wichtiger Grundsatz: OKRs <strong>nicht an die Vergütung koppeln</strong>. Sonst setzen sich Teams absichtlich kleine, sichere Ziele (sandbagging), und das Instrument für Ambition wird zum Instrument der Absicherung.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">OKR-Beispiel</span></div>
+              <div class="code-pre">Objective   : Neue Nutzer kommen muehelos ins Produkt
+Key Result 1: Abschlussquote der Einrichtung 55% -&gt; 75%
+Key Result 2: Zeit bis zum ersten Erfolg 20 -&gt; 5 Minuten
+Key Result 3: Startbezogene Supportanfragen um ein Drittel runter
+(messbar, Ergebnis statt Aufgabe  -&gt; outcome, nicht output)</div>
+            </div>
+          </div>
+          ${quickCheck('Was unterscheidet das Objective von den Key Results?', ['Das Objective ist qualitativ und inspirierend (wohin), die Key Results sind messbar (woran erkennen wir Fortschritt)', 'Beide sind messbare Zahlen und unterscheiden sich nicht', 'Das Objective ist eine Aufgabenliste, die Key Results sind Termine'], 0, 'Das Objective gibt qualitativ die Richtung (wohin?), die Key Results machen Fortschritt messbar (woran erkennen wir ihn?) und beschreiben ein Ergebnis, keine Aufgabe.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Roadmaps und die Kette zur Strategie</div>
+            <div class="explanation">
+              Eine <strong>Roadmap</strong> zeigt <strong>Richtung und Themen</strong>, nicht fixe Datumsversprechen. Bewährt hat sich ein Raster aus <strong>now / next / later</strong> (jetzt, als Nächstes, später): Es macht Prioritäten sichtbar, ohne Termine zu versprechen, die man noch nicht halten kann. Eine Roadmap voller fixer Daten wird zur Fessel und zur Enttäuschungsmaschine.<br><br>
+              Entscheidend ist, dass die <strong>Kette sichtbar</strong> ist: <strong>Strategie -&gt; OKR -&gt; tägliche Arbeit</strong>. Jede und jeder im Team soll erkennen können, wozu die eigene Aufgabe beiträgt. Fehlt diese Linie, fühlt sich Arbeit beliebig an; ist sie klar, entsteht Fokus und Sinn.
+            </div>
+          </div>
+          ${quickCheck('Welche Formulierung ist ein echtes Key Result (Outcome)?', ['Abbruchrate im Einrichtungsprozess um ein Drittel gesenkt', 'Feature X an die Nutzer ausgeliefert', 'Drei Wochen am Projekt gearbeitet'], 0, 'Ein Key Result beschreibt eine messbare Wirkung (outcome), nicht einen Ausstoß (output) oder eine Tätigkeit. Eine gesenkte Abbruchrate ist eine echte Veränderung; „ausgeliefert" und „gearbeitet" sind nur Ausstoß und Aufwand.')}
+          ${callout('key', 'Merksatz', 'Ein OKR verbindet ein qualitatives Objective (wohin?) mit messbaren Key Results (woran erkennen wir Fortschritt?). Der Kern ist Wirkung (outcome) statt Ausstoß (output): wenige, fokussierte, ambitionierte Ziele, die NICHT an die Vergütung gekoppelt werden. Eine Roadmap zeigt Richtung und Themen (now/next/later), keine fixen Datumsversprechen — und die Kette Strategie -&gt; OKR -&gt; tägliche Arbeit muss sichtbar sein.')}
+          ${renderQuestions('lead_l7_3', 6)}
+          ${renderBonus('lead_l7_3')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 3</div>
+            <h1 class="lesson-title">Interlocking OKRs & roadmaps</h1>
+            <p class="lesson-desc">Goals give direction, roadmaps give shape. Both count only when everyone sees how the daily work feeds the strategy — and when impact comes before output.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Objective and key results</div>
+            <div class="explanation">
+              An <strong>OKR</strong> consists of two parts. The <strong>objective</strong> is <em>qualitative</em> and inspiring and answers the question <strong>where to?</strong> — it gives a direction, not a number. The <strong>key results</strong> are <em>measurable</em> and describe a <strong>result, not a task</strong>: they answer the question <strong>how do we recognise progress?</strong><br><br>
+              The most common mistake is disguising tasks as key results. "Build feature X" is a task; "raise the completion rate of setup from 55 to 75 percent" is a result. Only the result tells whether the work actually had an effect.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Impact rather than output — outcome before output</div>
+            <div class="explanation">
+              The core of good goals is <strong>impact</strong> (outcome) rather than mere <strong>output</strong>. "Feature X delivered" is output — it says nothing about whether it benefited anyone. "Drop-off rate cut by a third" is outcome — a real change in the world.<br><br>
+              Hence: <strong>few, focused, ambitious</strong> OKRs rather than a long wish list. And an important principle: do <strong>not couple OKRs to pay</strong>. Otherwise teams deliberately set small, safe goals (sandbagging), and the instrument for ambition becomes an instrument of self-protection.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">OKR example</span></div>
+              <div class="code-pre">Objective  : New users enter the product effortlessly
+Key result 1: Setup completion rate 55% -&gt; 75%
+Key result 2: Time to first success 20 -&gt; 5 minutes
+Key result 3: Onboarding support tickets down by a third
+(measurable, result not task  -&gt; outcome, not output)</div>
+            </div>
+          </div>
+          ${quickCheck('What distinguishes the objective from the key results?', ['The objective is qualitative and inspiring (where to), the key results are measurable (how do we recognise progress)', 'Both are measurable numbers and do not differ', 'The objective is a task list, the key results are deadlines'], 0, 'The objective gives the direction qualitatively (where to?), the key results make progress measurable (how do we recognise it?) and describe a result, not a task.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Roadmaps and the chain to strategy</div>
+            <div class="explanation">
+              A <strong>roadmap</strong> shows <strong>direction and themes</strong>, not fixed date promises. A grid of <strong>now / next / later</strong> has proven itself: it makes priorities visible without promising dates you cannot yet keep. A roadmap full of fixed dates becomes a shackle and a disappointment machine.<br><br>
+              What matters is that the <strong>chain is visible</strong>: <strong>strategy -&gt; OKR -&gt; daily work</strong>. Everyone on the team should be able to recognise what their own task contributes to. Without this line, work feels arbitrary; when it is clear, focus and meaning arise.
+            </div>
+          </div>
+          ${quickCheck('Which wording is a true key result (outcome)?', ['Drop-off rate in the setup process cut by a third', 'Feature X delivered to the users', 'Worked on the project for three weeks'], 0, 'A key result describes a measurable impact (outcome), not an output or an activity. A reduced drop-off rate is a real change; "delivered" and "worked" are only output and effort.')}
+          ${callout('key', 'Key takeaway', 'An OKR links a qualitative objective (where to?) with measurable key results (how do we recognise progress?). The core is impact (outcome) rather than output: few, focused, ambitious goals that are NOT coupled to pay. A roadmap shows direction and themes (now/next/later), not fixed date promises — and the chain strategy -&gt; OKR -&gt; daily work must be visible.')}
+          ${renderQuestions('lead_l7_3', 6)}
+          ${renderBonus('lead_l7_3')}
+        `
+      },
+      {
+        id: 'lead_l7_4', title: 'Vendor-Management & Tech Due Diligence',
+        content: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lektion 4</div>
+            <h1 class="lesson-title">Vendor-Management & Tech Due Diligence</h1>
+            <p class="lesson-desc">Nicht alles baut man selbst, und nicht jeder Einkauf ist harmlos. Wer einkauft, steuert Abhängigkeiten — und wer zukauft, prüft die Technik, bevor er entscheidet.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Build vs. Buy — die Kernkompetenz selbst bauen</div>
+            <div class="explanation">
+              Die strategische Grundfrage lautet <strong>build vs. buy</strong>: selbst bauen oder einkaufen? Die Regel ist einfach — die eigene <strong>Kernkompetenz</strong>, also das, was dich einzigartig macht und den Wert für die Kunden schafft, baut man <strong>selbst</strong>. Den Rest <strong>kauft</strong> man ein, statt ihn mühsam nachzubauen.<br><br>
+              Standardfunktionen wie Zahlungsabwicklung, Mailversand oder Kartendarstellung sind gelöste Probleme; sie selbst zu bauen bindet Kraft, ohne den eigenen Vorsprung zu vergrößern. Das ist die direkte Fortsetzung des Gedankens aus Phase 4: Fokus auf das, was wirklich unterscheidet — alles andere ist Mittel zum Zweck.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Abhängigkeit beim Einkauf — Lock-in und SLAs</div>
+            <div class="explanation">
+              Beim Einkauf zählt nicht nur der Preis, sondern die <strong>Abhängigkeit</strong>. Zu prüfen sind der <strong>Lock-in</strong> (wie schwer kommt man wieder heraus?), die <strong>Ausstiegskosten</strong> und die <strong>Datenportabilität</strong> (kommt man an die eigenen Daten heran und in nutzbarer Form?). Ein billiger Einstieg kann ein teurer Ausstieg werden.<br><br>
+              Verbindliche <strong>Service-Zusagen</strong> (SLAs, service level agreements) gehören in den <strong>Vertrag</strong>, nicht in Hochglanzversprechen: zugesicherte Verfügbarkeit, Reaktionszeiten und Folgen bei Nichteinhaltung. Was nicht im Vertrag steht, ist im Ernstfall nicht durchsetzbar.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Tech-Due-Diligence-Checkliste</span></div>
+              <div class="code-pre">Architektur  : traegt sie Wachstum? klar oder verfilzt?
+Tech-Schulden: wie viel Altlast bremst kuenftige Arbeit?
+Team         : Wissen breit verteilt oder an einer Person?
+Sicherheit   : Umgang mit Daten, bekannte Luecken, Prozesse?
+Skalierung   : haelt es das 10-fache der heutigen Last aus?
+Lock-in      : Ausstiegskosten + Datenportabilitaet pruefen</div>
+            </div>
+          </div>
+          ${quickCheck('Was baut man strategisch selbst, was kauft man ein?', ['Die eigene Kernkompetenz selbst bauen, Standardfunktionen und den Rest einkaufen', 'Grundsätzlich alles selbst bauen, um unabhängig zu sein', 'Grundsätzlich alles einkaufen, auch die eigene Kernkompetenz'], 0, 'Build vs. Buy entscheidet man entlang der Kernkompetenz: das Unterscheidende selbst bauen, gelöste Standardprobleme einkaufen, statt Kraft im Nachbauen zu binden.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Anbieter als Partnerschaft — und die technische Due Diligence</div>
+            <div class="explanation">
+              Einen wichtigen Anbieter steuert man wie eine <strong>Partnerschaft</strong>, nicht nur als Rechnung: <strong>regelmäßige Reviews</strong>, klare Erwartungen und eine gemeinsame Sicht auf die Zukunft. Ein Anbieter, mit dem man im Gespräch bleibt, reagiert im Problemfall anders als einer, den man nur einmal im Jahr zahlt.<br><br>
+              Bei Zukäufen oder Investitionen bewertet die <strong>technische Due Diligence</strong> die Technik, bevor entschieden wird: <strong>Architektur, technische Schulden, Team, Sicherheit und Skalierbarkeit</strong>. Ziel ist, <strong>Risiken vor der Entscheidung sichtbar</strong> zu machen — nicht erst, wenn der Vertrag unterschrieben und das Geld geflossen ist.
+            </div>
+          </div>
+          ${quickCheck('Worauf achtet man beim Einkauf eines Anbieters besonders?', ['Auf Lock-in, Ausstiegskosten, Datenportabilität und verbindliche Service-Zusagen (SLAs) im Vertrag', 'Nur auf den niedrigsten Preis, alles andere ist zweitrangig', 'Allein auf die Bekanntheit des Anbieternamens'], 0, 'Neben dem Preis zählen die Abhängigkeit (Lock-in, Ausstiegskosten, Datenportabilität) und verbindliche SLAs im Vertrag. Was nicht im Vertrag steht, ist im Ernstfall nicht durchsetzbar.')}
+          ${callout('key', 'Merksatz', 'Bei Build vs. Buy baust du die eigene Kernkompetenz selbst und kaufst den Rest ein. Beim Einkauf steuerst du die Abhängigkeit — Lock-in, Ausstiegskosten, Datenportabilität — und schreibst verbindliche Service-Zusagen (SLAs) in den Vertrag. Steuere wichtige Anbieter wie eine Partnerschaft, und mach mit technischer Due Diligence (Architektur, Schulden, Team, Sicherheit, Skalierung) die Risiken vor der Entscheidung sichtbar.')}
+          ${renderQuestions('lead_l7_4', 6)}
+          ${renderBonus('lead_l7_4')}
+        `,
+        content_en: () => `
+          <div class="lesson-header animate-in">
+            <div class="lesson-tag">Phase 7 · Lesson 4</div>
+            <h1 class="lesson-title">Vendor management & tech due diligence</h1>
+            <p class="lesson-desc">Not everything is built in-house, and not every purchase is harmless. Whoever buys steers dependencies — and whoever acquires checks the technology before deciding.</p>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.05s">
+            <div class="card-label">Build vs. buy — build the core competence yourself</div>
+            <div class="explanation">
+              The strategic basic question is <strong>build vs. buy</strong>: build yourself or buy in? The rule is simple — your own <strong>core competence</strong>, that is what makes you unique and creates the value for customers, you <strong>build yourself</strong>. The rest you <strong>buy</strong> instead of laboriously rebuilding it.<br><br>
+              Standard functions such as payment processing, email sending or map display are solved problems; building them yourself binds energy without widening your own lead. This is the direct continuation of the thought from Phase 4: focus on what truly differentiates — everything else is a means to an end.
+            </div>
+          </div>
+          <div class="content-card animate-in" style="animation-delay:0.08s">
+            <div class="card-label">Dependency when buying — lock-in and SLAs</div>
+            <div class="explanation">
+              When buying, it is not only the price that counts but the <strong>dependency</strong>. To be checked are the <strong>lock-in</strong> (how hard is it to get out again?), the <strong>exit cost</strong> and the <strong>data portability</strong> (can you reach your own data, and in a usable form?). A cheap entry can become an expensive exit.<br><br>
+              Binding <strong>service level agreements</strong> (SLAs) belong in the <strong>contract</strong>, not in glossy promises: assured availability, response times and consequences for non-compliance. What is not in the contract is not enforceable when it matters.
+            </div>
+            <div class="code-block" style="margin-top:14px">
+              <div class="code-block-header"><span class="code-lang">Tech due diligence checklist</span></div>
+              <div class="code-pre">Architecture : does it carry growth? clear or tangled?
+Tech debt    : how much legacy slows future work?
+Team         : knowledge spread wide or on one person?
+Security     : data handling, known gaps, processes?
+Scaling      : does it hold 10x today load?
+Lock-in      : check exit cost + data portability</div>
+            </div>
+          </div>
+          ${quickCheck('What do you build yourself strategically, and what do you buy in?', ['Build your own core competence yourself, buy in standard functions and the rest', 'Build everything yourself on principle, to stay independent', 'Buy everything in on principle, including your own core competence'], 0, 'Build vs. buy is decided along the core competence: build what differentiates, buy in solved standard problems instead of binding energy in rebuilding.')}
+          <div class="content-card animate-in" style="animation-delay:0.11s">
+            <div class="card-label">Vendor as a partnership — and the tech due diligence</div>
+            <div class="explanation">
+              An important vendor is steered like a <strong>partnership</strong>, not just as a bill: <strong>regular reviews</strong>, clear expectations and a shared view of the future. A vendor you stay in conversation with reacts differently in a problem than one you merely pay once a year.<br><br>
+              For acquisitions or investments, the <strong>technical due diligence</strong> assesses the technology before a decision is made: <strong>architecture, technical debt, team, security and scalability</strong>. The goal is to make <strong>risks visible before the decision</strong> — not only once the contract is signed and the money has flowed.
+            </div>
+          </div>
+          ${quickCheck('What do you pay particular attention to when buying from a vendor?', ['To lock-in, exit cost, data portability and binding service level agreements (SLAs) in the contract', 'Only to the lowest price, everything else is secondary', 'Solely to how well-known the vendor name is'], 0, 'Besides the price, the dependency counts (lock-in, exit cost, data portability) and binding SLAs in the contract. What is not in the contract is not enforceable when it matters.')}
+          ${callout('key', 'Key takeaway', 'In build vs. buy you build your own core competence yourself and buy the rest. When buying you steer the dependency — lock-in, exit cost, data portability — and write binding service level agreements (SLAs) into the contract. Steer important vendors like a partnership, and use technical due diligence (architecture, debt, team, security, scaling) to make the risks visible before the decision.')}
+          ${renderQuestions('lead_l7_4', 6)}
+          ${renderBonus('lead_l7_4')}
+        `
+      },
+    ]
+  },
 ];
 
 // ============================================================
@@ -35487,6 +35840,90 @@ QUESTION_POOLS['lead_l6_4'] = [
     {t:'Weil das Wie oft stärker wirkt als das Was — Besonnenheit gibt Halt, Panik an der Spitze pflanzt sich nach unten fort',t_en:'Because the how often has more effect than the what — composure gives a hold, panic at the top propagates downward',correct:true,why:'Genau. Verlässliches, erreichbares Auftreten beruhigt das Team mehr als jede Formulierung.',why_en:'Exactly. A reliable, reachable demeanour calms the team more than any wording.'},
     {t:'Weil Schweigen der Führung in der Krise am meisten Vertrauen schafft',t_en:'Because silence from leadership creates the most trust in a crisis',correct:false,why:'Nein. Schweigen schafft ein Vakuum; gefragt sind Ruhe und klare, regelmäßige Information.',why_en:'No. Silence creates a vacuum; what is needed is calm and clear, regular information.'},
     {t:'Weil nur der Inhalt zählt und die Haltung der Führung keine Rolle spielt',t_en:'Because only the content counts and the leadership demeanour plays no role',correct:false,why:'Nein. Gerade in der Krise wirkt die Haltung oft stärker als der reine Inhalt.',why_en:'No. Precisely in a crisis the demeanour often has more effect than the content alone.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l7_1'] = [
+  {id:'p_lead_l7_1_mc1',type:'mc',xp:10,question:'Was beschreiben die <strong>Gesamtbetriebskosten</strong> (TCO) einer Lösung?',question_en:'What do the <strong>total cost of ownership</strong> (TCO) of a solution describe?',options:[
+    {t:'Die Anschaffung plus Betrieb, Wartung, Energie und Personal über die ganze Nutzungsdauer',t_en:'The purchase plus operation, maintenance, energy and staff over the whole lifetime',correct:true,why:'Genau. Der Kaufpreis allein unterschätzt die Kosten; die billigere Anschaffung kann über Jahre die teurere sein.',why_en:'Exactly. The purchase price alone underestimates the cost; the cheaper purchase can be the more expensive one over the years.'},
+    {t:'Nur den einmaligen Kaufpreis der Anschaffung',t_en:'Only the one-off purchase price of the acquisition',correct:false,why:'Nein. TCO zählt bewusst auch den laufenden Betrieb, der oft überwiegt.',why_en:'No. TCO deliberately also counts the ongoing operation, which often dominates.'},
+    {t:'Allein die laufenden Betriebskosten ohne die Anschaffung',t_en:'Only the ongoing operating cost without the acquisition',correct:false,why:'Nein. TCO umfasst Anschaffung und Betrieb zusammen.',why_en:'No. TCO comprises purchase and operation together.'}
+  ]},
+  {id:'p_lead_l7_1_mc2',type:'mc',xp:10,question:'Welcher Posten wird in einem <strong>Business Case</strong> am häufigsten vergessen?',question_en:'Which item is most frequently forgotten in a <strong>business case</strong>?',options:[
+    {t:'Die Kosten des Nichtstuns — das Risiko und der entgangene Nutzen, wenn man nicht investiert',t_en:'The cost of doing nothing — the risk and lost benefit if you do not invest',correct:true,why:'Genau. Auch eine Entscheidung gegen ein Projekt hat einen Preis.',why_en:'Exactly. A decision against a project also carries a price.'},
+    {t:'Der Kaufpreis der neuen Lösung',t_en:'The purchase price of the new solution',correct:false,why:'Nein. Den Kaufpreis vergisst kaum jemand; die Kosten des Nichtstuns dagegen oft.',why_en:'No. Hardly anyone forgets the purchase price; the cost of doing nothing, however, often.'},
+    {t:'Der Name des Projekts',t_en:'The name of the project',correct:false,why:'Nein. Das ist kein Kostenposten eines Business Case.',why_en:'No. That is not a cost item of a business case.'}
+  ]},
+  {id:'p_lead_l7_1_tf1',type:'truefalse',xp:8,statement:'Die Cloud verschiebt tendenziell Kosten von Investitionsausgaben (capex) hin zu laufenden Betriebskosten (opex).',statement_en:'The cloud tends to shift cost from capital expenditure (capex) to ongoing operating expenses (opex).',correct:true,explanation:'Richtig. Statt Hardware zu kaufen, mietet man Leistung und zahlt nach Verbrauch — aus einer Investition wird laufender Aufwand.',explanation_en:'Correct. Instead of buying hardware, you rent capacity and pay by consumption — an investment becomes ongoing expense.'},
+  {id:'p_lead_l7_1_tf2',type:'truefalse',xp:8,statement:'Eine auf den Euro genaue Zahl im Business Case ist immer besser als eine ehrliche Spanne mit genannten Annahmen.',statement_en:'A figure precise to the euro in a business case is always better than an honest range with stated assumptions.',correct:false,explanation:'Falsch. Scheingenauigkeit blendet nur. Eine ehrliche Spanne mit offengelegten Annahmen ist belastbarer als eine präzise aussehende Scheinzahl.',explanation_en:'False. False precision only dazzles. An honest range with disclosed assumptions is more robust than a precise-looking phantom figure.'},
+  {id:'p_lead_l7_1_fb1',type:'fillblank',xp:12,prompt:'Ein einfaches Maß der Wirtschaftlichkeit ist die ___zeit: Wann hat sich die Investition wieder eingespielt? (ein Wort, deutscher Begriff für payback).',prompt_en:'A simple measure of economics is the ___ period: when has the investment earned itself back? (one word for payback).',answers:['Amortisations','Amortisation','Amortisationszeit','amortisation','payback','Payback','payback period'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Die <strong>Amortisationszeit</strong> (payback) sagt, nach welcher Zeit der Nutzen die Kosten wieder eingespielt hat.',explanation_en:'The <strong>payback</strong> period says after what time the benefit has earned back the cost.'},
+  {id:'p_lead_l7_1_bonus',type:'mc',xp:20,optional:true,question:'Wofür steht die Priorisierungsidee <strong>WSJF</strong>?',question_en:'What does the prioritisation idea <strong>WSJF</strong> stand for?',options:[
+    {t:'Weighted shortest job first — die gewichtete kürzeste Aufgabe zuerst, also hoher Wert bei geringem Aufwand nach vorn',t_en:'Weighted shortest job first — high value at low effort moves to the front',correct:true,why:'Genau. So priorisiert man nach Wert gegen Aufwand statt nach Lautstärke oder Reihenfolge des Eingangs.',why_en:'Exactly. This prioritises by value against effort instead of by loudness or order of arrival.'},
+    {t:'Work scheduled for June first — alle Vorhaben beginnen im Juni',t_en:'Work scheduled for June first — all endeavours start in June',correct:false,why:'Nein. WSJF hat nichts mit einem festen Monat zu tun.',why_en:'No. WSJF has nothing to do with a fixed month.'},
+    {t:'Whoever shouts first — die lauteste Stimme bestimmt die Reihenfolge',t_en:'Whoever shouts first — the loudest voice sets the order',correct:false,why:'Nein. Genau das will WSJF durch Wert gegen Aufwand ersetzen.',why_en:'No. That is exactly what WSJF aims to replace with value against effort.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l7_2'] = [
+  {id:'p_lead_l7_2_mc1',type:'mc',xp:10,question:'Was bringt <strong>FinOps</strong> ins Engineering?',question_en:'What does <strong>FinOps</strong> bring into engineering?',options:[
+    {t:'Kostenverantwortung dorthin, wo die Entscheidungen fallen — als gemeinsame Kultur, nicht als bloßes Werkzeug',t_en:'Cost ownership to where the decisions are made — as a shared culture, not a mere tool',correct:true,why:'Genau. In der Cloud entstehen Kosten durch technische Entscheidungen; FinOps macht sie sichtbar und verantwortet.',why_en:'Exactly. In the cloud, cost arises from technical decisions; FinOps makes it visible and owned.'},
+    {t:'Ein Werkzeug, das die Cloud-Rechnung ohne weiteres Zutun halbiert',t_en:'A tool that halves the cloud bill without further action',correct:false,why:'Nein. FinOps ist vor allem eine Kultur; Werkzeuge helfen, sparen aber nicht von allein.',why_en:'No. FinOps is above all a culture; tools help but do not save on their own.'},
+    {t:'Die Erlaubnis, Kosten gar nicht mehr zu beachten',t_en:'The permission to stop paying attention to cost altogether',correct:false,why:'Nein. FinOps steigert die Aufmerksamkeit für Kosten, statt sie zu senken.',why_en:'No. FinOps raises attention to cost rather than lowering it.'}
+  ]},
+  {id:'p_lead_l7_2_mc2',type:'mc',xp:10,question:'Welche Größe steuert man in der Cloud am besten, um Wachstum von Verschwendung zu unterscheiden?',question_en:'Which measure do you best steer in the cloud to tell growth from waste?',options:[
+    {t:'Die Stückkosten — Kosten pro Kunde oder Transaktion',t_en:'The unit cost — cost per customer or transaction',correct:true,why:'Genau. Ein wachsendes System darf mehr kosten, solange die Stückkosten sinken.',why_en:'Exactly. A growing system may cost more as long as the unit cost falls.'},
+    {t:'Allein die absolute Monatsrechnung',t_en:'The absolute monthly bill alone',correct:false,why:'Nein. Die absolute Rechnung steigt mit dem Geschäft; sie trennt Wachstum nicht von Verschwendung.',why_en:'No. The absolute bill rises with the business; it does not separate growth from waste.'},
+    {t:'Die Anzahl der eingesetzten Cloud-Dienste',t_en:'The number of cloud services in use',correct:false,why:'Nein. Mehr oder weniger Dienste sagen für sich nichts über die Wirtschaftlichkeit.',why_en:'No. More or fewer services say nothing in themselves about the economics.'}
+  ]},
+  {id:'p_lead_l7_2_tf1',type:'truefalse',xp:8,statement:'Bevor man Cloud-Kosten steuern kann, braucht man Sichtbarkeit: Kosten über Tags und Kostenstellen den Teams und Produkten zuordnen.',statement_en:'Before you can steer cloud cost, you need visibility: allocating cost to teams and products via tags and cost centres.',correct:true,explanation:'Richtig. Steuern kann man nur, was man sieht — ohne Zuordnung bleibt die Rechnung ein undurchschaubarer Block.',explanation_en:'Correct. You can only steer what you see — without allocation the bill stays an impenetrable block.'},
+  {id:'p_lead_l7_2_tf2',type:'truefalse',xp:8,statement:'Eine steigende Cloud-Rechnung ist immer ein Alarmzeichen, unabhängig von der Entwicklung der Stückkosten.',statement_en:'A rising cloud bill is always an alarm signal, regardless of how the unit cost develops.',correct:false,explanation:'Falsch. Eine höhere Rechnung ist gesund, solange die Stückkosten sinken — dann wächst das Geschäft effizienter.',explanation_en:'False. A higher bill is healthy as long as the unit cost falls — then the business grows more efficiently.'},
+  {id:'p_lead_l7_2_fb1',type:'fillblank',xp:12,prompt:'Ein Kostenhebel ist ___: ungenutzte Ressourcen auf die passende statt überdimensionierte Größe bringen (englischer Fachbegriff, ein Wort).',prompt_en:'One cost lever is ___: bringing resources to the fitting instead of oversized size (one word).',answers:['Rightsizing','rightsizing','right-sizing','Right-sizing'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Rightsizing</strong> wählt die passende Größe; daneben wirken Autoscaling, Vorab-Zusagen und das Abschalten von Ungenutztem.',explanation_en:'<strong>Rightsizing</strong> chooses the fitting size; alongside it work autoscaling, upfront commitments and shutting down the unused.'},
+  {id:'p_lead_l7_2_bonus',type:'mc',xp:20,optional:true,question:'Was unterscheidet <strong>Showback</strong> von <strong>Chargeback</strong>?',question_en:'What distinguishes <strong>showback</strong> from <strong>chargeback</strong>?',options:[
+    {t:'Showback zeigt den Teams ihre Kosten, Chargeback verrechnet sie intern tatsächlich',t_en:'Showback shows teams their cost, chargeback actually charges it back internally',correct:true,why:'Genau. Showback schafft Bewusstsein, Chargeback echte Verantwortung — was passt, hängt von der Reife ab.',why_en:'Exactly. Showback creates awareness, chargeback real ownership — which fits depends on maturity.'},
+    {t:'Showback und Chargeback sind nur zwei Namen für dieselbe Rechnung',t_en:'Showback and chargeback are just two names for the same bill',correct:false,why:'Nein. Der Unterschied liegt darin, ob tatsächlich verrechnet wird.',why_en:'No. The difference lies in whether cost is actually charged back.'},
+    {t:'Chargeback zeigt nur an, Showback verrechnet tatsächlich',t_en:'Chargeback only shows, showback actually charges',correct:false,why:'Nein. Es ist genau umgekehrt.',why_en:'No. It is exactly the other way round.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l7_3'] = [
+  {id:'p_lead_l7_3_mc1',type:'mc',xp:10,question:'Woraus besteht ein <strong>OKR</strong>?',question_en:'What does an <strong>OKR</strong> consist of?',options:[
+    {t:'Aus einem qualitativen Objective (wohin?) und messbaren Key Results (woran erkennen wir Fortschritt?)',t_en:'Of a qualitative objective (where to?) and measurable key results (how do we recognise progress?)',correct:true,why:'Genau. Das Objective gibt Richtung, die Key Results machen Fortschritt messbar.',why_en:'Exactly. The objective gives direction, the key results make progress measurable.'},
+    {t:'Aus einer Liste von Aufgaben mit festen Terminen',t_en:'Of a list of tasks with fixed deadlines',correct:false,why:'Nein. Key Results beschreiben Ergebnisse, keine Aufgaben oder Termine.',why_en:'No. Key results describe results, not tasks or deadlines.'},
+    {t:'Aus einem Budget und einer Personalplanung',t_en:'Of a budget and a staffing plan',correct:false,why:'Nein. Das ist kein OKR, sondern Planung anderer Art.',why_en:'No. That is not an OKR but planning of another kind.'}
+  ]},
+  {id:'p_lead_l7_3_mc2',type:'mc',xp:10,question:'Was zeigt eine gute <strong>Roadmap</strong>?',question_en:'What does a good <strong>roadmap</strong> show?',options:[
+    {t:'Richtung und Themen, oft als now/next/later — keine fixen Datumsversprechen',t_en:'Direction and themes, often as now/next/later — not fixed date promises',correct:true,why:'Genau. So bleiben Prioritäten sichtbar, ohne Termine zu versprechen, die man noch nicht halten kann.',why_en:'Exactly. This keeps priorities visible without promising dates you cannot yet keep.'},
+    {t:'Für jedes Vorhaben ein verbindliches Lieferdatum über Monate hinaus',t_en:'A binding delivery date months ahead for every endeavour',correct:false,why:'Nein. Eine Roadmap voller fixer Daten wird zur Fessel und enttäuscht.',why_en:'No. A roadmap full of fixed dates becomes a shackle and disappoints.'},
+    {t:'Die vollständige Liste aller technischen Aufgaben des Teams',t_en:'The complete list of all technical tasks of the team',correct:false,why:'Nein. Das ist ein Backlog, keine Roadmap; die Roadmap zeigt Richtung und Themen.',why_en:'No. That is a backlog, not a roadmap; the roadmap shows direction and themes.'}
+  ]},
+  {id:'p_lead_l7_3_tf1',type:'truefalse',xp:8,statement:'Der Kern guter Ziele ist Wirkung (outcome) statt bloßem Ausstoß (output).',statement_en:'The core of good goals is impact (outcome) rather than mere output.',correct:true,explanation:'Richtig. „Feature geliefert" ist Output; „Abbruchrate gesenkt" ist Outcome — eine echte Veränderung.',explanation_en:'Correct. "Feature delivered" is output; "drop-off rate cut" is outcome — a real change.'},
+  {id:'p_lead_l7_3_tf2',type:'truefalse',xp:8,statement:'OKRs sollte man direkt an die Vergütung koppeln, damit sie ernst genommen werden.',statement_en:'OKRs should be coupled directly to pay so that they are taken seriously.',correct:false,explanation:'Falsch. Dann setzen Teams absichtlich kleine, sichere Ziele (sandbagging); das Instrument für Ambition wird zur Absicherung.',explanation_en:'False. Then teams deliberately set small, safe goals (sandbagging); the instrument for ambition becomes self-protection.'},
+  {id:'p_lead_l7_3_fb1',type:'fillblank',xp:12,prompt:'Eine Zielwirkung in der Welt nennt man ___ (englischer Fachbegriff), im Gegensatz zum bloßen Ausstoß (output) — ein Wort.',prompt_en:'A target effect in the world is called ___ (one word), in contrast to mere output.',answers:['Outcome','outcome','Wirkung','wirkung'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'<strong>Outcome</strong> ist die Wirkung (z. B. gesenkte Abbruchrate); Output ist nur der Ausstoß (z. B. geliefertes Feature).',explanation_en:'<strong>Outcome</strong> is the impact (e.g. a reduced drop-off rate); output is only the throughput (e.g. a delivered feature).'},
+  {id:'p_lead_l7_3_bonus',type:'mc',xp:20,optional:true,question:'Warum muss die Kette <strong>Strategie -&gt; OKR -&gt; tägliche Arbeit</strong> sichtbar sein?',question_en:'Why must the chain <strong>strategy -&gt; OKR -&gt; daily work</strong> be visible?',options:[
+    {t:'Damit jede und jeder erkennt, wozu die eigene Aufgabe beiträgt — das schafft Fokus und Sinn',t_en:'So that everyone recognises what their own task contributes to — that creates focus and meaning',correct:true,why:'Genau. Fehlt die Linie, fühlt sich Arbeit beliebig an; ist sie klar, entsteht Ausrichtung.',why_en:'Exactly. Without the line, work feels arbitrary; when it is clear, alignment arises.'},
+    {t:'Damit die Führung jede einzelne Aufgabe im Detail genehmigen kann',t_en:'So that leadership can approve every single task in detail',correct:false,why:'Nein. Es geht um Ausrichtung und Sinn, nicht um Mikromanagement.',why_en:'No. It is about alignment and meaning, not micromanagement.'},
+    {t:'Damit man die OKRs an die Vergütung koppeln kann',t_en:'So that the OKRs can be coupled to pay',correct:false,why:'Nein. Genau diese Kopplung ist zu vermeiden.',why_en:'No. That very coupling is to be avoided.'}
+  ]}
+];
+
+QUESTION_POOLS['lead_l7_4'] = [
+  {id:'p_lead_l7_4_mc1',type:'mc',xp:10,question:'Was baut man bei <strong>Build vs. Buy</strong> strategisch selbst?',question_en:'What do you build yourself strategically in <strong>build vs. buy</strong>?',options:[
+    {t:'Die eigene Kernkompetenz — das, was einzigartig macht und Wert für die Kunden schafft',t_en:'Your own core competence — what makes you unique and creates value for customers',correct:true,why:'Genau. Standardfunktionen kauft man ein, statt Kraft im Nachbauen zu binden.',why_en:'Exactly. Standard functions are bought in, instead of binding energy in rebuilding.'},
+    {t:'Grundsätzlich alles, um von keinem Anbieter abhängig zu sein',t_en:'Everything on principle, to depend on no vendor',correct:false,why:'Nein. Alles selbst zu bauen bindet Kraft ohne Vorsprung; gelöste Standardprobleme kauft man.',why_en:'No. Building everything yourself binds energy without a lead; solved standard problems are bought.'},
+    {t:'Vor allem die Standardfunktionen wie Zahlungsabwicklung und Mailversand',t_en:'Above all the standard functions such as payment processing and email sending',correct:false,why:'Nein. Gerade diese sind gelöste Probleme und werden eingekauft.',why_en:'No. These in particular are solved problems and are bought in.'}
+  ]},
+  {id:'p_lead_l7_4_mc2',type:'mc',xp:10,question:'Welche Risiken prüft man besonders, bevor man einen Anbieter einkauft?',question_en:'Which risks do you particularly check before buying from a vendor?',options:[
+    {t:'Lock-in, Ausstiegskosten und Datenportabilität — und verbindliche SLAs im Vertrag',t_en:'Lock-in, exit cost and data portability — and binding SLAs in the contract',correct:true,why:'Genau. Ein billiger Einstieg kann ein teurer Ausstieg werden; was nicht im Vertrag steht, ist nicht durchsetzbar.',why_en:'Exactly. A cheap entry can become an expensive exit; what is not in the contract is not enforceable.'},
+    {t:'Nur den niedrigsten Preis, alles andere ist zweitrangig',t_en:'Only the lowest price, everything else is secondary',correct:false,why:'Nein. Der Preis sagt nichts über Abhängigkeit und Ausstiegskosten.',why_en:'No. The price says nothing about dependency and exit cost.'},
+    {t:'Allein die Bekanntheit des Anbieternamens',t_en:'Solely how well-known the vendor name is',correct:false,why:'Nein. Bekanntheit ersetzt keine Prüfung von Lock-in und SLAs.',why_en:'No. Fame does not replace checking lock-in and SLAs.'}
+  ]},
+  {id:'p_lead_l7_4_tf1',type:'truefalse',xp:8,statement:'Verbindliche Service-Zusagen (SLAs) gehören in den Vertrag, nicht nur in Hochglanzversprechen.',statement_en:'Binding service level agreements (SLAs) belong in the contract, not merely in glossy promises.',correct:true,explanation:'Richtig. Zugesicherte Verfügbarkeit, Reaktionszeiten und Folgen bei Nichteinhaltung sind nur vertraglich durchsetzbar.',explanation_en:'Correct. Assured availability, response times and consequences for non-compliance are enforceable only by contract.'},
+  {id:'p_lead_l7_4_tf2',type:'truefalse',xp:8,statement:'Eine technische Due Diligence soll Risiken erst sichtbar machen, nachdem der Vertrag unterschrieben ist.',statement_en:'A technical due diligence should make risks visible only after the contract is signed.',correct:false,explanation:'Falsch. Sie bewertet Architektur, technische Schulden, Team, Sicherheit und Skalierbarkeit, um Risiken vor der Entscheidung sichtbar zu machen.',explanation_en:'False. It assesses architecture, technical debt, team, security and scalability to make risks visible before the decision.'},
+  {id:'p_lead_l7_4_fb1',type:'fillblank',xp:12,prompt:'Eine starke Abhängigkeit, aus der man nur schwer wieder herauskommt, nennt man ___ (englischer Fachbegriff, ein Begriff).',prompt_en:'A strong dependency that is hard to get out of again is called ___ (one term).',answers:['Lock-in','lock-in','Lockin','lockin','lock in','vendor lock-in'],placeholder:'Begriff…',placeholder_en:'Term…',explanation:'Beim <strong>Lock-in</strong> prüft man Ausstiegskosten und Datenportabilität: Kommt man an die eigenen Daten heran und in nutzbarer Form?',explanation_en:'With <strong>lock-in</strong> you check exit cost and data portability: can you reach your own data, and in a usable form?'},
+  {id:'p_lead_l7_4_bonus',type:'mc',xp:20,optional:true,question:'Warum steuert man einen wichtigen Anbieter wie eine <strong>Partnerschaft</strong>?',question_en:'Why do you steer an important vendor like a <strong>partnership</strong>?',options:[
+    {t:'Weil ein Anbieter, mit dem man im Gespräch bleibt, im Problemfall anders reagiert als eine reine Rechnung',t_en:'Because a vendor you stay in conversation with reacts differently in a problem than a mere bill',correct:true,why:'Genau. Regelmäßige Reviews und klare Erwartungen zahlen sich gerade dann aus, wenn es schwierig wird.',why_en:'Exactly. Regular reviews and clear expectations pay off precisely when things get difficult.'},
+    {t:'Weil man dadurch nie wieder über den Preis verhandeln muss',t_en:'Because that way you never have to negotiate the price again',correct:false,why:'Nein. Partnerschaft ersetzt keine Verhandlung; sie verbessert die Zusammenarbeit.',why_en:'No. Partnership does not replace negotiation; it improves the cooperation.'},
+    {t:'Weil eine Partnerschaft jede technische Prüfung überflüssig macht',t_en:'Because a partnership makes any technical check superfluous',correct:false,why:'Nein. Due Diligence und klare SLAs bleiben trotzdem nötig.',why_en:'No. Due diligence and clear SLAs remain necessary nonetheless.'}
   ]}
 ];
 
